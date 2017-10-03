@@ -21,6 +21,11 @@ module.exports = function (grunt) {
       dev: {
         NODE_ENV: 'development'
       },
+      seed: {
+        NODE_ENV: 'development',
+        MONGO_SEED: 'true',
+        MONGO_SEED_LOG_RESULTS: 'true'
+      },
       prod: {
         NODE_ENV: 'production'
       }
@@ -312,6 +317,8 @@ module.exports = function (grunt) {
 
   // Run the project in development mode
   grunt.registerTask('default', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);
+  // Run the project in development mode and seed db
+  grunt.registerTask('seed', ['env:seed', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);
 
   // Run the project in debug mode
   grunt.registerTask('debug', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:debug']);
