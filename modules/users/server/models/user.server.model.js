@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   crypto = require('crypto'),
+  paginate = require('mongoose-paginate'),
   validator = require('validator'),
   generatePassword = require('generate-password');
 
