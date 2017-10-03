@@ -3,16 +3,17 @@
 // PasswordValidator service used for testing the password strength
 angular.module('users').factory('PasswordValidator', ['$window',
   function ($window) {
-    var owaspPasswordStrengthTest = $window.owaspPasswordStrengthTest;
-
     return {
       getResult: function (password) {
-        var result = owaspPasswordStrengthTest.test(password);
+        var result = { errors: [] };
+        var check = 0;
+        if (password.length < 8) {
+          result.errors.push('8 digit');
+        }
+        if (password.length > 32) {
+          result.errors.push('32 digit');
+        }
         return result;
-      },
-      getPopoverMsg: function () {
-        var popoverMsg = 'Please enter a passphrase or password with greater than 10 characters, numbers, lowercase, upppercase, and special characters.';
-        return popoverMsg;
       }
     };
   }
