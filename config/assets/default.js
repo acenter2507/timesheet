@@ -29,7 +29,7 @@ module.exports = {
         'public/lib/angular-loading-bar/build/loading-bar.js',
         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.js',
         'public/lib/angular-scroll/angular-scroll.js',
-        'public/lib/angular-elastic/elastic.js',
+        'public/lib/angular-elastic/elastic.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
