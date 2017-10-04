@@ -70,7 +70,7 @@
 
     vm.handleLeaderSelected = (leader) => {
       console.log(leader);
-    }
+    };
     function handleStartSearchLeaders() {
       if (vm.leaderSearching) return;
       vm.leaderSearching = true;
