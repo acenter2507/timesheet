@@ -6,9 +6,9 @@
     .module('departments')
     .controller('DepartmentsController', DepartmentsController);
 
-  DepartmentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'departmentResolve', '$timeout'];
+  DepartmentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'departmentResolve', '$timeout', 'AdminUserApi'];
 
-  function DepartmentsController($scope, $state, $window, Authentication, department, $timeout) {
+  function DepartmentsController($scope, $state, $window, Authentication, department, $timeout, AdminUserApi) {
     var vm = this;
 
     vm.department = department;
@@ -20,6 +20,7 @@
       vm.isShowMemberSearch = false;
       vm.isShowLeaderDropdown = false;
       vm.leaderSearchKey = '';
+      vm.leaderSearching = false;
     }
     // Remove existing Department
     vm.remove = remove;
@@ -59,12 +60,36 @@
      * HANDLES
      */
     vm.handleLeaderInputChanged = () => {
-      vm.isShowLeaderDropdown = true;
+      if (vm.leaderSearchKey === '') return;
+      if (vm.leaderSearchTimer) {
+        $timeout.cancel(vm.leaderSearchTimer);
+        vm.leaderSearchTimer = undefined;
+      }
+      vm.leaderSearchTimer = $timeout(handleStartSearchLeaders, 500);
     };
 
     vm.handleLeaderSelected = (leader) => {
       console.log(leader);
     }
+    function handleStartSearchLeaders() {
+      if (vm.leaderSearching) return;
+      vm.leaderSearching = true;
+      var leaders = _.pluck(vm.department.leaders, '_id').join();
+      AdminUserApi.searchUsers(vm.leaderSearchKey, leaders)
+        .success(users => {
+          vm.searchLeaders = users;
+          vm.isShowLeaderDropdown = true;
+          vm.leaderSearching = false;
+          if (!$scope.$$phase) $scope.$digest();
+        })
+        .error(err => {
+          $scope.handleShowToast(err.message, true);
+          vm.isShowLeaderDropdown = false;
+          vm.leaderSearching = false;
+        });
+    }
+
+
     vm.handleAddMember = () => { };
   }
 }());

@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
+var _ = require('underscore');
 
 /**
  * Show the current user
@@ -90,4 +91,30 @@ exports.userByID = function (req, res, next, id) {
     req.model = user;
     next();
   });
+};
+
+/**
+ * Tìm kiếm user với key và list ignore
+ */
+exports.searchUsers = function (req, res) {
+  var key = req.body.key;
+  var ingnore = req.body.ingnores;
+  var ingnores = _.map(ingnore.split(','), (str) => { return str.trim(); });
+  var query = {
+    $and: [
+      {
+        $or: [
+          { displayName: { $regex: '.*' + key + '.*' } },
+          { email: { $regex: '.*' + key + '.*' } }
+        ]
+      },
+      { _id: { $nin: ingnores } },
+      { role: { $ne: 'admin' } }
+    ]
+  };
+  User.find(query).select('displayName email profileImageURL')
+    .exec((err, users) => {
+      if (err) res.status(400).send(err);
+      res.jsonp(users);
+    });
 };

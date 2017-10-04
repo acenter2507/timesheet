@@ -34,3 +34,12 @@
   min-height: 150px;
   max-height: 150px;
 }
+
+.user-common-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%; }
+.user-common-avatar-small {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%; }

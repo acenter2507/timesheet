@@ -13,6 +13,8 @@ module.exports = function (app) {
   // Users collection routes
   app.route('/api/users')
     .get(adminPolicy.isAllowed, admin.list);
+  // Tìm kiếm user với key và list ignore
+  app.route('/api/users/search').post(admin.searchUsers);
 
   // Single user routes
   app.route('/api/users/:userId')
