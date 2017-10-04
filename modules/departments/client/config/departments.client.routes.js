@@ -12,7 +12,10 @@
       .state('departments', {
         abstract: true,
         url: '/departments',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        data: {
+          pageTitle: 'Departments List'
+        }
       })
       .state('departments.list', {
         url: '',
@@ -32,7 +35,7 @@
           departmentResolve: newDepartment
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin', 'accountant', 'manager'],
           pageTitle: 'Departments Create'
         }
       })
@@ -45,7 +48,7 @@
           departmentResolve: getDepartment
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['admin', 'accountant', 'manager'],
           pageTitle: 'Edit Department {{ departmentResolve.name }}'
         }
       })

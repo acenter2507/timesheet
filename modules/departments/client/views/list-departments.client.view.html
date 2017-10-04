@@ -1,22 +1,17 @@
-<section>
-  <div class="page-header">
-    <h1>Departments</h1>
+<div class="row animated fadeIn">
+  <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-repeat="department in vm.departments">
+    <div class="well">
+      <h3><a ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a></h3>
+      <div>
+        <a ng-repeat="lead in department.leaders" ui-sref="profile.view({ userId: lead._id })" ng-class="{'mg5l': !$first}">{{:: lead.displayName}}</a>
+      </div>
+      <button class="btn btn-default btn-sm" ng-click="vm.handleAddMembers(department)">Add member</button>
+      <button class="btn btn-default btn-sm" ng-click="vm.handleAddLeaders(department)">Add leader</button>
+    </div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="department in vm.departments"
-       ui-sref="departments.view({ departmentId: department._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="department.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="department.user" ng-bind="department.user.displayName"></span>
-        <span ng-if="!department.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="department.name"></h4>
-    </a>
+  <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3">
+    <div class="well">
+      <a class="btn btn-default btn-sm" ui-sref="departments.create">Add department</a>
+    </div>
   </div>
-  <div class="alert alert-warning text-center" ng-if="vm.departments.$resolved && !vm.departments.length">
-    No Departments yet, why don't you <a ui-sref="departments.create">create one</a>?
-  </div>
-</section>
+</div>

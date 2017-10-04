@@ -27,5 +27,6 @@ function AppController($scope, Authentication) {
     $scope.isAdmin = $scope.isLogged && _.contains($scope.user.roles, 'admin');
     $scope.isManager = $scope.isLogged && _.contains($scope.user.roles, 'manager');
     $scope.isAccountant = $scope.isLogged && _.contains($scope.user.roles, 'accountant');
+    $scope.isLeader = $scope.isAdmin || $scope.isManager || $scope.isAccountant;
   }
 }

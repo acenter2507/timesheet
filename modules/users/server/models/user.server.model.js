@@ -57,7 +57,7 @@ var UserSchema = new Schema({
   report: {
     holidayCnt: { type: Number, default: 0 }
   },
-  leader: [
+  leaders: [
     { type: Schema.ObjectId, ref: 'User' },
   ],
   salt: { type: String },

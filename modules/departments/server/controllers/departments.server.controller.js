@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Department
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var department = new Department(req.body);
   department.user = req.user;
 
-  department.save(function(err) {
+  department.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Department
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var department = req.department ? req.department.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Department
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var department = req.department;
 
   department = _.extend(department, req.body);
 
-  department.save(function(err) {
+  department.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Department
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var department = req.department;
 
-  department.remove(function(err) {
+  department.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,22 +80,25 @@ exports.delete = function(req, res) {
 /**
  * List of Departments
  */
-exports.list = function(req, res) {
-  Department.find().sort('-created').populate('user', 'displayName').exec(function(err, departments) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(departments);
-    }
-  });
+exports.list = function (req, res) {
+  Department.find()
+    .sort('-created')
+    .populate('leaders', 'displayName')
+    .exec(function (err, departments) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(departments);
+      }
+    });
 };
 
 /**
  * Department middleware
  */
-exports.departmentByID = function(req, res, next, id) {
+exports.departmentByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
