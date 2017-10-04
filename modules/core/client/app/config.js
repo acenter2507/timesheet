@@ -18,7 +18,7 @@ var ApplicationConfiguration = (function () {
     'duScroll',
     'ngImgCrop',
     'monospaced.elastic',
-    ];
+  ];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
