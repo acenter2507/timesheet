@@ -29,4 +29,14 @@ function AppController($scope, Authentication) {
     $scope.isAccountant = $scope.isLogged && _.contains($scope.user.roles, 'accountant');
     $scope.isLeader = $scope.isAdmin || $scope.isManager || $scope.isAccountant;
   }
+
+  /**
+   * HANDLES
+   */
+  // Hiển thị thông báo bình thường
+  $scope.handleShowToast = function (msg, error) {
+    if (error)
+      return toastr.error(msg, 'Error');
+    return toastr.success(msg, 'Done');
+  };
 }

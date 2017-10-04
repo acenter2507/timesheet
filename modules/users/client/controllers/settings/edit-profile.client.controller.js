@@ -2,12 +2,9 @@
 
 angular.module('users').controller('EditProfileController', ['$scope', '$http', '$location', 'Users', 'Authentication',
   function ($scope, $http, $location, Users, Authentication) {
-    $scope.user = Authentication.user;
 
     // Update a user profile
     $scope.updateUserProfile = function (isValid) {
-      $scope.success = $scope.error = null;
-
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
 
@@ -16,13 +13,12 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
       var user = new Users($scope.user);
 
-      user.$update(function (response) {
+      user.$update(function (res) {
         $scope.$broadcast('show-errors-reset', 'userForm');
-
-        $scope.success = true;
-        Authentication.user = response;
-      }, function (response) {
-        $scope.error = response.data.message;
+        $scope.handleShowToast('個人情報を変更しました。', false);
+        Authentication.user = res;
+      }, function (err) {
+        $scope.handleShowToast(err.message, false);
       });
     };
   }

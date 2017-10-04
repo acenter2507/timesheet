@@ -2,7 +2,6 @@
 
 angular.module('users').controller('ChangeProfilePictureController', ['$scope', '$timeout', '$window', 'Authentication', 'FileUploader',
   function ($scope, $timeout, $window, Authentication, FileUploader) {
-    $scope.user = Authentication.user;
     $scope.imageURL = $scope.user.profileImageURL;
 
     // Create file uploader instance
@@ -47,19 +46,14 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
     };
 
     // Called after the user has failed to uploaded a new picture
-    $scope.uploader.onErrorItem = function (fileItem, response, status, headers) {
+    $scope.uploader.onErrorItem = function (fileItem, res, status, headers) {
       // Clear upload buttons
       $scope.cancelUpload();
-
-      // Show error message
-      $scope.error = response.message;
+      $scope.handleShowToast(res.message, true);
     };
 
     // Change user profile picture
     $scope.uploadProfilePicture = function () {
-      // Clear messages
-      $scope.success = $scope.error = null;
-
       // Start upload
       $scope.uploader.uploadAll();
     };

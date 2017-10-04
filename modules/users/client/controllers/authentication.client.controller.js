@@ -18,6 +18,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         Authentication.user = res;
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       }).error(function (err) {
+        $scope.handleShowToast(err.message, true);
       });
     };
   }

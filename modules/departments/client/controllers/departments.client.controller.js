@@ -11,14 +11,11 @@
   function DepartmentsController ($scope, $state, $window, Authentication, department) {
     var vm = this;
 
-    vm.authentication = Authentication;
     vm.department = department;
-    vm.error = null;
     vm.form = {};
-    vm.remove = remove;
-    vm.save = save;
 
     // Remove existing Department
+    vm.remove = remove;
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
         vm.department.$remove($state.go('departments.list'));
@@ -26,6 +23,7 @@
     }
 
     // Save Department
+    vm.save = save;
     function save(isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.departmentForm');

@@ -1,3 +1,30 @@
+<div class="row animated fadeIn">
+  <!-- Basic info -->
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+    <div class="well">
+      <form name="vm.form.departmentForm" class="form-horizontal" ng-submit="vm.save(vm.form.departmentForm.$valid)" novalidate>
+        <div class="form-group" show-errors>
+          <input name="name" type="text" ng-model="vm.department.name" id="name" class="form-control" placeholder="名前" required>
+          <div ng-messages="vm.form.departmentForm.name.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">名前は必須です。</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <input name="location" type="text" ng-model="vm.department.location" id="location" class="form-control" placeholder="場所">
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Leaders -->
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+    <div class="well">
+
+    </div>
+  </div>
+  <!-- Members -->
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"></div>
+
+</div>
 <section>
   <div class="page-header">
     <h1>{{vm.department._id ? 'Edit Department' : 'New Department'}}</h1>
