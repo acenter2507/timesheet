@@ -6,14 +6,21 @@
     .module('departments')
     .controller('DepartmentsController', DepartmentsController);
 
-  DepartmentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'departmentResolve'];
+  DepartmentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'departmentResolve', '$timeout'];
 
-  function DepartmentsController($scope, $state, $window, Authentication, department) {
+  function DepartmentsController($scope, $state, $window, Authentication, department, $timeout) {
     var vm = this;
 
     vm.department = department;
     vm.form = {};
 
+    onCreate();
+    function onCreate() {
+      vm.isShowLeaderSearch = false;
+      vm.isShowMemberSearch = false;
+      vm.isShowLeaderDropdown = false;
+      vm.leaderSearchKey = '';
+    }
     // Remove existing Department
     vm.remove = remove;
     function remove() {
@@ -51,7 +58,13 @@
     /**
      * HANDLES
      */
-    vm.handleAddLeader = () => { };
+    vm.handleLeaderInputChanged = () => {
+      vm.isShowLeaderDropdown = true;
+    };
+
+    vm.handleLeaderSelected = (leader) => {
+      console.log(leader);
+    }
     vm.handleAddMember = () => { };
   }
 }());

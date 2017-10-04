@@ -27,7 +27,19 @@
       <div class="alert alert-danger" role="alert" ng-repeat="leader in vm.department.leaders">
         {{:: leader.displayName }}
       </div>
-      <button class="btn btn-default" ng-click="vm.handleAddLeader()">追加</button>
+      
+      <div dropdown is-open="vm.isShowLeaderDropdown">
+        <input class="form-control" ng-model="vm.leaderSearchKey" ng-change="vm.handleLeaderInputChanged()" ng-show="vm.isShowLeaderSearch">
+        <ul class="dropdown-menu" role="menu">
+          <li><a ng-click="vm.handleLeaderSelected(1)">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+      <button class="btn btn-default" ng-click="vm.isShowLeaderSearch = true;">追加</button>
+      <button class="btn btn-default" ng-click="vm.isShowLeaderSearch = false; vm.isShowLeaderDropdown = false;">キャンセル</button>
     </div>
   </div>
   <!-- Members -->
