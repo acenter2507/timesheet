@@ -8,7 +8,7 @@
 
   DepartmentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'departmentResolve'];
 
-  function DepartmentsController ($scope, $state, $window, Authentication, department) {
+  function DepartmentsController($scope, $state, $window, Authentication, department) {
     var vm = this;
 
     vm.department = department;
@@ -51,7 +51,7 @@
     /**
      * HANDLES
      */
-    vm.handleAddLeader = () => {};
-    vm.handleAddMember = () => {};
+    vm.handleAddLeader = () => { };
+    vm.handleAddMember = () => { };
   }
 }());
