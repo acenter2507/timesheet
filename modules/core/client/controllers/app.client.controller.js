@@ -2,9 +2,9 @@
 
 angular.module('core').controller('AppController', AppController);
 
-AppController.$inject = ['$scope', 'Authentication'];
+AppController.$inject = ['$scope', 'Authentication', 'toastr'];
 
-function AppController($scope, Authentication) {
+function AppController($scope, Authentication, toastr) {
   $scope.Authentication = Authentication;
 
   prepareScopeListener();
