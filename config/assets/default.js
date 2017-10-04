@@ -4,7 +4,11 @@ module.exports = {
   client: {
     lib: {
       css: [
-        'public/lib/bootstrap/dist/css/bootstrap.css'
+        'public/lib/bootstrap/dist/css/bootstrap.css',
+        'public/lib/components-font-awesome/css/font-awesome.css',
+        'public/lib/angular-toastr/dist/angular-toastr.css',
+        'public/lib/angular-loading-bar/build/loading-bar.css',
+        'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css'
       ],
       js: [
         'public/lib/jquery/dist/jquery.js',
@@ -16,7 +20,14 @@ module.exports = {
         'public/lib/angular-ui-utils/ui-utils.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/angular-file-upload/angular-file-upload.js',
-        'public/lib/underscore/underscore.js'
+        'public/lib/underscore/underscore.js',
+        'public/lib/moment/min/moment.min.js',
+        'public/lib/moment/min/locales.min.js',
+        'public/lib/moment-timezone/builds/moment-timezone.min.js',
+        'public/lib/angular-moment/angular-moment.min.js',
+        'public/lib/angular-loading-bar/build/loading-bar.js',
+        'public/lib/ng-img-crop/compile/unminified/ng-img-crop.js',
+        'public/lib/angular-scroll/angular-scroll.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
