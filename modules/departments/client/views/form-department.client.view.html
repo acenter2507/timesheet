@@ -24,21 +24,29 @@
   <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <div class="well">
       <h3>リーダ</h3>
+      <div class="">
+        
+      </div>
       <div class="alert alert-danger" role="alert" ng-repeat="leader in vm.department.leaders">
         {{:: leader.displayName }}
       </div>
       <div class="form-group">
         <div dropdown is-open="vm.isShowLeaderDropdown">
-          <input class="form-control" ng-model="vm.leaderSearchKey" ng-keyup="vm.handleLeaderInputChanged()" ng-show="vm.isShowLeaderSearch" placeholder="メールまたは名前を入力">
+          <input class="form-control" ng-model="vm.leaderSearchKey" ng-change="vm.handleLeaderInputChanged()" ng-show="vm.isShowLeaderSearch" placeholder="メールまたは名前を入力" focus-me="{{vm.isShowLeaderSearch}}">
           <ul class="dropdown-menu" role="menu">
             <li class="text-center" ng-show="vm.leaderSearching"><i class="fa fa-spinner fa-pulse fa-fw"></i></li>
-            <li class="text-center" ng-show="!vm.leaderSearching && vm.searchLeaders.length === 0">データが見つかりません。</li>
-            <li ng-repeat="leader in vm.searchLeaders"><a ng-click="vm.handleLeaderSelected(1)">{{leader.displayName}}</a></li>
+            <li class="text-center" ng-show="!vm.leaderSearching && vm.searchLeaders.length === 0" class="pd12x">データが見つかりません。</li>
+            <li ng-repeat="leader in vm.searchLeaders">
+              <a ng-click="vm.handleLeaderSelected(leader)">
+                <img src="{{::leader.profileImageURL}}" class="user-common-avatar-small">
+                <span>{{::leader.displayName}}</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
-      <button class="btn btn-default" ng-click="vm.isShowLeaderSearch = true;">追加</button>
-      <button class="btn btn-default" ng-click="vm.isShowLeaderSearch = false; vm.isShowLeaderDropdown = false;">キャンセル</button>
+      <button class="btn btn-default" ng-click="vm.isShowLeaderSearch = true;" ng-hide="vm.isShowLeaderSearch">追加</button>
+      <button class="btn btn-default" ng-click="vm.isShowLeaderSearch = false; vm.isShowLeaderDropdown = false;" ng-show="vm.isShowLeaderSearch">キャンセル</button>
     </div>
   </div>
   <!-- Members -->

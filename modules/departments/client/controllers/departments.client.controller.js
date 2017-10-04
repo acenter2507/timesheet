@@ -17,10 +17,12 @@
     onCreate();
     function onCreate() {
       vm.isShowLeaderSearch = false;
-      vm.isShowMemberSearch = false;
       vm.isShowLeaderDropdown = false;
       vm.leaderSearchKey = '';
       vm.leaderSearching = false;
+      vm.department.leaders = [];
+
+      vm.isShowMemberSearch = false;
     }
     // Remove existing Department
     vm.remove = remove;
@@ -69,16 +71,21 @@
     };
 
     vm.handleLeaderSelected = (leader) => {
-      console.log(leader);
+      var item = _.findWhere(vm.department.leaders, { _id: leader._id });
+      if (!item) {
+        vm.department.leaders.push(leader);  
+      }
+      vm.isShowLeaderDropdown = true;
     };
+
     function handleStartSearchLeaders() {
       if (vm.leaderSearching) return;
       vm.leaderSearching = true;
+      vm.isShowLeaderDropdown = true;
       var leaders = _.pluck(vm.department.leaders, '_id').join();
       AdminUserApi.searchUsers(vm.leaderSearchKey, leaders, ['manager'])
         .success(users => {
           vm.searchLeaders = users;
-          vm.isShowLeaderDropdown = true;
           vm.leaderSearching = false;
           if (!$scope.$$phase) $scope.$digest();
         })

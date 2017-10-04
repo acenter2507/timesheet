@@ -98,22 +98,28 @@ exports.userByID = function (req, res, next, id) {
  */
 exports.searchUsers = function (req, res) {
   var key = req.body.key;
-  var ingnore = req.body.ingnores;
+  var ignore = req.body.ignores;
+  var ignores = [];
+  if (ignore.length > 0) {
+    ignores = _.map(ignore.split(','), (str) => { return str.trim(); });  
+  }
   var roles = req.body.roles;
-  var ingnores = _.map(ingnore.split(','), (str) => { return str.trim(); });
-  var query = {
-    $and: [
-      {
-        $or: [
-          { displayName: { $regex: '.*' + key + '.*' } },
-          { email: { $regex: '.*' + key + '.*' } }
-        ]
-      },
-      { _id: { $nin: ingnores } },
-      { roles: { $ne: 'admin' } },
-      { roles: roles }
-    ]
-  };
+  var ands = [{ roles: { $ne: 'admin' } }];
+  if (ignores.length > 0) {
+    ands.push({ _id: { $nin: ignores } });
+  }
+  if (roles.length > 0) {
+    ands.push({ roles: { $in: roles } });
+  }
+  if (key && key.length > 0) {
+    ands.push({
+      $or: [
+        { displayName: { $regex: '.*' + key + '.*' } },
+        { email: { $regex: '.*' + key + '.*' } }
+      ]
+    });
+  }
+  var query = { $and: ands };
   User.find(query).select('displayName email profileImageURL')
     .exec((err, users) => {
       if (err) res.status(400).send(err);
