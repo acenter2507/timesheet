@@ -25,6 +25,7 @@ module.exports = {
         'public/lib/moment/min/locales.min.js',
         'public/lib/moment-timezone/builds/moment-timezone.min.js',
         'public/lib/angular-moment/angular-moment.min.js',
+        'public/lib/angular-toastr/dist/angular-toastr.tpls.js',
         'public/lib/angular-loading-bar/build/loading-bar.js',
         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.js',
         'public/lib/angular-scroll/angular-scroll.js'
