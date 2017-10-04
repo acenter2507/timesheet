@@ -1,0 +1,21 @@
+.navbar {
+  margin-bottom: 0 !important;
+  border: none !important; }
+  .navbar .navbar-brand {
+    display: inline-block;
+    width: 140px;
+    height: 50px;
+    /*padding: 0.2rem;*/
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 130px auto; }
+@media (max-width: 767px) {
+  .navbar .navbar-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: inherit; }
+  .navbar .navbar-brand {
+    background-position: center;
+    width: 100% !important;
+    margin: 0 auto !important; } }

@@ -1,9 +1,76 @@
-.content {
-  margin-top: 50px;
-}
-.undecorated-link:hover {
-  text-decoration: none;
-}
+html,
+body {
+  font-size: 14px;
+  height: 100%;
+  margin: 0;
+  font-family: メイリオ, Meiryo, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #555;}
+  .app {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow-x: hidden; }
+    .app .content {
+      flex: 1;
+      min-width: 0;
+      margin-top: 50px;
+      position: relative;  }
+    .app .aside-menu {
+      flex: 0 0 250px; }
+    .app, .content {
+      transition: margin-left 0.25s, margin-right 0.25s, width 0.25s, flex 0.25s; }
+
+/* Menu phụ bên trái */
+.aside-menu {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  height: 100%;
+  padding-top: 50px;
+  width: 250px;
+  color: #ddd;
+  background: #222;
+  transition-duration: .25s,.25s;
+  transition-property: left, right;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;  }
+  .aside-menu::-webkit-scrollbar {
+    width: 1px; }
+  .aside-menu::-webkit-scrollbar-track {
+    background: transparent;
+    border: 1px solid transparent;
+    background-clip: content-box; }
+    .aside-menu::-webkit-scrollbar-thumb {
+    background: transparent; }
+
+/* Khi toggle menu */
+.aside-menu-show .app .aside-menu {
+  right: 0; }
+ .aside-menu-show .app .content {
+  margin-left: -250px;
+  margin-right: 250px; }
+
+@media (min-width: 768px) {
+  /*.aside-menu {
+    right: -250px;}*/
+  .aside-menu-show .app .aside-menu {
+    right: -250px;}
+  .aside-menu-show .app .content {
+    margin-left: 0;
+    margin-right: 0; } }
+
+a {
+  text-decoration: none !important; }
+  a:hover {
+    text-decoration: none !important;
+    cursor: pointer !important; }
+  a:focus {
+    text-decoration: none !important;
+    outline: none !important; }
+
 [ng\:cloak],
 [ng-cloak],
 [x-ng-cloak],

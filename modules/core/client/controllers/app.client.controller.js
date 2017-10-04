@@ -1,0 +1,30 @@
+'use strict';
+
+angular.module('core').controller('AppController', AppController);
+
+AppController.$inject = ['$scope', 'Authentication'];
+
+function AppController($scope, Authentication) {
+  $scope.Authentication = Authentication;
+
+  prepareScopeListener();
+  function prepareScopeListener() {
+    // Watch user info
+    $scope.$watch('Authentication.user', () => {
+      onCreate();
+    });
+    // Listen webapp state change
+    $scope.$on('$stateChangeSuccess', function () {
+      if (angular.element('body').hasClass('aside-menu-show')) {
+        angular.element('body').removeClass('aside-menu-show');
+      }
+    });
+  }
+  function onCreate() {
+    $scope.user = Authentication.user;
+    $scope.isLogged = ($scope.user);
+    $scope.isAdmin = $scope.isLogged && _.contains($scope.user.roles, 'admin');
+    $scope.isManager = $scope.isLogged && _.contains($scope.user.roles, 'manage');
+    $scope.isVip = $scope.isLogged && _.contains($scope.user.roles, 'vip');
+  }
+}
