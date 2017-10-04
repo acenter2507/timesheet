@@ -45,6 +45,122 @@ body {
     background-clip: content-box; }
     .aside-menu::-webkit-scrollbar-thumb {
     background: transparent; }
+    
+  .aside-menu .aside-profile {
+    border-bottom: 1px solid #5197dd;}
+  .aside-menu .aside-profile,
+  .aside-menu .aside-search {
+    padding: 1rem;
+    width: 100%;}
+    .aside-menu .aside-profile .aside-avatar {
+      border: 2px solid #ccc;
+      margin-right: 0.85rem;
+      height: 48px;
+      width: 48px; }
+  .aside-menu .aside-nav {
+    position: relative;
+    width: 250px; }
+  .aside-menu .nav {
+    width: 250px;
+    flex-direction: column !important; }
+    .aside-menu .nav .nav-title {
+      padding: 0.75rem 1rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      text-transform: uppercase; }
+    .aside-menu .nav .divider {
+      height: 10px; }
+    .aside-menu .nav .nav-item {
+      position: relative;
+      margin: 0;
+      transition: background .3s ease-in-out; }
+      .aside-menu .nav .nav-item {
+        border-top: 1px solid #5197dd;}
+      .aside-menu .nav .nav-item ul {
+        max-height: 0;
+        padding: 0;
+        margin: 0;
+        overflow-y: hidden;
+        transition: max-height .3s ease-in-out; }
+        .aside-menu .nav .nav-item ul li {
+          padding: 0;
+          list-style: none; }
+      .aside-menu .nav .nav-item .nav-link, .aside-menu .nav .nav-item .navbar .dropdown-toggle, .navbar .aside-menu .nav .nav-item .dropdown-toggle {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: #fff;
+        text-decoration: none;
+        background: transparent; }
+        .aside-menu .nav .nav-item .nav-link:hover, .aside-menu .nav .nav-item .navbar .dropdown-toggle:hover, .navbar .aside-menu .nav .nav-item .dropdown-toggle:hover {
+          color: #fff !important;
+          background: #5197dd !important; }
+          .aside-menu .nav .nav-item .nav-link:hover i, .aside-menu .nav .nav-item .navbar .dropdown-toggle:hover i, .navbar .aside-menu .nav .nav-item .dropdown-toggle:hover i {
+            color: #fff !important; }
+        .aside-menu .nav .nav-item .nav-link.active, .aside-menu .nav .nav-item .navbar .active.dropdown-toggle, .navbar .aside-menu .nav .nav-item .active.dropdown-toggle {
+          color: #fff;
+          background: #2271bf; }
+          .aside-menu .nav .nav-item .nav-link.active i, .aside-menu .nav .nav-item .navbar .active.dropdown-toggle i, .navbar .aside-menu .nav .nav-item .active.dropdown-toggle i {
+            color: #fff; }
+        .aside-menu .nav .nav-item .nav-link [class^="icon-"], .aside-menu .nav .nav-item .navbar .dropdown-toggle [class^="icon-"], .navbar .aside-menu .nav .nav-item .dropdown-toggle [class^="icon-"], .aside-menu .nav .nav-item .nav-link [class*=" icon-"], .aside-menu .nav .nav-item .navbar .dropdown-toggle [class*=" icon-"], .navbar .aside-menu .nav .nav-item .dropdown-toggle [class*=" icon-"] {
+          display: inline-block;
+          margin-top: -4px;
+          vertical-align: middle; }
+        .aside-menu .nav .nav-item .nav-link i, .aside-menu .nav .nav-item .navbar .dropdown-toggle i, .navbar .aside-menu .nav .nav-item .dropdown-toggle i {
+          width: 20px;
+          margin: 0 0.5rem 0 0;
+          font-size: 14px;
+          color: #fff;
+          text-align: center; }
+        .aside-menu .nav .nav-item .nav-link .badge, .aside-menu .nav .nav-item .navbar .dropdown-toggle .badge, .navbar .aside-menu .nav .nav-item .dropdown-toggle .badge {
+          float: right;
+          margin-top: 2px; }
+        .aside-menu .nav .nav-item .nav-link.nav-dropdown-toggle::before, .aside-menu .nav .nav-item .navbar .nav-dropdown-toggle.dropdown-toggle::before, .navbar .aside-menu .nav .nav-item .nav-dropdown-toggle.dropdown-toggle::before {
+          position: absolute;
+          top: 0.96875rem;
+          right: 1rem;
+          display: block;
+          width: 0.875rem;
+          height: 0.875rem;
+          padding: 0;
+          font-size: 0.875rem;
+          line-height: 0.65625rem;
+          text-align: center;
+          content: "\2039";
+          transition: .3s; }
+      .aside-menu .nav .nav-item.nav-dropdown.open {
+        background:#000; }
+        .aside-menu .nav .nav-item.nav-dropdown.open > ul, .aside-menu .nav .nav-item.nav-dropdown.open > ol {
+          max-height: 1000px; }
+        .aside-menu .nav .nav-item.nav-dropdown.open .nav-link, .aside-menu .nav .nav-item.nav-dropdown.open .navbar .dropdown-toggle, .navbar .aside-menu .nav .nav-item.nav-dropdown.open .dropdown-toggle {
+          color: #fff;
+          border-left: 0 !important; }
+        .aside-menu .nav .nav-item.nav-dropdown.open > .nav-link.nav-dropdown-toggle::before, .aside-menu .nav .navbar .nav-item.nav-dropdown.open > .nav-dropdown-toggle.dropdown-toggle::before, .navbar .aside-menu .nav .nav-item.nav-dropdown.open > .nav-dropdown-toggle.dropdown-toggle::before {
+          transform: rotate(-90deg); }
+        .aside-menu .nav .nav-item.nav-dropdown.open .nav-dropdown.open {
+          border-left: 0; }
+      .aside-menu .nav .nav-item.nav-dropdown.nt {
+        transition: 0s !important; }
+        .aside-menu .nav .nav-item.nav-dropdown.nt > ul, .aside-menu .nav .nav-item.nav-dropdown.nt > ol {
+          transition: 0s !important; }
+        .aside-menu .nav .nav-item.nav-dropdown.nt .nav-link.nav-dropdown-toggle::before, .aside-menu .nav .nav-item.nav-dropdown.nt .navbar .nav-dropdown-toggle.dropdown-toggle::before, .navbar .aside-menu .nav .nav-item.nav-dropdown.nt .nav-dropdown-toggle.dropdown-toggle::before {
+          transition: 0s !important; }
+      .aside-menu .nav .nav-item .nav-label {
+        display: block;
+        padding: 0.09375rem 1rem;
+        color: #fff; }
+        .aside-menu .nav .nav-item .nav-label:hover {
+          color: #fff;
+          text-decoration: none; }
+        .aside-menu .nav .nav-item .nav-label i {
+          width: 20px;
+          margin: -3px 0.5rem 0 0;
+          font-size: 10px;
+          color: #fff;
+          text-align: center;
+          vertical-align: middle; }
+      .aside-menu .nav .nav-item .progress {
+        background-color: #455b66 !important; }
 
 /* Khi toggle menu */
 .aside-menu-show .app .aside-menu {
