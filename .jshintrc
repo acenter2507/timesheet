@@ -15,7 +15,10 @@
   "globals": { // Globals variables.
     "angular": true,
     "io": true,
-    "ApplicationConfiguration": true
+    "ApplicationConfiguration": true,
+    "_": true,
+    "moment": false,
+    "$": false
   },
   "predef": [ // Extra globals.
     "inject",

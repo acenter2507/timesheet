@@ -11,7 +11,8 @@
     space-in-parens: [2, "never"]
   },
   env: {
-    node: true
+    node: true,
+    es6: true
   },
   globals: {
     angular: true,
@@ -32,6 +33,6 @@
     inject: true,
     register: true,
     sinon: true,
-    _: false
+    _: true
   }
 }
