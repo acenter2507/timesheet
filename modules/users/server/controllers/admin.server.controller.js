@@ -99,6 +99,7 @@ exports.userByID = function (req, res, next, id) {
 exports.searchUsers = function (req, res) {
   var key = req.body.key;
   var ingnore = req.body.ingnores;
+  var roles = req.body.roles;
   var ingnores = _.map(ingnore.split(','), (str) => { return str.trim(); });
   var query = {
     $and: [
@@ -109,7 +110,8 @@ exports.searchUsers = function (req, res) {
         ]
       },
       { _id: { $nin: ingnores } },
-      { role: { $ne: 'admin' } }
+      { roles: { $ne: 'admin' } },
+      { roles: roles }
     ]
   };
   User.find(query).select('displayName email profileImageURL')

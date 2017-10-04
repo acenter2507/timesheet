@@ -75,7 +75,7 @@
       if (vm.leaderSearching) return;
       vm.leaderSearching = true;
       var leaders = _.pluck(vm.department.leaders, '_id').join();
-      AdminUserApi.searchUsers(vm.leaderSearchKey, leaders)
+      AdminUserApi.searchUsers(vm.leaderSearchKey, leaders, ['manager'])
         .success(users => {
           vm.searchLeaders = users;
           vm.isShowLeaderDropdown = true;

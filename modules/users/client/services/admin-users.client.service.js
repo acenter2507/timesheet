@@ -12,8 +12,8 @@
     this.loadAdminUsers = (condition, page) => {
       return $http.post('/api/admins/users', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
-    this.searchUsers = (key, ingnores) => {
-      return $http.post('/api/users/search', { key: key, ingnores: ingnores }, { ignoreLoadingBar: true });
+    this.searchUsers = (key, ingnores, roles) => {
+      return $http.post('/api/users/search', { key: key, ingnores: ingnores, roles: roles }, { ignoreLoadingBar: true });
     };
     return this;
   }
