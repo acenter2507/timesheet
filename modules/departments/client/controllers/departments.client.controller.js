@@ -47,5 +47,11 @@
         vm.error = res.data.message;
       }
     }
+
+    /**
+     * HANDLES
+     */
+    vm.handleAddLeader = () => {};
+    vm.handleAddMember = () => {};
   }
 }());
