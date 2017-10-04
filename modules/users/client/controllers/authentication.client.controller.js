@@ -1,32 +1,23 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication',
-  function ($scope, $state, $http, $location, $window, Authentication) {
-    // Get an eventual error defined in the URL query string:
-    $scope.error = $location.search().err;
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', 'Authentication',
+  function ($scope, $state, $http, Authentication) {
 
     // If user is signed in then redirect back home
-    if ($scope.authentication.user) {
+    if ($scope.isLogged) {
       $location.path('/');
     }
 
     $scope.signin = function (isValid) {
-      $scope.error = null;
-
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
-
         return false;
       }
 
-      $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
-        // If successful we assign the response to the global user model
-        Authentication.user = response;
-
-        // And redirect to the previous or home page
+      $http.post('/api/auth/signin', $scope.credentials).success(function (res) {
+        Authentication.user = res;
         $state.go($state.previous.state.name || 'home', $state.previous.params);
-      }).error(function (response) {
-        $scope.error = response.message;
+      }).error(function (err) {
       });
     };
   }
