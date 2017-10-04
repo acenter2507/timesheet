@@ -4,34 +4,34 @@
 angular.module('users.admin.routes').config(['$stateProvider',
   function ($stateProvider) {
     $stateProvider
-      .state('admin.users', {
+      .state('users', {
+        url: '/users',
+        abstract: true,
+        template: '<ui-view></ui-view>'
+      })
+      .state('users.list', {
         url: '/users',
         templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
-        controller: 'UserListController'
+        controller: 'UserListController',
+        controllerAs: 'vm',
       })
-      .state('admin.user', {
-        url: '/users/:userId',
+      .state('users.view', {
+        url: '/:userId',
         templateUrl: 'modules/users/client/views/admin/view-user.client.view.html',
         controller: 'UserController',
-        resolve: {
-          userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-            return Admin.get({
-              userId: $stateParams.userId
-            });
-          }]
-        }
+        controllerAs: 'vm',
       })
-      .state('admin.user-edit', {
-        url: '/users/:userId/edit',
-        templateUrl: 'modules/users/client/views/admin/edit-user.client.view.html',
-        controller: 'UserController',
-        resolve: {
-          userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-            return Admin.get({
-              userId: $stateParams.userId
-            });
-          }]
-        }
+      .state('users.edit', {
+        url: '/:userId/edit',
+        templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
+        controller: 'UserInputController',
+        controllerAs: 'vm',
+      })
+      .state('users.new', {
+        url: '/new',
+        templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
+        controller: 'UserInputController',
+        controllerAs: 'vm',
       });
   }
 ]);

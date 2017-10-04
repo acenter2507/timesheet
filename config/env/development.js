@@ -58,6 +58,24 @@ module.exports = {
         displayName: 'User Local',
         roles: ['user']
       },
+      seedManager: {
+        username: process.env.MONGO_SEED_MANAGE_USERNAME || 'seedmanager',
+        provider: 'local',
+        email: process.env.MONGO_SEED_MANAGE_EMAIL || 'manager@localhost.com',
+        firstName: 'Manager',
+        lastName: 'Local',
+        displayName: 'Manager Local',
+        roles: ['user', 'manager']
+      },
+      seedAccountant: {
+        username: process.env.MONGO_SEED_VIP_USERNAME || 'seedaccountant',
+        provider: 'local',
+        email: process.env.MONGO_SEED_VIP_EMAIL || 'accountant@localhost.com',
+        firstName: 'Accountant',
+        lastName: 'Local',
+        displayName: 'Accountant Local',
+        roles: ['user', 'accountant']
+      },
       seedAdmin: {
         username: process.env.MONGO_SEED_ADMIN_USERNAME || 'admin',
         provider: 'local',
@@ -66,24 +84,6 @@ module.exports = {
         lastName: 'Local',
         displayName: 'Admin Local',
         roles: ['user', 'admin']
-      },
-      seedManage: {
-        username: process.env.MONGO_SEED_MANAGE_USERNAME || 'seedmanage',
-        provider: 'local',
-        email: process.env.MONGO_SEED_MANAGE_EMAIL || 'manage@localhost.com',
-        firstName: 'Manage',
-        lastName: 'Local',
-        displayName: 'Manage Local',
-        roles: ['user', 'manage']
-      },
-      seedVip: {
-        username: process.env.MONGO_SEED_VIP_USERNAME || 'seedvip',
-        provider: 'local',
-        email: process.env.MONGO_SEED_VIP_EMAIL || 'vip@localhost.com',
-        firstName: 'Vip',
-        lastName: 'Local',
-        displayName: 'Vip Local',
-        roles: ['user', 'vip']
       }
     }
   }

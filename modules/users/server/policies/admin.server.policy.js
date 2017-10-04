@@ -9,6 +9,6 @@ exports.invokeRolesPolicies = function () {
 exports.isAllowed = function (req, res, next) {
   if (!req.user) return res.status(403).send(new Error('User is not authorized'));
   var roles = (req.user) ? req.user.roles : ['guest'];
-  if (roles.indexOf('admin') < 0 && roles.indexOf('manage') < 0 && roles.indexOf('vip') < 0) return res.status(403).send(new Error('User is not authorized'));
+  if (roles.length === 1) return res.status(403).send(new Error('User is not authorized'));
   return next();
 };

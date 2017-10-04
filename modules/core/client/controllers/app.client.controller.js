@@ -23,8 +23,9 @@ function AppController($scope, Authentication) {
   function onCreate() {
     $scope.user = Authentication.user;
     $scope.isLogged = ($scope.user);
+    $scope.isUser = $scope.isLogged && $scope.user.roles.length === 1;
     $scope.isAdmin = $scope.isLogged && _.contains($scope.user.roles, 'admin');
-    $scope.isManager = $scope.isLogged && _.contains($scope.user.roles, 'manage');
-    $scope.isVip = $scope.isLogged && _.contains($scope.user.roles, 'vip');
+    $scope.isManager = $scope.isLogged && _.contains($scope.user.roles, 'manager');
+    $scope.isAccountant = $scope.isLogged && _.contains($scope.user.roles, 'accountant');
   }
 }

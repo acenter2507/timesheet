@@ -132,8 +132,8 @@ module.exports.start = function start(options) {
   return new Promise(function (resolve, reject) {
 
     var adminAccount = new User(seedOptions.seedAdmin);
-    var manageAccount = new User(seedOptions.seedManage);
-    var vipAccount = new User(seedOptions.seedVip);
+    var managerAccount = new User(seedOptions.seedManager);
+    var accountantAccount = new User(seedOptions.seedAccountant);
     var userAccount = new User(seedOptions.seedUser);
 
     //If production only seed admin if it does not exist
@@ -152,9 +152,9 @@ module.exports.start = function start(options) {
         .then(User.generateRandomPassphrase)
         .then(seedTheUser(adminAccount))
         .then(User.generateRandomPassphrase)
-        .then(seedTheUser(manageAccount))
+        .then(seedTheUser(managerAccount))
         .then(User.generateRandomPassphrase)
-        .then(seedTheUser(vipAccount))
+        .then(seedTheUser(accountantAccount))
         .then(function () {
           resolve();
         })
