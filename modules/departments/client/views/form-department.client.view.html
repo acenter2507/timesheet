@@ -27,7 +27,7 @@
       <div class="alert alert-danger" role="alert" ng-repeat="leader in vm.department.leaders">
         {{:: leader.displayName }}
       </div>
-      <button class="btn btn-default btn-sm pull-right" ng-click="vm.handleAddLeader()">追加</button>
+      <button class="btn btn-default" ng-click="vm.handleAddLeader()">追加</button>
     </div>
   </div>
   <!-- Members -->
@@ -37,7 +37,7 @@
       <div class="alert alert-danger" role="alert" ng-repeat="member in vm.department.members">
         {{:: member.displayName }}
       </div>
-      <button class="btn btn-default btn-sm pull-right" ng-click="vm.handleAddMember()">追加</button>
+      <button class="btn btn-default" ng-click="vm.handleAddMember()">追加</button>
     </div>
   </div>
 </div>
