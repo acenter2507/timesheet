@@ -236,3 +236,6 @@ a:hover .header-profile-image {
     opacity: 1; } }
 .fadeIn {
   animation-name: fadeIn; }
+
+.dropdown-menu .dropdown-menu-right {
+  margin-left: -160px; }
