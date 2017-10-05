@@ -5,7 +5,7 @@ module.exports = {
     lib: {
       css: [
         'public/lib/bootstrap/dist/css/bootstrap.css',
-        'public/lib/components-font-awesome/css/font-awesome.css',
+        'public/lib/font-awesome/css/font-awesome.css',
         'public/lib/angular-toastr/dist/angular-toastr.css',
         'public/lib/angular-loading-bar/build/loading-bar.css',
         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css'
