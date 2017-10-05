@@ -18,6 +18,7 @@ var ApplicationConfiguration = (function () {
     'duScroll',
     'ngImgCrop',
     'monospaced.elastic',
+    'ngDialog'
   ];
 
   // Add a new vertical module

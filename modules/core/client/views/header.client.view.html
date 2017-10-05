@@ -50,11 +50,7 @@
 </div>
 <!-- Template -->
 <script type="text/ng-template" id="confirmTemplate.html">
-  <div class="modal-body">
-    <p>{{:: modal.message}}</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="callback()">{{:: modal.button || '確認'}}</button>
-    <button class="btn btn-default" ng-click="close()" data-dismiss="modal">キャンセル</button>
-  </div>
+  <p>{{:: dialog.message}}</p>
+  <button class="btn btn-primary" ng-click="confirm()">{{:: dialog.button || '確認'}}</button>
+  <button class="btn btn-default" ng-click="closeThisDialog()">キャンセル</button>
 </script>

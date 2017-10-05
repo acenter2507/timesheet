@@ -10,7 +10,7 @@ module.exports = {
         'public/lib/angular-loading-bar/build/loading-bar.css',
         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css',
         'public/lib/ng-dialog/css/ngDialog.min.css',
-        'public/lib/ng-dialog/css/ngDialog-theme-default.min.css'
+        'public/lib/ng-dialog/css/ngDialog-theme-plain.min.css'
       ],
       js: [
         'public/lib/jquery/dist/jquery.js',

@@ -2,9 +2,9 @@
 
 angular.module('core').controller('AppController', AppController);
 
-AppController.$inject = ['$scope', 'Authentication', 'toastr', '$modal'];
+AppController.$inject = ['$scope', 'Authentication', 'toastr', 'ngDialog'];
 
-function AppController($scope, Authentication, toastr, $modal) {
+function AppController($scope, Authentication, toastr, ngDialog) {
   $scope.Authentication = Authentication;
 
   prepareScopeListener();
@@ -40,20 +40,21 @@ function AppController($scope, Authentication, toastr, $modal) {
     return toastr.success(msg, 'Done');
   };
   // Hiển thị confirm xác nhận
-  $scope.handleShowConfirm = function (content, cb) {
-    $scope.modal = content;
-    $scope.modal.close = handleCloseConfig;
-    $scope.modal.callback = handleCallback;
-    var modalInstance = $modal.open({
+  $scope.handleShowConfirm = function (content, resolve, reject) {
+    $scope.dialog = content;
+    ngDialog.openConfirm({
       templateUrl: 'confirmTemplate.html',
       scope: $scope
+    }).then(confirm => {
+      delete $scope.dialog;
+      if (resolve) {
+        resolve(confirm);
+      }
+    }, reject => {
+      delete $scope.dialog;
+      if (reject) {
+        reject(reject);
+      }
     });
-
-    function handleCloseConfig() {
-      modalInstance.dismiss(); console.log('closed');
-    }
-    function handleCallback() {
-      console.log('callback');
-    }
   };
 }
