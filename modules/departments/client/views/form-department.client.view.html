@@ -51,7 +51,19 @@
             <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
           </div>
           <div class="user-action">
-            
+            <div dropdown>
+              <a dropdown-toggle><i class="fa fa-cog"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+            <div>
+              <a class="expand-toggle" href="#"><i class="fa fa-chevron-circle-down"></i></a>
+            </div>
           </div>
         </div>
         <div class="user-advance-info"></div>
