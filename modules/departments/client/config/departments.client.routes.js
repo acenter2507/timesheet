@@ -40,7 +40,7 @@
         }
       })
       .state('departments.edit', {
-        url: '/:departmentId/edit',
+        url: '/:departmentId/edit?focus',
         templateUrl: 'modules/departments/client/views/form-department.client.view.html',
         controller: 'DepartmentsController',
         controllerAs: 'vm',

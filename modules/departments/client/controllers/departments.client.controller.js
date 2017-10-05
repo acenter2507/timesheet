@@ -6,9 +6,9 @@
     .module('departments')
     .controller('DepartmentsController', DepartmentsController);
 
-  DepartmentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'departmentResolve', '$timeout', 'AdminUserApi'];
+  DepartmentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'departmentResolve', '$timeout', 'AdminUserApi', '$stateParams'];
 
-  function DepartmentsController($scope, $state, $window, Authentication, department, $timeout, AdminUserApi) {
+  function DepartmentsController($scope, $state, $window, Authentication, department, $timeout, AdminUserApi, $stateParams) {
     var vm = this;
 
     vm.department = department;
@@ -19,13 +19,25 @@
       vm.isShowLeaderDropdown = false;
       vm.leaderSearchKey = '';
       vm.leaderSearching = false;
+      vm.leaderFocus = false;
 
       vm.isShowMemberDropdown = false;
       vm.memberSearchKey = '';
       vm.memberSearching = false;
+      vm.memberFocus = false;
       if (!vm.department._id) {
         vm.department.members = [];
         vm.department.leaders = [];
+      }
+    }
+
+    function prepareParams() {
+      if ($stateParams.focus) {
+        if ($stateParams.focus === 'leader') {
+          vm.leaderFocus = true;
+        } else if ($stateParams.focus === 'member') {
+          vm.memberFocus = true;
+        }
       }
     }
     // Remove existing Department
