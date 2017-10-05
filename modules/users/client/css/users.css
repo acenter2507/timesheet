@@ -70,7 +70,6 @@
       flex-grow: 1;
       height: 100%; }
       .user-item-block .user-basic-info .user-info .user-info-name {
-        display: block;
         font-weight: 600; }
     .user-item-block .user-basic-info .user-action {
       position: relative;
@@ -97,6 +96,7 @@
         opacity: 1;
         color: #777;}
   .user-item-block .user-advance-info {
+    margin-top: 12px;
     display: flex; }
 
 
