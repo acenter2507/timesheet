@@ -50,8 +50,9 @@
             <div dropdown dropdown-append-to-body>
               <a dropdown-toggle class="text-muted"><i class="fa fa-ellipsis-h"></i></a>
               <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                <li></li>
                 <li ng-repeat="member in department.members" class="pd6">
+                  <img class="user-common-avatar" src="{{:: member.profileInageURI}}">
+                  <span>{{::member.displayName}}</span>
                 </li>
               </ul>
             </div>
