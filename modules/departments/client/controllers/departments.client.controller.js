@@ -12,6 +12,7 @@
     var vm = this;
 
     vm.department = department;
+    console.log(vm.department);
     vm.form = {};
 
     onCreate();
