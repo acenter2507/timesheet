@@ -9,8 +9,8 @@
     <div class="well">
       <h3 class="mg12y"><a ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a></h3>
       <a class="font-sm" ng-href="mailto:{{department.email}}">{{::department.email}}</a>
-      <a class="text-muted pull-right" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
-      <a class="text-muted mg5r" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
+      <a class="text-muted pull-right" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye fa-lg"></i></a>
+      <a class="text-muted pull-right mg10r" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o fa-lg"></i></a>
       <div class="form-group">
         <p class="font-weight-bold mgn">リーダ（{{ department.leaders.length}}）</p>
         <img class="user-common-avatar" ng-class="{'mg10l-': !$first}" ng-repeat="leader in department.leaders | limitTo: 10" src="{{::leader.profileImageURL}}"
@@ -20,6 +20,12 @@
         <p class="font-weight-bold mgn">メンバー（{{ department.members.length}}）</p>
         <img class="user-common-avatar" ng-class="{'mg10l-': !$first}" ng-repeat="member in department.members | limitTo: 10" src="{{::member.profileImageURL}}"
           tooltip="{{::member.displayName}}">
+        <div dropdown dropdown-append-to-body>
+          <a dropdown-toggle class="text-muted pull-right"><i class="fa fa-ellipsis-h fa-lg"></i></a>
+          <ul class="dropdown-menu dropdown-menu-right mg20t" role="menu">
+            <li><a ng-click="vm.handleMemberRemoved(member)">削除</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
