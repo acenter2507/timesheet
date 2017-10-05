@@ -9,18 +9,18 @@
     <div class="well">
       <h3 class="mg12y"><a ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a></h3>
       <a class="font-sm" ng-href="mailto:{{department.email}}">{{::department.email}}</a>
+      <a class="text-muted pull-right" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
+      <a class="text-muted mg5r" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
       <div class="form-group">
-        <a class="text-muted" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
-        <a class="text-muted mg5l" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
+        <p class="font-weight-bold mgn">リーダ（{{ department.leaders.length}}）</p>
+        <img class="user-common-avatar" ng-class="{'mg10l-': !$first}" ng-repeat="leader in department.leaders | limitTo: 10" src="{{::leader.profileImageURL}}"
+          tooltip="{{::leader.displayName}}">
       </div>
       <div class="form-group">
-        <p class="font-weight-bold mgn">リーダ</p>
-        <img class="user-common-avatar" ng-class="{'mg5l-': !$first}" ng-repeat="leader in department.leaders" src="{{::leader.profileImageURL}}" tooltip="{{::leader.displayName}}">
-      </div>
-      <div class="form-group">
-        <p class="font-weight-bold mgn">メンバー</p>
-        <img class="user-common-avatar" ng-class="{'mg5l-': !$first}" ng-repeat="member in department.members" src="{{::member.profileImageURL}}" tooltip="{{::member.displayName}}">
+        <p class="font-weight-bold mgn">メンバー（{{ department.members.length}}）</p>
+        <img class="user-common-avatar" ng-class="{'mg10l-': !$first}" ng-repeat="member in department.members | limitTo: 10" src="{{::member.profileImageURL}}"
+          tooltip="{{::member.displayName}}">
+        <a class="" </div>
       </div>
     </div>
   </div>
-</div>
