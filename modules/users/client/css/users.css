@@ -57,6 +57,7 @@
     overflow-y: unset;}
   .user-item-block .user-basic-info {
     display: flex;
+    width: 100%;
     height: 48px; }
     .user-item-block .user-basic-info .user-avatar {
       width: 48px;
@@ -97,6 +98,7 @@
         color: #777;}
   .user-item-block .user-advance-info {
     margin-top: 12px;
+    width: 100%;
     display: flex; }
 
 
