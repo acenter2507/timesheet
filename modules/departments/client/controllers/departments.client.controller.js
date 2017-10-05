@@ -29,11 +29,13 @@
       }
     }
     // Remove existing Department
-    vm.remove = remove;
-    function remove() {
-      if ($window.confirm('Are you sure you want to delete?')) {
-        vm.department.$remove($state.go('departments.list'));
-      }
+    vm.handleDeleteDepartment = () => {
+      $scope.handleShowConfirm({
+        message: vm.department.name + 'を削除しますか？'
+      });
+      // if ($window.confirm('Are you sure you want to delete?')) {
+      //   vm.department.$remove($state.go('departments.list'));
+      // }
     }
 
     // Save Department
