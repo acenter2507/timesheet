@@ -19,6 +19,7 @@
         <div class="form-group mgnb">
           <button type="submit" class="btn btn-default">保存</button>
           <button type="button" class="btn btn-default">キャンセル</button>
+          <button type="button" class="btn btn-danger" ng-if="vm.department._id" ng-click="vm.handleDeleteDepartment()">削除</button>
         </div>
       </form>
     </div>
