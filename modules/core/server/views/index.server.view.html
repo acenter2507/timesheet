@@ -1,6 +1,15 @@
-{% extends 'layout.server.view.html' %}
-{% block content %}
+{% extends 'layout.server.view.html' %} {% block content %}
 <div class="container-fluid">
   <section ui-view></section>
+  <!-- Template -->
+  <script type="text/ng-template" id="confirmTemplate.html">
+    <div class="modal-body">
+      <p>{{:: modal.message}}</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="callback()">{{:: modal.message || '確認'}}</button>
+      <button class="btn btn-default" ng-click="close()" data-dismiss="modal">キャンセル</button>
+    </div>
+  </script>
 </div>
 {% endblock %}
