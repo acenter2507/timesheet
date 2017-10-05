@@ -1,7 +1,7 @@
 <div class="row animated fadeIn mg50t">
   <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-if="isLeader">
     <div class="well">
-      <a class="btn btn-default" ui-sref="departments.create"><i class="fa fa-plus fa-2x"></i></a>
+      <a class="btn btn-default text-muted" ui-sref="departments.create"><i class="fa fa-plus fa-2x"></i></a>
     </div>
   </div>
   <div class="clearfix"></div>
@@ -16,7 +16,7 @@
             <a ng-href="mailto:{{department.email}}">{{::department.email}}</a>
           </div>
           <div class="department-action">
-            <a ng-href="mailto:{{department.email}}" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
+            <a class="text-muted" ng-href="mailto:{{department.email}}" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
             <a class="text-muted" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
             <a ng-if="isLeader" class="text-muted" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
             <a ng-if="isLeader" class="text-muted" ng-click="vm.handleDeleteDepartment(department)" tooltip="削除"><i class="fa fa-trash"></i></a>
@@ -35,7 +35,9 @@
                 <li><a ng-click="vm.handleMemberRemoved(member)">削除</a></li>
               </ul>
             </div>
-            <a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, focus:  })"><i class="fa fa-ellipsis-h"></i></a>
+            <div>
+              <a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, focus: 'leader' })"><i class="fa fa-plus"></i></a>
+            </div>
           </div>
         </div>
         <div class="department-block-members">
@@ -52,6 +54,9 @@
                 <li ng-repeat="member in department.members" class="pd6">
                 </li>
               </ul>
+            </div>
+            <div>
+              <a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, focus: 'member' })"><i class="fa fa-plus"></i></a>
             </div>
           </div>
         </div>
