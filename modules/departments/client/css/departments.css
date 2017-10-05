@@ -43,8 +43,5 @@
     .department-item-block .department-block-leaders .buttons {
       text-align: right;
       vertical-align: middle;
-      display: flex;
-      justify-content: space-between; 
-      flex-direction: row;
       width: 20px; 
       height: 100%;}
