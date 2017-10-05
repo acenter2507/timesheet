@@ -36,7 +36,7 @@
       // if ($window.confirm('Are you sure you want to delete?')) {
       //   vm.department.$remove($state.go('departments.list'));
       // }
-    }
+    };
 
     // Save Department
     vm.handleSaveDepartment = isValid => {
