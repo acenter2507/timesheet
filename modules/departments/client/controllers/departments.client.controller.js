@@ -64,7 +64,7 @@
       function errorCallback(res) {
         $scope.handleShowToast(res.data.message, true);
       }
-    }
+    };
 
     /**
      * HANDLES
