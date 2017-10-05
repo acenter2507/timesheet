@@ -2,8 +2,7 @@
   <div class="page-header">
     <h1 ng-bind="vm.department.name"></h1>
   </div>
-  <div class="pull-right"
-       ng-show="vm.department.isCurrentUserOwner">
+  <div class="pull-right">
     <a class="btn btn-primary"
        ui-sref="departments.edit({ departmentId: vm.department._id })">
       <i class="glyphicon glyphicon-edit"></i>
