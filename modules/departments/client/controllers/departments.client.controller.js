@@ -35,7 +35,6 @@
     }
 
     // Save Department
-    vm.save = save;
     vm.handleSaveDepartment = isValid => {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.departmentForm');

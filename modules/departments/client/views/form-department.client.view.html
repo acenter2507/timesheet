@@ -3,7 +3,7 @@
   <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <div class="well">
       <h3>基本情報</h3>
-      <form name="vm.form.departmentForm" ng-submit="vm.save(vm.form.departmentForm.$valid)" novalidate>
+      <form name="vm.form.departmentForm" ng-submit="vm.handleSaveDepartment(vm.form.departmentForm.$valid)" novalidate>
         <div class="form-group" show-errors>
           <input name="name" type="text" ng-model="vm.department.name" id="name" class="form-control" placeholder="名前" required>
           <div ng-messages="vm.form.departmentForm.name.$error" role="alert">
