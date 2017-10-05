@@ -29,6 +29,7 @@
         vm.department.members = [];
         vm.department.leaders = [];
       }
+      prepareParams();
     }
 
     function prepareParams() {
