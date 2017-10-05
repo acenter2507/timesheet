@@ -16,6 +16,7 @@
             <a ng-href="mailto:{{department.email}}">{{::department.email}}</a>
           </div>
           <div class="department-action">
+            <a ng-href="mailto:{{department.email}}" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
             <a class="text-muted" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
             <a ng-if="isLeader" class="text-muted" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
             <a ng-if="isLeader" class="text-muted" ng-click="vm.handleDeleteDepartment(department)" tooltip="削除"><i class="fa fa-trash"></i></a>
@@ -34,6 +35,7 @@
                 <li><a ng-click="vm.handleMemberRemoved(member)">削除</a></li>
               </ul>
             </div>
+            <a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, focus:  })"><i class="fa fa-ellipsis-h"></i></a>
           </div>
         </div>
         <div class="department-block-members">
