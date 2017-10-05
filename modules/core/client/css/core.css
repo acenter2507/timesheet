@@ -237,5 +237,5 @@ a:hover .header-profile-image {
 .fadeIn {
   animation-name: fadeIn; }
 
-.dropdown-menu .dropdown-menu-right {
+.dropdown-menu.dropdown-menu-right {
   margin-left: -160px; }
