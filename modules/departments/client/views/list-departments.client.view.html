@@ -10,15 +10,15 @@
       <h3 class="mg12y"><a ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a></h3>
       <a class="font-sm" ng-href="mailto:{{department.email}}">{{::department.email}}</a>
       <div class="form-group">
-        <a class="text-muted" ui-sref="department.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
-        <a class="text-muted mg5l" ui-sref="department.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
+        <a class="text-muted" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
+        <a class="text-muted mg5l" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
       </div>
       <div class="form-group">
-        <p class="font-weight-bold">リーダ</p>
+        <p class="font-weight-bold mgn">リーダ</p>
         <img class="user-common-avatar" ng-repeat="leader in department.leaders" src="{{::leader.profileImageURL}}" tooltip="{{::leader.displayName}}">
       </div>
       <div class="form-group">
-        <p class="font-weight-bold">メンバー</p>
+        <p class="font-weight-bold mgn">メンバー</p>
         <img class="user-common-avatar" ng-repeat="member in department.members" src="{{::member.profileImageURL}}" tooltip="{{::member.displayName}}">
       </div>
     </div>
