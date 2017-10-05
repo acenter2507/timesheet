@@ -49,6 +49,7 @@
   border: 1px solid #ccc;
   max-height: 58px;
   margin-bottom: 6px;
+  border-radius: 3px;
   overflow-y: hidden;
   display: flex;
   flex-wrap: wrap;
