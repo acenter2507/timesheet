@@ -17,7 +17,8 @@
           </div>
           <div class="department-action">
             <a class="text-muted" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
-            <a class="text-muted" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
+            <a ng-if="isLeader" class="text-muted" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
+            <a ng-if="isLeader" class="text-muted" ng-click="vm.handleDeleteDepartment(department)" tooltip="削除"><i class="fa fa-trash"></i></a>
           </div>
         </div>
         <div class="department-block-leaders">
