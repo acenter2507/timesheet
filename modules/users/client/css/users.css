@@ -47,7 +47,7 @@
 .user-item-block {
   padding: 5px;
   border: 1px solid #ccc;
-  max-height: 42px;
+  max-height: 58px;
   overflow-y: hidden;
   display: flex;
   flex-direction: row;
@@ -57,13 +57,12 @@
     overflow-y: unset;}
   .user-item-block .user-basic-info {
     display: flex;
-    flex-direction: column; 
-    height: 32px; }
+    height: 48px; }
   .user-item-block .user-advance-info {
     display: flex; }
     .user-item-block .user-basic-info .user-avatar {
-      width: 32px;
-      height: 32px;
+      width: 48px;
+      height: 48px;
       margin-right: 12px; }
       .user-item-block .user-basic-info .user-avatar  img{
         width: 32px;
