@@ -47,7 +47,7 @@
       var memberIds = _.pluck(vm.department.members, '_id');
 
       vm.department.leaders = leaderIds;
-      vm.department.leaders = memberIds;
+      vm.department.members = memberIds;
 
       // TODO: move create/update logic to service
       if (vm.department._id) {
