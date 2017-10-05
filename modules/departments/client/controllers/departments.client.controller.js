@@ -16,7 +16,6 @@
 
     onCreate();
     function onCreate() {
-      vm.isShowLeaderSearch = false;
       vm.isShowLeaderDropdown = false;
       vm.leaderSearchKey = '';
       vm.leaderSearching = false;
@@ -73,9 +72,11 @@
     vm.handleLeaderSelected = (leader) => {
       var item = _.findWhere(vm.department.leaders, { _id: leader._id });
       if (!item) {
-        vm.department.leaders.push(leader);  
+        vm.department.leaders.push(leader);
       }
+      vm.searchLeaders = _.without(vm.searchLeaders, leader);
       vm.isShowLeaderDropdown = true;
+      if (!$scope.$$phase) $scope.$digest();
     };
 
     function handleStartSearchLeaders() {
