@@ -35,6 +35,7 @@
       overflow: hidden; }
     .department-item-block .department-block-leaders .buttons {
       text-align: right;
+      vertical-align: middle;
       width: 20px; 
       height: 100%;}
   .department-item-block .department-block-members {
