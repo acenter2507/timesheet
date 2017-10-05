@@ -5,11 +5,20 @@
     .module('departments')
     .controller('DepartmentsListController', DepartmentsListController);
 
-  DepartmentsListController.$inject = ['DepartmentsService'];
+  DepartmentsListController.$inject = ['$scope', 'DepartmentsService'];
 
-  function DepartmentsListController(DepartmentsService) {
+  function DepartmentsListController($scope, DepartmentsService) {
     var vm = this;
 
     vm.departments = DepartmentsService.query();
+
+    vm.handleDeleteDepartment = department => {
+      $scope.handleShowConfirm({
+        message: department.name + 'を削除しますか？'
+      }, () => {
+        department.$remove();
+        vm.departments = _.without(vm.departments, department);
+      });
+    };
   }
 }());
