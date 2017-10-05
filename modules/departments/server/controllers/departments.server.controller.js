@@ -83,7 +83,8 @@ exports.delete = function (req, res) {
 exports.list = function (req, res) {
   Department.find()
     .sort('-created')
-    .populate('leaders', 'displayName')
+    .populate('members', 'displayName email profileImageURL')
+    .populate('leaders', 'displayName email profileImageURL')
     .exec(function (err, departments) {
       if (err) {
         return res.status(400).send({
@@ -106,7 +107,9 @@ exports.departmentByID = function (req, res, next, id) {
     });
   }
 
-  Department.findById(id).populate('user', 'displayName').exec(function (err, department) {
+  Department.findById(id)
+    .populate('members', 'displayName email profileImageURL')
+    .populate('leaders', 'displayName email profileImageURL').exec(function (err, department) {
     if (err) {
       return next(err);
     } else if (!department) {
