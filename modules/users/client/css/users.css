@@ -52,7 +52,7 @@
   display: flex;
   flex-direction: row;
   transition: all 0.3s cubic-bezier(.25,.8,.25,1); }
-  .user-item-block .expand {
+  .user-item-block.expand {
     max-height: unset;
     overflow-y: unset;}
   .user-item-block .user-basic-info {
