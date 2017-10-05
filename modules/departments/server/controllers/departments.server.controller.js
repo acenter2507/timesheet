@@ -33,9 +33,9 @@ exports.create = function (req, res) {
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var department = req.department ? req.department.toJSON() : {};
-  console.log(department);
   department.isCurrentDepartmentLeader = _.contains(_.pluck(department.leaders, '_id'), req.user._id.toString());
   department.isCurrentDepartmentMember = _.contains(_.pluck(department.members, '_id'), req.user._id.toString());
+  console.log(department);
   res.jsonp(department);
 };
 
