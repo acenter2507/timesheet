@@ -33,6 +33,7 @@ exports.create = function (req, res) {
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var department = req.department ? req.department.toJSON() : {};
+  console.log(department);
   department.isCurrentDepartmentLeader = _.contains(_.pluck(department.leaders, '_id'), req.user._id.toString());
   department.isCurrentDepartmentMember = _.contains(_.pluck(department.members, '_id'), req.user._id.toString());
   res.jsonp(department);
@@ -106,15 +107,16 @@ exports.departmentByID = function (req, res, next, id) {
 
   Department.findById(id)
     .populate('members', 'displayName email profileImageURL')
-    .populate('leaders', 'displayName email profileImageURL').exec(function (err, department) {
-    if (err) {
-      return next(err);
-    } else if (!department) {
-      return res.status(404).send({
-        message: 'No Department with that identifier has been found'
-      });
-    }
-    req.department = department;
-    next();
-  });
+    .populate('leaders', 'displayName email profileImageURL')
+    .exec(function (err, department) {
+      if (err) {
+        return next(err);
+      } else if (!department) {
+        return res.status(404).send({
+          message: 'No Department with that identifier has been found'
+        });
+      }
+      req.department = department;
+      next();
+    });
 };
