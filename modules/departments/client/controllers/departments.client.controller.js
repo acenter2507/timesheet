@@ -32,10 +32,9 @@
     vm.handleDeleteDepartment = () => {
       $scope.handleShowConfirm({
         message: vm.department.name + 'を削除しますか？'
+      }, () => {
+        vm.department.$remove($state.go('departments.list'));
       });
-      // if ($window.confirm('Are you sure you want to delete?')) {
-      //   vm.department.$remove($state.go('departments.list'));
-      // }
     };
 
     // Save Department
@@ -69,6 +68,10 @@
       }
     };
 
+    // Remove existing Department
+    vm.handleCancelInput = () => {
+      $state.go($state.previous.state.name || 'departments.list', $state.previous.params);
+    };
     /**
      * HANDLES
      */
