@@ -12,7 +12,6 @@
     var vm = this;
 
     vm.department = department;
-    console.log(vm.department);
     vm.form = {};
 
     onCreate();
@@ -20,12 +19,14 @@
       vm.isShowLeaderDropdown = false;
       vm.leaderSearchKey = '';
       vm.leaderSearching = false;
-      vm.department.leaders = [];
 
       vm.isShowMemberDropdown = false;
       vm.memberSearchKey = '';
       vm.memberSearching = false;
-      vm.department.members = [];
+      if (!vm.department._id) {
+        vm.department.members = [];
+        vm.department.leaders = [];
+      }
     }
     // Remove existing Department
     vm.remove = remove;
