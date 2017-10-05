@@ -72,6 +72,7 @@
       flex-grow: 1;
       height: 100%; }
       .user-item-block .user-basic-info .user-info .user-info-name {
+        display: block;
         font-weight: 600; }
     .user-item-block .user-basic-info .user-action {
       position: relative;
