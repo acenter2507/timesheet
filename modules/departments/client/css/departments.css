@@ -8,19 +8,21 @@
     font-size: 1.4rem;
     font-weight: 500;
     margin-top: 0;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     width: 100%;}
   .department-item-block .department-block-info {
     display: flex;
+    margin-bottom: 6px;
     width: 100%; }
     .department-item-block .department-block-info .department-email {
       flex-grow: 1; }
     .department-item-block .department-block-info .department-action {
       width: 50px;
       display: flex;
-      justify-content: flex-end;  }
+      justify-content: space-between;  }
   .department-item-block .department-block-leaders {
     width: 100%;
+    margin-bottom: 6px;
     position: relative; }
   .department-item-block .department-block-members {
     width: 100%;
