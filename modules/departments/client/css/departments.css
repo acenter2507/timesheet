@@ -1,0 +1,22 @@
+.department-item-block {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;}
+  .department-item-block .department-block-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 12px;}
+  .department-item-block .department-block-info {
+    display: flex; }
+    .department-item-block .department-block-info .department-email {
+      flex-grow: 1; }
+    .department-item-block .department-block-info .department-action {
+      width: 50px;
+      display: flex;
+      justify-content: flex-end;  }
+  .department-item-block .department-block-leaders {
+    position: relative; }
+  .department-item-block .department-block-members {
+    position: relative; }

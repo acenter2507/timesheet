@@ -7,30 +7,42 @@
   <div class="clearfix"></div>
   <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-repeat="department in vm.departments">
     <div class="well">
-      <h3 class="mg12y"><a ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a></h3>
-      <a class="font-sm" ng-href="mailto:{{department.email}}">{{::department.email}}</a>
-      <a class="text-muted pull-right" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye fa-lg"></i></a>
-      <a class="text-muted pull-right mg10r" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o fa-lg"></i></a>
-      <div class="form-group">
-        <p class="font-weight-bold mgn">リーダ（{{ department.leaders.length}}）</p>
-        <img class="user-common-avatar" ng-class="{'mg10l-': !$first}" ng-repeat="leader in department.leaders | limitTo: 10" src="{{::leader.profileImageURL}}"
-          tooltip="{{::leader.displayName}}">
-        <div dropdown dropdown-append-to-body>
-          <a dropdown-toggle class="text-muted pull-right"><i class="fa fa-ellipsis-h fa-lg"></i></a>
-          <ul class="dropdown-menu dropdown-menu-right mg20t" role="menu">
-            <li><a ng-click="vm.handleMemberRemoved(member)">削除</a></li>
-          </ul>
+      <div class="department-item-block">
+        <div class="department-item-title">
+          <a ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a>
         </div>
-      </div>
-      <div class="form-group">
-        <p class="font-weight-bold mgn">メンバー（{{ department.members.length}}）</p>
-        <img class="user-common-avatar" ng-class="{'mg10l-': !$first}" ng-repeat="member in department.members | limitTo: 10" src="{{::member.profileImageURL}}"
-          tooltip="{{::member.displayName}}">
-        <div dropdown dropdown-append-to-body>
-          <a dropdown-toggle class="text-muted pull-right"><i class="fa fa-ellipsis-h fa-lg"></i></a>
-          <ul class="dropdown-menu dropdown-menu-right mg20t" role="menu">
-            <li><a ng-click="vm.handleMemberRemoved(member)">削除</a></li>
-          </ul>
+        <div class="department-item-info">
+          <div class="department-email">
+            <a class="font-sm" ng-href="mailto:{{department.email}}">{{::department.email}}</a>
+          </div>
+          <div class="department-action">
+            <a class="text-muted" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye fa-lg"></i></a>
+            <a class="text-muted" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+          </div>
+        </div>
+        <div class="department-item-leaders">
+          <p class="font-weight-bold mgn">リーダ（{{ department.leaders.length}}）</p>
+          <img class="user-common-avatar" ng-class="{'mg10l-': !$first}" ng-repeat="leader in department.leaders | limitTo: 10" src="{{::leader.profileImageURL}}"
+            tooltip="{{::leader.displayName}}">
+          <div dropdown dropdown-append-to-body>
+            <a dropdown-toggle class="text-muted"><i class="fa fa-ellipsis-h fa-lg"></i></a>
+            <ul class="dropdown-menu dropdown-menu-right mg20t" role="menu">
+              <li><a ng-click="vm.handleMemberRemoved(member)">削除</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="department-item-members">
+          <p class="font-weight-bold mgn">メンバー（{{ department.members.length}}）</p>
+          <img class="user-common-avatar" ng-class="{'mg10l-': !$first}" ng-repeat="member in department.members | limitTo: 10" src="{{::member.profileImageURL}}"
+            tooltip="{{::member.displayName}}">
+          <div dropdown dropdown-append-to-body>
+            <a dropdown-toggle class="text-muted"><i class="fa fa-ellipsis-h fa-lg"></i></a>
+            <ul class="dropdown-menu dropdown-menu-right mg20t" role="menu">
+              <li></li>
+              <li ng-repeat="member in department.members" class="pd6">
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
