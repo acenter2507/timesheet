@@ -30,14 +30,16 @@
     margin-bottom: 6px;
     display: flex;
     position: relative; }
+  .department-item-block .department-block-members {
+    width: 100%;
+    position: relative; }
+    .department-item-block .department-block-members .images,
     .department-item-block .department-block-leaders .images {
       flex-grow: 1;
       overflow: hidden; }
+    .department-item-block .department-block-members .buttons,
     .department-item-block .department-block-leaders .buttons {
       text-align: right;
       vertical-align: middle;
       width: 20px; 
       height: 100%;}
-  .department-item-block .department-block-members {
-    width: 100%;
-    position: relative; }
