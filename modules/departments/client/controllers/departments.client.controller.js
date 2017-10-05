@@ -36,11 +36,17 @@
 
     // Save Department
     vm.save = save;
-    function save(isValid) {
+    vm.handleSaveDepartment = isValid => {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.departmentForm');
         return false;
       }
+
+      var leaderIds = _.pluck(vm.department.leaders, '_id');
+      var memberIds = _.pluck(vm.department.members, '_id');
+
+      vm.department.leaders = leaderIds;
+      vm.department.leaders = memberIds;
 
       // TODO: move create/update logic to service
       if (vm.department._id) {
@@ -56,7 +62,7 @@
       }
 
       function errorCallback(res) {
-        vm.error = res.data.message;
+        $scope.handleShowToast(res.data.message, true);
       }
     }
 
@@ -79,6 +85,9 @@
       vm.searchLeaders = _.without(vm.searchLeaders, leader);
       vm.isShowLeaderDropdown = true;
       if (!$scope.$$phase) $scope.$digest();
+    };
+    vm.handleLeaderRemoved = (leader) => {
+      vm.department.leaders = _.without(vm.department.leaders, leader);
     };
     function handleStartSearchLeaders() {
       if (vm.leaderSearching) return;
@@ -106,7 +115,6 @@
       }
       vm.memberSearchTimer = $timeout(handleStartSearchMembers, 500);
     };
-
     vm.handleMemberSelected = (member) => {
       var item = _.findWhere(vm.department.members, { _id: member._id });
       if (!item) {
@@ -116,7 +124,9 @@
       vm.isShowMemberDropdown = true;
       if (!$scope.$$phase) $scope.$digest();
     };
-
+    vm.handleMemberRemoved = (member) => {
+      vm.department.members = _.without(vm.department.members, member);
+    };
     function handleStartSearchMembers() {
       if (vm.memberSearching) return;
       vm.memberSearching = true;
