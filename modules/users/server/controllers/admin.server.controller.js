@@ -103,7 +103,7 @@ exports.searchUsers = function (req, res) {
   if (ignore.length > 0) {
     ignores = _.map(ignore.split(','), (str) => { return str.trim(); });  
   }
-  var roles = req.body.roles;
+  var roles = req.body.roles || [];
   var ands = [{ roles: { $ne: 'admin' } }];
   if (ignores.length > 0) {
     ands.push({ _id: { $nin: ignores } });

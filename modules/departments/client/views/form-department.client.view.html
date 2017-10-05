@@ -81,29 +81,29 @@
           <ul class="dropdown-menu" role="menu">
             <li class="text-center" ng-show="vm.memberSearching"><i class="fa fa-spinner fa-pulse fa-fw"></i></li>
             <li ng-show="!vm.memberSearching && vm.searchMembers.length === 0" class="pd12x">データが見つかりません。</li>
-            <li ng-repeat="leader in vm.searchMembers">
-              <a ng-click="vm.handleLeaderSelected(leader)">
-                <img src="{{::leader.profileImageURL}}" class="user-common-avatar-small">
-                <span>{{::leader.displayName}}</span>
+            <li ng-repeat="member in vm.searchMembers">
+              <a ng-click="vm.handleMemberSelected(member)">
+                <img src="{{::member.profileImageURL}}" class="user-common-avatar-small">
+                <span>{{::member.displayName}}</span>
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <!-- Danh sách leader -->
-      <div class="user-item-block" ng-repeat="leader in vm.department.leaders">
+      <!-- Danh sách member -->
+      <div class="user-item-block" ng-repeat="leader in vm.department.members">
         <div class="user-basic-info">
           <div class="user-avatar">
-            <img src="{{:: leader.profileImageURL }}">
+            <img src="{{:: member.profileImageURL }}">
           </div>
           <div class="user-info">
-            <a class="user-info-name" ui-sref="users.view({ userId: leader._id })">{{:: leader.displayName}}</a>
-            <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
+            <a class="user-info-name" ui-sref="users.view({ userId: member._id })">{{:: member.displayName}}</a>
+            <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
           </div>
           <div class="user-action">
             <div dropdown dropdown-append-to-body>
-              <a dropdown-toggle class="text-muted"><i class="fa fa-cog fa-lg"></i></a>
-              <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <a dropdown-toggle class="user-options"><i class="fa fa-cog fa-lg"></i></a>
+              <ul class="dropdown-menu dropdown-menu-right mg20t" role="menu">
                 <li><a href="#">Action</a></li>
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
