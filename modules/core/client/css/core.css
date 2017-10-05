@@ -186,6 +186,13 @@ a {
   a:focus {
     text-decoration: none !important;
     outline: none !important; }
+  a.text-muted {
+    opacity: 0.9;
+    color: #777; }
+  a.text-muted:hover,
+  a.text-muted:focus {
+    opacity: 1;
+    color: #777; }
 
 [ng\:cloak],
 [ng-cloak],

@@ -13,6 +13,8 @@ var mongoose = require('mongoose'),
 var DepartmentSchema = new Schema({
   // Tên của bộ phận
   name: { type: String, required: 'Please fill Department name', trim: true },
+  // Email
+  email: { type: String },
   // Địa điểm của bộ phận
   location: { type: String, default: '' },
   // Leader (nhiều leader)

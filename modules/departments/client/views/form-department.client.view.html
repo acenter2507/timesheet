@@ -2,7 +2,7 @@
   <!-- Basic info -->
   <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <div class="well">
-      <h3>基本情報</h3>
+      <h3 class="mg12y">基本情報</h3>
       <form name="vm.form.departmentForm" ng-submit="vm.handleSaveDepartment(vm.form.departmentForm.$valid)" novalidate>
         <div class="form-group" show-errors>
           <input name="name" type="text" ng-model="vm.department.name" id="name" class="form-control" placeholder="名前" required>
@@ -11,7 +11,10 @@
           </div>
         </div>
         <div class="form-group">
-          <input name="location" type="text" ng-model="vm.department.location" id="location" class="form-control" placeholder="場所">
+          <input name="email" type="text" ng-model="vm.department.email"class="form-control" placeholder="部署メール">
+        </div>
+        <div class="form-group">
+          <input name="location" type="text" ng-model="vm.department.location"class="form-control" placeholder="場所">
         </div>
         <div class="form-group mgnb">
           <button type="submit" class="btn btn-default">保存</button>
