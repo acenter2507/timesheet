@@ -65,8 +65,8 @@
       height: 48px;
       margin-right: 12px; }
       .user-item-block .user-basic-info .user-avatar  img{
-        width: 32px;
-        height: 32px;
+        width: 48px;
+        height: 48px;
         border-radius: 50%; }
     .user-item-block .user-basic-info .user-info {
       flex-grow: 1;
@@ -74,7 +74,7 @@
       .user-item-block .user-basic-info .user-info .user-info-name {
         font-weight: 600; }
     .user-item-block .user-basic-info .user-action {
-      width: 32px;
+      width: 48px;
       height: 100%; }
 
 
