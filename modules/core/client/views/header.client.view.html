@@ -51,6 +51,9 @@
 <!-- Template -->
 <script type="text/ng-template" id="confirmTemplate.html">
   <p>{{:: dialog.message}}</p>
-  <button class="btn btn-primary" ng-click="confirm()">{{:: dialog.button || '確認'}}</button>
-  <button class="btn btn-default" ng-click="closeThisDialog()">キャンセル</button>
+  <div class="form-group mgnb">
+    <button class="btn btn-default pull-right" ng-click="closeThisDialog()">キャンセル</button>
+    <button class="btn btn-primary pull-right ng10r" ng-click="confirm()">{{:: dialog.button || '確認'}}</button>
+    <div class="clearfix"></div>
+  </div>
 </script>
