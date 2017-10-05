@@ -7,7 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Department = mongoose.model('Department'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('underscore');
 
 /**
  * Create a Department
@@ -33,11 +33,8 @@ exports.create = function (req, res) {
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var department = req.department ? req.department.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  department.isCurrentUserOwner = req.user && department.user && department.user._id.toString() === req.user._id.toString();
-
+  department.isCurrentDepartmentLeader = _.contains(_.pluck(department.leaders, '_id'), req.user._id.toString());
+  department.isCurrentDepartmentMember = _.contains(_.pluck(department.members, '_id'), req.user._id.toString());
   res.jsonp(department);
 };
 
