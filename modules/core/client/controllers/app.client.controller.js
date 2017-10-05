@@ -45,15 +45,15 @@ function AppController($scope, Authentication, toastr, ngDialog) {
     ngDialog.openConfirm({
       templateUrl: 'confirmTemplate.html',
       scope: $scope
-    }).then(confirm => {
+    }).then(res => {
       delete $scope.dialog;
       if (resolve) {
-        resolve(confirm);
+        resolve(res);
       }
-    }, reject => {
+    }, res => {
       delete $scope.dialog;
       if (reject) {
-        reject(reject);
+        reject(res);
       }
     });
   };
