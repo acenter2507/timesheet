@@ -23,7 +23,20 @@
   .department-item-block .department-block-leaders {
     width: 100%;
     margin-bottom: 6px;
+    display: flex;
     position: relative; }
+  .department-item-block .department-block-leaders {
+    width: 100%;
+    margin-bottom: 6px;
+    display: flex;
+    position: relative; }
+    .department-item-block .department-block-leaders .images {
+      flex-grow: 1;
+      overflow: hidden; }
+    .department-item-block .department-block-leaders .buttons {
+      text-align: right;
+      width: 20px; 
+      height: 100%;}
   .department-item-block .department-block-members {
     width: 100%;
     position: relative; }
