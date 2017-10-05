@@ -77,14 +77,16 @@
       height: 100%; }
       .user-item-block .user-basic-info .user-action .user-options {
         position: absolute;
-        top: 5px;
+        top: 0;
         right: 0;
+        margin: 0;
         opacity: 0.8;
         color: #777;}
       .user-item-block .user-basic-info .user-action .expand-toggle {
         position: absolute;
-        bottom: 5px;
+        bottom: 0;
         right: 0;
+        margin: 0;
         opacity: 0.8;
         color: #777;}
       .user-item-block .user-basic-info .user-action .expand-toggle:hover,
