@@ -11,6 +11,5 @@
     var vm = this;
 
     vm.departments = DepartmentsService.query();
-    console.log(vm.departments);
   }
 }());

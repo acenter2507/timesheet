@@ -35,7 +35,6 @@ exports.read = function (req, res) {
   var department = req.department ? req.department.toJSON() : {};
   department.isCurrentDepartmentLeader = _.contains(_.pluck(department.leaders, '_id'), req.user._id.toString());
   department.isCurrentDepartmentMember = _.contains(_.pluck(department.members, '_id'), req.user._id.toString());
-  console.log(department);
   res.jsonp(department);
 };
 
