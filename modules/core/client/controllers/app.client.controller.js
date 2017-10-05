@@ -50,7 +50,7 @@ function AppController($scope, Authentication, toastr, $modal) {
     });
 
     function handleCloseConfig() {
-      console.log('closed');
+      modalInstance.dismiss(); console.log('closed');
     }
     function handleCallback() {
       console.log('callback');

@@ -8,7 +8,9 @@ module.exports = {
         'public/lib/font-awesome/css/font-awesome.css',
         'public/lib/angular-toastr/dist/angular-toastr.css',
         'public/lib/angular-loading-bar/build/loading-bar.css',
-        'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css'
+        'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css',
+        'public/lib/ng-dialog/css/ngDialog.min.css',
+        'public/lib/ng-dialog/css/ngDialog-theme-default.min.css'
       ],
       js: [
         'public/lib/jquery/dist/jquery.js',
@@ -26,6 +28,7 @@ module.exports = {
         'public/lib/moment-timezone/builds/moment-timezone.min.js',
         'public/lib/angular-moment/angular-moment.min.js',
         'public/lib/angular-toastr/dist/angular-toastr.tpls.js',
+        'public/lib/ng-dialog/js/ngDialog.min.js',
         'public/lib/angular-loading-bar/build/loading-bar.js',
         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.js',
         'public/lib/angular-scroll/angular-scroll.js',
