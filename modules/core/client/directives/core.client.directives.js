@@ -4,7 +4,8 @@ angular
   .directive('a', preventClickDirective)
   .directive('a', asideMenuToggleDirective)
   .directive('body', asideMenuHideDirective)
-  .directive('focusMe', focusMeDirective);
+  .directive('focusMe', focusMeDirective)
+  .directive('a', blockExpandDirective);
 
 // Hủy tác dụng của link rỗng
 function preventClickDirective() {
@@ -72,4 +73,23 @@ function focusMeDirective($timeout) {
       });
     }
   };
+}
+
+
+//Card Collapse
+function blockExpandDirective() {
+  var directive = {
+    restrict: 'E',
+    link: link
+  };
+  return directive;
+
+  function link(scope, element, attrs) {
+    element.on('click', function () {
+      if (element.hasClass('expand-toggle')) {
+        element.find('i').toggleClass('fa-rotate-180');
+        element.parent().parent().parent().toggleClass('expand');
+      }
+    });
+  }
 }
