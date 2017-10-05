@@ -1,4 +1,10 @@
 <div class="row animated fadeIn mg50t">
+  <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-if="isLeader">
+    <div class="well">
+      <a class="btn btn-default btn-sm" ui-sref="departments.create">Add department</a>
+    </div>
+  </div>
+  <div class="clearfix"></div>
   <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-repeat="department in vm.departments">
     <div class="well">
       <h3><a ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a></h3>
@@ -7,11 +13,6 @@
       </div>
       <button class="btn btn-default btn-sm" ng-click="vm.handleAddMembers(department)">Add member</button>
       <button class="btn btn-default btn-sm" ng-click="vm.handleAddLeaders(department)">Add leader</button>
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-if="isLeader">
-    <div class="well">
-      <a class="btn btn-default btn-sm" ui-sref="departments.create">Add department</a>
     </div>
   </div>
 </div>
