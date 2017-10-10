@@ -3,7 +3,10 @@
 angular.module('users.admin').controller('UserInputController', ['$scope', '$state', 'AdminUserService',
   function ($scope, $state, AdminUserService) {
     var vm = this;
-    vm.user = new AdminUserService();
+    vm.user = new AdminUserService({
+      private: { sex: 1 },
+      roles: 'user'
+    });
     vm.form = {};
 
     vm.handleSaveUser = isValid => {
