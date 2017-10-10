@@ -10,6 +10,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
 
     function onCreate() {
       vm.user = userResolve;
+      console.log(vm.user);
       if (!vm.user._id) {
         userResolve.private = { sex: 1 };
         userResolve.roles = ['user'];
