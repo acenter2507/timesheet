@@ -10,6 +10,14 @@ var path = require('path'),
 var _ = require('underscore');
 
 /**
+ * Add a User
+ */
+exports.add = function (req, res) {
+  console.log(req.body);
+  res.end();
+};
+
+/**
  * Show the current user
  */
 exports.read = function (req, res) {

@@ -19,6 +19,11 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         return false;
       }
       console.log(vm.user);
+      vm.user.$save(() => {
+        $state.go('users.view', { userId: user._id });
+      }, err => {
+        $scope.handleShowToast(err.message, true);
+      });
     };
 
     vm.handleCancelInput = () => {
