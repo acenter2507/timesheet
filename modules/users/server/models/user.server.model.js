@@ -37,7 +37,7 @@ var UserSchema = new Schema({
   private: {
     hobby: { type: String, trim: true },
     address: { type: String, trim: true },
-    phone: { type: String, trim: true },
+    phone: { type: Number, trim: true },
     sex: { type: Number, default: 1 },
     birthdate: { type: Date },
     introduct: { type: String, trim: true }
