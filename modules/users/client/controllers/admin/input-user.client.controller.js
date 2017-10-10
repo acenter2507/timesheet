@@ -117,7 +117,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
 
     // Thay đổi department
     vm.handleChangeDepartment = () => {
-      if (!vm.isUserRole()) return;
+      if (!vm.isUserRole() || !vm.user.department) return;
       var dpt = _.findWhere(vm.departments, { _id: vm.user.department });
       $scope.handleShowConfirm({
         message: dpt.name + 'のリーダーをリストに追加しますか？',
