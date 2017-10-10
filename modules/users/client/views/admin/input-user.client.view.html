@@ -85,9 +85,14 @@
         </select>
         </div>
         <!-- Birthdate -->
-        <div class="form-group">
-          <input name="birthdate" type="date" class="form-control" datepicker-popup ng-model="vm.user.private.birthdate" placeholder="生年月日"
-          />
+        <div class="form-group" ng-init="birthdateOpen = false;">
+          <div class="input-group">
+            <input type="date" class="form-control" datepicker-popup="yyyy/dd/MM" ng-model="vm.user.private.birthdate" is-open="birthdateOpen"
+              min-date="'1900/01/01'" max-date="'2017-01-01'" close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="birthdateOpen = true;"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div >
         </div>
         <!-- Phone -->
         <div class="form-group">
@@ -117,12 +122,15 @@
           <input name="taxId" type="text" class="form-control" ng-model="vm.user.company.taxId" placeholder="納税番号" />
         </div>
         <div class="form-group">
-          <input name="salary" type="text" class="form-control" ng-model="vm.user.company.salary" placeholder="給料" />
+          <div class="input-group">
+            <span class="input-group-addon">￥</span>
+            <input name="salary" type="number" class="form-control" ng-model="vm.user.company.salary" placeholder="給料" />
+          </div>
         </div>
+
       </div>
     </div>
   </form>
-  <pre>{{vm.form.userForm}}</pre>
 </div>
 <!--<section>
   <div class="page-header">
