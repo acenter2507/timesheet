@@ -38,6 +38,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         return false;
       }
 
+      console.log(vm.user.leaders);
       var leaderIds = _.pluck(vm.user.leaders, '_id');
       vm.user.leaders = leaderIds;
 
