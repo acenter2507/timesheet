@@ -1,5 +1,13 @@
 <div class="row animated fadeIn mg50t">
-  <form name="userForm" ng-submit="update(userForm.$valid)" novalidate>
+  <form name="userForm" ng-submit="vm.handleSaveUser(vm.form.userForm.$valid)" novalidate>
+    <div class="col-xs-12">
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">
+          <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存
+        </button>
+        <a ng-click="vm.handleCancelInput()" class="btn btn-danger">キャンセル</a>
+      </div>
+    </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
       <div class="well">
         <h3 class="mg12y">アカウント情報</h3>
@@ -41,18 +49,18 @@
         <h3 class="mg12y">基本情報</h3>
         <!-- First name -->
         <div class="form-group" show-errors>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name"
-            required />
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="姓" required
+          />
           <div ng-messages="vm.form.userForm.firstName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">First name is required.</p>
+            <p class="help-block error-text font-sm" ng-message="required">姓は必須です。</p>
           </div>
         </div>
         <!-- Last name -->
         <div class="form-group" show-errors>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name"
-            required />
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="名" required
+          />
           <div ng-messages="vm.form.userForm.lastName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Last name is required.</p>
+            <p class="help-block error-text font-sm" ng-message="required">名は必須です。</p>
           </div>
         </div>
         <!-- Email -->
@@ -79,6 +87,18 @@
         <div class="form-group">
           <input name="birthdate" type="date" class="form-control" datepicker-popup ng-model="vm.user.private.birthdate" placeholder="生年月日"
           />
+        </div>
+        <!-- Phone -->
+        <div class="form-group">
+          <input name="phone" type="number" class="form-control" ng-model="vm.user.private.phone" placeholder="電話番号" />
+        </div>
+        <!-- Address -->
+        <div class="form-group">
+          <input name="address" type="text" class="form-control" ng-model="vm.user.private.address" placeholder="住所" />
+        </div>
+        <!-- hobby -->
+        <div class="form-group">
+          <input name="hobby" type="text" class="form-control" ng-model="vm.user.private.hobby" placeholder="趣味" />
         </div>
         <!-- Introduct -->
         <div class="form-group">

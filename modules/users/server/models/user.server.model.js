@@ -34,9 +34,12 @@ var UserSchema = new Schema({
     validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
   private: {
+    hobby: { type: String, trim: true },
+    address: { type: String, trim: true },
+    phone: { type: String, trim: true },
     sex: { type: Number, default: 1 },
     birthdate: { type: Date },
-    introduct: { type: String }
+    introduct: { type: String, trim: true }
   },
   profileImageURL: { type: String, default: 'modules/users/client/img/profile/default.png' },
   department: { type: Schema.ObjectId, ref: 'Department' },
