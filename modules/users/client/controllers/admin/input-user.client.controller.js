@@ -18,9 +18,9 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         vm.busy = false;
         return false;
       }
-      console.log(vm.user);
       vm.user.$save(() => {
-        $state.go('users.view', { userId: user._id });
+        // $state.go('users.view', { userId: user._id });
+        console.log(vm.user);
       }, err => {
         $scope.handleShowToast(err.message, true);
       });
