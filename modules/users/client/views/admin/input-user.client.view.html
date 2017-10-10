@@ -2,10 +2,10 @@
   <form name="userForm" ng-submit="vm.handleSaveUser(vm.form.userForm.$valid)" novalidate>
     <div class="col-xs-12">
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary pull-right">
           <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存
         </button>
-        <a ng-click="vm.handleCancelInput()" class="btn btn-danger">キャンセル</a>
+        <a ng-click="vm.handleCancelInput()" class="btn btn-danger pull-right mg10r">キャンセル</a>
       </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
