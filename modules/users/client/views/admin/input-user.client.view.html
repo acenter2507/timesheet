@@ -88,7 +88,7 @@
         <div class="form-group" ng-init="birthdateOpen = false;">
           <div class="input-group">
             <input type="text" class="form-control" datepicker-popup="yyyy/dd/MM" ng-model="vm.user.private.birthdate" is-open="birthdateOpen"
-              min-date="'1900/01/01'" max-date="'2017/01/01'" close-text="Close" current-text="'2017/01/01'" />
+              min-date="'1900/01/01'" max-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body />
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="birthdateOpen = true;"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
@@ -123,8 +123,8 @@
         </div>
         <div class="form-group">
           <div class="input-group">
-            <span class="input-group-addon">￥</span>
             <input name="salary" type="number" class="form-control" ng-model="vm.user.company.salary" placeholder="給料" />
+            <span class="input-group-addon">￥</span>
           </div>
         </div>
 
