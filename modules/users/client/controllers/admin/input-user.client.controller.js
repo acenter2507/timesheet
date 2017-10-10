@@ -16,7 +16,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         userResolve.roles = ['user'];
         userResolve.leaders = [];
       } else {
-        vm.birthdate = vm.user.private.birthdate ? moment(vm.user.private.birthdate).format() : undefined;
+        vm.birthdate = vm.user.private.birthdate ? moment(vm.user.private.birthdate).format('yyyy/MM/dd') : undefined;
       }
       prepareDepartments();
       vm.isShowLeaderDropdown = false;
