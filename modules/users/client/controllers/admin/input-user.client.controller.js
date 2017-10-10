@@ -15,8 +15,6 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         userResolve.private = { sex: 1 };
         userResolve.roles = ['user'];
         userResolve.leaders = [];
-      } else {
-        vm.birthdate = vm.user.private.birthdate ? moment(vm.user.private.birthdate).format('yyyy/MM/dd') : undefined;
       }
       prepareDepartments();
       vm.isShowLeaderDropdown = false;
@@ -41,16 +39,15 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       }
 
       console.log(vm.user.leaders);
-      console.log(vm.birthdate);
-      vm.user.private.birthdate = vm.birthdate;
+      console.log(vm.user.private.birthdate);
       var leaderIds = _.pluck(vm.user.leaders, '_id');
       vm.user.leaders = leaderIds;
 
-      if (vm.user._id) {
-        vm.user.$update(handleSuccess, handleError);
-      } else {
-        vm.user.$save(handleSuccess, handleError);
-      }
+      // if (vm.user._id) {
+      //   vm.user.$update(handleSuccess, handleError);
+      // } else {
+      //   vm.user.$save(handleSuccess, handleError);
+      // }
       function handleSuccess(res) {
         $state.go('users.view', { userId: vm.user._id });
         vm.busy = false;
