@@ -19,19 +19,38 @@ angular.module('users.admin.routes').config(['$stateProvider',
         url: '/new',
         templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
         controller: 'UserInputController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          userResolve: ['AdminUserService', function (AdminUserService) {
+            return new AdminUserService();
+          }]
+        }
       })
       .state('users.view', {
         url: '/:userId',
         templateUrl: 'modules/users/client/views/admin/view-user.client.view.html',
         controller: 'UserController',
         controllerAs: 'vm',
+        resolve: {
+          userResolve: ['$stateParams', 'AdminUserService', function ($stateParams, AdminUserService) {
+            return AdminUserService.get({
+              aduserId: $stateParams.userId
+            }).$promise;
+          }]
+        }
       })
       .state('users.edit', {
         url: '/:userId/edit',
         templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
         controller: 'UserInputController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          userResolve: ['$stateParams', 'AdminUserService', function ($stateParams, AdminUserService) {
+            return AdminUserService.get({
+              aduserId: $stateParams.userId
+            }).$promise;
+          }]
+        }
       });
   }
 ]);

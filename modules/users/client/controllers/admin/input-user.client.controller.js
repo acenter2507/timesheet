@@ -1,15 +1,27 @@
 'use strict';
 
-angular.module('users.admin').controller('UserInputController', ['$scope', '$state', 'AdminUserService',
-  function ($scope, $state, AdminUserService) {
+angular.module('users.admin').controller('UserInputController', ['$scope', '$state', 'userResolve', 'DepartmentsService',
+  function ($scope, $state, userResolve, DepartmentsService) {
     var vm = this;
-    vm.user = new AdminUserService({
-      private: { sex: 1 },
-      roles: ['user']
-    });
     vm.form = {};
     vm.busy = false;
 
+    onCreate();
+
+    function onCreate() {
+      vm.user = userResolve;
+      if (!vm.user._id) {
+        userResolve.private = { sex: 1 };
+        userResolve.roles = ['user'];
+      }
+      prepareDepartments();
+    }
+
+    function prepareDepartments() {
+      DepartmentsService.query(data => {
+        vm.departments = data;
+      });
+    }
     vm.handleSaveUser = isValid => {
       if (vm.busy) return;
       vm.busy = true;
@@ -19,9 +31,8 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         return false;
       }
       vm.user.$save(() => {
-        // $state.go('users.view', { userId: user._id });
+        $state.go('users.view', { userId: vm.user._id });
         vm.busy = false;
-        console.log(vm.user);
       }, err => {
         $scope.handleShowToast(err.data.message, true);
         vm.busy = false;
@@ -32,6 +43,9 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       $state.go($state.previous.state.name || 'users.list', $state.previous.params);
     };
 
+    vm.handleRemoveUser = () => {
+
+    };
     // $scope.remove = function (user) {
     //   if (confirm('Are you sure you want to delete this user?')) {
     //     if (user) {
