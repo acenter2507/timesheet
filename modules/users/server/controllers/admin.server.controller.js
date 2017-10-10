@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  Department = mongoose.model('Department'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 var _ = require('underscore');
 
@@ -21,6 +22,13 @@ exports.add = function (req, res) {
     user.displayName = user.firstName + ' ' + user.lastName;
     user.save(function (err) {
       if (err) return handleError(err);
+      // Thêm user vào department
+      var departmentId = user.department._id || user.department;
+      if (_.contains(user.roles, 'manager')) {
+        Department.addLeader(departmentId, user._id);
+      } else {
+        Department.addMember(departmentId, user._id);
+      }
       res.jsonp(user);
     });
 
@@ -48,6 +56,7 @@ exports.update = function (req, res) {
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
   user.displayName = user.firstName + ' ' + user.lastName;
+  console.log(req.body);
 
   user.save(function (err) {
     if (err) {
@@ -55,7 +64,6 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
-
     res.json(user);
   });
 };
