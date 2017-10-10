@@ -13,8 +13,21 @@ var _ = require('underscore');
  * Add a User
  */
 exports.add = function (req, res) {
-  console.log(req.body);
-  res.end();
+  // Verify username
+  User.findOne({ username: req.body.username }, function (err, _user) {
+    if (_user) return handleError(new Error('ユーザーIDが存在しています。'));
+
+    var user = User(req.body);
+    user.displayName = user.firstName + ' ' + user.lastName;
+    user.save(function (err) {
+      if (err) return handleError(err);
+      res.jsonp(user);
+    });
+
+  })
+  function handleError(err) {
+    return res.status(400).send(err);
+  }
 };
 
 /**
@@ -109,7 +122,7 @@ exports.searchUsers = function (req, res) {
   var ignore = req.body.ignores;
   var ignores = [];
   if (ignore.length > 0) {
-    ignores = _.map(ignore.split(','), (str) => { return str.trim(); });  
+    ignores = _.map(ignore.split(','), (str) => { return str.trim(); });
   }
   var roles = req.body.roles || [];
   var ands = [{ roles: { $ne: 'admin' } }];
