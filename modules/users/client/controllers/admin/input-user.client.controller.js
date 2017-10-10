@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserInputController', ['$scope', '$state', 'userResolve', 'DepartmentsService', '$timeout',
-  function ($scope, $state, userResolve, DepartmentsService, $timeout) {
+angular.module('users.admin').controller('UserInputController', ['$scope', '$state', 'userResolve', 'DepartmentsService', '$timeout', 'AdminUserApi',
+  function ($scope, $state, userResolve, DepartmentsService, $timeout, AdminUserApi) {
     var vm = this;
     vm.form = {};
     vm.busy = false;
