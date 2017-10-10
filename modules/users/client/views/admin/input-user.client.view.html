@@ -76,6 +76,24 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
       <div class="well">
+        <h3 class="mg12y">社員情報</h3>
+        <div class="form-group">
+          <input name="employeeId" type="text" class="form-control" ng-model="vm.user.company.employeeId" placeholder="社員番号" />
+        </div>
+        <div class="form-group">
+          <input name="taxId" type="text" class="form-control" ng-model="vm.user.company.taxId" placeholder="納税番号" />
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <input name="salary" type="number" class="form-control" ng-model="vm.user.company.salary" placeholder="給料" />
+            <span class="input-group-addon">￥</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3">
+      <div class="well">
         <h3 class="mg12y">個人情報</h3>
         <!-- Sex -->
         <div class="form-group">
@@ -110,24 +128,6 @@
         <div class="form-group">
           <textarea name="introduct" class="msd-elastic: \n; h100 form-control" data-ng-model="vm.user.private.introduct" placeholder="自己紹介"></textarea>
         </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-3">
-      <div class="well">
-        <h3 class="mg12y">社員情報</h3>
-        <div class="form-group">
-          <input name="employeeId" type="text" class="form-control" ng-model="vm.user.company.employeeId" placeholder="社員番号" />
-        </div>
-        <div class="form-group">
-          <input name="taxId" type="text" class="form-control" ng-model="vm.user.company.taxId" placeholder="納税番号" />
-        </div>
-        <div class="form-group">
-          <div class="input-group">
-            <input name="salary" type="number" class="form-control" ng-model="vm.user.company.salary" placeholder="給料" />
-            <span class="input-group-addon">￥</span>
-          </div>
-        </div>
-
       </div>
     </div>
   </form>
