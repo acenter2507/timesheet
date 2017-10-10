@@ -154,7 +154,7 @@ exports.searchUsers = function (req, res) {
  * Đổi mật khẩu user
  */
 exports.changeUserPassword = function (req, res) {
-  var user = req.user;
+  var user = req.model;
   var newPassword = req.body.newPassword || '';
   if (newPassword === '') {
     return res.status(400).send({ message: '新しいパスワードが無効です。' });
