@@ -34,6 +34,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       vm.busy = true;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.userForm');
+        console.log('asjdaklsjdklasjdlaksjdklajsd');
         vm.busy = false;
         return false;
       }
