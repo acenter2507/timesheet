@@ -5,7 +5,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     var vm = this;
     vm.user = new AdminUserService({
       private: { sex: 1 },
-      roles: 'user'
+      roles: ['user']
     });
     vm.form = {};
 
