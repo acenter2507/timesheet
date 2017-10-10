@@ -17,14 +17,14 @@ exports.add = function (req, res) {
   User.findOne({ username: req.body.username }, function (err, _user) {
     if (_user) return handleError(new Error('ユーザーIDが存在しています。'));
 
-    var user = User(req.body);
+    var user = new User(req.body);
     user.displayName = user.firstName + ' ' + user.lastName;
     user.save(function (err) {
       if (err) return handleError(err);
       res.jsonp(user);
     });
 
-  })
+  });
   function handleError(err) {
     return res.status(400).send(err);
   }
