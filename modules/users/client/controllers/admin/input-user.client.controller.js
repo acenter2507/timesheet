@@ -13,6 +13,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       if (!vm.user._id) {
         userResolve.private = { sex: 1 };
         userResolve.roles = ['user'];
+        userResolve.leaders = [];
       }
       prepareDepartments();
       vm.isShowLeaderDropdown = false;
@@ -67,9 +68,8 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     vm.isUserRole = () => {
       if (_.contains(vm.user.roles, 'manager') || _.contains(vm.user.roles, 'admin')) {
         return false;
-      } else {
-        return true;
       }
+      return true;
     }
 
     // Thay đổi department
