@@ -43,11 +43,11 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       var leaderIds = _.pluck(vm.user.leaders, '_id');
       vm.user.leaders = leaderIds;
 
-      // if (vm.user._id) {
-      //   vm.user.$update(handleSuccess, handleError);
-      // } else {
-      //   vm.user.$save(handleSuccess, handleError);
-      // }
+      if (vm.user._id) {
+        vm.user.$update(handleSuccess, handleError);
+      } else {
+        vm.user.$save(handleSuccess, handleError);
+      }
       function handleSuccess(res) {
         $state.go('users.view', { userId: vm.user._id });
         vm.busy = false;
