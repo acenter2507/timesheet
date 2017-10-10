@@ -15,7 +15,7 @@ var _ = require('underscore');
 exports.add = function (req, res) {
   // Verify username
   User.findOne({ username: req.body.username }, function (err, _user) {
-    if (_user) return handleError(new Error('ユーザーIDが存在しています。'));
+    if (_user) return res.status(400).send({ message: 'ユーザーIDが存在しています。' });
 
     var user = new User(req.body);
     user.displayName = user.firstName + ' ' + user.lastName;
