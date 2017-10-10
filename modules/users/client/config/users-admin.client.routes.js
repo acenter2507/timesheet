@@ -27,8 +27,8 @@ angular.module('users.admin.routes').config(['$stateProvider',
         controller: 'UserInputController',
         controllerAs: 'vm',
       })
-      .state('users.new', {
-        url: '/new',
+      .state('users.create', {
+        url: '/create',
         templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
         controller: 'UserInputController',
         controllerAs: 'vm',

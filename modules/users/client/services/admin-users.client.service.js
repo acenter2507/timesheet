@@ -12,6 +12,9 @@
     this.loadAdminUsers = (condition, page) => {
       return $http.post('/api/admins/users', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
+    this.adminCreateUser = (user) => {
+      return $http.post('/api/admins/users/new', { user: user }, { ignoreLoadingBar: true });
+    };
     this.searchUsers = (key, ignores, roles) => {
       return $http.post('/api/users/search', { key: key, ignores: ignores, roles: roles }, { ignoreLoadingBar: true });
     };

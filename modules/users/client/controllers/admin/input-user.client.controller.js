@@ -1,9 +1,14 @@
 'use strict';
 
-angular.module('users.admin').controller('UserInputController', ['$scope', '$state', 'Authentication', 'userResolve',
-  function ($scope, $state, Authentication, userResolve) {
-    $scope.authentication = Authentication;
-    $scope.user = userResolve;
+angular.module('users.admin').controller('UserInputController', ['$scope', '$state', 'AdminUserService',
+  function ($scope, $state, AdminUserService) {
+    var vm = this;
+    vm.user = new AdminUserService();
+    vm.form = {};
+
+    vm.handleSaveUser = isValid => {
+      
+    };
 
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {
@@ -21,7 +26,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
 
     $scope.update = function (isValid) {
       if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'userForm');
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.userForm');
 
         return false;
       }

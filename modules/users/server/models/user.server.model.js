@@ -7,21 +7,13 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   crypto = require('crypto'),
   paginate = require('mongoose-paginate'),
-  validator = require('validator'),
-  generatePassword = require('generate-password');
-
-/**
- * A Validation function for local strategy properties
- */
-var validateLocalStrategyProperty = function (property) {
-  return ((this.provider !== 'local' && !this.updated) || property.length);
-};
+  validator = require('validator');
 
 /**
  * A Validation function for local strategy email
  */
 var validateLocalStrategyEmail = function (email) {
-  return ((this.provider !== 'local' && !this.updated) || validator.isEmail(email));
+  return validator.isEmail(email);
 };
 
 var UserSchema = new Schema({
@@ -51,7 +43,6 @@ var UserSchema = new Schema({
   company: {
     employeeId: { type: String },
     taxId: { type: String },
-    duty: { type: String },
     salary: { type: Number }
   },
   report: {
@@ -61,9 +52,6 @@ var UserSchema = new Schema({
     { type: Schema.ObjectId, ref: 'User' },
   ],
   salt: { type: String },
-  provider: { type: String, required: 'Provider is required' },
-  providerData: {},
-  additionalProvidersData: {},
   roles: {
     type: [{
       type: String,
@@ -78,6 +66,7 @@ var UserSchema = new Schema({
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date }
 });
+UserSchema.index({ firstName: 'text', lastName: 'text', email: 'text' });
 UserSchema.plugin(paginate);
 
 /**

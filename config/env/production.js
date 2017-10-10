@@ -51,7 +51,6 @@ module.exports = {
       logResults: process.env.MONGO_SEED_LOG_RESULTS === 'false' ? false : true,
       seedUser: {
         username: process.env.MONGO_SEED_USER_USERNAME || 'user',
-        provider: 'local',
         email: process.env.MONGO_SEED_USER_EMAIL || 'user@localhost.com',
         firstName: 'User',
         lastName: 'Local',
@@ -60,7 +59,6 @@ module.exports = {
       },
       seedAdmin: {
         username: process.env.MONGO_SEED_ADMIN_USERNAME || 'admin',
-        provider: 'local',
         email: process.env.MONGO_SEED_ADMIN_EMAIL || 'admin@localhost.com',
         firstName: 'Admin',
         lastName: 'Local',
