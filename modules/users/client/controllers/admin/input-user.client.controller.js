@@ -88,7 +88,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       vm.leaderSearchTimer = $timeout(handleStartSearchLeaders, 500);
     };
     vm.handleLeaderSelected = (leader) => {
-      var item = _.findWhere(vm.users.leaders, { _id: leader._id });
+      var item = _.findWhere(vm.user.leaders, { _id: leader._id });
       if (!item) {
         vm.users.leaders.push(leader);
       }
@@ -97,7 +97,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       if (!$scope.$$phase) $scope.$digest();
     };
     vm.handleLeaderRemoved = (leader) => {
-      vm.users.leaders = _.without(vm.users.leaders, leader);
+      vm.user.leaders = _.without(vm.user.leaders, leader);
     };
     function handleStartSearchLeaders() {
       if (vm.leaderSearching) return;
