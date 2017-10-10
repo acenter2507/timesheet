@@ -12,8 +12,10 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
 
     vm.handleSaveUser = isValid => {
       if (vm.busy) return;
+      vm.busy = true;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.userForm');
+        vm.busy = false;
         return false;
       }
       console.log(vm.user);
