@@ -23,7 +23,6 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         vm.busy = false;
         console.log(vm.user);
       }, err => {
-        console.log(err);
         $scope.handleShowToast(err.message, true);
         vm.busy = false;
       });
