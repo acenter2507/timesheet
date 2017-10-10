@@ -1,90 +1,99 @@
 <div class="row animated fadeIn mg50t">
   <form name="userForm" ng-submit="update(userForm.$valid)" novalidate>
     <div class="col-xs-12 col-sm-6 col-md-3">
-      <!-- User name -->
-      <div class="form-group" show-errors>
-        <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="ユーザーID" required
-        />
-        <div ng-messages="vm.form.userForm.username.$error" role="alert">
-          <p class="help-block error-text font-sm" ng-message="required">ユーザー名は必須です。</p>
-        </div>
-      </div>
-      <!-- Password -->
-      <div class="form-group" show-errors>
-        <input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="パスワード"
-          required password-validator/>
-        <div ng-messages="vm.form.userForm.password.$error" role="alert">
-          <p class="help-block error-text font-sm" ng-message="required">パスワードは必須です。</p>
-          <div ng-repeat="passwordError in passwordErrors">
-            <p class="help-block error-text font-sm" ng-show="vm.form.userForm.password.$error.requirements">{{passwordError}}</p>
+      <div class="well">
+        <!-- User name -->
+        <div class="form-group" show-errors>
+          <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="ユーザーID" required
+          />
+          <div ng-messages="vm.form.userForm.username.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">ユーザー名は必須です。</p>
           </div>
         </div>
-      </div>
-      <!-- Roles -->
-      <div class="form-group" show-errors>
-        <select name="roles" class="form-control" ng-model="vm.user.role" ng-list required>
+        <!-- Password -->
+        <div class="form-group" show-errors>
+          <input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="パスワード"
+            required password-validator/>
+          <div ng-messages="vm.form.userForm.password.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">パスワードは必須です。</p>
+            <div ng-repeat="passwordError in passwordErrors">
+              <p class="help-block error-text font-sm" ng-show="vm.form.userForm.password.$error.requirements">{{passwordError}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Roles -->
+        <div class="form-group" show-errors>
+          <select name="roles" class="form-control" ng-model="vm.user.roles" ng-list required>
           <option value="user">一般社員</option>
           <option value="user,accountant">経理</option>
           <option value="user,manager">マネージャ</option>
           <option ng-if="isAdmin" value="user,admin">システム管理</option>
         </select>
-        <div ng-messages="vm.form.userForm.roles.$error" role="alert">
-          <p class="help-block error-text font-sm" ng-message="required">役割は必須です。</p>
+          <div ng-messages="vm.form.userForm.roles.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">役割は必須です。</p>
+          </div>
         </div>
       </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
-      <!-- First name -->
-      <div class="form-group" show-errors>
-        <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name"
-          required />
-        <div ng-messages="vm.form.userForm.firstName.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">First name is required.</p>
+      <div class="well">
+        <!-- First name -->
+        <div class="form-group" show-errors>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name"
+            required />
+          <div ng-messages="vm.form.userForm.firstName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">First name is required.</p>
+          </div>
         </div>
-      </div>
-      <!-- Last name -->
-      <div class="form-group" show-errors>
-        <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name"
-          required />
-        <div ng-messages="vm.form.userForm.lastName.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Last name is required.</p>
+        <!-- Last name -->
+        <div class="form-group" show-errors>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name"
+            required />
+          <div ng-messages="vm.form.userForm.lastName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Last name is required.</p>
+          </div>
         </div>
-      </div>
-      <!-- Email -->
-      <div class="form-group" show-errors>
-        <input type="email" id="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required />
-        <div ng-messages="vm.form.userForm.email.$error" role="alert">
-          <p class="help-block error-text font-sm" ng-message="required">メールは必須です。</p>
-          <p class="help-block error-text font-sm" ng-message="email">メールのフォーマットが違います。</p>
+        <!-- Email -->
+        <div class="form-group" show-errors>
+          <input type="email" id="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required />
+          <div ng-messages="vm.form.userForm.email.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">メールは必須です。</p>
+            <p class="help-block error-text font-sm" ng-message="email">メールのフォーマットが違います。</p>
+          </div>
         </div>
       </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
-      <!-- Sex -->
-      <div class="form-group">
-        <select name="sex" class="form-control" ng-model="vm.user.private.sex">
+      <div class="well">
+        <!-- Sex -->
+        <div class="form-group">
+          <select name="sex" class="form-control" ng-model="vm.user.private.sex">
           <option value="1">男</option>
           <option value="2">女</option>
         </select>
-      </div>
-      <!-- Birthdate -->
-      <div class="form-group">
-        <input name="birthdate" type="date" class="form-control" datepicker-popup ng-model="vm.user.private.birthdate" placeholder="生年月日"/>
-      </div>
-      <!-- Introduct -->
-      <div class="form-group">
-        <textarea name="introduct" class="msd-elastic: \n; w100" data-ng-model="vm.user.private.introduct" placeholder="自己紹介"></textarea>
+        </div>
+        <!-- Birthdate -->
+        <div class="form-group">
+          <input name="birthdate" type="date" class="form-control" datepicker-popup ng-model="vm.user.private.birthdate" placeholder="生年月日"
+          />
+        </div>
+        <!-- Introduct -->
+        <div class="form-group">
+          <textarea name="introduct" class="msd-elastic: \n; w100 form-control" data-ng-model="vm.user.private.introduct" placeholder="自己紹介"></textarea>
+        </div>
       </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
-      <div class="form-group">
-        <input name="employeeId" type="text" class="form-control" ng-model="vm.user.company.employeeId" placeholder="社員番号"/>
-      </div>
-      <div class="form-group">
-        <input name="taxId" type="text" class="form-control" ng-model="vm.user.company.taxId" placeholder="納税番号"/>
-      </div>
-      <div class="form-group">
-        <input name="salary" type="text" class="form-control" ng-model="vm.user.company.salary" placeholder="給料"/>
+      <div class="well">
+        <div class="form-group">
+          <input name="employeeId" type="text" class="form-control" ng-model="vm.user.company.employeeId" placeholder="社員番号" />
+        </div>
+        <div class="form-group">
+          <input name="taxId" type="text" class="form-control" ng-model="vm.user.company.taxId" placeholder="納税番号" />
+        </div>
+        <div class="form-group">
+          <input name="salary" type="text" class="form-control" ng-model="vm.user.company.salary" placeholder="給料" />
+        </div>
       </div>
     </div>
   </form>
