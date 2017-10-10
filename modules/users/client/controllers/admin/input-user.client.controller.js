@@ -36,6 +36,10 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         vm.busy = false;
         return false;
       }
+
+      var leaderIds = _.pluck(vm.user.leaders, '_id');
+      vm.user.leaders = leaderIds;
+      
       if (vm.user._id) {
         vm.user.$update(handleSuccess, handleError);
       } else {
@@ -76,7 +80,12 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     vm.handleChangeDepartment = () => {
       if (!vm.isUserRole()) return;
       var dpt = _.findWhere(vm.departments, { _id: vm.user.department });
-      vm.user.leaders = _.union(vm.user.leaders, dpt.leaders);
+      $scope.handleShowConfirm({
+        message: dpt.name + 'のリーダーをリストに追加しますか？',
+        button: '追加'
+      }, () => {
+        vm.user.leaders = _.union(vm.user.leaders, dpt.leaders);
+      });
     };
 
     vm.handleLeaderInputChanged = () => {
