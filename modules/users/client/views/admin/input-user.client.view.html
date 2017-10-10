@@ -2,9 +2,9 @@
   <form name="vm.form.userForm" ng-submit="vm.handleSaveUser(vm.form.userForm.$valid)" novalidate>
     <div class="col-xs-12">
       <div class="form-group">
-        <button type="submit" class="btn btn-primary pull-right">
+        <a ng-click="vm.handleSaveUser(vm.form.userForm.$valid)" class="btn btn-primary pull-right">
           <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存
-        </button>
+        </a>
         <a ng-click="vm.handleCancelInput()" class="btn btn-default pull-right mg10r">キャンセル</a>
         <a ng-click="vm.handleRemoveUser()" class="btn btn-danger pull-right mg10r">削除</a>
         <a ng-if="isAdmin" ng-click="vm.handleAdminRemoveUser()" class="btn btn-danger pull-right mg10r">完全削除</a>
