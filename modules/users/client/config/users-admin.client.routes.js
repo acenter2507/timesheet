@@ -15,6 +15,12 @@ angular.module('users.admin.routes').config(['$stateProvider',
         controller: 'UserListController',
         controllerAs: 'vm',
       })
+      .state('users.new', {
+        url: '/new',
+        templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
+        controller: 'UserInputController',
+        controllerAs: 'vm'
+      })
       .state('users.view', {
         url: '/:userId',
         templateUrl: 'modules/users/client/views/admin/view-user.client.view.html',
@@ -25,13 +31,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
         url: '/:userId/edit',
         templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
         controller: 'UserInputController',
-        controllerAs: 'vm',
-      })
-      .state('users.create', {
-        url: '/create',
-        templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
-        controller: 'UserInputController',
-        controllerAs: 'vm',
+        controllerAs: 'vm'
       });
   }
 ]);
