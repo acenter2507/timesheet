@@ -39,7 +39,7 @@ var UserSchema = new Schema({
     address: { type: String, trim: true },
     phone: { type: Number, trim: true },
     sex: { type: Number, default: 1 },
-    birthdate: { type: String },
+    birthdate: { type: Date },
     introduct: { type: String, trim: true }
   },
   profileImageURL: { type: String, default: 'modules/users/client/img/profile/default.png' },
