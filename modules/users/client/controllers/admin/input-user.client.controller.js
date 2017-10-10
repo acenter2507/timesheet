@@ -34,20 +34,20 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       vm.busy = true;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.userForm');
-        console.log('asjdaklsjdklasjdlaksjdklajsd');
         vm.busy = false;
         return false;
       }
 
       console.log(vm.user.leaders);
+      console.log(vm.user.private.birthdate);
       var leaderIds = _.pluck(vm.user.leaders, '_id');
       vm.user.leaders = leaderIds;
 
-      if (vm.user._id) {
-        vm.user.$update(handleSuccess, handleError);
-      } else {
-        vm.user.$save(handleSuccess, handleError);
-      }
+      // if (vm.user._id) {
+      //   vm.user.$update(handleSuccess, handleError);
+      // } else {
+      //   vm.user.$save(handleSuccess, handleError);
+      // }
       function handleSuccess(res) {
         $state.go('users.view', { userId: vm.user._id });
         vm.busy = false;
