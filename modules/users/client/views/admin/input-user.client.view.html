@@ -78,7 +78,7 @@
       <div class="well">
         <h3 class="mg12y">社員情報</h3>
         <div class="form-group">
-          <select name="department" class="form-control" ng-model="vm.user.department">
+          <select name="department" class="form-control" ng-model="vm.user.department" ng-change="vm.handleChangeDepartment()">
             <option value>部署</option>
             <option ng-repeat="department in vm.departments" value="{{department._id}}" ng-selected="vm.user.department._id === department._id" >{{:: department.name}}</option>
           </select>
@@ -96,6 +96,22 @@
           </div>
         </div>
 
+        <!-- Tìm leader -->
+        <div class="form-group" ng-show="vm.isUserRole()">
+          <div dropdown is-open="vm.isShowLeaderDropdown">
+            <input class="form-control" ng-model="vm.leaderSearchKey" ng-change="vm.handleLeaderInputChanged()" placeholder="リーダを追加" >
+            <ul class="dropdown-menu" role="menu">
+              <li class="text-center" ng-show="vm.leaderSearching"><i class="fa fa-spinner fa-pulse fa-fw"></i></li>
+              <li ng-show="!vm.leaderSearching && vm.searchLeaders.length === 0" class="pd12x">データが見つかりません。</li>
+              <li ng-repeat="leader in vm.searchLeaders">
+                <a ng-click="vm.handleLeaderSelected(leader)">
+                <img src="{{::leader.profileImageURL}}" class="user-common-avatar-small">
+                <span>{{::leader.displayName}}</span>
+              </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
