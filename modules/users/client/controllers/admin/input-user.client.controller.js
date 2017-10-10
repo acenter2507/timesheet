@@ -90,7 +90,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     vm.handleLeaderSelected = (leader) => {
       var item = _.findWhere(vm.user.leaders, { _id: leader._id });
       if (!item) {
-        vm.users.leaders.push(leader);
+        vm.user.leaders.push(leader);
       }
       vm.searchLeaders = _.without(vm.searchLeaders, leader);
       vm.isShowLeaderDropdown = true;
