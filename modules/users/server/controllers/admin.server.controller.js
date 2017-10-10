@@ -149,3 +149,27 @@ exports.searchUsers = function (req, res) {
       res.jsonp(users);
     });
 };
+
+/**
+ * Đổi mật khẩu user
+ */
+exports.changeUserPassword = function (req, res) {
+  var user = req.user;
+  var newPassword = req.body.newPassword || '';
+  if (newPassword === '') {
+    return res.status(400).send({ message: '新しいパスワードが無効です。' });
+  }
+  if (!user) {
+    return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
+  }
+  user.password = newPassword;
+  user.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.end();
+    }
+  });
+};

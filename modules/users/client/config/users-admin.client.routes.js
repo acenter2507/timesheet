@@ -20,6 +20,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
         controller: 'UserInputController',
         controllerAs: 'vm',
+        data: { roles: ['admin', 'accountant'] },
         resolve: {
           userResolve: ['AdminUserService', function (AdminUserService) {
             return new AdminUserService();
@@ -44,6 +45,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
         controller: 'UserInputController',
         controllerAs: 'vm',
+        data: { roles: ['admin', 'accountant'] },
         resolve: {
           userResolve: ['$stateParams', 'AdminUserService', function ($stateParams, AdminUserService) {
             return AdminUserService.get({

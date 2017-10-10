@@ -57,3 +57,12 @@
     <div class="clearfix"></div>
   </div>
 </script>
+<script type="text/ng-template" id="changePassTemplate.html">
+  <p>新しいパスワードを入力してください！</p>
+  <input type="text" class="form-control" ng-model="newPassword">
+  <div class="form-group mgnb">
+    <button class="btn btn-default pull-right" ng-click="closeThisDialog()">キャンセル</button>
+    <button class="btn btn-primary pull-right mg10r" ng-click="confirm(newPassword)">変更</button>
+    <div class="clearfix"></div>
+  </div>
+</script>

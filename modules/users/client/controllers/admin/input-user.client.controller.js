@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserInputController', ['$scope', '$state', 'userResolve', 'DepartmentsService', '$timeout', 'AdminUserApi',
-  function ($scope, $state, userResolve, DepartmentsService, $timeout, AdminUserApi) {
+angular.module('users.admin').controller('UserInputController', ['$scope', '$state', 'userResolve', 'DepartmentsService', '$timeout', 'AdminUserApi', 'ngDialog',
+  function ($scope, $state, userResolve, DepartmentsService, $timeout, AdminUserApi, ngDialog) {
     var vm = this;
     vm.form = {};
     vm.busy = false;
@@ -39,7 +39,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
 
       var leaderIds = _.pluck(vm.user.leaders, '_id');
       vm.user.leaders = leaderIds;
-      
+
       if (vm.user._id) {
         vm.user.$update(handleSuccess, handleError);
       } else {
@@ -60,12 +60,49 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       $scope.handleShowConfirm({
         message: '操作を止めますか？'
       }, () => {
-        $state.go($state.previous.state.name || 'users.list', $state.previous.params);
+        handlePreviousScreen();
       });
     };
 
     // Xóa user level logic
     vm.handleRemoveUser = () => {
+      $scope.handleShowConfirm({
+        message: vm.user.displayName + 'を削除しますか？'
+      }, () => {
+        vm.user.status = 3;
+        vm.user.$update(() => {
+          if (!$scope.isAdmin) {
+            handlePreviousScreen();
+          }
+        })
+      });
+    };
+
+    // Xóa user level vật lý
+    vm.handleAdminRemoveUser = () => {
+      $scope.handleShowConfirm({
+        message: vm.user.displayName + 'を完全削除しますか？'
+      }, () => {
+        vm.user.$remove(() => {
+          handlePreviousScreen();
+        })
+      });
+    };
+
+    // Thay đổi mật khẩu của user
+    vm.handleResetPassword = () => {
+      ngDialog.openConfirm({
+        templateUrl: 'changePassTemplate.html',
+        scope: $scope
+      }).then(password => {
+        AdminUserApi.changeUserPassword(vm.user._id, password)
+          .success(() => {
+            $scope.handleShowToast('パスワードが変更しました。', false);
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
     };
 
     // Verify user is manager or user
@@ -125,37 +162,8 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
           vm.leaderSearching = false;
         });
     }
-
-    // $scope.remove = function (user) {
-    //   if (confirm('Are you sure you want to delete this user?')) {
-    //     if (user) {
-    //       user.$remove();
-
-    //       $scope.users.splice($scope.users.indexOf(user), 1);
-    //     } else {
-    //       $scope.user.$remove(function () {
-    //         $state.go('admin.users');
-    //       });
-    //     }
-    //   }
-    // };
-
-    // $scope.update = function (isValid) {
-    //   if (!isValid) {
-    //     $scope.$broadcast('show-errors-check-validity', 'vm.form.userForm');
-
-    //     return false;
-    //   }
-
-    //   var user = $scope.user;
-
-    //   user.$update(function () {
-    //     $state.go('admin.user', {
-    //       userId: user._id
-    //     });
-    //   }, function (errorResponse) {
-    //     $scope.error = errorResponse.data.message;
-    //   });
-    // };
+    function handlePreviousScreen() {
+      $state.go($state.previous.state.name || 'users.list', $state.previous.params)
+    }
   }
 ]);
