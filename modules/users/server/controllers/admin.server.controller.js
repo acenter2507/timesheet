@@ -257,13 +257,14 @@ exports.changeUserDepartment = function (req, res) {
   }
   // Thay đổi department
   if (!req.body.newDepartment || req.body.newDepartment === '') {
-    user.department = undefined;
+    delete user.department;
   } else {
     user.department = req.body.newDepartment;
   }
   // Lưu user lại
   user.save(function (err) {
     // Có lỗi khi lưu
+    console.log(err);
     if (err) return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
     // Xử lý với department mới
     var newDepartmentId = (user.department) ? user.department._id || user.department : undefined;
