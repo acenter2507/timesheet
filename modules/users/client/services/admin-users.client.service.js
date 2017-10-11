@@ -9,8 +9,8 @@
   AdminUserApi.$inject = ['$http'];
 
   function AdminUserApi($http) {
-    this.loadAdminUsers = (condition, page) => {
-      return $http.post('/api/admins/users', { condition: condition, page: page }, { ignoreLoadingBar: true });
+    this.loadUsers = (condition, page) => {
+      return $http.post('/api/users/list', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
     this.changeUserPassword = (userId, newPassword) => {
       return $http.post('/api/users/' + userId + '/resetpass', { newPassword: newPassword }, { ignoreLoadingBar: true });
