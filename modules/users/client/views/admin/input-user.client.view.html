@@ -50,7 +50,7 @@
         </div>
         <div ng-if="vm.user._id" class="form-group">
           <input value="{{vm.user.roles | RoleFilter}}" class="form-control" disabled>
-          <a class="btn btn-warning w100" ng-click="vm.handleChangeRoles()">役割変更</a>
+          <a class="btn btn-warning btn-block" ng-click="vm.handleChangeRoles()">役割変更</a>
         </div>
       </div>
     </div>
@@ -136,7 +136,7 @@
         </div>
         <div ng-if="vm.user._id" class="form-group">
           <input value="{{vm.currentDepartment.name}}" class="form-control" disabled>
-          <a class="btn btn-warning w100" ng-click="vm.handleChangeDeparment()">部署変更</a>
+          <a class="btn btn-warning btn-block" ng-click="vm.handleChangeDeparment()">部署変更</a>
         </div>
 
         <h4 class="mg5y" ng-if="vm.user.leaders.length > 0">リーダ</h4>
