@@ -236,7 +236,7 @@ exports.changeUserRoles = function (req, res) {
       Department.addMember(departmentId, user._id);
       Department.removeLeader(departmentId, user._id).then(department => {
         User.setLeaders(department._id, department.leaders);
-        user.leaders = department.leaders
+        user.leaders = department.leaders;
         user.save(err => {
           if (err)
             return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
