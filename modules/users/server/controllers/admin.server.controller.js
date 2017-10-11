@@ -207,10 +207,10 @@ exports.changeUserRoles = function (req, res) {
   if (diff.length === 0)
     return res.status(400).send({ message: '役割が変わりません。' });
 
+  var departmentId = user.department._id || user.department;
   if (_.contains(oldRoles, 'manager')) {
     if (!_.contains(newRoles, 'manager')) {
       // Xóa bỏ 1 leader trong department
-      var departmentId = user.department._id || user.department;
       if (departmentId) {
         Department.removeLeader(departmentId, user._id);
         Department.addMember(departmentId, user._id);
@@ -218,7 +218,6 @@ exports.changeUserRoles = function (req, res) {
     }
   } else {
     if (_.contains(newRoles, 'manager')) {
-      var departmentId = user.department._id || user.department;
       if (departmentId) {
         Department.removeLeader(departmentId, user._id);
         Department.addMember(departmentId, user._id);
