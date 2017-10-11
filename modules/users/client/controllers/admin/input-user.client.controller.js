@@ -15,6 +15,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         userResolve.roles = ['user'];
         userResolve.leaders = [];
       } else {
+        console.log(vm.user);
         if (vm.user.private.birthdate) {
           var birth = moment(vm.user.private.birthdate).local().format('YYYY/MM/DD');
           vm.user.private.birthdate = birth;
