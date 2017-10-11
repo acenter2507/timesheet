@@ -214,14 +214,16 @@ exports.changeUserRoles = function (req, res) {
   if (newRoles.length === 0) {
     return res.status(400).send({ message: '役割が無効です。' });
   }
-  console.log(oldRoles);
-  console.log(newRoles);
+
   if (arraysEqual(oldRoles, newRoles))
     return res.status(400).send({ message: '役割が変わりません。' });
 
-    var departmentId = (user.department) ? user.department._id || user.department : undefined;
+  var departmentId = (user.department) ? user.department._id || user.department : undefined;
+  // Từ manager
   if (_.contains(oldRoles, 'manager')) {
+    // Xuống member
     if (!_.contains(newRoles, 'manager')) {
+      console.log('Hạ cấp');
       // Xóa bỏ 1 leader trong department
       if (departmentId) {
         Department.removeLeader(departmentId, user._id).then(department => {
@@ -230,8 +232,10 @@ exports.changeUserRoles = function (req, res) {
         Department.addMember(departmentId, user._id);
       }
     }
-  } else {
+  } else { // Từ member
+    // Lên manager
     if (_.contains(newRoles, 'manager')) {
+      console.log('Thăng cấp');
       if (departmentId) {
         Department.addLeader(departmentId, user._id).then(department => {
           User.setLeaders(department._id, department.leaders);
@@ -243,6 +247,7 @@ exports.changeUserRoles = function (req, res) {
   }
 
   user.roles = newRoles;
+  console.log(user);
   user.save(function (err) {
     if (err) {
       return res.status(400).send({
