@@ -25,19 +25,28 @@ exports.invokeRolesPolicies = function () {
     roles: ['user'],
     allows: [{
       resources: '/api/departments',
-      permissions: ['get', 'post']
+      permissions: ['get']
     }, {
       resources: '/api/departments/:departmentId',
       permissions: ['get']
     }]
   }, {
-    roles: ['guest'],
+    roles: ['manager'],
     allows: [{
       resources: '/api/departments',
       permissions: ['get']
     }, {
       resources: '/api/departments/:departmentId',
       permissions: ['get']
+    }]
+  }, {
+    roles: ['accountant'],
+    allows: [{
+      resources: '/api/departments',
+      permissions: '*'
+    }, {
+      resources: '/api/departments/:departmentId',
+      permissions: '*'
     }]
   }]);
 };
