@@ -215,25 +215,27 @@ exports.changeUserRoles = function (req, res) {
     return res.status(400).send({ message: '役割が無効です。' });
   }
 
-  var diff = _.difference(oldRoles, newRoles);
-
-  if (diff.length === 0)
+  if (arraysEqual(oldRoles, newRoles))
     return res.status(400).send({ message: '役割が変わりません。' });
 
-  var departmentId = (user.department) ? user.department._id || user.department : undefined;
+    var departmentId = (user.department) ? user.department._id || user.department : undefined;
   if (_.contains(oldRoles, 'manager')) {
     if (!_.contains(newRoles, 'manager')) {
       // Xóa bỏ 1 leader trong department
       if (departmentId) {
-        Department.removeLeader(departmentId, user._id);
+        Department.removeLeader(departmentId, user._id).then(department => {
+          User.setLeaders(department._id, department.leaders);
+        });
         Department.addMember(departmentId, user._id);
       }
     }
   } else {
     if (_.contains(newRoles, 'manager')) {
       if (departmentId) {
-        Department.removeLeader(departmentId, user._id);
-        Department.addMember(departmentId, user._id);
+        Department.addLeader(departmentId, user._id).then(department => {
+          User.setLeaders(department._id, department.leaders);
+        });
+        Department.removeMember(departmentId, user._id);
       }
       user.leaders = [];
     }
@@ -299,3 +301,13 @@ exports.changeUserDepartment = function (req, res) {
     }
   });
 };
+
+function arraysEqual(arr1, arr2) {
+  if (arr1.length !== arr2.length)
+    return false;
+  for (var i = arr1.length; i--;) {
+    if (arr1[i] !== arr2[i])
+      return false;
+  }
+  return true;
+}
