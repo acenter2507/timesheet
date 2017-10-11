@@ -241,9 +241,10 @@ exports.changeUserRoles = function (req, res) {
           if (err)
             return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
           // Lấy danh sách leaders đầy đủ
-          Department.populate(department, { path: 'leaders' }, (err, department) => {
-            return res.jsonp(department.leaders);
-          });
+          Department.findById(department._id).populate('leaders', 'displayName email profileImageURL')
+            .exec((err, department) => {
+              return res.jsonp(department.leaders);
+            });
         });
       });
     }
