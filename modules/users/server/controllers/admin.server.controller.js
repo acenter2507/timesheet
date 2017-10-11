@@ -264,7 +264,6 @@ exports.changeUserDepartment = function (req, res) {
   // Lưu user lại
   user.save(function (err) {
     // Có lỗi khi lưu
-    console.log(err);
     if (err) return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
     // Xử lý với department mới
     var newDepartmentId = (user.department) ? user.department._id || user.department : undefined;

@@ -114,4 +114,7 @@ UserSchema.statics.generateRandomPassphrase = function () {
   });
 };
 
+UserSchema.statics.setLeaders = function (departmentId, leaders) {
+  return this.update({ department: departmentId }, { $set: { leaders: leaders } }, { multi: true }).exec();
+};
 mongoose.model('User', UserSchema);
