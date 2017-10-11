@@ -1,12 +1,15 @@
 <div class="row animated fadeIn mg50t">
-  
-  <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-if="isAdmin || isAccountant">
-    <div class="well">
-      <a class="btn btn-default text-muted" ui-sref="users.new"><i class="fa fa-user-plus fa-2x"></i></a>
+  <div class="col-xs-12">
+    <div class="form-group">
+      <a ng-if="vm.user._id" ng-click="vm.handleRemoveUser()" class="btn btn-danger pull-right mg10r">削除</a>
+      <a ng-if="vm.user._id && isAdmin" ng-click="vm.handleAdminRemoveUser()" class="btn btn-danger pull-right mg10r">完全削除</a>
+      <div class="clearfix"></div>
     </div>
   </div>
   <div class="clearfix"></div>
 </div>
+
+
 <section>
   <div class="page-header">
     <div class="row">
@@ -14,7 +17,8 @@
         <h1>Users</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
+        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()"
+        />
       </div>
     </div>
   </div>
@@ -26,5 +30,6 @@
     </a>
   </div>
 
-  <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+  <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage"
+    ng-change="pageChanged()"></pagination>
 </section>

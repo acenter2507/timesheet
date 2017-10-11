@@ -114,7 +114,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     vm.handleChangeRoles = () => {
       if (vm.roles_busy) return;
       vm.roles_busy = true;
-      $scope.roles = vm.user.roles;
+      $scope.roles = vm.user.roles.join();
       ngDialog.openConfirm({
         templateUrl: 'selectRolesTemplate.html',
         scope: $scope

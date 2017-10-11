@@ -2,6 +2,8 @@
 
 angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'AdminUserService',
   function ($scope, $filter, AdminUserService) {
+    var vm = this;
+    
     AdminUserService.query(function (data) {
       $scope.users = data;
       $scope.buildPager();
