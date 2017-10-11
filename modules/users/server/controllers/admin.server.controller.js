@@ -251,7 +251,7 @@ exports.changeUserDepartment = function (req, res) {
   if (oldDepartmentId) {
     if (_.contains(user.roles, 'manager')) {
       Department.removeLeader(oldDepartmentId, user._id).then(department => {
-        console.log(department);
+        User.setLeaders(department._id, department.leaders);
       });
     } else {
       Department.removeMember(oldDepartmentId, user._id);
@@ -273,7 +273,7 @@ exports.changeUserDepartment = function (req, res) {
     // Thêm user hiện hành vào department mới
     if (_.contains(user.roles, 'manager')) {
       Department.addLeader(req.body.newDepartment, user._id).then(department => {
-        console.log(department);
+        User.setLeaders(department._id, department.leaders);
       });
       return res.end();
     } else {
