@@ -54,7 +54,7 @@ DepartmentSchema.statics.addMember = function (departmentId, userId) {
 DepartmentSchema.statics.removeLeader = function (departmentId, userId) {
   return this.findByIdAndUpdate(departmentId, {
     '$pull': {
-      'leaders': { '_id': new ObjectId(userId) }
+      'leaders': { '_id': new Schema.ObjectId(userId) }
     }
   });
 };
