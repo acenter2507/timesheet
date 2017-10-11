@@ -106,8 +106,8 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     };
     // Thay đổi role của user
     vm.handleChangeRoles = () => {
-      if (vm.busy) return;
-      vm.busy = true;
+      if (vm.roles_busy) return;
+      vm.roles_busy = true;
       $scope.roles = vm.user.roles;
       ngDialog.openConfirm({
         templateUrl: 'selectRolesTemplate.html',
@@ -119,21 +119,21 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
           .success(res => {
             vm.user.roles = roles;
             vm.user.leaders = res;
-            vm.busy = false;
+            vm.roles_busy = false;
             $scope.handleShowToast('役割が変更しました。', false);
           })
           .error(err => {
-            vm.busy = false;
+            vm.roles_busy = false;
             $scope.handleShowToast(err.message, true);
           });
       }, () => {
-        vm.busy = false;
+        vm.roles_busy = false;
         delete $scope.roles;
       });
     };
     vm.handleChangeDeparment = () => {
-      if (vm.busy) return;
-      vm.busy = true;
+      if (vm.department_busy) return;
+      vm.department_busy = true;
       $scope.dialog = {
         departments: vm.departments,
         department: vm.user.department
@@ -153,14 +153,14 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
               vm.user.leaders = res;
             }
             $scope.handleShowToast('役割が変更しました。', false);
-            vm.busy = false;
+            vm.department_busy = false;
           })
           .error(err => {
-            vm.busy = false;
+            vm.department_busy = false;
             $scope.handleShowToast(err.message, true);
           });
       }, () => {
-        vm.busy = false;
+        vm.department_busy = false;
         delete $scope.dialog;
       });
     };
