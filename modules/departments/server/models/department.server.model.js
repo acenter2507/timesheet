@@ -31,7 +31,9 @@ DepartmentSchema.plugin(paginate);
 
 DepartmentSchema.statics.addLeader = function (departmentId, userId) {
   return this.findById(departmentId).exec(function (err, department) {
-    console.log(department);
+    console.log('1111111111111111111');
+    console.log(department.leaders);
+    console.log(userId);
     if (err || !department) return;
     if (!_.contains(department.leaders, userId)) {
       department.leaders.push(userId);
@@ -54,7 +56,9 @@ DepartmentSchema.statics.addMember = function (departmentId, userId) {
 
 DepartmentSchema.statics.removeLeader = function (departmentId, userId) {
   return this.findById(departmentId).exec(function (err, department) {
-    console.log(department);
+    console.log('2222222222222222222');
+    console.log(department.leaders);
+    console.log(userId);
     if (err || !department) return;
     if (_.contains(department.leaders, userId)) {
       department.leaders.pull(userId);
