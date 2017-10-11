@@ -260,15 +260,13 @@ exports.changeUserDepartment = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      var newDepartmentId = (user.department) ? user.department._id || user.department : undefined;
-      if (!newDepartmentId)
-        return res.end();
+      if (!req.body.newDepartment || req.body.newDepartment === '') return res.end();
       if (_.contains(user.roles, 'manager')) {
-        Department.addLeader(oldDepartmentId, user._id);
+        Department.addLeader(req.body.newDepartment, user._id);
         return res.end();
       } else {
-        Department.addMember(oldDepartmentId, user._id);
-        Department.findById(newDepartmentId)
+        Department.addMember(req.body.newDepartment, user._id);
+        Department.findById(req.body.newDepartment)
           .populate('leaders', 'displayName email profileImageURL')
           .exec((err, department) => {
             return res.jsonp(department.leaders);
