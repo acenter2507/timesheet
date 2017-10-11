@@ -238,9 +238,9 @@ exports.changeUserRoles = function (req, res) {
         .then(department => {
           return Department.addMember(departmentId, user._id);
         }, handleError).then(department => {
+          user.leaders = department.leaders;
           return User.setLeaders(department._id, department.leaders);
         }, handleError).then(result => {
-          user.leaders = department.leaders;
           return user.save();
         }, handleError).then(_user => {
           Department.findById(department._id)
