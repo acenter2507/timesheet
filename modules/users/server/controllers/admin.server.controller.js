@@ -261,18 +261,19 @@ exports.changeUserDepartment = function (req, res) {
       });
     } else {
       var newDepartmentId = user.department._id || user.department;
-      if (!newDepartmentId) 
-        return res.jsonp([]);
+      if (!newDepartmentId)
+        return res.end();
       if (_.contains(user.roles, 'manager')) {
         Department.addLeader(oldDepartmentId, user._id);
+        return res.end();
       } else {
         Department.addMember(oldDepartmentId, user._id);
+        Department.findById(newDepartmentId)
+          .populate('leaders', 'displayName email profileImageURL')
+          .exec((err, department) => {
+            return res.jsonp(department.leaders);
+          });
       }
-      Department.findById(newDepartmentId)
-        .populate('leaders', 'displayName email profileImageURL')
-        .exec((err, department) => {
-          res.jsonp(department.leaders);
-        });
     }
   });
 };
