@@ -34,7 +34,7 @@
           </div>
         </div>
         <div ng-if="vm.user._id" class="form-group">
-          <a class="btn btn-default btn-block" ng-click="vm.handleResetPassword()">パスワード変更</a>
+          <a class="btn btn-warning btn-block" ng-click="vm.handleResetPassword()">パスワード変更</a>
         </div>
         <!-- Roles -->
         <div ng-if="!vm.user._id" class="form-group" show-errors>
@@ -49,7 +49,8 @@
           </div>
         </div>
         <div ng-if="vm.user._id" class="form-group">
-          <a class="btn btn-default btn-block" ng-click="vm.handleChangeRoles()">役割変更</a>
+          <input ng-bind="vm.user.roles | RoleFilter" class="form-control" disabled>
+          <a class="btn btn-warning btn-block" ng-click="vm.handleChangeRoles()">役割変更</a>
         </div>
       </div>
     </div>
@@ -126,11 +127,16 @@
     <div class="col-xs-12 col-sm-6 col-md-3">
       <div class="well">
         <h3 class="mg12y">社員情報</h3>
-        <div class="form-group">
+        <!-- Department -->
+        <div ng-if="!vm.user._id" class="form-group">
           <select name="department" class="form-control" ng-model="vm.user.department" ng-change="vm.handleChangeDepartment()">
             <option value>部署</option>
             <option ng-repeat="department in vm.departments" value="{{department._id}}" ng-selected="vm.user.department._id === department._id">{{:: department.name}}</option>
           </select>
+        </div>
+        <div ng-if="vm.user._id" class="form-group">
+          <input ng-bind="vm.user.department.name" class="form-control" disabled>
+          <a class="btn btn-warning btn-block" ng-click="vm.handleChangeDeparment()">部署変更</a>
         </div>
 
         <h4 class="mg5y" ng-if="vm.user.leaders.length > 0">リーダ</h4>

@@ -108,16 +108,44 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     vm.handleChangeRoles = () => {
       $scope.roles = vm.user.roles;
       ngDialog.openConfirm({
-        templateUrl: 'selectDepartmentTemplate.html',
+        templateUrl: 'selectRolesTemplate.html',
         scope: $scope
       }).then(roles => {
+        delete $scope.roles;
+        if (angular.equals(roles, vm.user.roles)) return;
         AdminUserApi.changeUserRoles(vm.user._id, roles)
           .success(() => {
+            vm.user.roles = roles;
             $scope.handleShowToast('役割が変更しました。', false);
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);
           });
+      }, () => {
+        delete $scope.roles;
+      });
+    };
+    vm.handleChangeDeparment = () => {
+      $scope.dialog = {
+        departments: vm.departments,
+        department: vm.user.department._id || vm.user.department
+      };
+      ngDialog.openConfirm({
+        templateUrl: 'selectDepartmentTemplate.html',
+        scope: $scope
+      }).then(department => {
+        delete $scope.dialog;
+        if (department.toString() === vm.user.department.toString()) return;
+        AdminUserApi.changeUserDepartment(vm.user._id, roles)
+          .success(() => {
+            vm.user.department = _.findWhere(vm.departments, { _id: department });
+            $scope.handleShowToast('役割が変更しました。', false);
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      }, () => {
+        delete $scope.dialog;
       });
     };
     // Verify user is manager or user
