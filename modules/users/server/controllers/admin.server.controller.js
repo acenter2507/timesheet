@@ -25,10 +25,14 @@ exports.add = function (req, res) {
       if (err) return handleError(err);
       // Thêm user vào department
       var departmentId = (user.department) ? user.department._id || user.department : undefined;
-      if (_.contains(user.roles, 'manager')) {
-        Department.addLeader(departmentId, user._id);
-      } else {
-        Department.addMember(departmentId, user._id);
+      if (departmentId) {
+        if (_.contains(user.roles, 'manager')) {
+          Department.addLeader(departmentId, user._id).then(department => {
+            User.setLeaders(department._id, department.leaders);
+          });
+        } else {
+          Department.addMember(departmentId, user._id);
+        }
       }
       res.jsonp(user);
     });
@@ -53,6 +57,11 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var user = req.model;
+
+  delete req.body.roles;
+  delete req.body.department;
+  delete req.body.password;
+
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
   user.displayName = user.firstName + ' ' + user.lastName;
@@ -73,10 +82,14 @@ exports.delete = function (req, res) {
   var user = req.model;
 
   var departmentId = (user.department) ? user.department._id || user.department : undefined;
-  if (_.contains(user.roles, 'manager')) {
-    Department.removeLeader(departmentId, user._id);
-  } else {
-    Department.removeMember(departmentId, user._id);
+  if (departmentId) {
+    if (_.contains(user.roles, 'manager')) {
+      Department.removeLeader(departmentId, user._id).then(department => {
+        User.setLeaders(department._id, department.leaders);
+      });
+    } else {
+      Department.removeMember(departmentId, user._id);
+    }
   }
 
   user.remove(function (err) {
