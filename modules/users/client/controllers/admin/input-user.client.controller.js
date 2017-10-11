@@ -91,6 +91,8 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     };
     // Thay đổi mật khẩu của user
     vm.handleResetPassword = () => {
+      if (vm.roles_busy) return;
+      vm.password_busy = true;
       ngDialog.openConfirm({
         templateUrl: 'changePassTemplate.html',
         scope: $scope
@@ -98,10 +100,14 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         AdminUserApi.changeUserPassword(vm.user._id, password)
           .success(() => {
             $scope.handleShowToast('パスワードが変更しました。', false);
+            vm.password_busy = false;
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);
+            vm.password_busy = false;
           });
+      }, () => {
+        vm.password_busy = false;
       });
     };
     // Thay đổi role của user

@@ -34,7 +34,9 @@
           </div>
         </div>
         <div ng-if="vm.user._id" class="form-group">
-          <a class="btn btn-warning btn-block" ng-click="vm.handleResetPassword()">パスワード変更</a>
+          <a class="btn btn-warning btn-block" ng-click="vm.handleResetPassword()">
+            <i ng-show="vm.password_busy" class="fa fa-spinner fa-pulse fa-fw"></i>パスワード変更
+          </a>
         </div>
         <!-- Roles -->
         <div ng-if="!vm.user._id" class="form-group" show-errors>
