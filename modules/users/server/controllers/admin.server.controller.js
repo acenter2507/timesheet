@@ -234,10 +234,12 @@ exports.changeUserRoles = function (req, res) {
           return res.jsonp(_user.leaders);
         }, handleError);
     } else {
+      var department;
       Department.removeLeader(departmentId, user._id)
-        .then(department => {
-          return Department.addMember(departmentId, user._id);
-        }, handleError).then(department => {
+        .then(_department => {
+          department = _department;
+          return Department.addMember(department._id, user._id);
+        }, handleError).then(_department => {
           user.leaders = department.leaders;
           return User.setLeaders(department._id, department.leaders);
         }, handleError).then(result => {
