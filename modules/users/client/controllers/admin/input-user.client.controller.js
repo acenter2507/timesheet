@@ -114,8 +114,9 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         delete $scope.roles;
         if (angular.equals(roles, vm.user.roles)) return;
         AdminUserApi.changeUserRoles(vm.user._id, roles)
-          .success(() => {
+          .success(res => {
             vm.user.roles = roles;
+            vm.user.leaders = res;
             $scope.handleShowToast('役割が変更しました。', false);
           })
           .error(err => {
