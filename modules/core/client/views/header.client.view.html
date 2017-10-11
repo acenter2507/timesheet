@@ -66,3 +66,19 @@
     <div class="clearfix"></div>
   </div>
 </script>
+<script type="text/ng-template" id="selectDepartmentTemplate.html">
+  <p>役割を選択してください！</p>
+  <p class="font-sm text-muted">役割を変更したらリーダと部署の情報が影響さえれます。</p>
+
+  <select ng-model="roles" class="form-control" ng-list>
+    <option value="user">一般社員</option>
+    <option value="user,accountant">経理</option>
+    <option value="user,manager">マネージャ</option>
+  </select>
+
+  <div class="form-group mg12t mgnb">
+    <button class="btn btn-default pull-right" ng-click="closeThisDialog()">キャンセル</button>
+    <button class="btn btn-primary pull-right mg10r" ng-click="confirm(roles)">変更</button>
+    <div class="clearfix"></div>
+  </div>
+</script>

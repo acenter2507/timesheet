@@ -15,6 +15,9 @@
     this.changeUserPassword = (userId, newPassword) => {
       return $http.post('/api/users/' + userId + '/resetpass', { newPassword: newPassword }, { ignoreLoadingBar: true });
     };
+    this.changeUserRoles = (userId, newRoles) => {
+      return $http.post('/api/users/' + userId + '/roles', { newRoles: newRoles }, { ignoreLoadingBar: true });
+    };
     this.searchUsers = (key, ignores, roles) => {
       return $http.post('/api/users/search', { key: key, ignores: ignores, roles: roles }, { ignoreLoadingBar: true });
     };

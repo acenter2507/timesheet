@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
+  _ = require('underscore'),
   Schema = mongoose.Schema;
 
 /**
@@ -27,5 +28,49 @@ var DepartmentSchema = new Schema({
   user: { type: Schema.ObjectId, ref: 'User' }
 });
 DepartmentSchema.plugin(paginate);
+
+DepartmentSchema.statics.addLeader = function (departmentId, userId) {
+  return this.findById(departmentId).exec(function (err, department) {
+    if (err || !department) return;
+    if (!_.contains(department.leaders, userId)) {
+      department.leaders.push(userId);
+      return department.save();
+    }
+    return;
+  });
+};
+
+DepartmentSchema.statics.addMember = function (departmentId, userId) {
+  return this.findById(departmentId).exec(function (err, department) {
+    if (err || !department) return;
+    if (!_.contains(department.members, userId)) {
+      department.members.push(userId);
+      return department.save();
+    }
+    return;
+  });
+};
+
+DepartmentSchema.statics.removeLeader = function (departmentId, userId) {
+  return this.findById(departmentId).exec(function (err, department) {
+    if (err || !department) return;
+    if (_.contains(department.leaders, userId)) {
+      department.leaders.pull(userId);
+      return department.save();
+    }
+    return;
+  });
+};
+
+DepartmentSchema.statics.removeMember = function (departmentId, userId) {
+  return this.findById(departmentId).exec(function (err, department) {
+    if (err || !department) return;
+    if (_.contains(department.members, userId)) {
+      department.members.pull(userId);
+      return department.save();
+    }
+    return;
+  });
+};
 
 mongoose.model('Department', DepartmentSchema);

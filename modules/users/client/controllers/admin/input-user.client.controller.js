@@ -25,13 +25,11 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       vm.leaderSearchKey = '';
       vm.leaderSearching = false;
     }
-
     function prepareDepartments() {
       DepartmentsService.query(data => {
         vm.departments = data;
       });
     }
-
     // Lưu thông tin user
     vm.handleSaveUser = isValid => {
       if (vm.busy) return;
@@ -60,7 +58,6 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         vm.busy = false;
       }
     };
-
     // Hủy nhập liệu
     vm.handleCancelInput = () => {
       $scope.handleShowConfirm({
@@ -107,6 +104,22 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
           });
       });
     };
+    // Thay đổi role của user
+    vm.handleChangeRoles = () => {
+      $scope.roles = vm.user.roles;
+      ngDialog.openConfirm({
+        templateUrl: 'selectDepartmentTemplate.html',
+        scope: $scope
+      }).then(roles => {
+        AdminUserApi.changeUserRoles(vm.user._id, roles)
+          .success(() => {
+            $scope.handleShowToast('役割が変更しました。', false);
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
     // Verify user is manager or user
     vm.isUserRole = () => {
       if (_.contains(vm.user.roles, 'manager') || _.contains(vm.user.roles, 'admin')) {
@@ -114,7 +127,6 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       }
       return true;
     };
-
     // Thay đổi department
     vm.handleChangeDepartment = () => {
       if (!vm.isUserRole() || !vm.user.department) return;

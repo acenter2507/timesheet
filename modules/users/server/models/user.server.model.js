@@ -70,7 +70,6 @@ var UserSchema = new Schema({
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date }
 });
-UserSchema.index({ firstName: 'text', lastName: 'text', email: 'text' });
 UserSchema.plugin(paginate);
 
 /**

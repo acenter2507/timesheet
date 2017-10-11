@@ -53,14 +53,9 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var user = req.model;
-
-  var oldDepartmentId = user.department._id || user.department;
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
   user.displayName = user.firstName + ' ' + user.lastName;
-  var newDepartmentId = user.department._id || user.department;
-
-
   user.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -76,6 +71,13 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
   var user = req.model;
+
+  var departmentId = user.department._id || user.department;
+  if (_.contains(user.roles, 'manager')) {
+    Department.removeLeader(departmentId, user._id);
+  } else {
+    Department.removeMember(departmentId, user._id);
+  }
 
   user.remove(function (err) {
     if (err) {
@@ -174,6 +176,58 @@ exports.changeUserPassword = function (req, res) {
     return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
   }
   user.password = newPassword;
+  user.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.end();
+    }
+  });
+};
+
+/**
+ * Đổi mật khẩu user
+ */
+exports.changeUserRoles = function (req, res) {
+  var user = req.model;
+  if (!user) {
+    return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
+  }
+
+  var oldRoles = user.roles;
+  var newRoles = req.body.newRoles || [];
+  if (newRoles.length === 0) {
+    return res.status(400).send({ message: '役割が無効です。' });
+  }
+
+  var diff = _.difference(oldRoles, newRoles);
+
+  if (diff.length === 0)
+    return res.status(400).send({ message: '役割が変わりません。' });
+
+  if (_.contains(oldRoles, 'manager')) {
+    if (!_.contains(newRoles, 'manager')) {
+      // Xóa bỏ 1 leader trong department
+      var departmentId = user.department._id || user.department;
+      if (departmentId) {
+        Department.removeLeader(departmentId, user._id);
+        Department.addMember(departmentId, user._id);
+      }
+    }
+  } else {
+    if (_.contains(newRoles, 'manager')) {
+      var departmentId = user.department._id || user.department;
+      if (departmentId) {
+        Department.removeLeader(departmentId, user._id);
+        Department.addMember(departmentId, user._id);
+      }
+      user.leaders = [];
+    }
+  }
+
+  user.roles = newRoles;
   user.save(function (err) {
     if (err) {
       return res.status(400).send({
