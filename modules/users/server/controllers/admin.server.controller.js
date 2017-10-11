@@ -257,7 +257,7 @@ exports.changeUserDepartment = function (req, res) {
   }
   // Thay đổi department
   if (!req.body.newDepartment || req.body.newDepartment === '') {
-    delete user.department;
+    user.department = null;
   } else {
     user.department = req.body.newDepartment;
   }
