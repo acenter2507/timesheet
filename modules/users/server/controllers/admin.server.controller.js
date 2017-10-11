@@ -214,7 +214,8 @@ exports.changeUserRoles = function (req, res) {
   if (newRoles.length === 0) {
     return res.status(400).send({ message: '役割が無効です。' });
   }
-
+  console.log(oldRoles);
+  console.log(newRoles);
   if (arraysEqual(oldRoles, newRoles))
     return res.status(400).send({ message: '役割が変わりません。' });
 
