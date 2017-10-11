@@ -31,11 +31,12 @@ DepartmentSchema.plugin(paginate);
 
 DepartmentSchema.statics.addLeader = function (departmentId, userId) {
   return this.findById(departmentId).exec(function (err, department) {
-    if (err || !department) return;
-    if (!_.contains(department.leaders, userId)) {
-      department.leaders.push(userId);
-      return department.save();
-    }
+    console.log(department);
+    // if (err || !department) return;
+    // if (!_.contains(department.leaders, userId)) {
+    //   department.leaders.push(userId);
+    //   return department.save();
+    // }
     return;
   });
 };
@@ -52,10 +53,14 @@ DepartmentSchema.statics.addMember = function (departmentId, userId) {
 };
 
 DepartmentSchema.statics.removeLeader = function (departmentId, userId) {
-  return this.findByIdAndUpdate(departmentId, {
-    '$pull': {
-      'leaders': { '_id': new Schema.ObjectId(userId) }
-    }
+  return this.findById(departmentId).exec(function (err, department) {
+    console.log(department);
+    // if (err || !department) return;
+    // if (_.contains(department.leaders, userId)) {
+    //   department.leaders.pull(userId);
+    //   return department.save();
+    // }
+    return;
   });
 };
 
