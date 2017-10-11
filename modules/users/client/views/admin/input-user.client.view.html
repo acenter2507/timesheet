@@ -131,11 +131,11 @@
         <div ng-if="!vm.user._id" class="form-group">
           <select name="department" class="form-control" ng-model="vm.user.department" ng-change="vm.handleChangeDepartment()">
             <option value>部署</option>
-            <option ng-repeat="department in vm.departments" value="{{department._id}}" ng-selected="vm.user.department._id === department._id">{{:: department.name}}</option>
+            <option ng-repeat="department in vm.departments" value="{{department._id}}">{{:: department.name}}</option>
           </select>
         </div>
         <div ng-if="vm.user._id" class="form-group">
-          <span>{{vm.user.department.name}}</span>
+          <span>{{vm.currentDepartment.name}}</span>
           <a class="btn btn-warning w100" ng-click="vm.handleChangeDeparment()">部署変更</a>
         </div>
 

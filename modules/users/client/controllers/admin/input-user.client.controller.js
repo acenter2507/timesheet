@@ -15,20 +15,19 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         userResolve.roles = ['user'];
         userResolve.leaders = [];
       } else {
-        console.log(vm.user);
         if (vm.user.private.birthdate) {
           var birth = moment(vm.user.private.birthdate).local().format('YYYY/MM/DD');
           vm.user.private.birthdate = birth;
         }
       }
       prepareDepartments();
-      vm.isShowLeaderDropdown = false;
-      vm.leaderSearchKey = '';
-      vm.leaderSearching = false;
     }
     function prepareDepartments() {
       DepartmentsService.query(data => {
         vm.departments = data;
+        if (vm.user.department) {
+          vm.currentDepartment = _.findWhere(vm.departments, { _id: vm.user.department });
+        }
       });
     }
     // Lưu thông tin user
@@ -129,7 +128,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     vm.handleChangeDeparment = () => {
       $scope.dialog = {
         departments: vm.departments,
-        department: vm.user.department._id || vm.user.department
+        department: vm.user.department
       };
       ngDialog.openConfirm({
         templateUrl: 'selectDepartmentTemplate.html',
@@ -139,7 +138,8 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         if (department.toString() === vm.user.department.toString()) return;
         AdminUserApi.changeUserDepartment(vm.user._id, department)
           .success(() => {
-            vm.user.department = _.findWhere(vm.departments, { _id: department });
+            vm.user.department = department;
+            vm.currentDepartment = _.findWhere(vm.departments, { _id: department });
             $scope.handleShowToast('役割が変更しました。', false);
           })
           .error(err => {
