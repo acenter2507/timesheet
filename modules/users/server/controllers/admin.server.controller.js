@@ -240,7 +240,10 @@ exports.changeUserRoles = function (req, res) {
         user.save(err => {
           if (err)
             return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-          return res.jsonp(user.leaders);
+          // Lấy danh sách leaders đầy đủ
+          Department.populate(department, { path: 'leaders' }, (err, department) => {
+            return res.jsonp(department.leaders);
+          });
         });
       });
     }
