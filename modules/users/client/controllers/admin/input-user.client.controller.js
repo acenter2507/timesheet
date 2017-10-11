@@ -134,7 +134,9 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         templateUrl: 'selectDepartmentTemplate.html',
         scope: $scope
       }).then(department => {
-        if (department.toString() === vm.user.department.toString()) return;
+        delete $scope.dialog;
+        if (!department) return;
+        if (vm.user.department && department.toString() === vm.user.department.toString()) return;
         AdminUserApi.changeUserDepartment(vm.user._id, department)
           .success(res => {
             vm.user.department = department;
@@ -145,7 +147,6 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
           .error(err => {
             $scope.handleShowToast(err.message, true);
           });
-        delete $scope.dialog;
       }, () => {
         delete $scope.dialog;
       });
