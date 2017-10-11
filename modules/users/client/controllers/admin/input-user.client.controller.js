@@ -137,9 +137,10 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         delete $scope.dialog;
         if (department.toString() === vm.user.department.toString()) return;
         AdminUserApi.changeUserDepartment(vm.user._id, department)
-          .success(() => {
+          .success(res => {
             vm.user.department = department;
             vm.currentDepartment = _.findWhere(vm.departments, { _id: department });
+            vm.user.leaders = res;
             $scope.handleShowToast('役割が変更しました。', false);
           })
           .error(err => {

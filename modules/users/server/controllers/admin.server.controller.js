@@ -246,47 +246,33 @@ exports.changeUserDepartment = function (req, res) {
   if (!user) {
     return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
   }
+  var oldDepartmentId = user.department._id || user.department;
+  if (_.contains(user.roles, 'manager')) {
+    Department.removeLeader(oldDepartmentId, user._id);
+  } else {
+    Department.removeMember(oldDepartmentId, user._id);
+  }
 
-  console.log(req.body.newDepartment);
-  res.end();
-  // var oldRoles = user.roles;
-  // var newRoles = req.body.newRoles || [];
-  // if (newRoles.length === 0) {
-  //   return res.status(400).send({ message: '役割が無効です。' });
-  // }
-
-  // var diff = _.difference(oldRoles, newRoles);
-
-  // if (diff.length === 0)
-  //   return res.status(400).send({ message: '役割が変わりません。' });
-
-  // var departmentId = user.department._id || user.department;
-  // if (_.contains(oldRoles, 'manager')) {
-  //   if (!_.contains(newRoles, 'manager')) {
-  //     // Xóa bỏ 1 leader trong department
-  //     if (departmentId) {
-  //       Department.removeLeader(departmentId, user._id);
-  //       Department.addMember(departmentId, user._id);
-  //     }
-  //   }
-  // } else {
-  //   if (_.contains(newRoles, 'manager')) {
-  //     if (departmentId) {
-  //       Department.removeLeader(departmentId, user._id);
-  //       Department.addMember(departmentId, user._id);
-  //     }
-  //     user.leaders = [];
-  //   }
-  // }
-
-  // user.roles = newRoles;
-  // user.save(function (err) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   } else {
-  //     res.end();
-  //   }
-  // });
+  user.department = req.body.newDepartment;
+  user.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      var newDepartmentId = user.department._id || user.department;
+      if (!newDepartmentId) 
+        return res.jsonp([]);
+      if (_.contains(user.roles, 'manager')) {
+        Department.addLeader(oldDepartmentId, user._id);
+      } else {
+        Department.addMember(oldDepartmentId, user._id);
+      }
+      Department.findById(newDepartmentId)
+        .populate('leaders', 'displayName email profileImageURL')
+        .exec((err, department) => {
+          res.jsonp(department.leaders);
+        });
+    }
+  });
 };
