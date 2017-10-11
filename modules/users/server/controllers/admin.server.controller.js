@@ -8,7 +8,8 @@ var path = require('path'),
   User = mongoose.model('User'),
   Department = mongoose.model('Department'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
-var _ = require('underscore');
+var _ = require('underscore'),
+  _moment = require('moment');
 
 /**
  * Add a User
@@ -22,13 +23,13 @@ exports.add = function (req, res) {
     user.displayName = user.firstName + ' ' + user.lastName;
     user.save(function (err) {
       if (err) return handleError(err);
-      // // Thêm user vào department
-      // var departmentId = user.department._id || user.department;
-      // if (_.contains(user.roles, 'manager')) {
-      //   Department.addLeader(departmentId, user._id);
-      // } else {
-      //   Department.addMember(departmentId, user._id);
-      // }
+      // Thêm user vào department
+      var departmentId = user.department._id || user.department;
+      if (_.contains(user.roles, 'manager')) {
+        Department.addLeader(departmentId, user._id);
+      } else {
+        Department.addMember(departmentId, user._id);
+      }
       res.jsonp(user);
     });
 
@@ -53,10 +54,12 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var user = req.model;
 
+  var oldDepartmentId = user.department._id || user.department;
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
   user.displayName = user.firstName + ' ' + user.lastName;
-  console.log(req.body);
+  var newDepartmentId = user.department._id || user.department;
+
 
   user.save(function (err) {
     if (err) {

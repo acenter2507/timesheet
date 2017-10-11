@@ -10,11 +10,15 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
 
     function onCreate() {
       vm.user = userResolve;
-      console.log(vm.user);
       if (!vm.user._id) {
         userResolve.private = { sex: 1 };
         userResolve.roles = ['user'];
         userResolve.leaders = [];
+      } else {
+        if (vm.user.private.birthdate) {
+          var birth = moment(vm.user.private.birthdate).local().format('YYYY/MM/DD');
+          vm.user.private.birthdate = birth;
+        }
       }
       prepareDepartments();
       vm.isShowLeaderDropdown = false;
@@ -38,7 +42,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         return false;
       }
 
-      console.log(vm.user);
+      // Chuyển danh sách leader về dạng string array
       var leaderIds = _.pluck(vm.user.leaders, '_id');
       vm.user.leaders = leaderIds;
 
@@ -65,7 +69,6 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         handlePreviousScreen();
       });
     };
-
     // Xóa user level logic
     vm.handleRemoveUser = () => {
       $scope.handleShowConfirm({
@@ -76,10 +79,9 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
           if (!$scope.isAdmin) {
             handlePreviousScreen();
           }
-        })
+        });
       });
     };
-
     // Xóa user level vật lý
     vm.handleAdminRemoveUser = () => {
       $scope.handleShowConfirm({
@@ -87,10 +89,9 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       }, () => {
         vm.user.$remove(() => {
           handlePreviousScreen();
-        })
+        });
       });
     };
-
     // Thay đổi mật khẩu của user
     vm.handleResetPassword = () => {
       ngDialog.openConfirm({
@@ -106,66 +107,23 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
           });
       });
     };
-
     // Verify user is manager or user
     vm.isUserRole = () => {
       if (_.contains(vm.user.roles, 'manager') || _.contains(vm.user.roles, 'admin')) {
         return false;
       }
       return true;
-    }
+    };
 
     // Thay đổi department
     vm.handleChangeDepartment = () => {
       if (!vm.isUserRole() || !vm.user.department) return;
       var dpt = _.findWhere(vm.departments, { _id: vm.user.department });
-      $scope.handleShowConfirm({
-        message: dpt.name + 'のリーダーをリストに追加しますか？',
-        button: '追加'
-      }, () => {
-        vm.user.leaders = _.union(vm.user.leaders, dpt.leaders);
-      });
+      vm.user.leaders = dpt.leaders;
     };
-
-    vm.handleLeaderInputChanged = () => {
-      if (vm.leaderSearchKey === '') return;
-      if (vm.leaderSearchTimer) {
-        $timeout.cancel(vm.leaderSearchTimer);
-        vm.leaderSearchTimer = undefined;
-      }
-      vm.leaderSearchTimer = $timeout(handleStartSearchLeaders, 500);
-    };
-    vm.handleLeaderSelected = (leader) => {
-      var item = _.findWhere(vm.user.leaders, { _id: leader._id });
-      if (!item) {
-        vm.user.leaders.push(leader);
-      }
-      vm.searchLeaders = _.without(vm.searchLeaders, leader);
-      vm.isShowLeaderDropdown = true;
-      if (!$scope.$$phase) $scope.$digest();
-    };
-    vm.handleLeaderRemoved = (leader) => {
-      vm.user.leaders = _.without(vm.user.leaders, leader);
-    };
-    function handleStartSearchLeaders() {
-      if (vm.leaderSearching) return;
-      vm.leaderSearching = true;
-      vm.isShowLeaderDropdown = true;
-      var leaders = _.pluck(vm.user.leaders, '_id').join();
-      AdminUserApi.searchUsers(vm.leaderSearchKey, leaders, ['manager'])
-        .success(users => {
-          vm.searchLeaders = users;
-          vm.leaderSearching = false;
-          if (!$scope.$$phase) $scope.$digest();
-        })
-        .error(err => {
-          $scope.handleShowToast(err.data.message, true);
-          vm.isShowLeaderDropdown = false;
-          vm.leaderSearching = false;
-        });
-    }
+    // Trở về màn hình trước
     function handlePreviousScreen() {
-      $state.go($state.previous.state.name || 'users.list', $state.previous.params)
+      $state.go($state.previous.state.name || 'users.list', $state.previous.params);
     }
   }
 ]);

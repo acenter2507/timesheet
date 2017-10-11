@@ -40,11 +40,11 @@
         <!-- Roles -->
         <div class="form-group" show-errors>
           <select name="roles" class="form-control" ng-model="vm.user.roles" ng-list required>
-          <option value="user">一般社員</option>
-          <option value="user,accountant">経理</option>
-          <option value="user,manager">マネージャ</option>
-          <option ng-if="isAdmin" value="user,admin">システム管理</option>
-        </select>
+            <option value="user">一般社員</option>
+            <option value="user,accountant">経理</option>
+            <option value="user,manager">マネージャ</option>
+            <option ng-if="isAdmin" value="user,admin">システム管理</option>
+          </select>
           <div ng-messages="vm.form.userForm.roles.$error" role="alert">
             <p class="help-block error-text font-sm" ng-message="required">役割は必須です。</p>
           </div>
@@ -97,7 +97,9 @@
               min-date="'1900/01/01'" max-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body
               placeholder="生年月日" />
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" ng-click="birthdateOpen = true;"><i class="fa fa-calendar"></i></button>
+              <button type="button" class="btn btn-default" ng-click="birthdateOpen = true;">
+                <i class="fa fa-calendar"></i>
+              </button>
             </span>
           </div>
         </div>
@@ -125,9 +127,29 @@
         <div class="form-group">
           <select name="department" class="form-control" ng-model="vm.user.department" ng-change="vm.handleChangeDepartment()">
             <option value>部署</option>
-            <option ng-repeat="department in vm.departments" value="{{department._id}}" ng-selected="vm.user.department._id === department._id" >{{:: department.name}}</option>
+            <option ng-repeat="department in vm.departments" value="{{department._id}}" ng-selected="vm.user.department._id === department._id">{{:: department.name}}</option>
           </select>
         </div>
+
+        <h4 class="mg5y" ng-if="vm.user.leaders.length > 0">リーダ</h4>
+        <!-- Danh sách leader -->
+        <div class="user-item-block" ng-repeat="leader in vm.user.leaders">
+          <div class="user-basic-info">
+            <div class="user-avatar">
+              <img src="{{:: leader.profileImageURL }}">
+            </div>
+            <div class="user-info">
+              <a class="user-info-name" ui-sref="users.view({ userId: leader._id })">{{:: leader.displayName}}</a>
+              <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
+            </div>
+            <div class="user-action">
+              <a class="user-options" ng-click="vm.handleLeaderRemoved(leader)">
+                <i class="fa fa-times"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div class="form-group">
           <input name="employeeId" type="text" class="form-control" ng-model="vm.user.company.employeeId" placeholder="社員番号" />
         </div>
@@ -145,39 +167,6 @@
           <div class="input-group">
             <input name="salary" type="number" class="form-control" ng-model="vm.user.company.salary" placeholder="給料" />
             <span class="input-group-addon">￥</span>
-          </div>
-        </div>
-
-        <h4 class="mg5y">リーダ</h4>
-        <!-- Tìm leader -->
-        <div class="form-group" ng-show="vm.isUserRole()">
-          <div dropdown is-open="vm.isShowLeaderDropdown">
-            <input class="form-control" ng-model="vm.leaderSearchKey" ng-change="vm.handleLeaderInputChanged()" placeholder="リーダを追加">
-            <ul class="dropdown-menu" role="menu">
-              <li class="text-center" ng-show="vm.leaderSearching"><i class="fa fa-spinner fa-pulse fa-fw"></i></li>
-              <li ng-show="!vm.leaderSearching && vm.searchLeaders.length === 0" class="pd12x">データが見つかりません。</li>
-              <li ng-repeat="leader in vm.searchLeaders">
-                <a ng-click="vm.handleLeaderSelected(leader)">
-                <img src="{{::leader.profileImageURL}}" class="user-common-avatar-small">
-                <span>{{::leader.displayName}}</span>
-              </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- Danh sách leader -->
-        <div class="user-item-block" ng-repeat="leader in vm.user.leaders">
-          <div class="user-basic-info">
-            <div class="user-avatar">
-              <img src="{{:: leader.profileImageURL }}">
-            </div>
-            <div class="user-info">
-              <a class="user-info-name" ui-sref="users.view({ userId: leader._id })">{{:: leader.displayName}}</a>
-              <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
-            </div>
-            <div class="user-action">
-              <a class="user-options" ng-click="vm.handleLeaderRemoved(leader)"><i class="fa fa-times"></i></a>
-            </div>
           </div>
         </div>
       </div>
