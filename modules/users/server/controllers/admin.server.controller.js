@@ -61,6 +61,7 @@ exports.update = function (req, res) {
   delete req.body.roles;
   delete req.body.department;
   delete req.body.password;
+  delete req.body.leaders;
 
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
