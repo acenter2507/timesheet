@@ -120,6 +120,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         scope: $scope
       }).then(roles => {
         delete $scope.roles;
+        if (!roles || roles === '') return;
         if (angular.equals(roles, vm.user.roles)) return;
         AdminUserApi.changeUserRoles(vm.user._id, roles)
           .success(res => {
