@@ -222,31 +222,33 @@ exports.changeUserRoles = function (req, res) {
   var departmentId = (user.department) ? user.department._id || user.department : undefined;
   if (departmentId) {
     if (_.contains(newRoles, 'manager')) {
-      Department.removeMember(departmentId, user._id);
-      Department.addLeader(departmentId, user._id).then(department => {
-        User.setLeaders(department._id, department.leaders);
-        user.leaders = [];
-        user.save(err => {
-          if (err)
-            return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-          return res.jsonp(user.leaders);
-        });
-      });
+      Department.addLeader(departmentId, user._id)
+        .then(department => {
+          return Department.removeMember(departmentId, user._id);
+        }, handleError).then(department => {
+          return User.setLeaders(department._id, department.leaders);
+        }, handleError).then(result => {
+          user.leaders = [];
+          return user.save();
+        }, handleError).then(_user => {
+          return res.jsonp(_user.leaders);
+        }, handleError);
     } else {
-      Department.addMember(departmentId, user._id);
-      Department.removeLeader(departmentId, user._id).then(department => {
-        User.setLeaders(department._id, department.leaders);
-        user.leaders = department.leaders;
-        user.save(err => {
-          if (err)
-            return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-          // Lấy danh sách leaders đầy đủ
-          Department.findById(department._id).populate('leaders', 'displayName email profileImageURL')
-            .exec((err, department) => {
-              return res.jsonp(department.leaders);
+      Department.removeLeader(departmentId, user._id)
+        .then(department => {
+          return Department.addMember(departmentId, user._id);
+        }, handleError).then(department => {
+          return User.setLeaders(department._id, department.leaders);
+        }, handleError).then(result => {
+          user.leaders = department.leaders;
+          return user.save();
+        }, handleError).then(_user => {
+          Department.findById(department._id)
+            .populate('leaders', 'displayName email profileImageURL')
+            .exec((err, _department) => {
+              return res.jsonp(_department.leaders);
             });
-        });
-      });
+        }, handleError);
     }
   } else {
     user.save(err => {
@@ -254,6 +256,10 @@ exports.changeUserRoles = function (req, res) {
         return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
       return res.jsonp(user.leaders);
     });
+  }
+
+  function handleError(err) {
+    return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
   }
 };
 
