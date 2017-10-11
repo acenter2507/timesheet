@@ -5,7 +5,6 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
-  User = mongoose.model('User'),
   Schema = mongoose.Schema;
 
 /**
