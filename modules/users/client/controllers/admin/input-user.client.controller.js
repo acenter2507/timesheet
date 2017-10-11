@@ -114,13 +114,13 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     vm.handleChangeRoles = () => {
       if (vm.roles_busy) return;
       vm.roles_busy = true;
-      $scope.roles = vm.user.roles;
+      $scope.roles = getMainRole(vm.user.roles);
       ngDialog.openConfirm({
         templateUrl: 'selectRolesTemplate.html',
         scope: $scope
-      }).then(roles => {
+      }).then(result => {
         delete $scope.roles;
-        if (!roles || roles === '') return;
+        var roles = ['user', result];
         if (angular.equals(roles, vm.user.roles)) return;
         AdminUserApi.changeUserRoles(vm.user._id, roles)
           .success(res => {
@@ -187,6 +187,13 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     // Trở về màn hình trước
     function handlePreviousScreen() {
       $state.go($state.previous.state.name || 'users.list', $state.previous.params);
+    }
+    // Lấy role chính
+    function getMainRole(roles) {
+      if (_.contains(roles, 'admin')) return 'admin';
+      if (_.contains(roles, 'accountant')) return 'accountant';
+      if (_.contains(roles, 'manager')) return 'manager';
+      return 'user';
     }
   }
 ]);
