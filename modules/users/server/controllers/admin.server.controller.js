@@ -246,7 +246,7 @@ exports.changeUserDepartment = function (req, res) {
   if (!user) {
     return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
   }
-  var oldDepartmentId = user.department._id || user.department;
+  var oldDepartmentId = (user.department) ? user.department._id || user.department : undefined;
   if (_.contains(user.roles, 'manager')) {
     Department.removeLeader(oldDepartmentId, user._id);
   } else {
