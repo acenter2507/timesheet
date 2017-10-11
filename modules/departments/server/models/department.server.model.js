@@ -42,9 +42,7 @@ DepartmentSchema.statics.addLeader = function (departmentId, userId) {
     }
     if (!isHas) {
       department.leaders.push(userId);
-      return department.save(() => {
-        User.setLeaders(departmentId, department.leaders);
-      });
+      return department.save();
     }
     return;
   });
@@ -73,9 +71,7 @@ DepartmentSchema.statics.removeLeader = function (departmentId, userId) {
   return this.findById(departmentId).exec(function (err, department) {
     if (err || !department) return;
     department.leaders.pull(userId);
-    return department.save(() => {
-      User.setLeaders(departmentId, department.leaders);
-    });
+    return department.save();
   });
 };
 

@@ -250,7 +250,9 @@ exports.changeUserDepartment = function (req, res) {
   var oldDepartmentId = (user.department) ? user.department._id || user.department : undefined;
   if (oldDepartmentId) {
     if (_.contains(user.roles, 'manager')) {
-      Department.removeLeader(oldDepartmentId, user._id);
+      Department.removeLeader(oldDepartmentId, user._id).then(department => {
+        console.log(department);
+      });
     } else {
       Department.removeMember(oldDepartmentId, user._id);
     }
@@ -270,7 +272,9 @@ exports.changeUserDepartment = function (req, res) {
     if (!newDepartmentId || newDepartmentId === '') return res.end();
     // Thêm user hiện hành vào department mới
     if (_.contains(user.roles, 'manager')) {
-      Department.addLeader(req.body.newDepartment, user._id);
+      Department.addLeader(req.body.newDepartment, user._id).then(department => {
+        console.log(department);
+      });
       return res.end();
     } else {
       Department.addMember(req.body.newDepartment, user._id);
