@@ -136,6 +136,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       }).then(department => {
         delete $scope.dialog;
         if (vm.user.department && department && department.toString() === vm.user.department.toString()) return;
+        if (!department && !vm.user.department) return;
         AdminUserApi.changeUserDepartment(vm.user._id, department)
           .success(res => {
             vm.user.department = department;
