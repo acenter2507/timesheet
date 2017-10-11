@@ -24,7 +24,7 @@ exports.add = function (req, res) {
     user.save(function (err) {
       if (err) return handleError(err);
       // Thêm user vào department
-      var departmentId = user.department._id || user.department;
+      var departmentId = (user.department) ? user.department._id || user.department : undefined;
       if (_.contains(user.roles, 'manager')) {
         Department.addLeader(departmentId, user._id);
       } else {
@@ -72,7 +72,7 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
   var user = req.model;
 
-  var departmentId = user.department._id || user.department;
+  var departmentId = (user.department) ? user.department._id || user.department : undefined;
   if (_.contains(user.roles, 'manager')) {
     Department.removeLeader(departmentId, user._id);
   } else {
@@ -207,7 +207,7 @@ exports.changeUserRoles = function (req, res) {
   if (diff.length === 0)
     return res.status(400).send({ message: '役割が変わりません。' });
 
-  var departmentId = user.department._id || user.department;
+  var departmentId = (user.department) ? user.department._id || user.department : undefined;
   if (_.contains(oldRoles, 'manager')) {
     if (!_.contains(newRoles, 'manager')) {
       // Xóa bỏ 1 leader trong department
@@ -260,7 +260,7 @@ exports.changeUserDepartment = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      var newDepartmentId = user.department._id || user.department;
+      var newDepartmentId = (user.department) ? user.department._id || user.department : undefined;
       if (!newDepartmentId)
         return res.end();
       if (_.contains(user.roles, 'manager')) {
