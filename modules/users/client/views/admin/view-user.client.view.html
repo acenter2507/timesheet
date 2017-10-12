@@ -4,8 +4,8 @@
       <div class="user-basic-info">
         <div class="user-avatar">
           <img src="{{:: vm.user.profileImageURL }}">
-          <span ng-if="vm.user.status === 1" class="user-status working" tooltip-placement="top" tooltip="在職しています。"></span>
-          <span ng-if="vm.user.status === 2" class="user-status retired" tooltip-placement="top" tooltip="退職しました。"></span>
+          <span ng-if="vm.user.status === 1" class="user-status working" tooltip="在職しています。"></span>
+          <span ng-if="vm.user.status === 2" class="user-status retired" tooltip="退職しました。"></span>
         </div>
         <div class="user-info-block">
           <h3>{{:: vm.user.displayName}}</h3>
