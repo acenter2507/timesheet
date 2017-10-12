@@ -6,40 +6,65 @@
     </div>
   </div>
 
-  <!-- Danh sách manager -->
-  <div class="col-xs-12 col-sm-12 col-md-6">
-    <div class="user-item-block" ng-repeat="member in vm.member.data">
-      <div class="user-basic-info">
-        <div class="user-avatar">
-          <img src="{{:: member.profileImageURL }}">
-        </div>
-        <div class="user-info">
-          <a class="user-info-name" ui-sref="users.view({ userId: member._id })">{{:: member.displayName}}</a>
-          <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
-        </div>
-        <div class="user-action">
-          <a class="user-options" ng-click="vm.handleMemberRemoved(member)">
-            <i class="fa fa-times"></i>
-          </a>
+  <div class="col-xs-12">
+    <div class="panel panel-primary" ng-if="isAdmin">
+      <div class="panel-heading">システム管理</div>
+      <div class="panel-body">
+        <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3 pdn" ng-repeat="admin in vm.admin.data">
+          <div class="user-item-block">
+            <div class="user-basic-info">
+              <div class="user-avatar"><img src="{{:: admin.profileImageURL }}"></div>
+              <div class="user-info">
+                <a class="user-info-name" ui-sref="users.view({ userId: admin._id })">{{:: admin.displayName}}</a>
+                <a class="font-sm" ng-href="mailto:{{admin.email}}">{{::admin.email}}</a>
+              </div>
+              <div class="user-action">
+                <a class="user-options" ng-click="vm.handleManagerRemoved(admin)"></a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Danh sách member -->
-  <div class="col-xs-12 col-sm-12 col-md-6">
-    <div class="user-item-block" ng-repeat="manager in vm.manager.data">
-      <div class="user-basic-info">
-        <div class="user-avatar">
-          <img src="{{:: manager.profileImageURL }}">
+  <div class="col-xs-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">マネージャ</div>
+      <div class="panel-body">
+        <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3 pdn" ng-repeat="manager in vm.manager.data">
+          <div class="user-item-block">
+            <div class="user-basic-info">
+              <div class="user-avatar"><img src="{{:: manager.profileImageURL }}"></div>
+              <div class="user-info">
+                <a class="user-info-name" ui-sref="users.view({ userId: manager._id })">{{:: manager.displayName}}</a>
+                <a class="font-sm" ng-href="mailto:{{manager.email}}">{{::manager.email}}</a>
+              </div>
+              <div class="user-action">
+                <a class="user-options" ng-click="vm.handleManagerRemoved(manager)"></a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="user-info">
-          <a class="user-info-name" ui-sref="users.view({ userId: manager._id })">{{:: manager.displayName}}</a>
-          <a class="font-sm" ng-href="mailto:{{manager.email}}">{{::manager.email}}</a>
-        </div>
-        <div class="user-action">
-          <a class="user-options" ng-click="vm.handleManagerRemoved(manager)">
-            <i class="fa fa-times"></i>
-          </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <div class="panel panel-primary" ng-if="isAdmin">
+      <div class="panel-heading">社員</div>
+      <div class="panel-body">
+        <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.member.data">
+          <div class="user-item-block">
+            <div class="user-basic-info">
+              <div class="user-avatar"><img src="{{:: member.profileImageURL }}"></div>
+              <div class="user-info">
+                <a class="user-info-name" ui-sref="users.view({ userId: member._id })">{{:: member.displayName}}</a>
+                <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
+              </div>
+              <div class="user-action">
+                <a class="user-options" ng-click="vm.handleManagerRemoved(member)"></a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
