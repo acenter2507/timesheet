@@ -5,6 +5,7 @@
       <div class="clearfix"></div>
     </div>
   </div>
+  <!-- Hệ thống -->
   <div class="col-xs-12" ng-if="isAdmin">
     <div class="panel panel-danger">
       <div class="panel-heading">
@@ -17,7 +18,10 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="admin in vm.admin.data">
           <div class="user-item-block mg6x">
             <div class="user-basic-info">
-              <div class="user-avatar"><img src="{{:: admin.profileImageURL }}"></div>
+              <div class="user-avatar">
+                <img src="{{:: admin.profileImageURL }}">
+                <span class="user-status" ng-class="{ 'working': admin.status === 1, 'retired': admin.status === 2 }"></span>
+              </div>
               <div class="user-info">
                 <a class="user-info-name" ui-sref="users.view({ userId: admin._id })">{{:: admin.displayName}}</a>
                 <a class="font-sm" ng-href="mailto:{{admin.email}}">{{::admin.email}}</a>
@@ -47,6 +51,7 @@
       </div>
     </div>
   </div>
+  <!-- Quản lý -->
   <div class="col-xs-12">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -59,7 +64,10 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="manager in vm.manager.data">
           <div class="user-item-block mg6x">
             <div class="user-basic-info">
-              <div class="user-avatar"><img src="{{:: manager.profileImageURL }}"></div>
+              <div class="user-avatar">
+                <img src="{{:: manager.profileImageURL }}">
+                <span class="user-status" ng-class="{ 'working': manager.status === 1, 'retired': manager.status === 2 }"></span>
+              </div>
               <div class="user-info">
                 <a class="user-info-name" ui-sref="users.view({ userId: manager._id })">{{:: manager.displayName}}</a>
                 <a class="font-sm" ng-href="mailto:{{manager.email}}">{{::manager.email}}</a>
@@ -89,6 +97,7 @@
       </div>
     </div>
   </div>
+  <!-- Nhân viên -->
   <div class="col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -101,7 +110,10 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.member.data">
           <div class="user-item-block mg6x">
             <div class="user-basic-info">
-              <div class="user-avatar"><img src="{{:: member.profileImageURL }}"></div>
+              <div class="user-avatar">
+                <img src="{{:: member.profileImageURL }}">
+                <span class="user-status" ng-class="{ 'working': member.status === 1, 'retired': member.status === 2 }"></span>
+              </div>
               <div class="user-info">
                 <a class="user-info-name" ui-sref="users.view({ userId: member._id })">{{:: member.displayName}}</a>
                 <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
@@ -131,6 +143,7 @@
       </div>
     </div>
   </div>
+  <!-- User đã bị xóa logic -->
   <div class="col-xs-12" ng-if="isAdmin">
     <div class="panel panel-default">
       <div class="panel-heading">
