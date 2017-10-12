@@ -6,6 +6,13 @@
     </div>
   </div>
 
+  <div class="col-xs-12">
+    <div class="well">
+      <div class="form-group">
+         <a ng-if="isAdmin || isAccountant" ui-sref="users.new" class="btn btn-primary pull-right"><span class="glyphicons glyphicons-user-add"></span></a>
+      </div>
+    </div>
+  </div>
   <div class="col-xs-12 mg12b">
     <div class="panel panel-danger" ng-if="isAdmin">
       <div class="panel-heading">システム管理</div>
