@@ -9,9 +9,9 @@
         </div>
         <div class="user-info-block">
           <h3>{{:: vm.user.displayName}}</h3>
-          <p><i class="fa fa-sitemap"></i> {{:: vm.user.roles | RoleFilter }}</p>
-          <p><i class="fa fa-envelope"></i><a ng-href="mailto:{{member.email}}"> {{:: vm.user.email }}</a></p>
-          <p><i class="fa fa-users"></i> <a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name }}</a></p>
+          <p><i class="fa fa-sitemap"></i> 役割： {{:: vm.user.roles | RoleFilter }}</p>
+          <p><i class="fa fa-envelope"></i> メール：<a ng-href="mailto:{{member.email}}"> {{:: vm.user.email }}</a></p>
+          <p><i class="fa fa-users"></i> 部署：<a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name }}</a></p>
         </div>
         <div class="user-tools">
           <div class="user-tool-button"><i class="fa fa-address-book"></i></div>
