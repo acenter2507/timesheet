@@ -2,20 +2,27 @@
 
 angular.module('users.admin').controller('UserListController', [
   '$scope',
+  '$state',
   '$filter',
   'AdminUserApi',
-  function($scope, $filter, AdminUserApi) {
+  'AdminUserService',
+  'CommonService',
+  function ($scope, $state, $filter, AdminUserApi, AdminUserService, CommonService) {
     var vm = this;
 
-    vm.manager = { page: 1 };
-    vm.member = { page: 1 };
-    vm.admin = { page: 1 };
     onCreate();
 
     function onCreate() {
+      vm.manager = { page: 1 };
+      vm.member = { page: 1 };
       handleLoadManagerUsers();
       handleLoadMemberUsers();
-      handleLoadAdminUsers();
+      if ($scope.isAdmin) {
+        vm.admin = { page: 1 };
+        vm.deleted = { page: 1 };
+        handleLoadAdminUsers();
+        handleLoadDeletedUsers();
+      }
     }
 
     function handleLoadManagerUsers() {
@@ -51,6 +58,17 @@ angular.module('users.admin').controller('UserListController', [
           $scope.handleShowToast(err.message, true);
         });
     }
+    function handleLoadDeletedUsers() {
+      AdminUserApi.loadUsers({ mode: 'deleted' }, vm.deleted.page)
+        .success(res => {
+          vm.deleted.data = res.docs;
+          vm.deleted.pages = createArrayFromRange(res.pages);
+          vm.deleted.total = res.total;
+        })
+        .error(err => {
+          $scope.handleShowToast(err.message, true);
+        });
+    }
 
     vm.handleChangeManagerPage = page => {
       if (vm.manager.page === page) return;
@@ -66,6 +84,87 @@ angular.module('users.admin').controller('UserListController', [
       if (vm.admin.page === page) return;
       vm.admin.page = page;
       handleLoadAdminUsers();
+    };
+    vm.handleChangeDeletedPage = page => {
+      if (vm.deleted.page === page) return;
+      vm.deleted.page = page;
+      handleLoadDeletedUsers();
+    };
+    // View detail user
+    vm.handleDetailUser = user => {
+      if ($scope.isAdmin || $scope.isAccountant) {
+        return $state.go('users.view', { userId: user._id });
+      } else {
+        return $state.go('profile.view', { userId: user._id });
+      }
+    };
+    // Gửi message đến toàn bộ user trong 1 group
+    vm.sendMessageAll = group => {
+      $scope.handleShowToast('只今、この機能は作成中です。');
+    };
+    vm.handleSendMessageUser = user => {
+      $scope.handleShowToast('只今、この機能は作成中です。');
+    };
+    vm.handleLogicDeleteUser = user => {
+      $scope.handleShowConfirm({
+        message: user.displayName + 'のアカウントを削除しますか？'
+      }, () => {
+        var rsUser = new AdminUserService({ _id: user._id });
+        rsUser.status = 3;
+        rsUser.$update(() => {
+          if ($scope.isAdmin) {
+            vm.deleted.page = 1;
+            handleLoadDeletedUsers();
+          }
+        });
+        if (CommonService.checkUserIsAdmin(user.roles)) {
+          vm.admin.data = _.without(vm.admin.data, user);
+        } else if (CommonService.checkUserIsManager(user.roles)) {
+          vm.manager.data = _.without(vm.manager.data, user);
+        } else {
+          vm.member.data = _.without(vm.member.data, user);
+        }
+      });
+    };
+    vm.handleResetUser = user => {
+      $scope.handleShowConfirm({
+        message: user.displayName + 'のアカウントを復元しますか？'
+      }, () => {
+        var rsUser = new AdminUserService({ _id: user._id });
+        rsUser.status = 1;
+        rsUser.$update(() => {
+          if (CommonService.checkUserIsAdmin(user.roles)) {
+            vm.admin.page = 1;
+            handleLoadAdminUsers();
+          } else if (CommonService.checkUserIsManager(user.roles)) {
+            vm.manager.page = 1;
+            handleLoadManagerUsers();
+          } else {
+            vm.member.page = 1;
+            handleLoadMemberUsers();
+          }
+        });
+        vm.deleted.data = _.without(vm.deleted.data, user);
+      });
+    }
+    vm.handleDatabaseDeleteUser = user => {
+      $scope.handleShowConfirm({
+        message: user.displayName + 'のアカウントを完全しますか？'
+      }, () => {
+        var rsUser = new AdminUserService({ _id: user._id });
+        rsUser.$remove();
+        if (user.status === 3) {
+          vm.deleted.data = _.without(vm.deleted.data, user);
+          return;
+        }
+        if (CommonService.checkUserIsAdmin(user.roles)) {
+          vm.admin.data = _.without(vm.admin.data, user);
+        } else if (CommonService.checkUserIsManager(user.roles)) {
+          vm.manager.data = _.without(vm.manager.data, user);
+        } else {
+          vm.member.data = _.without(vm.member.data, user);
+        }
+      });
     };
 
     function createArrayFromRange(range) {

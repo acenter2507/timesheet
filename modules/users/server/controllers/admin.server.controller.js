@@ -157,7 +157,7 @@ exports.loadUsers = function(req, res) {
   var mode = condition.mode;
 
   var query;
-  if (!roles && mode === 'admin') {
+  if (!roles && mode === 'deleted') {
     query = { status: 3 };
   } else {
     if (roles === 'admin' || roles === 'manager') {

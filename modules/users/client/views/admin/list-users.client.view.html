@@ -132,4 +132,46 @@
       </div>
     </div>
   </div>
+  <div class="col-xs-12" ng-if="isAdmin">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <img class="w25 h25" src="./modules/core/client/img/brand/retire.png">
+        <span class="font-weight-bold">削除されたアカウント</span>
+        <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendDatabaseClearAll()" tooltip-placement="left" tooltip="全部削除する"><i class="fa fa-trash fa-lg"></i></a>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="deleted in vm.deleted.data">
+          <div class="user-item-block mg6x">
+            <div class="user-basic-info">
+              <div class="user-avatar"><img src="{{:: deleted.profileImageURL }}"></div>
+              <div class="user-info">
+                <a class="user-info-name" ui-sref="users.view({ userId: deleted._id })">{{:: deleted.displayName}}</a>
+                <a class="font-sm" ng-href="mailto:{{deleted.email}}">{{::deleted.email}}</a>
+              </div>
+              <div class="user-action">
+                <div dropdown dropdown-append-to-body>
+                  <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li><a ui-sref="users.view({ userId: deleted._id })"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                    <li><a ui-sref="users.edit({ userId: deleted._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                    <li><a ui-sref="users.timeshet({ userId: deleted._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                    <li><a ng-click="vm.handleSendMessageUser(deleted)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
+                    <li><a ng-href="mailto:{{deleted.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
+                    <li><a ng-click="vm.handleResetUser(deleted)"><i class="fa fa-user-times"></i> 復元</a></li>
+                    <li><a ng-click="vm.handleDatabaseDeleteUser(deleted)"><i class="fa fa-trash"></i> 完全削除</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <ul class="pagination mgn">
+          <li ng-repeat="page in vm.deleted.pages" ng-class="{'disabled': page === vm.deleted.page}"><a ng-click="vm.handleChangeDeletedPage(page)">{{page}}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
