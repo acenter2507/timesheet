@@ -126,8 +126,9 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row; }
+  flex-direction: column; }
   .user-detail-block .user-basic-info {
+    height: 150px;
     display: flex;
     flex-direction: row; }
     .user-detail-block .user-basic-info .user-avatar {
@@ -184,8 +185,10 @@
         flex-grow: 1;
         width: 100%; }
   .user-detail-block .user-private-info {
+    height: 100px;
     display: flex; }
   .user-detail-block .user-activity-info {
+    height: 100px;
     display: flex; }
 
 
