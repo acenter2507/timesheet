@@ -135,6 +135,7 @@ exports.userByID = function (req, res, next, id) {
 
   User.findById(id, '-salt -password')
     .populate('leaders', 'displayName email profileImageURL')
+    .populate('department', 'name')
     .exec(function (err, user) {
       if (err) {
         return next(err);
