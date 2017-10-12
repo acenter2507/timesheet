@@ -126,7 +126,8 @@
   width: 100%; }
   .user-detail-block .user-basic-info {
     display: flex;
-    flex-wrap: wrap; }
+    flex-wrap: wrap;
+    justify-content: space-between }
     .user-detail-block .user-basic-info .user-avatar {
       position: relative;
       width: 150px;
