@@ -4,11 +4,23 @@
       <div class="user-basic-info">
         <div class="user-avatar">
           <img src="{{:: vm.user.profileImageURL }}">
-          <span class="user-status" ng-class="{ 'working': vm.user.status === 1, 'retired': vm.user.status === 2 }"></span>
+          <span ng-if="vm.user.status === 1" class="user-status working" tooltip-placement="bottom" tooltip="在職しています。"></span>
+          <span ng-if="vm.user.status === 2" class="user-status retired" tooltip-placement="bottom" tooltip="退職しました。"></span>
         </div>
         <div class="user-info-block">
-          <div class="user-tool"></div>
-          <div class="user-info"></div>
+          <div class="user-tool">
+            <div class="user-tool-button"><i class="fa fa-address-book"></i></div>
+            <div class="user-tool-button"><i class="fa fa-address-book"></i></div>
+            <div class="user-tool-button"><i class="fa fa-address-book"></i></div>
+            <div class="user-tool-button"><i class="fa fa-address-book"></i></div>
+            <div class="user-tool-button"><i class="fa fa-address-book"></i></div>
+            <div class="user-tool-button"><i class="fa fa-address-book"></i></div>
+            <div class="user-tool-button"><i class="fa fa-address-book"></i></div>
+            <div class="user-tool-button"><i class="fa fa-address-book"></i></div>
+          </div>
+          <div class="user-info">
+
+          </div>
         </div>
       </div>
       <div class="user-private-info"></div>
