@@ -125,19 +125,13 @@
 .user-detail-block {
   width: 100%; }
   .user-detail-block .user-basic-info {
-    display: flex;
-    flex-direction: row; }
+    display: flex; }
     .user-detail-block .user-basic-info .user-avatar {
       position: relative;
       width: 150px;
       height: 150px; }
     .user-detail-block .user-basic-info .user-info-block {
-      flex-grow: 1;
-      height: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-      background-color: #ddd;}
+      flex-grow: 1;}
       .user-detail-block .user-basic-info .user-avatar img {
         width: 150px;
         height: 150px;
@@ -159,7 +153,7 @@
         background-color: #59BA37;
         height: 50px;
         width: 100%; }
-        .user-detail-block .user-basic-info .user-info-block .user-tool .user-tool-button {
+        /*.user-detail-block .user-basic-info .user-info-block .user-tool .user-tool-button {
           cursor: pointer;
           display: inline-block;
           margin: 0 0.2rem;
@@ -174,12 +168,12 @@
           .user-detail-block .user-basic-info .user-info-block .user-tool .user-tool-button:hover {
             color: #fff;
             background-color: #337ab7;
-          }
+          }*/
 
-      .user-detail-block .user-basic-info .user-info-block .user-info{
+      /*.user-detail-block .user-basic-info .user-info-block .user-info{
         background-color: #DE1281;
         flex-grow: 1;
-        width: 100%; }
+        width: 100%; }*/
   .user-detail-block .user-private-info {
     height: 100px;
     display: flex; }
