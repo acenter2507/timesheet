@@ -246,3 +246,6 @@ a:hover .header-profile-image {
 
 .dropdown-menu.dropdown-menu-right {
   margin-left: -160px; }
+
+.ngdialog-open{
+  height: auto !important; }
