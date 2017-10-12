@@ -112,7 +112,7 @@
                   <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
                   <ul class="dropdown-menu dropdown-menu-right" role="menu">
                     <li><a ng-click="vm.handleDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                    <li ng-if="isLeader"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                    <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
                     <li ng-if="isLeader"><a ui-sref="users.timeshet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                     <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
                     <li><a ng-href="mailto:{{member.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
