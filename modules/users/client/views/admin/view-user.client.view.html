@@ -3,9 +3,11 @@
     <div class="user-detail-block">
       <div class="row">
         <div class="col-xs-12 col-sm-4">
-          <img class="img-circle img-responsive" src="{{:: vm.user.profileImageURL }}">
-          <span ng-if="vm.user.status === 1" class="user-status working" tooltip-placement="bottom" tooltip="在職しています。"></span>
-          <span ng-if="vm.user.status === 2" class="user-status retired" tooltip-placement="bottom" tooltip="退職しました。"></span>
+          <div class="user-avatar">
+            <img src="{{:: vm.user.profileImageURL }}">
+            <span ng-if="vm.user.status === 1" class="user-status working" tooltip-placement="bottom" tooltip="在職しています。"></span>
+            <span ng-if="vm.user.status === 2" class="user-status retired" tooltip-placement="bottom" tooltip="退職しました。"></span>
+          </div>
         </div>
         <div class="col-xs-12 col-sm-8"></div>
       </div>
@@ -15,7 +17,7 @@
 
 
 
-    <!--<div class="user-detail-block">
+<!--<div class="user-detail-block">
       <div class="user-basic-info">
         <div class="user-avatar">
           <img src="{{:: vm.user.profileImageURL }}">
