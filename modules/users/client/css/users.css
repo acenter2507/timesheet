@@ -125,13 +125,15 @@
 .user-detail-block {
   width: 100%; }
   .user-detail-block .user-basic-info {
-    display: flex; }
+    display: flex;
+    flex-wrap: wrap; }
     .user-detail-block .user-basic-info .user-avatar {
       position: relative;
       width: 150px;
       height: 150px; }
     .user-detail-block .user-basic-info .user-info-block {
-      flex-grow: 1;}
+      flex-grow: 1;
+      min-width: 320px;}
       .user-detail-block .user-basic-info .user-avatar img {
         width: 150px;
         height: 150px;
