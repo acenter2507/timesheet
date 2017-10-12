@@ -122,7 +122,52 @@
     width: 100%;
     display: flex; }
 
-
+.user-detail-block {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row; }
+  .user-detail-block .user-basic-info {
+    display: flex; }
+    .user-detail-block .user-basic-info .user-avatar {
+      position: relative;
+      width: 150px;
+      height: 150px; }
+    .user-detail-block .user-basic-info .user-info-block {
+      flex-grow: 1;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row; }
+      .user-detail-block .user-basic-info .user-avatar img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%; }
+      .user-detail-block .user-basic-info .user-avatar .user-status {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 28px;
+        height: 28px;
+        opacity: 0.9;
+        border: 4px solid #fff;
+        border-radius: 50%; }
+        .user-detail-block .user-basic-info .user-avatar .user-status.working{
+          background-color: #59BA37; }
+        .user-detail-block .user-basic-info .user-avatar .user-status.retired{
+          background-color: #ccc; }
+      .user-detail-block .user-basic-info .user-info-block .user-tool{
+        background-color: #59BA37;
+        height: 50px;
+        width: 100%; }
+      .user-detail-block .user-basic-info .user-info-block .user-info{
+        background-color: #DE1281;
+        flex-grow: 1;
+        width: 100%; }
+  .user-detail-block .user-private-info {
+    display: flex; }
+  .user-detail-block .user-activity-info {
+    display: flex; }
 
 
 
