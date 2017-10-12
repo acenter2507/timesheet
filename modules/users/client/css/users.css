@@ -128,7 +128,8 @@
   flex-wrap: wrap;
   flex-direction: row; }
   .user-detail-block .user-basic-info {
-    display: flex; }
+    display: flex;
+    flex-direction: column; }
     .user-detail-block .user-basic-info .user-avatar {
       position: relative;
       width: 150px;
