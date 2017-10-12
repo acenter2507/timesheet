@@ -139,7 +139,8 @@
       height: 100%;
       display: flex;
       flex-wrap: wrap;
-      flex-direction: row; }
+      flex-direction: row;
+      background-color: #ddd;}
       .user-detail-block .user-basic-info .user-avatar img {
         width: 150px;
         height: 150px;
