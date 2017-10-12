@@ -27,6 +27,10 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
+    vm.handleSendMessageUser = () => {
+      $scope.handleShowToast('只今、この機能は作成中です。');
+    };
+
     // $scope.remove = function (user) {
     //   if (confirm('Are you sure you want to delete this user?')) {
     //     if (user) {
