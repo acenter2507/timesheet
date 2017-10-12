@@ -9,6 +9,10 @@
         </div>
         <div class="user-info-block">
           <h3>{{:: vm.user.displayName}}</h3>
+          <p>
+            <i class="fa fa-envelope"></i>
+            <a ng-href="mailto:{{member.email}}">{{:: vm.user.email }}</a>
+          </p>
         </div>
       </div>
     </div>
