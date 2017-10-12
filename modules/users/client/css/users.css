@@ -130,6 +130,7 @@
   .user-detail-block .user-basic-info {
     height: 150px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row; }
     .user-detail-block .user-basic-info .user-avatar {
       position: relative;
