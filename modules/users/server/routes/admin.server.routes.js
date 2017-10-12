@@ -27,6 +27,7 @@ module.exports = function (app) {
   app.route('/api/users/:userId/resetpass').post(adminPolicy.isAllowed, admin.changeUserPassword);
   app.route('/api/users/:userId/roles').post(adminPolicy.isAllowed, admin.changeUserRoles);
   app.route('/api/users/:userId/department').post(adminPolicy.isAllowed, admin.changeUserDepartment);
+  app.route('/api/users/clearDeletedUsers').get(adminPolicy.isAllowed, admin.clearDeletedUsers);
 
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);

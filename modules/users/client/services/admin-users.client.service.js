@@ -21,6 +21,9 @@
     this.changeUserDepartment = (userId, newDepartment) => {
       return $http.post('/api/users/' + userId + '/department', { newDepartment: newDepartment }, { ignoreLoadingBar: true });
     };
+    this.clearDeletedUsers = () => {
+      return $http.get('/api/users/clearDeletedUsers', { ignoreLoadingBar: true });
+    };
     this.searchUsers = (key, ignores, roles) => {
       return $http.post('/api/users/search', { key: key, ignores: ignores, roles: roles }, { ignoreLoadingBar: true });
     };

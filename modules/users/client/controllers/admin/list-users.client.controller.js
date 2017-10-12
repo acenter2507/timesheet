@@ -166,6 +166,14 @@ angular.module('users.admin').controller('UserListController', [
         }
       });
     };
+    vm.handleDatabaseClearAll = () => {
+      $scope.handleShowConfirm({
+        message: '全ての削除されたアカウントを削除しますか？'
+      }, () => {
+        AdminUserApi.clearDeletedUsers()
+          .success(() => { delete vm.deleted; })
+      });
+    };
 
     function createArrayFromRange(range) {
       var array = [];

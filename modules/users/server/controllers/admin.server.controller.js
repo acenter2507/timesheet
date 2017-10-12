@@ -16,14 +16,14 @@ var _ = require('underscore'),
 /**
  * Add a User
  */
-exports.add = function(req, res) {
+exports.add = function (req, res) {
   // Verify username
-  User.findOne({ username: req.body.username }, function(err, _user) {
+  User.findOne({ username: req.body.username }, function (err, _user) {
     if (_user) return res.status(400).send({ message: 'ユーザーIDが存在しています。' });
 
     var user = new User(req.body);
     user.displayName = user.firstName + ' ' + user.lastName;
-    user.save(function(err) {
+    user.save(function (err) {
       if (err) return handleError(err);
       // Thêm user vào department
       var departmentId = user.department ? user.department._id || user.department : undefined;
@@ -49,14 +49,14 @@ exports.add = function(req, res) {
 /**
  * Show the current user
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   res.json(req.model);
 };
 
 /**
  * Update a User
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var user = req.model;
 
   delete req.body.roles;
@@ -67,7 +67,7 @@ exports.update = function(req, res) {
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
   user.displayName = user.firstName + ' ' + user.lastName;
-  user.save(function(err) {
+  user.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,7 +80,7 @@ exports.update = function(req, res) {
 /**
  * Delete a user
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var user = req.model;
 
   var departmentId = user.department ? user.department._id || user.department : undefined;
@@ -94,7 +94,7 @@ exports.delete = function(req, res) {
     }
   }
 
-  user.remove(function(err) {
+  user.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -108,11 +108,11 @@ exports.delete = function(req, res) {
 /**
  * List of Users
  */
-exports.list = function(req, res) {
+exports.list = function (req, res) {
   User.find({}, '-salt -password')
     .sort('-created')
     .populate('user', 'displayName')
-    .exec(function(err, users) {
+    .exec(function (err, users) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -126,7 +126,7 @@ exports.list = function(req, res) {
 /**
  * User middleware
  */
-exports.userByID = function(req, res, next, id) {
+exports.userByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'User is invalid'
@@ -135,7 +135,7 @@ exports.userByID = function(req, res, next, id) {
 
   User.findById(id, '-salt -password')
     .populate('leaders', 'displayName email profileImageURL')
-    .exec(function(err, user) {
+    .exec(function (err, user) {
       if (err) {
         return next(err);
       } else if (!user) {
@@ -150,7 +150,7 @@ exports.userByID = function(req, res, next, id) {
 /**
  * Tìm kiếm user với key và list ignore
  */
-exports.loadUsers = function(req, res) {
+exports.loadUsers = function (req, res) {
   var condition = req.body.condition;
   var page = req.body.page || 1;
   var roles = condition.roles;
@@ -182,7 +182,7 @@ exports.loadUsers = function(req, res) {
   };
 
   User.paginate(query, options).then(
-    function(result) {
+    function (result) {
       res.jsonp(result);
     },
     err => {
@@ -198,7 +198,7 @@ exports.loadUsers = function(req, res) {
 /**
  * Tìm kiếm user với key và list ignore
  */
-exports.searchUsers = function(req, res) {
+exports.searchUsers = function (req, res) {
   var key = req.body.key;
   var ignore = req.body.ignores;
   var ignores = [];
@@ -235,7 +235,7 @@ exports.searchUsers = function(req, res) {
 /**
  * Đổi mật khẩu user
  */
-exports.changeUserPassword = function(req, res) {
+exports.changeUserPassword = function (req, res) {
   var user = req.model;
   var newPassword = req.body.newPassword || '';
   if (newPassword === '') {
@@ -245,7 +245,7 @@ exports.changeUserPassword = function(req, res) {
     return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
   }
   user.password = newPassword;
-  user.save(function(err) {
+  user.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -259,7 +259,7 @@ exports.changeUserPassword = function(req, res) {
 /**
  * Đổi roles user
  */
-exports.changeUserRoles = function(req, res) {
+exports.changeUserRoles = function (req, res) {
   var user = req.model;
   if (!user) {
     return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
@@ -332,7 +332,7 @@ exports.changeUserRoles = function(req, res) {
 /**
  * Đổi roles user
  */
-exports.changeUserDepartment = function(req, res) {
+exports.changeUserDepartment = function (req, res) {
   var user = req.model;
   if (!user) {
     return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
@@ -356,7 +356,7 @@ exports.changeUserDepartment = function(req, res) {
     user.department = req.body.newDepartment;
   }
   // Lưu user lại
-  user.save(function(err) {
+  user.save(function (err) {
     // Có lỗi khi lưu
     if (err)
       return res
@@ -382,6 +382,15 @@ exports.changeUserDepartment = function(req, res) {
           return res.jsonp(department.leaders);
         });
     }
+  });
+};
+
+/**
+ * Đổi roles user
+ */
+exports.clearDeletedUsers = function (req, res) {
+  User.remove({ status: 3 }).exec(err => {
+    res.end();
   });
 };
 
