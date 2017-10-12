@@ -171,7 +171,7 @@ angular.module('users.admin').controller('UserListController', [
         message: '全ての削除されたアカウントを削除しますか？'
       }, () => {
         AdminUserApi.clearDeletedUsers()
-          .success(() => { delete vm.deleted; })
+          .success(() => { delete vm.deleted; });
       });
     };
 
