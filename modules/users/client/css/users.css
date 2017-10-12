@@ -158,13 +158,14 @@
         .user-detail-block .user-basic-info .user-tools .user-tool-button {
           cursor: pointer;
           display: inline-block;
-          margin: 0 0.2rem;
-          color: #cccccc;
+          margin: 0.2rem;
+          color: #555;
           font-size: 1.0rem;
-          line-height: 2.3rem;
-          width: 2.3rem;
+          line-height: 2.5rem;
+          width: 2.5rem;
+          height: 2.5rem;
           text-align: center;
-          background-color: #40444f;
+          background-color: #fff;
           border-radius: 50%;
           transition: background-color 0.2s linear, color 0.2s linear; }
           .user-detail-block .user-basic-info .user-tool .user-tool-button:hover {
