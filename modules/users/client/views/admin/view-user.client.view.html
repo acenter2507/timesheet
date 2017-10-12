@@ -22,6 +22,10 @@
               <td class="pd10r"><i class="fa fa-sitemap"></i> 部署</td>
               <td><a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name }}</a></td>
             </tr>
+            <tr>
+              <td class="pd10r"><i class="fa fa-mobile"></i> 電話番号</td>
+              <td>{{:: vm.user.private.phone || '未設定' }}</td>
+            </tr>
           </table>
           <!--<p><i class="fa fa-sitemap"></i> 役割： {{:: vm.user.roles | RoleFilter }}</p>
           <p><i class="fa fa-envelope"></i> メール：<a ng-href="mailto:{{member.email}}"> {{:: vm.user.email }}</a></p>
