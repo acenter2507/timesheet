@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'AdminUserService',
-  function ($scope, $filter, AdminUserService) {
+angular.module('users.admin').controller('UserListController', [
+  '$scope',
+  '$filter',
+  'AdminUserApi',
+  function($scope, $filter, AdminUserApi) {
     var vm = this;
 
     vm.manager = { page: 1 };
@@ -10,46 +13,64 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
     onCreate();
 
     function onCreate() {
-      prepareManagerUsers();
-      prepareMemberUsers();
-      prepareAdminUsers();
+      handleLoadManagerUsers();
+      handleLoadMemberUsers();
+      handleLoadAdminUsers();
     }
 
-    function prepareManagerUsers() {
-      vm.manager.page = 1;
-      
+    function handleLoadManagerUsers() {
+      AdminUserApi.loadUsers({ roles: 'manager' }, vm.manager.page)
+        .success(res => {
+          vm.manager.data = res.docs;
+          vm.manager.pages = createArrayFromRange(res.pages);
+          vm.manager.total = res.total;
+        })
+        .error(err => {
+          $scope.handleShowToast(err.message, true);
+        });
     }
-    function prepareMemberUsers() {
-      
+    function handleLoadMemberUsers() {
+      AdminUserApi.loadUsers({ roles: ['user', 'accountant'] }, vm.member.page)
+        .success(res => {
+          vm.member.data = res.docs;
+          vm.member.pages = createArrayFromRange(res.pages);
+          vm.member.total = res.total;
+        })
+        .error(err => {
+          $scope.handleShowToast(err.message, true);
+        });
     }
-    function prepareAdminUsers() {
-      
+    function handleLoadAdminUsers() {
+      AdminUserApi.loadUsers({ roles: 'admin' }, vm.admin.page)
+        .success(res => {
+          vm.admin.data = res.docs;
+          vm.admin.pages = createArrayFromRange(res.pages);
+          vm.admin.total = res.total;
+        })
+        .error(err => {
+          $scope.handleShowToast(err.message, true);
+        });
     }
 
-    AdminUserService.query(function (data) {
-      $scope.users = data;
-      $scope.buildPager();
-    });
-
-    $scope.buildPager = function () {
-      $scope.pagedItems = [];
-      $scope.itemsPerPage = 15;
-      $scope.currentPage = 1;
-      $scope.figureOutItemsToDisplay();
+    vm.handleChangeManagerPage = page => {
+      vm.manager.page = page;
+      handleLoadManagerUsers();
+    };
+    vm.handleChangeMemberPage = page => {
+      vm.member.page = page;
+      handleLoadMemberUsers();
+    };
+    vm.handleChangeAdminPage = page => {
+      vm.admin.page = page;
+      handleLoadAdminUsers();
     };
 
-    $scope.figureOutItemsToDisplay = function () {
-      $scope.filteredItems = $filter('filter')($scope.users, {
-        $: $scope.search
-      });
-      $scope.filterLength = $scope.filteredItems.length;
-      var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
-      var end = begin + $scope.itemsPerPage;
-      $scope.pagedItems = $scope.filteredItems.slice(begin, end);
-    };
-
-    $scope.pageChanged = function () {
-      $scope.figureOutItemsToDisplay();
-    };
+    function createArrayFromRange(range) {
+      var array = [];
+      for (var i = 1; i <= range; i++) {
+        array.push(i);
+      }
+      return array;
+    }
   }
 ]);

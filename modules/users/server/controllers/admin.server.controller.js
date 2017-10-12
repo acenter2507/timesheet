@@ -7,24 +7,26 @@ var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Department = mongoose.model('Department'),
-  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
+  errorHandler = require(path.resolve(
+    './modules/core/server/controllers/errors.server.controller'
+  ));
 var _ = require('underscore'),
   _moment = require('moment');
 
 /**
  * Add a User
  */
-exports.add = function (req, res) {
+exports.add = function(req, res) {
   // Verify username
-  User.findOne({ username: req.body.username }, function (err, _user) {
+  User.findOne({ username: req.body.username }, function(err, _user) {
     if (_user) return res.status(400).send({ message: 'ユーザーIDが存在しています。' });
 
     var user = new User(req.body);
     user.displayName = user.firstName + ' ' + user.lastName;
-    user.save(function (err) {
+    user.save(function(err) {
       if (err) return handleError(err);
       // Thêm user vào department
-      var departmentId = (user.department) ? user.department._id || user.department : undefined;
+      var departmentId = user.department ? user.department._id || user.department : undefined;
       if (departmentId) {
         if (_.contains(user.roles, 'manager')) {
           Department.addLeader(departmentId, user._id).then(department => {
@@ -36,7 +38,6 @@ exports.add = function (req, res) {
       }
       res.jsonp(user);
     });
-
   });
   function handleError(err) {
     return res.status(400).send({
@@ -48,14 +49,14 @@ exports.add = function (req, res) {
 /**
  * Show the current user
  */
-exports.read = function (req, res) {
+exports.read = function(req, res) {
   res.json(req.model);
 };
 
 /**
  * Update a User
  */
-exports.update = function (req, res) {
+exports.update = function(req, res) {
   var user = req.model;
 
   delete req.body.roles;
@@ -66,7 +67,7 @@ exports.update = function (req, res) {
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
   user.displayName = user.firstName + ' ' + user.lastName;
-  user.save(function (err) {
+  user.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -79,10 +80,10 @@ exports.update = function (req, res) {
 /**
  * Delete a user
  */
-exports.delete = function (req, res) {
+exports.delete = function(req, res) {
   var user = req.model;
 
-  var departmentId = (user.department) ? user.department._id || user.department : undefined;
+  var departmentId = user.department ? user.department._id || user.department : undefined;
   if (departmentId) {
     if (_.contains(user.roles, 'manager')) {
       Department.removeLeader(departmentId, user._id).then(department => {
@@ -93,7 +94,7 @@ exports.delete = function (req, res) {
     }
   }
 
-  user.remove(function (err) {
+  user.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -107,22 +108,25 @@ exports.delete = function (req, res) {
 /**
  * List of Users
  */
-exports.list = function (req, res) {
-  User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
+exports.list = function(req, res) {
+  User.find({}, '-salt -password')
+    .sort('-created')
+    .populate('user', 'displayName')
+    .exec(function(err, users) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
 
-    res.json(users);
-  });
+      res.json(users);
+    });
 };
 
 /**
  * User middleware
  */
-exports.userByID = function (req, res, next, id) {
+exports.userByID = function(req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'User is invalid'
@@ -131,7 +135,7 @@ exports.userByID = function (req, res, next, id) {
 
   User.findById(id, '-salt -password')
     .populate('leaders', 'displayName email profileImageURL')
-    .exec(function (err, user) {
+    .exec(function(err, user) {
       if (err) {
         return next(err);
       } else if (!user) {
@@ -146,12 +150,62 @@ exports.userByID = function (req, res, next, id) {
 /**
  * Tìm kiếm user với key và list ignore
  */
-exports.searchUsers = function (req, res) {
+exports.loadUsers = function(req, res) {
+  var condition = req.body.condition;
+  var page = req.body.page || 1;
+  var roles = condition.roles;
+  var mode = condition.mode;
+
+  var query;
+  if (!roles && mode === 'admin') {
+    query = { status: 3 };
+  } else {
+    if (roles === 'admin' || roles === 'manager') {
+      query = { status: { $ne: 3 }, roles: { $ne: roles } };
+    } else {
+      query = {
+        status: { $ne: 3 },
+        $and: [
+          { roles: { $ne: 'admin' } },
+          { roles: { $ne: 'manager' } },
+          { roles: 'user' }
+        ]
+      };
+    }
+  }
+
+  var options = {
+    page: page,
+    sort: '-created',
+    limit: 20,
+    populate: [{ path: 'department', select: 'name' }]
+  };
+
+  User.paginate(query, options).then(
+    function(result) {
+      res.jsonp(result);
+    },
+    err => {
+      return handleError(err);
+    }
+  );
+
+  function handleError(err) {
+    return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+  }
+};
+
+/**
+ * Tìm kiếm user với key và list ignore
+ */
+exports.searchUsers = function(req, res) {
   var key = req.body.key;
   var ignore = req.body.ignores;
   var ignores = [];
   if (ignore.length > 0) {
-    ignores = _.map(ignore.split(','), (str) => { return str.trim(); });
+    ignores = _.map(ignore.split(','), str => {
+      return str.trim();
+    });
   }
   var roles = req.body.roles || [];
   var ands = [{ roles: { $ne: 'admin' } }];
@@ -170,7 +224,8 @@ exports.searchUsers = function (req, res) {
     });
   }
   var query = { $and: ands };
-  User.find(query).select('displayName email profileImageURL')
+  User.find(query)
+    .select('displayName email profileImageURL')
     .exec((err, users) => {
       if (err) res.status(400).send(err);
       res.jsonp(users);
@@ -180,7 +235,7 @@ exports.searchUsers = function (req, res) {
 /**
  * Đổi mật khẩu user
  */
-exports.changeUserPassword = function (req, res) {
+exports.changeUserPassword = function(req, res) {
   var user = req.model;
   var newPassword = req.body.newPassword || '';
   if (newPassword === '') {
@@ -190,7 +245,7 @@ exports.changeUserPassword = function (req, res) {
     return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
   }
   user.password = newPassword;
-  user.save(function (err) {
+  user.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -204,7 +259,7 @@ exports.changeUserPassword = function (req, res) {
 /**
  * Đổi roles user
  */
-exports.changeUserRoles = function (req, res) {
+exports.changeUserRoles = function(req, res) {
   var user = req.model;
   if (!user) {
     return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
@@ -220,18 +275,21 @@ exports.changeUserRoles = function (req, res) {
     return res.status(400).send({ message: '役割が変わりません。' });
 
   user.roles = newRoles;
-  var departmentId = (user.department) ? user.department._id || user.department : undefined;
+  var departmentId = user.department ? user.department._id || user.department : undefined;
   if (departmentId) {
     if (_.contains(newRoles, 'manager')) {
       Department.addLeader(departmentId, user._id)
         .then(department => {
           return Department.removeMember(departmentId, user._id);
-        }, handleError).then(department => {
+        }, handleError)
+        .then(department => {
           return User.setLeaders(department._id, department.leaders);
-        }, handleError).then(result => {
+        }, handleError)
+        .then(result => {
           user.leaders = [];
           return user.save();
-        }, handleError).then(_user => {
+        }, handleError)
+        .then(_user => {
           return res.jsonp(_user.leaders);
         }, handleError);
     } else {
@@ -240,12 +298,15 @@ exports.changeUserRoles = function (req, res) {
         .then(_department => {
           department = _department;
           return Department.addMember(department._id, user._id);
-        }, handleError).then(_department => {
+        }, handleError)
+        .then(_department => {
           user.leaders = department.leaders;
           return User.setLeaders(department._id, department.leaders);
-        }, handleError).then(result => {
+        }, handleError)
+        .then(result => {
           return user.save();
-        }, handleError).then(_user => {
+        }, handleError)
+        .then(_user => {
           Department.findById(department._id)
             .populate('leaders', 'displayName email profileImageURL')
             .exec((err, _department) => {
@@ -256,13 +317,14 @@ exports.changeUserRoles = function (req, res) {
   } else {
     user.save(err => {
       if (err)
-        return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+        return res
+          .status(400)
+          .send({ message: errorHandler.getErrorMessage(err) });
       return res.jsonp(user.leaders);
     });
   }
 
   function handleError(err) {
-    console.log(err);
     return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
   }
 };
@@ -270,13 +332,13 @@ exports.changeUserRoles = function (req, res) {
 /**
  * Đổi roles user
  */
-exports.changeUserDepartment = function (req, res) {
+exports.changeUserDepartment = function(req, res) {
   var user = req.model;
   if (!user) {
     return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
   }
   // Xóa bỏ user hiện tại ra khỏi department cũ
-  var oldDepartmentId = (user.department) ? user.department._id || user.department : undefined;
+  var oldDepartmentId = user.department ? user.department._id || user.department : undefined;
   if (oldDepartmentId) {
     if (_.contains(user.roles, 'manager')) {
       Department.removeLeader(oldDepartmentId, user._id).then(department => {
@@ -294,15 +356,21 @@ exports.changeUserDepartment = function (req, res) {
     user.department = req.body.newDepartment;
   }
   // Lưu user lại
-  user.save(function (err) {
+  user.save(function(err) {
     // Có lỗi khi lưu
-    if (err) return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+    if (err)
+      return res
+        .status(400)
+        .send({ message: errorHandler.getErrorMessage(err) });
     // Xử lý với department mới
-    var newDepartmentId = (user.department) ? user.department._id || user.department : undefined;
+    var newDepartmentId = user.department ? user.department._id || user.department : undefined;
     if (!newDepartmentId || newDepartmentId === '') return res.end();
     // Thêm user hiện hành vào department mới
     if (_.contains(user.roles, 'manager')) {
-      Department.addLeader(req.body.newDepartment, user._id).then(department => {
+      Department.addLeader(
+        req.body.newDepartment,
+        user._id
+      ).then(department => {
         User.setLeaders(department._id, department.leaders);
       });
       return res.end();
@@ -318,11 +386,9 @@ exports.changeUserDepartment = function (req, res) {
 };
 
 function arraysEqual(arr1, arr2) {
-  if (arr1.length !== arr2.length)
-    return false;
-  for (var i = arr1.length; i--;) {
-    if (arr1[i] !== arr2[i])
-      return false;
+  if (arr1.length !== arr2.length) return false;
+  for (var i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) return false;
   }
   return true;
 }
