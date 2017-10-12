@@ -1,7 +1,7 @@
 <div class="row animated fadeIn mg50t">
   <div class="col-xs-12">
     <div class="form-group">
-      <a ng-if="isAdmin || isAccountant" ui-sref="users.new" class="btn btn-primary pull-right mg10r">ユーザー追加</a>
+      <a ng-if="isAdmin || isAccountant" ui-sref="users.new" class="btn btn-primary pull-right">ユーザー追加</a>
       <div class="clearfix"></div>
     </div>
   </div>
@@ -19,7 +19,12 @@
                 <a class="font-sm" ng-href="mailto:{{admin.email}}">{{::admin.email}}</a>
               </div>
               <div class="user-action">
-                <a class="user-options" ng-click="vm.handleManagerRemoved(admin)"></a>
+                <div dropdown dropdown-append-to-body>
+                  <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-right mg20t" role="menu">
+                    <li><a ng-click="vm.handleLeaderRemoved(leader)">削除</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -40,7 +45,12 @@
                 <a class="font-sm" ng-href="mailto:{{manager.email}}">{{::manager.email}}</a>
               </div>
               <div class="user-action">
-                <a class="user-options" ng-click="vm.handleManagerRemoved(manager)"></a>
+                <div dropdown dropdown-append-to-body>
+                  <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-right mg20t" role="menu">
+                    <li><a ng-click="vm.handleLeaderRemoved(leader)">削除</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -61,7 +71,12 @@
                 <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
               </div>
               <div class="user-action">
-                <a class="user-options" ng-click="vm.handleManagerRemoved(member)"></a>
+                <div dropdown dropdown-append-to-body>
+                  <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-right mg20t" role="menu">
+                    <li><a ng-click="vm.handleLeaderRemoved(leader)">削除</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
