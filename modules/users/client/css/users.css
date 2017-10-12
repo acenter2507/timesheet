@@ -168,7 +168,7 @@
           background-color: #fff;
           border-radius: 50%;
           transition: background-color 0.2s linear, color 0.2s linear; }
-          .user-detail-block .user-basic-info .user-tool .user-tool-button:hover {
+          .user-detail-block .user-basic-info .user-tools .user-tool-button:hover {
             color: #fff;
             background-color: #337ab7; }
 
