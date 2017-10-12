@@ -10,7 +10,7 @@
     <div class="panel panel-primary" ng-if="isAdmin">
       <div class="panel-heading">システム管理</div>
       <div class="panel-body">
-        <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3 pdn" ng-repeat="admin in vm.admin.data">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="admin in vm.admin.data">
           <div class="user-item-block">
             <div class="user-basic-info">
               <div class="user-avatar"><img src="{{:: admin.profileImageURL }}"></div>
@@ -31,7 +31,7 @@
     <div class="panel panel-primary">
       <div class="panel-heading">マネージャ</div>
       <div class="panel-body">
-        <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3 pdn" ng-repeat="manager in vm.manager.data">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="manager in vm.manager.data">
           <div class="user-item-block">
             <div class="user-basic-info">
               <div class="user-avatar"><img src="{{:: manager.profileImageURL }}"></div>
@@ -52,7 +52,7 @@
     <div class="panel panel-primary" ng-if="isAdmin">
       <div class="panel-heading">社員</div>
       <div class="panel-body">
-        <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.member.data">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.member.data">
           <div class="user-item-block">
             <div class="user-basic-info">
               <div class="user-avatar"><img src="{{:: member.profileImageURL }}"></div>
