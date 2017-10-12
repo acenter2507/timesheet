@@ -16,7 +16,7 @@
             </tr>
             <tr>
               <td class="pd10r"><i class="fa fa-envelope"></i> メール</td>
-              <td><a ng-href="mailto:{{member.email}}"> {{:: vm.user.email }}</a></td>
+              <td><a ng-href="mailto:{{vm.user.email}}"> {{:: vm.user.email }}</a></td>
             </tr>
             <tr>
               <td class="pd10r"><i class="fa fa-sitemap"></i> 部署</td>
@@ -32,7 +32,7 @@
           <p><i class="fa fa-users"></i> 部署：<a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name }}</a></p>-->
         </div>
         <div class="user-tools">
-          <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
+          <a class="user-tool-button" ng-href="mailto:{{vm.user.email}}" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
           <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
           <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
           <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
