@@ -134,9 +134,10 @@
       margin-right: 20px; }
     .user-detail-block .user-basic-info .user-info-block {
       flex-grow: 1;
-      min-width: 320px;}
+      min-width: 200px;}
     .user-detail-block .user-basic-info .user-tools {
-      min-width: 320px;}
+      flex-grow: 2;
+      min-width: 200px;}
       .user-detail-block .user-basic-info .user-avatar img {
         width: 150px;
         height: 150px;
