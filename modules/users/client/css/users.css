@@ -154,8 +154,7 @@
           background-color: #59BA37; }
         .user-detail-block .user-basic-info .user-avatar .user-status.retired {
           background-color: #ccc; }
-
-        /*.user-detail-block .user-basic-info .user-info-block .user-tool .user-tool-button {
+        .user-detail-block .user-basic-info .user-tools .user-tool-button {
           cursor: pointer;
           display: inline-block;
           margin: 0 0.2rem;
@@ -167,10 +166,12 @@
           background-color: #40444f;
           border-radius: 50%;
           transition: background-color 0.2s linear, color 0.2s linear; }
-          .user-detail-block .user-basic-info .user-info-block .user-tool .user-tool-button:hover {
+          .user-detail-block .user-basic-info .user-tool .user-tool-button:hover {
             color: #fff;
-            background-color: #337ab7;
-          }*/
+            background-color: #337ab7; }
+
+
+
 
       /*.user-detail-block .user-basic-info .user-info-block .user-info{
         background-color: #DE1281;
