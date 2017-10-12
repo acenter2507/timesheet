@@ -89,7 +89,8 @@
           background-color: #ccc; }
     .user-item-block .user-basic-info .user-info {
       flex-grow: 1;
-      height: 100%; }
+      height: 100%;
+      margin-bottom: 12px; }
       .user-item-block .user-basic-info .user-info .user-info-name {
         display: block;
         font-weight: 600; }
