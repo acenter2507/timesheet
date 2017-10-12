@@ -53,14 +53,17 @@ angular.module('users.admin').controller('UserListController', [
     }
 
     vm.handleChangeManagerPage = page => {
+      if (vm.manager.page === page) return;
       vm.manager.page = page;
       handleLoadManagerUsers();
     };
     vm.handleChangeMemberPage = page => {
+      if (vm.member.page === page) return;
       vm.member.page = page;
       handleLoadMemberUsers();
     };
     vm.handleChangeAdminPage = page => {
+      if (vm.admin.page === page) return;
       vm.admin.page = page;
       handleLoadAdminUsers();
     };
