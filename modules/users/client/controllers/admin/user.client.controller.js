@@ -4,6 +4,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
   function ($scope, $state, userResolve) {
     var vm = this;
     vm.user = userResolve;
+    console.log(vm.user);
 
     onCreate();
 
