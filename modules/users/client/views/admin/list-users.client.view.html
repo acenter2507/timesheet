@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="panel-footer">
-        <ul class="pagination">
+        <ul class="pagination mgn">
           <li ng-repeat="page in vm.admin.pages" ng-class="{'active': page === vm.admin.page}"><a ng-click="vm.handleChangeAdminPage(page)">{{page}}</a></li>
         </ul>
       </div>
@@ -62,7 +62,7 @@
         </div>
       </div>
       <div class="panel-footer">
-        <ul class="pagination">
+        <ul class="pagination mgn">
           <li ng-repeat="page in vm.manager.pages" ng-class="{'active': page === vm.manager.page}"><a ng-click="vm.handleChangeManagerPage(page)">{{page}}</a></li>
         </ul>
       </div>
@@ -93,7 +93,7 @@
         </div>
       </div>
       <div class="panel-footer">
-        <ul class="pagination">
+        <ul class="pagination mgn">
           <li ng-repeat="page in vm.member.pages" ng-class="{'active': page === vm.member.page}"><a ng-click="vm.handleChangeMemberPage(page)">{{page}}</a></li>
         </ul>
       </div>
