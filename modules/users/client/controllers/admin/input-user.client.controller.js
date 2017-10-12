@@ -18,6 +18,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         if (vm.user.private.birthdate) {
           var birth = moment(vm.user.private.birthdate).local().format('YYYY/MM/DD');
           vm.user.private.birthdate = birth;
+          vm.user.department = vm.user.department._id || vm.user.department;
         }
       }
       prepareDepartments();
