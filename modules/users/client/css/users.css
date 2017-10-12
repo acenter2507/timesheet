@@ -76,10 +76,12 @@
         border-radius: 50%; }
       .user-item-block .user-basic-info .user-avatar .user-status {
         position: absolute;
-        bottom: 0;
-        right: 0;
+        bottom: 2;
+        right: 2;
         width: 12px;
         height: 12px;
+        opacity: 0.9;
+        border: 2px solid #fff;
         border-radius: 50%; }
         .user-item-block .user-basic-info .user-avatar .user-status.working{
           background-color: #59BA37; }
