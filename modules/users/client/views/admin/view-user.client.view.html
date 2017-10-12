@@ -27,20 +27,12 @@
               <td>{{:: vm.user.private.phone || '未設定' }}</td>
             </tr>
           </table>
-          <!--<p><i class="fa fa-sitemap"></i> 役割： {{:: vm.user.roles | RoleFilter }}</p>
-          <p><i class="fa fa-envelope"></i> メール：<a ng-href="mailto:{{member.email}}"> {{:: vm.user.email }}</a></p>
-          <p><i class="fa fa-users"></i> 部署：<a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name }}</a></p>-->
         </div>
         <div class="user-tools">
           <a class="user-tool-button" ng-href="mailto:{{vm.user.email}}" tooltip-placement="bottom" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
-          <a class="user-tool-button" ng-click="vm.handleSendMessageUser()"><i class="fa fa-commenting"></i></a>
-          <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
-          <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
-          <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
-          <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
-          <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
-          <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
-          <a class="user-tool-button"><i class="fa fa-address-book"></i></a>
+          <a class="user-tool-button" ng-click="vm.handleSendMessageUser()" tooltip-placement="bottom" tooltip="メッセージ送信"><i class="fa fa-commenting"></i></a>
+          <a class="user-tool-button" ui-sref="users.edit({ userId: vm.user._id })" tooltip-placement="bottom" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
+          <a class="user-tool-button" ui-sref="users.timeshet({ userId: member._id })" tooltip-placement="bottom" tooltip="勤務表"><i class="fa fa-calendar"></i></a>
         </div>
       </div>
     </div>
