@@ -11,6 +11,8 @@
       <div class="panel-heading">
         <img class="w25 h25" src="./modules/core/client/img/brand/admin.png">
         <span class="font-weight-bold">システム管理</span>
+        <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendMessageAll('admin')" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
+        <div class="clearfix"></div>
       </div>
       <div class="panel-body">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="admin in vm.admin.data">
@@ -51,7 +53,7 @@
       <div class="panel-heading">
         <img class="w25 h25" src="./modules/core/client/img/brand/manager.png">
         <span class="font-weight-bold">マネージャ</span>
-        <a class="btn btn-default btn-xs pull-right" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
+        <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendMessageAll('manager')" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
         <div class="clearfix"></div>
       </div>
       <div class="panel-body">
@@ -93,6 +95,8 @@
       <div class="panel-heading">
         <img class="w25 h25" src="./modules/core/client/img/brand/member.png">
         <span class="font-weight-bold">社員</span>
+        <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendMessageAll('member')" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
+        <div class="clearfix"></div>
       </div>
       <div class="panel-body">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.member.data">
