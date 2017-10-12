@@ -135,6 +135,8 @@
     .user-detail-block .user-basic-info .user-info-block {
       flex-grow: 1;
       min-width: 320px;}
+    .user-detail-block .user-basic-info .user-tools {
+      min-width: 320px;}
       .user-detail-block .user-basic-info .user-avatar img {
         width: 150px;
         height: 150px;
@@ -152,10 +154,7 @@
           background-color: #59BA37; }
         .user-detail-block .user-basic-info .user-avatar .user-status.retired {
           background-color: #ccc; }
-      .user-detail-block .user-basic-info .user-info-block .user-tool {
-        background-color: #59BA37;
-        height: 50px;
-        width: 100%; }
+
         /*.user-detail-block .user-basic-info .user-info-block .user-tool .user-tool-button {
           cursor: pointer;
           display: inline-block;
