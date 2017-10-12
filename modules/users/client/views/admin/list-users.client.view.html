@@ -1,12 +1,8 @@
-<div class="row animated fadeIn mg50t">
-  <div class="col-xs-12">
-    <div class="well clearfix">
-      <div class="form-group mgnb">
-        <a ng-if="isAdmin || isAccountant" ui-sref="users.new" class="btn btn-default" tooltip="アカウントを追加する"><i class="fa fa-user-plus fa-lg"></i></a>
-        <a class="btn btn-default" ng-style="{'background-image': 'url(modules/core/client/img/brand/admin.png)'}"></a>
-        <a class="btn btn-default" ng-style="{'background-image': 'url(modules/core/client/img/brand/manager.png)'}"></a>
-        <a class="btn btn-default" ng-style="{'background-image': 'url(modules/core/client/img/brand/member.png)'}"></a>
-      </div>
+<div class="row animated fadeIn mg12t">
+  <div class="col-xs-12" ng-if="isAdmin || isAccountant">
+    <div class="form-group mgnb">
+      <a ng-if="isAdmin || isAccountant" ui-sref="users.new" class="btn btn-default" tooltip="アカウントを追加する"><i class="fa fa-user-plus fa-lg"></i></a>
+      <div class="clearfix"></div>
     </div>
   </div>
   <div class="col-xs-12" ng-if="isAdmin">
