@@ -11,15 +11,15 @@
           <h3>{{:: vm.user.displayName}}</h3>
           <table>
             <tr>
-              <td><i class="fa fa-sitemap"></i> 役割</td>
+              <td class="pd10r"><i class="fa fa-sitemap"></i> 役割</td>
               <td>{{:: vm.user.roles | RoleFilter }}</td>
             </tr>
             <tr>
-              <td><i class="fa fa-envelope"></i> メール</td>
+              <td class="pd10r"><i class="fa fa-envelope"></i> メール</td>
               <td><a ng-href="mailto:{{member.email}}"> {{:: vm.user.email }}</a></td>
             </tr>
             <tr>
-              <td><i class="fa fa-sitemap"></i> 部署</td>
+              <td class="pd10r"><i class="fa fa-sitemap"></i> 部署</td>
               <td><a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name }}</a></td>
             </tr>
           </table>
