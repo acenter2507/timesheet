@@ -146,7 +146,7 @@ angular.module('users.admin').controller('UserListController', [
         });
         vm.deleted.data = _.without(vm.deleted.data, user);
       });
-    }
+    };
     vm.handleDatabaseDeleteUser = user => {
       $scope.handleShowConfirm({
         message: user.displayName + 'のアカウントを完全しますか？'
