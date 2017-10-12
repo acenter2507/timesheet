@@ -161,7 +161,7 @@ exports.loadUsers = function(req, res) {
     query = { status: 3 };
   } else {
     if (roles === 'admin' || roles === 'manager') {
-      query = { status: { $ne: 3 }, roles: { $ne: roles } };
+      query = { status: { $ne: 3 }, roles: roles };
     } else {
       query = {
         status: { $ne: 3 },
