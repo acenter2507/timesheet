@@ -19,7 +19,7 @@
               <td><a ng-href="mailto:{{vm.user.email}}"> {{:: vm.user.email }}</a></td>
             </tr>
             <tr>
-              <td class="pd10r"><i class="fa fa-sitemap"></i> 部署</td>
+              <td class="pd10r"><i class="fa fa-users"></i> 部署</td>
               <td><a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name }}</a></td>
             </tr>
             <tr>
@@ -33,12 +33,52 @@
           <a class="user-tool-button" ng-click="vm.handleSendMessageUser()" tooltip-placement="bottom" tooltip="メッセージ送信"><i class="fa fa-commenting"></i></a>
           <a class="user-tool-button" ui-sref="users.edit({ userId: vm.user._id })" tooltip-placement="bottom" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
           <a class="user-tool-button" ui-sref="users.timeshet({ userId: member._id })" tooltip-placement="bottom" tooltip="勤務表"><i class="fa fa-calendar"></i></a>
+          <div class="user-tool-button" dropdown dropdown-append-to-body>
+            <a class="w100p h100p" dropdown-toggle ><i class="glyphicon glyphicon-option-vertical"></i></a>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <li><a ng-click="vm.handleRetiredUser()"><i class="fa fa-hand-paper-o"></i> 退職済み</a></li>
+              <li><a ng-click="vm.handleChangePasswordUser()"><i class="fa fa-lock"></i> パスワード変更</a></li>
+              <li><a ng-click="vm.handleChangeRolesUser()"><i class="fa fa-sitemap"></i> 役割変更</a></li>
+              <li><a ng-click="vm.handleChangeDepartmentUser()"><i class="fa fa-users"></i> 部署変更</a></li>
+              <li><a ng-click="vm.handleLogicDeleteUser()"><i class="fa fa-user-times"></i> 削除</a></li>
+              <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser()"><i class="fa fa-trash"></i> 完全削除</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="clearfix"></div>
   <hr class="mg12y">
+  <div class="col-xs-12">
+    <tabset class="modified-tab" justified="true">
+      <tab heading="社員情報">
+        <table class="table">
+          <tr><td>性</td><td>{{:: vm.user.firstName }}</td></tr>
+          <tr><td>名</td><td>{{:: vm.user.lastName }}</td></tr>
+          <tr><td>ユーザーID</td><td>{{:: vm.user.username }}</td></tr>
+          <tr><td>メール</td><td>{{:: vm.user.email }}</td></tr>
+          <tr><td>部署</td><td>{{:: vm.user.department.name }}</td></tr>
+          <tr><td>役割</td><td>{{:: vm.user.roles | RoleFilter }}</td></tr>
+          <tr><td>性別</td><td>{{:: vm.user.private.sex === 1 ? '男' : '女' }}</td></tr>
+          <tr><td>生年月日</td><td>{{:: vm.user.private.birthdate }}</td></tr>
+          <tr><td>電話番号</td><td>{{:: vm.user.private.phone }}</td></tr>
+          <tr><td>住所</td><td>{{:: vm.user.private.address }}</td></tr>
+          <tr><td>趣味</td><td>{{:: vm.user.private.hobby }}</td></tr>
+          <tr><td>自己紹介</td><td>{{:: vm.user.private.introduct }}</td></tr>
+          <tr><td>社員番号</td><td>{{:: vm.user.company.employeeId }}</td></tr>
+          <tr><td>納税番号</td><td>{{:: vm.user.company.taxId }}</td></tr>
+          <tr><td>給料</td><td>{{:: vm.user.company.salary }}</td></tr>
+        </table>
+      </tab>
+      <tab heading="操作履歴">
+        <div class="h200"></div>
+      </tab>
+      <tab heading="アカウント情報">
+        <div class="h200"></div>
+      </tab>
+    </tabset>
+  </div>
   <div class="col-xs-12 col-sm-4 col-md-3">
     <ul class="nav nav-pills nav-stacked">
       <li ui-sref-active="active">

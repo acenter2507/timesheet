@@ -169,7 +169,15 @@
           background-color: #ccc;
           border-radius: 50%;
           transition: background-color 0.2s linear, color 0.2s linear; }
-          .user-detail-block .user-basic-info .user-tools .user-tool-button:hover {
+            .user-detail-block .user-basic-info .user-tools .user-tool-button a {
+              display: block;
+              width: 2.5rem;
+              height: 2.5rem;
+              color: #555;
+              border-radius: 50%;
+              background-color: #ccc; }
+          .user-detail-block .user-basic-info .user-tools .user-tool-button:hover,
+          .user-detail-block .user-basic-info .user-tools .user-tool-button a:hover {
             color: #fff;
             background-color: #337ab7; }
 

@@ -249,3 +249,30 @@ a:hover .header-profile-image {
 
 .ngdialog-open{
   height: auto !important; }
+
+.modified-tab .nav-tabs {
+  border-bottom: 3px solid #DDD !important; }
+  .modified-tab .nav-tabs > li > a {
+    padding: 0.5rem 0;
+    color: #666; }
+    .modified-tab .nav-tabs > li.active > a,
+    .modified-tab .nav-tabs > li > a:hover {
+      border: none !important;
+      color: #4285F4!important;
+      background: transparent; }
+    .modified-tab .nav-tabs > li > a::after {
+      content: "";
+      background: #4285F4;
+      height: 3px;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: -3px;
+      transition: all 250ms ease 0s;
+      transform: scale(0); }
+    .modified-tab .nav-tabs > li.active > a::after,
+    .modified-tab .nav-tabs > li:hover > a::after {
+      transform: scale(1); }
+  .modified-tab .tab-nav > li > a::after {
+    background: #21527d none repeat scroll 0 0;
+    color: #fff; }
