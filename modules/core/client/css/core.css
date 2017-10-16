@@ -303,5 +303,7 @@ a:hover .header-profile-image {
     margin: 5px;
     width: 64px;
     height: 64px; }
+    .image-gallery .image-item > a > img {
+      border: none; }
     .image-gallery .image-item > a.selected > img {
       border: 2px solid #4285F4; }
