@@ -111,9 +111,12 @@ function selectInListDirective() {
           var item = listItems[i];
           angular.element(item).removeClass('selected');
         }
+        element.addClass('selected');
         console.log(attrs.image);
         scope.selectedImage = attrs.image;
-        element.addClass('selected');
+        scope.$apply(function () {
+          scope.selectedImage = attrs.image;
+        });
       }
     });
   }
