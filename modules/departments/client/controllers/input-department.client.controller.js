@@ -40,6 +40,8 @@
       './modules/departments/client/img/dep23.png',
       './modules/departments/client/img/dep24.png'
     ];
+    vm.isGetAvatarFromFile = false;
+    vm.busy = false;
 
     onCreate();
     function onCreate() {
@@ -78,25 +80,12 @@
     // Called after the user has successfully uploaded a new picture
     vm.uploader.onSuccessItem = function (fileItem, response, status, headers) {
       vm.department.avatar = response;
-      if (vm.department._id) {
-        vm.department.$update(successCallback, errorCallback);
-      } else {
-        vm.department.$save(successCallback, errorCallback);
-      }
-
-      function successCallback(res) {
-        $state.go('departments.view', {
-          departmentId: res._id
-        });
-      }
-
-      function errorCallback(res) {
-        $scope.handleShowToast(res.data.message, true);
-      }
+      handleSaveDepartment();
       vm.cancelUpload();
     };
     // Called after the user has failed to uploaded a new picture
     vm.uploader.onErrorItem = function (fileItem, response, status, headers) {
+      vm.busy = false;
       $scope.handleShowToast(response, true);
       // Clear upload buttons
       vm.cancelUpload();
@@ -115,6 +104,7 @@
         var blob = dataURItoBlob(res.value);
         vm.uploader.queue[0]._file = blob;
         delete $scope.sourceImageUrl;
+        vm.isGetAvatarFromFile = true;
       });
     }
     // Cancel the upload process
@@ -131,13 +121,40 @@
     };
 
     // Save Department
-    vm.handleSaveDepartment = isValid => {
+    vm.handleStartSave = isValid => {
+      if (vm.busy) return;
+      vm.busy = true;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.departmentForm');
-        return false;
+        return vm.busy = false;
       }
-      vm.uploader.uploadAll();
+      if (vm.isGetAvatarFromFile) {
+        vm.uploader.uploadAll();
+      } else {
+        handleSaveDepartment();
+      }
+
     };
+
+    function handleSaveDepartment() {
+      if (vm.department._id) {
+        vm.department.$update(successCallback, errorCallback);
+      } else {
+        vm.department.$save(successCallback, errorCallback);
+      }
+
+      function successCallback(res) {
+        vm.busy = false;
+        $state.go('departments.view', {
+          departmentId: res._id
+        });
+      }
+
+      function errorCallback(res) {
+        vm.busy = false;
+        $scope.handleShowToast(res.data.message, true);
+      }
+    }
 
     //
     vm.handleSelectImageLibrary = () => {
@@ -147,11 +164,11 @@
         scope: $scope
       });
       mDialog.closePromise.then(function (res) {
-        console.log(res);
         if (!res.value || res.value === '') return;
         vm.avatarImageUrl = res.value;
         vm.department.avatar = res.value;
         delete $scope.selectedImage;
+        vm.isGetAvatarFromFile = false;
       });
     };
     // Change image from URI to blob
