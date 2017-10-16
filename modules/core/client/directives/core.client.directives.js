@@ -109,7 +109,7 @@ function selectInListDirective() {
         var listItems = div.find('.list-sellect-item');
         for (var i = 0; i < listItems.length; i++) {
           var item = listItems[i];
-          item.removeClass('selected');
+          angular.element(item).removeClass('selected');
         }
         element.addClass('selected');
         // event.preventDefault();
