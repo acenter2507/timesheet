@@ -20,7 +20,7 @@
             <div class="user-basic-info">
               <div class="user-avatar">
                 <img src="{{:: admin.profileImageURL }}">
-                <span class="user-status"></span>
+                <!--<span class="user-status" ng-class="{ 'working': admin.status === 1, 'retired': admin.status === 2 }"></span>-->
               </div>
               <div class="user-info">
                 <a class="user-info-name" ui-sref="users.view({ userId: admin._id })">{{:: admin.displayName}}</a>
@@ -66,7 +66,7 @@
             <div class="user-basic-info">
               <div class="user-avatar">
                 <img src="{{:: manager.profileImageURL }}">
-                <span class="user-status working"></span>
+                <!--<span class="user-status" ng-class="{ 'working': manager.status === 1, 'retired': manager.status === 2 }"></span>-->
               </div>
               <div class="user-info">
                 <a class="user-info-name" ui-sref="users.view({ userId: manager._id })">{{:: manager.displayName}}</a>
@@ -112,7 +112,7 @@
             <div class="user-basic-info">
               <div class="user-avatar">
                 <img src="{{:: member.profileImageURL }}">
-                <span class="user-status working"></span>
+                <!--<span class="user-status" ng-class="{ 'working': member.status === 1, 'retired': member.status === 2 }"></span>-->
               </div>
               <div class="user-info">
                 <a class="user-info-name" ui-sref="users.view({ userId: member._id })">{{:: member.displayName}}</a>
