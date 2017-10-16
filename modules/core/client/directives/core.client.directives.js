@@ -108,7 +108,7 @@ function selectInListDirective() {
         var div = element.parent().parent();
         var listItems = div.find('.list-sellect-item');
         console.log(listItems);
-        event.preventDefault();
+        // event.preventDefault();
       }
     });
   }
