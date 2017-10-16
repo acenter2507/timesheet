@@ -1,9 +1,13 @@
 <h3>画像選択</h3>
+
 <div class="row">
-  <div class="col-xs-3 pdn mg5" ng-repeat="img in gallery">
-    <a ng-click="selectedImage = img" ng-class="{ 'gallery-selected': selectedImage === img }">
-      <img class="img-responsive" src="{{img}}">
-    </a>
+
+  <div class="col-xs-12">
+    <div class="image-gallery">
+      <div class="image-item" ng-repeat="img in gallery">
+        <a href="#" class="list-sellect-item"><img class="img-responsive" src="{{img}}"></a>
+      </div>
+    </div>
   </div>
   <div class="clearfix"></div>
 </div>

@@ -5,7 +5,8 @@ angular
   .directive('a', asideMenuToggleDirective)
   .directive('body', asideMenuHideDirective)
   .directive('focusMe', focusMeDirective)
-  .directive('a', blockExpandDirective);
+  .directive('a', blockExpandDirective)
+  .directive('a', selectInListDirective);
 
 // Hủy tác dụng của link rỗng
 function preventClickDirective() {
@@ -89,6 +90,25 @@ function blockExpandDirective() {
       if (element.hasClass('expand-toggle')) {
         element.find('i').toggleClass('fa-rotate-180');
         element.parent().parent().parent().toggleClass('expand');
+      }
+    });
+  }
+}
+// Hủy tác dụng của link rỗng
+function selectInListDirective() {
+  var directive = {
+    restrict: 'E',
+    link: link
+  };
+  return directive;
+
+  function link(scope, element, attrs) {
+    element.on('click', function (event) {
+      if (element.hasClass('list-sellect-item')) {
+        var div = element.parent().parent();
+        var listItems = div.find('.list-sellect-item');
+        console.log(listItems);
+        event.preventDefault();
       }
     });
   }

@@ -294,5 +294,14 @@ a:hover .header-profile-image {
     cursor: inherit;
     display: block; }
 
-.gallery-selected img {
-  border: 2px solid #4285F4; }
+.image-gallery {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row; }
+  .image-gallery .image-item {
+    margin: 5px;
+    width: 50px;
+    height: 50px; }
+    .image-gallery .image-item > a.selected > img {
+      border: 2px solid #4285F4; }
