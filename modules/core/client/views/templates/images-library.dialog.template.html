@@ -2,7 +2,8 @@
 
 <div class="image-gallery">
   <div class="image-item" ng-repeat="img in gallery">
-    <a href="#" class="list-sellect-item" ng-class="{ 'selected': img === selectedImage }" ng-click="selectedImage = img;"><img class="img-responsive" src="{{img}}"></a>
+    <a href="#" class="list-sellect-item" ng-class="{ 'selected': img === selectedImage, 'unselect': img !== selectedImage }"
+      ng-click="selectedImage = img;"><img class="img-responsive" src="{{img}}"></a>
   </div>
 </div>
 <div class="form-group mg12t mgnb">
