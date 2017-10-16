@@ -20,7 +20,7 @@
             </tr>
             <tr>
               <td class="pd10r"><i class="fa fa-users"></i> 部署</td>
-              <td><a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name }}</a></td>
+              <td><a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name || '未設定' }}</a></td>
             </tr>
             <tr>
               <td class="pd10r"><i class="fa fa-mobile"></i> 電話番号</td>

@@ -251,7 +251,7 @@ a:hover .header-profile-image {
   height: auto !important; }
 
 .modified-tab .nav-tabs {
-  border-bottom: 3px solid #DDD !important; }
+  border-bottom: 2px solid #DDD !important; }
   .modified-tab .nav-tabs > li > a {
     padding: 0.5rem 0;
     color: #666; }
