@@ -14,11 +14,32 @@
     vm.department = department;
     vm.form = {};
     vm.uploader = {};
-
+    $scope.gallery = [
+      './modules/departments/client/img/dep1.png',
+      './modules/departments/client/img/dep2.png',
+      './modules/departments/client/img/dep3.png',
+      './modules/departments/client/img/dep4.png',
+      './modules/departments/client/img/dep5.png',
+      './modules/departments/client/img/dep6.png',
+      './modules/departments/client/img/dep7.png',
+      './modules/departments/client/img/dep8.png',
+      './modules/departments/client/img/dep9.png',
+      './modules/departments/client/img/dep10.png',
+      './modules/departments/client/img/dep11.png',
+      './modules/departments/client/img/dep12.png',
+      './modules/departments/client/img/dep13.png',
+      './modules/departments/client/img/dep14.png',
+      './modules/departments/client/img/dep15.png',
+      './modules/departments/client/img/dep16.png',
+      './modules/departments/client/img/dep17.png',
+      './modules/departments/client/img/dep18.png',
+      './modules/departments/client/img/dep19.png',
+      './modules/departments/client/img/dep20.png'
+    ];
 
     onCreate();
     function onCreate() {
-      vm.avatarImageUrl = vm.department.avatar || 'modules/departments/client/img/default.png';
+      vm.avatarImageUrl = vm.department.avatar || './modules/departments/client/img/default.png';
       prepareUploader();
     }
 
@@ -41,7 +62,7 @@
       if ($window.FileReader) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL(fileItem._file);
-  
+
         fileReader.onload = function (fileReaderEvent) {
           $timeout(function () {
             // $scope.imageURL = fileReaderEvent.target.result;
@@ -52,26 +73,27 @@
     };
     // Called after the user has successfully uploaded a new picture
     vm.uploader.onSuccessItem = function (fileItem, response, status, headers) {
-      console.log(response);
-      // if (vm.department._id) {
-      //   vm.department.$update(successCallback, errorCallback);
-      // } else {
-      //   vm.department.$save(successCallback, errorCallback);
-      // }
+      vm.department.avatar = response;
+      if (vm.department._id) {
+        vm.department.$update(successCallback, errorCallback);
+      } else {
+        vm.department.$save(successCallback, errorCallback);
+      }
 
-      // function successCallback(res) {
-      //   $state.go('departments.view', {
-      //     departmentId: res._id
-      //   });
-      // }
+      function successCallback(res) {
+        $state.go('departments.view', {
+          departmentId: res._id
+        });
+      }
 
-      // function errorCallback(res) {
-      //   $scope.handleShowToast(res.data.message, true);
-      // }
+      function errorCallback(res) {
+        $scope.handleShowToast(res.data.message, true);
+      }
       vm.cancelUpload();
     };
     // Called after the user has failed to uploaded a new picture
     vm.uploader.onErrorItem = function (fileItem, response, status, headers) {
+      $scope.handleShowToast(response, true);
       // Clear upload buttons
       vm.cancelUpload();
     };
@@ -115,7 +137,16 @@
 
     //
     vm.handleSelectImageLibrary = () => {
-      
+      $scope.selectedImage = $scope.gallery[0];
+      var mDialog = ngDialog.open({
+        template: 'modules/core/client/views/templates/images-library.dialog.template.html',
+        scope: $scope
+      });
+      mDialog.closePromise.then(function (res) {
+        if (!res.value) return;
+        vm.avatarImageUrl = res.value;
+        vm.department.avatar = res.value;
+      });
     };
     // Change image from URI to blob
     function dataURItoBlob(dataURI) {
