@@ -34,7 +34,11 @@
       './modules/departments/client/img/dep17.png',
       './modules/departments/client/img/dep18.png',
       './modules/departments/client/img/dep19.png',
-      './modules/departments/client/img/dep20.png'
+      './modules/departments/client/img/dep20.png',
+      './modules/departments/client/img/dep21.png',
+      './modules/departments/client/img/dep22.png',
+      './modules/departments/client/img/dep23.png',
+      './modules/departments/client/img/dep24.png'
     ];
 
     onCreate();
