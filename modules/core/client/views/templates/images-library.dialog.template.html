@@ -1,5 +1,5 @@
 <h3>画像選択</h3>
-<div class="col-xs-3" ng-if="img in gallery">
+<div class="col-xs-3" ng-repeat="img in gallery">
   <a ng-click="selectedImage = img" ng-class="{ 'gallery-selected': selectedImage === img }">
     <img src="{{img}}">
   </a>
