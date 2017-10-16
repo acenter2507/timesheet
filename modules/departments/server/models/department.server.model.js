@@ -24,6 +24,7 @@ var DepartmentSchema = new Schema({
   // Thông số báo cáo
   report: { memberCnt: { type: Number, default: 0 } },
   created: { type: Date, default: Date.now },
+  avatar: { type: String },
   user: { type: Schema.ObjectId, ref: 'User' }
 });
 DepartmentSchema.plugin(paginate);

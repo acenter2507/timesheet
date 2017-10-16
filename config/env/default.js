@@ -33,7 +33,13 @@ module.exports = {
     profileUpload: {
       dest: './modules/users/client/img/profile/uploads/', // Profile upload destination path
       limits: {
-        fileSize: 1*1024*1024 // Max file size in bytes (1 MB)
+        fileSize: 5*1024*1024 // Max file size in bytes (5 MB)
+      }
+    },
+    departmentAvatar: {
+      dest: './modules/departments/client/img/', // Profile upload destination path
+      limits: {
+        fileSize: 5*1024*1024 // Max file size in bytes (5 MB)
       }
     }
   }

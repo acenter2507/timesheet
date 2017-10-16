@@ -11,6 +11,7 @@ module.exports = function(app) {
   app.route('/api/departments').all(departmentsPolicy.isAllowed)
     .get(departments.list)
     .post(departments.create);
+  app.route('/api/departments/avatar').post(departments.avatar);
 
   app.route('/api/departments/:departmentId').all(departmentsPolicy.isAllowed)
     .get(departments.read)

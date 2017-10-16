@@ -7,6 +7,8 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Department = mongoose.model('Department'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  config = require(path.resolve('./config/config')),
+  multer = require('multer'),
   _ = require('underscore');
 
 /**
@@ -92,6 +94,23 @@ exports.list = function (req, res) {
       }
     });
 };
+
+/**
+ * Change department avatar
+ */
+exports.avatar = function (req, res) {
+  var user = req.user;
+  var upload = multer(config.uploads.departmentAvatar).single('departmentAvatar');
+  var departmentAvatarFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
+  upload.fileFilter = departmentAvatarFilter;
+  if (!user) return res.status(400).send({ message: '権限がありません。' });
+  upload(req, res, function(uploadError) {
+    if (uploadError) return res.status(400).send({ message: 'アップロードできません。' });
+    var imageUrl = config.uploads.departmentAvatar.dest + req.file.filename;
+    return res.jsonp(imageUrl);
+  });
+};
+
 
 /**
  * Department middleware

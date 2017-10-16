@@ -29,7 +29,7 @@
       .state('departments.create', {
         url: '/create',
         templateUrl: 'modules/departments/client/views/form-department.client.view.html',
-        controller: 'DepartmentsController',
+        controller: 'InputDepartmentController',
         controllerAs: 'vm',
         resolve: {
           departmentResolve: newDepartment
@@ -42,7 +42,7 @@
       .state('departments.edit', {
         url: '/:departmentId/edit?focus',
         templateUrl: 'modules/departments/client/views/form-department.client.view.html',
-        controller: 'DepartmentsController',
+        controller: 'InputDepartmentController',
         controllerAs: 'vm',
         resolve: {
           departmentResolve: getDepartment

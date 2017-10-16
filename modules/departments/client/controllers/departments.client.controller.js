@@ -26,6 +26,7 @@
       vm.memberSearching = false;
       vm.memberFocus = false;
       if (!vm.department._id) {
+        vm.department.avatar = 'modules/departments/client/img/default.png';
         vm.department.members = [];
         vm.department.leaders = [];
       }
