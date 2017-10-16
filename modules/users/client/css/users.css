@@ -104,7 +104,6 @@
         top: 0;
         right: 0;
         margin: 0;
-        opacity: 0.8;
         color: #777;}
       .user-item-block .user-basic-info .user-action .expand-toggle {
         position: absolute;
@@ -117,7 +116,6 @@
       .user-item-block .user-basic-info .user-action .expand-toggle:focus,
       .user-item-block .user-basic-info .user-action .user-options:hover,
       .user-item-block .user-basic-info .user-action .user-options:focus {
-        opacity: 1;
         color: #777;}
   .user-item-block .user-advance-info {
     margin-top: 12px;
