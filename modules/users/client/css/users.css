@@ -74,7 +74,7 @@
         width: 48px;
         height: 48px;
         border-radius: 50%; }
-      .user-item-block .user-basic-info .user-avatar .sdfsdfsdfsdfsdfsdf {
+      .user-item-block .user-basic-info .user-avatar .user-status {
         position: absolute;
         bottom: 2px;
         right: 2px;
@@ -104,14 +104,14 @@
         top: 0;
         right: 0;
         margin: 0;
-        color: #777;}
+        color: #ccc;}
       .user-item-block .user-basic-info .user-action .expand-toggle {
         position: absolute;
         bottom: 0;
         right: 0;
         margin: 0;
         opacity: 0.8;
-        color: #777;}
+        color: #ccc;}
       .user-item-block .user-basic-info .user-action .expand-toggle:hover,
       .user-item-block .user-basic-info .user-action .expand-toggle:focus,
       .user-item-block .user-basic-info .user-action .user-options:hover,
