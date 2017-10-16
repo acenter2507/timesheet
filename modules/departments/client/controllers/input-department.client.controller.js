@@ -137,6 +137,7 @@
 
     //
     vm.handleSelectImageLibrary = () => {
+      $scope.selectedImage = '';
       var mDialog = ngDialog.open({
         template: 'modules/core/client/views/templates/images-library.dialog.template.html',
         scope: $scope
@@ -146,6 +147,7 @@
         if (!res.value || res.value === '') return;
         vm.avatarImageUrl = res.value;
         vm.department.avatar = res.value;
+        delete $scope.selectedImage;
       });
     };
     // Change image from URI to blob
