@@ -142,6 +142,7 @@
         scope: $scope
       });
       mDialog.closePromise.then(function (res) {
+        console.log(res);
         if (!res.value || res.value === '') return;
         vm.avatarImageUrl = res.value;
         vm.department.avatar = res.value;

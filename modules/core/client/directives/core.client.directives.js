@@ -112,7 +112,6 @@ function selectInListDirective() {
           angular.element(item).removeClass('selected');
         }
         element.addClass('selected');
-        // event.preventDefault();
       }
     });
   }
