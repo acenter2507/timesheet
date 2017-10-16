@@ -126,7 +126,8 @@
       vm.busy = true;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.departmentForm');
-        return vm.busy = false;
+        vm.busy = false;
+        return false;
       }
       if (vm.isGetAvatarFromFile) {
         vm.uploader.uploadAll();
