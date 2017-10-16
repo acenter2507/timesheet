@@ -301,8 +301,8 @@ a:hover .header-profile-image {
   flex-direction: row; }
   .image-gallery .image-item {
     margin: 5px;
-    width: 64px;
-    height: 64px; }
+    width: 60px;
+    height: 60px; }
     .image-gallery .image-item > a > img {
       border: none; }
     .image-gallery .image-item > a.selected > img {
