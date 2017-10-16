@@ -98,6 +98,7 @@ function blockExpandDirective() {
 function selectInListDirective() {
   var directive = {
     restrict: 'E',
+    scope: { model: '=' },
     link: link
   };
   return directive;
@@ -112,9 +113,8 @@ function selectInListDirective() {
           angular.element(item).removeClass('selected');
         }
         element.addClass('selected');
-        scope.$apply(function () {
-          scope.selectedImage = attrs.image;
-        });
+        scope.model = attrs.image;
+        scope.$apply();
       }
     });
   }
