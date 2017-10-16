@@ -112,8 +112,6 @@ function selectInListDirective() {
           angular.element(item).removeClass('selected');
         }
         element.addClass('selected');
-        console.log(attrs.image);
-        scope.selectedImage = attrs.image;
         scope.$apply(function () {
           scope.selectedImage = attrs.image;
         });
