@@ -107,9 +107,10 @@ function selectInListDirective() {
       if (element.hasClass('list-sellect-item')) {
         var div = element.parent().parent();
         var listItems = div.find('.list-sellect-item');
-        listItems.forEach(function(item) {
+        for (var i = 0; i < listItems.length; i++) {
+          var item = listItems[i];
           item.removeClass('selected');
-        });
+        }
         element.addClass('selected');
         // event.preventDefault();
       }
