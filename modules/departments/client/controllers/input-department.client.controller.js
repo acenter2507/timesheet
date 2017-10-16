@@ -137,13 +137,12 @@
 
     //
     vm.handleSelectImageLibrary = () => {
-      $scope.selectedImage = $scope.gallery[0];
       var mDialog = ngDialog.open({
         template: 'modules/core/client/views/templates/images-library.dialog.template.html',
         scope: $scope
       });
       mDialog.closePromise.then(function (res) {
-        if (!res.value) return;
+        if (!res.value || res.value === '') return;
         vm.avatarImageUrl = res.value;
         vm.department.avatar = res.value;
       });
