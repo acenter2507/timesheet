@@ -74,7 +74,7 @@
         width: 48px;
         height: 48px;
         border-radius: 50%; }
-      .user-item-block .user-basic-info .user-avatar .user-status {
+      .user-item-block .user-basic-info .user-avatar .sdfsdfsdfsdfsdfsdf {
         position: absolute;
         bottom: 2px;
         right: 2px;
@@ -82,6 +82,7 @@
         height: 12px;
         opacity: 0.9;
         border: 2px solid #fff;
+        background-color: #59BA37;
         border-radius: 50%; }
         .user-item-block .user-basic-info .user-avatar .user-status.working{
           background-color: #59BA37; }
