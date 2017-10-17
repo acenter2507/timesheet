@@ -78,13 +78,9 @@
       $scope.handleShowConfirm({
         message: user.displayName + 'を部署から削除しますか？'
       }, () => {
-        if (CommonService.checkUserIsManager(user.roles)) {
-          vm.department.leaders = _.without(vm.department.leaders, user);
-        } else {
-          vm.department.members = _.without(vm.department.members, user);
-        }
+        vm.department.leaders = _.without(vm.department.leaders, user);
+        vm.department.members = _.without(vm.department.members, user);
         DepartmentsApi.removeUser(vm.department._id, user._id);
-        if (!$scope.$$phase) $scope.$digest();
       });
     };
     // Logic remove user
