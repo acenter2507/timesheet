@@ -6,9 +6,20 @@
     .module('departments')
     .controller('DepartmentsController', DepartmentsController);
 
-  DepartmentsController.$inject = ['$scope', '$state', 'departmentResolve', '$timeout', 'AdminUserApi', '$stateParams', 'DepartmentsApi', 'CommonService', 'AdminUserService'];
+  DepartmentsController.$inject = [
+    '$scope',
+    '$state',
+    'departmentResolve',
+    '$timeout',
+    'AdminUserApi',
+    '$stateParams',
+    'DepartmentsApi',
+    'CommonService',
+    'AdminUserService',
+    'ngDialog'
+  ];
 
-  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi, CommonService, AdminUserService) {
+  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi, CommonService, AdminUserService, ngDialog) {
     var vm = this;
 
     vm.department = department;
@@ -61,10 +72,6 @@
     vm.handleSendMessageUser = user => {
       $scope.handleShowToast('只今、この機能は作成中です。');
     };
-    // Add new leader
-    vm.handleAddLeader = () => { };
-    // Add new leader
-    vm.handleAddMember = () => { };
     // View user detail page
     vm.handleViewDetailUser = user => {
       if ($scope.isAdmin || $scope.isAccountant) {
@@ -98,7 +105,42 @@
       });
     };
     // Physico remove user
-    vm.handleDatabaseDeleteUser = user => { };
+    vm.handleDatabaseDeleteUser = user => {
+      $scope.handleShowConfirm({
+        message: user.displayName + 'を完全削除しますか？'
+      }, () => {
+        var rsUser = new AdminUserService({ _id: user._id });
+        vm.department.leaders = _.without(vm.department.leaders, user);
+        vm.department.members = _.without(vm.department.members, user);
+        rsUser.$remove();
+      });
+    };
+    // Add new leader
+    vm.handleAddLeader = () => {
+      $scope.userId = '';
+      var mDialog = ngDialog.open({
+        template: 'modules/core/client/views/templates/search-user.dialog.template.html',
+        scope: $scope,
+        width: '100%'
+      });
+      mDialog.closePromise.then(function (res) {
+        if (!res.value || res.value === '') return;
+        delete $scope.userId;
+      });
+    };
+    // Add new leader
+    vm.handleAddMember = () => {
+      $scope.userId = '';
+      var mDialog = ngDialog.open({
+        template: 'modules/core/client/views/templates/search-user.dialog.template.html',
+        scope: $scope,
+        width: '100%'
+      });
+      mDialog.closePromise.then(function (res) {
+        if (!res.value || res.value === '') return;
+        delete $scope.userId;
+      });
+    };
     /**
      * HANDLES
      */
