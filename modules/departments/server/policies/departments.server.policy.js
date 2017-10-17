@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/departments/:departmentId',
       permissions: '*'
+    }, {
+      resources: '/api/departments/*',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -46,6 +49,9 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }, {
       resources: '/api/departments/:departmentId',
+      permissions: '*'
+    }, {
+      resources: '/api/departments/*',
       permissions: '*'
     }]
   }]);

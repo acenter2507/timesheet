@@ -6,9 +6,9 @@
     .module('departments')
     .controller('DepartmentsController', DepartmentsController);
 
-  DepartmentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'departmentResolve', '$timeout', 'AdminUserApi', '$stateParams'];
+  DepartmentsController.$inject = ['$scope', '$state', 'departmentResolve', '$timeout', 'AdminUserApi', '$stateParams', 'DepartmentsApi'];
 
-  function DepartmentsController($scope, $state, $window, Authentication, department, $timeout, AdminUserApi, $stateParams) {
+  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi) {
     var vm = this;
 
     vm.department = department;
@@ -16,31 +16,24 @@
 
     onCreate();
     function onCreate() {
-      vm.isShowLeaderDropdown = false;
-      vm.leaderSearchKey = '';
-      vm.leaderSearching = false;
-      vm.leaderFocus = false;
-
-      vm.isShowMemberDropdown = false;
-      vm.memberSearchKey = '';
-      vm.memberSearching = false;
-      vm.memberFocus = false;
       if (!vm.department._id) {
-        vm.department.avatar = './modules/core/client/img/gallerys/default.png';
-        vm.department.members = [];
-        vm.department.leaders = [];
+        $scope.handleShowToast('部署が存在しません。', true);
+        handlePreviousScreen();
+        return;
       }
+      // vm.isShowLeaderDropdown = false;
+      // vm.leaderSearchKey = '';
+      // vm.leaderSearching = false;
+      // vm.leaderFocus = false;
+
+      // vm.isShowMemberDropdown = false;
+      // vm.memberSearchKey = '';
+      // vm.memberSearching = false;
+      // vm.memberFocus = false;
       prepareParams();
     }
 
     function prepareParams() {
-      if ($stateParams.focus) {
-        if ($stateParams.focus === 'leader') {
-          vm.leaderFocus = true;
-        } else if ($stateParams.focus === 'member') {
-          vm.memberFocus = true;
-        }
-      }
     }
     // Remove existing Department
     vm.handleDeleteDepartment = () => {
@@ -52,56 +45,47 @@
         });
       });
     };
-    // Save Department
-    vm.handleSaveDepartment = isValid => {
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.departmentForm');
-        return false;
-      }
-
-      var leaderIds = _.pluck(vm.department.leaders, '_id');
-      var memberIds = _.pluck(vm.department.members, '_id');
-
-      vm.department.leaders = leaderIds;
-      vm.department.members = memberIds;
-
-      // TODO: move create/update logic to service
-      if (vm.department._id) {
-        vm.department.$update(successCallback, errorCallback);
-      } else {
-        vm.department.$save(successCallback, errorCallback);
-      }
-
-      function successCallback(res) {
-        $state.go('departments.view', {
-          departmentId: res._id
-        });
-      }
-
-      function errorCallback(res) {
-        $scope.handleShowToast(res.data.message, true);
-      }
-    };
-    // Remove existing Department
-    vm.handleCancelInput = () => {
-      $state.go($state.previous.state.name || 'departments.list', $state.previous.params);
-    };
     // Send message to all member
-    vm.handleSendMessageDepartment = () => { };
+    vm.handleSendMessageDepartment = () => {
+      $scope.handleShowToast('只今、この機能は作成中です。');
+    };
     // Send message to all leader
-    vm.handleSendMessageLeader = () => { };
+    vm.handleSendMessageLeader = () => {
+      $scope.handleShowToast('只今、この機能は作成中です。');
+    };
     // Send message to all member
-    vm.handleSendMessageMember = () => { };
+    vm.handleSendMessageMember = () => {
+      $scope.handleShowToast('只今、この機能は作成中です。');
+    };
     // Send message to only user
-    vm.handleSendMessageUser = () => { };
+    vm.handleSendMessageUser = user => {
+      $scope.handleShowToast('只今、この機能は作成中です。');
+    };
     // Add new leader
     vm.handleAddLeader = () => { };
     // Add new leader
     vm.handleAddMember = () => { };
     // View user detail page
-    vm.handleViewDetailUser = user => { };
+    vm.handleViewDetailUser = user => {
+      if ($scope.isAdmin || $scope.isAccountant) {
+        return $state.go('users.view', { userId: user._id });
+      } else {
+        return $state.go('profile.view', { userId: user._id });
+      }
+    };
     // Remove member from department
-    vm.handleRemoveUserFromDepartment = user => { };
+    vm.handleRemoveUserFromDepartment = user => {
+      $scope.handleShowConfirm({
+        message: vm.department.name + 'を部署から削除しますか？'
+      }, () => {
+        if (CommonService.checkUserIsManager(user.roles)) {
+          vm.department.leaders = _.without(vm.department.leaders, user);
+        } else {
+          vm.department.members = _.without(vm.department.members, user);
+        }
+        DepartmentsApi.removeUser(user._id);
+      });
+    };
     // Logic remove user
     vm.handleLogicDeleteUser = user => { };
     // Physico remove user
@@ -198,6 +182,10 @@
           vm.isShowMemberDropdown = false;
           vm.memberSearching = false;
         });
+    }
+    // Trở về màn hình trước
+    function handlePreviousScreen() {
+      $state.go($state.previous.state.name || 'departments.list', $state.previous.params);
     }
   }
 }());

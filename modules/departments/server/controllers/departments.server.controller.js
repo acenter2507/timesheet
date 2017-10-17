@@ -147,3 +147,26 @@ exports.departmentByID = function (req, res, next, id) {
       next();
     });
 };
+
+/**
+ * Delete user from department
+ */
+exports.removeUser = function (req, res) {
+  var userId = req.body.userId;
+  var department = req.department;
+
+  User.findById(userId).exec((err, user) => {
+    if (_.contains(user.roles, 'manager')) {
+      // Remove this user from leaders department
+      Department.removeLeader(department._id, user._id)
+        .then(department => {
+          User.setLeaders(department._id, department.leaders);
+        })
+    } else {
+      Department.removeMember(department._id, user._id);
+    }
+    user.department = undefined;
+    user.leaders = [];
+    user.save();
+  });
+};

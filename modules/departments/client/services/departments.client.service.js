@@ -4,17 +4,24 @@
 
   angular
     .module('departments')
-    .factory('DepartmentsService', DepartmentsService);
+    .factory('DepartmentsService', DepartmentsService)
+    .factory('DepartmentsApi', DepartmentsApi);
 
   DepartmentsService.$inject = ['$resource'];
 
   function DepartmentsService($resource) {
-    return $resource('api/departments/:departmentId', {
-      departmentId: '@_id'
-    }, {
+    return $resource('api/departments/:departmentId', { departmentId: '@_id' }, {
       update: {
         method: 'PUT'
       }
     });
+  }
+
+  DepartmentsApi.$inject = ['$http'];
+  function DepartmentsApi($http) {
+    this.removeUser = (userId) => {
+      return $http.post('/api/departments/removeUser', { userId: userId }, { ignoreLoadingBar: true });
+    };
+    return this;
   }
 }());

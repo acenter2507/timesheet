@@ -11,7 +11,10 @@ module.exports = function(app) {
   app.route('/api/departments').all(departmentsPolicy.isAllowed)
     .get(departments.list)
     .post(departments.create);
-  app.route('/api/departments/avatar').post(departments.avatar);
+  // Update avatar of deparment
+  app.route('/api/departments/avatar').post(departmentsPolicy.isAllowed, departments.avatar);
+  // Delete user from department
+  app.route('/api/departments/removeUser').post(departmentsPolicy.isAllowed, departments.removeUser);
 
   app.route('/api/departments/:departmentId').all(departmentsPolicy.isAllowed)
     .get(departments.read)
