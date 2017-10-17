@@ -168,5 +168,6 @@ exports.removeUser = function (req, res) {
     user.department = undefined;
     user.leaders = [];
     user.save();
+    res.end();
   });
 };
