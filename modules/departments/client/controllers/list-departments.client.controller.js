@@ -20,5 +20,6 @@
         vm.departments = _.without(vm.departments, department);
       });
     };
+
   }
 }());

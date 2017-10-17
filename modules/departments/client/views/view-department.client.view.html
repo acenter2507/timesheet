@@ -10,7 +10,7 @@
           <table>
             <tr>
               <td class="pd10r"><i class="fa fa-envelope"></i> メール</td>
-              <td><a ng-href="mailto:{{vm.user.email}}"> {{:: vm.department.email }}</a></td>
+              <td><a ng-href="mailto:{{vm.department.email}}"> {{:: vm.department.email }}</a></td>
             </tr>
             <tr>
               <td class="pd10r"><i class="fa fa-map-marker"></i> 場所</td>
@@ -19,21 +19,10 @@
           </table>
         </div>
         <div class="user-tools">
-          <a class="user-tool-button" ng-href="mailto:{{vm.user.email}}" tooltip-placement="bottom" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
-          <a class="user-tool-button" ng-click="vm.handleSendMessageUser()" tooltip-placement="bottom" tooltip="メッセージ送信"><i class="fa fa-commenting"></i></a>
-          <a class="user-tool-button" ui-sref="users.edit({ userId: vm.user._id })" tooltip-placement="bottom" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
-          <a class="user-tool-button" ui-sref="users.timeshet({ userId: member._id })" tooltip-placement="bottom" tooltip="勤務表"><i class="fa fa-calendar"></i></a>
-          <div class="user-tool-button" dropdown dropdown-append-to-body>
-            <a class="w100p h100p" dropdown-toggle ><i class="glyphicon glyphicon-option-vertical"></i></a>
-            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-              <li><a ng-click="vm.handleRetiredUser()"><i class="fa fa-hand-paper-o"></i> 退職済み</a></li>
-              <li><a ng-click="vm.handleChangePasswordUser()"><i class="fa fa-lock"></i> パスワード変更</a></li>
-              <li><a ng-click="vm.handleChangeRolesUser()"><i class="fa fa-sitemap"></i> 役割変更</a></li>
-              <li><a ng-click="vm.handleChangeDepartmentUser()"><i class="fa fa-users"></i> 部署変更</a></li>
-              <li><a ng-click="vm.handleLogicDeleteUser()"><i class="fa fa-user-times"></i> 削除</a></li>
-              <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser()"><i class="fa fa-trash"></i> 完全削除</a></li>
-            </ul>
-          </div>
+          <a class="user-tool-button" ng-href="mailto:{{vm.department.email}}" tooltip-placement="bottom" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
+          <a class="user-tool-button" ng-click="vm.handleSendMessageDepartment()" tooltip-placement="bottom" tooltip="メッセージ送信"><i class="fa fa-commenting"></i></a>
+          <a ng-if="isAdmin || isAccountant" class="user-tool-button" ui-sref="departments.edit({ departmentId: vm.department._id })" tooltip-placement="bottom" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
+          <a ng-if="isAdmin || isAccountant" class="user-tool-button" ng-click="vm.handleDeleteDepartment()" tooltip-placement="bottom" tooltip="削除"><i class="fa fa-trash"></i></a>
         </div>
       </div>
     </div>

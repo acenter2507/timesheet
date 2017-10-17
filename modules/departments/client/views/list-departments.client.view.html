@@ -1,7 +1,8 @@
 <div class="row animated fadeIn mg50t">
-  <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-if="isLeader">
+  <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-if="isAdmin || isAccountant">
     <div class="well">
       <a class="btn btn-default text-muted" ui-sref="departments.create"><i class="fa fa-plus fa-2x"></i></a>
+      部署追加
     </div>
   </div>
   <div class="clearfix"></div>
@@ -42,7 +43,7 @@
             </ul>
           </div>
           <div>
-            <a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, focus: 'leader' })"><i class="fa fa-plus"></i></a>
+            <a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, action: 'leaders' })"><i class="fa fa-plus"></i></a>
           </div>
         </div>
       </div>
@@ -62,13 +63,9 @@
               </li>
             </ul>
           </div>
-          <div><a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, focus: 'member' })"><i class="fa fa-plus"></i></a></div>
+          <div><a class="text-muted" ui-sref="departments.view({ departmentId: department._id, action: 'members' })"><i class="fa fa-plus"></i></a></div>
         </div>
       </div>
     </div>
   </div>
-  <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="department in vm.departments">
-    <div class="well">
-    </div>
-  </div>-->
 </div>

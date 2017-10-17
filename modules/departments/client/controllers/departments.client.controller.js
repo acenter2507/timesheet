@@ -50,7 +50,6 @@
         vm.department.$remove($state.go('departments.list'));
       });
     };
-
     // Save Department
     vm.handleSaveDepartment = isValid => {
       if (!isValid) {
@@ -81,11 +80,12 @@
         $scope.handleShowToast(res.data.message, true);
       }
     };
-
     // Remove existing Department
     vm.handleCancelInput = () => {
       $state.go($state.previous.state.name || 'departments.list', $state.previous.params);
     };
+    // Send message to all member
+    vm.handleSendMessageDepartment = () => { };
     /**
      * HANDLES
      */

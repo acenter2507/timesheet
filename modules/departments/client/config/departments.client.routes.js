@@ -35,12 +35,12 @@
           departmentResolve: newDepartment
         },
         data: {
-          roles: ['admin', 'accountant', 'manager'],
+          roles: ['admin', 'accountant'],
           pageTitle: 'Departments Create'
         }
       })
       .state('departments.edit', {
-        url: '/:departmentId/edit?focus',
+        url: '/:departmentId',
         templateUrl: 'modules/departments/client/views/form-department.client.view.html',
         controller: 'InputDepartmentController',
         controllerAs: 'vm',
@@ -53,7 +53,7 @@
         }
       })
       .state('departments.view', {
-        url: '/:departmentId',
+        url: '/:departmentId/edit?action',
         templateUrl: 'modules/departments/client/views/view-department.client.view.html',
         controller: 'DepartmentsController',
         controllerAs: 'vm',
