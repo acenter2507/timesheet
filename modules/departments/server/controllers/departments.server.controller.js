@@ -161,7 +161,7 @@ exports.removeUser = function (req, res) {
       Department.removeLeader(department._id, user._id)
         .then(department => {
           User.setLeaders(department._id, department.leaders);
-        })
+        });
     } else {
       Department.removeMember(department._id, user._id);
     }
