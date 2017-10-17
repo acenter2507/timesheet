@@ -84,6 +84,7 @@
           vm.department.members = _.without(vm.department.members, user);
         }
         DepartmentsApi.removeUser(vm.department._id, user._id);
+        if (!$scope.$$phase) $scope.$digest();
       });
     };
     // Logic remove user
