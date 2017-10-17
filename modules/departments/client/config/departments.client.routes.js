@@ -26,8 +26,8 @@
           pageTitle: 'Departments List'
         }
       })
-      .state('departments.create', {
-        url: '/create',
+      .state('departments.new', {
+        url: '/new',
         templateUrl: 'modules/departments/client/views/form-department.client.view.html',
         controller: 'InputDepartmentController',
         controllerAs: 'vm',
@@ -41,7 +41,7 @@
       })
       .state('departments.edit', {
         url: '/:departmentId/edit',
-        templateUrl: 'modules/departments/client/views/form-department.client.view.html',
+        templateUrl: 'modules/departments/client/views/input-department.client.view.html',
         controller: 'InputDepartmentController',
         controllerAs: 'vm',
         resolve: {

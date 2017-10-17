@@ -87,9 +87,23 @@
     // Send message to all member
     vm.handleSendMessageDepartment = () => { };
     // Send message to all leader
-    vm.handleSendMessageLeader = () => {};
+    vm.handleSendMessageLeader = () => { };
+    // Send message to all member
+    vm.handleSendMessageMember = () => { };
+    // Send message to only user
+    vm.handleSendMessageUser = () => { };
     // Add new leader
-    vm.handleAddLeader = () => {};
+    vm.handleAddLeader = () => { };
+    // Add new leader
+    vm.handleAddMember = () => { };
+    // View user detail page
+    vm.handleViewDetailUser = user => { };
+    // Remove member from department
+    vm.handleRemoveUserFromDepartment = user => { };
+    // Logic remove user
+    vm.handleLogicDeleteUser = user => { };
+    // Physico remove user
+    vm.handleDatabaseDeleteUser = user => { };
     /**
      * HANDLES
      */

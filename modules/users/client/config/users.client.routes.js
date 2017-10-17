@@ -33,6 +33,19 @@ angular.module('users').config(['$stateProvider',
       .state('authentication.signin', {
         url: '/signin?err',
         templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'
+      })
+      // PROFILE
+      .state('profile', {
+        abstract: true,
+        url: '/profile',
+        template: '<ui-view/>',
+        data: {
+          roles: ['user']
+        }
+      })
+      .state('profile.view', {
+        url: '/:userId',
+        templateUrl: 'modules/users/client/views/profile/view-profile.client.view.html'
       });
   }
 ]);
