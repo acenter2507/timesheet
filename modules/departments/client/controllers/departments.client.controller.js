@@ -76,7 +76,7 @@
     // Remove member from department
     vm.handleRemoveUserFromDepartment = user => {
       $scope.handleShowConfirm({
-        message: vm.department.name + 'を部署から削除しますか？'
+        message: user.displayName + 'を部署から削除しますか？'
       }, () => {
         if (CommonService.checkUserIsManager(user.roles)) {
           vm.department.leaders = _.without(vm.department.leaders, user);
