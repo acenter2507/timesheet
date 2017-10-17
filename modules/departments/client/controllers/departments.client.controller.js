@@ -86,6 +86,10 @@
     };
     // Send message to all member
     vm.handleSendMessageDepartment = () => { };
+    // Send message to all leader
+    vm.handleSendMessageLeader = () => {};
+    // Add new leader
+    vm.handleAddLeader = () => {};
     /**
      * HANDLES
      */
