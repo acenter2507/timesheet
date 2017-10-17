@@ -119,7 +119,7 @@ UserSchema.statics.setLeaders = function (departmentId, leaders) {
 };
 
 UserSchema.statics.removeDepartment = function (departmentId) {
-  return this.update({ department: departmentId }, { $set: { department: null } }, { leaders: [] }).exec();
+  return this.update({ department: departmentId }, { $set: { department: null } }, { leaders: null }).exec();
 };
 
 mongoose.model('User', UserSchema);
