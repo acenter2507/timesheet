@@ -6,7 +6,8 @@
   flex-wrap: wrap;}
   .department-item-block .department-block-header {
     display: flex;
-    flex-direction: row; }
+    flex-direction: row;
+    margin-bottom: 12px; }
     .department-item-block .department-block-header .department-block-avatar,
     .department-item-block .department-block-header .department-block-avatar img {
       width: 64px;
