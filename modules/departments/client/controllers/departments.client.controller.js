@@ -6,9 +6,9 @@
     .module('departments')
     .controller('DepartmentsController', DepartmentsController);
 
-  DepartmentsController.$inject = ['$scope', '$state', 'departmentResolve', '$timeout', 'AdminUserApi', '$stateParams', 'DepartmentsApi', 'CommonService'];
+  DepartmentsController.$inject = ['$scope', '$state', 'departmentResolve', '$timeout', 'AdminUserApi', '$stateParams', 'DepartmentsApi', 'CommonService', 'AdminUserService'];
 
-  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi, CommonService) {
+  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi, CommonService, AdminUserService) {
     var vm = this;
 
     vm.department = department;
@@ -84,7 +84,19 @@
       });
     };
     // Logic remove user
-    vm.handleLogicDeleteUser = user => { };
+    vm.handleLogicDeleteUser = user => {
+      $scope.handleShowConfirm({
+        message: user.displayName + 'を削除しますか？'
+      }, () => {
+        var rsUser = new AdminUserService({ _id: user._id });
+        rsUser.status = 3;
+        rsUser.$update(() => {
+          vm.department.leaders = _.without(vm.department.leaders, user);
+          vm.department.members = _.without(vm.department.members, user);
+          DepartmentsApi.removeUser(vm.department._id, user._id);
+        });
+      });
+    };
     // Physico remove user
     vm.handleDatabaseDeleteUser = user => { };
     /**

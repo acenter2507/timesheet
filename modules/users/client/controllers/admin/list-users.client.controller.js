@@ -7,7 +7,8 @@ angular.module('users.admin').controller('UserListController', [
   'AdminUserApi',
   'AdminUserService',
   'CommonService',
-  function ($scope, $state, $filter, AdminUserApi, AdminUserService, CommonService) {
+  'DepartmentsApi',
+  function ($scope, $state, $filter, AdminUserApi, AdminUserService, CommonService, DepartmentsApi) {
     var vm = this;
 
     onCreate();
@@ -115,6 +116,9 @@ angular.module('users.admin').controller('UserListController', [
           if ($scope.isAdmin) {
             vm.deleted.page = 1;
             handleLoadDeletedUsers();
+            if (user.department) {
+              DepartmentsApi.removeUser(user.department._id, user._id);
+            }
           }
         });
         if (CommonService.checkUserIsAdmin(user.roles)) {

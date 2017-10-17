@@ -128,6 +128,9 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
         var rsUser = new AdminUserService({ _id: vm.user._id });
         rsUser.status = 3;
         rsUser.$update();
+        if (vm.user.department) {
+          DepartmentsApi.removeUser(vm.user.department._id, vm.user._id);
+        }
         handlePreviousScreen();
       });
     };
