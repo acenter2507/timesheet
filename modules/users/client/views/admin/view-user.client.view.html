@@ -20,7 +20,10 @@
             </tr>
             <tr>
               <td class="pd10r"><i class="fa fa-users"></i> 部署</td>
-              <td><a ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name || '未設定' }}</a></td>
+              <td>
+                <a ng-if="vm.user.department" ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name}}</a>
+                <span ng-if="!vm.user.department">未設定</span>
+              </td>
             </tr>
             <tr>
               <td class="pd10r"><i class="fa fa-mobile"></i> 電話番号</td>
