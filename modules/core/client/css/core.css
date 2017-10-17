@@ -310,11 +310,12 @@ a:hover .header-profile-image {
 
 .left-aside {
   position: absolute;
-  left: -250px;
+  left: -320px;
   top: 0;
   bottom: 0;
-  width: 250px;
+  width: 320px;
   z-index: 3;
+  padding: 0 12px;
   background-color: #fff;
   transition-duration: .25s,.25s;
   transition-property: left, right;
