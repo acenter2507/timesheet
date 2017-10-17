@@ -324,7 +324,7 @@ a:hover .header-profile-image {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar; }
   .left-backdrop {
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
