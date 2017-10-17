@@ -8,18 +8,21 @@
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="department in vm.departments">
     <div class="well">
       <div class="department-item-block">
-        <div class="department-block-title">
-          <a ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a>
-        </div>
-        <div class="department-block-info">
-          <div class="department-email">
-            <a ng-href="mailto:{{department.email}}">{{::department.email}}</a>
+        <div class="department-block-header">
+          <div class="department-block-avatar">
+            <img class="img-responsive" src="{{:: department.avatar}}">
           </div>
-          <div class="department-action">
-            <a class="text-muted" ng-href="mailto:{{department.email}}" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
-            <a class="text-muted" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
-            <a ng-if="isLeader" class="text-muted" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
-            <a ng-if="isLeader" class="text-muted" ng-click="vm.handleDeleteDepartment(department)" tooltip="削除"><i class="fa fa-trash"></i></a>
+          <div class="department-block-info">
+            <a class="department-block-title" ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a>
+            <div class="department-email">
+              <a ng-href="mailto:{{department.email}}">{{::department.email}}</a>
+            </div>
+            <div class="department-action">
+              <a class="text-muted" ng-href="mailto:{{department.email}}" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
+              <a class="text-muted" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
+              <a ng-if="isLeader" class="text-muted" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
+              <a ng-if="isLeader" class="text-muted" ng-click="vm.handleDeleteDepartment(department)" tooltip="削除"><i class="fa fa-trash"></i></a>
+            </div>
           </div>
         </div>
         <div class="department-block-leaders">
@@ -46,8 +49,8 @@
         <div class="department-block-members">
           <div class="images">
             <p class="font-weight-bold mgn">メンバー（{{ department.members.length}}）</p>
-            <img class="user-common-avatar-small" ng-class="{'mg10l-': !$first}" ng-repeat="member in department.members | limitTo: 10" src="{{::member.profileImageURL}}"
-              tooltip="{{::member.displayName}}">
+            <img class="user-common-avatar-small" ng-class="{'mg10l-': !$first}" ng-repeat="member in department.members | limitTo: 10"
+              src="{{::member.profileImageURL}}" tooltip="{{::member.displayName}}">
           </div>
           <div class="buttons">
             <div dropdown dropdown-append-to-body>
