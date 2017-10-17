@@ -96,7 +96,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     };
     // Thay đổi bộ phận của user
     vm.handleChangeDepartment = () => {
-      var currentDepartment = vm.user.department._id || vm.user.department;
+      var currentDepartment = (vm.user.department) ? vm.user.department._id || vm.user.department : undefined;
       $scope.dialog = {
         departments: vm.departments,
         department: currentDepartment
