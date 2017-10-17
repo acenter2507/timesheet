@@ -328,6 +328,7 @@ a:hover .header-profile-image {
     position: absolute;
     border: none;
     cursor: pointer;
+    background: 0 0;
     right: 0;
     top: 0; }
   .left-aside .left-aside-close::before {
