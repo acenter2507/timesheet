@@ -45,7 +45,7 @@
 
     onCreate();
     function onCreate() {
-      vm.avatarImageUrl = vm.department.avatar || './modules/departments/client/img/default.png';
+      vm.avatarImageUrl = vm.department.avatar || './modules/core/client/img/gallerys/default.png';
       prepareUploader();
     }
 
