@@ -331,8 +331,7 @@ a:hover .header-profile-image {
     right: 0;
     display: none;
     z-index: 2;
-    background-color: #000;
-    opacity: 0.8;
+    background-color: #eee;
     transition: all 0.1s linear;}
   .open-left-aside .left-aside {
     left: 0; }
