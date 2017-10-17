@@ -21,7 +21,10 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/departments/:departmentId',
       permissions: '*'
     }, {
-      resources: '/api/departments/*',
+      resources: '/api/departments/avatar',
+      permissions: '*'
+    }, {
+      resources: '/api/departments/removeUser',
       permissions: '*'
     }]
   }, {
@@ -51,7 +54,10 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/departments/:departmentId',
       permissions: '*'
     }, {
-      resources: '/api/departments/*',
+      resources: '/api/departments/avatar',
+      permissions: '*'
+    }, {
+      resources: '/api/departments/removeUser',
       permissions: '*'
     }]
   }]);
