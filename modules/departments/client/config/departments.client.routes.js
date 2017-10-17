@@ -40,7 +40,7 @@
         }
       })
       .state('departments.edit', {
-        url: '/:departmentId',
+        url: '/:departmentId/edit',
         templateUrl: 'modules/departments/client/views/form-department.client.view.html',
         controller: 'InputDepartmentController',
         controllerAs: 'vm',
@@ -53,7 +53,7 @@
         }
       })
       .state('departments.view', {
-        url: '/:departmentId/edit?action',
+        url: '/:departmentId?action',
         templateUrl: 'modules/departments/client/views/view-department.client.view.html',
         controller: 'DepartmentsController',
         controllerAs: 'vm',
