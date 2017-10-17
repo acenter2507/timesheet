@@ -117,11 +117,11 @@
     };
     // Add new leader
     vm.handleAddLeader = () => {
-      angular.element('body').addClass('open-left-aside');
+      angular.element('body').toggleClass('open-left-aside');
     };
     // Add new leader
     vm.handleAddMember = () => {
-      angular.element('body').addClass('open-left-aside');
+      angular.element('body').toggleClass('open-left-aside');
     };
     /**
      * HANDLES
