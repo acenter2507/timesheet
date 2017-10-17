@@ -46,6 +46,7 @@
                 <div class="clearfix"></div>
               </div>
               <div class="panel-body">
+                <p class="text-muted" ng-show="vm.department.leaders.length === 0">リーダがありません。</p>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="leader in vm.department.leaders">
                   <div class="user-item-block mg6x">
                     <div class="user-basic-info">
@@ -91,6 +92,7 @@
                 <div class="clearfix"></div>
               </div>
               <div class="panel-body">
+                <p class="text-muted" ng-show="vm.department.members.length === 0">メンバーがありません。</p>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.department.members">
                   <div class="user-item-block mg6x">
                     <div class="user-basic-info">

@@ -45,6 +45,9 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var department = req.department;
+  if (req.body.avatar && department.avatar !== req.body.avatar) {
+    
+  }
 
   department = _.extend(department, req.body);
 

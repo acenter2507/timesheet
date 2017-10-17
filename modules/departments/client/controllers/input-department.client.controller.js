@@ -15,30 +15,30 @@
     vm.form = {};
     vm.uploader = {};
     $scope.gallery = [
-      './modules/departments/client/img/dep1.png',
-      './modules/departments/client/img/dep2.png',
-      './modules/departments/client/img/dep3.png',
-      './modules/departments/client/img/dep4.png',
-      './modules/departments/client/img/dep5.png',
-      './modules/departments/client/img/dep6.png',
-      './modules/departments/client/img/dep7.png',
-      './modules/departments/client/img/dep8.png',
-      './modules/departments/client/img/dep9.png',
-      './modules/departments/client/img/dep10.png',
-      './modules/departments/client/img/dep11.png',
-      './modules/departments/client/img/dep12.png',
-      './modules/departments/client/img/dep13.png',
-      './modules/departments/client/img/dep14.png',
-      './modules/departments/client/img/dep15.png',
-      './modules/departments/client/img/dep16.png',
-      './modules/departments/client/img/dep17.png',
-      './modules/departments/client/img/dep18.png',
-      './modules/departments/client/img/dep19.png',
-      './modules/departments/client/img/dep20.png',
-      './modules/departments/client/img/dep21.png',
-      './modules/departments/client/img/dep22.png',
-      './modules/departments/client/img/dep23.png',
-      './modules/departments/client/img/dep24.png'
+      './modules/core/client/img/gallerys/dep1.png',
+      './modules/core/client/img/gallerys/dep2.png',
+      './modules/core/client/img/gallerys/dep3.png',
+      './modules/core/client/img/gallerys/dep4.png',
+      './modules/core/client/img/gallerys/dep5.png',
+      './modules/core/client/img/gallerys/dep6.png',
+      './modules/core/client/img/gallerys/dep7.png',
+      './modules/core/client/img/gallerys/dep8.png',
+      './modules/core/client/img/gallerys/dep9.png',
+      './modules/core/client/img/gallerys/dep10.png',
+      './modules/core/client/img/gallerys/dep11.png',
+      './modules/core/client/img/gallerys/dep12.png',
+      './modules/core/client/img/gallerys/dep13.png',
+      './modules/core/client/img/gallerys/dep14.png',
+      './modules/core/client/img/gallerys/dep15.png',
+      './modules/core/client/img/gallerys/dep16.png',
+      './modules/core/client/img/gallerys/dep17.png',
+      './modules/core/client/img/gallerys/dep18.png',
+      './modules/core/client/img/gallerys/dep19.png',
+      './modules/core/client/img/gallerys/dep20.png',
+      './modules/core/client/img/gallerys/dep21.png',
+      './modules/core/client/img/gallerys/dep22.png',
+      './modules/core/client/img/gallerys/dep23.png',
+      './modules/core/client/img/gallerys/dep24.png'
     ];
     vm.isGetAvatarFromFile = false;
     vm.busy = false;
@@ -157,11 +157,11 @@
       }
     }
 
-    // Select image from library
-    vm.handleSelectImageLibrary = () => {
+    // Select image from gallery
+    vm.handleSelectImageGallery = () => {
       $scope.selectedImage = '';
       var mDialog = ngDialog.open({
-        template: 'modules/core/client/views/templates/images-library.dialog.template.html',
+        template: 'modules/core/client/views/templates/images-gallery.dialog.template.html',
         scope: $scope
       });
       mDialog.closePromise.then(function (res) {
