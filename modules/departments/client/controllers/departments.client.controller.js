@@ -32,6 +32,7 @@
         handlePreviousScreen();
         return;
       }
+      vm.searchMode = 1;
       // vm.isShowLeaderDropdown = false;
       // vm.leaderSearchKey = '';
       // vm.leaderSearching = false;

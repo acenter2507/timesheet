@@ -6,7 +6,8 @@ angular
   .directive('body', asideMenuHideDirective)
   .directive('focusMe', focusMeDirective)
   .directive('a', blockExpandDirective)
-  .directive('a', selectInListDirective);
+  .directive('a', selectInListDirective)
+  .directive('button', toggleLeftSideDirective);
 
 // Hủy tác dụng của link rỗng
 function preventClickDirective() {
@@ -24,7 +25,7 @@ function preventClickDirective() {
     }
   }
 }
-// Thiết lập event toggle menu trái
+// Thiết lập event toggle menu phải
 function asideMenuToggleDirective() {
   var directive = {
     restrict: 'E',
@@ -75,8 +76,6 @@ function focusMeDirective($timeout) {
     }
   };
 }
-
-
 //Card Collapse
 function blockExpandDirective() {
   var directive = {
@@ -115,6 +114,22 @@ function selectInListDirective() {
         element.addClass('selected');
         scope.model = attrs.image;
         scope.$apply();
+      }
+    });
+  }
+}
+// Thiết lập event toggle menu trái
+function toggleLeftSideDirective() {
+  var directive = {
+    restrict: 'E',
+    link: link
+  };
+  return directive;
+
+  function link(scope, element, attrs) {
+    element.on('click', function (e) {
+      if (element.hasClass('left-aside-close')) {
+        angular.element('body').toggleClass('open-left-aside');
       }
     });
   }

@@ -141,6 +141,14 @@
 </div>
 <div class="left-aside">
   <h3>ユーザー検索</h3>
-  
+  <div class="form-group">
+    <input ng-show="vm.searchMode === 1" class="form-control" ng-model="vm.leaderSearchKey" ng-change="vm.handleLeaderInputChanged()"
+      placeholder="リーダを検索" focus-me="{{vm.searchMode === 1}}">
+    <input ng-show="vm.searchMode === 2" class="form-control" ng-model="vm.memberSearchKey" ng-change="vm.handleMemberInputChanged()"
+      placeholder="メンバーを検索" focus-me="{{vm.searchMode === 2}}">
+  </div>
+  <div class="user-list">
+    <div class="user-item-block"></div>
+  </div>
   <button class="left-aside-close" aria-label="Dismis"></button>
 </div>
