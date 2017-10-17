@@ -12,7 +12,8 @@
     .department-item-block .department-block-header .department-block-avatar img {
       width: 64px;
       height: 64px;
-      margin-right: 12px;}
+      margin-right: 12px;
+      border-radius: 50%;}
     .department-item-block .department-block-header .department-block-info {
       flex-grow: 1; }
       .department-item-block .department-block-header .department-block-info .department-block-title {
