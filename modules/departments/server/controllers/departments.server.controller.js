@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var path = require('path'),
+  fs = require('fs'),
   mongoose = require('mongoose'),
   Department = mongoose.model('Department'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
@@ -45,8 +46,11 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var department = req.department;
+  // Nếu thông tin update tồn tại avatar mới thì xóa file cũ đi
   if (req.body.avatar && department.avatar !== req.body.avatar) {
-    
+   if (department.avatar.indexOf('gallerys') >= 0) {
+     fs.unlink(path.resolve(department.avatar));
+   }
   }
 
   department = _.extend(department, req.body);
