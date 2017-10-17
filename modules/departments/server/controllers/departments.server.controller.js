@@ -48,9 +48,9 @@ exports.update = function (req, res) {
   var department = req.department;
   // Nếu thông tin update tồn tại avatar mới thì xóa file cũ đi
   if (req.body.avatar && department.avatar !== req.body.avatar) {
-   if (department.avatar.indexOf('gallerys') >= 0) {
-     fs.unlink(path.resolve(department.avatar));
-   }
+    if (department.avatar.indexOf('gallerys') >= 0) {
+      fs.unlink(path.resolve(department.avatar));
+    }
   }
 
   department = _.extend(department, req.body);
@@ -111,7 +111,7 @@ exports.avatar = function (req, res) {
   var departmentAvatarFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
   upload.fileFilter = departmentAvatarFilter;
   if (!user) return res.status(400).send({ message: '権限がありません。' });
-  upload(req, res, function(uploadError) {
+  upload(req, res, function (uploadError) {
     if (uploadError) return res.status(400).send({ message: 'アップロードできません。' });
     var imageUrl = config.uploads.departmentAvatar.dest + req.file.filename;
     return res.jsonp(imageUrl);
