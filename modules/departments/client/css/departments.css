@@ -10,15 +10,17 @@
     .department-item-block .department-block-header .department-block-avatar,
     .department-item-block .department-block-header .department-block-avatar img {
       width: 64px;
-      height: 64px; }
+      height: 64px;
+      margin-right: 12px;}
     .department-item-block .department-block-header .department-block-info {
       flex-grow: 1; }
       .department-item-block .department-block-header .department-block-info .department-block-title {
         font-size: 1.4rem;
         font-weight: 500;
+        line-height: 1.4rem;
         margin-top: 0;
-        margin-bottom: 6px;
-        display: block; }
+        vertical-align: top;
+        width: 100%;}
       .department-item-block .department-block-header .department-block-info .department-block-action {
         display: flex;
         justify-content: flex-start;}
