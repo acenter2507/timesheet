@@ -32,7 +32,7 @@
               tooltip="{{::leader.displayName}}">
           </div>
           <div class="buttons">
-            <div dropdown dropdown-append-to-body>
+            <div dropdown dropdown-append-to-body ng-if="department.leaders.length > 0">
               <a dropdown-toggle class="text-muted"><i class="fa fa-ellipsis-h"></i></a>
               <ul class="dropdown-menu dropdown-menu-right mg10t-" role="menu">
                 <li ng-repeat="leader in department.leaders" class="pd6">
@@ -53,7 +53,7 @@
               src="{{::member.profileImageURL}}" tooltip="{{::member.displayName}}">
           </div>
           <div class="buttons">
-            <div dropdown dropdown-append-to-body>
+            <div dropdown dropdown-append-to-body ng-if="department.members.length > 0">
               <a dropdown-toggle class="text-muted"><i class="fa fa-ellipsis-h"></i></a>
               <ul class="dropdown-menu dropdown-menu-right mg10t-" role="menu">
                 <li ng-repeat="member in department.members" class="pd6">
@@ -62,9 +62,7 @@
                 </li>
               </ul>
             </div>
-            <div>
-              <a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, focus: 'member' })"><i class="fa fa-plus"></i></a>
-            </div>
+            <div><a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, focus: 'member' })"><i class="fa fa-plus"></i></a></div>
           </div>
         </div>
       </div>
