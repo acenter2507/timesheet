@@ -48,10 +48,7 @@ exports.update = function (req, res) {
   var department = req.department;
   // Nếu thông tin update tồn tại avatar mới thì xóa file cũ đi
   if (req.body.avatar && department.avatar !== req.body.avatar) {
-    console.log(req.body.avatar);
-    console.log(department.avatar);
-    if (department.avatar.indexOf('gallerys') >= 0) {
-      console.log(department.avatar);
+    if (department.avatar.indexOf('gallerys') < 0) {
       fs.unlink(path.resolve(department.avatar));
     }
   }
