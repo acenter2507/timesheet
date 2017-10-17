@@ -43,6 +43,9 @@
       // vm.memberSearching = false;
       // vm.memberFocus = false;
       prepareParams();
+      $scope.$on('$destroy', function () {
+        angular.element('body').removeClass('open-left-aside');
+      });
     }
 
     function prepareParams() {
@@ -119,10 +122,15 @@
     // Add new leader
     vm.handleAddLeader = () => {
       angular.element('body').toggleClass('open-left-aside');
+      vm.searchMode = 1;
     };
     // Add new leader
     vm.handleAddMember = () => {
       angular.element('body').toggleClass('open-left-aside');
+      vm.searchMode = 2;
+    };
+    vm.closeLeftAside = () => {
+      angular.element('body').removeClass('open-left-aside');
     };
     /**
      * HANDLES
