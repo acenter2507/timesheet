@@ -14,10 +14,10 @@
           </div>
           <div class="department-block-info">
             <a class="department-block-title" ui-sref="departments.view({ departmentId: department._id })">{{:: department.name}}</a>
-            <div class="department-email">
+            <div class="department-block-email">
               <a ng-href="mailto:{{department.email}}">{{::department.email}}</a>
             </div>
-            <div class="department-action">
+            <div class="department-block-action">
               <a class="text-muted" ng-href="mailto:{{department.email}}" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
               <a class="text-muted" ui-sref="departments.view({ departmentId: department._id })" tooltip="詳細"><i class="fa fa-eye"></i></a>
               <a ng-if="isLeader" class="text-muted" ui-sref="departments.edit({ departmentId: department._id })" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
