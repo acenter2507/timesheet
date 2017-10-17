@@ -70,18 +70,18 @@
       vertical-align: middle;
       width: 20px; 
       height: 100%;}
-@media (max-width: 575px) {
+@media (min-width: 575px) {
   .department-item-block {
     width: calc(100% - 30px) !important; } }
 
-@media (max-width: 767px) {
+@media (min-width: 767px) {
   .department-item-block {
     width: calc(50% - 30px) !important; } }
 
-@media (max-width: 991px) {
+@media (min-width: 991px) {
   .department-item-block {
     width: calc(33.3333% - 30px) !important; } }
 
-@media (max-width: 1199px) {
+@media (min-width: 1199px) {
   .department-item-block {
     width: calc(25% - 30px) !important; } }
