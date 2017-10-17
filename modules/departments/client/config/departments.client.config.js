@@ -10,7 +10,7 @@
   function menuConfig(Menus) {
     // Set top bar menu items
     Menus.addMenuItem('topbar', {
-      title: 'Departments',
+      title: '部署',
       state: 'departments.list'
     });
   }

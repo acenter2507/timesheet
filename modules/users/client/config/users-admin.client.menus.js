@@ -4,15 +4,15 @@
 angular.module('users.admin').run(['Menus',
   function (Menus) {
     Menus.addMenuItem('topbar', {
-      title: 'Manage Users',
-      state: 'users',
-      type: 'dropdown',
-      roles: ['admin', 'manager', 'accountant']
+      title: '社員',
+      state: 'users.list',
+      // type: 'dropdown',
+      roles: '*'
     });
 
-    Menus.addSubMenuItem('topbar', 'users', {
-      title: 'List Users',
-      state: 'users.list'
-    });
+    // Menus.addSubMenuItem('topbar', 'users', {
+    //   title: 'List Users',
+    //   state: 'users.list'
+    // });
   }
 ]);
