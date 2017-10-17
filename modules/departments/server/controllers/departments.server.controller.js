@@ -7,6 +7,7 @@ var path = require('path'),
   fs = require('fs'),
   mongoose = require('mongoose'),
   Department = mongoose.model('Department'),
+  User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   config = require(path.resolve('./config/config')),
   multer = require('multer'),
@@ -78,6 +79,7 @@ exports.delete = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      User.removeDepartment(department._id);
       res.jsonp(department);
     }
   });
