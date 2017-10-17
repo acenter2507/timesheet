@@ -115,11 +115,11 @@ UserSchema.statics.generateRandomPassphrase = function () {
 };
 
 UserSchema.statics.setLeaders = function (departmentId, leaders) {
-  return this.update({ department: departmentId }, { $set: { leaders: leaders } }, { multi: true }).exec();
+  return this.update({ department: departmentId, roles: { $ne: 'manager' } }, { $set: { leaders: leaders } }, { multi: true }).exec();
 };
 
 UserSchema.statics.removeDepartment = function (departmentId) {
-  return this.update({ department: departmentId }, { $set: { department: null } }, { leaders: null }).exec();
+  return this.update({ department: departmentId }, { $set: { department: null, leaders: [] }, }, { multi: true }).exec();
 };
 
 mongoose.model('User', UserSchema);
