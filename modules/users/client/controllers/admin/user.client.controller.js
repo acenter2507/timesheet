@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserController', ['$scope', '$state', 'userResolve', 'AdminUserService', 'AdminUserApi', 'DepartmentsService', 'ngDialog',
-  function ($scope, $state, userResolve, AdminUserService, AdminUserApi, DepartmentsService, ngDialog) {
+angular.module('users.admin').controller('UserController', ['$scope', '$state', 'userResolve', 'AdminUserService', 'AdminUserApi', 'DepartmentsService', 'ngDialog', 'DepartmentsApi',
+  function ($scope, $state, userResolve, AdminUserService, AdminUserApi, DepartmentsService, ngDialog, DepartmentsApi) {
     var vm = this;
     vm.user = userResolve;
 
