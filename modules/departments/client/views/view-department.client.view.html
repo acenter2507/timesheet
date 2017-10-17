@@ -6,26 +6,15 @@
           <img src="{{:: vm.department.avatar }}">
         </div>
         <div class="user-info-block">
-          <h3>{{:: vm.user.displayName}}</h3>
+          <h3>{{:: vm.department.name}}</h3>
           <table>
             <tr>
-              <td class="pd10r"><i class="fa fa-sitemap"></i> 役割</td>
-              <td>{{:: vm.user.roles | RoleFilter }}</td>
-            </tr>
-            <tr>
               <td class="pd10r"><i class="fa fa-envelope"></i> メール</td>
-              <td><a ng-href="mailto:{{vm.user.email}}"> {{:: vm.user.email }}</a></td>
+              <td><a ng-href="mailto:{{vm.user.email}}"> {{:: vm.department.email }}</a></td>
             </tr>
             <tr>
-              <td class="pd10r"><i class="fa fa-users"></i> 部署</td>
-              <td>
-                <a ng-if="vm.user.department" ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name}}</a>
-                <span ng-if="!vm.user.department">未設定</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="pd10r"><i class="fa fa-mobile"></i> 電話番号</td>
-              <td>{{:: vm.user.private.phone || '未設定' }}</td>
+              <td class="pd10r"><i class="fa fa-map-marker"></i> 場所</td>
+              <td>{{:: vm.department.location }}</td>
             </tr>
           </table>
         </div>
