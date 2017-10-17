@@ -91,7 +91,7 @@ angular.module('users.admin').controller('UserListController', [
       handleLoadDeletedUsers();
     };
     // View detail user
-    vm.handleDetailUser = user => {
+    vm.handleViewDetailUser = user => {
       if ($scope.isAdmin || $scope.isAccountant) {
         return $state.go('users.view', { userId: user._id });
       } else {
@@ -107,7 +107,7 @@ angular.module('users.admin').controller('UserListController', [
     };
     vm.handleLogicDeleteUser = user => {
       $scope.handleShowConfirm({
-        message: user.displayName + 'のアカウントを削除しますか？'
+        message: user.displayName + 'を削除しますか？'
       }, () => {
         var rsUser = new AdminUserService({ _id: user._id });
         rsUser.status = 3;
@@ -126,9 +126,10 @@ angular.module('users.admin').controller('UserListController', [
         }
       });
     };
+    // Phục hồi user sau khi bị xóa
     vm.handleResetUser = user => {
       $scope.handleShowConfirm({
-        message: user.displayName + 'のアカウントを復元しますか？'
+        message: user.displayName + 'を復元しますか？'
       }, () => {
         var rsUser = new AdminUserService({ _id: user._id });
         rsUser.status = 1;
@@ -149,7 +150,7 @@ angular.module('users.admin').controller('UserListController', [
     };
     vm.handleDatabaseDeleteUser = user => {
       $scope.handleShowConfirm({
-        message: user.displayName + 'のアカウントを完全しますか？'
+        message: user.displayName + 'を完全削除しますか？'
       }, () => {
         var rsUser = new AdminUserService({ _id: user._id });
         rsUser.$remove();

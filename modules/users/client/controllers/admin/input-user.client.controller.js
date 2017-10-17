@@ -92,7 +92,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
     };
     // Thay đổi mật khẩu của user
     vm.handleResetPassword = () => {
-      if (vm.roles_busy) return;
+      if (vm.password_busy) return;
       vm.password_busy = true;
       ngDialog.openConfirm({
         templateUrl: 'changePassTemplate.html',
@@ -139,6 +139,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         delete $scope.roles;
       });
     };
+    // Thay đổi bộ phận của user
     vm.handleChangeDeparment = () => {
       if (vm.department_busy) return;
       vm.department_busy = true;

@@ -62,7 +62,7 @@
                         <div dropdown dropdown-append-to-body>
                           <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
                           <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li><a ng-click="vm.handleDetailUser(leader)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                            <li><a ng-click="vm.handleViewDetailUser(leader)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
                             <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: leader._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
                             <li ng-if="isAdmin || isAccountant"><a ui-sref="users.timeshet({ userId: leader._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                             <li><a ng-click="vm.handleSendMessageUser(leader)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
@@ -102,13 +102,13 @@
                       </div>
                       <div class="user-info">
                         <a class="user-info-name" ng-click="vm.handleViewDetailUser(member)">{{:: member.displayName}}</a>
-                        <a class="font-sm" ng-href="mailto:{{member.email}}">{{::leader.email}}</a>
+                        <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
                       </div>
                       <div class="user-action">
                         <div dropdown dropdown-append-to-body>
                           <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
                           <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li><a ng-click="vm.handleDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                            <li><a ng-click="vm.handleViewDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
                             <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
                             <li ng-if="isLeader"><a ui-sref="users.timeshet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                             <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>

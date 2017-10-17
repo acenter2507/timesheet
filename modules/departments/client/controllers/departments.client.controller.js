@@ -47,7 +47,9 @@
       $scope.handleShowConfirm({
         message: vm.department.name + 'を削除しますか？'
       }, () => {
-        vm.department.$remove($state.go('departments.list'));
+        vm.department.$remove(() => {
+          $state.go('departments.list');
+        });
       });
     };
     // Save Department
