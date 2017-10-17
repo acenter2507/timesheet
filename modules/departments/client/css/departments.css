@@ -26,6 +26,8 @@
       .department-item-block .department-block-header .department-block-info .department-block-action {
         display: flex;
         justify-content: flex-start;}
+      .department-item-block .department-block-header .department-block-info .department-block-action a {
+        margin-right: 5px;}
 
   /*.department-item-block .department-block-info {
     display: flex;
