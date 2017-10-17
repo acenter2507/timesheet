@@ -332,6 +332,7 @@ a:hover .header-profile-image {
     display: none;
     z-index: 2;
     background-color: #eee;
+    opacity: 0.8;
     transition: all 0.1s linear;}
   .open-left-aside .left-aside {
     left: 0; }
