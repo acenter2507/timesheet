@@ -322,7 +322,7 @@ a:hover .header-profile-image {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar; }
-  .left-aside .left-backdrop {
+  .left-backdrop {
     position: fixed;
     top: 0;
     bottom: 0;
