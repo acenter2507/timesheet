@@ -10,6 +10,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
+    min-height: 100%;
     overflow-x: hidden; }
     .app .content {
       flex: 1;
@@ -324,14 +325,14 @@ a:hover .header-profile-image {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar; }
   .left-backdrop {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     display: none;
     z-index: 2;
-    background-color: #eee;
+    background: rgba(0,0,0,.4);
     opacity: 0.8;
     transition: all 0.1s linear;}
   .open-left-aside .left-aside {
