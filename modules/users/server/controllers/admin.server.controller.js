@@ -318,9 +318,7 @@ exports.changeUserRoles = function (req, res) {
   } else {
     user.save(err => {
       if (err)
-        return res
-          .status(400)
-          .send({ message: errorHandler.getErrorMessage(err) });
+        return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
       return res.jsonp(user.leaders);
     });
   }
