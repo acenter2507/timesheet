@@ -307,3 +307,33 @@ a:hover .header-profile-image {
       border: none; }
     .image-gallery .image-item > a.selected > img {
       border: 2px solid #4285F4; }
+
+.left-aside {
+  position: absolute;
+  left: -250px;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  z-index: 3;
+  background-color: #fff;
+  transition-duration: .25s,.25s;
+  transition-property: left, right;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar; }
+  .left-aside .left-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    z-index: 2;
+    background-color: #000;
+    opacity: 0.5;
+    transition: all 0.1s linear;}
+  .open-left-aside .left-aside {
+    left: 0; }
+    .open-left-aside  .left-backdrop{
+      display: block; }

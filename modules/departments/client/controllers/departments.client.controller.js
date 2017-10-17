@@ -117,29 +117,11 @@
     };
     // Add new leader
     vm.handleAddLeader = () => {
-      $scope.userId = '';
-      var mDialog = ngDialog.open({
-        template: 'modules/core/client/views/templates/search-user.dialog.template.html',
-        scope: $scope,
-        width: '100%'
-      });
-      mDialog.closePromise.then(function (res) {
-        if (!res.value || res.value === '') return;
-        delete $scope.userId;
-      });
+      angular.element('body').addClass('open-left-aside');
     };
     // Add new leader
     vm.handleAddMember = () => {
-      $scope.userId = '';
-      var mDialog = ngDialog.open({
-        template: 'modules/core/client/views/templates/search-user.dialog.template.html',
-        scope: $scope,
-        width: '100%'
-      });
-      mDialog.closePromise.then(function (res) {
-        if (!res.value || res.value === '') return;
-        delete $scope.userId;
-      });
+      angular.element('body').addClass('open-left-aside');
     };
     /**
      * HANDLES
