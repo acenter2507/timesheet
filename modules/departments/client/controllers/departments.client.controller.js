@@ -6,9 +6,9 @@
     .module('departments')
     .controller('DepartmentsController', DepartmentsController);
 
-  DepartmentsController.$inject = ['$scope', '$state', 'departmentResolve', '$timeout', 'AdminUserApi', '$stateParams', 'DepartmentsApi'];
+  DepartmentsController.$inject = ['$scope', '$state', 'departmentResolve', '$timeout', 'AdminUserApi', '$stateParams', 'DepartmentsApi', 'CommonService'];
 
-  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi) {
+  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi, CommonService) {
     var vm = this;
 
     vm.department = department;
