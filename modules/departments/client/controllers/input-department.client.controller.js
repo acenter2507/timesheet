@@ -157,7 +157,7 @@
       }
     }
 
-    //
+    // Select image from library
     vm.handleSelectImageLibrary = () => {
       $scope.selectedImage = '';
       var mDialog = ngDialog.open({
