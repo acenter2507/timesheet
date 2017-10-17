@@ -19,8 +19,8 @@
 
   DepartmentsApi.$inject = ['$http'];
   function DepartmentsApi($http) {
-    this.removeUser = (userId) => {
-      return $http.post('/api/departments/removeUser', { userId: userId }, { ignoreLoadingBar: true });
+    this.removeUser = (departmentId, userId) => {
+      return $http.post('/api/departments/' + departmentId + '/removeUser', { userId: userId }, { ignoreLoadingBar: true });
     };
     return this;
   }

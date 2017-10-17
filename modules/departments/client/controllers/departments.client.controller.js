@@ -83,7 +83,7 @@
         } else {
           vm.department.members = _.without(vm.department.members, user);
         }
-        DepartmentsApi.removeUser(user._id);
+        DepartmentsApi.removeUser(vm.department._id, user._id);
       });
     };
     // Logic remove user
