@@ -53,6 +53,20 @@ angular.module('users.admin.routes').config(['$stateProvider',
             }).$promise;
           }]
         }
+      })
+      .state('users.timesheet', {
+        url: '/:userId/timesheet',
+        templateUrl: 'modules/users/client/views/admin/timesheet-user.client.view.html',
+        // controller: 'UserInputController',
+        // controllerAs: 'vm',
+        // data: { roles: ['admin', 'accountant'] },
+        resolve: {
+          userResolve: ['$stateParams', 'AdminUserService', function ($stateParams, AdminUserService) {
+            return AdminUserService.get({
+              userId: $stateParams.userId
+            }).$promise;
+          }]
+        }
       });
   }
 ]);
