@@ -32,7 +32,7 @@
       </li>
       <li class="nav-title">{{ 'LB_NAVIGATION' | translate }}</li>-->
       <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="home"><i class="fa fa-newspaper-o"></i> Home</a>
+        <a class="nav-link" ui-sref-active="active" ui-sref="home"><i class="fa fa-newspaper-o"></i> ホーム</a>
       </li>
       <!--<li class="nav-item">
         <a class="nav-link" ui-sref-active="active" ui-sref="polls.create"><i class="fa fa-pencil-square-o"></i> {{ 'LB_NEW_POLL' | translate }}</a>
@@ -50,21 +50,12 @@
         <a class="nav-link" ui-sref-active="active" ui-sref="admin.dashboard"><i class="fa fa-tachometer"></i> {{ 'LB_ADMIN' | translate }}</a>
       </li>-->
 
-      <li class="nav-title">PROFILE</li>
-      <li class="nav-item" ng-show="isLogged">
-        <a class="nav-link" ui-sref-active="active" ui-sref="profile.info({ userId: user.slug })"><i class="fa fa-user-circle"></i> View profile</a>
+      <li class="nav-title">ナビゲーション</li>
+      <li class="nav-item">
+        <a class="nav-link" ui-sref-active="active" ui-sref="users.list"><i class="fa fa-users"></i> 社員</a>
       </li>
-      <li class="nav-item" ng-show="isLogged">
-        <a class="nav-link" ui-sref-active="active" ui-sref="settings.profile"><i class="fa fa-pencil-square-o"></i> Edit profile</a>
-      </li>
-      <li class="nav-item" ng-show="isLogged">
-        <a class="nav-link" ui-sref-active="active" ui-sref="settings.password"><i class="fa fa-lock"></i> Change password</a>
-      </li>
-      <li class="nav-item" ng-show="isLogged">
-        <a class="nav-link" href="/api/auth/signout" target="_self"><i class="fa fa-sign-out"></i> Log out</a>
-      </li>
-      <li class="nav-item" ng-show="!isLogged">
-        <a class="nav-link" ui-sref="authentication.signin"><i class="fa fa-sign-in"></i> Sign in</a>
+      <li class="nav-item">
+        <a class="nav-link" ui-sref-active="active" ui-sref="departments.list"><i class="fa fa-sitemap"></i> 部署</a>
       </li>
       <!--<li class="nav-title">{{ 'LB_OTHER' | translate }}</li>
       <li class="nav-item">
@@ -82,6 +73,19 @@
       <li class="nav-item">
         <a class="nav-link" ui-sref-active="active" ui-sref="term">{{ 'LB_TERM' | translate }}</a>
       </li>-->
+      <li class="nav-title">プロファイル</li>
+      <li class="nav-item">
+        <a class="nav-link" ui-sref-active="active" ui-sref="settings.profile">プロファイル変更</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" ui-sref-active="active" ui-sref="settings.picture">アバター変更</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" ui-sref-active="active" ui-sref="settings.password">パスワード変更</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/auth/signout" target="_self">ログアウト</a>
+      </li>
     </ul>
   </nav>
 </aside>

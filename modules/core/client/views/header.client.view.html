@@ -21,7 +21,7 @@
   </ul>
   <ul class="nav navbar-nav navbar-right d-sm-down-none" ng-hide="isLogged">
     <li ui-sref-active="active">
-      <a ui-sref="authentication.signin">Sign In</a>
+      <a ui-sref="authentication.signin">ログイン</a>
     </li>
   </ul>
   <ul class="nav navbar-nav navbar-right d-sm-down-none" ng-show="isLogged">
@@ -32,17 +32,17 @@
         </a>
       <ul class="dropdown-menu" role="menu">
         <li ui-sref-active="active">
-          <a ui-sref="settings.profile">Edit Profile</a>
+          <a ui-sref="settings.profile">プロファイル変更</a>
         </li>
         <li ui-sref-active="active">
-          <a ui-sref="settings.picture">Change Profile Picture</a>
+          <a ui-sref="settings.picture">アバター変更</a>
         </li>
         <li ui-sref-active="active">
-          <a ui-sref="settings.password">Change Password</a>
+          <a ui-sref="settings.password">パスワード変更</a>
         </li>
         <li class="divider"></li>
         <li>
-          <a href="/api/auth/signout" target="_self">Signout</a>
+          <a href="/api/auth/signout" target="_self">ログアウト</a>
         </li>
       </ul>
     </li>
