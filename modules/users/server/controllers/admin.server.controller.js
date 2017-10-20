@@ -205,9 +205,6 @@ exports.searchUsers = function (req, res) {
   var ands = [{ roles: { $ne: 'admin' } }];
   ands.push({ department: null });
 
-  if (roles.length > 0) {
-    ands.push({ roles: { $in: roles } });
-  }
   if (key && key.length > 0) {
     var key_lower = key.toLowerCase();
     var key_upper = key.toUpperCase();

@@ -185,32 +185,6 @@
       }
       vm.searchTimer = $timeout(handleSearchLeaders, 500);
     };
-    // vm.handleMemberSelected = (member) => {
-    //   var item = _.findWhere(vm.department.members, { _id: member._id });
-    //   if (!item) {
-    //     vm.department.members.push(member);
-    //   }
-    //   vm.searchMembers = _.without(vm.searchMembers, member);
-    //   vm.isShowMemberDropdown = true;
-    //   if (!$scope.$$phase) $scope.$digest();
-    // };
-    // vm.handleMemberRemoved = (member) => {
-    //   vm.department.members = _.without(vm.department.members, member);
-    // };
-    function handleSearchMembers() {
-      if (vm.isSearching) return;
-      vm.isSearching = true;
-      AdminUserApi.searchUsers(vm.searchKey, [])
-        .success(users => {
-          vm.searchResult = users;
-          vm.isSearching = false;
-          if (!$scope.$$phase) $scope.$digest();
-        })
-        .error(err => {
-          $scope.handleShowToast(err.message, true);
-          vm.isSearching = false;
-        });
-    }
     // Trở về màn hình trước
     function handlePreviousScreen() {
       $state.go($state.previous.state.name || 'departments.list', $state.previous.params);

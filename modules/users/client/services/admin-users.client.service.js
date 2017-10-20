@@ -25,7 +25,7 @@
       return $http.get('/api/users/clearDeletedUsers', { ignoreLoadingBar: true });
     };
     this.searchUsers = (key, roles) => {
-      return $http.post('/api/users/search', { key: key, roles: roles }, { ignoreLoadingBar: true });
+      return $http.post('/api/users/search', { key: key }, { ignoreLoadingBar: true });
     };
     return this;
   }
