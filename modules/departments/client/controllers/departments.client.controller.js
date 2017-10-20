@@ -117,7 +117,7 @@
     // Add new leader
     vm.handleAddLeader = () => {
       if (angular.element('body').hasClass('open-left-aside')) {
-        if (vm.searchMode = 1) {
+        if (vm.searchMode === 1) {
           angular.element('body').removeClass('open-left-aside');
         } else {
           vm.searchMode = 1;
@@ -130,7 +130,7 @@
     // Add new leader
     vm.handleAddMember = () => {
       if (angular.element('body').hasClass('open-left-aside')) {
-        if (vm.searchMode = 2) {
+        if (vm.searchMode === 2) {
           angular.element('body').removeClass('open-left-aside');
         } else {
           vm.searchMode = 2;
