@@ -140,8 +140,8 @@
   </div>
 </div>
 <div class="left-aside">
-  <h3 ng-if="vm.searchMode === 1">マネージャ検索</h3>
-  <h3 ng-if="vm.searchMode === 2">社員検索</h3>
+  <h3 ng-show="vm.searchMode === 1">マネージャ検索</h3>
+  <h3 ng-show="vm.searchMode === 2">社員検索</h3>
   <div class="form-group">
     <input ng-show="vm.searchMode === 1" class="form-control" ng-model="vm.leaderSearchKey" ng-change="vm.handleLeaderInputChanged()"
       placeholder="マネージャ検索" focus-me="{{vm.searchMode === 1}}">
