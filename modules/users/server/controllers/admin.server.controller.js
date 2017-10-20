@@ -224,7 +224,7 @@ exports.searchUsers = function (req, res) {
   }
   var query = { $and: ands };
   User.find(query)
-    .select('displayName email profileImageURL')
+    .select('displayName email profileImageURL roles')
     .exec((err, users) => {
       if (err) res.status(400).send(err);
       res.jsonp(users);

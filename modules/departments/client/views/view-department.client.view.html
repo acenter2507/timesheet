@@ -41,7 +41,7 @@
               <div class="panel-heading">
                 <img class="w25 h25" src="./modules/core/client/img/brand/manager.png">
                 <span class="font-weight-bold">リーダ（{{ vm.department.leaders.length }}）</span>
-                <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleAddLeader()" tooltip-placement="left" tooltip="リーダ追加"><i class="fa fa-user-plus fa-lg"></i></a>
+                <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="リーダ追加"><i class="fa fa-user-plus fa-lg"></i></a>
                 <a class="btn btn-default btn-xs pull-right mg10r" ng-click="vm.handleSendMessageLeader()" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
                 <div class="clearfix"></div>
               </div>
@@ -87,7 +87,7 @@
               <div class="panel-heading">
                 <img class="w25 h25" src="./modules/core/client/img/brand/member.png">
                 <span class="font-weight-bold">メンバー（{{ vm.department.members.length }}）</span>
-                <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleAddMember()" tooltip-placement="left" tooltip="メンバー追加"><i class="fa fa-user-plus fa-lg"></i></a>
+                <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="メンバー追加"><i class="fa fa-user-plus fa-lg"></i></a>
                 <a class="btn btn-default btn-xs pull-right mg10r" ng-click="vm.handleSendMessageMember()" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
                 <div class="clearfix"></div>
               </div>
@@ -140,13 +140,10 @@
   </div>
 </div>
 <div class="left-aside">
-  <h3 ng-show="vm.searchMode === 1">マネージャ検索</h3>
-  <h3 ng-show="vm.searchMode === 2">社員検索</h3>
+  <h3>社員検索</h3>
   <div class="form-group">
-    <input ng-show="vm.searchMode === 1" class="form-control" ng-model="vm.leaderSearchKey" ng-change="vm.handleLeaderInputChanged()"
-      placeholder="マネージャ検索" focus-me="{{vm.searchMode === 1}}">
-    <input ng-show="vm.searchMode === 2" class="form-control" ng-model="vm.memberSearchKey" ng-change="vm.handleMemberInputChanged()"
-      placeholder="社員検索" focus-me="{{vm.searchMode === 2}}">
+    <input class="form-control" ng-model="vm.searchKey" ng-change="vm.handleSearchChanged()"
+      placeholder="メールや名前で検索" focus-me="true">
   </div>
   <div class="form-group" ng-show="vm.isSearching">
     <i class="fa fa-spinner fa-pulse fa-fw"></i>
@@ -160,7 +157,7 @@
         </div>
         <div class="user-info">
           <span class="user-info-name">{{:: member.displayName}}</span>
-          <span class="font-sm">{{::member.email}}</span>
+          <span class="font-sm">{{::member.roles | RoleFilter}}</span>
         </div>
         <div class="user-action">
           <a class="user-options" ng-click="vm.handleAddUserToDepartment(member)"><i class="fa fa-user-plus"></i></a>

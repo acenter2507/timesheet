@@ -32,7 +32,6 @@
         handlePreviousScreen();
         return;
       }
-      vm.searchMode = 1;
       vm.isSearching = false;
       vm.searchKey = '';
       vm.searchResult = [];
@@ -115,30 +114,8 @@
       });
     };
     // Add new leader
-    vm.handleAddLeader = () => {
-      if (angular.element('body').hasClass('open-left-aside')) {
-        if (vm.searchMode === 1) {
-          angular.element('body').removeClass('open-left-aside');
-        } else {
-          vm.searchMode = 1;
-        }
-      } else {
-        angular.element('body').addClass('open-left-aside');
-        vm.searchMode = 1;
-      }
-    };
-    // Add new leader
-    vm.handleAddMember = () => {
-      if (angular.element('body').hasClass('open-left-aside')) {
-        if (vm.searchMode === 2) {
-          angular.element('body').removeClass('open-left-aside');
-        } else {
-          vm.searchMode = 2;
-        }
-      } else {
-        angular.element('body').addClass('open-left-aside');
-        vm.searchMode = 2;
-      }
+    vm.handleStartSearchMember = () => {
+      angular.element('body').toggleClass('open-left-aside');
     };
     // Add a user to department
     vm.handleAddUserToDepartment = member => {
@@ -165,17 +142,13 @@
     /**
      * HANDLES
      */
-    vm.searchMode = 1;
-    vm.isSearching = false;
-    vm.searchKey = '';
-    vm.searchResult = [];
-    vm.handleLeaderInputChanged = () => {
+    vm.handleSearchChanged = () => {
       if (vm.searchKey === '') return;
       if (vm.searchTimer) {
         $timeout.cancel(vm.searchTimer);
         vm.searchTimer = undefined;
       }
-      vm.searchTimer = $timeout(handleSearchLeaders, 500);
+      vm.searchTimer = $timeout(handleSearchUser, 500);
     };
     // vm.handleLeaderSelected = (leader) => {
     //   var item = _.findWhere(vm.department.leaders, { _id: leader._id });
@@ -189,10 +162,10 @@
     // vm.handleLeaderRemoved = (leader) => {
     //   vm.department.leaders = _.without(vm.department.leaders, leader);
     // };
-    function handleSearchLeaders() {
+    function handleSearchUser() {
       if (vm.isSearching) return;
       vm.isSearching = true;
-      AdminUserApi.searchUsers(vm.searchKey, ['manager'])
+      AdminUserApi.searchUsers(vm.searchKey)
         .success(users => {
           vm.searchResult = users;
           vm.isSearching = false;
