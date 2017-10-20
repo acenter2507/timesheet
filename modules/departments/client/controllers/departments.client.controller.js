@@ -129,6 +129,7 @@
             } else {
               vm.department.members.push(user);
             }
+            vm.searchResult = _.without(vm.searchResult, member);
             if (!$scope.$$phase) $scope.$digest();
           })
           .error(err => {
@@ -176,15 +177,6 @@
           vm.isSearching = false;
         });
     }
-
-    vm.handleMemberInputChanged = () => {
-      if (vm.searchKey === '') return;
-      if (vm.searchTimer) {
-        $timeout.cancel(vm.searchTimer);
-        vm.searchTimer = undefined;
-      }
-      vm.searchTimer = $timeout(handleSearchLeaders, 500);
-    };
     // Trở về màn hình trước
     function handlePreviousScreen() {
       $state.go($state.previous.state.name || 'departments.list', $state.previous.params);
