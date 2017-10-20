@@ -165,10 +165,10 @@
     /**
      * HANDLES
      */
-      vm.searchMode = 1;
-      vm.isSearching = false;
-      vm.searchKey = '';
-      vm.searchResult = [];
+    vm.searchMode = 1;
+    vm.isSearching = false;
+    vm.searchKey = '';
+    vm.searchResult = [];
     vm.handleLeaderInputChanged = () => {
       if (vm.searchKey === '') return;
       if (vm.searchTimer) {
