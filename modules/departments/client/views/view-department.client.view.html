@@ -64,7 +64,7 @@
                           <ul class="dropdown-menu dropdown-menu-right" role="menu">
                             <li><a ng-click="vm.handleViewDetailUser(leader)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
                             <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: leader._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                            <li ng-if="isAdmin || isAccountant"><a ui-sref="users.timeshet({ userId: leader._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                            <li ng-if="isAdmin || isAccountant"><a ui-sref="users.timesheet({ userId: leader._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                             <li><a ng-click="vm.handleSendMessageUser(leader)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
                             <li><a ng-href="mailto:{{leader.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
                             <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleRemoveUserFromDepartment(leader)"><i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a></li>
@@ -110,7 +110,7 @@
                           <ul class="dropdown-menu dropdown-menu-right" role="menu">
                             <li><a ng-click="vm.handleViewDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
                             <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                            <li ng-if="isLeader"><a ui-sref="users.timeshet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                            <li ng-if="isLeader"><a ui-sref="users.timesheet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                             <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
                             <li><a ng-href="mailto:{{member.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
                             <li ng-if="isLeader"><a ng-click="vm.handleRemoveUserFromDepartment(member)"><i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a></li>
