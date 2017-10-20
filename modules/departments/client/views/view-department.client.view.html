@@ -148,7 +148,25 @@
     <input ng-show="vm.searchMode === 2" class="form-control" ng-model="vm.memberSearchKey" ng-change="vm.handleMemberInputChanged()"
       placeholder="社員検索" focus-me="{{vm.searchMode === 2}}">
   </div>
+  <div class="form-group" ng-show="vm.isSearching">
+    <i class="fa fa-spinner fa-pulse fa-fw"></i>
+  </div>
   <div class="user-list">
+    <div class="user-item-block mg6x" ng-repeat="member in vm.searchResult">
+      <div class="user-basic-info">
+        <div class="user-avatar">
+          <img src="{{:: member.profileImageURL }}">
+          <span class="user-status" ng-class="{ 'working': member.status === 1, 'retired': member.status === 2 }"></span>
+        </div>
+        <div class="user-info">
+          <span class="user-info-name">{{:: member.displayName}}</span>
+          <span class="font-sm">{{::member.email}}</span>
+        </div>
+        <div class="user-action">
+          <a class="user-options" ng-click="vm.handleAddUserToDepartment(member)"><i class="fa fa-user-plus"></i></a>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="form-group mg12t">
     <button class="btn btn-primary btn-sm pull-right mg10r" ng-click="vm.closeLeftAside()">閉じる</button>

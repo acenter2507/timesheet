@@ -21,6 +21,8 @@ module.exports = function(app) {
 
   // Delete user from department
   app.route('/api/departments/:departmentId/removeUser').post(departmentsPolicy.isAllowed, departments.removeUser);
+  // Add a user to department
+  app.route('/api/departments/:departmentId/addUser').post(departmentsPolicy.isAllowed, departments.addUser);
 
   // Finish by binding the Department middleware
   app.param('departmentId', departments.departmentByID);

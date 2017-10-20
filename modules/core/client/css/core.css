@@ -316,7 +316,7 @@ a:hover .header-profile-image {
   width: 320px;
   z-index: 3;
   padding: 0 12px;
-  background-color: #fff;
+  background-color:#e7e7e7;
   transition-duration: .25s,.25s;
   transition-property: left, right;
   overflow-x: hidden;

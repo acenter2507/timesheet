@@ -26,6 +26,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/departments/:departmentId/removeUser',
       permissions: '*'
+    }, {
+      resources: '/api/departments/:departmentId/addUser',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -58,6 +61,9 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }, {
       resources: '/api/departments/:departmentId/removeUser',
+      permissions: '*'
+    }, {
+      resources: '/api/departments/:departmentId/addUser',
       permissions: '*'
     }]
   }]);

@@ -33,15 +33,10 @@
         return;
       }
       vm.searchMode = 1;
-      // vm.isShowLeaderDropdown = false;
-      // vm.leaderSearchKey = '';
-      // vm.leaderSearching = false;
-      // vm.leaderFocus = false;
+      vm.isSearching = false;
+      vm.searchKey = '';
+      vm.searchResult = [];
 
-      // vm.isShowMemberDropdown = false;
-      // vm.memberSearchKey = '';
-      // vm.memberSearching = false;
-      // vm.memberFocus = false;
       prepareParams();
       $scope.$on('$destroy', function () {
         angular.element('body').removeClass('open-left-aside');
@@ -121,13 +116,48 @@
     };
     // Add new leader
     vm.handleAddLeader = () => {
-      angular.element('body').toggleClass('open-left-aside');
-      vm.searchMode = 1;
+      if (angular.element('body').hasClass('open-left-aside')) {
+        if (vm.searchMode = 1) {
+          angular.element('body').removeClass('open-left-aside');
+        } else {
+          vm.searchMode = 1;
+        }
+      } else {
+        angular.element('body').addClass('open-left-aside');
+        vm.searchMode = 1;
+      }
     };
     // Add new leader
     vm.handleAddMember = () => {
-      angular.element('body').toggleClass('open-left-aside');
-      vm.searchMode = 2;
+      if (angular.element('body').hasClass('open-left-aside')) {
+        if (vm.searchMode = 2) {
+          angular.element('body').removeClass('open-left-aside');
+        } else {
+          vm.searchMode = 2;
+        }
+      } else {
+        angular.element('body').addClass('open-left-aside');
+        vm.searchMode = 2;
+      }
+    };
+    // Add a user to department
+    vm.handleAddUserToDepartment = member => {
+      $scope.handleShowConfirm({
+        message: member.displayName + 'を' + vm.department.name + 'に追加しますか？'
+      }, () => {
+        DepartmentsApi.addMemberToDepartment(vm.department._id, member._id)
+          .success(user => {
+            if (CommonService.checkUserIsManager(user.roles)) {
+              vm.department.leaders.push(user);
+            } else {
+              vm.department.members.push(user);
+            }
+            if (!$scope.$$phase) $scope.$digest();
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
     };
     vm.closeLeftAside = () => {
       angular.element('body').removeClass('open-left-aside');
@@ -135,94 +165,77 @@
     /**
      * HANDLES
      */
+      vm.searchMode = 1;
+      vm.isSearching = false;
+      vm.searchKey = '';
+      vm.searchResult = [];
     vm.handleLeaderInputChanged = () => {
-      if (vm.leaderSearchKey === '') return;
-      if (vm.leaderSearchTimer) {
-        $timeout.cancel(vm.leaderSearchTimer);
-        vm.leaderSearchTimer = undefined;
+      if (vm.searchKey === '') return;
+      if (vm.searchTimer) {
+        $timeout.cancel(vm.searchTimer);
+        vm.searchTimer = undefined;
       }
-      vm.leaderSearchTimer = $timeout(handleStartSearchLeaders, 500);
+      vm.searchTimer = $timeout(handleSearchLeaders, 500);
     };
-    vm.handleLeaderSelected = (leader) => {
-      var item = _.findWhere(vm.department.leaders, { _id: leader._id });
-      if (!item) {
-        vm.department.leaders.push(leader);
-      }
-      vm.searchLeaders = _.without(vm.searchLeaders, leader);
-      vm.isShowLeaderDropdown = true;
-      if (!$scope.$$phase) $scope.$digest();
-    };
-    vm.handleLeaderRemoved = (leader) => {
-      vm.department.leaders = _.without(vm.department.leaders, leader);
-    };
-    function handleStartSearchLeaders() {
-      if (vm.leaderSearching) return;
-      vm.leaderSearching = true;
-      vm.isShowLeaderDropdown = true;
-      var leaders = _.pluck(vm.department.leaders, '_id').join();
-      AdminUserApi.searchUsers(vm.leaderSearchKey, leaders, ['manager'])
+    // vm.handleLeaderSelected = (leader) => {
+    //   var item = _.findWhere(vm.department.leaders, { _id: leader._id });
+    //   if (!item) {
+    //     vm.department.leaders.push(leader);
+    //   }
+    //   vm.searchLeaders = _.without(vm.searchLeaders, leader);
+    //   vm.isShowLeaderDropdown = true;
+    //   if (!$scope.$$phase) $scope.$digest();
+    // };
+    // vm.handleLeaderRemoved = (leader) => {
+    //   vm.department.leaders = _.without(vm.department.leaders, leader);
+    // };
+    function handleSearchLeaders() {
+      if (vm.isSearching) return;
+      vm.isSearching = true;
+      AdminUserApi.searchUsers(vm.searchKey, ['manager'])
         .success(users => {
-          vm.searchLeaders = users;
-          vm.leaderSearching = false;
+          vm.searchResult = users;
+          vm.isSearching = false;
           if (!$scope.$$phase) $scope.$digest();
         })
         .error(err => {
           $scope.handleShowToast(err.message, true);
-          vm.isShowLeaderDropdown = false;
-          vm.leaderSearching = false;
+          vm.isSearching = false;
         });
     }
 
     vm.handleMemberInputChanged = () => {
-      if (vm.memberSearchKey === '') return;
-      if (vm.memberSearchTimer) {
-        $timeout.cancel(vm.memberSearchTimer);
-        vm.memberSearchTimer = undefined;
+      if (vm.searchKey === '') return;
+      if (vm.searchTimer) {
+        $timeout.cancel(vm.searchTimer);
+        vm.searchTimer = undefined;
       }
-      vm.memberSearchTimer = $timeout(handleStartSearchMembers, 500);
+      vm.searchTimer = $timeout(handleSearchLeaders, 500);
     };
-    vm.handleMemberSelected = (member) => {
-      var item = _.findWhere(vm.department.members, { _id: member._id });
-      if (!item) {
-        vm.department.members.push(member);
-      }
-      vm.searchMembers = _.without(vm.searchMembers, member);
-      vm.isShowMemberDropdown = true;
-      if (!$scope.$$phase) $scope.$digest();
-    };
-    vm.handleMemberRemoved = (member) => {
-      vm.department.members = _.without(vm.department.members, member);
-    };
-    function handleStartSearchMembers() {
-      if (vm.memberSearching) return;
-      vm.memberSearching = true;
-      vm.isShowMemberDropdown = true;
-      var ignore = '';
-      var leaders = _.pluck(vm.department.leaders, '_id').join();
-      var members = _.pluck(vm.department.members, '_id').join();
-      if (members && members.length > 0) {
-        if (leaders && leaders.length > 0) {
-          ignore = leaders + ',' + members;
-        } else {
-          ignore = members;
-        }
-      } else {
-        if (leaders && leaders.length > 0) {
-          ignore = leaders;
-        } else {
-          ignore = '';
-        }
-      }
-      AdminUserApi.searchUsers(vm.memberSearchKey, ignore, [])
+    // vm.handleMemberSelected = (member) => {
+    //   var item = _.findWhere(vm.department.members, { _id: member._id });
+    //   if (!item) {
+    //     vm.department.members.push(member);
+    //   }
+    //   vm.searchMembers = _.without(vm.searchMembers, member);
+    //   vm.isShowMemberDropdown = true;
+    //   if (!$scope.$$phase) $scope.$digest();
+    // };
+    // vm.handleMemberRemoved = (member) => {
+    //   vm.department.members = _.without(vm.department.members, member);
+    // };
+    function handleSearchMembers() {
+      if (vm.isSearching) return;
+      vm.isSearching = true;
+      AdminUserApi.searchUsers(vm.searchKey, [])
         .success(users => {
-          vm.searchMembers = users;
-          vm.memberSearching = false;
+          vm.searchResult = users;
+          vm.isSearching = false;
           if (!$scope.$$phase) $scope.$digest();
         })
         .error(err => {
           $scope.handleShowToast(err.message, true);
-          vm.isShowMemberDropdown = false;
-          vm.memberSearching = false;
+          vm.isSearching = false;
         });
     }
     // Trở về màn hình trước

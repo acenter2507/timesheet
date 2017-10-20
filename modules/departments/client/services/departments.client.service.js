@@ -22,6 +22,9 @@
     this.removeUser = (departmentId, userId) => {
       return $http.post('/api/departments/' + departmentId + '/removeUser', { userId: userId }, { ignoreLoadingBar: true });
     };
+    this.addMemberToDepartment = (departmentId, userId) => {
+      return $http.post('/api/departments/' + departmentId + '/addUser', { userId: userId }, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());

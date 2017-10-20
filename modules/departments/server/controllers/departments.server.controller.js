@@ -171,3 +171,29 @@ exports.removeUser = function (req, res) {
     res.end();
   });
 };
+
+/**
+ * Delete user from department
+ */
+exports.addUser = function (req, res) {
+  var userId = req.body.userId;
+  var department = req.department;
+  if (!department) return res.status(400).send({ message: '部署が見つかりません。' });
+  User.findById(userId).exec((err, user) => {
+    if (user.department) return res.status(400).send({ message: user.displayName + 'は既に他の部署に参加しました。' });
+    user.department = department._id;
+    user.save(err => {
+      if (err) return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+      if (_.contains(user.roles, 'manager')) {
+        // Add this user to leaders department
+        Department.addLeader(department._id, user._id)
+          .then(department => {
+            User.setLeaders(department._id, department.leaders);
+          });
+      } else {
+        Department.addMember(department._id, user._id);
+      }
+      return res.jsonp(user);
+    });
+  });
+};

@@ -201,28 +201,26 @@ exports.loadUsers = function (req, res) {
  */
 exports.searchUsers = function (req, res) {
   var key = req.body.key;
-  var ignore = req.body.ignores;
-  var ignores = [];
-  if (ignore.length > 0) {
-    ignores = _.map(ignore.split(','), str => {
-      return str.trim();
-    });
-  }
   var roles = req.body.roles || [];
   var ands = [{ roles: { $ne: 'admin' } }];
-  if (ignores.length > 0) {
-    ands.push({ _id: { $nin: ignores } });
-  }
+  ands.push({ department: null });
+
   if (roles.length > 0) {
     ands.push({ roles: { $in: roles } });
   }
   if (key && key.length > 0) {
-    ands.push({
-      $or: [
-        { displayName: { $regex: '.*' + key + '.*' } },
-        { email: { $regex: '.*' + key + '.*' } }
-      ]
-    });
+    var key_lower = key.toLowerCase();
+    var key_upper = key.toUpperCase();
+    var or_arr = [
+      { displayName: { $regex: '.*' + key + '.*' } },
+      { displayName: { $regex: '.*' + key_lower + '.*' } },
+      { displayName: { $regex: '.*' + key_upper + '.*' } },
+      { email: { $regex: '.*' + key + '.*' } },
+      { email: { $regex: '.*' + key_lower + '.*' } },
+      { email: { $regex: '.*' + key_upper + '.*' } }
+    ];
+
+    ands.push({ $or: or_arr });
   }
   var query = { $and: ands };
   User.find(query)
@@ -358,9 +356,7 @@ exports.changeUserDepartment = function (req, res) {
   user.save(function (err) {
     // Có lỗi khi lưu
     if (err)
-      return res
-        .status(400)
-        .send({ message: errorHandler.getErrorMessage(err) });
+      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
     // Xử lý với department mới
     var newDepartmentId = user.department ? user.department._id || user.department : undefined;
     if (!newDepartmentId || newDepartmentId === '') return res.end();
