@@ -203,7 +203,7 @@
     background-color: rgba(221, 221, 221, 0.7); }
 @media (min-width: 1px) {
   .login-screen .login-block {
-    width:100%;
+    width: 20rem;
     height: 21rem;
     padding: 1rem 2rem;
     margin-top: -15rem;
