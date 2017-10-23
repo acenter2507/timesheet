@@ -163,7 +163,8 @@
       var mDialog = ngDialog.open({
         template: 'modules/core/client/views/templates/images-gallery.dialog.template.html',
         scope: $scope,
-        closeByDocument: false
+        closeByDocument: false,
+        showClose: false
       });
       mDialog.closePromise.then(function (res) {
         if (!res.value || res.value === '') return;
