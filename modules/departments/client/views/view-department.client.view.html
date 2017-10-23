@@ -59,7 +59,7 @@
                           <a class="user-info-name" ng-click="vm.handleViewDetailUser(leader)">{{:: leader.displayName}}</a>
                           <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
                         </div>
-                        <div class="user-action">
+                        <div class="user-action" ng-if="leader._id !== user._id">
                           <div dropdown dropdown-append-to-body>
                             <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -105,7 +105,7 @@
                           <a class="user-info-name" ng-click="vm.handleViewDetailUser(member)">{{:: member.displayName}}</a>
                           <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
                         </div>
-                        <div class="user-action">
+                        <div class="user-action" ng-if="leader._id !== user._id">
                           <div dropdown dropdown-append-to-body>
                             <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
