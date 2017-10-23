@@ -187,20 +187,24 @@
   left: 0;
   right: 0;
   background: url('../../../core/client/img/brand/cover.jpg');
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
-  background-size: auto; }
+  background-size: cover; }
   .login-screen .login-block {
     position: fixed;
     top: 50%;
     left: 50%;
     width:30rem;
+    padding: 2rem;
     height:18rem;
     margin-top: -9em;
     margin-left: -15em;
     border: 1px solid #ccc;
     background-color: #ddd; 
     opacity: 0.8;}
+  .login-screen .login-block .form-control,
+  .login-screen .login-block .input {
+    opacity: 1; }
 
 
 
