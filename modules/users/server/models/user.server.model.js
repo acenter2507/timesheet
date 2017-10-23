@@ -47,7 +47,8 @@ var UserSchema = new Schema({
   company: {
     employeeId: { type: String },
     taxId: { type: String },
-    salary: { type: Number }
+    salary: { type: Number },
+    paidHolidayCnt: { type: Number, default: 0 },
   },
   report: {
     holidayCnt: { type: Number, default: 0 }
