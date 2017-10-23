@@ -1,184 +1,186 @@
-<div class="row animated fadeIn mg50t">
-  <form name="vm.form.userForm" ng-submit="vm.handleSaveUser(vm.form.userForm.$valid)" novalidate>
-    <div class="col-xs-12">
-      <div class="form-group">
-        <a ng-click="vm.handleSaveUser(vm.form.userForm.$valid)" class="btn btn-primary pull-right">
+<div class="container-fluid animated fadeIn mg50t">
+  <div class="row">
+    <form name="vm.form.userForm" ng-submit="vm.handleSaveUser(vm.form.userForm.$valid)" novalidate>
+      <div class="col-xs-12">
+        <div class="form-group">
+          <a ng-click="vm.handleSaveUser(vm.form.userForm.$valid)" class="btn btn-primary pull-right">
           <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存
         </a>
-        <a ng-click="vm.handleCancelInput()" class="btn btn-default pull-right mg10r">キャンセル</a>
-        <a ng-if="vm.user._id" ng-click="vm.handleRemoveUser()" class="btn btn-danger pull-right mg10r">削除</a>
-        <a ng-if="vm.user._id && isAdmin" ng-click="vm.handleAdminRemoveUser()" class="btn btn-danger pull-right mg10r">完全削除</a>
-        <div class="clearfix"></div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-3">
-      <div class="well">
-        <h3 class="mg12y">アカウント情報</h3>
-        <!-- User name -->
-        <div class="form-group" show-errors>
-          <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="ユーザーID" required
-          />
-          <div ng-messages="vm.form.userForm.username.$error" role="alert">
-            <p class="help-block error-text font-sm" ng-message="required">ユーザー名は必須です。</p>
-          </div>
+          <a ng-click="vm.handleCancelInput()" class="btn btn-default pull-right mg10r">キャンセル</a>
+          <a ng-if="vm.user._id" ng-click="vm.handleRemoveUser()" class="btn btn-danger pull-right mg10r">削除</a>
+          <a ng-if="vm.user._id && isAdmin" ng-click="vm.handleAdminRemoveUser()" class="btn btn-danger pull-right mg10r">完全削除</a>
+          <div class="clearfix"></div>
         </div>
-        <!-- Password -->
-        <div ng-if="!vm.user._id" class="form-group" show-errors>
-          <input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="パスワード"
-            required password-validator/>
-          <div ng-messages="vm.form.userForm.password.$error" role="alert">
-            <p class="help-block error-text font-sm" ng-message="required">パスワードは必須です。</p>
-            <div ng-repeat="passwordError in passwordErrors">
-              <p class="help-block error-text font-sm" ng-show="vm.form.userForm.password.$error.requirements">{{passwordError}}</p>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="well">
+          <h3 class="mg12y">アカウント情報</h3>
+          <!-- User name -->
+          <div class="form-group" show-errors>
+            <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="ユーザーID" required
+            />
+            <div ng-messages="vm.form.userForm.username.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">ユーザー名は必須です。</p>
             </div>
           </div>
-        </div>
-        <div ng-if="vm.user._id" class="form-group">
-          <a class="btn btn-warning btn-block" ng-click="vm.handleResetPassword()">
+          <!-- Password -->
+          <div ng-if="!vm.user._id" class="form-group" show-errors>
+            <input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="パスワード"
+              required password-validator/>
+            <div ng-messages="vm.form.userForm.password.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">パスワードは必須です。</p>
+              <div ng-repeat="passwordError in passwordErrors">
+                <p class="help-block error-text font-sm" ng-show="vm.form.userForm.password.$error.requirements">{{passwordError}}</p>
+              </div>
+            </div>
+          </div>
+          <div ng-if="vm.user._id" class="form-group">
+            <a class="btn btn-warning btn-block" ng-click="vm.handleResetPassword()">
             <i ng-show="vm.password_busy" class="fa fa-spinner fa-pulse fa-fw"></i>パスワード変更
           </a>
-        </div>
-        <!-- Roles -->
-        <div ng-if="!vm.user._id" class="form-group" show-errors>
-          <select name="roles" class="form-control" ng-model="vm.user.roles" ng-list required>
+          </div>
+          <!-- Roles -->
+          <div ng-if="!vm.user._id" class="form-group" show-errors>
+            <select name="roles" class="form-control" ng-model="vm.user.roles" ng-list required>
             <option value="user">一般社員</option>
             <option value="user,accountant">経理</option>
             <option value="user,manager">マネージャ</option>
             <option ng-if="isAdmin" value="user,admin">システム管理</option>
           </select>
-          <div ng-messages="vm.form.userForm.roles.$error" role="alert">
-            <p class="help-block error-text font-sm" ng-message="required">役割は必須です。</p>
+            <div ng-messages="vm.form.userForm.roles.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">役割は必須です。</p>
+            </div>
           </div>
-        </div>
-        <div ng-if="vm.user._id" class="form-group">
-          <input value="{{vm.user.roles | RoleFilter}}" class="form-control" disabled>
-          <a class="btn btn-warning btn-block" ng-click="vm.handleChangeRoles()">
+          <div ng-if="vm.user._id" class="form-group">
+            <input value="{{vm.user.roles | RoleFilter}}" class="form-control" disabled>
+            <a class="btn btn-warning btn-block" ng-click="vm.handleChangeRoles()">
             <i ng-show="vm.roles_busy" class="fa fa-spinner fa-pulse fa-fw"></i>役割変更
           </a>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-3">
-      <div class="well">
-        <h3 class="mg12y">基本情報</h3>
-        <!-- First name -->
-        <div class="form-group" show-errors>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="姓" required
-          />
-          <div ng-messages="vm.form.userForm.firstName.$error" role="alert">
-            <p class="help-block error-text font-sm" ng-message="required">姓は必須です。</p>
-          </div>
-        </div>
-        <!-- Last name -->
-        <div class="form-group" show-errors>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="名" required
-          />
-          <div ng-messages="vm.form.userForm.lastName.$error" role="alert">
-            <p class="help-block error-text font-sm" ng-message="required">名は必須です。</p>
-          </div>
-        </div>
-        <!-- Email -->
-        <div class="form-group" show-errors>
-          <input type="email" id="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required />
-          <div ng-messages="vm.form.userForm.email.$error" role="alert">
-            <p class="help-block error-text font-sm" ng-message="required">メールは必須です。</p>
-            <p class="help-block error-text font-sm" ng-message="email">メールのフォーマットが違います。</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-3">
-      <div class="well">
-        <h3 class="mg12y">個人情報</h3>
-        <!-- Sex -->
-        <div class="form-group">
-          <select name="sex" class="form-control" ng-model="vm.user.private.sex">
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="well">
+          <h3 class="mg12y">基本情報</h3>
+          <!-- First name -->
+          <div class="form-group" show-errors>
+            <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="姓" required
+            />
+            <div ng-messages="vm.form.userForm.firstName.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">姓は必須です。</p>
+            </div>
+          </div>
+          <!-- Last name -->
+          <div class="form-group" show-errors>
+            <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="名" required
+            />
+            <div ng-messages="vm.form.userForm.lastName.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">名は必須です。</p>
+            </div>
+          </div>
+          <!-- Email -->
+          <div class="form-group" show-errors>
+            <input type="email" id="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required />
+            <div ng-messages="vm.form.userForm.email.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">メールは必須です。</p>
+              <p class="help-block error-text font-sm" ng-message="email">メールのフォーマットが違います。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="well">
+          <h3 class="mg12y">個人情報</h3>
+          <!-- Sex -->
+          <div class="form-group">
+            <select name="sex" class="form-control" ng-model="vm.user.private.sex">
             <option value="1">男</option>
             <option value="2">女</option>
           </select>
-        </div>
-        <!-- Birthdate -->
-        <div class="form-group" ng-init="birthdateOpen = false;">
-          <div class="input-group">
-            <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.user.private.birthdate" is-open="birthdateOpen"
-              min-date="'1900/01/01'" max-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body
-              placeholder="生年月日" />
-            <span class="input-group-btn">
+          </div>
+          <!-- Birthdate -->
+          <div class="form-group" ng-init="birthdateOpen = false;">
+            <div class="input-group">
+              <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.user.private.birthdate" is-open="birthdateOpen"
+                min-date="'1900/01/01'" max-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body
+                placeholder="生年月日" />
+              <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="birthdateOpen = true;">
                 <i class="fa fa-calendar"></i>
               </button>
             </span>
+            </div>
+          </div>
+          <!-- Phone -->
+          <div class="form-group">
+            <input name="phone" type="number" class="form-control" ng-model="vm.user.private.phone" placeholder="電話番号" />
+          </div>
+          <!-- Address -->
+          <div class="form-group">
+            <input name="address" type="text" class="form-control" ng-model="vm.user.private.address" placeholder="住所" />
+          </div>
+          <!-- hobby -->
+          <div class="form-group">
+            <input name="hobby" type="text" class="form-control" ng-model="vm.user.private.hobby" placeholder="趣味" />
+          </div>
+          <!-- Introduct -->
+          <div class="form-group">
+            <textarea name="introduct" class="msd-elastic: \n; h100 form-control" data-ng-model="vm.user.private.introduct" placeholder="自己紹介"></textarea>
           </div>
         </div>
-        <!-- Phone -->
-        <div class="form-group">
-          <input name="phone" type="number" class="form-control" ng-model="vm.user.private.phone" placeholder="電話番号" />
-        </div>
-        <!-- Address -->
-        <div class="form-group">
-          <input name="address" type="text" class="form-control" ng-model="vm.user.private.address" placeholder="住所" />
-        </div>
-        <!-- hobby -->
-        <div class="form-group">
-          <input name="hobby" type="text" class="form-control" ng-model="vm.user.private.hobby" placeholder="趣味" />
-        </div>
-        <!-- Introduct -->
-        <div class="form-group">
-          <textarea name="introduct" class="msd-elastic: \n; h100 form-control" data-ng-model="vm.user.private.introduct" placeholder="自己紹介"></textarea>
-        </div>
       </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-3">
-      <div class="well">
-        <h3 class="mg12y">社員情報</h3>
-        <!-- Department -->
-        <div ng-if="!vm.user._id" class="form-group">
-          <select name="department" class="form-control" ng-model="vm.user.department" ng-change="vm.handleChangeDepartment()">
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="well">
+          <h3 class="mg12y">社員情報</h3>
+          <!-- Department -->
+          <div ng-if="!vm.user._id" class="form-group">
+            <select name="department" class="form-control" ng-model="vm.user.department" ng-change="vm.handleChangeDepartment()">
             <option value>部署</option>
             <option ng-repeat="department in vm.departments" value="{{department._id}}">{{:: department.name}}</option>
           </select>
-        </div>
-        <div ng-if="vm.user._id" class="form-group">
-          <input value="{{vm.currentDepartment.name || '未設定'}}" class="form-control" disabled>
-          <a class="btn btn-warning btn-block" ng-click="vm.handleChangeDeparment()">
+          </div>
+          <div ng-if="vm.user._id" class="form-group">
+            <input value="{{vm.currentDepartment.name || '未設定'}}" class="form-control" disabled>
+            <a class="btn btn-warning btn-block" ng-click="vm.handleChangeDeparment()">
             <i ng-show="vm.department_busy" class="fa fa-spinner fa-pulse fa-fw"></i>部署変更
           </a>
-        </div>
+          </div>
 
-        <h4 class="mg5y" ng-if="vm.user.leaders.length > 0">リーダ</h4>
-        <!-- Danh sách leader -->
-        <div class="user-item-block" ng-repeat="leader in vm.user.leaders">
-          <div class="user-basic-info">
-            <div class="user-avatar">
-              <img src="{{:: leader.profileImageURL }}">
-            </div>
-            <div class="user-info">
-              <a class="user-info-name" ui-sref="users.view({ userId: leader._id })">{{:: leader.displayName}}</a>
-              <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
+          <h4 class="mg5y" ng-if="vm.user.leaders.length > 0">リーダ</h4>
+          <!-- Danh sách leader -->
+          <div class="user-item-block" ng-repeat="leader in vm.user.leaders">
+            <div class="user-basic-info">
+              <div class="user-avatar">
+                <img src="{{:: leader.profileImageURL }}">
+              </div>
+              <div class="user-info">
+                <a class="user-info-name" ui-sref="users.view({ userId: leader._id })">{{:: leader.displayName}}</a>
+                <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <input name="employeeId" type="text" class="form-control" ng-model="vm.user.company.employeeId" placeholder="社員番号" />
-        </div>
-        <div class="form-group">
-          <input name="taxId" type="text" class="form-control" ng-model="vm.user.company.taxId" placeholder="納税番号" />
-        </div>
-        <div class="form-group" ng-if="vm.user._id">
-          <select name="status" class="form-control" ng-model="vm.user.status">
+          <div class="form-group">
+            <input name="employeeId" type="text" class="form-control" ng-model="vm.user.company.employeeId" placeholder="社員番号" />
+          </div>
+          <div class="form-group">
+            <input name="taxId" type="text" class="form-control" ng-model="vm.user.company.taxId" placeholder="納税番号" />
+          </div>
+          <div class="form-group" ng-if="vm.user._id">
+            <select name="status" class="form-control" ng-model="vm.user.status">
             <option value="1">在職</option>
             <option value="2">退社済み</option>
             <option ng-if="isAdmin" value="3">ロジック削除</option>
           </select>
-        </div>
-        <div class="form-group">
-          <div class="input-group">
-            <input name="salary" type="number" class="form-control" ng-model="vm.user.company.salary" placeholder="給料" />
-            <span class="input-group-addon">￥</span>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input name="salary" type="number" class="form-control" ng-model="vm.user.company.salary" placeholder="給料" />
+              <span class="input-group-addon">￥</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

@@ -1,188 +1,190 @@
-<div class="row animated fadeIn mg12t">
-  <div class="col-xs-12" ng-if="isAdmin || isAccountant">
-    <div class="form-group">
-      <a ng-if="isAdmin || isAccountant" ui-sref="users.new" class="btn btn-default pull-right" tooltip-placement="left" tooltip="アカウントを追加する"><i class="fa fa-user-plus fa-lg"></i></a>
-      <div class="clearfix"></div>
-    </div>
-  </div>
-  <!-- Hệ thống -->
-  <div class="col-xs-12" ng-if="isAdmin">
-    <div class="panel panel-danger">
-      <div class="panel-heading">
-        <img class="w25 h25" src="./modules/core/client/img/brand/admin.png">
-        <span class="font-weight-bold">システム管理（{{ vm.admin.data.length }}）</span>
-        <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendMessageAll('admin')" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
+<div class="container-fluid animated fadeIn mg12t">
+  <div class="row">
+    <div class="col-xs-12" ng-if="isAdmin || isAccountant">
+      <div class="form-group">
+        <a ng-if="isAdmin || isAccountant" ui-sref="users.new" class="btn btn-default pull-right" tooltip-placement="left" tooltip="アカウントを追加する"><i class="fa fa-user-plus fa-lg"></i></a>
         <div class="clearfix"></div>
       </div>
-      <div class="panel-body">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="admin in vm.admin.data">
-          <div class="user-item-block mg6x">
-            <div class="user-basic-info">
-              <div class="user-avatar">
-                <img src="{{:: admin.profileImageURL }}">
-                <span class="user-status" ng-class="{ 'working': admin.status === 1, 'retired': admin.status === 2 }"></span>
-              </div>
-              <div class="user-info">
-                <a class="user-info-name" ui-sref="users.view({ userId: admin._id })">{{:: admin.displayName}}</a>
-                <a class="font-sm" ng-href="mailto:{{admin.email}}">{{::admin.email}}</a>
-              </div>
-              <div class="user-action">
-                <div dropdown dropdown-append-to-body>
-                  <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li><a ui-sref="users.view({ userId: admin._id })"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                    <li><a ui-sref="users.edit({ userId: admin._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                    <li><a ui-sref="users.timesheet({ userId: admin._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
-                    <li><a ng-click="vm.handleSendMessageUser(admin)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
-                    <li><a ng-href="mailto:{{admin.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
-                    <li><a ng-click="vm.handleLogicDeleteUser(admin)"><i class="fa fa-user-times"></i> 削除</a></li>
-                    <li><a ng-click="vm.handleDatabaseDeleteUser(admin)"><i class="fa fa-trash"></i> 完全削除</a></li>
-                  </ul>
+    </div>
+    <!-- Hệ thống -->
+    <div class="col-xs-12" ng-if="isAdmin">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <img class="w25 h25" src="./modules/core/client/img/brand/admin.png">
+          <span class="font-weight-bold">システム管理（{{ vm.admin.data.length }}）</span>
+          <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendMessageAll('admin')" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="admin in vm.admin.data">
+            <div class="user-item-block mg6x">
+              <div class="user-basic-info">
+                <div class="user-avatar">
+                  <img src="{{:: admin.profileImageURL }}">
+                  <span class="user-status" ng-class="{ 'working': admin.status === 1, 'retired': admin.status === 2 }"></span>
+                </div>
+                <div class="user-info">
+                  <a class="user-info-name" ui-sref="users.view({ userId: admin._id })">{{:: admin.displayName}}</a>
+                  <a class="font-sm" ng-href="mailto:{{admin.email}}">{{::admin.email}}</a>
+                </div>
+                <div class="user-action">
+                  <div dropdown dropdown-append-to-body>
+                    <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a ui-sref="users.view({ userId: admin._id })"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                      <li><a ui-sref="users.edit({ userId: admin._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                      <li><a ui-sref="users.timesheet({ userId: admin._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                      <li><a ng-click="vm.handleSendMessageUser(admin)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
+                      <li><a ng-href="mailto:{{admin.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
+                      <li><a ng-click="vm.handleLogicDeleteUser(admin)"><i class="fa fa-user-times"></i> 削除</a></li>
+                      <li><a ng-click="vm.handleDatabaseDeleteUser(admin)"><i class="fa fa-trash"></i> 完全削除</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="panel-footer">
-        <ul class="pagination mgn">
-          <li ng-repeat="page in vm.admin.pages" ng-class="{'disabled': page === vm.admin.page}"><a ng-click="vm.handleChangeAdminPage(page)">{{page}}</a></li>
-        </ul>
+        <div class="panel-footer">
+          <ul class="pagination mgn">
+            <li ng-repeat="page in vm.admin.pages" ng-class="{'disabled': page === vm.admin.page}"><a ng-click="vm.handleChangeAdminPage(page)">{{page}}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- Quản lý -->
-  <div class="col-xs-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <img class="w25 h25" src="./modules/core/client/img/brand/manager.png">
-        <span class="font-weight-bold">マネージャ（{{ vm.manager.data.length }}）</span>
-        <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendMessageAll('manager')" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
-        <div class="clearfix"></div>
-      </div>
-      <div class="panel-body">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="manager in vm.manager.data">
-          <div class="user-item-block mg6x">
-            <div class="user-basic-info">
-              <div class="user-avatar">
-                <img src="{{:: manager.profileImageURL }}">
-                <span class="user-status" ng-class="{ 'working': manager.status === 1, 'retired': manager.status === 2 }"></span>
-              </div>
-              <div class="user-info">
-                <a class="user-info-name" ng-click="vm.handleViewDetailUser(manager)">{{:: manager.displayName}}</a>
-                <a class="font-sm" ng-href="mailto:{{manager.email}}">{{::manager.email}}</a>
-              </div>
-              <div class="user-action">
-                <div dropdown dropdown-append-to-body>
-                  <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li><a ng-click="vm.handleViewDetailUser(manager)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                    <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: manager._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                    <li ng-if="isAdmin || isAccountant"><a ui-sref="users.timesheet({ userId: manager._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
-                    <li><a ng-click="vm.handleSendMessageUser(manager)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
-                    <li><a ng-href="mailto:{{manager.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
-                    <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(manager)"><i class="fa fa-user-times"></i> 削除</a></li>
-                    <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(manager)"><i class="fa fa-trash"></i> 完全削除</a></li>
-                  </ul>
+    <!-- Quản lý -->
+    <div class="col-xs-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <img class="w25 h25" src="./modules/core/client/img/brand/manager.png">
+          <span class="font-weight-bold">マネージャ（{{ vm.manager.data.length }}）</span>
+          <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendMessageAll('manager')" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="manager in vm.manager.data">
+            <div class="user-item-block mg6x">
+              <div class="user-basic-info">
+                <div class="user-avatar">
+                  <img src="{{:: manager.profileImageURL }}">
+                  <span class="user-status" ng-class="{ 'working': manager.status === 1, 'retired': manager.status === 2 }"></span>
+                </div>
+                <div class="user-info">
+                  <a class="user-info-name" ng-click="vm.handleViewDetailUser(manager)">{{:: manager.displayName}}</a>
+                  <a class="font-sm" ng-href="mailto:{{manager.email}}">{{::manager.email}}</a>
+                </div>
+                <div class="user-action">
+                  <div dropdown dropdown-append-to-body>
+                    <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a ng-click="vm.handleViewDetailUser(manager)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                      <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: manager._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                      <li ng-if="isAdmin || isAccountant"><a ui-sref="users.timesheet({ userId: manager._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                      <li><a ng-click="vm.handleSendMessageUser(manager)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
+                      <li><a ng-href="mailto:{{manager.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
+                      <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(manager)"><i class="fa fa-user-times"></i> 削除</a></li>
+                      <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(manager)"><i class="fa fa-trash"></i> 完全削除</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="panel-footer">
-        <ul class="pagination mgn">
-          <li ng-repeat="page in vm.manager.pages" ng-class="{'disabled': page === vm.manager.page}"><a ng-click="vm.handleChangeManagerPage(page)">{{page}}</a></li>
-        </ul>
+        <div class="panel-footer">
+          <ul class="pagination mgn">
+            <li ng-repeat="page in vm.manager.pages" ng-class="{'disabled': page === vm.manager.page}"><a ng-click="vm.handleChangeManagerPage(page)">{{page}}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- Nhân viên -->
-  <div class="col-xs-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <img class="w25 h25" src="./modules/core/client/img/brand/member.png">
-        <span class="font-weight-bold">社員（{{ vm.member.data.length }}）</span>
-        <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendMessageAll('member')" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
-        <div class="clearfix"></div>
-      </div>
-      <div class="panel-body">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.member.data">
-          <div class="user-item-block mg6x">
-            <div class="user-basic-info">
-              <div class="user-avatar">
-                <img src="{{:: member.profileImageURL }}">
-                <span class="user-status" ng-class="{ 'working': member.status === 1, 'retired': member.status === 2 }"></span>
-              </div>
-              <div class="user-info">
-                <a class="user-info-name" ng-click="vm.handleViewDetailUser(member)">{{:: member.displayName}}</a>
-                <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
-              </div>
-              <div class="user-action">
-                <div dropdown dropdown-append-to-body>
-                  <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li><a ng-click="vm.handleViewDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                    <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                    <li ng-if="isLeader"><a ui-sref="users.timesheet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
-                    <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
-                    <li><a ng-href="mailto:{{member.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
-                    <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(member)"><i class="fa fa-user-times"></i> 削除</a></li>
-                    <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(member)"><i class="fa fa-trash"></i> 完全削除</a></li>
-                  </ul>
+    <!-- Nhân viên -->
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <img class="w25 h25" src="./modules/core/client/img/brand/member.png">
+          <span class="font-weight-bold">社員（{{ vm.member.data.length }}）</span>
+          <a class="btn btn-default btn-xs pull-right" ng-click="vm.sendMessageAll('member')" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.member.data">
+            <div class="user-item-block mg6x">
+              <div class="user-basic-info">
+                <div class="user-avatar">
+                  <img src="{{:: member.profileImageURL }}">
+                  <span class="user-status" ng-class="{ 'working': member.status === 1, 'retired': member.status === 2 }"></span>
+                </div>
+                <div class="user-info">
+                  <a class="user-info-name" ng-click="vm.handleViewDetailUser(member)">{{:: member.displayName}}</a>
+                  <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
+                </div>
+                <div class="user-action">
+                  <div dropdown dropdown-append-to-body>
+                    <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a ng-click="vm.handleViewDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                      <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                      <li ng-if="isLeader"><a ui-sref="users.timesheet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                      <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
+                      <li><a ng-href="mailto:{{member.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
+                      <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(member)"><i class="fa fa-user-times"></i> 削除</a></li>
+                      <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(member)"><i class="fa fa-trash"></i> 完全削除</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="panel-footer">
-        <ul class="pagination mgn">
-          <li ng-repeat="page in vm.member.pages" ng-class="{'disabled': page === vm.member.page}"><a ng-click="vm.handleChangeMemberPage(page)">{{page}}</a></li>
-        </ul>
+        <div class="panel-footer">
+          <ul class="pagination mgn">
+            <li ng-repeat="page in vm.member.pages" ng-class="{'disabled': page === vm.member.page}"><a ng-click="vm.handleChangeMemberPage(page)">{{page}}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- User đã bị xóa logic -->
-  <div class="col-xs-12" ng-if="isAdmin">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <img class="w25 h25" src="./modules/core/client/img/brand/retire.png">
-        <span class="font-weight-bold">削除されたアカウント（{{ vm.deleted.data.length }}）</span>
-        <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleDatabaseClearAll()" tooltip-placement="left" tooltip="全部削除する"><i class="fa fa-trash fa-lg"></i></a>
-        <div class="clearfix"></div>
-      </div>
-      <div class="panel-body">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="deleted in vm.deleted.data">
-          <div class="user-item-block mg6x">
-            <div class="user-basic-info">
-              <div class="user-avatar"><img src="{{:: deleted.profileImageURL }}"></div>
-              <div class="user-info">
-                <a class="user-info-name" ui-sref="users.view({ userId: deleted._id })">{{:: deleted.displayName}}</a>
-                <a class="font-sm" ng-href="mailto:{{deleted.email}}">{{::deleted.email}}</a>
-              </div>
-              <div class="user-action">
-                <div dropdown dropdown-append-to-body>
-                  <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li><a ui-sref="users.view({ userId: deleted._id })"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                    <li><a ui-sref="users.edit({ userId: deleted._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                    <li><a ui-sref="users.timesheet({ userId: deleted._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
-                    <li><a ng-click="vm.handleSendMessageUser(deleted)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
-                    <li><a ng-href="mailto:{{deleted.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
-                    <li><a ng-click="vm.handleResetUser(deleted)"><i class="fa fa-user-times"></i> 復元</a></li>
-                    <li><a ng-click="vm.handleDatabaseDeleteUser(deleted)"><i class="fa fa-trash"></i> 完全削除</a></li>
-                  </ul>
+    <!-- User đã bị xóa logic -->
+    <div class="col-xs-12" ng-if="isAdmin">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <img class="w25 h25" src="./modules/core/client/img/brand/retire.png">
+          <span class="font-weight-bold">削除されたアカウント（{{ vm.deleted.data.length }}）</span>
+          <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleDatabaseClearAll()" tooltip-placement="left" tooltip="全部削除する"><i class="fa fa-trash fa-lg"></i></a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="deleted in vm.deleted.data">
+            <div class="user-item-block mg6x">
+              <div class="user-basic-info">
+                <div class="user-avatar"><img src="{{:: deleted.profileImageURL }}"></div>
+                <div class="user-info">
+                  <a class="user-info-name" ui-sref="users.view({ userId: deleted._id })">{{:: deleted.displayName}}</a>
+                  <a class="font-sm" ng-href="mailto:{{deleted.email}}">{{::deleted.email}}</a>
+                </div>
+                <div class="user-action">
+                  <div dropdown dropdown-append-to-body>
+                    <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a ui-sref="users.view({ userId: deleted._id })"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                      <li><a ui-sref="users.edit({ userId: deleted._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                      <li><a ui-sref="users.timesheet({ userId: deleted._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                      <li><a ng-click="vm.handleSendMessageUser(deleted)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
+                      <li><a ng-href="mailto:{{deleted.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
+                      <li><a ng-click="vm.handleResetUser(deleted)"><i class="fa fa-user-times"></i> 復元</a></li>
+                      <li><a ng-click="vm.handleDatabaseDeleteUser(deleted)"><i class="fa fa-trash"></i> 完全削除</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="panel-footer">
-        <ul class="pagination mgn">
-          <li ng-repeat="page in vm.deleted.pages" ng-class="{'disabled': page === vm.deleted.page}"><a ng-click="vm.handleChangeDeletedPage(page)">{{page}}</a></li>
-        </ul>
+        <div class="panel-footer">
+          <ul class="pagination mgn">
+            <li ng-repeat="page in vm.deleted.pages" ng-class="{'disabled': page === vm.deleted.page}"><a ng-click="vm.handleChangeDeletedPage(page)">{{page}}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

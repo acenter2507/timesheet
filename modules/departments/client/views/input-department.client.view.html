@@ -1,49 +1,51 @@
-<div class="row animated fadeIn mg50t">
-  <!-- Basic info -->
-  <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-    <div class="well">
-      <h3 class="mg12y">新しい部署</h3>
-      <form name="vm.form.departmentForm" ng-submit="vm.handleStartSave(vm.form.departmentForm.$valid)" novalidate>
-        <div class="row">
-          <div class="col-xs-12 col-sm-4">
-            <img class="img-responsive" src="{{ vm.avatarImageUrl}}">
-            <div class="form-group mgnb mg5t">
-              <span class="btn btn-default btn-xs btn-upload-file">
+<div class="container-fluid animated fadeIn mg50t">
+  <div class="row">
+    <!-- Basic info -->
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+      <div class="well">
+        <h3 class="mg12y">新しい部署</h3>
+        <form name="vm.form.departmentForm" ng-submit="vm.handleStartSave(vm.form.departmentForm.$valid)" novalidate>
+          <div class="row">
+            <div class="col-xs-12 col-sm-4">
+              <img class="img-responsive" src="{{ vm.avatarImageUrl}}">
+              <div class="form-group mgnb mg5t">
+                <span class="btn btn-default btn-xs btn-upload-file">
                 ファイル選択
                 <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;">
               </span>
-              <button type="button" class="btn btn-info btn-xs" ng-click="vm.handleSelectImageGallery()">ギャラリー</button>
+                <button type="button" class="btn btn-info btn-xs" ng-click="vm.handleSelectImageGallery()">ギャラリー</button>
+              </div>
+              <div class="d-sm-none h20"></div>
             </div>
-            <div class="d-sm-none h20"></div>
-          </div>
-          <div class="col-xs-12 col-sm-8">
-            <div class="form-group" show-errors>
-              <input name="name" type="text" ng-model="vm.department.name" id="name" class="form-control" placeholder="名前" required>
-              <div ng-messages="vm.form.departmentForm.name.$error" role="alert">
-                <p class="help-block error-text font-sm" ng-message="required">名前は必須です。</p>
+            <div class="col-xs-12 col-sm-8">
+              <div class="form-group" show-errors>
+                <input name="name" type="text" ng-model="vm.department.name" id="name" class="form-control" placeholder="名前" required>
+                <div ng-messages="vm.form.departmentForm.name.$error" role="alert">
+                  <p class="help-block error-text font-sm" ng-message="required">名前は必須です。</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <input name="email" type="text" ng-model="vm.department.email" class="form-control" placeholder="部署メール">
+              </div>
+              <div class="form-group">
+                <input name="location" type="text" ng-model="vm.department.location" class="form-control" placeholder="場所">
               </div>
             </div>
-            <div class="form-group">
-              <input name="email" type="text" ng-model="vm.department.email" class="form-control" placeholder="部署メール">
-            </div>
-            <div class="form-group">
-              <input name="location" type="text" ng-model="vm.department.location" class="form-control" placeholder="場所">
-            </div>
           </div>
-        </div>
-        <div class="form-group mgnb">
-          <button type="submit" class="btn btn-primary pull-right"><i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存</button>
-          <button type="button" class="btn btn-default pull-right mg5r" ng-click="vm.handleCancelInput()">キャンセル</button>
-          <button type="button" class="btn btn-danger pull-right mg5r" ng-if="vm.department._id" ng-click="vm.handleDeleteDepartment()">削除</button>
-        </div>
-      </form>
-      <div class="clearfix"></div>
+          <div class="form-group mgnb">
+            <button type="submit" class="btn btn-primary pull-right"><i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存</button>
+            <button type="button" class="btn btn-default pull-right mg5r" ng-click="vm.handleCancelInput()">キャンセル</button>
+            <button type="button" class="btn btn-danger pull-right mg5r" ng-if="vm.department._id" ng-click="vm.handleDeleteDepartment()">削除</button>
+          </div>
+        </form>
+        <div class="clearfix"></div>
+      </div>
     </div>
   </div>
 </div>
 
-  <!-- Leaders -->
-  <!--<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<!-- Leaders -->
+<!--<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <div class="well">
       <h3 class="mg12y">リーダ（{{ vm.department.leaders.length}}）</h3>
       <div class="form-group">
@@ -86,8 +88,8 @@
       </div>
     </div>
   </div>-->
-  <!-- Members -->
-  <!--<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<!-- Members -->
+<!--<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <div class="well">
       <h3 class="mg12y">メンバー（{{ vm.department.members.length}}）</h3>
       <div class="form-group">

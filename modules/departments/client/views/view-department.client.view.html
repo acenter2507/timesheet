@@ -1,76 +1,78 @@
-<div class="row animated fadeIn mg12t">
-  <div class="col-xs-12">
-    <div class="user-detail-block">
-      <div class="user-basic-info">
-        <div class="user-avatar">
-          <img src="{{:: vm.department.avatar }}">
-        </div>
-        <div class="user-info-block">
-          <h3>{{:: vm.department.name}}</h3>
-          <table>
-            <tr>
-              <td class="pd10r"><i class="fa fa-envelope"></i> メール</td>
-              <td><a ng-href="mailto:{{vm.department.email}}"> {{:: vm.department.email }}</a></td>
-            </tr>
-            <tr>
-              <td class="pd10r"><i class="fa fa-map-marker"></i> 場所</td>
-              <td>{{:: vm.department.location }}</td>
-            </tr>
-          </table>
-        </div>
-        <div class="user-tools">
-          <a class="user-tool-button" ng-href="mailto:{{vm.department.email}}" tooltip-placement="bottom" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
-          <a class="user-tool-button" ng-click="vm.handleSendMessageDepartment()" tooltip-placement="bottom" tooltip="メッセージ送信"><i class="fa fa-commenting"></i></a>
-          <a ng-if="isAdmin || isAccountant" class="user-tool-button" ui-sref="departments.edit({ departmentId: vm.department._id })"
-            tooltip-placement="bottom" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
-          <a ng-if="isAdmin || isAccountant" class="user-tool-button" ng-click="vm.handleDeleteDepartment()" tooltip-placement="bottom"
-            tooltip="削除"><i class="fa fa-trash"></i></a>
+<div class="container-fluid animated fadeIn mg12t">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="user-detail-block">
+        <div class="user-basic-info">
+          <div class="user-avatar">
+            <img src="{{:: vm.department.avatar }}">
+          </div>
+          <div class="user-info-block">
+            <h3>{{:: vm.department.name}}</h3>
+            <table>
+              <tr>
+                <td class="pd10r"><i class="fa fa-envelope"></i> メール</td>
+                <td><a ng-href="mailto:{{vm.department.email}}"> {{:: vm.department.email }}</a></td>
+              </tr>
+              <tr>
+                <td class="pd10r"><i class="fa fa-map-marker"></i> 場所</td>
+                <td>{{:: vm.department.location }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="user-tools">
+            <a class="user-tool-button" ng-href="mailto:{{vm.department.email}}" tooltip-placement="bottom" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
+            <a class="user-tool-button" ng-click="vm.handleSendMessageDepartment()" tooltip-placement="bottom" tooltip="メッセージ送信"><i class="fa fa-commenting"></i></a>
+            <a ng-if="isAdmin || isAccountant" class="user-tool-button" ui-sref="departments.edit({ departmentId: vm.department._id })"
+              tooltip-placement="bottom" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
+            <a ng-if="isAdmin || isAccountant" class="user-tool-button" ng-click="vm.handleDeleteDepartment()" tooltip-placement="bottom"
+              tooltip="削除"><i class="fa fa-trash"></i></a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="clearfix"></div>
-  <hr class="mg12y">
-  <div class="col-xs-12">
-    <tabset class="modified-tab" justified="true">
-      <tab heading="部署メンバー">
-        <div class="row mg12t">
-          <div class="col-xs-12">
+    <div class="clearfix"></div>
+    <hr class="mg12y">
+    <div class="col-xs-12">
+      <tabset class="modified-tab" justified="true">
+        <tab heading="部署メンバー">
+          <div class="row mg12t">
+            <div class="col-xs-12">
 
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <img class="w25 h25" src="./modules/core/client/img/brand/manager.png">
-                <span class="font-weight-bold">リーダ（{{ vm.department.leaders.length }}）</span>
-                <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="リーダ追加"><i class="fa fa-user-plus fa-lg"></i></a>
-                <a class="btn btn-default btn-xs pull-right mg10r" ng-click="vm.handleSendMessageLeader()" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
-                <div class="clearfix"></div>
-              </div>
-              <div class="panel-body">
-                <p class="text-muted" ng-show="vm.department.leaders.length === 0">リーダがありません。</p>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="leader in vm.department.leaders">
-                  <div class="user-item-block mg6x">
-                    <div class="user-basic-info">
-                      <div class="user-avatar">
-                        <img src="{{:: leader.profileImageURL }}">
-                        <span class="user-status" ng-class="{ 'working': leader.status === 1, 'retired': leader.status === 2 }"></span>
-                      </div>
-                      <div class="user-info">
-                        <a class="user-info-name" ng-click="vm.handleViewDetailUser(leader)">{{:: leader.displayName}}</a>
-                        <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
-                      </div>
-                      <div class="user-action">
-                        <div dropdown dropdown-append-to-body>
-                          <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
-                          <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li><a ng-click="vm.handleViewDetailUser(leader)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                            <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: leader._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                            <li ng-if="isAdmin || isAccountant"><a ui-sref="users.timesheet({ userId: leader._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
-                            <li><a ng-click="vm.handleSendMessageUser(leader)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
-                            <li><a ng-href="mailto:{{leader.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
-                            <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleRemoveUserFromDepartment(leader)"><i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a></li>
-                            <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(leader)"><i class="fa fa-user-times"></i> 削除</a></li>
-                            <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(leader)"><i class="fa fa-trash"></i> 完全削除</a></li>
-                          </ul>
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <img class="w25 h25" src="./modules/core/client/img/brand/manager.png">
+                  <span class="font-weight-bold">リーダ（{{ vm.department.leaders.length }}）</span>
+                  <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="リーダ追加"><i class="fa fa-user-plus fa-lg"></i></a>
+                  <a class="btn btn-default btn-xs pull-right mg10r" ng-click="vm.handleSendMessageLeader()" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                  <p class="text-muted" ng-show="vm.department.leaders.length === 0">リーダがありません。</p>
+                  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="leader in vm.department.leaders">
+                    <div class="user-item-block mg6x">
+                      <div class="user-basic-info">
+                        <div class="user-avatar">
+                          <img src="{{:: leader.profileImageURL }}">
+                          <span class="user-status" ng-class="{ 'working': leader.status === 1, 'retired': leader.status === 2 }"></span>
+                        </div>
+                        <div class="user-info">
+                          <a class="user-info-name" ng-click="vm.handleViewDetailUser(leader)">{{:: leader.displayName}}</a>
+                          <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
+                        </div>
+                        <div class="user-action">
+                          <div dropdown dropdown-append-to-body>
+                            <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                              <li><a ng-click="vm.handleViewDetailUser(leader)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                              <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: leader._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                              <li ng-if="isAdmin || isAccountant"><a ui-sref="users.timesheet({ userId: leader._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                              <li><a ng-click="vm.handleSendMessageUser(leader)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
+                              <li><a ng-href="mailto:{{leader.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
+                              <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleRemoveUserFromDepartment(leader)"><i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a></li>
+                              <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(leader)"><i class="fa fa-user-times"></i> 削除</a></li>
+                              <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(leader)"><i class="fa fa-trash"></i> 完全削除</a></li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -79,44 +81,44 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
+          <div class="row">
+            <div class="col-xs-12">
 
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <img class="w25 h25" src="./modules/core/client/img/brand/member.png">
-                <span class="font-weight-bold">メンバー（{{ vm.department.members.length }}）</span>
-                <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="メンバー追加"><i class="fa fa-user-plus fa-lg"></i></a>
-                <a class="btn btn-default btn-xs pull-right mg10r" ng-click="vm.handleSendMessageMember()" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
-                <div class="clearfix"></div>
-              </div>
-              <div class="panel-body">
-                <p class="text-muted" ng-show="vm.department.members.length === 0">メンバーがありません。</p>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.department.members">
-                  <div class="user-item-block mg6x">
-                    <div class="user-basic-info">
-                      <div class="user-avatar">
-                        <img src="{{:: member.profileImageURL }}">
-                        <span class="user-status" ng-class="{ 'working': member.status === 1, 'retired': member.status === 2 }"></span>
-                      </div>
-                      <div class="user-info">
-                        <a class="user-info-name" ng-click="vm.handleViewDetailUser(member)">{{:: member.displayName}}</a>
-                        <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
-                      </div>
-                      <div class="user-action">
-                        <div dropdown dropdown-append-to-body>
-                          <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
-                          <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li><a ng-click="vm.handleViewDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                            <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                            <li ng-if="isLeader"><a ui-sref="users.timesheet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
-                            <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
-                            <li><a ng-href="mailto:{{member.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
-                            <li ng-if="isLeader"><a ng-click="vm.handleRemoveUserFromDepartment(member)"><i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a></li>
-                            <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(member)"><i class="fa fa-user-times"></i> 削除</a></li>
-                            <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(member)"><i class="fa fa-trash"></i> 完全削除</a></li>
-                          </ul>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <img class="w25 h25" src="./modules/core/client/img/brand/member.png">
+                  <span class="font-weight-bold">メンバー（{{ vm.department.members.length }}）</span>
+                  <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="メンバー追加"><i class="fa fa-user-plus fa-lg"></i></a>
+                  <a class="btn btn-default btn-xs pull-right mg10r" ng-click="vm.handleSendMessageMember()" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                  <p class="text-muted" ng-show="vm.department.members.length === 0">メンバーがありません。</p>
+                  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pdn" ng-repeat="member in vm.department.members">
+                    <div class="user-item-block mg6x">
+                      <div class="user-basic-info">
+                        <div class="user-avatar">
+                          <img src="{{:: member.profileImageURL }}">
+                          <span class="user-status" ng-class="{ 'working': member.status === 1, 'retired': member.status === 2 }"></span>
+                        </div>
+                        <div class="user-info">
+                          <a class="user-info-name" ng-click="vm.handleViewDetailUser(member)">{{:: member.displayName}}</a>
+                          <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
+                        </div>
+                        <div class="user-action">
+                          <div dropdown dropdown-append-to-body>
+                            <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                              <li><a ng-click="vm.handleViewDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                              <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                              <li ng-if="isLeader"><a ui-sref="users.timesheet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                              <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
+                              <li><a ng-href="mailto:{{member.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
+                              <li ng-if="isLeader"><a ng-click="vm.handleRemoveUserFromDepartment(member)"><i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a></li>
+                              <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(member)"><i class="fa fa-user-times"></i> 削除</a></li>
+                              <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(member)"><i class="fa fa-trash"></i> 完全削除</a></li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -125,25 +127,24 @@
               </div>
             </div>
           </div>
-        </div>
-      </tab>
-      <tab heading="お知らせ">
-        <div class="h200">未完成</div>
-      </tab>
-      <tab heading="プロジェクト">
-        <div class="h200">未完成</div>
-      </tab>
-      <tab heading="イベント">
-        <div class="h200">未完成</div>
-      </tab>
-    </tabset>
+        </tab>
+        <tab heading="お知らせ">
+          <div class="h200">未完成</div>
+        </tab>
+        <tab heading="プロジェクト">
+          <div class="h200">未完成</div>
+        </tab>
+        <tab heading="イベント">
+          <div class="h200">未完成</div>
+        </tab>
+      </tabset>
+    </div>
   </div>
 </div>
 <div class="left-aside">
   <h3>社員検索</h3>
   <div class="form-group">
-    <input class="form-control" ng-model="vm.searchKey" ng-change="vm.handleSearchChanged()"
-      placeholder="メールや名前で検索" focus-me="true">
+    <input class="form-control" ng-model="vm.searchKey" ng-change="vm.handleSearchChanged()" placeholder="メールや名前で検索" focus-me="true">
   </div>
   <div class="form-group" ng-show="vm.isSearching">
     <i class="fa fa-spinner fa-pulse fa-fw"></i>
