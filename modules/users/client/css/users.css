@@ -179,21 +179,20 @@
           .user-detail-block .user-basic-info .user-tools .user-tool-button a:hover {
             color: #fff;
             background-color: #337ab7; }
-
-
-
-
-      /*.user-detail-block .user-basic-info .user-info-block .user-info{
-        background-color: #DE1281;
-        flex-grow: 1;
-        width: 100%; }*/
   .user-detail-block .user-private-info {
     height: 100px;
     display: flex; }
   .user-detail-block .user-activity-info {
     height: 100px;
     display: flex; }
-
+.center-block {
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  width:30em;
+  height:18em;
+  margin-top: -9em;
+}
 
 
 

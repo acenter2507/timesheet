@@ -7,7 +7,7 @@ angular.module('users.admin').run(['Menus',
       title: '社員',
       state: 'users.list',
       // type: 'dropdown',
-      roles: '*'
+      roles: ['user']
     });
 
     // Menus.addSubMenuItem('topbar', 'users', {
