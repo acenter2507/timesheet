@@ -5,7 +5,7 @@
       <fieldset>
         <div class="form-group" show-errors>
           <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="ユーザーID"
-            required>
+            required autofocus>
           <div ng-messages="userForm.username.$error" role="alert">
             <p class="help-block error-text" ng-message="required">ユーザーIDは必須です。</p>
           </div>
