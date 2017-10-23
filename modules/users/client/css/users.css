@@ -201,7 +201,37 @@
     margin-left: -15rem;
     border-radius: 5px;
     background-color: rgba(221, 221, 221, 0.7); }
+@media (min-width: 576px) {
+  .login-screen .login-block {
+    width:30rem;
+    height: 20rem;
+    padding: 2rem;
+    margin-top: -5rem;
+    margin-left: -15rem; } }
 
+@media (min-width: 768px) {
+  .login-screen .login-block {
+    width:30rem;
+    height: 20rem;
+    padding: 2rem;
+    margin-top: -5rem;
+    margin-left: -15rem; } }
+
+@media (min-width: 992px) {
+  .login-screen .login-block {
+    width:30rem;
+    height: 20rem;
+    padding: 2rem;
+    margin-top: -5rem;
+    margin-left: -15rem; } }
+
+@media (min-width: 1200px) {
+  .login-screen .login-block {
+    width:30rem;
+    height: 20rem;
+    padding: 2rem;
+    margin-top: -5rem;
+    margin-left: -15rem; } }
 
 
 
