@@ -162,7 +162,8 @@
       $scope.selectedImage = '';
       var mDialog = ngDialog.open({
         template: 'modules/core/client/views/templates/images-gallery.dialog.template.html',
-        scope: $scope
+        scope: $scope,
+        closeByDocument: false
       });
       mDialog.closePromise.then(function (res) {
         if (!res.value || res.value === '') return;
