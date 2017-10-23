@@ -42,7 +42,7 @@
                 <div class="panel-heading">
                   <img class="w25 h25" src="./modules/core/client/img/brand/manager.png">
                   <span class="font-weight-bold">リーダ（{{ vm.department.leaders.length }}）</span>
-                  <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="リーダ追加"><i class="fa fa-user-plus fa-lg"></i></a>
+                  <a ng-if="isAdmin || isAccountant" class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="リーダ追加"><i class="fa fa-user-plus fa-lg"></i></a>
                   <a class="btn btn-default btn-xs pull-right mg10r" ng-click="vm.handleSendMessageLeader()" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
                   <div class="clearfix"></div>
                 </div>
@@ -88,7 +88,7 @@
                 <div class="panel-heading">
                   <img class="w25 h25" src="./modules/core/client/img/brand/member.png">
                   <span class="font-weight-bold">メンバー（{{ vm.department.members.length }}）</span>
-                  <a class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="メンバー追加"><i class="fa fa-user-plus fa-lg"></i></a>
+                  <a ng-if="isAdmin || isAccountant" class="btn btn-default btn-xs pull-right" ng-click="vm.handleStartSearchMember()" tooltip-placement="left" tooltip="メンバー追加"><i class="fa fa-user-plus fa-lg"></i></a>
                   <a class="btn btn-default btn-xs pull-right mg10r" ng-click="vm.handleSendMessageMember()" tooltip-placement="left" tooltip="全員にメッセージを送信する"><i class="fa fa-commenting fa-lg"></i></a>
                   <div class="clearfix"></div>
                 </div>
