@@ -207,7 +207,7 @@
     height: 21rem;
     padding: 1rem 2rem;
     margin-top: -15rem;
-    margin-left: -15rem; } }
+    margin-left: -10rem; } }
 
 @media (min-width: 576px) {
   .login-screen .login-block {
