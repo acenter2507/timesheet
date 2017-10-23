@@ -199,12 +199,7 @@
     height:18rem;
     margin-top: -9em;
     margin-left: -15em;
-    border: 1px solid #ccc;
-    background-color: #ddd; 
-    opacity: 0.8;}
-  .login-screen .login-block .form-control,
-  .login-screen .login-block .input {
-    opacity: 1; }
+    background-color: rgba(221, 221, 221, 0.8); }
 
 
 
