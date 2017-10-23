@@ -172,6 +172,14 @@
         vm.isGetAvatarFromFile = false;
       });
     };
+    // Cancel
+    vm.handleCancelInput = () => {
+      $scope.handleShowConfirm({
+        message: '操作を止めますか？'
+      }, () => {
+        handlePreviousScreen();
+      });
+    };
     // Change image from URI to blob
     function dataURItoBlob(dataURI) {
       var binary = atob(dataURI.split(',')[1]);
@@ -181,6 +189,10 @@
         array.push(binary.charCodeAt(i));
       }
       return new Blob([new Uint8Array(array)], { type: mimeString });
+    }
+    // Trở về màn hình trước
+    function handlePreviousScreen() {
+      $state.go($state.previous.state.name || 'users.list', $state.previous.params);
     }
   }
 }());
