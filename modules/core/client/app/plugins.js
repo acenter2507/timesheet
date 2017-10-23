@@ -4,6 +4,7 @@
   angular
     .module('core')
     .config(loadingBarConfig)
+    .config(breadcrumbConfig)
     .config(toastConfig)
     .run(runConfig);
 
@@ -13,6 +14,17 @@
     // Loading bar
     cfpLoadingBarProvider.includeSpinner = false;
     cfpLoadingBarProvider.latencyThreshold = 1;
+  }
+
+  breadcrumbConfig.$inject = ['$breadcrumbProvider'];
+
+  function breadcrumbConfig($breadcrumbProvider) {
+    // Breadcrumb
+    $breadcrumbProvider.setOptions({
+      prefixStateName: 'home',
+      includeAbstract: true,
+      template: '<li class="breadcrumb-item" ng-repeat="step in steps" ng-class="{active: $last}" ng-switch="$last || !!step.abstract"><a ng-switch-when="false" href="{{step.ncyBreadcrumbLink}}">{{step.ncyBreadcrumbLabel}}</a><span ng-switch-when="true">{{step.ncyBreadcrumbLabel}}</span></li>'
+    });
   }
 
   toastConfig.$inject = ['toastrConfig'];

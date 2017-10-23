@@ -31,13 +31,22 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }]
   }, {
-    roles: ['guest'],
+    roles: ['accountant'],
     allows: [{
       resources: '/api/rests',
-      permissions: ['get']
+      permissions: '*'
     }, {
       resources: '/api/rests/:restId',
-      permissions: ['get']
+      permissions: '*'
+    }]
+  }, {
+    roles: ['manager'],
+    allows: [{
+      resources: '/api/rests',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/rests/:restId',
+      permissions: ['get', 'put']
     }]
   }]);
 };

@@ -36,8 +36,8 @@ function AppController($scope, Authentication, toastr, ngDialog) {
   // Hiển thị thông báo bình thường
   $scope.handleShowToast = function (msg, error) {
     if (error)
-      return toastr.error(msg, 'Error');
-    return toastr.success(msg, 'Done');
+      return toastr.error(msg, 'エラー');
+    return toastr.success(msg, '完了');
   };
   // Hiển thị confirm xác nhận
   $scope.handleShowConfirm = function (content, resolve, reject) {
