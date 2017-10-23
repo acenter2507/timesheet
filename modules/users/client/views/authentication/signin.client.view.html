@@ -3,28 +3,25 @@
     <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group" show-errors>
-          <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username"
-            lowercase required>
+          <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="ユーザーID"
+            required>
           <div ng-messages="userForm.username.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Username is required.</p>
+            <p class="help-block error-text" ng-message="required">ユーザーIDは必須です。</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password"
+          <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="パスワード"
             required>
           <div ng-messages="userForm.password.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Password is required.</p>
+            <p class="help-block error-text" ng-message="required">パスワードは必須です。</p>
           </div>
         </div>
         <div class="text-center form-group">
-          <button type="submit" class="btn btn-primary">Sign in</button>
+          <button type="submit" class="btn btn-primary">ログイン</button>
         </div>
         <div class="text-center forgot-password">
-          <a ui-sref="password.forgot">Forgot your password?</a>
+          <a ui-sref="password.forgot">パスワードを忘れましたか？</a>
         </div>
-        <alert type="danger" ng-show="error" class="text-center text-danger">
-          <span ng-bind="error"></span>
-        </alert>
       </fieldset>
     </form>
   </div>
