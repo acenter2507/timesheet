@@ -114,7 +114,7 @@
                               <li ng-if="isLeader"><a ui-sref="users.timesheet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                               <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
                               <li><a ng-href="mailto:{{member.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
-                              <li ng-if="isLeader"><a ng-click="vm.handleRemoveUserFromDepartment(member)"><i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a></li>
+                              <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleRemoveUserFromDepartment(member)"><i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a></li>
                               <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(member)"><i class="fa fa-user-times"></i> 削除</a></li>
                               <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(member)"><i class="fa fa-trash"></i> 完全削除</a></li>
                             </ul>
