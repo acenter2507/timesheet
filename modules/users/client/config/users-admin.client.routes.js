@@ -15,7 +15,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
         controller: 'UserListController',
         controllerAs: 'vm',
-        ncyBreadcrumb: { label: '社員一覧' }
+        ncyBreadcrumb: { label: '一覧' }
       })
       .state('users.new', {
         url: '/new',
@@ -28,7 +28,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
             return new AdminUserService();
           }]
         },
-        ncyBreadcrumb: { label: '社員追加' }
+        ncyBreadcrumb: { label: '追加' }
       })
       .state('users.view', {
         url: '/:userId',
@@ -42,7 +42,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
             }).$promise;
           }]
         },
-        ncyBreadcrumb: { label: '社員詳細' }
+        ncyBreadcrumb: { label: '詳細 {{vm.user.displayName}}' }
       })
       .state('users.edit', {
         url: '/:userId/edit',
@@ -57,7 +57,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
             }).$promise;
           }]
         },
-        ncyBreadcrumb: { label: '社員編集' }
+        ncyBreadcrumb: { label: '編集 {{vm.user.displayName}}' }
       })
       .state('users.timesheet', {
         url: '/:userId/timesheet',
@@ -72,7 +72,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
             }).$promise;
           }]
         },
-        ncyBreadcrumb: { label: '社員の勤務表' }
+        ncyBreadcrumb: { label: '勤務表 {{vm.user.displayName}}' }
       });
   }
 ]);
