@@ -344,3 +344,8 @@ a:hover .header-profile-image {
     font-weight: 400;
     line-height: 26px;
     text-align: center; }
+
+.breadcrumb {
+  border-radius: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd; }

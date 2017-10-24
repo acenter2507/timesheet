@@ -6,10 +6,10 @@
     .config(loadingBarConfig)
     .config(breadcrumbConfig)
     .config(toastConfig)
+    .config(toolTipConfig)
     .run(runConfig);
 
   loadingBarConfig.$inject = ['cfpLoadingBarProvider'];
-
   function loadingBarConfig(cfpLoadingBarProvider) {
     // Loading bar
     cfpLoadingBarProvider.includeSpinner = false;
@@ -17,7 +17,6 @@
   }
 
   breadcrumbConfig.$inject = ['$breadcrumbProvider'];
-
   function breadcrumbConfig($breadcrumbProvider) {
     // Breadcrumb
     $breadcrumbProvider.setOptions({
@@ -41,6 +40,19 @@
       preventOpenDuplicates: false,
       target: 'body'
     });
+  }
+
+  toolTipConfig.$inject = ['$tooltipProvider'];
+  function toolTipConfig($tooltipProvider) {
+    var parser = new UAParser();
+    var result = parser.getResult();
+    var touch = result.device && (result.device.type === 'tablet' || result.device.type === 'mobile');
+    if (touch) {
+      var options = {
+        trigger: 'dontTrigger'
+      };
+      $tooltipProvider.options(options);
+    }
   }
 
   function runConfig(amMoment) {

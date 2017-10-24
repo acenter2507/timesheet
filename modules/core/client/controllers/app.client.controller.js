@@ -8,6 +8,7 @@ function AppController($scope, Authentication, toastr, ngDialog) {
   $scope.Authentication = Authentication;
 
   prepareScopeListener();
+  prepareDeviceChecking();
   function prepareScopeListener() {
     // Watch user info
     $scope.$watch('Authentication.user', () => {
@@ -29,7 +30,11 @@ function AppController($scope, Authentication, toastr, ngDialog) {
     $scope.isAccountant = $scope.isLogged && _.contains($scope.user.roles, 'accountant');
     $scope.isLeader = $scope.isAdmin || $scope.isManager || $scope.isAccountant;
   }
-
+  function prepareDeviceChecking() {
+    var parser = new UAParser();
+    var result = parser.getResult();
+    $scope.isMobile = result.device && (result.device.type === 'tablet' || result.device.type === 'mobile');
+  }
   /**
    * HANDLES
    */
