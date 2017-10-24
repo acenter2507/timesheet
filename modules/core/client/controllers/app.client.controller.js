@@ -2,13 +2,16 @@
 
 angular.module('core').controller('AppController', AppController);
 
-AppController.$inject = ['$scope', 'Authentication', 'toastr', 'ngDialog'];
+AppController.$inject = ['$scope', 'Authentication', 'toastr', 'ngDialog', '$timeout'];
 
 function AppController($scope, Authentication, toastr, ngDialog) {
   $scope.Authentication = Authentication;
+  $scope.currentTime = new moment();
 
   prepareScopeListener();
   prepareDeviceChecking();
+  prepareCurrentTime();
+
   function prepareScopeListener() {
     // Watch user info
     $scope.$watch('Authentication.user', () => {
@@ -19,6 +22,9 @@ function AppController($scope, Authentication, toastr, ngDialog) {
       if (angular.element('body').hasClass('aside-menu-show')) {
         angular.element('body').removeClass('aside-menu-show');
       }
+    });
+    $scope.$on('$destroy', function () {
+      $timeout.cancel($scope.currentTimer);
     });
   }
   function onCreate() {
@@ -34,6 +40,10 @@ function AppController($scope, Authentication, toastr, ngDialog) {
     var parser = new UAParser();
     var result = parser.getResult();
     $scope.isMobile = result.device && (result.device.type === 'tablet' || result.device.type === 'mobile');
+  }
+  function prepareCurrentTime() {
+    $scope.currentTime = new moment();
+    $scope.currentTimer = $timeout(prepareCurrentTime, 60000);
   }
   /**
    * HANDLES
@@ -62,4 +72,5 @@ function AppController($scope, Authentication, toastr, ngDialog) {
       }
     });
   };
+
 }
