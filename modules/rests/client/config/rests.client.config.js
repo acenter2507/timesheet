@@ -9,24 +9,24 @@
 
   function menuConfig(menuService) {
     // Set top bar menu items
-    menuService.addMenuItem('topbar', {
-      title: 'Rests',
-      state: 'rests',
-      type: 'dropdown',
-      roles: ['*']
-    });
+    // menuService.addMenuItem('topbar', {
+    //   title: 'Rests',
+    //   state: 'rests',
+    //   type: 'dropdown',
+    //   roles: ['*']
+    // });
 
-    // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'rests', {
-      title: 'List Rests',
-      state: 'rests.list'
-    });
+    // // Add the dropdown list item
+    // menuService.addSubMenuItem('topbar', 'rests', {
+    //   title: 'List Rests',
+    //   state: 'rests.list'
+    // });
 
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'rests', {
-      title: 'Create Rest',
-      state: 'rests.create',
-      roles: ['user']
-    });
+    // // Add the dropdown create item
+    // menuService.addSubMenuItem('topbar', 'rests', {
+    //   title: 'Create Rest',
+    //   state: 'rests.create',
+    //   roles: ['user']
+    // });
   }
 }());
