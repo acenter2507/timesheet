@@ -355,6 +355,6 @@ a:hover .header-profile-image {
     clear: both;
     content: ""; }
   .breadcrumb .breadcrumb-menu {
-    float: left }
+    float: right }
     .breadcrumb-menu::before {
       display: none; }
