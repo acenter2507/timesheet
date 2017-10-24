@@ -4,7 +4,7 @@ angular.module('core').controller('AppController', AppController);
 
 AppController.$inject = ['$scope', 'Authentication', 'toastr', 'ngDialog', '$timeout'];
 
-function AppController($scope, Authentication, toastr, ngDialog) {
+function AppController($scope, Authentication, toastr, ngDialog, $timeout) {
   $scope.Authentication = Authentication;
   $scope.currentTime = new moment();
 
