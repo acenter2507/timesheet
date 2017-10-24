@@ -15,16 +15,15 @@
         template: '<ui-view/>',
         data: {
           pageTitle: 'Departments List'
-        }
+        },
+        ncyBreadcrumb: { label: '部署' }
       })
       .state('departments.list', {
         url: '',
         templateUrl: 'modules/departments/client/views/list-departments.client.view.html',
         controller: 'DepartmentsListController',
         controllerAs: 'vm',
-        data: {
-          pageTitle: 'Departments List'
-        }
+        ncyBreadcrumb: { label: '部署一覧' }
       })
       .state('departments.new', {
         url: '/new',
@@ -35,9 +34,9 @@
           departmentResolve: newDepartment
         },
         data: {
-          roles: ['admin', 'accountant'],
-          pageTitle: 'Departments Create'
-        }
+          roles: ['admin', 'accountant']
+        },
+        ncyBreadcrumb: { label: '部署追加' }
       })
       .state('departments.edit', {
         url: '/:departmentId/edit',
@@ -48,9 +47,9 @@
           departmentResolve: getDepartment
         },
         data: {
-          roles: ['admin', 'accountant', 'manager'],
-          pageTitle: 'Edit Department {{ departmentResolve.name }}'
-        }
+          roles: ['admin', 'accountant', 'manager']
+        },
+        ncyBreadcrumb: { label: '部署編集' }
       })
       .state('departments.view', {
         url: '/:departmentId?action',
@@ -60,9 +59,7 @@
         resolve: {
           departmentResolve: getDepartment
         },
-        data: {
-          pageTitle: 'Department {{ departmentResolve.name }}'
-        }
+        ncyBreadcrumb: { label: '部署詳細' }
       });
   }
 

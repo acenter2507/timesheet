@@ -18,7 +18,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'modules/core/client/views/home.client.view.html',
         data: {
           roles: ['user']
-        }
+        },
+        ncyBreadcrumb: { label: 'ホーム' }
       })
       .state('not-found', {
         url: '/not-found',
