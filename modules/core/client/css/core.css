@@ -348,4 +348,15 @@ a:hover .header-profile-image {
 .breadcrumb {
   border-radius: 0;
   background-color: #fff;
-  border-bottom: 1px solid #ddd; }
+  border-bottom: 1px solid #ddd;
+  position: relative; }
+  .breadcrumb::after {
+    display: block;
+    clear: both;
+    content: ""; }
+  .breadcrumb .breadcrumb-menu {
+    position: absolute;
+    top: 0;
+    right: 15px; }
+    .breadcrumb-menu::before {
+      display: none; }
