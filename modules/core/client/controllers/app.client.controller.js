@@ -72,5 +72,11 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout) {
       }
     });
   };
+  $scope.handleShowDashboardMenu = () => {
+    var mDialog = ngDialog.open({
+      template: 'modules/core/client/views/templates/dashboard.dialog.template.html',
+      scope: $scope
+    });
+  };
 
 }

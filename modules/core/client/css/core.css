@@ -358,3 +358,15 @@ a:hover .header-profile-image {
     float: right }
     .breadcrumb-menu::before {
       display: none; }
+
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; }
+  .dashboard .dashboard-item {
+    width: 50px;
+    height: 50px;
+    margin: 12px;
+    border-radius: 5px;
+    background-color: #ddd;
+    border: 1px solid #ccc;}

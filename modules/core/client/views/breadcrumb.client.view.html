@@ -2,18 +2,7 @@
   <ncy-breadcrumb class="d-sm-down-none"></ncy-breadcrumb>
   <!-- Breadcrumb Menu-->
   <li class="breadcrumb-menu">
-    <div class="d-inline" dropdown dropdown-append-to-body>
-      <a dropdown-toggle class="mg10r"><i class="fa fa-tachometer"></i></a>
-      <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <li><a ng-click="vm.handleViewDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-        <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-        <li ng-if="isLeader"><a ui-sref="users.timesheet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
-        <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
-        <li><a ng-href="mailto:{{member.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
-        <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(member)"><i class="fa fa-user-times"></i> 削除</a></li>
-        <li ng-if="isAdmin"><a ng-click="vm.handleDatabaseDeleteUser(member)"><i class="fa fa-trash"></i> 完全削除</a></li>
-      </ul>
-    </div>
+    <a class="mg10r" ng-class="handleShowDashboardMenu()"><i class="fa fa-tachometer"></i></a>
     <span class="font-weight-bold">{{ currentTime | LLLL }}</span>
   </li>
 </ol>
