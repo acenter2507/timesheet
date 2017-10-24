@@ -18,8 +18,8 @@ var ApplicationConfiguration = (function () {
     'duScroll',
     'ngImgCrop',
     'monospaced.elastic',
-    'ngDialog',
-    'ncy-angular-breadcrumb'
+    'ngDialog'
+    // 'ncy-angular-breadcrumb'
   ];
 
   // Add a new vertical module
