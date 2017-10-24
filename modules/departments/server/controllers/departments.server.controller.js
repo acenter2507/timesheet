@@ -158,12 +158,12 @@ exports.removeUser = function (req, res) {
   User.findById(userId).exec((err, user) => {
     if (_.contains(user.roles, 'manager')) {
       // Remove this user from leaders department
-      Department.removeLeader(department._id, user._id)
+      Department.removeLeader(department._id, userId)
         .then(department => {
           User.setLeaders(department._id, department.leaders);
         });
     } else {
-      Department.removeMember(department._id, user._id);
+      Department.removeMember(department._id, userId);
     }
     user.department = undefined;
     user.leaders = [];

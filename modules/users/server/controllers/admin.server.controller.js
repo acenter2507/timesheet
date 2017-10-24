@@ -203,7 +203,7 @@ exports.searchUsers = function (req, res) {
   var key = req.body.key;
   var roles = req.body.roles || [];
   var ands = [{ roles: { $ne: 'admin' } }];
-  ands.push({ department: null });
+  ands.push({ $or: [{ department: null }, { department: { $exists: false } }] });
 
   if (key && key.length > 0) {
     var key_lower = key.toLowerCase();
