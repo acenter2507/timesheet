@@ -27,7 +27,8 @@
     "ng-img-crop": "ngImgCrop#^0.3.2",
     "angular-scroll": "1.0.2",
     "angular-elastic": "2.5.1",
-    "angular-breadcrumb": "^0.5.0"
+    "angular-breadcrumb": "^0.5.0",
+    "ua-parser-js": "^0.7.17"
   },
   "resolutions": {
     "angular": "~1.3",
