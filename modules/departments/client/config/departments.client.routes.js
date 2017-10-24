@@ -23,7 +23,7 @@
         templateUrl: 'modules/departments/client/views/list-departments.client.view.html',
         controller: 'DepartmentsListController',
         controllerAs: 'vm',
-        ncyBreadcrumb: { label: '部署一覧' }
+        ncyBreadcrumb: { label: '一覧' }
       })
       .state('departments.new', {
         url: '/new',
@@ -36,7 +36,7 @@
         data: {
           roles: ['admin', 'accountant']
         },
-        ncyBreadcrumb: { label: '部署追加' }
+        ncyBreadcrumb: { label: '追加' }
       })
       .state('departments.edit', {
         url: '/:departmentId/edit',
@@ -49,7 +49,7 @@
         data: {
           roles: ['admin', 'accountant', 'manager']
         },
-        ncyBreadcrumb: { label: '部署編集' }
+        ncyBreadcrumb: { label: '編集 {{vm.department.name}}' }
       })
       .state('departments.view', {
         url: '/:departmentId?action',
@@ -59,7 +59,7 @@
         resolve: {
           departmentResolve: getDepartment
         },
-        ncyBreadcrumb: { label: '部署詳細' }
+        ncyBreadcrumb: { label: '詳細 {{vm.department.name}}' }
       });
   }
 
