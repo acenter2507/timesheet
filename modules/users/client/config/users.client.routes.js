@@ -11,28 +11,34 @@ angular.module('users').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/settings/settings.client.view.html',
         data: {
           roles: ['user', 'admin']
-        }
+        },
+        ncyBreadcrumb: { label: '個人情報' }
       })
       .state('settings.profile', {
         url: '/profile',
-        templateUrl: 'modules/users/client/views/settings/edit-profile.client.view.html'
+        templateUrl: 'modules/users/client/views/settings/edit-profile.client.view.html',
+        ncyBreadcrumb: { label: '編集' }
       })
       .state('settings.password', {
         url: '/password',
-        templateUrl: 'modules/users/client/views/settings/change-password.client.view.html'
+        templateUrl: 'modules/users/client/views/settings/change-password.client.view.html',
+        ncyBreadcrumb: { label: 'パスワード変更' }
       })
       .state('settings.picture', {
         url: '/picture',
-        templateUrl: 'modules/users/client/views/settings/change-profile-picture.client.view.html'
+        templateUrl: 'modules/users/client/views/settings/change-profile-picture.client.view.html',
+        ncyBreadcrumb: { label: 'アバター変更' }
       })
       .state('authentication', {
         abstract: true,
         url: '/authentication',
-        templateUrl: 'modules/users/client/views/authentication/authentication.client.view.html'
+        templateUrl: 'modules/users/client/views/authentication/authentication.client.view.html',
+        ncyBreadcrumb: { label: '認証' }
       })
       .state('authentication.signin', {
         url: '/signin?err',
-        templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'
+        templateUrl: 'modules/users/client/views/authentication/signin.client.view.html',
+        ncyBreadcrumb: { label: 'ログイン' }
       })
       // PROFILE
       .state('profile', {
@@ -41,11 +47,15 @@ angular.module('users').config(['$stateProvider',
         template: '<ui-view/>',
         data: {
           roles: ['user']
-        }
+        },
+        ncyBreadcrumb: { label: 'プロファイル' }
       })
       .state('profile.view', {
         url: '/:userId',
-        templateUrl: 'modules/users/client/views/profile/view-profile.client.view.html'
+        templateUrl: 'modules/users/client/views/profile/view-profile.client.view.html',
+        controller: 'UserListController',
+        controllerAs: 'vm',
+        ncyBreadcrumb: { label: '{{vm.profile.displayName}}' }
       });
   }
 ]);
