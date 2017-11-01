@@ -26,7 +26,7 @@
         scope: $scope
       });
       mDialog.closePromise.then(function (res) {
-        if (_.isUndefined(res.value) ) return;
+        if (_.isUndefined(res.value)) return;
       });
     };
     // Edit holiday
@@ -40,7 +40,7 @@
         scope: $scope
       });
       mDialog.closePromise.then(function (res) {
-        if (_.isUndefined(res.value) ) return;
+        if (_.isUndefined(res.value)) return;
       });
     };
     // Save Holiday
