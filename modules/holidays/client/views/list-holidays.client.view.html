@@ -21,7 +21,7 @@
           <tbody>
             <tr ng-repeat="holiday in vm.holidays">
               <td>{{holiday.name}}</td>
-              <td>{{holiday.isPaid}}
+              <td>
                 <span ng-show="holiday.isPaid" class="label label-success">有給</span>
                 <span ng-hide="holiday.isPaid" class="label label-warning">無給</span>
               </td>
