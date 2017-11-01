@@ -31,7 +31,7 @@
     };
     // Edit holiday
     vm.handleEditHoliday = holiday => {
-      $scope.holiday = holiday;
+      $scope.holiday = _.clone(holiday);
       $scope.handleSaveHoliday = handleSaveHoliday;
 
       // Open dialog
@@ -50,7 +50,6 @@
         return false;
       }
 
-      // TODO: move create/update logic to service
       if ($scope.holiday._id) {
         $scope.holiday.$update(successCallback, errorCallback);
       } else {
@@ -58,7 +57,12 @@
       }
 
       function successCallback(res) {
-        vm.holidays.push(res);
+        var check = _.findWhere(vm.holidays, { _id: res._id });
+        if (!check) {
+          vm.holidays.push(res);
+        } else {
+          _.extend(check, res);
+        }
         $scope.handleShowToast('休日形態を保存しました', false);
         delete $scope.holiday;
       }
