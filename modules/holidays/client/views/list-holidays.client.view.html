@@ -1,22 +1,59 @@
-<section>
-  <div class="page-header">
-    <h1>Holidays</h1>
+<div class="container-fluid animated fadeIn mg50t">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <button ng-click="vm.handleAddNewHoliday()" class="btn btn-primary pull-right">追加</button>
+        <div class="clearfix"></div>
+      </div>
+    </div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="holiday in vm.holidays"
-       ui-sref="holidays.view({ holidayId: holiday._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="holiday.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="holiday.user" ng-bind="holiday.user.displayName"></span>
-        <span ng-if="!holiday.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="holiday.name"></h4>
-    </a>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <td>休日形態</td>
+              <td>有給/無給</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="holiday in vm.holidays">
+              <td>{{holiday.name}}</td>
+              <td>{{holiday.isPaid}}
+                <span ng-show="holiday.isPaid" class="label label-success">有給</span>
+                <span ng-hide="holiday.isPaid" class="label label-danger">無給</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="alert alert-warning text-center" ng-if="vm.holidays.$resolved && !vm.holidays.length">
-    No Holidays yet, why don't you <a ui-sref="holidays.create">create one</a>?
+</div>
+<!-- Add holiday -->
+<script type="text/ng-template" id="formHoliday.html">
+  <p class="font-weight-bold">休日形態を追加</p>
+
+  <form name="holidayForm" novalidate>
+    <fieldset>
+      <div class="form-group" show-errors>
+        <input name="name" type="text" ng-model="holiday.name" id="name" class="form-control" placeholder="名前" required>
+        <div ng-messages="holidayForm.name.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">休日形態の名前は必須です</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label><input name="isPaid" type="checkbox" ng-model="holiday.isPaid">有給</label>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <div class="form-group mg12t mgnb">
+    <button class="btn btn-default pull-right" ng-click="closeThisDialog()">キャンセル</button>
+    <button class="btn btn-primary pull-right mg10r" ng-click="handleSaveHoliday(holidayForm.$valid)">保存</button>
+    <div class="clearfix"></div>
   </div>
-</section>
+</script>
