@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Holidays</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="holiday in vm.holidays"
+       ui-sref="holidays.view({ holidayId: holiday._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="holiday.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="holiday.user" ng-bind="holiday.user.displayName"></span>
+        <span ng-if="!holiday.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="holiday.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.holidays.$resolved && !vm.holidays.length">
+    No Holidays yet, why don't you <a ui-sref="holidays.create">create one</a>?
+  </div>
+</section>
