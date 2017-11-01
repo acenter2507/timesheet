@@ -15,6 +15,7 @@
     var vm = this;
     vm.holidays = HolidaysService.query();
 
+    // Add holiday
     vm.handleAddNewHoliday = () => {
       $scope.holiday = new HolidaysService();
       $scope.handleSaveHoliday = handleSaveHoliday;
@@ -27,7 +28,8 @@
       mDialog.closePromise.then(function (res) {
         if (_.isUndefined(res.value) ) return;
       });
-    }
+    };
+    // Edit holiday
     vm.handleEditHoliday = holiday => {
       $scope.holiday = holiday;
       $scope.handleSaveHoliday = handleSaveHoliday;
@@ -41,7 +43,6 @@
         if (_.isUndefined(res.value) ) return;
       });
     };
-
     // Save Holiday
     function handleSaveHoliday(isValid) {
       if (!isValid) {
