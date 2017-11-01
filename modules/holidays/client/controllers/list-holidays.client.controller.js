@@ -40,7 +40,8 @@
         scope: $scope
       });
       mDialog.closePromise.then(function (res) {
-        if (_.isUndefined(res.value)) return;
+        delete $scope.holiday;
+        delete $scope.handleSaveHoliday;
       });
     };
     // Save Holiday
@@ -64,12 +65,10 @@
           _.extend(check, res);
         }
         $scope.handleShowToast('休日形態を保存しました', false);
-        delete $scope.holiday;
       }
 
       function errorCallback(res) {
         $scope.handleShowToast('休日形態を保存できません', true);
-        delete $scope.holiday;
       }
     }
   }
