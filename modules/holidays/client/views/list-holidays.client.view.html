@@ -15,6 +15,7 @@
             <tr>
               <td>休日形態</td>
               <td>有給/無給</td>
+              <td>操作</td>
             </tr>
           </thead>
           <tbody>
@@ -22,7 +23,11 @@
               <td>{{holiday.name}}</td>
               <td>{{holiday.isPaid}}
                 <span ng-show="holiday.isPaid" class="label label-success">有給</span>
-                <span ng-hide="holiday.isPaid" class="label label-danger">無給</span>
+                <span ng-hide="holiday.isPaid" class="label label-warning">無給</span>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" ng-click="vm.handleEditHoliday(holiday)">編集</button>
+                <button class="btn btn-danger btn-sm" ng-click="vm.handleDeleteHoliday(holiday)">削除</button>
               </td>
             </tr>
           </tbody>
@@ -33,7 +38,7 @@
 </div>
 <!-- Add holiday -->
 <script type="text/ng-template" id="formHoliday.html">
-  <p class="font-weight-bold">休日形態を追加</p>
+  <p class="font-weight-bold">休日形態を{{(holiday._id) ? '編集' : '追加'}}</p>
 
   <form name="holidayForm" novalidate>
     <fieldset>
