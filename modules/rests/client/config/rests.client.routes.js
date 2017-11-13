@@ -12,7 +12,8 @@
       .state('rests', {
         abstract: true,
         url: '/rests',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        ncyBreadcrumb: { label: '休暇' }
       })
       .state('rests.list', {
         url: '',
@@ -26,15 +27,11 @@
       .state('rests.create', {
         url: '/create',
         templateUrl: 'modules/rests/client/views/form-rest.client.view.html',
-        controller: 'RestsController',
+        controller: 'RestInputController',
         controllerAs: 'vm',
-        resolve: {
-          restResolve: newRest
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Rests Create'
-        }
+        resolve: { restResolve: newRest },
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '登録' }
       })
       .state('rests.edit', {
         url: '/:restId/edit',

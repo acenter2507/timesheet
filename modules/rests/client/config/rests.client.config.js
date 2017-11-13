@@ -7,7 +7,11 @@
 
   menuConfig.$inject = ['Menus'];
 
-  function menuConfig(menuService) {
+  function menuConfig(Menus) {
+    Menus.addMenuItem('topbar', {
+      title: '休暇登録',
+      state: 'departments.list'
+    });
     // Set top bar menu items
     // menuService.addMenuItem('topbar', {
     //   title: 'Rests',
