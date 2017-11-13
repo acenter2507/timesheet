@@ -51,6 +51,9 @@
       }
       vm.rest.duration = duration + 1;
     };
+    vm.handleChangeRestDuration = () => {
+      
+    }
 
     // Save Rest
     function save(isValid) {
