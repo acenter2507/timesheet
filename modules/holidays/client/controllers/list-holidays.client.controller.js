@@ -35,11 +35,11 @@
       $scope.handleSaveHoliday = handleSaveHoliday;
 
       // Open dialog
-      var mDialog = ngDialog.open({
+      $scope.mDialog = ngDialog.open({
         templateUrl: 'formHoliday.html',
         scope: $scope
       });
-      mDialog.closePromise.then(function (res) {
+      $scope.mDialog.closePromise.then(function (res) {
         delete $scope.holiday;
         delete $scope.handleSaveHoliday;
       });
@@ -65,6 +65,7 @@
           _.extend(check, res);
         }
         $scope.handleShowToast('休日形態を保存しました', false);
+        $scope.mDialog.close();
       }
 
       function errorCallback(res) {
