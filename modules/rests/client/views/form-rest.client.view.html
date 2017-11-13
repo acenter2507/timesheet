@@ -16,8 +16,9 @@
         <div class="form-group" show-errors>
           <label class="control-label col-sm-2" for="holiday">休日形態：</label>
           <div class="col-sm-10">
-            <select name="holiday" class="form-control" ng-model="vm.rest.holiday" ng-options="holiday._id as holiday.name for holiday in vm.holidays"
-              required></select>
+            <select name="holiday" class="form-control" ng-model="vm.rest.holiday" required>
+              <option ng-repeat="holiday in vm.holidays" value="holiday._id">{{holiday.name}}</option>
+            </select>
             <div ng-messages="vm.form.restForm.holiday.$error" role="alert">
               <p class="help-block error-text" ng-message="required">休日形態は必須です。</p>
             </div>
