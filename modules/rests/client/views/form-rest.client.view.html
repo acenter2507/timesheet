@@ -26,12 +26,12 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-sm-2">期間</label>
+          <label class="control-label col-sm-2">開始・終了</label>
           <div class="col-sm-5" ng-init="startDatePickerOpen = false;">
             <div class="input-group">
-              <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.rest.start" is-open="startDatePickerOpen"
+              <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.rest.start" is-open="startDatePickerOpen"
                 min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇開始"
-              />
+                ng-change="vm.handleRestRangeChanged()" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;">
                   <i class="fa fa-calendar"></i>
@@ -44,9 +44,9 @@
           </div>
           <div class="col-sm-5" ng-init="endDatePickerOpen = false;">
             <div class="input-group">
-              <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.rest.end" is-open="endDatePickerOpen"
+              <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.rest.end" is-open="endDatePickerOpen"
                 min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇終了"
-              />
+                ng-change="vm.handleRestRangeChanged()" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="endDatePickerOpen = true;">
                   <i class="fa fa-calendar"></i>
@@ -57,7 +57,15 @@
               <p class="help-block error-text" ng-message="required">休日形態は必須です。</p>
             </div>
           </div>
-
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label col-sm-2">期間</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input name="duration" type="number" class="form-control" step="0.5" ng-model="vm.rest.duration" required />
+              <span class="input-group-addon">日間</span>
+            </div>
+          </div>
         </div>
       </form>
     </div>
