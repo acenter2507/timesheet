@@ -18,6 +18,7 @@
       if (!vm.rest._id) {
         // Set status is Not send
         vm.rest.status = 1;
+        vm.rest.durration = 0;
       }
       prepareHodidays();
       prepareParams();
@@ -37,10 +38,16 @@
     }
 
     vm.handleRestRangeChanged = () => {
-      console.log(moment(vm.rest.start));
-      console.log(moment(vm.rest.start).format());
-      console.log(moment(vm.rest.end).format());
-      var durration = vm.rest.end.diff(vm.rest.start, 'days');
+      if (!vm.rest.start || !vm.rest.end) {
+        vm.rest.durration = 0;
+        return;
+      };
+      var start = moment(vm.rest.start);
+      var end = moment(vm.rest.end);
+      
+      console.log(start.format());
+      console.log(end.format());
+      var durration = end.diff(start, 'days');
       console.log(durration);
     };
 
