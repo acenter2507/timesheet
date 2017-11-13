@@ -15,6 +15,10 @@
 
     onCreate();
     function onCreate() {
+      if (!vm.rest._id) {
+        // Set status is Not send
+        vm.rest.status = 1;
+      }
       prepareHodidays();
       prepareParams();
     }
@@ -31,6 +35,11 @@
       $scope.$on('$destroy', function () {
       });
     }
+
+    vm.handleRestRangeChanged = () => {
+      console.log(vm.rest.start);
+      console.log(vm.rest.end);
+    };
 
     // Save Rest
     function save(isValid) {

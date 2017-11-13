@@ -38,9 +38,6 @@
                 </button>
               </span>
             </div>
-            <div ng-messages="vm.form.restForm.holiday.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">休日形態は必須です。</p>
-            </div>
           </div>
           <div class="col-sm-5" ng-init="endDatePickerOpen = false;">
             <div class="input-group">
@@ -53,18 +50,34 @@
                 </button>
               </span>
             </div>
-            <div ng-messages="vm.form.restForm.holiday.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">休日形態は必須です。</p>
-            </div>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label class="control-label col-sm-2">期間</label>
+          <label class="control-label col-sm-2" for="duration">期間</label>
           <div class="col-sm-10">
             <div class="input-group">
               <input name="duration" type="number" class="form-control" step="0.5" ng-model="vm.rest.duration" required />
               <span class="input-group-addon">日間</span>
             </div>
+            <div ng-messages="vm.form.restForm.duration.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">期間は必須です。</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label col-sm-2" for="description">事由</label>
+          <div class="col-sm-10">
+            <textarea name="description" class="form-control" data-ng-model="vm.rest.description"></textarea>
+            <div ng-messages="vm.form.restForm.description.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">事由は必須です。</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2"></label>
+          <div class="col-sm-10">
+            <div class="checkbox" ng-if="vm.">
+              <label><input type="checkbox" ng-model="vm.isSendWhenSave" value="">保存する際に申請する</label></div>
           </div>
         </div>
       </form>
