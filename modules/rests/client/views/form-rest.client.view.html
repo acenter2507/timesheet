@@ -1,3 +1,21 @@
+<div class="container-fluid animated fadeIn mg50t">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <button ng-click="vm.handleSaveRest()" class="btn btn-primary pull-right">保存</button>
+        <button ng-if="vm.rest.status === 1" ng-click="vm.handleSendRest()" class="btn btn-success pull-right">申請</button>
+        <button ng-if="vm.rest.status === 5" ng-click="vm.handleReSendRest()" class="btn btn-success pull-right">再申請</button>
+        <button ng-if="vm.rest.status === 2 || vm.rest.status === 4" ng-click="vm.handleCancelRest()" class="btn btn-success pull-right">申請キャンセル</button>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+    </div>
+  </div>
+</div>
+
 <section>
   <div class="page-header">
     <h1>{{vm.rest._id ? 'Edit Rest' : 'New Rest'}}</h1>

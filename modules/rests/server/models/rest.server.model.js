@@ -11,8 +11,7 @@ var mongoose = require('mongoose'),
  * Rest Schema
  */
 var RestSchema = new Schema({
-  // Kind of Rest: 1:有給休暇 / 2:午前半休　/ 3:午後半休 / 4:振替休暇 / 5:特別休暇 / 6:看護休暇 / 7:介護休暇 / 8:生理休暇
-  kind: { type: Number, default: 0, required: true },
+  holiday: { type: Schema.ObjectId, ref: 'Holiday' },
   // Start vacation
   start: { type: Date },
   // End vacation

@@ -22,30 +22,6 @@
         controller: 'HolidaysListController',
         controllerAs: 'vm',
         ncyBreadcrumb: { label: '一覧' }
-      })
-      .state('holidays.create', {
-        url: '/create',
-        templateUrl: 'modules/holidays/client/views/form-holiday.client.view.html',
-        controller: 'HolidaysController',
-        controllerAs: 'vm',
-        resolve: { holidayResolve: newHoliday },
-        ncyBreadcrumb: { label: '追加' }
-      })
-      .state('holidays.edit', {
-        url: '/:holidayId/edit',
-        templateUrl: 'modules/holidays/client/views/form-holiday.client.view.html',
-        controller: 'HolidaysController',
-        controllerAs: 'vm',
-        resolve: { holidayResolve: getHoliday },
-        ncyBreadcrumb: { label: '編集' }
-      })
-      .state('holidays.view', {
-        url: '/:holidayId',
-        templateUrl: 'modules/holidays/client/views/view-holiday.client.view.html',
-        controller: 'HolidaysController',
-        controllerAs: 'vm',
-        resolve: { holidayResolve: getHoliday },
-        ncyBreadcrumb: { label: '詳細' }
       });
   }
 
