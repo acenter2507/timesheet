@@ -10,7 +10,7 @@
   function menuConfig(Menus) {
     Menus.addMenuItem('topbar', {
       title: '休暇登録',
-      state: 'departments.list'
+      state: 'rests.create'
     });
     // Set top bar menu items
     // menuService.addMenuItem('topbar', {
