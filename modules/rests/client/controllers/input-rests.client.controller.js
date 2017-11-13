@@ -18,7 +18,7 @@
       if (!vm.rest._id) {
         // Set status is Not send
         vm.rest.status = 1;
-        vm.rest.durration = 0;
+        vm.rest.duration = 0;
       }
       prepareHodidays();
       prepareParams();
@@ -39,17 +39,17 @@
 
     vm.handleRestRangeChanged = () => {
       if (!vm.rest.start || !vm.rest.end) {
-        vm.rest.durration = 0;
+        vm.rest.duration = 0;
         return;
       }
       var start = moment(vm.rest.start);
       var end = moment(vm.rest.end);
-      var durration = end.diff(start, 'days');
-      if (durration < 0) {
+      var duration = end.diff(start, 'days');
+      if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
         return;
       }
-      vm.rest.durration = durration + 1;
+      vm.rest.duration = duration + 1;
     };
 
     // Save Rest
