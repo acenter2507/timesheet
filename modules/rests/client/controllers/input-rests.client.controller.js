@@ -24,7 +24,7 @@
     function prepareHodidays() {
       HolidaysService.query().$promise.then(function (result) {
         vm.holidays = result;
-        vm.rest.holiday = (vm.rest._id) ? vm.rest.holiday._id || vm.rest.holiday : vm.holidays[0]._id || undefined;
+        vm.rest.holiday = (vm.rest._id) ? vm.rest.holiday._id || vm.rest.holiday : vm.holidays[0]._id.toString() || undefined;
       });
     }
     function prepareScopeListener() {
