@@ -41,12 +41,12 @@
       if (!vm.rest.start || !vm.rest.end) {
         vm.rest.durration = 0;
         return;
-      };
+      }
       var start = moment(vm.rest.start);
       var end = moment(vm.rest.end);
       
-      console.log(start.format());
-      console.log(end.format());
+      console.log(start.format('YYYY/MM/DD'));
+      console.log(end.format('YYYY/MM/DD'));
       var durration = end.diff(start, 'days');
       console.log(durration);
     };
