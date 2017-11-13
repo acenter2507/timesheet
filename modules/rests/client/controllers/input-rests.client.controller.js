@@ -44,11 +44,12 @@
       }
       var start = moment(vm.rest.start);
       var end = moment(vm.rest.end);
-      
-      console.log(start.format('YYYY/MM/DD'));
-      console.log(end.format('YYYY/MM/DD'));
       var durration = end.diff(start, 'days');
-      console.log(durration);
+      if (durration < 0) {
+        $scope.handleShowToast('開始日または終了日が間違います。', true);
+        return;
+      }
+      vm.rest.durration = durration + 1;
     };
 
     // Save Rest
