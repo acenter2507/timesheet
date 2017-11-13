@@ -11,12 +11,11 @@
   function RestInputController($scope, $state, rest, HolidaysService) {
     var vm = this;
     vm.rest = rest;
-    vm.hodidays = HolidaysService.query();
     vm.form = {};
 
     onCreate();
     function onCreate() {
-      // prepareHodidays();
+      prepareHodidays();
       prepareParams();
     }
 
@@ -24,9 +23,8 @@
     }
     function prepareHodidays() {
       HolidaysService.query().$promise.then(function (result) {
-        vm.hodidays = result;
-        console.log(vm.hodidays);
-        vm.rest.holiday = (vm.rest._id) ? vm.rest.holiday._id || vm.rest.holiday : vm.hodidays[0]._id || undefined;
+        vm.holidays = result;
+        vm.rest.holiday = (vm.rest._id) ? vm.rest.holiday._id || vm.rest.holiday : vm.holidays[0]._id || undefined;
       });
     }
     function prepareScopeListener() {
