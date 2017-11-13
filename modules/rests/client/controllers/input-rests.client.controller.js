@@ -71,7 +71,13 @@
       var end = moment(vm.rest.end);
       var duration = end.diff(start, 'days') + 1;
       if (vm.rest.duration > duration) {
+        vm.rest.duration = duration;
         $scope.handleShowToast('期間が超えています。', true);
+        return;
+      }
+      if (vm.rest.duration < (duration - 0.5)) {
+        vm.rest.duration = duration - 0.5;
+        $scope.handleShowToast('期間が間違います。', true);
         return;
       }
     };
