@@ -37,8 +37,8 @@
     }
 
     vm.handleRestRangeChanged = () => {
-      console.log(vm.rest.start);
-      console.log(vm.rest.end);
+      console.log(moment(vm.rest.start));
+      console.log(moment(vm.rest.end));
     };
 
     // Save Rest
