@@ -81,6 +81,9 @@
         return;
       }
     };
+    vm.disableWeekend = (date, mode) => {
+      return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+    };
 
     // Save Rest
     function save(isValid) {
