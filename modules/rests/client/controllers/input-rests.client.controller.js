@@ -39,7 +39,9 @@
     vm.handleRestRangeChanged = () => {
       console.log(moment(vm.rest.start));
       console.log(moment(vm.rest.start).format());
-      console.log(moment(vm.rest.end));
+      console.log(moment(vm.rest.end).format());
+      var durration = vm.rest.end.diff(vm.rest.start, 'days');
+      console.log(durration);
     };
 
     // Save Rest
