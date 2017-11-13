@@ -8,9 +8,8 @@ var holidaysPolicy = require('../policies/holidays.server.policy'),
 
 module.exports = function(app) {
   // Holidays Routes
-  app.route('/api/holidays').all(holidaysPolicy.isAllowed)
-    .get(holidays.list)
-    .post(holidays.create);
+  app.route('/api/holidays').get(holidays.list);
+  app.route('/api/holidays').all(holidaysPolicy.isAllowed).post(holidays.create);
 
   app.route('/api/holidays/:holidayId').all(holidaysPolicy.isAllowed)
     .get(holidays.read)
