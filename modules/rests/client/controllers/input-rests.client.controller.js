@@ -25,6 +25,7 @@
     function prepareHodidays() {
       HolidaysService.query().$promise.then(function (result) {
         vm.hodidays = result;
+        console.log(vm.hodidays);
         vm.rest.holiday = (vm.rest._id) ? vm.rest.holiday._id || vm.rest.holiday : vm.hodidays[0]._id || undefined;
       });
     }
