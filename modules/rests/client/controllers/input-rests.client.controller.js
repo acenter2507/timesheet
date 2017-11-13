@@ -37,6 +37,13 @@
       });
     }
 
+    vm.handleSaveRest = isValid => {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
+        return false;
+      }
+      console.log(vm.rest);
+    };
     vm.handleRestRangeChanged = () => {
       if (!vm.rest.start || !vm.rest.end) {
         vm.rest.duration = 0;
@@ -52,8 +59,8 @@
       vm.rest.duration = duration + 1;
     };
     vm.handleChangeRestDuration = () => {
-      
-    }
+
+    };
 
     // Save Rest
     function save(isValid) {
