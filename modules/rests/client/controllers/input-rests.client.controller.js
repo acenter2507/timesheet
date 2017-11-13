@@ -11,11 +11,12 @@
   function RestInputController($scope, $state, rest, HolidaysService) {
     var vm = this;
     vm.rest = rest;
+    vm.hodidays = HolidaysService.query();
     vm.form = {};
 
     onCreate();
     function onCreate() {
-      prepareHodidays();
+      // prepareHodidays();
       prepareParams();
     }
 
