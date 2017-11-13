@@ -38,6 +38,7 @@
 
     vm.handleRestRangeChanged = () => {
       console.log(moment(vm.rest.start));
+      console.log(moment(vm.rest.start).format());
       console.log(moment(vm.rest.end));
     };
 
