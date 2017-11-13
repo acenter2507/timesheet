@@ -67,7 +67,7 @@
         <div class="form-group" show-errors>
           <label class="control-label col-sm-2" for="description">事由</label>
           <div class="col-sm-10">
-            <textarea name="description" class="form-control" data-ng-model="vm.rest.description"></textarea>
+            <textarea name="description" class="form-control" data-ng-model="vm.rest.description" required></textarea>
             <div ng-messages="vm.form.restForm.description.$error" role="alert">
               <p class="help-block error-text" ng-message="required">事由は必須です。</p>
             </div>
