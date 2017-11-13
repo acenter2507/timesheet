@@ -21,11 +21,11 @@
       $scope.handleSaveHoliday = handleSaveHoliday;
 
       // Open dialog
-      var mDialog = ngDialog.open({
+      $scope.mDialog = ngDialog.open({
         templateUrl: 'formHoliday.html',
         scope: $scope
       });
-      mDialog.closePromise.then(function (res) {
+      $scope.mDialog.closePromise.then(function (res) {
         if (_.isUndefined(res.value)) return;
       });
     };
