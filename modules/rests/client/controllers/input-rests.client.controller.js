@@ -59,7 +59,21 @@
       vm.rest.duration = duration + 1;
     };
     vm.handleChangeRestDuration = () => {
-
+      if (!vm.rest.start || !vm.rest.end) {
+        vm.rest.duration = 0;
+        return;
+      }
+      if (vm.rest.duration <= 0) {
+        $scope.handleShowToast('休暇の期間が無効になっています。', true);
+        return;
+      }
+      var start = moment(vm.rest.start);
+      var end = moment(vm.rest.end);
+      var duration = end.diff(start, 'days') + 1;
+      if (vm.rest.duration > duration) {
+        $scope.handleShowToast('期間が超えています。', true);
+        return;
+      }
     };
 
     // Save Rest
