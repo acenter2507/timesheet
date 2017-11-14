@@ -1,5 +1,4 @@
 .cal-month-box .cal-cell{
-  height: auto;
-  background-color: #000; }
-#cal-week-box {
+  height: auto; }
+.cal-week-box-cell {
   display: none; }
