@@ -73,6 +73,10 @@
     vm.handleCalendarEventClicked = () => {
       return false;
     };
+    vm.handleCalendarRangeSelected = (start, end) => {
+      console.log(start);
+      console.log(end);
+    };
 
     vm.handleSaveRest = isValid => {
       if (!isValid) {
