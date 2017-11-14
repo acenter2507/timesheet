@@ -16,6 +16,9 @@ exports.create = function(req, res) {
   var rest = new Rest(req.body);
   rest.user = req.user;
 
+  // 有給休暇の日数を確認
+  if (rest.duration)
+
   console.log(req.body);
   console.log(req.user);
   res.status(400).send({ message: 'エラーになりました。' });
