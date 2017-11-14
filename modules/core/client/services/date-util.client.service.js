@@ -19,7 +19,7 @@ function DateUtil() {
     var temp;
     for (let index = 1; index <= duration; index++) {
       temp = start.clone().add(index, 'days');
-      if (date.getDay() !== 0 && date.getDay() !== 6) {
+      if (temp.getDay() !== 0 && temp.getDay() !== 6) {
         cnt += 1;
       }
     }
