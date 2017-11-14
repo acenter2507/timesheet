@@ -12,6 +12,7 @@
     var vm = this;
     vm.rest = rest;
     vm.form = {};
+    console.log($scope.user);
 
     onCreate();
     function onCreate() {
@@ -129,6 +130,8 @@
       return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6) || holiday);
     };
 
+    function validateRest(rest) {
+    }
     // Save Rest
     function save(isValid) {
       if (!isValid) {
