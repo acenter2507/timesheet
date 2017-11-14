@@ -88,18 +88,15 @@
       } else {
         vm.rest.$save(successCallback, errorCallback);
       }
-      
+
       function successCallback(res) {
         vm.busy = false;
-        // $state.go('rests.view', {
-        //   restId: res._id
-        // });
+        $state.go('rests.view', { restId: res._id });
       }
 
       function errorCallback(res) {
         $scope.handleShowToast(res.data.message, true);
         vm.busy = false;
-        // vm.error = res.data.message;
       }
     };
     vm.handleRestRangeChanged = () => {

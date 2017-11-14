@@ -50,6 +50,7 @@ exports.read = function (req, res) {
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   rest.isCurrentUserOwner = req.user && rest.user && rest.user._id.toString() === req.user._id.toString();
 
+  console.log(rest);
   res.jsonp(rest);
 };
 

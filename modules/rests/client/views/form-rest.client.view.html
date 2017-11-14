@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="form-group">
-        <button ng-click="vm.handleSaveRest(vm.form.restForm.$valid)" class="btn btn-primary pull-right"><i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存</button>
+        <button ng-click="vm.handleSaveRest(vm.form.restForm.$valid)" class="btn btn-primary pull-right">
+          <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存</button>
         <button ng-if="vm.rest.status === 1" ng-click="vm.handleSendRest()" class="btn btn-success pull-right">申請</button>
         <button ng-if="vm.rest.status === 5" ng-click="vm.handleReSendRest()" class="btn btn-success pull-right">再申請</button>
         <button ng-if="vm.rest.status === 2 || vm.rest.status === 4" ng-click="vm.handleCancelRest()" class="btn btn-success pull-right">申請キャンセル</button>
@@ -55,6 +56,8 @@
         <div class="form-group" ng-init="isCloseCalendar = true;">
           <div class="col-xs-12 col-md-10 col-md-offset-2">
             <button class="btn btn-default pull-right btn-xs" ng-click="isCloseCalendar = !isCloseCalendar">{{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
+            <button class="btn btn-primary btn-xs" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button class="btn btn-primary btn-xs" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">次へ</button>
             <div class="clearfix"></div>
             <div collapse="isCloseCalendar">
               <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" cell-modifier="vm.calendar.cellModifier(calendarCell)"
