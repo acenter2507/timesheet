@@ -4,7 +4,9 @@
     background-color: #0392cf;
     color: #fff; }
   .cal-month-box .cal-cell .off-cell{
-    background-color: #ff4444;
+    background-color: pink;
     color: #fff; }
 .cal-week-box-cell {
   display: none; }
+.cal-month-box.read-only .cal-cell{
+  height: 20px !important; }
