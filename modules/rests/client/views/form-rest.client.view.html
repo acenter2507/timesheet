@@ -51,11 +51,12 @@
             </div>
           </div>
         </div>
+        <!-- Duration -->
         <div class="form-group" show-errors>
           <label class="control-label col-sm-2" for="duration">期間</label>
           <div class="col-sm-10">
             <div class="input-group">
-              <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.rest.duration" required ng-change="vm.handleChangeRestDuration()"/>
+              <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.rest.duration" required ng-change="vm.handleChangeRestDuration()" ng-keyup="vm.handleChangeRestDuration()"/>
               <span class="input-group-addon">日間</span>
             </div>
             <div ng-messages="vm.form.restForm.duration.$error" role="alert">
@@ -63,6 +64,7 @@
             </div>
           </div>
         </div>
+        <!-- Reason -->
         <div class="form-group" show-errors>
           <label class="control-label col-sm-2" for="description">事由</label>
           <div class="col-sm-10">
@@ -72,6 +74,7 @@
             </div>
           </div>
         </div>
+        <!-- Check box -->
         <div class="form-group">
           <label class="control-label col-sm-2"></label>
           <div class="col-sm-10">
