@@ -20,21 +20,15 @@ exports.create = function(req, res) {
   if (req.body.isPaid  && rest.duration > req.user.company.paidHolidayCnt) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
-
-
-  console.log(req.body);
-  console.log(rest);
-  console.log(req.user);
-  res.status(400).send({ message: 'エラーになりました。' });
-  // rest.save(function(err) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   } else {
-  //     res.jsonp(rest);
-  //   }
-  // });
+  rest.save(function(err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(rest);
+    }
+  });
 };
 
 /**
