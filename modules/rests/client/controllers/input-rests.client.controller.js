@@ -41,8 +41,9 @@
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = moment().startOf('month').toDate();
       vm.calendar.cellModifier = function (cell) {
-        console.log(cell.date.format());
-        console.log(JapaneseHolidays.isHoliday(cell.date.format()));
+        var date = cell.date.format('YYYY/MM/DD');
+        console.log(date);
+        console.log(JapaneseHolidays.isHoliday(new Date(date)));
 
         // if (cell.label % 2 === 1 && cell.inMonth) {
         //   cell.cssClass = 'odd-cell';
