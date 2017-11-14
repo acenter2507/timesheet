@@ -76,7 +76,9 @@
       vm.handleRestRangeChanged();
     };
     vm.handleCalendarClicked = date => {
-      console.log(date);
+      vm.rest.start = date;
+      vm.rest.end = date;
+      vm.handleRestRangeChanged();
     };
     vm.handleSaveRest = isValid => {
       if (!isValid) {
@@ -109,8 +111,6 @@
       }
       var start = moment(vm.rest.start);
       var end = moment(vm.rest.end);
-      console.log(start.format());
-      console.log(end.format());
       var duration = DateUtil.getWorkDays(start, end);
       if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
