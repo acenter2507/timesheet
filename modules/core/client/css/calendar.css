@@ -1,8 +1,8 @@
 .cal-month-box .cal-cell{
   height: auto; }
-  .cal-month-box .cal-cell.selected-cell{
+  .cal-month-box .cal-cell .selected-cell{
     background-color: #0392cf; }
-    .cal-month-box .cal-cell.off-cell{
+    .cal-month-box .cal-cell .off-cell{
       background-color: #ff4444; }
 .cal-week-box-cell {
   display: none; }

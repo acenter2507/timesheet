@@ -41,6 +41,7 @@
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = moment().startOf('month').toDate();
       vm.calendar.cellModifier = function (cell) {
+        // cell.cssClass = 'odd-cell';
         var date = cell.date.format('YYYY/MM/DD');
         if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
           cell.cssClass = 'selected-cell';
@@ -128,9 +129,8 @@
       }
     };
     vm.disableWeekend = (date, mode) => {
-      console.log(date);
-      // var holiday = JapaneseHolidays.isHoliday(date.format('YYYY/MM/DD'));
-      return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+      var holiday = JapaneseHolidays.isHoliday(new Date(date));
+      return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6) || holiday);
     };
 
     // Save Rest
