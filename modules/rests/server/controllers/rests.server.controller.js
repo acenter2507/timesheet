@@ -18,7 +18,7 @@ exports.create = function(req, res) {
 
   // 有給休暇の日数を確認
   if (req.body.isPaid  && rest.duration > req.user.company.paidHolidayCnt) {
-    res.status(400).send({ message: '有給休暇の残日が不足です。' });
+    return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
 
 
