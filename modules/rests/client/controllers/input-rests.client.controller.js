@@ -95,8 +95,7 @@
       }
 
       function errorCallback(res) {
-        console.log(res);
-        $scope.handleShowToast(res.message, true);
+        $scope.handleShowToast(res.data.message, true);
         vm.busy = false;
         // vm.error = res.data.message;
       }
@@ -155,7 +154,6 @@
         return false;
       }
 
-      // TODO: move create/update logic to service
       if (vm.rest._id) {
         vm.rest.$update(successCallback, errorCallback);
       } else {
