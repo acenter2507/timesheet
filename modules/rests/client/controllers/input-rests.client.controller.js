@@ -43,12 +43,20 @@
       vm.calendar.cellModifier = function (cell) {
         // cell.cssClass = 'odd-cell';
         var date = cell.date.format('YYYY/MM/DD');
+
+        // 週末チェック
+        if (cell.date.day() === 0 || cell.date.day() === 6) {
+          return;
+        }
+
+        // 祝日チェック
         var offdate = JapaneseHolidays.isHoliday(new Date(date));
         if (offdate) {
           cell.cssClass = 'off-cell';
           return;
         }
 
+        // 選択された範囲チェック
         if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
           cell.cssClass = 'selected-cell';
           return;
