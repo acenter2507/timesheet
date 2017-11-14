@@ -17,9 +17,11 @@ function DateUtil() {
     }
     var cnt = 1;
     var temp;
+    var holiday;
     for (let index = 1; index <= duration; index++) {
       temp = start.clone().add(index, 'days');
-      if (temp.day() !== 0 && temp.day() !== 6) {
+      holiday = JapaneseHolidays.isHoliday(new Date(temp.format('YYYY/MM/DD')));
+      if (temp.day() !== 0 && temp.day() !== 6 && holiday) {
         cnt += 1;
       }
     }
