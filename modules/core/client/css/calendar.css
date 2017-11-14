@@ -1,4 +1,6 @@
 .cal-month-box .cal-cell{
   height: auto; }
+  .cal-month-box .cal-cell.selected-cell{
+    background-color: #0392cf; }
 .cal-week-box-cell {
   display: none; }
