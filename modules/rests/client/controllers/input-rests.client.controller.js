@@ -92,6 +92,8 @@
       function successCallback(res) {
         vm.busy = false;
         console.log(res);
+        var a = moment(res.start);
+        console.log(a.format());
         // $state.go('rests.view', {
         //   restId: res._id
         // });
