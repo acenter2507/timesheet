@@ -85,11 +85,12 @@
       }
       if (vm.rest.duration <= 0) {
         $scope.handleShowToast('休暇の期間が無効になっています。', true);
+        vm.handleRestRangeChanged();
         return;
       }
       var start = moment(vm.rest.start);
       var end = moment(vm.rest.end);
-      var duration = end.diff(start, 'days') + 1;
+      var duration = DateUtil.getWorkDays(start, end);
       if (vm.rest.duration > duration) {
         vm.rest.duration = duration;
         $scope.handleShowToast('期間が超えています。', true);
