@@ -7,6 +7,7 @@
     .config(breadcrumbConfig)
     .config(toastConfig)
     .config(toolTipConfig)
+    .config(calendarCf)
     .run(runConfig);
 
   loadingBarConfig.$inject = ['cfpLoadingBarProvider'];
@@ -53,6 +54,11 @@
       };
       $tooltipProvider.options(options);
     }
+  }
+
+  calendarCf.$inject = ['calendarConfig'];
+  function calendarCf(calendarConfig) {
+    calendarConfig.dateFormatter = 'moment';
   }
 
   function runConfig(amMoment) {

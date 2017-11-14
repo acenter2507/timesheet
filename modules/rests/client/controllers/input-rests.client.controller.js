@@ -48,6 +48,11 @@
         // cell.label = '-' + cell.label + '-';
       };
     }
+    vm.viewChangeClicked = function(nextView) {
+      if (nextView === 'day') {
+        return false;
+      }
+    };
 
     vm.handleSaveRest = isValid => {
       if (!isValid) {
