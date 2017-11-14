@@ -16,6 +16,7 @@ exports.create = function(req, res) {
   var rest = new Rest(req.body);
   rest.user = req.user;
 
+  console.log(req.body);
   console.log(rest);
 
   // 有給休暇の日数を確認
