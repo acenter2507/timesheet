@@ -45,11 +45,14 @@
         var date = cell.date.format('YYYY/MM/DD');
 
         // 週末チェック
-        if (cell.date.day() === 0 || cell.date.day() === 6) {
+        if (DateUtil.isWeekend(cell.date)) {
           return;
         }
 
         // 祝日チェック
+        if (DateUtil.isWeekend(cell.date)) {
+          return;
+        }
         var offdate = JapaneseHolidays.isHoliday(new Date(date));
         if (offdate) {
           cell.cssClass = 'off-cell';
@@ -61,21 +64,15 @@
           cell.cssClass = 'selected-cell';
           return;
         }
-        // console.log(date);
-        // console.log(JapaneseHolidays.isHoliday(new Date(date)));
-
-        // if (cell.label % 2 === 1 && cell.inMonth) {
-        //   cell.cssClass = 'odd-cell';
-        // }
-        // cell.label = '-' + cell.label + '-';
       };
     }
     vm.handleCalendarEventClicked = () => {
       return false;
     };
     vm.handleCalendarRangeSelected = (start, end) => {
-      console.log(start);
-      console.log(end);
+      vm.rest.start = start;
+      vm.rest.end = end;
+      vm.handleRestRangeChanged();
     };
 
     vm.handleSaveRest = isValid => {
@@ -100,25 +97,6 @@
       }
       vm.rest.duration = duration;
       prepareCalendar();
-      // var duration = end.diff(start, 'days');
-      // if (duration < 0) {
-      //   $scope.handleShowToast('開始日または終了日が間違います。', true);
-      //   return;
-      // }
-      // if (duration === 0) {
-      //   vm.rest.duration = duration + 1;
-      //   return;
-      // }
-      // var workDateCount = 0;
-      // var temp;
-      // for (let index = 1; index <= duration; index++) {
-      //   temp = start.clone().add(index, 'days');
-      //   if (date.getDay() !== 0 && date.getDay() !== 6) {
-      //     workDateCount += 1;
-      //   }
-      // }
-      //vm.rest.duration = DateUtil.getWorkDays(start, end);
-
     };
     vm.handleChangeRestDuration = () => {
       if (!vm.rest.start || !vm.rest.end) {
