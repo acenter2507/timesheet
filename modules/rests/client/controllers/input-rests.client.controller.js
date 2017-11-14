@@ -83,7 +83,6 @@
       vm.busy = true;
       var holiday = _.findWhere(vm.holidays, { _id: vm.rest.holiday });
       vm.rest.isPaid = holiday.isPaid;
-      console.log(vm.rest);
       if (vm.rest._id) {
         vm.rest.$update(successCallback, errorCallback);
       } else {
@@ -92,6 +91,7 @@
       
       function successCallback(res) {
         vm.busy = false;
+        console.log(res);
         // $state.go('rests.view', {
         //   restId: res._id
         // });
