@@ -58,7 +58,7 @@
             <div class="clearfix"></div>
             <div collapse="isCloseCalendar">
               <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" cell-modifier="vm.calendar.cellModifier(calendarCell)"
-                on-event-click="vm.handleCalendarEventClicked(calendarEvent)" on-view-change-click="return false;">
+                on-event-click="vm.handleCalendarEventClicked(calendarEvent)" on-view-change-click="vm.handleCalendarEventClicked()">
               </mwl-calendar>
             </div>
           </div>
