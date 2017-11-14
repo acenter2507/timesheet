@@ -42,7 +42,7 @@
             <div class="input-group">
               <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.rest.end" is-open="endDatePickerOpen"
                 min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇終了"
-                ng-change="vm.handleRestRangeChanged()" date-disabled="vm.disableWeekend(date, mode)" show-weeks="false"/>
+                ng-change="vm.handleRestRangeChanged()" date-disabled="vm.disableWeekend(date, mode)" show-weeks="false" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="endDatePickerOpen = true;">
                   <i class="fa fa-calendar"></i>
@@ -51,12 +51,21 @@
             </div>
           </div>
         </div>
+        <!-- Calendar -->
+        <div class="form-group">
+          <button class="btn btn-default" ng-click="vm.calendar.isOpenCalendar = !vm.calendar.isOpenCalendar">{{vm.isOpenCalendar ? 'カレンダー非表示' : 'カレンダー表示'}}</button>
+          <div collapse="isCollapsed">
+            <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" cell-modifier="vm.calendar.cellModifier(calendarCell)">
+            </mwl-calendar>
+          </div>
+        </div>
         <!-- Duration -->
         <div class="form-group" show-errors>
           <label class="control-label col-sm-2" for="duration">期間</label>
           <div class="col-sm-10">
             <div class="input-group">
-              <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.rest.duration" required ng-change="vm.handleChangeRestDuration()" ng-keyup="vm.handleChangeRestDuration()"/>
+              <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.rest.duration" required ng-change="vm.handleChangeRestDuration()"
+                ng-keyup="vm.handleChangeRestDuration()" />
               <span class="input-group-addon">日間</span>
             </div>
             <div ng-messages="vm.form.restForm.duration.$error" role="alert">
@@ -79,7 +88,9 @@
           <label class="control-label col-sm-2"></label>
           <div class="col-sm-10">
             <div class="checkbox" ng-if="vm.rest.status === 1">
-              <label><input type="checkbox" ng-model="vm.isSendWhenSave" value="">保存する際に申請する</label></div>
+              <label>
+                <input type="checkbox" ng-model="vm.isSendWhenSave" value="">保存する際に申請する</label>
+            </div>
           </div>
         </div>
       </form>

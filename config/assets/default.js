@@ -10,7 +10,8 @@ module.exports = {
         'public/lib/angular-loading-bar/build/loading-bar.css',
         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css',
         'public/lib/ng-dialog/css/ngDialog.min.css',
-        'public/lib/ng-dialog/css/ngDialog-theme-default.min.css'
+        'public/lib/ng-dialog/css/ngDialog-theme-default.min.css',
+        'public/lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css'
       ],
       js: [
         'public/lib/jquery/dist/jquery.js',
@@ -35,7 +36,8 @@ module.exports = {
         'public/lib/angular-scroll/angular-scroll.js',
         'public/lib/angular-elastic/elastic.js',
         'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js',
-        'public/lib/ua-parser-js/dist/ua-parser.min.js'
+        'public/lib/ua-parser-js/dist/ua-parser.min.js',
+        'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

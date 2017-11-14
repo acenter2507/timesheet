@@ -19,7 +19,8 @@ var ApplicationConfiguration = (function () {
     'ngImgCrop',
     'monospaced.elastic',
     'ngDialog',
-    'ncy-angular-breadcrumb'
+    'ncy-angular-breadcrumb',
+    'mwl.calendar'
   ];
 
   // Add a new vertical module
