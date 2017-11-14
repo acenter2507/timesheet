@@ -53,8 +53,8 @@
         </div>
         <!-- Calendar -->
         <div class="form-group" ng-init="isCloseCalendar = true;">
-          <div class="col-xs-12">
-            <button class="btn btn-default pull-right" ng-click="isCloseCalendar = !isCloseCalendar">{{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
+          <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <button class="btn btn-default pull-right btn-xs" ng-click="isCloseCalendar = !isCloseCalendar">{{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
             <div class="clearfix"></div>
             <div collapse="isCloseCalendar">
               <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" cell-modifier="vm.calendar.cellModifier(calendarCell)"
