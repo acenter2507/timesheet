@@ -54,6 +54,7 @@
       var duration = DateUtil.getWorkDays(start, end);
       if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
+        vm.rest.duration = 0;
         return;
       }
       vm.rest.duration = duration;
