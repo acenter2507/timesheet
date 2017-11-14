@@ -87,6 +87,7 @@
         return;
       }
       vm.rest.duration = duration;
+      prepareCalendar();
       // var duration = end.diff(start, 'days');
       // if (duration < 0) {
       //   $scope.handleShowToast('開始日または終了日が間違います。', true);
@@ -122,11 +123,13 @@
       var duration = DateUtil.getWorkDays(start, end);
       if (vm.rest.duration > duration) {
         vm.rest.duration = duration;
+        prepareCalendar();
         $scope.handleShowToast('期間が超えています。', true);
         return;
       }
       if (vm.rest.duration < (duration - 0.5)) {
         vm.rest.duration = duration - 0.5;
+        prepareCalendar();
         $scope.handleShowToast('期間が間違います。', true);
         return;
       }
