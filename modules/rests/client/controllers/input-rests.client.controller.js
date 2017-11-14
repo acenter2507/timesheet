@@ -43,13 +43,17 @@
       vm.calendar.cellModifier = function (cell) {
         // cell.cssClass = 'odd-cell';
         var date = cell.date.format('YYYY/MM/DD');
-        if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
-          cell.cssClass = 'selected-cell';
-        }
         var offdate = JapaneseHolidays.isHoliday(new Date(date));
         if (offdate) {
-          cell.cssClass = 'off-cell';
+          cell.cssClass = 'off-cell read-only';
+          return;
         }
+
+        if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
+          cell.cssClass = 'selected-cell read-only';
+          return;
+        }
+        cell.cssClass = 'read-only';
         // console.log(date);
         // console.log(JapaneseHolidays.isHoliday(new Date(date)));
 

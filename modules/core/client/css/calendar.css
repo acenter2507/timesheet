@@ -6,7 +6,7 @@
   .cal-month-box .cal-cell .off-cell{
     background-color: pink;
     color: #fff; }
+    .cal-month-box .cal-cell .read-only{
+      height: 20px !important; }
 .cal-week-box-cell {
   display: none; }
-.cal-month-box.read-only .cal-cell{
-  height: 20px !important; }
