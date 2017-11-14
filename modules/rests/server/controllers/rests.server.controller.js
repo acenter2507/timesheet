@@ -19,15 +19,15 @@ exports.create = function(req, res) {
   console.log(rest);
   console.log(req.user);
   res.status(400).send({ message: 'エラーになりました。' });
-  rest.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(rest);
-    }
-  });
+  // rest.save(function(err) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     res.jsonp(rest);
+  //   }
+  // });
 };
 
 /**

@@ -95,6 +95,7 @@
       }
 
       function errorCallback(res) {
+        console.log(res);
         $scope.handleShowToast(res.message, true);
         vm.busy = false;
         // vm.error = res.data.message;
