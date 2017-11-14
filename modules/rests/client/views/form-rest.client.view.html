@@ -60,10 +60,10 @@
             <button ng-show="!isCloseCalendar" class="btn btn-primary btn-xs" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">次へ</button>
             <div class="clearfix"></div>
             <div collapse="isCloseCalendar">
-              <h2 class="text-center">{{ vm.calendarTitle }}</h2>
-              <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" cell-modifier="vm.calendar.cellModifier(calendarCell)"
-                on-event-click="vm.handleCalendarEventClicked(calendarEvent)" on-view-change-click="vm.handleCalendarEventClicked()"
-                on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)">
+              <h2 class="text-center">{{ vm.calendar.title }}</h2>
+              <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+                cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+                on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
               </mwl-calendar>
             </div>
           </div>
@@ -73,7 +73,7 @@
           <label class="control-label col-sm-2" for="duration">期間</label>
           <div class="col-sm-10">
             <div class="input-group">
-              <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.rest.duration" required ng-change="vm.handleChangeRestDuration()"
+              <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.rest.duration" required ng-change="vm.handleRestDurationChanged()"
                 ng-keyup="vm.handleChangeRestDuration()" />
               <span class="input-group-addon">日間</span>
             </div>

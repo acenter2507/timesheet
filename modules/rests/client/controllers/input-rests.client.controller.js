@@ -75,6 +75,9 @@
       vm.rest.end = end;
       vm.handleRestRangeChanged();
     };
+    vm.handleCalendarClicked = date => {
+      console.log(date);
+    };
     vm.handleSaveRest = isValid => {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
@@ -115,7 +118,7 @@
       vm.rest.duration = duration;
       prepareCalendar();
     };
-    vm.handleChangeRestDuration = () => {
+    vm.handleRestDurationChanged = () => {
       if (!vm.rest.start || !vm.rest.end) {
         vm.rest.duration = 0;
         return;
