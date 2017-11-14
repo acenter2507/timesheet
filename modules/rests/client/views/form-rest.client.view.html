@@ -54,7 +54,8 @@
         <!-- Calendar -->
         <div class="form-group">
           <div class="col-xs-12">
-            <button class="btn btn-default" ng-click="vm.calendar.isOpenCalendar = !vm.calendar.isOpenCalendar">{{vm.calendar.isOpenCalendar ? 'カレンダー非表示' : 'カレンダー表示'}}</button>
+            <button class="btn btn-default pull-right" ng-click="vm.calendar.isOpenCalendar = !vm.calendar.isOpenCalendar">{{vm.calendar.isOpenCalendar ? 'カレンダー非表示' : 'カレンダー表示'}}</button>
+            <div class="clearfix"></div>
             <div collapse="vm.calendar.isOpenCalendar">
               <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" cell-modifier="vm.calendar.cellModifier(calendarCell)">
               </mwl-calendar>
