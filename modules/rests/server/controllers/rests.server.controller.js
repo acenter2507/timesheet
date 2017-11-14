@@ -17,7 +17,9 @@ exports.create = function(req, res) {
   rest.user = req.user;
 
   // 有給休暇の日数を確認
-  if (rest.duration)
+  if (rest.duration) {
+    
+  }
 
   console.log(req.body);
   console.log(req.user);

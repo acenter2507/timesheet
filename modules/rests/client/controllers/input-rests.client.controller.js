@@ -31,7 +31,7 @@
     function prepareHodidays() {
       HolidaysService.query().$promise.then(function (result) {
         vm.holidays = result;
-        vm.rest.holiday = (vm.rest._id) ? vm.rest.holiday : vm.holidays[0] || undefined;
+        vm.rest.holiday = (vm.rest._id) ? vm.rest.holiday._id || vm.rest.holiday : vm.holidays[0]._id || undefined;
       });
     }
     function prepareScopeListener() {
@@ -81,6 +81,8 @@
         return false;
       }
       vm.busy = true;
+      var holiday = _.findWhere(vm.holidays, { _id: vm.rest.holiday });
+      vm.rest.isPaid = holiday.isPaid;
       if (vm.rest._id) {
         vm.rest.$update(successCallback, errorCallback);
       } else {
