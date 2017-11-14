@@ -25,10 +25,7 @@ var UserSchema = new Schema({
   status: { type: Number, default: 1 }, // 1: 働いている, 2: 退職済, 3: 削除
   email: {
     type: String,
-    index: {
-      unique: true,
-      sparse: true
-    },
+    index: { unique: true, sparse: true },
     lowercase: true,
     trim: true,
     default: '',
@@ -104,7 +101,6 @@ UserSchema.methods.authenticate = function (password) {
   return this.password === this.hashPassword(password);
 };
 
-
 UserSchema.statics.generateRandomPassphrase = function () {
   return new Promise(function (resolve, reject) {
     var password = '';
@@ -122,6 +118,14 @@ UserSchema.statics.setLeaders = function (departmentId, leaders) {
 
 UserSchema.statics.removeDepartment = function (departmentId) {
   return this.update({ department: departmentId }, { $set: { department: null, leaders: [] }, }, { multi: true }).exec();
+};
+
+UserSchema.statics.updateHolidays = function (userId, paidHolidayCnt) {
+  return this.findById(userId).exec((err, user) => {
+    if (err || !user) return;
+    user.company.paidHolidayCnt = paidHolidayCnt;
+    return user.save();
+  });
 };
 
 mongoose.model('User', UserSchema);

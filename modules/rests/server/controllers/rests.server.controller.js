@@ -6,30 +6,35 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Rest = mongoose.model('Rest'),
+  User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('underscore');
 
 /**
  * Create a Rest
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var rest = new Rest(req.body);
   rest.user = req.user;
 
-  console.log(req.body);
-  console.log(rest);
-
   // 有給休暇の日数を確認
-  if (req.body.isPaid  && rest.duration > req.user.company.paidHolidayCnt) {
+  if (req.body.isPaid && rest.duration > req.user.company.paidHolidayCnt) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
-  rest.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(rest);
+  rest.history = [{ action: 1, comment: '', timing: rest.created }];
+  if (req.body.isSendWhenSave) {
+    rest.status = 2;
+    rest.history.push({ action: 2, comment: '', timing: new Date() });
+  }
+  rest.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+    res.jsonp(rest);
+    if (rest.status === 2) {
+      // 有給休暇の残日を計算する
+      var newHolidayCnt = req.user.company.paidHolidayCnt - rest.duration;
+      User.updateHolidays(req.user._id, newHolidayCnt);
+      /* TODO */
     }
   });
 };
@@ -37,7 +42,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Rest
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var rest = req.rest ? req.rest.toJSON() : {};
 
@@ -51,12 +56,12 @@ exports.read = function(req, res) {
 /**
  * Update a Rest
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var rest = req.rest;
 
   rest = _.extend(rest, req.body);
 
-  rest.save(function(err) {
+  rest.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -70,10 +75,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Rest
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var rest = req.rest;
 
-  rest.remove(function(err) {
+  rest.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -87,8 +92,8 @@ exports.delete = function(req, res) {
 /**
  * List of Rests
  */
-exports.list = function(req, res) {
-  Rest.find().sort('-created').populate('user', 'displayName').exec(function(err, rests) {
+exports.list = function (req, res) {
+  Rest.find().sort('-created').populate('user', 'displayName').exec(function (err, rests) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -102,7 +107,7 @@ exports.list = function(req, res) {
 /**
  * Rest middleware
  */
-exports.restByID = function(req, res, next, id) {
+exports.restByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
