@@ -17,11 +17,13 @@ exports.create = function(req, res) {
   rest.user = req.user;
 
   // 有給休暇の日数を確認
-  if (rest.duration) {
-    
+  if (req.body.isPaid  && rest.duration > req.user.company.paidHolidayCnt) {
+    res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
 
+
   console.log(req.body);
+  console.log(rest);
   console.log(req.user);
   res.status(400).send({ message: 'エラーになりました。' });
   // rest.save(function(err) {

@@ -48,6 +48,7 @@ var UserSchema = new Schema({
     employeeId: { type: String },
     taxId: { type: String },
     salary: { type: Number },
+    // 有給休暇の日数
     paidHolidayCnt: { type: Number, default: 0 },
   },
   report: {
