@@ -20,6 +20,7 @@
         vm.rest.status = 1;
         vm.rest.duration = 0;
       }
+      prepareCalendar();
       prepareHodidays();
       prepareParams();
     }
