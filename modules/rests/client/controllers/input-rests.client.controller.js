@@ -41,7 +41,6 @@
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = moment().startOf('month').toDate();
       vm.calendar.cellModifier = function (cell) {
-        console.log(cell.date);
         // cell.cssClass = 'odd-cell';
         var date = cell.date.format('YYYY/MM/DD');
 

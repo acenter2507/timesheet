@@ -17,15 +17,34 @@ function DateUtil() {
     }
     var cnt = 1;
     var temp;
-    var holiday;
     for (let index = 1; index <= duration; index++) {
       temp = start.clone().add(index, 'days');
-      holiday = JapaneseHolidays.isHoliday(new Date(temp.format('YYYY/MM/DD')));
-      if (temp.day() !== 0 && temp.day() !== 6 && !holiday) {
+      if (this.isWorkDate()) {
         cnt += 1;
       }
     }
     return cnt;
+  };
+  this.isHoliday = date => {
+    if (moment.isMoment(date)) {
+      return JapaneseHolidays.isHoliday(new Date(date.format('YYYY/MM/DD')));
+    } else {
+      return JapaneseHolidays.isHoliday(new Date(date));
+    }
+  };
+  this.isWeekend = date => {
+    if (moment.isMoment(date)) {
+      return date.day() === 0 || date.day() === 6;
+    } else {
+      var m = moment(date);
+      return m.day() === 0 || m.day() === 6;
+    }
+  };
+  this.isWorkDate = date => {
+    return !(this.isHoliday(date) || this.isWeekend(date));
+  };
+  this.isWorkOffDate = date => {
+    return this.isHoliday(date) || this.isWeekend(date);
   };
   return this;
 }
