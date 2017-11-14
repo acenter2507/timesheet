@@ -6,9 +6,9 @@
     .module('rests')
     .controller('RestInputController', RestInputController);
 
-  RestInputController.$inject = ['$scope', '$state', 'restResolve', 'HolidaysService'];
+  RestInputController.$inject = ['$scope', '$state', 'restResolve', 'HolidaysService', 'DateUtil'];
 
-  function RestInputController($scope, $state, rest, HolidaysService) {
+  function RestInputController($scope, $state, rest, HolidaysService, DateUtil) {
     var vm = this;
     vm.rest = rest;
     vm.form = {};
@@ -51,12 +51,31 @@
       }
       var start = moment(vm.rest.start);
       var end = moment(vm.rest.end);
-      var duration = end.diff(start, 'days');
+      var duration = DateUtil.getWorkDays(start, end);
       if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
         return;
       }
-      vm.rest.duration = duration + 1;
+      vm.rest.duration = duration;
+      // var duration = end.diff(start, 'days');
+      // if (duration < 0) {
+      //   $scope.handleShowToast('開始日または終了日が間違います。', true);
+      //   return;
+      // }
+      // if (duration === 0) {
+      //   vm.rest.duration = duration + 1;
+      //   return;
+      // }
+      // var workDateCount = 0;
+      // var temp;
+      // for (let index = 1; index <= duration; index++) {
+      //   temp = start.clone().add(index, 'days');
+      //   if (date.getDay() !== 0 && date.getDay() !== 6) {
+      //     workDateCount += 1;
+      //   }
+      // }
+      //vm.rest.duration = DateUtil.getWorkDays(start, end);
+
     };
     vm.handleChangeRestDuration = () => {
       if (!vm.rest.start || !vm.rest.end) {
