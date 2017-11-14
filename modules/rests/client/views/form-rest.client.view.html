@@ -57,7 +57,8 @@
             <button class="btn btn-default pull-right" ng-click="isCloseCalendar = !isCloseCalendar">{{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
             <div class="clearfix"></div>
             <div collapse="isCloseCalendar">
-              <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" cell-modifier="vm.calendar.cellModifier(calendarCell)">
+              <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" cell-modifier="vm.calendar.cellModifier(calendarCell)"
+                on-event-click="vm.handleCalendarEventClicked(calendarEvent)" on-view-change-click="return false;">
               </mwl-calendar>
             </div>
           </div>
