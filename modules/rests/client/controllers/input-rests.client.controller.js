@@ -1,3 +1,5 @@
+import { fail } from "assert";
+
 (function () {
   'use strict';
 
