@@ -42,7 +42,6 @@ import { fail } from "assert";
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = moment().startOf('month').toDate();
-      vm.calendar.isOpenCalendar = false;
       vm.calendar.cellModifier = function (cell) {
         console.log(cell);
         // if (cell.label % 2 === 1 && cell.inMonth) {
