@@ -28,7 +28,8 @@
     "angular-scroll": "1.0.2",
     "angular-elastic": "2.5.1",
     "angular-breadcrumb": "^0.5.0",
-    "ua-parser-js": "^0.7.17"
+    "ua-parser-js": "^0.7.17",
+    "angular-bootstrap-calendar": "^0.30.0"
   },
   "resolutions": {
     "angular": "~1.3",
