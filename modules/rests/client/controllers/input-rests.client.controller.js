@@ -48,8 +48,8 @@
         var offdate = JapaneseHolidays.isHoliday(new Date(date));
         if (offdate) {
           cell.cssClass = 'off-cell';
-          return;
         }
+        cell.label = '-' + cell.label + '-';
         // console.log(date);
         // console.log(JapaneseHolidays.isHoliday(new Date(date)));
 
