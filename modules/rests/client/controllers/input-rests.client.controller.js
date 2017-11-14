@@ -45,15 +45,14 @@
         var date = cell.date.format('YYYY/MM/DD');
         var offdate = JapaneseHolidays.isHoliday(new Date(date));
         if (offdate) {
-          cell.cssClass = 'off-cell read-only';
+          cell.cssClass = 'off-cell';
           return;
         }
 
         if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
-          cell.cssClass = 'selected-cell read-only';
+          cell.cssClass = 'selected-cell';
           return;
         }
-        cell.cssClass = 'read-only';
         // console.log(date);
         // console.log(JapaneseHolidays.isHoliday(new Date(date)));
 
