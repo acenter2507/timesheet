@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="form-group">
-        <button ng-click="vm.handleSaveRest(vm.form.restForm.$valid)" class="btn btn-primary pull-right">保存</button>
+        <button ng-click="vm.handleSaveRest(vm.form.restForm.$valid)" class="btn btn-primary pull-right"><i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存</button>
         <button ng-if="vm.rest.status === 1" ng-click="vm.handleSendRest()" class="btn btn-success pull-right">申請</button>
         <button ng-if="vm.rest.status === 5" ng-click="vm.handleReSendRest()" class="btn btn-success pull-right">再申請</button>
         <button ng-if="vm.rest.status === 2 || vm.rest.status === 4" ng-click="vm.handleCancelRest()" class="btn btn-success pull-right">申請キャンセル</button>
@@ -94,7 +94,7 @@
           <div class="col-sm-10">
             <div class="checkbox" ng-if="vm.rest.status === 1">
               <label>
-                <input type="checkbox" ng-model="vm.isSendWhenSave" value="">保存する際に申請する</label>
+                <input type="checkbox" ng-model="vm.rest.isSendWhenSave" value="">保存する際に申請する</label>
             </div>
           </div>
         </div>

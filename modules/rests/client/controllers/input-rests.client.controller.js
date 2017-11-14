@@ -1,3 +1,5 @@
+import { fail } from "assert";
+
 (function () {
   'use strict';
 
@@ -11,8 +13,8 @@
   function RestInputController($scope, $state, rest, HolidaysService, DateUtil) {
     var vm = this;
     vm.rest = rest;
+    vm.busy = false;
     vm.form = {};
-    console.log($scope.user);
 
     onCreate();
     function onCreate() {
@@ -75,13 +77,30 @@
       vm.rest.end = end;
       vm.handleRestRangeChanged();
     };
-
     vm.handleSaveRest = isValid => {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
         return false;
       }
-      console.log(vm.rest);
+      vm.busy = true;
+      if (vm.rest._id) {
+        vm.rest.$update(successCallback, errorCallback);
+      } else {
+        vm.rest.$save(successCallback, errorCallback);
+      }
+      
+      function successCallback(res) {
+        vm.busy = false;
+        // $state.go('rests.view', {
+        //   restId: res._id
+        // });
+      }
+
+      function errorCallback(res) {
+        $scope.handleShowToast(res.message, true);
+        vm.busy = false;
+        // vm.error = res.data.message;
+      }
     };
     vm.handleRestRangeChanged = () => {
       if (!vm.rest.start || !vm.rest.end) {
@@ -130,8 +149,6 @@
       return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6) || holiday);
     };
 
-    function validateRest(rest) {
-    }
     // Save Rest
     function save(isValid) {
       if (!isValid) {
