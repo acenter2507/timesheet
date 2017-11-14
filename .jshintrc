@@ -19,7 +19,8 @@
     "_": true,
     "moment": false,
     "$": false,
-    "UAParser": true
+    "UAParser": true,
+    "JapaneseHolidays": true
   },
   "predef": [ // Extra globals.
     "inject",
