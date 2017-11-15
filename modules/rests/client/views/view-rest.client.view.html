@@ -1,13 +1,105 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
     <div class="col-xs-12">
-      <a ng-if="vm.rest.status === 1 || vm.rest.status === 4" class="btn btn-success pull-right mg5r" ui-sref="rests.edit({ restId: vm.rest._id })">
-        編集</a>
       <a ng-if="vm.rest.status === 1 || vm.rest.status === 2" class="btn btn-danger pull-right mg5r" ng-click="vm.handleDeleteRest()">
         削除</a>
+      <a ng-if="vm.rest.status === 1 || vm.rest.status === 4" class="btn btn-success pull-right mg5r" ui-sref="rests.edit({ restId: vm.rest._id })">
+        編集</a>
       <a ng-if="vm.rest.status === 1" class="btn btn-primary pull-right mg5r" ng-click="vm.handleSendRest()"> 申請</a>
       <a ng-if="vm.rest.status === 2" class="btn btn-danger pull-right mg5r" ng-click="vm.handlePushReview()"> プッシュ</a>
       <div class="clearfix"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <!-- # MOBILE # -->
+      <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
+        <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">
+          <i class="fa fa-calendar"></i> {{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
+        <div collapse="isCloseCalendar">
+          <div class="row text-center mg5t">
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+              <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+            </div>
+          </div>
+          <h3 class="text-center">{{ vm.calendar.title }}</h3>
+          <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+            cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)">
+          </mwl-calendar>
+        </div>
+      </div>
+      <!-- # DESKTOP # -->
+      <div class="form-group" ng-if="!isMobile">
+        <div class="row text-center">
+          <div class="btn-group">
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+          </div>
+        </div>
+        <h3 class="text-center">{{ vm.calendar.title }}</h3>
+        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)">
+        </mwl-calendar>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="well">
+        <div class="user-item-block mg6x">
+          <div class="user-basic-info">
+            <div class="user-avatar">
+              <img src="{{:: vm.rest.user.profileImageURL }}">
+            </div>
+            <div class="user-info">
+              <a class="user-info-name" ng-click="vm.handleViewDetailUser(vm.rest.user)">{{:: vm.rest.user.displayName}}</a>
+              <a class="font-sm" ng-href="mailto:{{vm.rest.user.email}}">{{::vm.rest.user.email}}</a>
+            </div>
+            <!-- <div class="user-action" ng-if="leader._id !== user._id">
+              <div dropdown dropdown-append-to-body>
+                <a dropdown-toggle class="user-options">
+                  <i class="glyphicon glyphicon-option-horizontal"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                  <li>
+                    <a ng-click="vm.handleViewDetailUser(leader)">
+                      <i class="fa fa-info-circle"></i> 詳細情報</a>
+                  </li>
+                  <li ng-if="isAdmin || isAccountant">
+                    <a ui-sref="users.edit({ userId: leader._id })">
+                      <i class="fa fa-pencil-square-o"></i> 編集</a>
+                  </li>
+                  <li ng-if="isAdmin || isAccountant">
+                    <a ui-sref="users.timesheet({ userId: leader._id })">
+                      <i class="fa fa-calendar"></i> 勤務表レビュー</a>
+                  </li>
+                  <li>
+                    <a ng-click="vm.handleSendMessageUser(leader)">
+                      <i class="fa fa-commenting"></i> メッセージ送信</a>
+                  </li>
+                  <li>
+                    <a ng-href="mailto:{{leader.email}}">
+                      <i class="fa fa-envelope"></i> メール送信</a>
+                  </li>
+                  <li ng-if="isAdmin || isAccountant">
+                    <a ng-click="vm.handleRemoveUserFromDepartment(leader)">
+                      <i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a>
+                  </li>
+                  <li ng-if="isAdmin || isAccountant">
+                    <a ng-click="vm.handleLogicDeleteUser(leader)">
+                      <i class="fa fa-user-times"></i> 削除</a>
+                  </li>
+                  <li ng-if="isAdmin">
+                    <a ng-click="vm.handleDatabaseDeleteUser(leader)">
+                      <i class="fa fa-trash"></i> 完全削除</a>
+                  </li>
+                </ul>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
