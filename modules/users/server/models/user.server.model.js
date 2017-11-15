@@ -113,6 +113,7 @@ UserSchema.statics.generateRandomPassphrase = function () {
 };
 
 UserSchema.statics.setLeaders = function (departmentId, leaders) {
+  console.log(leaders);
   return this.update({ department: departmentId, roles: { $ne: 'manager' } }, { $set: { leaders: leaders } }, { multi: true }).exec();
 };
 
