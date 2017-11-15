@@ -22,9 +22,9 @@
         $scope.handleShowToast('権限が必要です。', true);
         return handlePreviousScreen();
       }
-      if (CommonService.isUser(vm.rest.user.roles) && $scope.isManager) {
-        if ()
-      }
+      // if (CommonService.isUser(vm.rest.user.roles) && $scope.isManager) {
+      //   if ()
+      // }
       if (CommonService.isManager(vm.rest.user.roles) && ($scope.isManager || $scope.isUser)) {
         $scope.handleShowToast('この休暇をみる権限がありません。', true);
         return handlePreviousScreen();
