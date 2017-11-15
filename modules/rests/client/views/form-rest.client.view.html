@@ -50,23 +50,21 @@
       </div>
     </div>
     <div class="col-sm-12 col-md-6">
-      <form name="vm.form.restForm" class="form-horizontal" novalidate>
+      <form name="vm.form.restForm" novalidate>
         <!-- Kind of holiday -->
         <div class="form-group" show-errors>
-          <label class="control-label col-sm-2" for="holiday">休日形態：</label>
-          <div class="col-sm-10">
-            <select name="holiday" class="form-control" ng-model="vm.rest.holiday" required>
-              <option ng-repeat="holiday in vm.holidays" value="holiday._id" ng-selected="holiday._id.toString() === vm.rest.holiday.toString()">{{holiday.name}}</option>
-            </select>
-            <div ng-messages="vm.form.restForm.holiday.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">休日形態は必須です。</p>
-            </div>
+          <label for="holiday">休日形態：</label>
+          <select name="holiday" class="form-control" ng-model="vm.rest.holiday" required>
+            <option ng-repeat="holiday in vm.holidays" value="holiday._id" ng-selected="holiday._id.toString() === vm.rest.holiday.toString()">{{holiday.name}}</option>
+          </select>
+          <div ng-messages="vm.form.restForm.holiday.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">休日形態は必須です。</p>
           </div>
         </div>
         <!-- Range -->
         <div class="form-group">
-          <label class="control-label col-sm-2">開始・終了</label>
-          <div class="col-sm-5" ng-init="startDatePickerOpen = false;">
+          <label for="start">開始・終了</label>
+          <div class="col-sm-6" ng-init="startDatePickerOpen = false;">
             <div class="input-group">
               <input name="start" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.rest.start" is-open="startDatePickerOpen"
                 min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇開始"
@@ -78,7 +76,7 @@
               </span>
             </div>
           </div>
-          <div class="col-sm-5" ng-init="endDatePickerOpen = false;">
+          <div class="col-sm-6" ng-init="endDatePickerOpen = false;">
             <div class="input-group">
               <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.rest.end" is-open="endDatePickerOpen"
                 min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇終了"
@@ -93,36 +91,30 @@
         </div>
         <!-- Duration -->
         <div class="form-group" show-errors>
-          <label class="control-label col-sm-2" for="duration">期間</label>
-          <div class="col-sm-10">
-            <div class="input-group">
-              <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.rest.duration" required ng-change="vm.handleRestDurationChanged()"
-                ng-keyup="vm.handleChangeRestDuration()" />
-              <span class="input-group-addon">日間</span>
-            </div>
-            <div ng-messages="vm.form.restForm.duration.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">期間は必須です。</p>
-            </div>
+          <label for="duration">期間</label>
+          <div class="input-group">
+            <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.rest.duration" required ng-change="vm.handleRestDurationChanged()"
+              ng-keyup="vm.handleChangeRestDuration()" />
+            <span class="input-group-addon">日間</span>
+          </div>
+          <div ng-messages="vm.form.restForm.duration.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">期間は必須です。</p>
+            <p class="help-block error-text" ng-message="min">期間は0.5日間以上です。</p>
           </div>
         </div>
         <!-- Reason -->
         <div class="form-group" show-errors>
-          <label class="control-label col-sm-2" for="description">事由</label>
-          <div class="col-sm-10">
-            <textarea name="description" class="form-control" data-ng-model="vm.rest.description" required></textarea>
-            <div ng-messages="vm.form.restForm.description.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">事由は必須です。</p>
-            </div>
+          <label for="description">事由</label>
+          <textarea name="description" class="form-control" data-ng-model="vm.rest.description" required></textarea>
+          <div ng-messages="vm.form.restForm.description.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">事由は必須です。</p>
           </div>
         </div>
         <!-- Check box -->
         <div class="form-group">
-          <label class="control-label col-sm-2"></label>
-          <div class="col-sm-10">
-            <div class="checkbox" ng-if="vm.rest.status === 1">
-              <label>
-                <input type="checkbox" ng-model="vm.rest.isSendWhenSave" value="">保存する際に申請する</label>
-            </div>
+          <div class="checkbox" ng-if="vm.rest.status === 1">
+            <label>
+              <input type="checkbox" ng-model="vm.rest.isSendWhenSave" value="">保存する際に申請する</label>
           </div>
         </div>
       </form>
