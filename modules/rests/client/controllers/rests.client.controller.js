@@ -77,16 +77,10 @@
       return false;
     };
     vm.handleCalendarRangeSelected = (start, end) => {
-      vm.rest.start = start;
-      vm.rest.end = end;
-      vm.handleRestRangeChanged();
+      return false;
     };
     vm.handleCalendarClicked = date => {
-      if (DateUtil.isWorkOffDate(date)) return;
-      vm.rest.start = date;
-      vm.rest.end = date;
-
-      vm.handleRestRangeChanged();
+      return false;
     };
 
     // Remove existing Rest
