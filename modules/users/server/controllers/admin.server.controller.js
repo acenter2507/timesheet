@@ -33,7 +33,9 @@ exports.add = function (req, res) {
             User.setLeaders(department._id, department.leaders);
           });
         } else {
-          Department.addMember(departmentId, user._id);
+          Department.addMember(departmentId, user._id).then(department => {
+            User.setLeaders(department._id, department.leaders);
+          });
         }
       }
       res.jsonp(user);
