@@ -27,8 +27,9 @@
             </div>
           </div>
           <h3 class="text-center">{{ vm.calendar.title }}</h3>
-          <mwl-calendar view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
-            cell-modifier="vm.calendar.cellModifier(calendarCell)">
+          <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+            cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+            on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
           </mwl-calendar>
         </div>
       </div>
@@ -42,8 +43,9 @@
           </div>
         </div>
         <h3 class="text-center">{{ vm.calendar.title }}</h3>
-        <mwl-calendar view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
-          cell-modifier="vm.calendar.cellModifier(calendarCell)">
+        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
         </mwl-calendar>
       </div>
     </div>

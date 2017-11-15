@@ -73,6 +73,21 @@
         }
       };
     }
+    vm.handleCalendarEventClicked = () => {
+      return false;
+    };
+    vm.handleCalendarRangeSelected = (start, end) => {
+      vm.rest.start = start;
+      vm.rest.end = end;
+      vm.handleRestRangeChanged();
+    };
+    vm.handleCalendarClicked = date => {
+      if (DateUtil.isWorkOffDate(date)) return;
+      vm.rest.start = date;
+      vm.rest.end = date;
+
+      vm.handleRestRangeChanged();
+    };
 
     // Remove existing Rest
     // function remove() {
