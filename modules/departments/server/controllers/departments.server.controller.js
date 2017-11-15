@@ -182,6 +182,9 @@ exports.addUser = function (req, res) {
   User.findById(userId).exec((err, user) => {
     if (user.department) return res.status(400).send({ message: user.displayName + 'は既に他の部署に参加しました。' });
     user.department = department._id;
+    if (user.roles.length === 1) {
+      user.leaders = department.leaders;
+    }
     user.save(err => {
       if (err) return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
       if (_.contains(user.roles, 'manager')) {
