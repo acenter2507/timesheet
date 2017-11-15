@@ -12,16 +12,19 @@
     </div>
   </div>
   <div class="row">
-
     <div class="col-sm-12 col-md-6">
       <!-- Calendar -->
-      <div class="form-group" ng-init="isCloseCalendar = true;">
-        <button class="btn btn-default pull-right btn-xs" ng-click="isCloseCalendar = !isCloseCalendar">{{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
-        <button ng-show="!isCloseCalendar" class="btn btn-primary btn-xs" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
-        <button ng-show="!isCloseCalendar" class="btn btn-default btn-xs" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
-        <button ng-show="!isCloseCalendar" class="btn btn-primary btn-xs" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+      <!-- # MOBILE # -->
+      <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
+        <button class="btn btn-primary btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">{{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
+        <div class="row text-center">
+          <div class="btn-group">
+            <button ng-show="!isCloseCalendar" class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button ng-show="!isCloseCalendar" class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+            <button ng-show="!isCloseCalendar" class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+          </div>
+        </div>
 
-        <div class="clearfix"></div>
         <div collapse="isCloseCalendar">
           <h3 class="text-center">{{ vm.calendar.title }}</h3>
           <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
@@ -29,6 +32,21 @@
             on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
           </mwl-calendar>
         </div>
+      </div>
+      <!-- # DESKTOP # -->
+      <div class="form-group">
+        <h3 class="text-center">{{ vm.calendar.title }}</h3>
+        <div class="row text-center">
+          <div class="btn-group">
+            <button ng-show="!isCloseCalendar" class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button ng-show="!isCloseCalendar" class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+            <button ng-show="!isCloseCalendar" class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+          </div>
+        </div>
+        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+        </mwl-calendar>
       </div>
     </div>
     <div class="col-sm-12 col-md-6">
