@@ -51,8 +51,7 @@
     </div>
     <div class="col-sm-12 col-md-6">
       <div class="well">
-        <h4>
-          <span>状態：</span>
+        <h4>状態：
           <span ng-switch="vm.rest.status">
             <span class="label label-default" ng-switch-when="1">未申請</span>
             <span class="label label-warning" ng-switch-when="2">確認中</span>
@@ -61,7 +60,7 @@
             <span class="label label-primary" ng-switch-when="5">済み</span>
           </span>
         </h4>
-        <div class="user-item-block mg6x">
+        <div class="user-item-block">
           <div class="user-basic-info">
             <div class="user-avatar">
               <img src="{{:: vm.rest.user.profileImageURL }}">
@@ -113,6 +112,28 @@
             </div> -->
           </div>
         </div>
+        <table>
+          <tr>
+            <td>形態：</td>
+            <td>{{ vm.rest.holiday.name }}</td>
+          </tr>
+          <tr>
+            <td>開始：</td>
+            <td>{{ vm.rest.start | 'LL'}}</td>
+          </tr>
+          <tr>
+            <td>終了：</td>
+            <td>{{ vm.rest.end | 'LL'}}</td>
+          </tr>
+          <tr>
+            <td>期間：</td>
+            <td>{{ vm.rest.duration }} 日間</td>
+          </tr>
+          <tr>
+            <td>事由</td>
+            <td>{{ vm.rest.description | nl2br }}</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
