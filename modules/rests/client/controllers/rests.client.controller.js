@@ -13,6 +13,7 @@
     vm.rest = rest;
     console.log(vm.rest);
 
+    onCreate();
     function onCreate() {
       prepareSecurity();
       prepareCalendar();
