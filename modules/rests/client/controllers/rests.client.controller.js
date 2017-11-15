@@ -6,15 +6,16 @@
     .module('rests')
     .controller('RestsController', RestsController);
 
-  RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService'];
+  RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService', 'DateUtil'];
 
-  function RestsController ($scope, $state, rest, CommonService) {
+  function RestsController ($scope, $state, rest, CommonService, DateUtil) {
     var vm = this;
     vm.rest = rest;
     console.log(vm.rest);
 
     function onCreate() {
       prepareSecurity();
+      prepareCalendar();
     }
     function prepareSecurity() {
       // 自分の休暇
@@ -41,6 +42,35 @@
         $scope.handleShowToast('この休暇をみる権限がありません。', true);
         return handlePreviousScreen();
       }
+    }
+    function prepareCalendar() {
+      vm.calendar = { view: 'month' };
+      vm.calendar.viewDate = moment(vm.rest.start).startOf('month').toDate();
+      vm.calendar.cellModifier = function (cell) {
+        // cell.cssClass = 'odd-cell';
+        var date = cell.date.format('YYYY/MM/DD');
+
+        // 週末チェック
+        if (DateUtil.isWeekend(cell.date)) {
+          return;
+        }
+
+        // 祝日チェック
+        if (DateUtil.isWeekend(cell.date)) {
+          return;
+        }
+        var offdate = JapaneseHolidays.isHoliday(new Date(date));
+        if (offdate) {
+          cell.cssClass = 'off-cell';
+          return;
+        }
+
+        // 選択された範囲チェック
+        if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
+          cell.cssClass = 'selected-cell';
+          return;
+        }
+      };
     }
 
     // Remove existing Rest
