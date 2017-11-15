@@ -130,10 +130,13 @@
             <td>{{ vm.rest.duration }} 日間</td>
           </tr>
           <tr>
-            <td>事由</td>
+            <td>事由：</td>
             <td>{{ vm.rest.description | nl2br }}</td>
           </tr>
         </table>
+        <div class="form-group">
+          <textarea class="form-control" ng-model="vm.rest.comment h50"></textarea>
+        </div>
       </div>
     </div>
   </div>
