@@ -85,6 +85,7 @@
     vm.handleSaveRest = isValid => {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
+        $scope.handleShowToast('休暇情報が間違います。再確認ください！', true);
         return false;
       }
       vm.busy = true;
