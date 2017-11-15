@@ -1,5 +1,5 @@
 (function (app) {
   'use strict';
 
-  app.registerModule('rests', ['core']);
+  app.registerModule('rests');
 }(ApplicationConfiguration));
