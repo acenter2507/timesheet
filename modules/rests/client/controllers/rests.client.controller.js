@@ -6,17 +6,38 @@
     .module('rests')
     .controller('RestsController', RestsController);
 
-  RestsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'restResolve'];
+  RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService'];
 
-  function RestsController ($scope, $state, $window, Authentication, rest) {
+  function RestsController ($scope, $state, rest, CommonService) {
     var vm = this;
-
-    vm.authentication = Authentication;
     vm.rest = rest;
-    vm.error = null;
-    vm.form = {};
-    vm.remove = remove;
-    vm.save = save;
+    console.log(vm.rest);
+
+    function onCreate() {
+      prepareSecurity();
+    }
+    function prepareSecurity() {
+      if (vm.rest.isCurrentUserOwner) return;
+      if (!vm.rest.isCurrentUserOwner && !$scope.isLeader) {
+        $scope.handleShowToast('権限が必要です。', true);
+        return handlePreviousScreen();
+      }
+      // if (CommonService.isUser(vm.rest.user.roles) && $scope.isManager) {
+      //   if ()
+      // }
+      if (CommonService.isManager(vm.rest.user.roles) && ($scope.isManager || $scope.isUser)) {
+        $scope.handleShowToast('この休暇をみる権限がありません。', true);
+        return handlePreviousScreen();
+      }
+      if (CommonService.isAccountant(vm.rest.user.roles) && !($scope.isAccountant || $scope.isAdmin)) {
+        $scope.handleShowToast('この休暇をみる権限がありません。', true);
+        return handlePreviousScreen();
+      }
+      if (CommonService.isAccountant(vm.rest.user.roles) && !($scope.isAccountant || $scope.isAdmin)) {
+        $scope.handleShowToast('この休暇をみる権限がありません。', true);
+        return handlePreviousScreen();
+      }
+    }
 
     // Remove existing Rest
     function remove() {
@@ -48,6 +69,10 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+    // Trở về màn hình trước
+    function handlePreviousScreen() {
+      $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
   }
 }());

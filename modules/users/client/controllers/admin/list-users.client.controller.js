@@ -121,9 +121,9 @@ angular.module('users.admin').controller('UserListController', [
             }
           }
         });
-        if (CommonService.checkUserIsAdmin(user.roles)) {
+        if (CommonService.isAdmin(user.roles)) {
           vm.admin.data = _.without(vm.admin.data, user);
-        } else if (CommonService.checkUserIsManager(user.roles)) {
+        } else if (CommonService.isManager(user.roles)) {
           vm.manager.data = _.without(vm.manager.data, user);
         } else {
           vm.member.data = _.without(vm.member.data, user);
@@ -138,10 +138,10 @@ angular.module('users.admin').controller('UserListController', [
         var rsUser = new AdminUserService({ _id: user._id });
         rsUser.status = 1;
         rsUser.$update(() => {
-          if (CommonService.checkUserIsAdmin(user.roles)) {
+          if (CommonService.isAdmin(user.roles)) {
             vm.admin.page = 1;
             handleLoadAdminUsers();
-          } else if (CommonService.checkUserIsManager(user.roles)) {
+          } else if (CommonService.isManager(user.roles)) {
             vm.manager.page = 1;
             handleLoadManagerUsers();
           } else {
@@ -162,9 +162,9 @@ angular.module('users.admin').controller('UserListController', [
           vm.deleted.data = _.without(vm.deleted.data, user);
           return;
         }
-        if (CommonService.checkUserIsAdmin(user.roles)) {
+        if (CommonService.isAdmin(user.roles)) {
           vm.admin.data = _.without(vm.admin.data, user);
-        } else if (CommonService.checkUserIsManager(user.roles)) {
+        } else if (CommonService.isManager(user.roles)) {
           vm.manager.data = _.without(vm.manager.data, user);
         } else {
           vm.member.data = _.without(vm.member.data, user);

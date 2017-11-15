@@ -1,26 +1,17 @@
-<section>
-  <div class="page-header">
-    <h1 ng-bind="vm.rest.name"></h1>
+<div class="container-fluid animated fadeIn">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <a ng-if="vm.rest.status === 1 || vm.rest.status === 4" class="btn btn-primary pull-right" ui-sref="rests.edit({ restId: vm.rest._id })">
+        編集</a>
+        <a ng-if="vm.rest.status === 1 || vm.rest.status === 2" class="btn btn-primary pull-right" ng-click="vm.handleDeleteRest()">
+        削除</a>
+        <a ng-if="vm.rest.status === 1" class="btn btn-primary pull-right" ng-click="vm.handleSendRest()"> 申請</a>
+        <a ng-if="vm.rest.status === 2" class="btn btn-primary pull-right" ng-click="vm.handlePushReview()"> プッシュ</a>
+        <!-- Manager -->
+        <a ng-if="vm.rest.status === 2　&& isManager" class="btn btn-primary pull-right" ng-click="vm.handlePushReview()"> 承認</a>
+        <div class="clearfix"></div>
+      </div>
+    </div>
   </div>
-  <div class="pull-right"
-       ng-show="vm.rest.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="rests.edit({ restId: vm.rest._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.rest.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.rest.user"
-            ng-bind="vm.rest.user.displayName"></span>
-      <span ng-if="!vm.rest.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.rest.content"></p>
-</section>
+</div>

@@ -45,12 +45,7 @@ exports.create = function (req, res) {
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var rest = req.rest ? req.rest.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   rest.isCurrentUserOwner = req.user && rest.user && rest.user._id.toString() === req.user._id.toString();
-
-  console.log(rest);
   res.jsonp(rest);
 };
 
@@ -116,7 +111,9 @@ exports.restByID = function (req, res, next, id) {
     });
   }
 
-  Rest.findById(id).populate('user', 'displayName').exec(function (err, rest) {
+  Rest.findById(id)
+    .populate('user', 'displayName roles leaders')
+    .populate('holiday', 'name isPaid').exec(function (err, rest) {
     if (err) {
       return next(err);
     } else if (!rest) {

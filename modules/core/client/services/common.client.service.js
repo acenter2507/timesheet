@@ -4,16 +4,16 @@ angular.module('core').factory('CommonService', CommonService);
 
 CommonService.$inject = [];
 function CommonService() {
-  this.checkUserIsAdmin = roles => {
+  this.isAdmin = roles => {
     return _.contains(roles, 'admin');
   };
-  this.checkUserIsManager = roles => {
+  this.isManager = roles => {
     return _.contains(roles, 'manager');
   };
-  this.checkUserIsAccountant = roles => {
+  this.isAccountant = roles => {
     return _.contains(roles, 'accountant') && roles.length === 2;
   };
-  this.checkUserIsMember = roles => {
+  this.isMember = roles => {
     return roles.length === 1;
   };
   return this;

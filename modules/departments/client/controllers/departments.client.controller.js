@@ -124,7 +124,7 @@
       }, () => {
         DepartmentsApi.addMemberToDepartment(vm.department._id, member._id)
           .success(user => {
-            if (CommonService.checkUserIsManager(user.roles)) {
+            if (CommonService.isManager(user.roles)) {
               vm.department.leaders.push(user);
             } else {
               vm.department.members.push(user);
