@@ -17,7 +17,7 @@
       <!-- # MOBILE # -->
       <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
         <button class="btn btn-primary btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">{{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
-        <div class="row text-center">
+        <div class="row text-center mg5t">
           <div class="btn-group">
             <button ng-show="!isCloseCalendar" class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
             <button ng-show="!isCloseCalendar" class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
@@ -34,7 +34,7 @@
         </div>
       </div>
       <!-- # DESKTOP # -->
-      <div class="form-group">
+      <div class="form-group" ng-if="!isMobile">
         <h3 class="text-center">{{ vm.calendar.title }}</h3>
         <div class="row text-center">
           <div class="btn-group">
