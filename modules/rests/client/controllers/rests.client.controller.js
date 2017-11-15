@@ -40,11 +40,11 @@
     }
 
     // Remove existing Rest
-    function remove() {
-      if ($window.confirm('Are you sure you want to delete?')) {
-        vm.rest.$remove($state.go('rests.list'));
-      }
-    }
+    // function remove() {
+    //   if ($window.confirm('Are you sure you want to delete?')) {
+    //     vm.rest.$remove($state.go('rests.list'));
+    //   }
+    // }
 
     // Save Rest
     function save(isValid) {
