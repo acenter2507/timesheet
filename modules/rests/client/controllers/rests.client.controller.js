@@ -17,22 +17,26 @@
       prepareSecurity();
     }
     function prepareSecurity() {
+      // 自分の休暇
       if (vm.rest.isCurrentUserOwner) return;
+      // 他人の休暇で自分がリーダじゃない場合
       if (!vm.rest.isCurrentUserOwner && !$scope.isLeader) {
         $scope.handleShowToast('権限が必要です。', true);
         return handlePreviousScreen();
       }
-      // if (CommonService.isUser(vm.rest.user.roles) && $scope.isManager) {
-      //   if ()
-      // }
+      // 休暇の本人のリーダじゃない場合
+      if (CommonService.isUser(vm.rest.user.roles) && $scope.isManager) {
+        if (!_.contains(vm.rest.user.leaders, $scope.user._id.toString())) {
+          $scope.handleShowToast('この休暇をみる権限がありません。', true);
+          return handlePreviousScreen();
+        }
+      }
+      // 本人はマネジャーで現在のユーザーは経理じゃない場合
       if (CommonService.isManager(vm.rest.user.roles) && ($scope.isManager || $scope.isUser)) {
         $scope.handleShowToast('この休暇をみる権限がありません。', true);
         return handlePreviousScreen();
       }
-      if (CommonService.isAccountant(vm.rest.user.roles) && !($scope.isAccountant || $scope.isAdmin)) {
-        $scope.handleShowToast('この休暇をみる権限がありません。', true);
-        return handlePreviousScreen();
-      }
+      // 本人は経理で現在のユーザーは経理じゃない場合
       if (CommonService.isAccountant(vm.rest.user.roles) && !($scope.isAccountant || $scope.isAdmin)) {
         $scope.handleShowToast('この休暇をみる権限がありません。', true);
         return handlePreviousScreen();
