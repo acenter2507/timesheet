@@ -76,8 +76,10 @@
       vm.handleRestRangeChanged();
     };
     vm.handleCalendarClicked = date => {
+      if (DateUtil.isWorkOffDate(date)) return;
       vm.rest.start = date;
       vm.rest.end = date;
+
       vm.handleRestRangeChanged();
     };
     vm.handleSaveRest = isValid => {
