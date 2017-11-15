@@ -114,14 +114,14 @@ exports.restByID = function (req, res, next, id) {
   Rest.findById(id)
     .populate('user', 'displayName roles leaders profileImageURL email')
     .populate('holiday', 'name isPaid').exec(function (err, rest) {
-    if (err) {
-      return next(err);
-    } else if (!rest) {
-      return res.status(404).send({
-        message: 'No Rest with that identifier has been found'
-      });
-    }
-    req.rest = rest;
-    next();
-  });
+      if (err) {
+        return next(err);
+      } else if (!rest) {
+        return res.status(404).send({
+          message: 'No Rest with that identifier has been found'
+        });
+      }
+      req.rest = rest;
+      next();
+    });
 };
