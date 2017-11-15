@@ -51,12 +51,9 @@
         templateUrl: 'modules/rests/client/views/view-rest.client.view.html',
         controller: 'RestsController',
         controllerAs: 'vm',
-        resolve: {
-          restResolve: getRest
-        },
-        data: {
-          pageTitle: 'Rest {{ restResolve.name }}'
-        }
+        resolve: { restResolve: getRest },
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '詳細' }
       });
   }
 
