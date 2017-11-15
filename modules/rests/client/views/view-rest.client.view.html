@@ -1,13 +1,15 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
     <div class="col-xs-12">
-      <a ng-if="vm.rest.status === 1 || vm.rest.status === 2" class="btn btn-danger pull-right mg5r" ng-click="vm.handleDeleteRest()">
-        削除</a>
-      <a ng-if="vm.rest.status === 1 || vm.rest.status === 4" class="btn btn-success pull-right mg5r" ui-sref="rests.edit({ restId: vm.rest._id })">
-        編集</a>
-      <a ng-if="vm.rest.status === 1" class="btn btn-primary pull-right mg5r" ng-click="vm.handleSendRest()"> 申請</a>
-      <a ng-if="vm.rest.status === 2" class="btn btn-danger pull-right mg5r" ng-click="vm.handlePushReview()"> プッシュ</a>
-      <div class="clearfix"></div>
+      <div class="form-group">
+        <a ng-if="vm.rest.status === 1 || vm.rest.status === 2" class="btn btn-danger pull-right mg5r" ng-click="vm.handleDeleteRest()">
+          削除</a>
+        <a ng-if="vm.rest.status === 1 || vm.rest.status === 4" class="btn btn-success pull-right mg5r" ui-sref="rests.edit({ restId: vm.rest._id })">
+          編集</a>
+        <a ng-if="vm.rest.status === 1" class="btn btn-primary pull-right mg5r" ng-click="vm.handleSendRest()"> 申請</a>
+        <a ng-if="vm.rest.status === 2" class="btn btn-danger pull-right mg5r" ng-click="vm.handlePushReview()"> プッシュ</a>
+        <div class="clearfix"></div>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -25,8 +27,8 @@
             </div>
           </div>
           <h3 class="text-center">{{ vm.calendar.title }}</h3>
-          <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
-            cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)">
+          <mwl-calendar view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+            cell-modifier="vm.calendar.cellModifier(calendarCell)">
           </mwl-calendar>
         </div>
       </div>
@@ -40,8 +42,8 @@
           </div>
         </div>
         <h3 class="text-center">{{ vm.calendar.title }}</h3>
-        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
-          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)">
+        <mwl-calendar view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)">
         </mwl-calendar>
       </div>
     </div>
