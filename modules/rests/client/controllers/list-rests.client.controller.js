@@ -38,7 +38,7 @@
     };
     vm.handlePageChanged = page => {
       vm.page = page;
-      handleStartSearch();
+      vm.handleStartSearch();
     };
     vm.handleCalendarEventClicked = () => {
       return false;
