@@ -9,15 +9,19 @@
 
   function RestsListController(RestsService, CommonService, DateUtil, calendarConfig) {
     var vm = this;
-    vm.rests = RestsService.query();
     vm.events = [];
-    console.log(vm.rests);
 
     onCreate();
     function onCreate() {
-      prepareCalendar();
-      prepareCalendarEvent();
-      console.log(vm.events);
+      prepareRests().then(rests => {
+        vm.rests = rests;
+        prepareCalendar();
+        prepareCalendarEvent();
+        console.log(vm.events);
+      });
+    }
+    function prepareRests() {
+      return RestsService.query().$promise;
     }
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
