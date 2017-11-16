@@ -10,6 +10,7 @@
   function RestsListController(RestsService, CommonService, DateUtil) {
     var vm = this;
     vm.rests = RestsService.query();
+    console.log(vm.rests);
 
     onCreate();
     function onCreate() {

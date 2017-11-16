@@ -89,15 +89,18 @@ exports.delete = function (req, res) {
  * List of Rests
  */
 exports.list = function (req, res) {
-  Rest.find().sort('-created').populate('user', 'displayName').exec(function (err, rests) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(rests);
-    }
-  });
+  Rest.find({ user: req.user._id })
+    .sort('-created')
+    .populate('holiday', 'name isPaid')
+    .exec(function (err, rests) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(rests);
+      }
+    });
 };
 
 /**
