@@ -1,7 +1,44 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12 col-md-6">
+      <!-- # MOBILE # -->
+      <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
+        <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">
+          <i class="fa fa-calendar"></i> {{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
+        <div collapse="isCloseCalendar">
+          <div class="row text-center mg5t">
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+              <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+            </div>
+          </div>
+          <h3 class="text-center">{{ vm.calendar.title }}</h3>
+          <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+            cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+            on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+          </mwl-calendar>
+        </div>
+      </div>
+      <!-- # DESKTOP # -->
+      <div class="form-group" ng-if="!isMobile">
+        <div class="row text-center">
+          <div class="btn-group">
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+          </div>
+        </div>
+        <h3 class="text-center">{{ vm.calendar.title }}</h3>
+        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+        </mwl-calendar>
+      </div>
     </div>
+    <div class="col-sm-12 col-md-6"></div>
   </div>
 </div>
-<button class="btn-quick"><i class="fa fa-plus"></i></button>
+<a class="btn-quick" ui-sref="rests.create">
+  <i class="fa fa-plus"></i>
+</a>
