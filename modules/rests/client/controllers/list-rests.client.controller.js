@@ -66,22 +66,23 @@
         switch (rest.status) {
           case 1: {
             color = undefined;
+            color = { primary: '#777', secondary: '#e3e3e3' };
             break;
           }
           case 2: {
-            color = calendarConfig.colorTypes.warning;
+            color = { primary: '#f0ad4e', secondary: '#fae6c9' };
             break;
           }
           case 3: {
-            color = calendarConfig.colorTypes.primary;
+            color = { primary: '#5cb85c', secondary: '#bde2bd' };
             break;
           }
           case 4: {
-            color = calendarConfig.colorTypes.important;
+            color = { primary: '#d9534f', secondary: '#fae3e3' };
             break;
           }
           case 5: {
-            color = calendarConfig.colorTypes.success;
+            color = { primary: '#337ab7', secondary: '#D1E8FF' };
             break;
           }
         }
@@ -103,6 +104,22 @@
     };
     vm.handleCalendarClicked = date => {
       return false;
+    };
+
+    vm.handleChangeRestStatus = status => {
+      if (status !== 2) return;
+      $scope.handleShowConfirm({
+        message: '休暇を申請しますか？'
+      }, () => {
+        console.log('bbb');
+      });
+    };
+    vm.handleDeleteRest = rest => {
+      $scope.handleShowConfirm({
+        message: '削除しますか？'
+      }, () => {
+        console.log('bbb');
+      });
     };
   }
 }());
