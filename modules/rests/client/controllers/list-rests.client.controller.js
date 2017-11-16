@@ -28,9 +28,6 @@
         }
 
         // 祝日チェック
-        if (DateUtil.isWeekend(cell.date)) {
-          return;
-        }
         var offdate = JapaneseHolidays.isHoliday(new Date(date));
         if (offdate) {
           cell.cssClass = 'off-cell';
@@ -38,10 +35,10 @@
         }
 
         // 選択された範囲チェック
-        if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
-          cell.cssClass = 'selected-cell';
-          return;
-        }
+        // if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
+        //   cell.cssClass = 'selected-cell';
+        //   return;
+        // }
       };
     }
     vm.handleCalendarEventClicked = () => {

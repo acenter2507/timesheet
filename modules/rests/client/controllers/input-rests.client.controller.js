@@ -51,9 +51,6 @@
         }
 
         // 祝日チェック
-        if (DateUtil.isWeekend(cell.date)) {
-          return;
-        }
         var offdate = JapaneseHolidays.isHoliday(new Date(date));
         if (offdate) {
           cell.cssClass = 'off-cell';
