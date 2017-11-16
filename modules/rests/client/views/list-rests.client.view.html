@@ -77,11 +77,10 @@
               <label for="sort">並び順</label>
               <select name="sort" class="form-control" ng-model="vm.condition.sort">
                 <option value>指定しない</option>
-                <option value="1">未申請</option>
-                <option value="2">確認中</option>
-                <option value="3">承認</option>
-                <option value="4">拒否</option>
-                <option value="5">済み</option>
+                <option value="-created">登録の新しい順番</option>
+                <option value="created">登録の古い順番</option>
+                <option value="-duration">期間の長い順番</option>
+                <option value="duration">期間の短い順番</option>
               </select>
             </div>
             <div class="clearfix"></div>
