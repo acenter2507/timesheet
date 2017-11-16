@@ -5,12 +5,14 @@
     .module('rests')
     .controller('RestsListController', RestsListController);
 
-  RestsListController.$inject = ['$scope', 'RestsService', 'CommonService', 'DateUtil', 'calendarConfig'];
+  RestsListController.$inject = ['$scope', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi'];
 
-  function RestsListController($scope, RestsService, CommonService, DateUtil, calendarConfig) {
+  function RestsListController($scope, RestsService, CommonService, DateUtil, RestsApi) {
     var vm = this;
     vm.events = [];
-    vm.condition = {};
+    vm.condition = { sort: '-created' };
+    vm.busy = false;
+    vm.page = 1;
 
     onCreate();
     function onCreate() {
@@ -97,6 +99,23 @@
         });
       });
     }
+    vm.handleClearCondition = () => {
+      vm.condition = { sort: '-created' };
+    };
+    vm.handleStartSearch = () => {
+      if (vm.busy) return;
+      vm.busy = true;
+      RestsApi.getRestOfCurrentUser(vm.condition, vm.page)
+        .success(data => {
+          console.log(data);
+          vm.busy = false;
+        })
+        .error(err => {
+          console.log(err);
+          vm.busy = false;
+        });
+
+    };
     vm.handleCalendarEventClicked = () => {
       return false;
     };
@@ -106,7 +125,6 @@
     vm.handleCalendarClicked = date => {
       return false;
     };
-
     vm.handleChangeRestStatus = status => {
       if (status !== 2) return;
       $scope.handleShowConfirm({

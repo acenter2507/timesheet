@@ -4,7 +4,8 @@
 
   angular
     .module('rests')
-    .factory('RestsService', RestsService);
+    .factory('RestsService', RestsService)
+    .factory('RestsApi', RestsApi);
 
   RestsService.$inject = ['$resource'];
 
@@ -12,9 +13,16 @@
     return $resource('api/rests/:restId', {
       restId: '@_id'
     }, {
-      update: {
-        method: 'PUT'
-      }
-    });
+        update: {
+          method: 'PUT'
+        }
+      });
+  }
+  RestsApi.$inject = ['$http'];
+  function RestsApi($resource) {
+    this.getRestOfCurrentUser = (condition, page) => {
+      return $http.post('/api/rests/owner', { condition: condition, page: page }, { ignoreLoadingBar: true });
+    };
+    return this;
   }
 }());
