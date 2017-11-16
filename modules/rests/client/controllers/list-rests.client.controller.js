@@ -17,6 +17,7 @@
     function onCreate() {
       prepareCalendar();
       prepareCalendarEvent();
+      console.log(vm.events);
     }
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
