@@ -18,12 +18,13 @@
 
     onCreate();
     function onCreate() {
-      prepareRests().then(rests => {
-        vm.rests = rests;
-        prepareCalendar();
-        prepareCalendarEvent();
-        console.log(vm.events);
-      });
+      // prepareRests().then(rests => {
+      //   vm.rests = rests;
+      //   prepareCalendar();
+      //   prepareCalendarEvent();
+      //   console.log(vm.events);
+      // });
+      vm.handleStartSearch();
     }
     function prepareRests() {
       return RestsService.query().$promise;
@@ -112,6 +113,8 @@
           vm.rests = res.doc;
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
+          prepareCalendar();
+          prepareCalendarEvent();
           vm.busy = false;
         })
         .error(err => {
