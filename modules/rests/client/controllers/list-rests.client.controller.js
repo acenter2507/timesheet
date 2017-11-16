@@ -108,6 +108,7 @@
       vm.busy = true;
       RestsApi.getRestOfCurrentUser(vm.condition, vm.page)
         .success(res => {
+          console.log(res);
           vm.rests = res.doc;
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
@@ -119,7 +120,7 @@
           $scope.handleshowToast(err.message, true);
           vm.busy = false;
         });
-    };
+    }
     vm.handleClearCondition = () => {
       vm.condition = { sort: '-created' };
     };
