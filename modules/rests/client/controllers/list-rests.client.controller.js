@@ -46,6 +46,17 @@
       };
     }
     function prepareCalendarEvent() {
+      var actions = [{
+        label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+        onClick: function (args) {
+          alert.show('Edited', args.calendarEvent);
+        }
+      }, {
+        label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+        onClick: function (args) {
+          alert.show('Deleted', args.calendarEvent);
+        }
+      }];
       vm.rests.forEach(rest => {
         var color;
         switch (rest.status) {
