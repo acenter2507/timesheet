@@ -5,11 +5,12 @@
     .module('rests')
     .controller('RestsListController', RestsListController);
 
-  RestsListController.$inject = ['RestsService', 'CommonService', 'DateUtil', 'calendarConfig'];
+  RestsListController.$inject = ['$scope', 'RestsService', 'CommonService', 'DateUtil', 'calendarConfig'];
 
-  function RestsListController(RestsService, CommonService, DateUtil, calendarConfig) {
+  function RestsListController($scope, RestsService, CommonService, DateUtil, calendarConfig) {
     var vm = this;
     vm.events = [];
+    vm.condition = {};
 
     onCreate();
     function onCreate() {
