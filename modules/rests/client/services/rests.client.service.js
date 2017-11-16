@@ -19,7 +19,7 @@
       });
   }
   RestsApi.$inject = ['$http'];
-  function RestsApi($resource) {
+  function RestsApi($http) {
     this.getRestOfCurrentUser = (condition, page) => {
       return $http.post('/api/rests/owner', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
