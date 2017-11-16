@@ -380,8 +380,8 @@ a:hover .header-profile-image {
   width: 3rem;
   background-color: #4285F4;
   color: #fff;
-  line-height: 1.4rem;
-  padding: 0.8rem;
+  line-height: 1rem;
+  padding: 1rem;
   border: none;
   border-radius: 50%; }
   .btn-quick:hover {
