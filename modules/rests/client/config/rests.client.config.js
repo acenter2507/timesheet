@@ -13,24 +13,28 @@
       state: 'rests.create'
     });
     // Set top bar menu items
-    // menuService.addMenuItem('topbar', {
-    //   title: 'Rests',
-    //   state: 'rests',
-    //   type: 'dropdown',
-    //   roles: ['*']
-    // });
+    menuService.addMenuItem('topbar', {
+      title: '休暇',
+      state: 'rests',
+      type: 'dropdown',
+      roles: ['user']
+    });
 
-    // // Add the dropdown list item
-    // menuService.addSubMenuItem('topbar', 'rests', {
-    //   title: 'List Rests',
-    //   state: 'rests.list'
-    // });
-
-    // // Add the dropdown create item
-    // menuService.addSubMenuItem('topbar', 'rests', {
-    //   title: 'Create Rest',
-    //   state: 'rests.create',
-    //   roles: ['user']
-    // });
+    // Add the dropdown list item
+    menuService.addSubMenuItem('topbar', 'rests', {
+      title: '一覧',
+      state: 'rests.list'
+    });
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'rests', {
+      title: '登録',
+      state: 'rests.create'
+    });
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'rests', {
+      title: '確認',
+      state: 'rests.review',
+      roles: ['admin', 'manager', 'accountant']
+    });
   }
 }());
