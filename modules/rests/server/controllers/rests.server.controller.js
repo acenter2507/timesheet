@@ -128,3 +128,37 @@ exports.restByID = function (req, res, next, id) {
       next();
     });
 };
+
+exports.getRestOfCurrentUser = function (req, res) {
+  var page = req.body.page || 1;
+  var condition = req.body.condition || {};
+  console.log(condition);
+  var query = {};
+  var and_arr = [];
+  and_arr.push({ user: req.user._id });
+  if (condition.search && condition.search !== '') {
+    var key_lower = condition.search.toLowerCase();
+    var key_upper = condition.search.toUpperCase();
+    var or_arr = [
+      { description: { $regex: '.*' + condition.search + '.*' } },
+      { description: { $regex: '.*' + key_lower + '.*' } },
+      { description: { $regex: '.*' + key_upper + '.*' } }
+    ];
+    and_arr.push({ $or: or_arr });
+  }
+  query = { $and: and_arr };
+  Rest.paginate(query, {
+    sort: condition.sort,
+    page: page,
+    populate: [
+      { path: 'holiday', select: 'name isPaid' }
+    ],
+    limit: 10
+  }).then(function (rests) {
+    res.jsonp(rests);
+  }, err => {
+    return res.status(400).send({
+      message: errorHandler.getErrorMessage(err)
+    });
+  });
+};

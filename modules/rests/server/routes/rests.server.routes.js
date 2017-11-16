@@ -8,6 +8,8 @@ var restsPolicy = require('../policies/rests.server.policy'),
 
 module.exports = function(app) {
   // Rests Routes
+  app.route('/api/rests/owner').post(rests.getRestOfCurrentUser);
+  
   app.route('/api/rests').all(restsPolicy.isAllowed)
     .get(rests.list)
     .post(rests.create);
