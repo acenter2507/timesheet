@@ -9,7 +9,6 @@
 
   function RestsListController($scope, RestsService, CommonService, DateUtil, RestsApi) {
     var vm = this;
-    vm.events = [];
     vm.condition = { sort: '-created' };
     vm.busy = false;
     vm.page = 1;
@@ -24,7 +23,7 @@
       //   prepareCalendarEvent();
       //   console.log(vm.events);
       // });
-      handleStartSearch();
+      handleSearch();
     }
     function prepareRests() {
       return RestsService.query().$promise;
@@ -56,6 +55,7 @@
       };
     }
     function prepareCalendarEvent() {
+      vm.events = [];
       var actions = [{
         label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
         onClick: function (args) {
@@ -102,8 +102,11 @@
         });
       });
     }
-    vm.handleStartSearch = handleStartSearch;
-    function handleStartSearch() {
+    vm.handleStartSearch = () => {
+      vm.page = 1;
+      handleSearch();
+    };
+    function handleSearch() {
       if (vm.busy) return;
       vm.busy = true;
       RestsApi.getRestOfCurrentUser(vm.condition, vm.page)
