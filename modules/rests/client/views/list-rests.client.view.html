@@ -64,9 +64,9 @@
               <span class="label label-primary" ng-switch-when="5">済み</span>
             </td>
             <td>
-              <a ng-if="rest.status === 1" class="btn btn-primary" ng-click="vm.handleChangeRestStatus(2)">申請</a>
-              <a ng-if="rest.status === 1 || rest.status === 4" class="btn btn-success" ui-sref="rests.edit({ restId: vm.rest._id })">編集</a>
-              <a ng-if="rest.status === 1 || rest.status === 2" class="btn btn-danger" ng-click="vm.handleDeleteRest()">削除</a>
+              <a ng-if="rest.status === 1" class="btn btn-primary btn-xs" ng-click="vm.handleChangeRestStatus(2)">申請</a>
+              <a ng-if="rest.status === 1 || rest.status === 4" class="btn btn-success btn-xs" ui-sref="rests.edit({ restId: vm.rest._id })">編集</a>
+              <a ng-if="rest.status === 1 || rest.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleDeleteRest()">削除</a>
             </td>
           </tr>
         </tbody>
