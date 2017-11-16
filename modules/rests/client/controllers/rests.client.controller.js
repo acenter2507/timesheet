@@ -11,7 +11,6 @@
   function RestsController($scope, $state, rest, CommonService, DateUtil) {
     var vm = this;
     vm.rest = rest;
-    console.log(vm.rest);
 
     onCreate();
     function onCreate() {

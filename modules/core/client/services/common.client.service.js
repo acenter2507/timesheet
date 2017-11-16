@@ -16,5 +16,12 @@ function CommonService() {
   this.isMember = roles => {
     return roles.length === 1;
   };
+  this.createArrayFromRange = range => {
+    var array = [];
+    for (var i = 1; i <= range; i++) {
+      array.push(i);
+    }
+    return array;
+  };
   return this;
 }

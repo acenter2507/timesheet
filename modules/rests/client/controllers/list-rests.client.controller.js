@@ -13,6 +13,8 @@
     vm.condition = { sort: '-created' };
     vm.busy = false;
     vm.page = 1;
+    vm.pages = [];
+    vm.total = 0;
 
     onCreate();
     function onCreate() {
@@ -106,15 +108,20 @@
       if (vm.busy) return;
       vm.busy = true;
       RestsApi.getRestOfCurrentUser(vm.condition, vm.page)
-        .success(data => {
-          console.log(data);
+        .success(res => {
+          vm.rests = res.doc;
+          vm.pages = CommonService.createArrayFromRange(res.pages);
+          vm.total = res.total;
           vm.busy = false;
         })
         .error(err => {
-          console.log(err);
+          $scope.handleshowToast(err.message, true);
           vm.busy = false;
         });
-
+    };
+    vm.handlePageChanged = page => {
+      vm.page = page;
+      handleStartSearch();
     };
     vm.handleCalendarEventClicked = () => {
       return false;
