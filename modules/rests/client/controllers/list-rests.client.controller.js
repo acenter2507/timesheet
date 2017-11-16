@@ -5,16 +5,18 @@
     .module('rests')
     .controller('RestsListController', RestsListController);
 
-  RestsListController.$inject = ['RestsService', 'CommonService', 'DateUtil'];
+  RestsListController.$inject = ['RestsService', 'CommonService', 'DateUtil', 'calendarConfig'];
 
-  function RestsListController(RestsService, CommonService, DateUtil) {
+  function RestsListController(RestsService, CommonService, DateUtil, calendarConfig) {
     var vm = this;
     vm.rests = RestsService.query();
+    vm.events = [];
     console.log(vm.rests);
 
     onCreate();
     function onCreate() {
       prepareCalendar();
+      prepareCalendarEvent();
     }
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
@@ -41,6 +43,42 @@
         //   return;
         // }
       };
+    }
+    function prepareCalendarEvent() {
+      vm.rests.forEach(rest => {
+        var color;
+        switch (rest.status) {
+          case 1: {
+            color = calendarConfig.colorTypes.default;
+            break;
+          }
+          case 2: {
+            color = calendarConfig.colorTypes.warning;
+            break;
+          }
+          case 3: {
+            color = calendarConfig.colorTypes.primary;
+            break;
+          }
+          case 4: {
+            color = calendarConfig.colorTypes.important;
+            break;
+          }
+          case 5: {
+            color = calendarConfig.colorTypes.success;
+            break;
+          }
+        }
+        vm.events.push({
+          title: 'An event',
+          color: color,
+          startsAt: moment(rest.start).toDate(),
+          endsAt: moment(rest.end).toDate(),
+          draggable: true,
+          resizable: true,
+          actions: actions
+        });
+      });
     }
     vm.handleCalendarEventClicked = () => {
       return false;
