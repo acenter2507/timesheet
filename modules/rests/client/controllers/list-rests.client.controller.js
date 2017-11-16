@@ -108,8 +108,7 @@
       vm.busy = true;
       RestsApi.getRestOfCurrentUser(vm.condition, vm.page)
         .success(res => {
-          console.log(res);
-          vm.rests = res.doc;
+          vm.rests = res.docs;
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
           prepareCalendar();
