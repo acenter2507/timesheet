@@ -17,12 +17,6 @@
 
     onCreate();
     function onCreate() {
-      // prepareRests().then(rests => {
-      //   vm.rests = rests;
-      //   prepareCalendar();
-      //   prepareCalendarEvent();
-      //   console.log(vm.events);
-      // });
       handleSearch();
     }
     function prepareRests() {
