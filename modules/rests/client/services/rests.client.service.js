@@ -10,13 +10,11 @@
   RestsService.$inject = ['$resource'];
 
   function RestsService($resource) {
-    return $resource('api/rests/:restId', {
-      restId: '@_id'
-    }, {
-        update: {
-          method: 'PUT'
-        }
-      });
+    return $resource('api/rests/:restId', { restId: '@_id' }, {
+      update: {
+        method: 'PUT'
+      }
+    });
   }
   RestsApi.$inject = ['$http'];
   function RestsApi($http) {
