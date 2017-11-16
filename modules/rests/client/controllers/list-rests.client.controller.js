@@ -16,6 +16,54 @@
     vm.pages = [];
     vm.total = 0;
 
+    vm.handleClearCondition = () => {
+      vm.condition = { sort: '-created' };
+    };
+    vm.handleStartSearch = () => {
+      if (vm.busy) return;
+      vm.busy = true;
+      RestsApi.getRestOfCurrentUser(vm.condition, vm.page)
+        .success(res => {
+          vm.rests = res.doc;
+          vm.pages = CommonService.createArrayFromRange(res.pages);
+          vm.total = res.total;
+          prepareCalendar();
+          prepareCalendarEvent();
+          vm.busy = false;
+        })
+        .error(err => {
+          $scope.handleshowToast(err.message, true);
+          vm.busy = false;
+        });
+    };
+    vm.handlePageChanged = page => {
+      vm.page = page;
+      handleStartSearch();
+    };
+    vm.handleCalendarEventClicked = () => {
+      return false;
+    };
+    vm.handleCalendarRangeSelected = (start, end) => {
+      return false;
+    };
+    vm.handleCalendarClicked = date => {
+      return false;
+    };
+    vm.handleChangeRestStatus = status => {
+      if (status !== 2) return;
+      $scope.handleShowConfirm({
+        message: '休暇を申請しますか？'
+      }, () => {
+        console.log('bbb');
+      });
+    };
+    vm.handleDeleteRest = rest => {
+      $scope.handleShowConfirm({
+        message: '削除しますか？'
+      }, () => {
+        console.log('bbb');
+      });
+    };
     onCreate();
     function onCreate() {
       // prepareRests().then(rests => {
@@ -102,53 +150,5 @@
         });
       });
     }
-    vm.handleClearCondition = () => {
-      vm.condition = { sort: '-created' };
-    };
-    vm.handleStartSearch = () => {
-      if (vm.busy) return;
-      vm.busy = true;
-      RestsApi.getRestOfCurrentUser(vm.condition, vm.page)
-        .success(res => {
-          vm.rests = res.doc;
-          vm.pages = CommonService.createArrayFromRange(res.pages);
-          vm.total = res.total;
-          prepareCalendar();
-          prepareCalendarEvent();
-          vm.busy = false;
-        })
-        .error(err => {
-          $scope.handleshowToast(err.message, true);
-          vm.busy = false;
-        });
-    };
-    vm.handlePageChanged = page => {
-      vm.page = page;
-      handleStartSearch();
-    };
-    vm.handleCalendarEventClicked = () => {
-      return false;
-    };
-    vm.handleCalendarRangeSelected = (start, end) => {
-      return false;
-    };
-    vm.handleCalendarClicked = date => {
-      return false;
-    };
-    vm.handleChangeRestStatus = status => {
-      if (status !== 2) return;
-      $scope.handleShowConfirm({
-        message: '休暇を申請しますか？'
-      }, () => {
-        console.log('bbb');
-      });
-    };
-    vm.handleDeleteRest = rest => {
-      $scope.handleShowConfirm({
-        message: '削除しますか？'
-      }, () => {
-        console.log('bbb');
-      });
-    };
   }
 }());
