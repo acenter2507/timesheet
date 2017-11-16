@@ -20,9 +20,17 @@
         templateUrl: 'modules/rests/client/views/list-rests.client.view.html',
         controller: 'RestsListController',
         controllerAs: 'vm',
-        data: {
-          pageTitle: 'Rests List'
-        }
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '一覧' }
+      })
+      .state('rests.review', {
+        url: '/review',
+        templateUrl: 'modules/rests/client/views/review-rest.client.view.html',
+        controller: 'ReivewRestsController',
+        controllerAs: 'vm',
+        resolve: { restResolve: getRest },
+        data: { roles: ['admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '確認' }
       })
       .state('rests.create', {
         url: '/create',
@@ -38,13 +46,9 @@
         templateUrl: 'modules/rests/client/views/form-rest.client.view.html',
         controller: 'RestsController',
         controllerAs: 'vm',
-        resolve: {
-          restResolve: getRest
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Rest {{ restResolve.name }}'
-        }
+        resolve: { restResolve: getRest },
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '編集' }
       })
       .state('rests.view', {
         url: '/:restId',
