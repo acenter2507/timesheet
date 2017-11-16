@@ -134,8 +134,10 @@
             <td>{{ vm.rest.description | nl2br }}</td>
           </tr>
         </table>
-        <div class="form-group">
-          <textarea class="form-control h50" ng-model="vm.rest.comment"></textarea>
+        <div class="form-group" ng-if="!vm.rest.isCurrentUserOwner">
+          <textarea class="form-control h50" ng-model="vm.rest.comment" placeholder="コメント"></textarea>
+          <button ng-if="vm.rest.status === 2" class="btn btn-success pull-right" ng-click="vm.handleChangeRestStatus(3)">承認</button>
+          <button ng-if="vm.rest.status === 2" class="btn btn-danger pull-right" ng-click="vm.handleChangeRestStatus(3)">拒否</button>
         </div>
       </div>
     </div>
