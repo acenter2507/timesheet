@@ -53,19 +53,19 @@
       var actions = [{
         label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
         onClick: function (args) {
-          alert.show('Edited', args.calendarEvent);
+          console.log('Edited', args.calendarEvent);
         }
       }, {
         label: '<i class=\'glyphicon glyphicon-remove\'></i>',
         onClick: function (args) {
-          alert.show('Deleted', args.calendarEvent);
+          console.log('Deleted', args.calendarEvent);
         }
       }];
       vm.rests.forEach(rest => {
         var color;
         switch (rest.status) {
           case 1: {
-            color = calendarConfig.colorTypes.default;
+            color = undefined;
             break;
           }
           case 2: {
@@ -86,6 +86,7 @@
           }
         }
         vm.events.push({
+          id: rest._id.toString(),
           title: rest.holiday.name,
           color: color,
           startsAt: moment(rest.start).toDate(),
