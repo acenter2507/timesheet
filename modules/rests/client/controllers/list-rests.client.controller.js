@@ -86,12 +86,10 @@
           }
         }
         vm.events.push({
-          title: 'An event',
+          title: rest.holiday.name,
           color: color,
           startsAt: moment(rest.start).toDate(),
           endsAt: moment(rest.end).toDate(),
-          draggable: true,
-          resizable: true,
           actions: actions
         });
       });
