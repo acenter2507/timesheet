@@ -146,6 +146,12 @@ exports.getRestOfCurrentUser = function (req, res) {
     ];
     and_arr.push({ $or: or_arr });
   }
+  if (condition.start) {
+    and_arr.push({ start: { $gte: condition.start } });
+  }
+  if (condition.end) {
+    and_arr.push({ end: { $lte: condition.end } });
+  }
   query = { $and: and_arr };
   Rest.paginate(query, {
     sort: condition.sort,
