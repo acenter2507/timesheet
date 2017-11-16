@@ -6,8 +6,7 @@
           削除</a>
         <a ng-if="vm.rest.status === 1 || vm.rest.status === 4" class="btn btn-success pull-right mg5r" ui-sref="rests.edit({ restId: vm.rest._id })">
           編集</a>
-        <a ng-if="vm.rest.status === 1" class="btn btn-primary pull-right mg5r" ng-click="vm.handleSendRest()"> 申請</a>
-        <a ng-if="vm.rest.status === 2" class="btn btn-danger pull-right mg5r" ng-click="vm.handlePushReview()"> プッシュ</a>
+        <a ng-if="vm.rest.status === 1" class="btn btn-primary pull-right mg5r" ng-click="vm.handleChangeRestStatus(2)"> 申請</a>
         <div class="clearfix"></div>
       </div>
     </div>
@@ -137,7 +136,7 @@
         <div class="form-group" ng-if="!vm.rest.isCurrentUserOwner">
           <textarea class="form-control h50" ng-model="vm.rest.comment" placeholder="コメント"></textarea>
           <button ng-if="vm.rest.status === 2" class="btn btn-success pull-right" ng-click="vm.handleChangeRestStatus(3)">承認</button>
-          <button ng-if="vm.rest.status === 2" class="btn btn-danger pull-right" ng-click="vm.handleChangeRestStatus(3)">拒否</button>
+          <button ng-if="vm.rest.status === 2" class="btn btn-danger pull-right" ng-click="vm.handleChangeRestStatus(4)">拒否</button>
         </div>
       </div>
     </div>

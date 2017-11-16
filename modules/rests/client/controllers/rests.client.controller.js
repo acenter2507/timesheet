@@ -8,7 +8,7 @@
 
   RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService', 'DateUtil'];
 
-  function RestsController ($scope, $state, rest, CommonService, DateUtil) {
+  function RestsController($scope, $state, rest, CommonService, DateUtil) {
     var vm = this;
     vm.rest = rest;
     console.log(vm.rest);
@@ -81,6 +81,26 @@
     };
     vm.handleCalendarClicked = date => {
       return false;
+    };
+    vm.handleDeleteRest = () => {
+      $scope.handleShowConfirm({
+        message: '休暇登録を削除しますか？'
+      }, () => {
+        console.log('aaa');
+      });
+    };
+    vm.handleChangeRestStatus = status => {
+      var message = '';
+      switch (status) {
+        case 2: { message = '休暇を申請しますか？'; break; }
+        case 3: { message = '休暇を承認しますか？'; break; }
+        case 4: { message = '休暇を拒否しますか？'; break; }
+      }
+      $scope.handleShowConfirm({
+        message: message
+      }, () => {
+        console.log('bbb');
+      });
     };
 
     // Remove existing Rest
