@@ -228,6 +228,7 @@ exports.getRestReview = function (req, res) {
   }).then(function (rests) {
     res.jsonp(rests);
   }, err => {
+    console.log(err);
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });

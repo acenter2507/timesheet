@@ -149,7 +149,7 @@
           vm.busy = false;
         })
         .error(err => {
-          $scope.handleshowToast(err.message, true);
+          $scope.handleShowToast(err.message, true);
           vm.busy = false;
         });
     }
