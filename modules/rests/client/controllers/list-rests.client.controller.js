@@ -149,5 +149,6 @@
         console.log('bbb');
       });
     };
+    vm.handleViewHistory = rest => { };
   }
 }());
