@@ -8,8 +8,13 @@
             <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openTools}"></i> 検索ツール
           </accordion-heading>
           <div class="form-group">
-            <div class="col-sm-12">
-              <input type="text" ng-model="vm.condition.search" class="form-control" placeholder="検索キー">
+            <div class="col-sm-6">
+              <label for="search">検索キー</label>
+              <input name="search" type="text" ng-model="vm.condition.search" class="form-control" placeholder="検索キー">
+            </div>
+            <div class="col-sm-6">
+              <label for="limit">表示件数</label>
+              <input name="limit" type="number" ng-model="vm.condition.limit" class="form-control">
             </div>
             <div class="clearfix"></div>
           </div>
@@ -156,6 +161,12 @@
           </tr>
         </tbody>
       </table>
+      <!-- Pagination -->
+      <ul class="pagination mg10y">
+        <li ng-repeat="page in vm.pages" ng-class="{'active': page === vm.page}">
+          <a ng-click="vm.handlePageChanged(page)">{{page}}</a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

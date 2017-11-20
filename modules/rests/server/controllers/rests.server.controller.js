@@ -26,6 +26,8 @@ exports.create = function (req, res) {
     rest.status = 2;
     rest.history.push({ action: 2, comment: '', timing: new Date() });
   }
+  // Create search support field
+  rest.search = rest.user.displayName + rest.duration + rest.description;
   rest.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
@@ -56,6 +58,8 @@ exports.update = function (req, res) {
   var rest = req.rest;
 
   rest = _.extend(rest, req.body);
+  // Create search support field
+  rest.search = rest.user.displayName + rest.duration + rest.description;
 
   rest.save(function (err) {
     if (err) {
@@ -132,7 +136,6 @@ exports.restByID = function (req, res, next, id) {
 exports.getRestOfCurrentUser = function (req, res) {
   var page = req.body.page || 1;
   var condition = req.body.condition || {};
-  console.log(condition);
   var query = {};
   var and_arr = [];
   and_arr.push({ user: req.user._id });
@@ -142,7 +145,10 @@ exports.getRestOfCurrentUser = function (req, res) {
     var or_arr = [
       { description: { $regex: '.*' + condition.search + '.*' } },
       { description: { $regex: '.*' + key_lower + '.*' } },
-      { description: { $regex: '.*' + key_upper + '.*' } }
+      { description: { $regex: '.*' + key_upper + '.*' } },
+      { search: { $regex: '.*' + condition.search + '.*' } },
+      { search: { $regex: '.*' + key_lower + '.*' } },
+      { search: { $regex: '.*' + key_upper + '.*' } }
     ];
     and_arr.push({ $or: or_arr });
   }
@@ -163,6 +169,63 @@ exports.getRestOfCurrentUser = function (req, res) {
       { path: 'holiday', select: 'name isPaid' }
     ],
     limit: 10
+  }).then(function (rests) {
+    res.jsonp(rests);
+  }, err => {
+    return res.status(400).send({
+      message: errorHandler.getErrorMessage(err)
+    });
+  });
+};
+
+exports.getRestReview = function (req, res) {
+  var page = req.body.page || 1;
+  var condition = req.body.condition || {};
+  var query = {};
+  var and_arr = [];
+  and_arr.push({ user: req.user._id });
+  if (condition.search && condition.search !== '') {
+    var key_lower = condition.search.toLowerCase();
+    var key_upper = condition.search.toUpperCase();
+    var or_arr = [
+      { description: { $regex: '.*' + condition.search + '.*' } },
+      { description: { $regex: '.*' + key_lower + '.*' } },
+      { description: { $regex: '.*' + key_upper + '.*' } },
+      { search: { $regex: '.*' + condition.search + '.*' } },
+      { search: { $regex: '.*' + key_lower + '.*' } },
+      { search: { $regex: '.*' + key_upper + '.*' } }
+    ];
+    and_arr.push({ $or: or_arr });
+  }
+  if (condition.start) {
+    and_arr.push({ start: { $gte: condition.start } });
+  }
+  if (condition.end) {
+    and_arr.push({ end: { $lte: condition.end } });
+  }
+  if (condition.status) {
+    and_arr.push({ status: condition.status });
+  }
+  if (_.contains(req.user.roles, 'manager')) {
+    var department = req.user.deparment._id || req.user.deparment;
+    and_arr.push({ 'user.deparment': department });
+    and_arr.push({ roles: { $ne: ['manager', 'admin', 'accountant'] } });
+  } else {
+    if (condition.deparment) {
+      and_arr.push({ 'user.deparment': department });
+    }
+    if (condition.roles) {
+      and_arr.push({ roles: condition.roles });
+    }
+  }
+  query = { $and: and_arr };
+  Rest.paginate(query, {
+    sort: condition.sort,
+    page: page,
+    populate: [
+      { path: 'holiday', select: 'name isPaid' }
+    ],
+    limit: condition.limit
   }).then(function (rests) {
     res.jsonp(rests);
   }, err => {

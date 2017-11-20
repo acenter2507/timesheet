@@ -21,6 +21,10 @@
     this.getRestOfCurrentUser = (condition, page) => {
       return $http.post('/api/rests/owner', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
+    this.getRestReview = (condition, page) => {
+      return $http.post('/api/rests/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
+    };
+    
     return this;
   }
 }());

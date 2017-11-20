@@ -85,7 +85,10 @@
       });
     }
     function prepareCondition() {
-      vm.condition = { sort: '-created' };
+      vm.condition = {
+        sort: '-created',
+        limit: 20
+      };
     }
     function prepareCalendarEvent() {
       vm.events = [];
@@ -136,7 +139,7 @@
     function handleSearch() {
       if (vm.busy) return;
       vm.busy = true;
-      RestsApi.getRestOfCurrentUser(vm.condition, vm.page)
+      RestsApi.getRestReview(vm.condition, vm.page)
         .success(res => {
           vm.rests = res.docs;
           vm.pages = CommonService.createArrayFromRange(res.pages);
