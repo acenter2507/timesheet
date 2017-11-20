@@ -206,12 +206,12 @@ exports.getRestReview = function (req, res) {
     and_arr.push({ status: condition.status });
   }
   if (_.contains(req.user.roles, 'manager')) {
-    var department = req.user.deparment._id || req.user.deparment;
-    and_arr.push({ 'user.deparment': department });
+    var department = req.user.department._id || req.user.department;
+    and_arr.push({ 'user.department': department });
     and_arr.push({ roles: { $ne: ['manager', 'admin', 'accountant'] } });
   } else {
-    if (condition.deparment) {
-      and_arr.push({ 'user.deparment': condition.deparment });
+    if (condition.department) {
+      and_arr.push({ 'user.department': condition.department });
     }
     if (condition.roles) {
       and_arr.push({ roles: condition.roles });
