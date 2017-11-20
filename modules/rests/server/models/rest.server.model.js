@@ -22,12 +22,10 @@ var RestSchema = new Schema({
   description: { type: String },
   // Status of vacation: 1:Not send - 2:Waiting - 3:Cancel - 4:Approved - 5:Rejected - 6:Done
   status: { type: Number },
-  // Comment of reviewer
-  comment: { type: String },
+  // search
+  search: { type: String },
   // Approved manager/accountant
-  approved: { type: Schema.ObjectId, ref: 'User' },
-  // Send date
-  send: { type: Date, default: Date.now },
+  department: { type: Schema.ObjectId, ref: 'Department' },
   // Create date
   created: { type: Date, default: Date.now },
   historys: [{
@@ -36,7 +34,9 @@ var RestSchema = new Schema({
     // Comment of history
     comment: { type: String },
     // Time of history
-    timing: { type: Date }
+    timing: { type: Date },
+    // Owner
+    user: { type: Schema.ObjectId, ref: 'User' },
   }],
   // User
   user: { type: Schema.ObjectId, ref: 'User' }
