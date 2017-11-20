@@ -26,7 +26,7 @@
       .state('rests.review', {
         url: '/review',
         templateUrl: 'modules/rests/client/views/review-rest.client.view.html',
-        controller: 'RestsReivewController',
+        controller: 'RestsReviewController',
         controllerAs: 'vm',
         data: { roles: ['admin', 'manager', 'accountant'] },
         ncyBreadcrumb: { label: '確認' }
