@@ -26,7 +26,7 @@
       .state('rests.review', {
         url: '/review',
         templateUrl: 'modules/rests/client/views/review-rest.client.view.html',
-        controller: 'ReivewRestsController',
+        controller: 'RestsReivewController',
         controllerAs: 'vm',
         resolve: { restResolve: getRest },
         data: { roles: ['admin', 'manager', 'accountant'] },
