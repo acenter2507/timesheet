@@ -28,7 +28,6 @@
         templateUrl: 'modules/rests/client/views/review-rest.client.view.html',
         controller: 'RestsReivewController',
         controllerAs: 'vm',
-        resolve: { restResolve: getRest },
         data: { roles: ['admin', 'manager', 'accountant'] },
         ncyBreadcrumb: { label: '確認' }
       })

@@ -23,9 +23,6 @@
       prepareRestAction();
       handleSearch();
     }
-    function prepareRests() {
-      return RestsService.query().$promise;
-    }
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = moment().startOf('month').toDate();
