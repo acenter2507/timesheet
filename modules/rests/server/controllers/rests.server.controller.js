@@ -217,7 +217,9 @@ exports.getRestReview = function (req, res) {
       and_arr.push({ roles: condition.roles });
     }
   }
-  query = { $and: and_arr };
+  if (and_arr.length > 0) {
+    query = { $and: and_arr };
+  }
   Rest.paginate(query, {
     sort: condition.sort,
     page: page,
