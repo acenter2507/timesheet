@@ -211,7 +211,7 @@ exports.getRestReview = function (req, res) {
     and_arr.push({ roles: { $ne: ['manager', 'admin', 'accountant'] } });
   } else {
     if (condition.deparment) {
-      and_arr.push({ 'user.deparment': department });
+      and_arr.push({ 'user.deparment': condition.deparment });
     }
     if (condition.roles) {
       and_arr.push({ roles: condition.roles });
