@@ -95,117 +95,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-12 col-md-6">
-      <!-- # MOBILE # -->
-      <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
-        <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">
-          <i class="fa fa-calendar"></i> {{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
-        <div collapse="isCloseCalendar">
-          <div class="row text-center mg5t">
-            <div class="btn-group">
-              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
-              <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
-              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
-            </div>
-          </div>
-          <h3 class="text-center">{{ vm.calendar.title }}</h3>
-          <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
-            cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
-            on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)"
-            on-event-click="vm.handleRestClicked(calendarEvent)">
-          </mwl-calendar>
-        </div>
-      </div>
-      <!-- # DESKTOP # -->
-      <div class="form-group" ng-if="!isMobile">
-        <div class="row text-center">
-          <div class="btn-group">
-            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
-            <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
-            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
-          </div>
-        </div>
-        <h3 class="text-center">{{ vm.calendar.title }}</h3>
-        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
-          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
-          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)"
-          on-event-click="vm.handleRestClicked(calendarEvent)">
-        </mwl-calendar>
-      </div>
-    </div>
-    <div class="col-sm-12 col-md-6">
-      <!-- 検索ツール -->
-      <accordion close-others="true" ng-init="openAdvance = false;">
-        <accordion-group is-open="openAdvance">
-          <accordion-heading>
-            <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openAdvance}"></i> 検索ツール
-          </accordion-heading>
-          <div class="form-group">
-            <div class="col-sm-12">
-              <input type="text" ng-model="vm.condition.search" class="form-control" placeholder="検索キー">
-            </div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="form-group">
-            <label for="status" class="w100p pd15l">検索範囲</label>
-            <div class="col-sm-6" ng-init="startDatePickerOpen = false;">
-              <div class="input-group">
-                <input name="start" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.condition.start" is-open="startDatePickerOpen"
-                  close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="開始" show-weeks="false"
-                  readonly="true" />
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;">
-                    <i class="fa fa-calendar"></i>
-                  </button>
-                </span>
-              </div>
-            </div>
-            <div class="col-sm-6" ng-init="endDatePickerOpen = false;">
-              <div class="input-group">
-                <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.condition.end" is-open="endDatePickerOpen"
-                  close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="終了" show-weeks="false"
-                  readonly="true" />
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="endDatePickerOpen = true;">
-                    <i class="fa fa-calendar"></i>
-                  </button>
-                </span>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-6">
-              <label for="status">状態</label>
-              <select name="status" class="form-control" ng-model="vm.condition.status">
-                <option value>全て</option>
-                <option value="1">未申請</option>
-                <option value="2">確認中</option>
-                <option value="3">承認</option>
-                <option value="4">拒否</option>
-                <option value="5">済み</option>
-              </select>
-            </div>
-            <div class="col-sm-6">
-              <label for="sort">並び順</label>
-              <select name="sort" class="form-control" ng-model="vm.condition.sort">
-                <option value="-created">登録の新しい順番</option>
-                <option value="created">登録の古い順番</option>
-                <option value="-duration">期間の長い順番</option>
-                <option value="duration">期間の短い順番</option>
-              </select>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-12">
-              <button class="btn btn-sm btn-danger pull-right" ng-click="vm.handleClearCondition()">クリア</button>
-              <button class="btn btn-sm btn-primary pull-right mg5r" ng-click="vm.handleStartSearch()">検索</button>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </accordion-group>
-      </accordion>
+    <div class="col-xs-12">
       <!-- 休暇一覧 -->
       <table class="table table-bordered">
         <thead>
@@ -242,28 +132,28 @@
           </tr>
         </tbody>
       </table>
-      <!-- Pagination -->
-      <ul class="pagination mg10y">
-        <li ng-repeat="page in vm.pages" ng-class="{'active': page === vm.page}">
-          <a ng-click="vm.handlePageChanged(page)">{{page}}</a>
-        </li>
-      </ul>
-      <!-- 歴史 -->
-      <div class="form-group">
-        <button ng-show="vm.isShowHistory" class="btn btn-default btn-sm" ng-click="vm.isShowHistory = false;">歴史表を閉じる</button>
-      </div>
-      <table class="table table-bordered" ng-show="isShowHistory">
-        <thead>
-          <tr>
-            <th>日付</th>
-            <th>操作</th>
-            <th>コメント</th>
-            <th>名前</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
     </div>
+  </div>
+  <div class="row">
+    <accordion close-others="true" ng-init="openAdvance = false;">
+      <accordion-group is-open="openAdvance">
+        <accordion-heading>
+          <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openAdvance}"></i> カーレンダー
+        </accordion-heading>
+        <div class="row text-center">
+          <div class="btn-group">
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+          </div>
+        </div>
+        <h3 class="text-center">{{ vm.calendar.title }}</h3>
+        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)"
+          on-event-click="vm.handleRestClicked(calendarEvent)">
+        </mwl-calendar>
+      </accordion-group>
+    </accordion>
   </div>
 </div>
