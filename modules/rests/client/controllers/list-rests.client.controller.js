@@ -56,13 +56,14 @@
         remove: {
           label: '<i class=\'fa fa-trash\'></i>',
           onClick: function (args) {
-            console.log('Edited', args.calendarEvent);
+            var rest = _.findWhere(vm.rests, { _id: args.calendarEvent.id });
+            vm.handleDeleteRest(rest);
           }
         },
         edit: {
           label: '<i class=\'fa fa-pencil-square-o\'></i>',
           onClick: function (args) {
-            console.log('Edited', args.calendarEvent);
+            $state.go('rests.edit', { restId: args.calendarEvent.id });
           }
         },
         approve: {
