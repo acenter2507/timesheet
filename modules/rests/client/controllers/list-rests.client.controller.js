@@ -14,6 +14,7 @@
     vm.page = 1;
     vm.pages = [];
     vm.total = 0;
+    vm.isShowHistory = false;
 
     onCreate();
     function onCreate() {
@@ -49,40 +50,62 @@
         // }
       };
     }
+    function prepareRestAction() {
+      vm.action = {
+        remove: {
+          label: '<i class=\'fa fa-trash\'></i>',
+          onClick: function (args) {
+            console.log('Edited', args.calendarEvent);
+          }
+        },
+        edit: {
+          label: '<i class=\'fa fa-pencil-square-o\'></i>',
+          onClick: function (args) {
+            console.log('Edited', args.calendarEvent);
+          }
+        },
+        approve: {
+          label: '<i class=\'fa fa-check-square-o\'></i>',
+          onClick: function (args) {
+            console.log('Edited', args.calendarEvent);
+          }
+        },
+        reject: {
+          label: '<i class=\'fa fa-minus-circle\'></i>',
+          onClick: function (args) {
+            console.log('Edited', args.calendarEvent);
+          }
+        }
+      };
+    }
     function prepareCalendarEvent() {
       vm.events = [];
-      var actions = [{
-        label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
-        onClick: function (args) {
-          console.log('Edited', args.calendarEvent);
-        }
-      }, {
-        label: '<i class=\'glyphicon glyphicon-remove\'></i>',
-        onClick: function (args) {
-          console.log('Deleted', args.calendarEvent);
-        }
-      }];
       vm.rests.forEach(rest => {
         var color;
+        var actions = [];
         switch (rest.status) {
-          case 1: {
+          case 1: { // Not send
             color = undefined;
             color = { primary: '#777', secondary: '#e3e3e3' };
+            actions.push(vm.action.remove);
+            actions.push(vm.action.edit);
             break;
           }
-          case 2: {
+          case 2: { // Waiting
             color = { primary: '#f0ad4e', secondary: '#fae6c9' };
+            actions.push(vm.action.remove);
             break;
           }
-          case 3: {
+          case 3: { // Approved
             color = { primary: '#5cb85c', secondary: '#bde2bd' };
             break;
           }
-          case 4: {
+          case 4: { // Rejected
             color = { primary: '#d9534f', secondary: '#fae3e3' };
+            actions.push(vm.action.remove);
             break;
           }
-          case 5: {
+          case 5: { // Done
             color = { primary: '#337ab7', secondary: '#D1E8FF' };
             break;
           }
@@ -133,6 +156,9 @@
     };
     vm.handleCalendarClicked = date => {
       return false;
+    };
+    vm.handleRestClicked = calendarEvent => {
+      $state.go('rests.view', { restId: calendarEvent.id });
     };
     vm.handleChangeRestStatus = status => {
       if (status !== 2) return;

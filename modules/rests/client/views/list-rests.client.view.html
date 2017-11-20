@@ -16,7 +16,8 @@
           <h3 class="text-center">{{ vm.calendar.title }}</h3>
           <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
             cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
-            on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+            on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)"
+            on-event-click="vm.handleRestClicked(calendarEvent)">
           </mwl-calendar>
         </div>
       </div>
@@ -32,7 +33,8 @@
         <h3 class="text-center">{{ vm.calendar.title }}</h3>
         <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
           cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
-          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)"
+          on-event-click="vm.handleRestClicked(calendarEvent)">
         </mwl-calendar>
       </div>
     </div>
@@ -152,7 +154,7 @@
         </li>
       </ul>
       <!-- 歴史 -->
-      <table class="table table-bordered">
+      <table class="table table-bordered" ng-if="isShowHistory">
         <thead>
           <tr>
             <th>日付</th>
