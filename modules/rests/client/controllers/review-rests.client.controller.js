@@ -5,9 +5,9 @@
     .module('rests')
     .controller('RestsReviewController', RestsReviewController);
 
-  RestsReviewController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', 'DepartmentService'];
+  RestsReviewController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', 'DepartmentsService'];
 
-  function RestsReviewController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, DepartmentService) {
+  function RestsReviewController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, DepartmentsService) {
     var vm = this;
     vm.busy = false;
     vm.page = 1;
