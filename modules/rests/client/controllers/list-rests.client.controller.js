@@ -17,6 +17,7 @@
 
     onCreate();
     function onCreate() {
+      prepareCalendar();
       handleSearch();
     }
     function prepareRests() {
