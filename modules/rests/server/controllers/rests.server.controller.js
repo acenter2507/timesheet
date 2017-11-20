@@ -183,7 +183,6 @@ exports.getRestReview = function (req, res) {
   var condition = req.body.condition || {};
   var query = {};
   var and_arr = [];
-  and_arr.push({ user: req.user._id });
   if (condition.search && condition.search !== '') {
     var key_lower = condition.search.toLowerCase();
     var key_upper = condition.search.toUpperCase();
