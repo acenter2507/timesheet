@@ -80,7 +80,7 @@
       };
     }
     function prepareDepartments() {
-      DepartmentService.query().$promise.then(data => {
+      DepartmentsService.query().$promise.then(data => {
         vm.departments = data;
       });
     }
