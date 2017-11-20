@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-xs-12">
       <!-- 検索ツール -->
-      <accordion close-others="true" ng-init="openAdvance = false;">
-        <accordion-group is-open="openAdvance">
+      <accordion close-others="true" ng-init="openTools = false;">
+        <accordion-group is-open="openTools">
           <accordion-heading>
-            <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openAdvance}"></i> 検索ツール
+            <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openTools}"></i> 検索ツール
           </accordion-heading>
           <div class="form-group">
             <div class="col-sm-12">
@@ -95,6 +95,28 @@
     </div>
   </div>
   <div class="row">
+    <accordion close-others="true" ng-init="openAdvance = false;">
+      <accordion-group is-open="openAdvance">
+        <accordion-heading>
+          <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openAdvance}"></i> カーレンダー
+        </accordion-heading>
+        <div class="row text-center">
+          <div class="btn-group">
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+          </div>
+        </div>
+        <h3 class="text-center">{{ vm.calendar.title }}</h3>
+        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)"
+          on-event-click="vm.handleRestClicked(calendarEvent)">
+        </mwl-calendar>
+      </accordion-group>
+    </accordion>
+  </div>
+  <div class="row">
     <div class="col-xs-12">
       <!-- 休暇一覧 -->
       <table class="table table-bordered">
@@ -133,27 +155,5 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <div class="row">
-    <accordion close-others="true" ng-init="openAdvance = false;">
-      <accordion-group is-open="openAdvance">
-        <accordion-heading>
-          <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openAdvance}"></i> カーレンダー
-        </accordion-heading>
-        <div class="row text-center">
-          <div class="btn-group">
-            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
-            <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
-            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
-          </div>
-        </div>
-        <h3 class="text-center">{{ vm.calendar.title }}</h3>
-        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
-          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
-          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)"
-          on-event-click="vm.handleRestClicked(calendarEvent)">
-        </mwl-calendar>
-      </accordion-group>
-    </accordion>
   </div>
 </div>
