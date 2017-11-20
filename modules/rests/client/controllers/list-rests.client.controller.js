@@ -15,6 +15,7 @@
     vm.pages = [];
     vm.total = 0;
     vm.isShowHistory = false;
+    vm.historys = [];
 
     onCreate();
     function onCreate() {
@@ -179,6 +180,7 @@
     };
     vm.handleViewHistory = rest => {
       vm.isShowHistory = true;
+      vm.historys = rest.historys;
     };
   }
 }());

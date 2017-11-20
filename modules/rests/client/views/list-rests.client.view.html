@@ -154,7 +154,10 @@
         </li>
       </ul>
       <!-- 歴史 -->
-      <table class="table table-bordered" ng-if="isShowHistory">
+      <div class="form-group">
+        <button ng-show="vm.isShowHistory" class="btn btn-default btn-sm" ng-click="vm.isShowHistory = false;">歴史表を閉じる</button>
+      </div>
+      <table class="table table-bordered" ng-show="isShowHistory">
         <thead>
           <tr>
             <th>日付</th>
