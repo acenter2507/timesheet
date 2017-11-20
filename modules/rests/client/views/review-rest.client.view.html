@@ -64,6 +64,24 @@
             </div>
             <div class="clearfix"></div>
           </div>
+          <div class="form-group" ng-if="isAccountant || isAdmin">
+            <div class="col-sm-6">
+              <label for="department">部署</label>
+              <select name="department" class="form-control" ng-model="vm.condition.department">
+                <option value>指定しない</option>
+                <option ng-repeat="department in vm.departments" value="{{department._id}}">{{:: department.name}}</option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="roles">役割</label>
+              <select name="roles" class="form-control" ng-model="vm.condition.roles" ng-list>
+                <option value="user">一般社員</option>
+                <option value="user,accountant">経理</option>
+                <option value="user,manager">マネージャ</option>
+              </select>
+            </div>
+            <div class="clearfix"></div>
+          </div>
           <div class="form-group">
             <div class="col-sm-12">
               <button class="btn btn-sm btn-danger pull-right" ng-click="vm.handleClearCondition()">クリア</button>

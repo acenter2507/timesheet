@@ -5,11 +5,10 @@
     .module('rests')
     .controller('RestsReviewController', RestsReviewController);
 
-  RestsReviewController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi'];
+  RestsReviewController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', 'DepartmentService'];
 
-  function RestsReviewController($scope, $state, RestsService, CommonService, DateUtil, RestsApi) {
+  function RestsReviewController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, DepartmentService) {
     var vm = this;
-    vm.condition = { sort: '-created' };
     vm.busy = false;
     vm.page = 1;
     vm.pages = [];
@@ -21,6 +20,8 @@
     function onCreate() {
       prepareCalendar();
       prepareRestAction();
+      prepareDepartments();
+      prepareCondition();
       handleSearch();
     }
     function prepareCalendar() {
@@ -77,6 +78,14 @@
           }
         }
       };
+    }
+    function prepareDepartments() {
+      DepartmentService.query().$promise.then(data => {
+        vm.departments = data;
+      });
+    }
+    function prepareCondition() {
+      vm.condition = { sort: '-created' };
     }
     function prepareCalendarEvent() {
       vm.events = [];
@@ -142,7 +151,7 @@
         });
     }
     vm.handleClearCondition = () => {
-      vm.condition = { sort: '-created' };
+      prepareCondition();
     };
     vm.handlePageChanged = page => {
       vm.page = page;
