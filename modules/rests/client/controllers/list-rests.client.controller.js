@@ -19,6 +19,7 @@
     onCreate();
     function onCreate() {
       prepareCalendar();
+      prepareRestAction();
       handleSearch();
     }
     function prepareRests() {
@@ -175,6 +176,8 @@
         console.log('bbb');
       });
     };
-    vm.handleViewHistory = rest => { };
+    vm.handleViewHistory = rest => {
+      vm.isShowHistory = true;
+    };
   }
 }());
