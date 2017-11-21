@@ -24,7 +24,7 @@ var RestSchema = new Schema({
   status: { type: Number },
   // search
   search: { type: String },
-  // Approved manager/accountant
+  // Department
   department: { type: Schema.ObjectId, ref: 'Department' },
   // Create date
   created: { type: Date, default: Date.now },

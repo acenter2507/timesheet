@@ -28,6 +28,7 @@ exports.create = function (req, res) {
   }
   // Create search support field
   rest.search = rest.user.displayName + rest.duration + rest.description;
+  rest.department = req.user.department._id || req.user.department;
   rest.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
@@ -207,11 +208,11 @@ exports.getRestReview = function (req, res) {
   }
   if (_.contains(req.user.roles, 'manager')) {
     var department = req.user.department._id || req.user.department;
-    and_arr.push({ 'user.department': department });
+    and_arr.push({ department: department });
     and_arr.push({ roles: { $ne: ['manager', 'admin', 'accountant'] } });
   } else {
     if (condition.department) {
-      and_arr.push({ 'user.department': condition.department });
+      and_arr.push({ department: condition.department });
     }
     if (condition.roles) {
       and_arr.push({ roles: condition.roles });
