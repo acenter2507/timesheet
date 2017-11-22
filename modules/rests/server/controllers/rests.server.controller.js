@@ -225,7 +225,7 @@ exports.getRestReview = function (req, res) {
         and_arr.push({ department: condition.department });
       }
     }
-    if (condition.roles) {
+    if (condition.roles && condition.roles.length > 0) {
       and_arr.push({ roles: condition.roles });
     }
   }
