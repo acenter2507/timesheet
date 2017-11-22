@@ -159,7 +159,7 @@
     };
     vm.handlePageChanged = page => {
       vm.page = page;
-      vm.handleStartSearch();
+      handleSearch();
     };
     vm.handleCalendarEventClicked = () => {
       return false;
