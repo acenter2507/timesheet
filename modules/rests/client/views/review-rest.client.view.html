@@ -199,7 +199,7 @@
           <tr ng-repeat="history in vm.historys">
             <td>{{history.timing | LLLL}}</td>
             <td>{{history.action | RestActionFilter}}</td>
-            <td>{{history.action | nl2br}}</td>
+            <td>{{history.comment | nl2br}}</td>
             <td>
               <a ng-click="vm.handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
             </td>
