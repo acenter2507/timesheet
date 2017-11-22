@@ -1,5 +1,3 @@
-import { delete } from "../../server/controllers/rests.server.controller";
-
 (function () {
   'use strict';
 
