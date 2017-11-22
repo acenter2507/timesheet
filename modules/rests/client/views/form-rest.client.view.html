@@ -54,7 +54,7 @@
         <div class="form-group" show-errors>
           <label for="holiday">休日形態：</label>
           <select name="holiday" class="form-control" ng-model="vm.rest.holiday" required>
-            <option ng-repeat="holiday in vm.holidays" value="holiday._id" ng-selected="holiday._id.toString() === vm.rest.holiday.toString()">{{holiday.name}}</option>
+            <option ng-repeat="holiday in vm.holidays" value="{{holiday._id}}" ng-selected="holiday._id.toString() === vm.rest.holiday.toString()">{{holiday.name}}</option>
           </select>
           <div ng-messages="vm.form.restForm.holiday.$error" role="alert">
             <p class="help-block error-text" ng-message="required">休日形態は必須です。</p>
