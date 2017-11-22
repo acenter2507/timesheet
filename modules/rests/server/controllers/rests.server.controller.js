@@ -89,8 +89,16 @@ exports.approve = function (req, res) {
   rest.status = 3;
   rest.save((err, rest) => {
     if (err)
-      return res.status(400).send({ message: '承認処理が完了できません。'});
-    return res.jsonp(rest);
+      return res.status(400).send({ message: '承認処理が完了できません。' });
+    Rest.findOne(rest).populate('historys', {
+      path: 'user',
+      select: 'displayName profileImageURL',
+      model: 'User'
+    }).exec((err, rest) => {
+      if (err)
+        return res.status(400).send({ message: '新しいデータを取得できません。' });
+      return res.jsonp(rest);
+    });
   });
 };
 
@@ -103,8 +111,16 @@ exports.reject = function (req, res) {
   rest.status = 4;
   rest.save((err, rest) => {
     if (err)
-      return res.status(400).send({ message: '拒否処理が完了できません。'});
-    return res.jsonp(rest);
+      return res.status(400).send({ message: '拒否処理が完了できません。' });
+    Rest.findOne(rest).populate('historys', {
+      path: 'user',
+      select: 'displayName profileImageURL',
+      model: 'User'
+    }).exec((err, rest) => {
+      if (err)
+        return res.status(400).send({ message: '新しいデータを取得できません。' });
+      return res.jsonp(rest);
+    });
   });
 };
 
