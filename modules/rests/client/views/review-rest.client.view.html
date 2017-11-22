@@ -180,4 +180,26 @@
       </ul>
     </div>
   </div>
+  <div class="row" id="rests-review-historys">
+    <div class="col-xs-12">
+      <!-- 歴史 -->
+      <div class="form-group">
+        <button ng-show="vm.isShowHistory" class="btn btn-default btn-sm pull-right" ng-click="vm.isShowHistory = false;">歴史表を閉じる</button>
+      </div>
+      <div class="clearfix"></div>
+      <table class="table table-bordered" ng-show="isShowHistory">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>操作</th>
+            <th>コメント</th>
+            <th>操作者</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
