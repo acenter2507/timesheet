@@ -74,6 +74,7 @@
               <label for="department">部署</label>
               <select name="department" class="form-control" ng-model="vm.condition.department">
                 <option value>指定しない</option>
+                <option value="empty">未設定</option>
                 <option ng-repeat="department in vm.departments" value="{{department._id}}">{{:: department.name}}</option>
               </select>
             </div>

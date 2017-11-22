@@ -32,7 +32,9 @@ exports.create = function (req, res) {
   }
   // Create search support field
   rest.search = req.user.displayName + '-' + rest.duration + '-' + rest.description;
-  rest.department = req.user.department._id || req.user.department;
+  if (!req.user.department) {
+    rest.department = req.user.department._id || req.user.department;    
+  }
   rest.roles = req.user.roles;
   rest.save((err, rest) => {
     if (err)
@@ -217,6 +219,7 @@ exports.getRestReview = function (req, res) {
     and_arr.push({ roles: { $ne: ['manager', 'admin', 'accountant'] } });
   } else {
     if (condition.department) {
+      if (condition.department)
       and_arr.push({ department: condition.department });
     }
     if (condition.roles) {
@@ -237,7 +240,6 @@ exports.getRestReview = function (req, res) {
   }).then(function (rests) {
     res.jsonp(rests);
   }, err => {
-    console.log(err);
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });
