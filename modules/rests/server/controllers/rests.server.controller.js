@@ -31,7 +31,7 @@ exports.create = function (req, res) {
     rest.historys.push({ action: 4, comment: '', timing: new Date(), user: rest.user });
   }
   // Create search support field
-  rest.search = rest.user.displayName + rest.duration + rest.description;
+  rest.search = req.user.displayName + '-' + rest.duration + '-' + rest.description;
   rest.department = req.user.department._id || req.user.department;
   rest.roles = req.user.roles;
   rest.save((err, rest) => {
