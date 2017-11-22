@@ -131,8 +131,7 @@
           <tr>
             <th>オーナー</th>
             <th>形態</th>
-            <th>開始</th>
-            <th>終了</th>
+            <th>開始・終了</th>
             <th>期間</th>
             <th>事由</th>
             <th>状態</th>
@@ -149,8 +148,11 @@
               <a ng-click="vm.handleViewDetailUser(rest.user)">{{rest.user.displayName}}</a>
             </td>
             <td>{{ rest.holiday.name }}</td>
-            <td>{{ rest.start | LL }}</td>
-            <td>{{ rest.end | LL }}</td>
+            <td>
+              <div>{{ rest.start | LL }}</div>
+              <div>{{ rest.end | LL }}</div>
+            </td>
+            <td></td>
             <td>{{ rest.duration }}</td>
             <td>{{ rest.description | nl2br }}</td>
             <td ng-switch="rest.status">
