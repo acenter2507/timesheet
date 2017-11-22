@@ -20,12 +20,21 @@ var RestSchema = new Schema({
   duration: { type: Number },
   // Reason of vacation
   description: { type: String },
-  // Status of vacation: 1:Not send - 2:Waiting - 3:Cancel - 4:Approved - 5:Rejected - 6:Done
+  // Status of vacation: 1:Not send - 2:Waiting - 3:Approved - 4:Rejected - 5:Done
   status: { type: Number },
   // search
   search: { type: String },
   // Department
   department: { type: Schema.ObjectId, ref: 'Department' },
+  // Roles
+  roles: {
+    type: [{
+      type: String,
+      enum: ['user', 'accountant', 'manager', 'admin']
+    }],
+    default: ['user'],
+    required: 'Please provide at least one role'
+  },
   // Create date
   created: { type: Date, default: Date.now },
   historys: [{

@@ -15,7 +15,7 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var rest = new Rest(req.body);
-  rest.user = req.user;
+  rest.user = req.user._id || req.user;
 
   // 有給休暇の日数を確認
   if (req.body.isPaid && rest.duration > req.user.company.paidHolidayCnt) {
@@ -24,11 +24,16 @@ exports.create = function (req, res) {
   rest.history = [{ action: 1, comment: '', timing: rest.created }];
   if (req.body.isSendWhenSave) {
     rest.status = 2;
-    rest.history.push({ action: 2, comment: '', timing: new Date() });
+    rest.history.push({ action: 3, comment: '', timing: new Date(), user: rest.user });
+  }
+  if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
+    rest.status = 3;
+    rest.history.push({ action: 4, comment: '', timing: new Date(), user: rest.user });
   }
   // Create search support field
   rest.search = rest.user.displayName + rest.duration + rest.description;
   rest.department = req.user.department._id || req.user.department;
+  rest.roles = req.roles;
   rest.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
