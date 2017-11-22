@@ -32,7 +32,7 @@ exports.create = function (req, res) {
   }
   // Create search support field
   rest.search = req.user.displayName + '-' + rest.duration + '-' + rest.description;
-  if (!req.user.department) {
+  if (req.user.department) {
     rest.department = req.user.department._id || req.user.department;    
   }
   rest.roles = req.user.roles;
