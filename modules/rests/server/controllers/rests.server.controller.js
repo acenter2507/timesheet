@@ -33,7 +33,7 @@ exports.create = function (req, res) {
   // Create search support field
   rest.search = rest.user.displayName + rest.duration + rest.description;
   rest.department = req.user.department._id || req.user.department;
-  rest.roles = req.roles;
+  rest.roles = req.user.roles;
   rest.save((err, rest) => {
     console.log(err);
     if (err)
