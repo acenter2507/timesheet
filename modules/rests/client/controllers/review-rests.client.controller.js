@@ -124,7 +124,7 @@
         }
         vm.events.push({
           id: rest._id.toString(),
-          title: rest.holiday.name,
+          title: rest.user.displayName + '・' + rest.holiday.name,
           color: color,
           startsAt: moment(rest.start).toDate(),
           endsAt: moment(rest.end).toDate(),
