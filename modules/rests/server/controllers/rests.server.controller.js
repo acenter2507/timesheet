@@ -85,23 +85,13 @@ exports.update = function (req, res) {
  */
 exports.approve = function (req, res) {
   var rest = req.rest;
-  console.log(rest);
-  console.log(res.body);
-  res.end();
-
-  // rest = _.extend(rest, req.body);
-  // // Create search support field
-  // rest.search = rest.user.displayName + rest.duration + rest.description;
-
-  // rest.save(function (err) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   } else {
-  //     res.jsonp(rest);
-  //   }
-  // });
+  rest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
+  rest.status = 3;
+  rest.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: '承認処理が完了できません。'});
+    return res.jsonp(rest);
+  });
 };
 
 /**
@@ -109,23 +99,13 @@ exports.approve = function (req, res) {
  */
 exports.reject = function (req, res) {
   var rest = req.rest;
-  console.log(rest);
-  console.log(req.body);
-  res.end();
-
-  // rest = _.extend(rest, req.body);
-  // // Create search support field
-  // rest.search = rest.user.displayName + rest.duration + rest.description;
-
-  // rest.save(function (err) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   } else {
-  //     res.jsonp(rest);
-  //   }
-  // });
+  rest.historys.push({ action: 4, comment: req.body.data.comment, timing: new Date(), user: req.user._id });
+  rest.status = 4;
+  rest.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: '拒否処理が完了できません。'});
+    return res.jsonp(rest);
+  });
 };
 
 /**
