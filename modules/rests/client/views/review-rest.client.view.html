@@ -129,6 +129,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th>オーナー</th>
             <th>形態</th>
             <th>開始</th>
             <th>終了</th>
@@ -143,6 +144,10 @@
             <td colspan="7">データが見つかりません。</td>
           </tr>
           <tr ng-repeat="rest in vm.rests track by $index">
+            <td>
+              <img class="user-common-avatar-small" src="{{rest.user.profileImageURL}}">
+              <a ng-click="vm.handleViewDetailUser(rest.user)">{{rest.user.displayName}}</a>
+            </td>
             <td>{{ rest.holiday.name }}</td>
             <td>{{ rest.start | LL }}</td>
             <td>{{ rest.end | LL }}</td>

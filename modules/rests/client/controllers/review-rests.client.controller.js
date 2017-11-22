@@ -142,7 +142,6 @@
       RestsApi.getRestReview(vm.condition, vm.page)
         .success(res => {
           vm.rests = res.docs;
-          console.log(vm.rests);
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
           prepareCalendar();
@@ -191,6 +190,14 @@
     vm.handleViewHistory = rest => {
       vm.isShowHistory = true;
       vm.historys = rest.historys;
+    };
+    // View user detail page
+    vm.handleViewDetailUser = user => {
+      if ($scope.isAdmin || $scope.isAccountant) {
+        return $state.go('users.view', { userId: user._id });
+      } else {
+        return $state.go('profile.view', { userId: user._id });
+      }
     };
   }
 }());
