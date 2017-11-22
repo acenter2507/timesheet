@@ -110,7 +110,7 @@ exports.approve = function (req, res) {
 exports.reject = function (req, res) {
   var rest = req.rest;
   console.log(rest);
-  console.log(res.body);
+  console.log(req.body);
   res.end();
 
   // rest = _.extend(rest, req.body);

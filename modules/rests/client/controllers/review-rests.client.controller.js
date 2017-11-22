@@ -191,12 +191,10 @@
         templateUrl: 'commentTemplate.html',
         scope: $scope
       }).then(comment => {
-        console.log(comment);
         delete $scope.comment;
         $scope.handleShowConfirm({
           message: 'この休暇を拒否しますか？'
         }, () => {
-          console.log(comment);
           RestsApi.reject(rest._id, { comment: comment })
             .success(data => {
               console.log(data);
