@@ -174,7 +174,12 @@ exports.getRestOfCurrentUser = function (req, res) {
     sort: condition.sort,
     page: page,
     populate: [
-      { path: 'holiday', select: 'name isPaid' }
+      { path: 'holiday', select: 'name isPaid' },
+      {
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      },
     ],
     limit: 10
   }).then(function (rests) {
