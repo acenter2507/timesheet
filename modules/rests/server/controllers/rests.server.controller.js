@@ -110,7 +110,7 @@ exports.approve = function (req, res) {
  */
 exports.reject = function (req, res) {
   var rest = req.rest;
-  rest.historys.push({ action: 4, comment: req.body.data.comment, timing: new Date(), user: req.user._id });
+  rest.historys.push({ action: 5, comment: req.body.data.comment, timing: new Date(), user: req.user._id });
   rest.status = 4;
   rest.save((err, rest) => {
     if (err)
