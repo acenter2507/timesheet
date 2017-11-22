@@ -153,7 +153,6 @@
               <div>{{ rest.start | LL }}</div>
               <div>{{ rest.end | LL }}</div>
             </td>
-            <td></td>
             <td>{{ rest.duration }}</td>
             <td>{{ rest.description | nl2br }}</td>
             <td ng-switch="rest.status">
@@ -187,7 +186,7 @@
         <button ng-show="vm.isShowHistory" class="btn btn-default btn-sm pull-right" ng-click="vm.isShowHistory = false;">歴史表を閉じる</button>
       </div>
       <div class="clearfix"></div>
-      <table class="table table-bordered" ng-show="isShowHistory">
+      <table class="table table-bordered" ng-show="vm.isShowHistory">
         <thead>
           <tr>
             <th>日付</th>
@@ -197,7 +196,14 @@
           </tr>
         </thead>
         <tbody>
-          
+          <tr ng-repeat="history in vm.historys">
+            <td>{{history.timing | LLLL}}</td>
+            <td>{{history.action | RestActionFilter}}</td>
+            <td>{{history.action | nl2br}}</td>
+            <td>
+              <a ng-click="vm.handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

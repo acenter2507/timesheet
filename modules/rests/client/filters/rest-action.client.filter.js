@@ -3,21 +3,23 @@
 
   angular
     .module('rests')
-    .filter('RestStatusFilter', RestStatusFilter);
+    .filter('RestActionFilter', RestActionFilter);
 
-  function RestStatusFilter() {
+  function RestActionFilter() {
     return function (status) {
       switch (status) {
         case 1:
-          return '未申請';
+          return '作成';
         case 2:
-          return '期待中';
+          return '編集';
         case 3:
-          return '確認済';
+          return '送信';
         case 4:
-          return '拒否';
+          return '承認';
         case 5:
-          return '終了';
+          return '拒否';
+        case 6:
+          return '使用';
         default:
           return '不明';
       }

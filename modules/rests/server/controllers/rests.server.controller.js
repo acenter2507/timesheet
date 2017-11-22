@@ -33,7 +33,7 @@ exports.create = function (req, res) {
   // Create search support field
   rest.search = req.user.displayName + '-' + rest.duration + '-' + rest.description;
   if (req.user.department) {
-    rest.department = req.user.department._id || req.user.department;    
+    rest.department = req.user.department._id || req.user.department;
   }
   rest.roles = req.user.roles;
   rest.save((err, rest) => {
@@ -237,7 +237,12 @@ exports.getRestReview = function (req, res) {
     page: page,
     populate: [
       { path: 'holiday', select: 'name isPaid' },
-      { path: 'user', select: 'displayName profileImageURL' }
+      { path: 'user', select: 'displayName profileImageURL' },
+      {
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      },
     ],
     limit: condition.limit
   }).then(function (rests) {

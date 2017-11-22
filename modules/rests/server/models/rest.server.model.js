@@ -38,7 +38,7 @@ var RestSchema = new Schema({
   // Create date
   created: { type: Date, default: Date.now },
   historys: [{
-    // Action of history 1:Created - 2:Updated - 3:Send - 4:Approved - 5:Rejected - 6:Cancel
+    // Action of history 1:Created - 2:Updated - 3:Send - 4:Approved - 5:Rejected - 6:Using
     action: { type: Number },
     // Comment of history
     comment: { type: String },
