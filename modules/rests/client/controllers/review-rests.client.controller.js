@@ -142,6 +142,7 @@
       RestsApi.getRestReview(vm.condition, vm.page)
         .success(res => {
           vm.rests = res.docs;
+          console.log(vm.rests);
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
           prepareCalendar();
