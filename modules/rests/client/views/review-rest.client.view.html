@@ -139,7 +139,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-show="vm.rests.length === 0">データが見つかりません。</tr>
+          <tr ng-show="vm.rests.length === 0">
+            <td colspan="7">データが見つかりません。</td>
+          </tr>
           <tr ng-repeat="rest in vm.rests track by $index">
             <td>{{ rest.holiday.name }}</td>
             <td>{{ rest.start | LL }}</td>
