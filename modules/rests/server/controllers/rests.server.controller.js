@@ -65,23 +65,41 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var rest = req.rest;
   rest = _.extend(rest, req.body);
+  
+  // 有給休暇の日数を確認
+  if (req.body.isPaid && rest.duration > req.user.company.paidHolidayCnt) {
+    return res.status(400).send({ message: '有給休暇の残日が不足です。' });
+  }
+
   rest.status = 1;
   rest.historys.push({ action: 2, comment: '', timing: new Date(), user: req.user._id });
 
   if (req.body.isSendWhenSave) {
     rest.status = 2;
-    rest.historys.push({ action: 3, comment: '', timing: new Date(), user: rest.user });
+    rest.historys.push({ action: 3, comment: '', timing: new Date(), user: req.user._id });
   }
-  // Create search support field
+  if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
+    rest.status = 3;
+    rest.historys.push({ action: 4, comment: '', timing: new Date(), user: rest.user });
+  }
+  // Create search support fielduser
   rest.search = rest.user.displayName + rest.duration + rest.description;
 
-  rest.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(rest);
+  // Create search support field
+  rest.search = req.user.displayName + '-' + rest.duration + '-' + rest.description;
+  if (req.user.department) {
+    rest.department = req.user.department._id || req.user.department;
+  }
+
+  rest.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+    res.jsonp(rest);
+    if (rest.status === 2) {
+      // 有給休暇の残日を計算する
+      var newHolidayCnt = req.user.company.paidHolidayCnt - rest.duration;
+      User.updateHolidays(req.user._id, newHolidayCnt);
+      /* TODO */
     }
   });
 };
