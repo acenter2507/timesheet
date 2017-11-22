@@ -230,7 +230,8 @@ exports.getRestReview = function (req, res) {
     sort: condition.sort,
     page: page,
     populate: [
-      { path: 'holiday', select: 'name isPaid' }
+      { path: 'holiday', select: 'name isPaid' },
+      { path: 'user', select: 'displayName profileImageURL' }
     ],
     limit: condition.limit
   }).then(function (rests) {
