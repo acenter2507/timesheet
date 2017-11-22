@@ -139,6 +139,7 @@
           </tr>
         </thead>
         <tbody>
+          <tr ng-show="vm.rests.length === 0">データが見つかりません。</tr>
           <tr ng-repeat="rest in vm.rests track by $index">
             <td>{{ rest.holiday.name }}</td>
             <td>{{ rest.start | LL }}</td>
@@ -162,7 +163,7 @@
         </tbody>
       </table>
       <!-- Pagination -->
-      <ul class="pagination mg10y">
+      <ul class="pagination mg10y" ng-show="vm.pages.length > 1">
         <li ng-repeat="page in vm.pages" ng-class="{'active': page === vm.page}">
           <a ng-click="vm.handlePageChanged(page)">{{page}}</a>
         </li>
