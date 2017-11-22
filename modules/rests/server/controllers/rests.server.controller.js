@@ -115,7 +115,7 @@ exports.reject = function (req, res) {
     Rest.findOne(rest).populate({
       path: 'historys',
       populate: {
-        path: 'friends',
+        path: 'user',
         select: 'displayName profileImageURL',
         model: 'User'
       }
