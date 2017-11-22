@@ -112,10 +112,13 @@ exports.reject = function (req, res) {
   rest.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: '拒否処理が完了できません。' });
-    Rest.findOne(rest).populate('historys', {
-      path: 'user',
-      select: 'displayName profileImageURL',
-      model: 'User'
+    Rest.findOne(rest).populate({
+      path: 'historys',
+      populate: {
+        path: 'friends',
+        select: 'displayName profileImageURL',
+        model: 'User'
+      }
     }).exec((err, rest) => {
       if (err)
         return res.status(400).send({ message: '新しいデータを取得できません。' });
