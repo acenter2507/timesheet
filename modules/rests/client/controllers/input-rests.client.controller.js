@@ -86,6 +86,7 @@
         return false;
       }
       vm.busy = true;
+      console.log(vm.rest.holiday);
       var holiday = _.findWhere(vm.holidays, { _id: vm.rest.holiday });
       vm.rest.isPaid = holiday.isPaid;
       if (vm.rest._id) {
