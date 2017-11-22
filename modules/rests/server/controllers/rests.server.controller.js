@@ -219,8 +219,11 @@ exports.getRestReview = function (req, res) {
     and_arr.push({ roles: { $ne: ['manager', 'admin', 'accountant'] } });
   } else {
     if (condition.department) {
-      if (condition.department)
-      and_arr.push({ department: condition.department });
+      if (condition.department === 'empty') {
+        and_arr.push({ department: null });
+      } else {
+        and_arr.push({ department: condition.department });
+      }
     }
     if (condition.roles) {
       and_arr.push({ roles: condition.roles });
