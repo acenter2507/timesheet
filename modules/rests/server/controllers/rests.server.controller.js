@@ -35,6 +35,7 @@ exports.create = function (req, res) {
   rest.department = req.user.department._id || req.user.department;
   rest.roles = req.roles;
   rest.save((err, rest) => {
+    console.log(err);
     if (err)
       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
     res.jsonp(rest);
