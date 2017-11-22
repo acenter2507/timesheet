@@ -90,10 +90,13 @@ exports.approve = function (req, res) {
   rest.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: '承認処理が完了できません。' });
-    Rest.findOne(rest).populate('historys', {
-      path: 'user',
-      select: 'displayName profileImageURL',
-      model: 'User'
+    Rest.findOne(rest).populate({
+      path: 'historys',
+      populate: {
+        path: 'user',
+        select: 'displayName profileImageURL',
+        model: 'User'
+      }
     }).exec((err, rest) => {
       if (err)
         return res.status(400).send({ message: '新しいデータを取得できません。' });

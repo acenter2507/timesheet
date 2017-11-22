@@ -179,7 +179,7 @@
       }, () => {
         RestsApi.approve(rest._id)
           .success(data => {
-            console.log(data);
+            _.extend(rest, data);
           })
           .error(err => {
             console.log(err);
@@ -197,7 +197,7 @@
         }, () => {
           RestsApi.reject(rest._id, { comment: comment })
             .success(data => {
-              console.log(data);
+              _.extend(rest, data);
             })
             .error(err => {
               console.log(err);
