@@ -130,7 +130,7 @@
           </tr>
           <tr>
             <td>事由：</td>
-            <td>{{ vm.rest.description | nl2br }}</td>
+            <td><p ng-bind-html="vm.rest.description | nl2br"></p></td>
           </tr>
         </table>
         <div class="form-group" ng-if="!vm.rest.isCurrentUserOwner">
