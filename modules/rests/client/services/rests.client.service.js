@@ -24,6 +24,12 @@
     this.getRestReview = (condition, page) => {
       return $http.post('/api/rests/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
+    this.approve = restId => {
+      return $http.post('/api/rests/' + restId + '/approve', { ignoreLoadingBar: true });
+    };
+    this.reject = (restId, data) => {
+      return $http.post('/api/rests/' + restId + '/reject', { data: data }, { ignoreLoadingBar: true });
+    };
     
     return this;
   }

@@ -19,7 +19,8 @@ module.exports = function(app) {
     .get(rests.read)
     .put(rests.update)
     .delete(rests.delete);
-
+  app.route('/api/rests/:restId/approve').all(restsPolicy.isAllowed).post(rests.approve);
+  app.route('/api/rests/:restId/reject').all(restsPolicy.isAllowed).post(rests.reject);
   // Finish by binding the Rest middleware
   app.param('restId', rests.restByID);
 };

@@ -11,9 +11,9 @@
         case 1:
           return '未申請';
         case 2:
-          return '期待中';
+          return '確認中';
         case 3:
-          return '確認済';
+          return '承認';
         case 4:
           return '拒否';
         case 5:

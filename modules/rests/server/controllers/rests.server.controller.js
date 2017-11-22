@@ -81,6 +81,54 @@ exports.update = function (req, res) {
 };
 
 /**
+ * Approve a Rest
+ */
+exports.approve = function (req, res) {
+  var rest = req.rest;
+  console.log(rest);
+  console.log(res.body);
+  res.end();
+
+  // rest = _.extend(rest, req.body);
+  // // Create search support field
+  // rest.search = rest.user.displayName + rest.duration + rest.description;
+
+  // rest.save(function (err) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     res.jsonp(rest);
+  //   }
+  // });
+};
+
+/**
+ * Approve a Rest
+ */
+exports.reject = function (req, res) {
+  var rest = req.rest;
+  console.log(rest);
+  console.log(res.body);
+  res.end();
+
+  // rest = _.extend(rest, req.body);
+  // // Create search support field
+  // rest.search = rest.user.displayName + rest.duration + rest.description;
+
+  // rest.save(function (err) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     res.jsonp(rest);
+  //   }
+  // });
+};
+
+/**
  * Delete an Rest
  */
 exports.delete = function (req, res) {

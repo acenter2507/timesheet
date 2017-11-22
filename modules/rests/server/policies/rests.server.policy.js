@@ -20,6 +20,12 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/rests/:restId',
       permissions: '*'
+    }, {
+      resources: '/api/rests/:restId/approve',
+      permissions: ['post']
+    }, {
+      resources: '/api/rests/:restId/reject',
+      permissions: ['post']
     }]
   }, {
     roles: ['user'],
@@ -38,6 +44,12 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/rests/:restId',
       permissions: '*'
+    }, {
+      resources: '/api/rests/:restId/approve',
+      permissions: ['post']
+    }, {
+      resources: '/api/rests/:restId/reject',
+      permissions: ['post']
     }]
   }, {
     roles: ['manager'],
@@ -47,6 +59,12 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/rests/:restId',
       permissions: ['get', 'put']
+    }, {
+      resources: '/api/rests/:restId/approve',
+      permissions: ['post']
+    }, {
+      resources: '/api/rests/:restId/reject',
+      permissions: ['post']
     }]
   }]);
 };

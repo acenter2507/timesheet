@@ -1,3 +1,5 @@
+import { delete } from "../../server/controllers/rests.server.controller";
+
 (function () {
   'use strict';
 
@@ -5,9 +7,9 @@
     .module('rests')
     .controller('RestsReviewController', RestsReviewController);
 
-  RestsReviewController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', 'DepartmentsService'];
+  RestsReviewController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', 'DepartmentsService', 'ngDialog'];
 
-  function RestsReviewController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, DepartmentsService) {
+  function RestsReviewController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, DepartmentsService, ngDialog) {
     var vm = this;
     vm.busy = false;
     vm.page = 1;
@@ -173,13 +175,40 @@
     vm.handleRestClicked = calendarEvent => {
       $state.go('rests.view', { restId: calendarEvent.id });
     };
-    vm.handleChangeRestStatus = status => {
-      if (status !== 2) return;
+    vm.handleApproveRest = rest => {
       $scope.handleShowConfirm({
-        message: '休暇を申請しますか？'
+        message: 'この休暇を承認しますか？'
       }, () => {
-        console.log('bbb');
+        RestsApi.approve(rest._id)
+          .success(data => {
+            console.log(data);
+          })
+          .error(err => {
+            console.log(err);
+          });
       });
+    };
+    vm.handleRejectRest = rest => {
+      ngDialog.openConfirm({
+        templateUrl: 'commentTemplate.html',
+        scope: $scope
+      }).then(comment => {
+        delete $scope.comment;
+        $scope.handleShowConfirm({
+          message: 'この休暇を拒否しますか？'
+        }, () => {
+          RestsApi.reject(rest._id, { comment: comment })
+            .success(data => {
+              console.log(data);
+            })
+            .error(err => {
+              console.log(err);
+            });
+        });
+      }, () => {
+        delete $scope.comment;
+      });
+
     };
     vm.handleDeleteRest = rest => {
       $scope.handleShowConfirm({

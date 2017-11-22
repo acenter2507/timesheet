@@ -156,16 +156,15 @@
             <td>{{ rest.duration }}</td>
             <td>{{ rest.description | nl2br }}</td>
             <td ng-switch="rest.status">
-              <span class="label label-default" ng-switch-when="1">未申請</span>
-              <span class="label label-warning" ng-switch-when="2">確認中</span>
-              <span class="label label-success" ng-switch-when="3">承認</span>
-              <span class="label label-danger" ng-switch-when="4">拒否</span>
-              <span class="label label-primary" ng-switch-when="5">済み</span>
+              <span class="label label-default" ng-switch-when="1">{{ rest.status || RestStatusFilter}}</span>
+              <span class="label label-warning" ng-switch-when="2">{{ rest.status || RestStatusFilter}}</span>
+              <span class="label label-success" ng-switch-when="3">{{ rest.status || RestStatusFilter}}</span>
+              <span class="label label-danger" ng-switch-when="4">{{ rest.status || RestStatusFilter}}</span>
+              <span class="label label-primary" ng-switch-when="5">{{ rest.status || RestStatusFilter}}</span>
             </td>
             <td>
-              <a ng-if="rest.status === 1" class="btn btn-primary btn-xs" ng-click="vm.handleChangeRestStatus(2)">申請</a>
-              <a ng-if="rest.status === 1 || rest.status === 4" class="btn btn-success btn-xs" ui-sref="rests.edit({ restId: rest._id })">編集</a>
-              <a ng-if="rest.status === 1 || rest.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleDeleteRest(rest)">削除</a>
+              <a ng-if="rest.status === 2" class="btn btn-primary btn-xs" ng-click="vm.handleApproveRest(rest)">承認する</a>
+              <a ng-if="rest.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleRejectRest(rest)">拒否する</a>
               <a class="btn btn-info btn-xs" ng-click="vm.handleViewHistory(rest)">歴史</a>
             </td>
           </tr>
@@ -209,3 +208,14 @@
     </div>
   </div>
 </div>
+
+<!-- コメント入力 -->
+<script type="text/ng-template" id="commentTemplate.html">
+  <p>何かコメントがあればご記入してください！</p>
+  <textarea name="description" class="form-control" data-ng-model="comment" required></textarea>
+  <div class="form-group mg12t mgnb">
+    <button class="btn btn-default pull-right" ng-click="closeThisDialog()">キャンセル</button>
+    <button class="btn btn-primary pull-right mg10r" ng-click="confirm(comment)">送信</button>
+    <div class="clearfix"></div>
+  </div>
+</script>
