@@ -64,8 +64,14 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var rest = req.rest;
-
   rest = _.extend(rest, req.body);
+  rest.status = 1;
+  rest.historys.push({ action: 2, comment: '', timing: new Date(), user: req.user._id });
+
+  if (req.body.isSendWhenSave) {
+    rest.status = 2;
+    rest.historys.push({ action: 3, comment: '', timing: new Date(), user: rest.user });
+  }
   // Create search support field
   rest.search = rest.user.displayName + rest.duration + rest.description;
 
@@ -118,6 +124,9 @@ exports.reject = function (req, res) {
   rest.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: '拒否処理が完了できません。' });
+    // 有給休暇の残日を計算する
+    var newHolidayCnt = rest.user.company.paidHolidayCnt + rest.duration;
+    User.updateHolidays(req.user._id, newHolidayCnt);
     Rest.findOne(rest)
       .populate({
         path: 'historys',
