@@ -113,13 +113,6 @@
       });
     };
 
-    // Remove existing Rest
-    // function remove() {
-    //   if ($window.confirm('Are you sure you want to delete?')) {
-    //     vm.rest.$remove($state.go('rests.list'));
-    //   }
-    // }
-
     // Trở về màn hình trước
     function handlePreviousScreen() {
       $state.go($state.previous.state.name || 'home', $state.previous.params);
