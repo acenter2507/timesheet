@@ -65,12 +65,10 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var rest = req.rest;
   rest = _.extend(rest, req.body);
-  
   // 有給休暇の日数を確認
   if (req.body.isPaid && rest.duration > req.user.company.paidHolidayCnt) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
-
   rest.status = 1;
   rest.historys.push({ action: 2, comment: '', timing: new Date(), user: req.user._id });
 
@@ -78,6 +76,7 @@ exports.update = function (req, res) {
     rest.status = 2;
     rest.historys.push({ action: 3, comment: '', timing: new Date(), user: req.user._id });
   }
+
   if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
     rest.status = 3;
     rest.historys.push({ action: 4, comment: '', timing: new Date(), user: rest.user });
@@ -101,6 +100,26 @@ exports.update = function (req, res) {
       User.updateHolidays(req.user._id, newHolidayCnt);
       /* TODO */
     }
+  });
+};
+
+/**
+ * Send request a Rest
+ */
+exports.request = function (req, res) {
+  var rest = req.rest;
+  if (rest.status != 1) {
+    return res.status(400).send({ message: '休暇の状態が無効になっています。' });
+  }
+  rest.status = 2;
+  rest.historys.push({ action: 3, comment: '', timing: new Date(), user: rest.user });
+  rest.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+    res.jsonp(rest);
+    // 有給休暇の残日を計算する
+    var newHolidayCnt = req.user.company.paidHolidayCnt - rest.duration;
+    User.updateHolidays(req.user._id, newHolidayCnt);
   });
 };
 

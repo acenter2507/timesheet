@@ -30,6 +30,9 @@
     this.reject = (restId, data) => {
       return $http.post('/api/rests/' + restId + '/reject', { data: data }, { ignoreLoadingBar: true });
     };
+    this.request = restId => {
+      return $http.post('/api/rests/' + restId + '/request', null, { ignoreLoadingBar: true });
+    };
     
     return this;
   }

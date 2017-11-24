@@ -35,6 +35,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/rests/:restId',
       permissions: ['get']
+    }, {
+      resources: '/api/rests/:restId/request',
+      permissions: ['post']
     }]
   }, {
     roles: ['accountant'],
