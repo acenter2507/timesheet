@@ -181,12 +181,9 @@
     vm.handleViewHistory = rest => {
       vm.isShowHistory = true;
       vm.historys = rest.historys;
-
-      $document.scrollToElementAnimated(vm.historyBox, 100);
     };
     vm.handleCloseHistory = () => {
       vm.isShowHistory = false;
-      $document.scrollToElementAnimated(vm.restsBox, 100);
     };
   }
 }());
