@@ -10,7 +10,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore'),
   m = require('moment-timezone');
-  console.log(m.tz("America/Los_Angeles").format());
+  console.log(m.tz("Asia/Tokyo").format());
 
 /**
  * Create a Rest
