@@ -382,7 +382,7 @@ function isConflictRest(rest) {
   return new Promise((resolve, reject) => {
     Rest.find({ user: rest.user }).exec((err, rests) => {
       rests.forEach(element => {
-        if (_moment(rest.start).isBetween(element.start, element.end) || _moment(rest.start).isBetween(element.start, element.end)) {
+        if (_moment(rest.start).isBetween(element.start, element.end, null, '[]') || _moment(rest.start).isBetween(element.start, element.end, null, '[]')) {
           return resolve(false);
         }
       });
