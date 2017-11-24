@@ -10,9 +10,9 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore'),
   _moment = require('moment');
-  // m.tz.setDefault("Asia/Tokyo");
-  var date = new _moment();
-  console.log("xxx", date.format());
+// m.tz.setDefault("Asia/Tokyo");
+var date = new _moment();
+console.log("xxx", date.format());
 
 /**
  * Create a Rest
@@ -380,7 +380,7 @@ function isConflictRest(rest, userId) {
   return new Promise((resolve, reject) => {
     Rest.find({ user: userId }).exec((err, rests) => {
       rests.forEach(element => {
-        
+
       });
     });
   });
