@@ -239,7 +239,7 @@ exports.restByID = function (req, res, next, id) {
   }
 
   Rest.findById(id)
-    .populate('user', 'displayName roles leaders profileImageURL email')
+    .populate('user', 'displayName roles leaders profileImageURL email company')
     .populate('holiday', 'name isPaid').exec(function (err, rest) {
       if (err) {
         return next(err);
