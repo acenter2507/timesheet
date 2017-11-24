@@ -134,19 +134,13 @@
       });
 
     };
-
-    vm.handleChangeRestStatus = status => {
-      var message = '';
-      switch (status) {
-        case 2: { message = '休暇を申請しますか？'; break; }
-        case 3: { message = '休暇を承認しますか？'; break; }
-        case 4: { message = '休暇を拒否しますか？'; break; }
+    // View user detail page
+    vm.handleViewDetailUser = user => {
+      if ($scope.isAdmin || $scope.isAccountant) {
+        return $state.go('users.view', { userId: user._id });
+      } else {
+        return $state.go('profile.view', { userId: user._id });
       }
-      $scope.handleShowConfirm({
-        message: message
-      }, () => {
-        console.log('bbb');
-      });
     };
 
     // Trở về màn hình trước
