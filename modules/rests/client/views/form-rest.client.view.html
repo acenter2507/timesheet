@@ -112,11 +112,11 @@
         <!-- Check box -->
         <div class="form-group" ng-if="isUser">
           <div class="checkbox" ng-if="vm.rest.status === 1 || vm.rest.status === 4">
-            <label>
-              <input type="checkbox" ng-model="vm.rest.isSendWhenSave" value="">保存する際に申請する</label>
+            <label><input type="checkbox" ng-model="vm.rest.isSendWhenSave" value="">保存する際に申請する</label>
           </div>
         </div>
       </form>
+      <pre>{{vm.form.restForm}}</pre>
     </div>
   </div>
 </div>
