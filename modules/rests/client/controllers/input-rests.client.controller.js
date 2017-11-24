@@ -62,6 +62,8 @@
         }
 
         // 選択された範囲チェック
+        console.log(vm.rest.start);
+        console.log(vm.rest.end);
         if (cell.date.isBetween(moment(vm.rest.start, 'YYYY/MM/DD').format(), moment(vm.rest.end, 'YYYY/MM/DD').format(), null, '[]')) {
           cell.cssClass = 'selected-cell';
           return;
