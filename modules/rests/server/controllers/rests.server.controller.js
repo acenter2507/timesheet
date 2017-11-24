@@ -385,9 +385,8 @@ exports.getRestReview = function (req, res) {
 
 function isConflictRest(rest) {
   return new Promise((resolve, reject) => {
-    Rest.find({ user: rest.user }).exec((err, rests) => {
+    Rest.find({ user: rest.user, _id: { $ne: rest._id } }).exec((err, rests) => {
       rests.forEach(element => {
-        if (element._id === rest._id) return;
         if (_moment(rest.start).isBetween(element.start, element.end, null, '[]') || _moment(rest.end).isBetween(element.start, element.end, null, '[]') || _moment(element.start).isBetween(rest.start, rest.end, null, '[]') || _moment(element.end).isBetween(rest.start, rest.end, null, '[]')) {
           return resolve(false);
         }
