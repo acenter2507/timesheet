@@ -45,6 +45,9 @@
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = moment().startOf('month').toDate();
+      vm.tempStart = (typeof vm.rest.start === 'string') ? moment(vm.rest.start, 'YYYY/MM/DD').format() : vm.rest.start;
+      vm.tempEnd = (typeof vm.rest.end === 'string') ? moment(vm.rest.end, 'YYYY/MM/DD').format() : vm.rest.end;
+
       vm.calendar.cellModifier = function (cell) {
         // cell.cssClass = 'odd-cell';
         var date = cell.date.format('YYYY/MM/DD');
@@ -62,9 +65,7 @@
         }
 
         // 選択された範囲チェック
-        console.log(typeof vm.rest.start);
-        console.log(typeof vm.rest.end);
-        if (cell.date.isBetween(moment(vm.rest.start, 'YYYY/MM/DD').format(), moment(vm.rest.end, 'YYYY/MM/DD').format(), null, '[]')) {
+        if (cell.date.isBetween(vm.tempStart, vm.tempEnd, null, '[]')) {
           cell.cssClass = 'selected-cell';
           return;
         }
