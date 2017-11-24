@@ -26,14 +26,14 @@
         return handlePreviousScreen();
       }
       // 休暇の本人のリーダじゃない場合
-      if (CommonService.isUser(vm.rest.user.roles) && $scope.isManager) {
+      if (CommonService.isMember(vm.rest.user.roles) && $scope.isManager) {
         if (!_.contains(vm.rest.user.leaders, $scope.user._id.toString())) {
           $scope.handleShowToast('この休暇をみる権限がありません。', true);
           return handlePreviousScreen();
         }
       }
       // 本人はマネジャーで現在のユーザーは経理じゃない場合
-      if (CommonService.isManager(vm.rest.user.roles) && ($scope.isManager || $scope.isUser)) {
+      if (CommonService.isManager(vm.rest.user.roles) && ($scope.isManager || $scope.)) {
         $scope.handleShowToast('この休暇をみる権限がありません。', true);
         return handlePreviousScreen();
       }
