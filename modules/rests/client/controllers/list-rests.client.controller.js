@@ -89,7 +89,6 @@
         var actions = [];
         switch (rest.status) {
           case 1: { // Not send
-            color = undefined;
             color = { primary: '#777', secondary: '#e3e3e3' };
             actions.push(vm.action.remove);
             actions.push(vm.action.edit);
@@ -107,6 +106,7 @@
           case 4: { // Rejected
             color = { primary: '#d9534f', secondary: '#fae3e3' };
             actions.push(vm.action.remove);
+            actions.push(vm.action.edit);
             break;
           }
           case 5: { // Done

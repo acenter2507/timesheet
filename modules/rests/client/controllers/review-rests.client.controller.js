@@ -68,13 +68,15 @@
         approve: {
           label: '<i class=\'fa fa-check-square-o\'></i>',
           onClick: function (args) {
-            console.log('Edited', args.calendarEvent);
+            var rest = _.findWhere(vm.rests, { _id: args.calendarEvent.id });
+            vm.handleApproveRest(rest);
           }
         },
         reject: {
           label: '<i class=\'fa fa-minus-circle\'></i>',
           onClick: function (args) {
-            console.log('Edited', args.calendarEvent);
+            var rest = _.findWhere(vm.rests, { _id: args.calendarEvent.id });
+            vm.handleRejectRest(rest);
           }
         }
       };
@@ -100,13 +102,12 @@
           case 1: { // Not send
             color = undefined;
             color = { primary: '#777', secondary: '#e3e3e3' };
-            actions.push(vm.action.remove);
-            actions.push(vm.action.edit);
             break;
           }
           case 2: { // Waiting
             color = { primary: '#f0ad4e', secondary: '#fae6c9' };
-            actions.push(vm.action.remove);
+            actions.push(vm.action.approve);
+            actions.push(vm.action.reject);
             break;
           }
           case 3: { // Approved
@@ -115,7 +116,6 @@
           }
           case 4: { // Rejected
             color = { primary: '#d9534f', secondary: '#fae3e3' };
-            actions.push(vm.action.remove);
             break;
           }
           case 5: { // Done
