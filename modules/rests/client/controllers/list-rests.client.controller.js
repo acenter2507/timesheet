@@ -176,7 +176,10 @@
       $scope.handleShowConfirm({
         message: '削除しますか？'
       }, () => {
-        console.log('bbb');
+        var rsRest = new RestsService({ _id: rest._id });
+        rsRest.$remove(() => {
+          vm.rests = _.without(vm.rests, rest);
+        });
       });
     };
     vm.handleViewHistory = rest => {
