@@ -216,11 +216,11 @@
       vm.isShowHistory = true;
       vm.historys = rest.historys;
 
-      $document.scrollToElementAnimated(historyBox, 100);
+      $document.scrollToElementAnimated(vm.historyBox, 100);
     };
     vm.handleCloseHistory = () => {
       vm.isShowHistory = false;
-      $document.scrollToElementAnimated(restsBox, 100);
+      $document.scrollToElementAnimated(vm.restsBox, 100);
     };
     // View user detail page
     vm.handleViewDetailUser = user => {
