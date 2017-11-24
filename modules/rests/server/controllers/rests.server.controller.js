@@ -24,7 +24,7 @@ exports.create = function (req, res) {
   }
 
   isConflictRest(rest).then(result => {
-    if (!result) return res.status(400).send({ message: '休暇日程が既に登録されました。' });
+    if (!result) return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
 
     rest.historys = [{ action: 1, comment: '', timing: rest.created, user: rest.user }];
     if (req.body.isSendWhenSave) {
