@@ -21,6 +21,9 @@ exports.create = function (req, res) {
   if (req.body.isPaid && rest.duration > req.user.company.paidHolidayCnt) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
+  Rest.find({ user: req.user._id }).exec((err, rests) => {
+    console.log(rests);
+  });
   rest.historys = [{ action: 1, comment: '', timing: rest.created, user: rest.user }];
   if (req.body.isSendWhenSave) {
     rest.status = 2;
