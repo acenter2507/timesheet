@@ -164,7 +164,7 @@ exports.reject = function (req, res) {
     // 有給休暇の残日を計算する
     console.log(rest.user);
     var newHolidayCnt = rest.user.company.paidHolidayCnt + rest.duration;
-    User.updateHolidays(req.user._id, newHolidayCnt);
+    User.updateHolidays(rest.user._id, newHolidayCnt);
     Rest.findOne(rest)
       .populate({
         path: 'historys',
