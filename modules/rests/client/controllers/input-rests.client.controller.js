@@ -21,8 +21,9 @@
         vm.rest.status = 1;
         vm.rest.duration = 0;
       } else {
-        vm.rest.start = moment(vm.rest.start).format();
-        vm.rest.end = moment(vm.rest.start).format();
+        vm.rest.start = moment(vm.rest.start).format('YYYY/MM/DD');
+        vm.rest.end = moment(vm.rest.start).format('YYYY/MM/DD');
+        console.log(moment(vm.rest.start));
       }
       prepareCalendar();
       prepareHodidays();
