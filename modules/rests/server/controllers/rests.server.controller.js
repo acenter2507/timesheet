@@ -330,6 +330,9 @@ exports.getRestReview = function (req, res) {
     and_arr.push({ status: condition.status });
   }
   if (_.contains(req.user.roles, 'manager')) {
+    if (!req.user.department) {
+      return res.jsonp([]);
+    }
     var department = req.user.department._id || req.user.department;
     and_arr.push({ department: department });
     and_arr.push({ roles: { $ne: ['manager', 'admin', 'accountant'] } });
