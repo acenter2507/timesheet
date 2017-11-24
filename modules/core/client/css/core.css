@@ -250,6 +250,7 @@ a:hover .header-profile-image {
 .dropdown-menu.dropdown-menu-right {
   margin-left: -160px; }
 
+body.ngdialog-open { overflow: initial !important; }
 .ngdialog-open{
   height: auto !important; }
 
