@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="form-group">
-        <a ng-if="(vm.rest.status === 1 || vm.rest.status === 2) && vm.rest.isCurrentUserOwner" class="btn btn-danger pull-right mg5r"
+        <a ng-if="(vm.rest.status === 1 || vm.rest.status === 2 || vm.rest.status === 4) && vm.rest.isCurrentUserOwner" class="btn btn-danger pull-right mg5r"
           ng-click="vm.handleDeleteRest()">
           削除</a>
         <a ng-if="(vm.rest.status === 1 || vm.rest.status === 4) && vm.rest.isCurrentUserOwner" class="btn btn-success pull-right mg5r"
