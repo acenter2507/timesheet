@@ -10,7 +10,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore'),
   m = require('moment');
-  m.tz.setDefault("Asia/Tokyo");
+  // m.tz.setDefault("Asia/Tokyo");
   console.log(m().format());
 
 /**
