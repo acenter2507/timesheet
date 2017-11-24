@@ -164,14 +164,6 @@
     vm.handleRestClicked = calendarEvent => {
       $state.go('rests.view', { restId: calendarEvent.id });
     };
-    vm.handleChangeRestStatus = status => {
-      if (status !== 2) return;
-      $scope.handleShowConfirm({
-        message: '休暇を申請しますか？'
-      }, () => {
-        console.log('bbb');
-      });
-    };
     vm.handleDeleteRest = rest => {
       $scope.handleShowConfirm({
         message: '削除しますか？'
@@ -180,6 +172,19 @@
         rsRest.$remove(() => {
           vm.rests = _.without(vm.rests, rest);
         });
+      });
+    };
+    vm.handleSendRequestRest = rest => {
+      $scope.handleShowConfirm({
+        message: '休暇を申請しますか？'
+      }, () => {
+        RestsApi.request(rest._id)
+          .success(data => {
+            _.extend(rest, data);
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
       });
     };
     vm.handleViewHistory = rest => {
