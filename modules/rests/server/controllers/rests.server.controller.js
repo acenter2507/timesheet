@@ -170,6 +170,12 @@ exports.reject = function (req, res) {
 exports.delete = function (req, res) {
   var rest = req.rest;
 
+  if (rest.status === 2) {
+    // 有給休暇の残日を計算する
+    var newHolidayCnt = rest.user.company.paidHolidayCnt + rest.duration;
+    User.updateHolidays(req.user._id, newHolidayCnt);
+  }
+
   rest.remove(function (err) {
     if (err) {
       return res.status(400).send({
