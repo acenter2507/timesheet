@@ -98,6 +98,42 @@
           });
       });
     };
+    vm.handleApproveRest = () => {
+      $scope.handleShowConfirm({
+        message: 'この休暇を承認しますか？'
+      }, () => {
+        RestsApi.approve(vm.rest._id)
+          .success(data => {
+            _.extend(vm.rest, data);
+          })
+          .error(err => {
+            console.log(err);
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleRejectRest = () => {
+      ngDialog.openConfirm({
+        templateUrl: 'commentTemplate.html',
+        scope: $scope
+      }).then(comment => {
+        delete $scope.comment;
+        $scope.handleShowConfirm({
+          message: 'この休暇を拒否しますか？'
+        }, () => {
+          RestsApi.reject(vm.rest._id, { comment: comment })
+            .success(data => {
+              _.extend(vm.rest, data);
+            })
+            .error(err => {
+              $scope.handleShowToast(err.message, true);
+            });
+        });
+      }, () => {
+        delete $scope.comment;
+      });
+
+    };
 
     vm.handleChangeRestStatus = status => {
       var message = '';

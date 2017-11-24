@@ -182,7 +182,7 @@
             _.extend(rest, data);
           })
           .error(err => {
-            console.log(err);
+            $scope.handleShowToast(err.message, true);
           });
       });
     };
@@ -200,7 +200,7 @@
               _.extend(rest, data);
             })
             .error(err => {
-              console.log(err);
+              $scope.handleShowToast(err.message, true);
             });
         });
       }, () => {
