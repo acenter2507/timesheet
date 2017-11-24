@@ -9,9 +9,10 @@ var path = require('path'),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore'),
-  m = require('moment');
+  _moment = require('moment');
   // m.tz.setDefault("Asia/Tokyo");
-  console.log(m.format());
+  var date = new _moment();
+  console.log(date.format());
 
 /**
  * Create a Rest
