@@ -43,7 +43,7 @@
       .state('rests.edit', {
         url: '/:restId/edit',
         templateUrl: 'modules/rests/client/views/form-rest.client.view.html',
-        controller: 'RestsController',
+        controller: 'RestInputController',
         controllerAs: 'vm',
         resolve: { restResolve: getRest },
         data: { roles: ['user', 'admin', 'manager', 'accountant'] },
