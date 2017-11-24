@@ -215,8 +215,9 @@
     vm.handleViewHistory = rest => {
       vm.isShowHistory = true;
       vm.historys = rest.historys;
-
-      $document.scrollToElementAnimated(vm.historyBox, 100);
+      $document.scrollTop(400, 2000).then(function() {
+        console.log('You just scrolled to the top!');
+      });
     };
     vm.handleCloseHistory = () => {
       vm.isShowHistory = false;
