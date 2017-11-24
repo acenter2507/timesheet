@@ -6,9 +6,9 @@
     .module('rests')
     .controller('RestsController', RestsController);
 
-  RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService', 'DateUtil'];
+  RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService', 'DateUtil', 'RestsApi'];
 
-  function RestsController($scope, $state, rest, CommonService, DateUtil) {
+  function RestsController($scope, $state, rest, CommonService, DateUtil, RestsApi) {
     var vm = this;
     vm.rest = rest;
 
@@ -85,6 +85,20 @@
         vm.rest.$remove(handlePreviousScreen());
       });
     };
+    vm.handleSendRequestRest = () => {
+      $scope.handleShowConfirm({
+        message: '休暇を申請しますか？'
+      }, () => {
+        RestsApi.request(vm.rest._id)
+          .success(data => {
+            _.extend(vm.rest, data);
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          })
+      });
+    };
+
     vm.handleChangeRestStatus = status => {
       var message = '';
       switch (status) {
