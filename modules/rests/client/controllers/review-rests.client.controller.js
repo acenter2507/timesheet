@@ -15,6 +15,10 @@
     vm.total = 0;
     vm.isShowHistory = false;
     vm.historys = [];
+    vm.historyBox = angular.element(document.getElementById('rests-review-historys'));
+    vm.restsBox = angular.element(document.getElementById('rests-review-rests'));
+    vm.toolsBox = angular.element(document.getElementById('rests-review-tools'));
+    vm.calendarBox = angular.element(document.getElementById('rests-review-calendar'));
 
     onCreate();
     function onCreate() {
@@ -212,8 +216,11 @@
       vm.isShowHistory = true;
       vm.historys = rest.historys;
 
-      let historyBox = angular.element(document.getElementById('rests-review-historys'));
       $document.scrollToElementAnimated(historyBox, 100);
+    };
+    vm.handleCloseHistory = () => {
+      vm.isShowHistory = false;
+      $document.scrollToElementAnimated(restsBox, 100);
     };
     // View user detail page
     vm.handleViewDetailUser = user => {

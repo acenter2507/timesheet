@@ -40,7 +40,7 @@
     </div>
     <div class="col-sm-12 col-md-6">
       <!-- 検索ツール -->
-      <accordion close-others="true" ng-init="openAdvance = false;">
+      <accordion id="rests-list-tools" close-others="true" ng-init="openAdvance = false;">
         <accordion-group is-open="openAdvance">
           <accordion-heading>
             <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openAdvance}"></i> 検索ツール
@@ -112,7 +112,7 @@
         </accordion-group>
       </accordion>
       <!-- 休暇一覧 -->
-      <table class="table table-bordered">
+      <table id="rests-list-rests" class="table table-bordered">
         <thead>
           <tr>
             <th>形態</th>
@@ -159,10 +159,10 @@
       </ul>
       <!-- 歴史 -->
       <div class="form-group">
-        <button ng-show="vm.isShowHistory" class="btn btn-default btn-sm pull-right" ng-click="vm.isShowHistory = false;">歴史表を閉じる</button>
+        <button ng-show="vm.isShowHistory" class="btn btn-default btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
       </div>
       <div class="clearfix mg5y"></div>
-      <table class="table table-bordered" ng-show="vm.isShowHistory" id="rests-list-historys">
+      <table id="rests-list-historys" class="table table-bordered" ng-show="vm.isShowHistory">
         <thead>
           <tr>
             <th>日付</th>
