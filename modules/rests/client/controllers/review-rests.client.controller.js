@@ -215,12 +215,9 @@
     vm.handleViewHistory = rest => {
       vm.isShowHistory = true;
       vm.historys = rest.historys;
-
-      $document.scrollToElementAnimated(vm.historyBox, 0);
     };
     vm.handleCloseHistory = () => {
       vm.isShowHistory = false;
-      $document.scrollToElementAnimated(vm.toolsBox, 0);
     };
     // View user detail page
     vm.handleViewDetailUser = user => {
