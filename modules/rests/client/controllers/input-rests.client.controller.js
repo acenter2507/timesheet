@@ -116,8 +116,8 @@
         vm.rest.duration = 0;
         return;
       }
-      var start = (typeof vm.rest.start === 'string') ? moment(vm.rest.start, 'YYYY/MM/DD').format() : moment(vm.rest.start);
-      var end = (typeof vm.rest.end === 'string') ? moment(vm.rest.end, 'YYYY/MM/DD').format() : moment(vm.rest.end);
+      var start = (typeof vm.rest.start === 'string') ? moment(vm.rest.start, 'YYYY/MM/DD') : moment(vm.rest.start);
+      var end = (typeof vm.rest.end === 'string') ? moment(vm.rest.end, 'YYYY/MM/DD') : moment(vm.rest.end);
       var duration = DateUtil.getWorkDays(start, end);
       if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
