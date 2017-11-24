@@ -83,6 +83,7 @@
     }
     function prepareCalendarEvent() {
       vm.events = [];
+      if (vm.rests.length === 0) return;
       vm.rests.forEach(rest => {
         var color;
         var actions = [];

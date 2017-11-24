@@ -92,6 +92,7 @@
     }
     function prepareCalendarEvent() {
       vm.events = [];
+      if (vm.rests.length === 0) return;
       vm.rests.forEach(rest => {
         var color;
         var actions = [];
@@ -142,7 +143,6 @@
       RestsApi.getRestReview(vm.condition, vm.page)
         .success(res => {
           vm.rests = res.docs;
-          console.log(vm.rests);
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
           prepareCalendar();
