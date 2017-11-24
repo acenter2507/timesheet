@@ -20,6 +20,9 @@
         // Set status is Not send
         vm.rest.status = 1;
         vm.rest.duration = 0;
+      } else {
+        vm.rest.start = moment(vm.rest.start).format();
+        vm.rest.end = moment(vm.rest.start).format();
       }
       prepareCalendar();
       prepareHodidays();
