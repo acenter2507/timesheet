@@ -215,13 +215,12 @@
     vm.handleViewHistory = rest => {
       vm.isShowHistory = true;
       vm.historys = rest.historys;
-      $document.scrollTop(400, 2000).then(function() {
-        console.log('You just scrolled to the top!');
-      });
+
+      $document.scrollToElementAnimated(vm.historyBox, 0);
     };
     vm.handleCloseHistory = () => {
       vm.isShowHistory = false;
-      $document.scrollToElementAnimated(vm.restsBox, 100);
+      $document.scrollToElementAnimated(vm.toolsBox, 0);
     };
     // View user detail page
     vm.handleViewDetailUser = user => {
