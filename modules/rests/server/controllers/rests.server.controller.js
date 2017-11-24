@@ -11,7 +11,7 @@ var path = require('path'),
   _ = require('underscore'),
   m = require('moment');
   // m.tz.setDefault("Asia/Tokyo");
-  console.log(new m().format());
+  console.log(m.format());
 
 /**
  * Create a Rest
