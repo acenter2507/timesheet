@@ -172,7 +172,9 @@ exports.delete = function (req, res) {
 
   if (rest.status === 2) {
     // 有給休暇の残日を計算する
+    console.log(rest);
     var newHolidayCnt = rest.user.company.paidHolidayCnt + rest.duration;
+    console.log(newHolidayCnt);
     User.updateHolidays(req.user._id, newHolidayCnt);
   }
 
