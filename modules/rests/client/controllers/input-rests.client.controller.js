@@ -61,7 +61,7 @@
         }
 
         // 選択された範囲チェック
-        if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
+        if (cell.date.isBetween(new Date(vm.rest.start), new Date(vm.rest.end), null, '[]')) {
           cell.cssClass = 'selected-cell';
           return;
         }
