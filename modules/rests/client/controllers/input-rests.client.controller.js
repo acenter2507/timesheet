@@ -23,7 +23,7 @@
       } else {
         vm.rest.start = moment(vm.rest.start).format('YYYY/MM/DD');
         vm.rest.end = moment(vm.rest.end).format('YYYY/MM/DD');
-        console.log(moment(vm.rest.start, 'YYYY/MM/DD'));
+        console.log(moment(vm.rest.start, 'YYYY/MM/DD').format());
       }
       prepareCalendar();
       prepareHodidays();
@@ -62,7 +62,7 @@
         }
 
         // 選択された範囲チェック
-        if (cell.date.isBetween(vm.rest.start, vm.rest.end, null, '[]')) {
+        if (cell.date.isBetween(moment(vm.rest.start, 'YYYY/MM/DD').format(), moment(vm.rest.end, 'YYYY/MM/DD').format(), null, '[]')) {
           cell.cssClass = 'selected-cell';
           return;
         }
