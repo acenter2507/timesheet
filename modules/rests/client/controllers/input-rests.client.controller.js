@@ -11,6 +11,7 @@
   function RestInputController($scope, $state, rest, HolidaysService, DateUtil) {
     var vm = this;
     vm.rest = rest;
+    console.log(vm.rest);
     vm.busy = false;
     vm.form = {};
 
@@ -31,6 +32,7 @@
     function prepareHodidays() {
       HolidaysService.query().$promise.then(function (result) {
         vm.holidays = result;
+        console.log(vm.holidays);
         vm.rest.holiday = (vm.rest._id) ? vm.rest.holiday._id || vm.rest.holiday : vm.holidays[0]._id || undefined;
       });
     }
