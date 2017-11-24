@@ -23,7 +23,6 @@
       } else {
         vm.rest.start = moment(vm.rest.start).format('YYYY/MM/DD');
         vm.rest.end = moment(vm.rest.end).format('YYYY/MM/DD');
-        console.log(moment(vm.rest.start, 'YYYY/MM/DD').format());
       }
       prepareCalendar();
       prepareHodidays();

@@ -208,16 +208,12 @@
       });
 
     };
-    vm.handleDeleteRest = rest => {
-      $scope.handleShowConfirm({
-        message: '削除しますか？'
-      }, () => {
-        console.log('bbb');
-      });
-    };
     vm.handleViewHistory = rest => {
       vm.isShowHistory = true;
       vm.historys = rest.historys;
+
+      let historyBox = angular.element(document.getElementById('rests-review-historys'));
+      $document.scrollToElementAnimated(historyBox, 100);
     };
     // View user detail page
     vm.handleViewDetailUser = user => {

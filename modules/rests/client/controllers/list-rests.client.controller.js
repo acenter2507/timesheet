@@ -66,18 +66,6 @@
           onClick: function (args) {
             $state.go('rests.edit', { restId: args.calendarEvent.id });
           }
-        },
-        approve: {
-          label: '<i class=\'fa fa-check-square-o\'></i>',
-          onClick: function (args) {
-            console.log('Edited', args.calendarEvent);
-          }
-        },
-        reject: {
-          label: '<i class=\'fa fa-minus-circle\'></i>',
-          onClick: function (args) {
-            console.log('Edited', args.calendarEvent);
-          }
         }
       };
     }
@@ -190,6 +178,9 @@
     vm.handleViewHistory = rest => {
       vm.isShowHistory = true;
       vm.historys = rest.historys;
+
+      let historyBox = angular.element(document.getElementById('rests-list-historys'));
+      $document.scrollToElementAnimated(historyBox, 100);
     };
   }
 }());

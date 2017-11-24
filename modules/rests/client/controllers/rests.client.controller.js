@@ -107,7 +107,6 @@
             _.extend(vm.rest, data);
           })
           .error(err => {
-            console.log(err);
             $scope.handleShowToast(err.message, true);
           });
       });
