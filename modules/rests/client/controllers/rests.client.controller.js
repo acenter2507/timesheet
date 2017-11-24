@@ -82,7 +82,7 @@
       $scope.handleShowConfirm({
         message: '休暇登録を削除しますか？'
       }, () => {
-        console.log('aaa');
+        vm.rest.$remove(handlePreviousScreen());
       });
     };
     vm.handleChangeRestStatus = status => {
@@ -106,30 +106,6 @@
     //   }
     // }
 
-    // Save Rest
-    function save(isValid) {
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
-        return false;
-      }
-
-      // TODO: move create/update logic to service
-      if (vm.rest._id) {
-        vm.rest.$update(successCallback, errorCallback);
-      } else {
-        vm.rest.$save(successCallback, errorCallback);
-      }
-
-      function successCallback(res) {
-        $state.go('rests.view', {
-          restId: res._id
-        });
-      }
-
-      function errorCallback(res) {
-        vm.error = res.data.message;
-      }
-    }
     // Trở về màn hình trước
     function handlePreviousScreen() {
       $state.go($state.previous.state.name || 'home', $state.previous.params);
