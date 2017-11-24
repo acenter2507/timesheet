@@ -108,7 +108,7 @@ exports.update = function (req, res) {
  */
 exports.request = function (req, res) {
   var rest = req.rest;
-  if (rest.status != 1) {
+  if (rest.status !== 1) {
     return res.status(400).send({ message: '休暇の状態が無効になっています。' });
   }
   rest.status = 2;

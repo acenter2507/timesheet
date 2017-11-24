@@ -95,7 +95,7 @@
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);
-          })
+          });
       });
     };
 
