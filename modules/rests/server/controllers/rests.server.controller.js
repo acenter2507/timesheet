@@ -162,6 +162,7 @@ exports.reject = function (req, res) {
     if (err)
       return res.status(400).send({ message: '拒否処理が完了できません。' });
     // 有給休暇の残日を計算する
+    console.log(rest.user);
     var newHolidayCnt = rest.user.company.paidHolidayCnt + rest.duration;
     User.updateHolidays(req.user._id, newHolidayCnt);
     Rest.findOne(rest)
