@@ -75,37 +75,42 @@ exports.update = function (req, res) {
   if (req.body.isPaid && rest.duration > req.user.company.paidHolidayCnt) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
-  rest.status = 1;
-  rest.historys.push({ action: 2, comment: '', timing: new Date(), user: req.user._id });
 
-  if (req.body.isSendWhenSave) {
-    rest.status = 2;
-    rest.historys.push({ action: 3, comment: '', timing: new Date(), user: req.user._id });
-  }
+  isConflictRest(rest).then(result => {
+    if (!result) return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
 
-  if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
-    rest.status = 3;
-    rest.historys.push({ action: 4, comment: '', timing: new Date(), user: rest.user });
-  }
-  // Create search support fielduser
-  rest.search = rest.user.displayName + rest.duration + rest.description;
+    rest.status = 1;
+    rest.historys.push({ action: 2, comment: '', timing: new Date(), user: req.user._id });
 
-  // Create search support field
-  rest.search = req.user.displayName + '-' + rest.duration + '-' + rest.description;
-  if (req.user.department) {
-    rest.department = req.user.department._id || req.user.department;
-  }
-
-  rest.save((err, rest) => {
-    if (err)
-      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-    res.jsonp(rest);
-    if (rest.status === 2) {
-      // 有給休暇の残日を計算する
-      var newHolidayCnt = req.user.company.paidHolidayCnt - rest.duration;
-      User.updateHolidays(req.user._id, newHolidayCnt);
-      /* TODO */
+    if (req.body.isSendWhenSave) {
+      rest.status = 2;
+      rest.historys.push({ action: 3, comment: '', timing: new Date(), user: req.user._id });
     }
+
+    if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
+      rest.status = 3;
+      rest.historys.push({ action: 4, comment: '', timing: new Date(), user: rest.user });
+    }
+    // Create search support fielduser
+    rest.search = rest.user.displayName + rest.duration + rest.description;
+
+    // Create search support field
+    rest.search = req.user.displayName + '-' + rest.duration + '-' + rest.description;
+    if (req.user.department) {
+      rest.department = req.user.department._id || req.user.department;
+    }
+
+    rest.save((err, rest) => {
+      if (err)
+        return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+      res.jsonp(rest);
+      if (rest.status === 2) {
+        // 有給休暇の残日を計算する
+        var newHolidayCnt = req.user.company.paidHolidayCnt - rest.duration;
+        User.updateHolidays(req.user._id, newHolidayCnt);
+        /* TODO */
+      }
+    });
   });
 };
 
@@ -382,6 +387,7 @@ function isConflictRest(rest) {
   return new Promise((resolve, reject) => {
     Rest.find({ user: rest.user }).exec((err, rests) => {
       rests.forEach(element => {
+        if (element._id === rest._id) return;
         if (_moment(rest.start).isBetween(element.start, element.end, null, '[]') || _moment(rest.end).isBetween(element.start, element.end, null, '[]') || _moment(element.start).isBetween(rest.start, rest.end, null, '[]') || _moment(element.end).isBetween(rest.start, rest.end, null, '[]')) {
           return resolve(false);
         }
