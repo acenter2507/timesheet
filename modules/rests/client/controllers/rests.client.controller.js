@@ -33,7 +33,7 @@
         }
       }
       // 本人はマネジャーで現在のユーザーは経理じゃない場合
-      if (CommonService.isManager(vm.rest.user.roles) && ($scope.isManager || $scope.)) {
+      if (CommonService.isManager(vm.rest.user.roles) && ($scope.isManager || $scope.isUser)) {
         $scope.handleShowToast('この休暇をみる権限がありません。', true);
         return handlePreviousScreen();
       }
