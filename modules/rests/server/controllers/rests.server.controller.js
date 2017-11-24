@@ -331,7 +331,7 @@ exports.getRestReview = function (req, res) {
   }
   if (_.contains(req.user.roles, 'manager')) {
     if (!req.user.department) {
-      return res.jsonp([]);
+      return res.jsonp({ docs: [], pages: 0, total: 0 });
     }
     var department = req.user.department._id || req.user.department;
     and_arr.push({ department: department });
