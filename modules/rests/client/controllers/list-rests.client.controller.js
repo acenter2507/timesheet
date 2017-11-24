@@ -5,9 +5,9 @@
     .module('rests')
     .controller('RestsListController', RestsListController);
 
-  RestsListController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi'];
+  RestsListController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', '$document'];
 
-  function RestsListController($scope, $state, RestsService, CommonService, DateUtil, RestsApi) {
+  function RestsListController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, $document) {
     var vm = this;
     vm.condition = { sort: '-created' };
     vm.busy = false;
