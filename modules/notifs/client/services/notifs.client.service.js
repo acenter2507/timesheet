@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('notifications')
+    .module('notifs')
     .factory('NotifsService', NotifsService);
 
   NotifsService.$inject = ['$resource'];
