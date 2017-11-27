@@ -392,6 +392,9 @@ a:hover .header-profile-image {
 ul.user-menu {
   min-width: 200px;
   padding: 0; }
+  ul.user-menu li {
+    position: relative;
+    clear: both; }
   ul.user-menu li.menu-title {
     padding: 8px 12px; 
     background-color: #eee;
