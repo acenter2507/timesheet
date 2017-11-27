@@ -9,6 +9,16 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 130px auto; }
+.navbar .navbar-toggle {
+  position: relative; }
+  .navbar .navbar-toggle .badge-notifications {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5 rem;
+    border-radius: 50%;
+    height: 1rem;
+    width: 1rem;
+    background-color: #ddd; }
 @media (max-width: 767px) {
   .navbar .navbar-toggle {
     position: absolute;
