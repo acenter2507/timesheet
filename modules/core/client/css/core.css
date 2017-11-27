@@ -392,9 +392,17 @@ a:hover .header-profile-image {
 ul.user-menu {
   min-width: 200px;
   padding: 0; }
-  ul.user-menu li {
-    position: relative;
-    clear: both; }
+  ul.user-menu .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: normal;
+    color: #151b1e;
+    text-align: inherit;
+    white-space: nowrap;
+    background: none;
+    border: 0; }
   ul.user-menu li.menu-title {
     padding: 8px 12px; 
     background-color: #eee;
