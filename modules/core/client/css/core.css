@@ -392,6 +392,8 @@ a:hover .header-profile-image {
 
 ul.user-menu li.menu-title {
   padding: 8px 12px; 
-  background-color: #eee; }
+  background-color: #eee;
+  text-align: center;
+  font-weight: bold; }
 ul.user-menu > li > a {
   padding: 8px 12px; }
