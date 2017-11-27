@@ -32,22 +32,60 @@ module.exports = function (io, socket) {
                 if (notif) {
                   notif.count += 1;
                   notif.message = notif.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
-                  notif.save().then(
-                    _notif => {
-                      var socketIds = _.where(global.socketUsers, {
-                        user: follow.user.toString()
-                      });
-                      socketIds.forEach(item => {
-                        io.sockets.connected[item.socket].emit('notifs', _notif._id);
-                      });
-                    });
+                  notif.save().then(_notif => {
+                    var socketIds = _.findWhere(global.onlineUsers, { user: leader });
+                    io.sockets.connected[socketIds].emit('notifications');
+                  });
                 } else {
-
+                  var newNotif = new Notif({
+                    from: user._id,
+                    to: leader,
+                    message: user.displayName + 'さんから休暇リクエストがあります',
+                    type: 1,
+                    count: 1,
+                    state: 'rests.review'
+                  });
+                  newNotif.save(_notif => {
+                    var socketIds = _.findWhere(global.onlineUsers, { user: leader });
+                    io.sockets.connected[socketIds].emit('notifications');
+                  });
                 }
               });
           });
         } else { // 部署なし
-
+          User.find({ status: 1, roles: ['accountant'] }).exec((err, accountants) => {
+            if (err) return;
+            if (accountants.length === 0) return;
+            accountants.forEach(accountant => {
+              if (!accountant) return;
+              Notif.find({ to: accountant._id, type: 1, from: user._id })
+                .populate('from', 'displayName')
+                .exec((err, notif) => {
+                  if (err) return;
+                  if (notif) {
+                    notif.count += 1;
+                    notif.message = notif.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
+                    notif.save().then(_notif => {
+                      var socketIds = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
+                      io.sockets.connected[socketIds].emit('notifications');
+                    });
+                  } else {
+                    var newNotif = new Notif({
+                      from: user._id,
+                      to: accountant._id.toString(),
+                      message: user.displayName + 'さんから休暇リクエストがあります',
+                      type: 1,
+                      count: 1,
+                      state: 'rests.review'
+                    });
+                    newNotif.save(_notif => {
+                      var socketIds = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
+                      io.sockets.connected[socketIds].emit('notifications');
+                    });
+                  }
+                });
+            });
+          });
         }
       });
     });
