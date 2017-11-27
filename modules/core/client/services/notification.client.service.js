@@ -11,13 +11,12 @@
     var sv = {};
     sv.cnt = 0;
     sv.notifications = [];
-    // sv.loadNotifs = function () {
-    //   $http.get('/api/notifs/load', { ignoreLoadingBar: true })
-    //     .then(res => {
-    //       sv.notifCnt = res.data.count || 0;
-    //       sv.notifications = res.data.notifs || 0;
-    //     });
-    // };
+    sv.count = function () {
+      $http.get('/api/notifs/count', { ignoreLoadingBar: true })
+        .then(res => {
+          sv.cnt = res;
+        });
+    };
     // sv.clearNotifs = function () {
     //   $http.get('/api/clearAll', { ignoreLoadingBar: true })
     //     .then(res => {

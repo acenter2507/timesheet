@@ -35,10 +35,12 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     if (!Socket.socket) {
       Socket.connect();
     }
+    Socket.emit('init', { user: $scope.Authentication.user._id });
     Socket.on('notifications', () => {
       console.log('Has inform Notifications');
       // Notifications.loadNotifs();
     });
+    
   }
   function onCreate() {
     $scope.user = Authentication.user;

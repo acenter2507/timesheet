@@ -49,13 +49,13 @@
         <div class="dropdown-header text-center">
           <strong>{{user.displayName}}</strong>
         </div>
-        <a class="dropdown-item" ui-sref="settings.profile">
+        <a class="dropdown-item" ui-sref="notifs.list">
           <i class="fa fa-bell-o"></i> お知らせ
-          <span class="badge badge-info">42</span>
+          <span class="badge badge-info">{{Notifications.cnt}}</span>
         </a>
-        <a class="dropdown-item" ui-sref="settings.profile">
+        <a class="dropdown-item" ui-sref="messages.list">
           <i class="fa fa-envelope-o"></i> メッセージ
-          <span class="badge badge-info">42</span>
+          <span class="badge badge-info">{{Messages.cnt}}</span>
         </a>
         <div class="dropdown-header text-center">
           <strong>プロファイル</strong>

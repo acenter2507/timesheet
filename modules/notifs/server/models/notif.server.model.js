@@ -10,20 +10,17 @@ var mongoose = require('mongoose'),
  * Notif Schema
  */
 var NotifSchema = new Schema({
-  name: {
-    type: String,
-    default: '',
-    required: 'Please fill Notif name',
-    trim: true
-  },
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  }
+  from: { type: Schema.ObjectId, ref: 'User' },
+  to: { type: Schema.ObjectId, ref: 'User' },
+  // 1: Request Rest
+  // 2: Reject rest
+  // 3: Approve rest
+  type: { type: Number, default: 0 },
+  message: { type: String, required: true },
+  state: { type: String, default: '' },
+  status: { type: Number, default: 0 },
+  count: { type: Number, default: 0 },  // Số người có chung hoạt động 
+  created: { type: Date, default: Date.now }
 });
 
 mongoose.model('Notif', NotifSchema);

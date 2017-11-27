@@ -102,7 +102,7 @@
 
       function successCallback(res) {
         vm.busy = false;
-        Socket.emit('request', { rest: res });
+        Socket.emit('request', { restId: res, userId: $scope.user._id });
         $state.go('rests.view', { restId: res._id });
       }
 

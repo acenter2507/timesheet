@@ -116,6 +116,16 @@ exports.notifByID = function (req, res, next, id) {
   });
 };
 
+/**
+ * Count of Notifs
+ */
+exports.count = function (req, res) {
+  Notif.find().count(function (err, count) {
+    if (err) return res.end();
+    return res.jsonp(count);
+  });
+};
+
 exports.notifSocket = (io, socket) => {
   return {
     // User send a rest
@@ -126,6 +136,6 @@ exports.notifSocket = (io, socket) => {
 
   }
   function informRestToAccountant() {
-    
+
   }
 };

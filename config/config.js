@@ -158,11 +158,16 @@ var initGlobalConfigFiles = function (config, assets) {
   config.files.client.tests = getGlobbedPaths(assets.client.tests);
 };
 
+var initGlobalVariables = function() {
+  global.onlineUsers = [];
+};
+
 /**
  * Initialize global configuration
  */
 var initGlobalConfig = function () {
   // Validate NODE_ENV existence
+  initGlobalVariables();
   validateEnvironmentVariable();
 
   // Get the default assets
@@ -214,6 +219,7 @@ var initGlobalConfig = function () {
 
   return config;
 };
+
 
 /**
  * Set configuration object
