@@ -389,11 +389,12 @@ a:hover .header-profile-image {
     background-color: #2e5daa;
     color: #fff;
   }
-
-ul.user-menu li.menu-title {
-  padding: 8px 12px; 
-  background-color: #eee;
-  text-align: center;
-  font-weight: bold; }
-ul.user-menu > li > a {
-  padding: 8px 12px; }
+ul.user-menu {
+  padding: 0; }
+  ul.user-menu li.menu-title {
+    padding: 8px 12px; 
+    background-color: #eee;
+    text-align: center;
+    font-weight: bold; }
+  ul.user-menu > li > a {
+    padding: 8px 12px; }
