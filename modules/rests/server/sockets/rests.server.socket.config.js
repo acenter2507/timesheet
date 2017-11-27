@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('underscore');
+var path = require('path');
 var notifs = require(path.resolve('./modules/notifs/server/controllers/notifs.server.controller'));
 // Create the chat configuration
 module.exports = function (io, socket) {
