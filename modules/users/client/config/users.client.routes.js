@@ -9,9 +9,7 @@ angular.module('users').config(['$stateProvider',
         abstract: true,
         url: '/settings',
         templateUrl: 'modules/users/client/views/settings/settings.client.view.html',
-        data: {
-          roles: ['user', 'admin']
-        },
+        data: { roles: ['user'] },
         ncyBreadcrumb: { label: '個人情報' }
       })
       .state('settings.profile', {
@@ -45,9 +43,7 @@ angular.module('users').config(['$stateProvider',
         abstract: true,
         url: '/profile',
         template: '<ui-view/>',
-        data: {
-          roles: ['user']
-        },
+        data: { roles: ['user'] },
         ncyBreadcrumb: { label: 'プロファイル' }
       })
       .state('profile.view', {
