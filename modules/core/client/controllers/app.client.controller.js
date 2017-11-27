@@ -37,6 +37,7 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     }
     Socket.emit('init', { user: $scope.Authentication.user._id });
     Socket.on('notifications', () => {
+      console.log('Has inform Notifications');
       Notifications.count();
     });
     
