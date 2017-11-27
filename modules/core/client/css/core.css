@@ -224,8 +224,8 @@ a:hover .header-profile-image {
     right: 15px;
     border-radius: 50%;
     border: 1px solid #fff;
-    height: 1rem;
-    width: 1rem;
+    height: 1.1rem;
+    width: 1.1rem;
     background-color: #999; }
     .navbar .navbar-toggle .badge-notifications.active {
       border: 1px solid #fff;
