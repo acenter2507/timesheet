@@ -42,6 +42,7 @@
     <li class="dropdown" dropdown>
       <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
         <img ng-src="{{user.profileImageURL}}" alt="{{user.displayName}}" class="header-profile-image" />
+        <span class="badge-notifications" ng-class="{ 'active': Notifications.isHasNew }"></span>
         <!-- <span ng-bind="user.displayName"></span> <b class="caret"></b> -->
       </a>
       <ul class="dropdown-menu user-menu" role="menu">
