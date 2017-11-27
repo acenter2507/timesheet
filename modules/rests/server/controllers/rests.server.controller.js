@@ -45,11 +45,10 @@ exports.create = function (req, res) {
       if (err)
         return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
       res.jsonp(rest);
-      if (rest.status === 2) {
+      if (rest.status === 2 || rest.status === 3) {
         // 有給休暇の残日を計算する
         var newHolidayCnt = req.user.company.paidHolidayCnt - rest.duration;
         User.updateHolidays(req.user._id, newHolidayCnt);
-        /* TODO */
       }
     });
   });

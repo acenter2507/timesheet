@@ -6,9 +6,9 @@
     .module('rests')
     .controller('RestInputController', RestInputController);
 
-  RestInputController.$inject = ['$scope', '$state', 'restResolve', 'HolidaysService', 'DateUtil'];
+  RestInputController.$inject = ['$scope', '$state', 'restResolve', 'HolidaysService', 'DateUtil', 'Socket'];
 
-  function RestInputController($scope, $state, rest, HolidaysService, DateUtil) {
+  function RestInputController($scope, $state, rest, HolidaysService, DateUtil, Socket) {
     var vm = this;
     vm.rest = rest;
     vm.busy = false;
@@ -102,6 +102,7 @@
 
       function successCallback(res) {
         vm.busy = false;
+        Socket.emit('request', { rest: res });
         $state.go('rests.view', { restId: res._id });
       }
 

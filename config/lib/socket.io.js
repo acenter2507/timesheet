@@ -86,11 +86,12 @@ module.exports = function (app, db) {
         // Use Passport to populate the user details
         passport.initialize()(socket.request, {}, function () {
           passport.session()(socket.request, {}, function () {
-            if (socket.request.user) {
-              next(null, true);
-            } else {
-              next(new Error('User is not authenticated'), false);
-            }
+            next(null, true);
+            // if (socket.request.user) {
+            //   next(null, true);
+            // } else {
+            //   next(new Error('User is not authenticated'), false);
+            // }
           });
         });
       });

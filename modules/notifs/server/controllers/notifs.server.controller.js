@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Notif
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var notif = new Notif(req.body);
   notif.user = req.user;
 
-  notif.save(function(err) {
+  notif.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Notif
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var notif = req.notif ? req.notif.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Notif
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var notif = req.notif;
 
   notif = _.extend(notif, req.body);
 
-  notif.save(function(err) {
+  notif.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Notif
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var notif = req.notif;
 
-  notif.remove(function(err) {
+  notif.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +80,8 @@ exports.delete = function(req, res) {
 /**
  * List of Notifs
  */
-exports.list = function(req, res) {
-  Notif.find().sort('-created').populate('user', 'displayName').exec(function(err, notifs) {
+exports.list = function (req, res) {
+  Notif.find().sort('-created').populate('user', 'displayName').exec(function (err, notifs) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +95,7 @@ exports.list = function(req, res) {
 /**
  * Notif middleware
  */
-exports.notifByID = function(req, res, next, id) {
+exports.notifByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -115,3 +115,17 @@ exports.notifByID = function(req, res, next, id) {
     next();
   });
 };
+
+exports.notifSocket = (io, socket) => {
+  return {
+    // User send a rest
+    informRestToManager: informRestToManager,
+    informRestToAccountant: informRestToAccountant
+  };
+  function informRestToManager() {
+
+  }
+  function informRestToAccountant() {
+    
+  }
+}

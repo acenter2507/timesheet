@@ -36,7 +36,8 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
       Socket.connect();
     }
     Socket.on('notifications', () => {
-      Notifications.loadNotifs();
+      console.log('Has inform Notifications');
+      // Notifications.loadNotifs();
     });
   }
   function onCreate() {
@@ -47,6 +48,11 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     $scope.isManager = $scope.isLogged && _.contains($scope.user.roles, 'manager');
     $scope.isAccountant = $scope.isLogged && _.contains($scope.user.roles, 'accountant');
     $scope.isLeader = $scope.isAdmin || $scope.isManager || $scope.isAccountant;
+
+    // Socket
+    if ($scope.isLogged) {
+      prepareSocketListener();
+    }
   }
   function prepareDeviceChecking() {
     var parser = new UAParser();
