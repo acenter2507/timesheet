@@ -390,4 +390,5 @@ a:hover .header-profile-image {
     color: #fff;
   }
 ul.user-menu > li > a {
+  background-color: #2271bf;
   padding: 4px 12px; }
