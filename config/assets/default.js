@@ -37,7 +37,8 @@ module.exports = {
         'public/lib/angular-elastic/elastic.js',
         'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js',
         'public/lib/ua-parser-js/dist/ua-parser.min.js',
-        'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js'
+        'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
+        'public/lib/angular-socket-io/socket.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
