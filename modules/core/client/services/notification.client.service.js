@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('notifications')
+    .module('core')
     .service('Notifications', Notifications);
 
   Notifications.$inject = ['$http', 'NotifsService'];
