@@ -20,7 +20,8 @@ var ApplicationConfiguration = (function () {
     'monospaced.elastic',
     'ngDialog',
     'ncy-angular-breadcrumb',
-    'mwl.calendar'
+    'mwl.calendar',
+    'btford.socket-io'
   ];
 
   // Add a new vertical module

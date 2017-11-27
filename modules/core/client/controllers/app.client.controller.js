@@ -2,10 +2,11 @@
 
 angular.module('core').controller('AppController', AppController);
 
-AppController.$inject = ['$scope', 'Authentication', 'toastr', 'ngDialog', '$timeout'];
+AppController.$inject = ['$scope', 'Authentication', 'toastr', 'ngDialog', '$timeout', 'Notifications', 'Socket'];
 
-function AppController($scope, Authentication, toastr, ngDialog, $timeout) {
+function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notifications, Socket) {
   $scope.Authentication = Authentication;
+  $scope.Notifications = Notifications;
   $scope.currentTime = new moment();
 
   prepareScopeListener();
@@ -25,6 +26,16 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout) {
     });
     $scope.$on('$destroy', function () {
       $timeout.cancel($scope.currentTimer);
+      Socket.removeListener('notifications');
+    });
+  }
+  // Init socket
+  function prepareSocketListener() {
+    if (!Socket.socket) {
+      Socket.connect();
+    }
+    Socket.on('notifications', () => {
+      Notifications.loadNotifs();
     });
   }
   function onCreate() {
