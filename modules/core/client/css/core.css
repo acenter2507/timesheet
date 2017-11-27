@@ -403,6 +403,13 @@ ul.user-menu {
     white-space: nowrap;
     background: none;
     border: 0; }
+    ul.user-menu .dropdown-item i {
+      display: inline-block;
+      width: 20px;
+      margin-right: 10px;
+      margin-left: -10px;
+      color: #c2cfd6;
+      text-align: center; }
   ul.user-menu li.menu-title {
     padding: 8px 12px; 
     background-color: #eee;
