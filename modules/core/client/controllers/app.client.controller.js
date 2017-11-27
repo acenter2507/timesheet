@@ -2,11 +2,12 @@
 
 angular.module('core').controller('AppController', AppController);
 
-AppController.$inject = ['$scope', 'Authentication', 'toastr', 'ngDialog', '$timeout', 'Notifications', 'Socket'];
+AppController.$inject = ['$scope', 'Authentication', 'toastr', 'ngDialog', '$timeout', 'Notifications', 'Socket', 'Messages'];
 
-function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notifications, Socket) {
+function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notifications, Socket, Messages) {
   $scope.Authentication = Authentication;
   $scope.Notifications = Notifications;
+  $scope.Messages = Messages;
   $scope.currentTime = new moment();
 
   prepareScopeListener();

@@ -2,7 +2,7 @@
   <a ui-sref="home" class="navbar-brand" ng-style="{'background-image': 'url(modules/core/client/img/brand/logo.png)'}"></a>
   <!--<div class="navbar-header">-->
   <a class="navbar-toggle aside-menu-toggler d-md-none" id="aside-menu-toggler" href="#">
-    <span class="badge-notifications" ng-class="{ 'active': Notifications.isHasNew }"></span>
+    <span class="badge-notifications" ng-class="{ 'active': Notifications.cnt > 0 || Messages.cnt > 0 }"></span>
     <span class="sr-only">Toggle navigation</span>
     <span class="icon-bar"></span>
     <span class="icon-bar"></span>
@@ -42,7 +42,7 @@
     <li class="dropdown" dropdown>
       <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
         <img ng-src="{{user.profileImageURL}}" alt="{{user.displayName}}" class="header-profile-image" />
-        <span class="badge-notifications" ng-class="{ 'active': Notifications.isHasNew }"></span>
+        <span class="badge-notifications" ng-class="{ 'active': Notifications.cnt > 0 || Messages.cnt > 0 }"></span>
         <!-- <span ng-bind="user.displayName"></span> <b class="caret"></b> -->
       </a>
       <ul class="dropdown-menu user-menu" role="menu">
