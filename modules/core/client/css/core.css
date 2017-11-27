@@ -422,10 +422,5 @@ ul.user-menu {
         font-size: 0.875rem;
         color: #536c79;
         white-space: nowrap;}
-  ul.user-menu li.menu-title {
-    padding: 8px 12px; 
-    background-color: #eee;
-    text-align: center;
-    font-weight: bold; }
   ul.user-menu > li > a {
     padding: 8px 12px; }

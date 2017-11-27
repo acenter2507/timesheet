@@ -51,26 +51,18 @@
           <i class="fa fa-bell-o"></i> お知らせ
           <span class="badge badge-info">42</span>
         </a>
-        <li class="menu-title">{{user.displayName}}</li>
-        <li ui-sref-active="active">
-          <a ui-sref="settings.profile">プロファイル変更
-            <span class="badge">10</span>
-          </a>
-        </li>
-        <li ui-sref-active="active">
-          <a ui-sref="settings.picture">アバター変更
-            <span class="badge">10</span>
-          </a>
-        </li>
-        <li ui-sref-active="active">
-          <a ui-sref="settings.password">パスワード変更
-            <span class="badge">10</span>
-          </a>
-        </li>
+        <a class="dropdown-item" ui-sref="settings.profile">
+          <i class="fa fa-envelope-o"></i> メッセージ
+          <span class="badge badge-info">42</span>
+        </a>
+        <div class="dropdown-header text-center">
+          <strong>プロファイル</strong>
+        </div>
+        <a class="dropdown-item" ui-sref="settings.profile">プロファイル変更</a>
+        <a class="dropdown-item" ui-sref="settings.picture">アバター変更</a>
+        <a class="dropdown-item" ui-sref="settings.password">パスワード変更</a>
         <li class="divider"></li>
-        <li>
-          <a href="/api/auth/signout" target="_self">ログアウト</a>
-        </li>
+        <a class="dropdown-item" href="/api/auth/signout" target="_self">ログアウト</a>
       </ul>
     </li>
   </ul>
