@@ -13,7 +13,7 @@
   position: relative; }
   .navbar .navbar-toggle .badge-notifications {
     position: absolute;
-    top: 0.2rem;
+    bottom: 0.2rem;
     right: 0.2rem;
     border-radius: 50%;
     height: 1rem;
