@@ -398,3 +398,5 @@ ul.user-menu {
     font-weight: bold; }
   ul.user-menu > li > a {
     padding: 8px 12px; }
+    ul.user-menu > li > a > .badge{
+      float: right; }
