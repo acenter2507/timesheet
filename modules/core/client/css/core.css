@@ -389,6 +389,9 @@ a:hover .header-profile-image {
     background-color: #2e5daa;
     color: #fff;
   }
+
+ul.user-menu li.menu-title {
+  padding: 8px 12px; 
+  background-color: #eee; }
 ul.user-menu > li > a {
-  background-color: #2271bf;
-  padding: 4px 12px; }
+  padding: 8px 12px; }
