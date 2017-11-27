@@ -220,15 +220,15 @@ a:hover .header-profile-image {
   position: relative; }
   .user-header-dropdown-toggle .badge-notifications {
     position: absolute;
-    bottom: 15px;
+    bottom: 5px;
     right: 15px;
     border-radius: 50%;
     border: 1px solid #fff;
-    height: 1.1rem;
-    width: 1.1rem;
+    height: 15px;
+    width: 15px;
     background-color: #999; }
     .navbar .navbar-toggle .badge-notifications.active {
-      border: 1px solid #fff;
+      border: 2px solid #fff;
       background-color: #ff4444; }
 
 .error-text {
