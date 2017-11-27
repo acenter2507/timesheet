@@ -6,7 +6,7 @@
     .module('core')
     .service('Messages', Messages);
 
-    Messages.$inject = ['$http'];
+  Messages.$inject = ['$http'];
   function Messages($http) {
     var sv = {};
     sv.cnt = 0;
