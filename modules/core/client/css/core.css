@@ -410,10 +410,18 @@ ul.user-menu {
       margin-left: -10px;
       color: #c2cfd6;
       text-align: center; }
-    .dropdown-item .badge {
-      position: absolute;
-      right: 10px;
-      margin-top: 2px; }
+        ul.user-menu .dropdown-item .badge {
+          position: absolute;
+          right: 10px;
+          margin-top: 2px; }
+      ul.user-menu .dropdown-header {
+        padding: 8px 20px;
+        background: #f0f3f5;
+        display: block;
+        margin-bottom: 0;
+        font-size: 0.875rem;
+        color: #536c79;
+        white-space: nowrap;}
   ul.user-menu li.menu-title {
     padding: 8px 12px; 
     background-color: #eee;

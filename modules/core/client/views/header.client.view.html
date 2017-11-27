@@ -10,7 +10,9 @@
   <ul class="nav navbar-nav d-sm-down-none" ng-if="menu.shouldRender(user);">
     <li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(user);" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }"
       class="{{item.class}}" dropdown="item.type === 'dropdown'">
-      <a ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
+      <a ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;
+        <span class="caret"></span>
+      </a>
       <ul ng-switch-when="dropdown" class="dropdown-menu">
         <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(user);" ui-sref-active="active">
           <a ui-sref="{{subitem.state}}" ng-bind="subitem.title"></a>
@@ -19,7 +21,9 @@
       <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
     </li>
     <li ng-if="isAdmin || isAccountant" class="dropdown" dropdown>
-      <a class="dropdown-toggle" dropdown-toggle role="button">経理専用&nbsp;<span class="caret"></span></a>
+      <a class="dropdown-toggle" dropdown-toggle role="button">経理専用&nbsp;
+        <span class="caret"></span>
+      </a>
       <ul class="dropdown-menu" role="menu">
         <li ui-sref-active="active">
           <a ui-sref="holidays.list">休日形態管理</a>
@@ -40,6 +44,9 @@
         <!-- <span ng-bind="user.displayName"></span> <b class="caret"></b> -->
       </a>
       <ul class="dropdown-menu user-menu" role="menu">
+        <div class="dropdown-header text-center">
+          <strong>Account</strong>
+        </div>
         <a class="dropdown-item" ui-sref="settings.profile">
           <i class="fa fa-bell-o"></i> お知らせ
           <span class="badge badge-info">42</span>
