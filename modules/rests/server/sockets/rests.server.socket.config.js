@@ -25,7 +25,7 @@ module.exports = function (io, socket) {
         if (user.department && user.leaders.length > 0) {
           user.leaders.forEach(leader => {
             if (!leader) return;
-            Notif.find({ to: leader, type: 1, from: user._id })
+            Notif.findOne({ to: leader, type: 1, from: user._id })
               .populate('from', 'displayName')
               .exec((err, notif) => {
                 if (err) return;
