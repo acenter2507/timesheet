@@ -31,7 +31,7 @@ module.exports = function (io, socket) {
                 if (err) return;
                 if (notif) {
                   notif.count += 1;
-                  notif.message = notif.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
+                  notif.message = notif.from.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
                   notif.save().then(_notif => {
                     var socketUser = _.findWhere(global.onlineUsers, { user: leader.toString() });
                     io.sockets.connected[socketUser.socket].emit('notifications');
