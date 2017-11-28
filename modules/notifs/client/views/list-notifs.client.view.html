@@ -5,13 +5,11 @@
   <div class="list-group">
     <a ng-repeat="notif in vm.notifs" ui-sref="{{notif.state}}" class="list-group-item">
       <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="notif.created | date:'mediumDate'"></span>
-        by
-        <span>Deleted User</span>
-        <span>{{notif.to.displayName}}</span>
+        <span ng-bind="notif.created | LLLL"></span>
+        <span ng-if="notif.from">{{notif.from.displayName}}</span>
+        <span ng-if="!notif.from">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading">notif.from.displayName</h4>
+      <h4 class="list-group-item-heading">notif.message</h4>
     </a>
   </div>
 </section>
