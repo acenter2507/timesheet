@@ -26,11 +26,8 @@
       }
       prepareCalendar();
       prepareHodidays();
-      prepareParams();
     }
 
-    function prepareParams() {
-    }
     function prepareHodidays() {
       HolidaysService.query().$promise.then(function (result) {
         vm.holidays = result;

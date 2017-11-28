@@ -12,16 +12,15 @@
       .state('months', {
         abstract: true,
         url: '/months',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        ncyBreadcrumb: { label: '勤務表' }
       })
       .state('months.list', {
         url: '',
         templateUrl: 'modules/months/client/views/list-months.client.view.html',
         controller: 'MonthsListController',
         controllerAs: 'vm',
-        data: {
-          pageTitle: 'Months List'
-        }
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] }
       })
       .state('months.create', {
         url: '/create',
