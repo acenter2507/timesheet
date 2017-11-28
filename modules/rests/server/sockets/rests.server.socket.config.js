@@ -104,10 +104,13 @@ module.exports = function (io, socket) {
       User.findById(req.user).exec((err, user) => {
         if (err) return;
         if (!user) return;
+        var message = (rest.status === 3) ? '承認' : '拒否';
+        message = user.displayName + 'さんがあなたの休暇を' + message + 'しました。';
+
         var newNotif = new Notif({
           from: user._id,
           to: rest.user._id || rest.user,
-          message: user.displayName + 'さんがあなたの休暇を' + (rest.status === 3) ? '承認' : '拒否' + 'しました。',
+          message: message,
           type: 2,
           count: 1,
           state: 'rests.list'
