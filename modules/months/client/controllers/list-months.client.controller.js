@@ -68,10 +68,12 @@
       });
       newMonth.$save(res => {
         console.log(res);
+        vm.createMonthBusy = false;
         // var oldMonth = _.findWhere(vm.months, { index: index });
         // _.extend(oldMonth, { month: res });
       }, err => {
         $scope.handleShowToast(err.data.message, true);
+        vm.createMonthBusy = false;
       });
     };
     vm.handleSendRequestMonth = month => { };
