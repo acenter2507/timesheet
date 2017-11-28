@@ -23,43 +23,14 @@
         data: { roles: ['user', 'admin', 'manager', 'accountant'] },
         ncyBreadcrumb: { label: '一覧' }
       })
-      .state('months.create', {
-        url: '/create',
-        templateUrl: 'modules/months/client/views/form-month.client.view.html',
-        controller: 'MonthsController',
-        controllerAs: 'vm',
-        resolve: {
-          monthResolve: newMonth
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Months Create'
-        }
-      })
-      .state('months.edit', {
-        url: '/:monthId/edit',
-        templateUrl: 'modules/months/client/views/form-month.client.view.html',
-        controller: 'MonthsController',
-        controllerAs: 'vm',
-        resolve: {
-          monthResolve: getMonth
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Month {{ monthResolve.name }}'
-        }
-      })
       .state('months.view', {
         url: '/:monthId',
         templateUrl: 'modules/months/client/views/view-month.client.view.html',
         controller: 'MonthsController',
         controllerAs: 'vm',
-        resolve: {
-          monthResolve: getMonth
-        },
-        data: {
-          pageTitle: 'Month {{ monthResolve.name }}'
-        }
+        resolve: { monthResolve: getMonth },
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '詳細' }
       });
   }
 

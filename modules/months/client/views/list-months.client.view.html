@@ -45,7 +45,6 @@
                 <a ng-if="item.month.status === 1 || item.month.status === 4" class="btn btn-success btn-xs" ui-sref="months.view({ monthId: item.month._id })">編集</a>
                 <a ng-if="item.month.status === 1 || item.month.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleDeleteMonth(item)">削除</a>
                 <a ng-if="item.month" class="btn btn-info btn-xs" ng-click="vm.handleViewHistory(item)">歴史</a>
-                <a ng-if="item.month" class="btn btn-default btn-xs" ui-sref="months.view({ monthId: item.month._id })">詳細</a>
                 <a class="btn btn-default btn-xs" ng-click="vm.handleCreateAll()">全て作成</a>
               </td>
             </tr>
