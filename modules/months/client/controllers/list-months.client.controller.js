@@ -12,6 +12,7 @@
     vm.datas = [];
     vm.months = [];
     vm.createMonthBusy = false;
+    vm.isShowHistory = false;
 
     onCreate();
     function onCreate() {
@@ -73,8 +74,23 @@
         vm.createMonthBusy = false;
       });
     };
-    vm.handleSendRequestMonth = month => { };
+    vm.handleSendRequestMonth = month => {
+    };
     vm.handleDeleteMonth = month => { };
-    vm.handleViewHistory = month => { };
+    vm.handleViewHistory = month => {
+      vm.isShowHistory = true;
+      vm.historys = month.historys;
+    };
+    vm.handleCloseHistory = () => {
+      vm.isShowHistory = false;
+    };
+    // View user detail page
+    vm.handleViewDetailUser = user => {
+      if ($scope.isAdmin || $scope.isAccountant) {
+        return $state.go('users.view', { userId: user._id });
+      } else {
+        return $state.go('profile.view', { userId: user._id });
+      }
+    };
   }
 }());

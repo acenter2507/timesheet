@@ -30,7 +30,18 @@ exports.create = function (req, res) {
 
   month.save(function (err) {
     if (err) return res.status(400).send({ message: 'データが保存できません。' });
-    res.jsonp(month);
+    Month.findById(month._id)
+      .populate({
+        path: 'historys',
+        populate: {
+          path: 'user',
+          select: 'displayName profileImageURL',
+          model: 'User'
+        }
+      })
+      .exec(function (err, _month) {
+        return res.jsonp(_month);
+      });
   });
 };
 
@@ -108,7 +119,14 @@ exports.getMonthsOfYearByUser = function (req, res) {
   if (!year || !userId) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
 
   Month.find({ user: userId, year: year })
-    .populate('history')
+    .populate({
+      path: 'historys',
+      populate: {
+        path: 'user',
+        select: 'displayName profileImageURL',
+        model: 'User'
+      }
+    })
     .exec(function (err, months) {
       if (err)
         return res.status(400).send({ message: 'データを取得できません。' });
@@ -122,7 +140,7 @@ exports.monthByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Month is invalid'
+      message: '勤務表情報が見た借りません。'
     });
   }
 
@@ -131,7 +149,7 @@ exports.monthByID = function (req, res, next, id) {
       return next(err);
     } else if (!month) {
       return res.status(404).send({
-        message: 'No Month with that identifier has been found'
+        message: '勤務表情報が見た借りません。'
       });
     }
     req.month = month;
