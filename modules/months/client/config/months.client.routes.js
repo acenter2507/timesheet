@@ -16,7 +16,7 @@
         ncyBreadcrumb: { label: '勤務表' }
       })
       .state('months.list', {
-        url: '',
+        url: '?year',
         templateUrl: 'modules/months/client/views/list-months.client.view.html',
         controller: 'MonthsListController',
         controllerAs: 'vm',

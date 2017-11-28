@@ -5,52 +5,37 @@
     .module('months')
     .controller('MonthsListController', MonthsListController);
 
-  MonthsListController.$inject = ['MonthsService', '$scope', '$state', 'DateUtil'];
+  MonthsListController.$inject = ['MonthsService', '$scope', '$state', 'DateUtil', '$stateParams'];
 
-  function MonthsListController(MonthsService, $scope, $state, DateUtil) {
+  function MonthsListController(MonthsService, $scope, $state, DateUtil, $stateParams) {
     var vm = this;
     vm.busy = false;
 
     onCreate();
     function onCreate() {
-      prepareCalendar();
+      preapreParams();
     }
 
-    function prepareCalendar() {
-      vm.calendar = { view: 'month' };
-      var currentDate = moment().startOf('month').toDate();
-
-      vm.calendar.viewDate = moment().startOf('month').toDate();
-      vm.calendar.cellModifier = function (cell) {
-        // cell.cssClass = 'odd-cell';
-        var date = cell.date.format('YYYY/MM/DD');
-
-        // 週末チェック
-        if (DateUtil.isWeekend(cell.date)) {
-          return;
-        }
-
-        // 祝日チェック
-        var offdate = JapaneseHolidays.isHoliday(new Date(date));
-        if (offdate) {
-          cell.cssClass = 'off-cell';
-          return;
-        }
-      };
+    function preapreParams() {
+      var param = $stateParams.year;
+      if (param) {
+        vm.currentYear = moment(param, 'YYYY');
+      } else {
+        vm.currentYear = moment(new Date(), 'YYYY');
+      }
     }
-    vm.handleCalendarEventClicked = () => {
-      return false;
-    };
-    vm.handleCalendarRangeSelected = (start, end) => {
-      return false;
-    };
-    vm.handleCalendarClicked = date => {
-      return false;
-    };
-    vm.disableWeekend = (date, mode) => {
-      var holiday = JapaneseHolidays.isHoliday(new Date(date));
-      return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6) || holiday);
-    };
 
+    vm.handleNextYear = () => {
+      var lastYear = vm.currentYear.clone().subtract(1, 'years');
+      $state.go('months.list', { year: lastYear.format('YYYY') });
+    };
+    vm.handlePreviousYear = () => {
+      var nextYear = vm.currentYear.clone().add(1, 'years');
+      $state.go('months.list', { year: nextYear.format('YYYY') });
+    };
+    vm.handleCurrentYear = () => {
+      var current =  moment(new Date(), 'YYYY');
+      $state.go('months.list', { year: current.format('YYYY') });
+    };
   }
 }());
