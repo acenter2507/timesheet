@@ -5,9 +5,9 @@
     .module('notifs')
     .controller('NotifsListController', NotifsListController);
 
-  NotifsListController.$inject = ['NotifsService', 'Notifications', '$state'];
+  NotifsListController.$inject = ['NotifsService', 'Notifications', '$state', '$scope'];
 
-  function NotifsListController(NotifsService, Notifications, $state) {
+  function NotifsListController(NotifsService, Notifications, $state, $scope) {
     var vm = this;
 
     vm.notifs = NotifsService.query();
