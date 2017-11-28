@@ -106,7 +106,7 @@
     vm.handleCreateAll = () => {
       if (vm.isShowHistory) return;
       $scope.handleShowConfirm({
-        message: item.month.month + '月の勤務時間を削除しますか？'
+        message: '今年月の勤務表を全て作成しますか？'
       }, () => {
         vm.isShowHistory = true;
         var undefineds = [];
