@@ -26,23 +26,23 @@ exports.create = function (req, res) {
     }
     month.search = req.user.displayName + '勤務表時間' + month.year;
     month.roles = req.user.roles;
+    month.save(function (err) {
+      if (err) return res.status(400).send({ message: 'データが保存できません。' });
+      Month.findById(month._id)
+        .populate({
+          path: 'historys',
+          populate: {
+            path: 'user',
+            select: 'displayName profileImageURL',
+            model: 'User'
+          }
+        })
+        .exec(function (err, _month) {
+          return res.jsonp(_month);
+        });
+    });
   });
 
-  month.save(function (err) {
-    if (err) return res.status(400).send({ message: 'データが保存できません。' });
-    Month.findById(month._id)
-      .populate({
-        path: 'historys',
-        populate: {
-          path: 'user',
-          select: 'displayName profileImageURL',
-          model: 'User'
-        }
-      })
-      .exec(function (err, _month) {
-        return res.jsonp(_month);
-      });
-  });
 };
 
 /**
