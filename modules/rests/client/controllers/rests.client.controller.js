@@ -92,6 +92,7 @@
         RestsApi.request(vm.rest._id)
           .success(data => {
             _.extend(vm.rest, data);
+            Socket.emit('request', { restId: vm.rest._id, userId: $scope.user._id });
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);

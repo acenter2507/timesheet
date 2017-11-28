@@ -5,9 +5,9 @@
     .module('rests')
     .controller('RestsListController', RestsListController);
 
-  RestsListController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', '$document'];
+  RestsListController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', '$document', 'Socket'];
 
-  function RestsListController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, $document) {
+  function RestsListController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, $document, Socket) {
     var vm = this;
     vm.condition = { sort: '-created' };
     vm.busy = false;
@@ -172,6 +172,7 @@
         RestsApi.request(rest._id)
           .success(data => {
             _.extend(rest, data);
+            Socket.emit('request', { restId: rest._id, userId: $scope.user._id });
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);
