@@ -124,17 +124,18 @@
           });
           promises.push(newMonth.$save());
         }
-        Promise.all(promises).then(res => {
-          for (let i = 0; i < undefineds.length; i++) {
-            var index = undefineds[i];
-            var newMonth = _.findWhere(res, { month: index });
-            var oldItem = _.findWhere(vm.months, { index: index });
-            if (newMonth && oldItem) {
-              _.extend(oldItem, { month: newMonth });
+        Promise.all(promises)
+          .then(res => {
+            for (let i = 0; i < undefineds.length; i++) {
+              var index = undefineds[i];
+              var newMonth = _.findWhere(res, { month: index });
+              var oldItem = _.findWhere(vm.months, { index: index });
+              if (newMonth && oldItem) {
+                _.extend(oldItem, { month: newMonth });
+              }
             }
-          }
-          vm.createMonthBusy = false;
-        })
+            vm.createMonthBusy = false;
+          })
           .catch(err => {
             $scope.handleShowToast(err.data.message, true);
             vm.createMonthBusy = false;

@@ -47,7 +47,6 @@
                 <a ng-if="item.month" class="btn btn-info btn-xs" ng-click="vm.handleViewHistory(item)">歴史</a>
                 <a ng-if="item.month" class="btn btn-default btn-xs" ui-sref="months.view({ monthId: item.month._id })">詳細</a>
                 <a class="btn btn-default btn-xs" ng-click="vm.handleCreateAll()">全て作成</a>
-                <a class="btn btn-danger btn-xs" ng-click="vm.handleClearAll()">全て削除</a>
               </td>
             </tr>
           </tbody>
