@@ -16,13 +16,13 @@
       $scope.handleShowConfirm({
         message: '全ての通知を削除しますか？'
       }, () => {
-        Notifications.clear().success(() => {
+        Notifications.clear().then(() => {
           vm.notifs = [];
         });
       });
     };
     vm.handleViewDetailNotification = notif => {
-      $state.go(notif.state, { notifId: notif._id });
+      $state.go(notif.state, { notif: notif._id });
     };
   }
 }());

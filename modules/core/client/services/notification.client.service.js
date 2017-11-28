@@ -13,13 +13,21 @@
     sv.notifications = [];
     sv.count = () => {
       $http.get('/api/notifs/count', { ignoreLoadingBar: true })
-        .success(res => {
-          sv.cnt = res;
-          console.log('Notifications: ', res);
-        });
+        .success(res => { sv.cnt = res; });
     };
     sv.clear = function () {
-      return $http.get('/api/notifs/clear', { ignoreLoadingBar: true });
+      return new Promise((resolve, reject) => {
+        $http.get('/api/notifs/clear', { ignoreLoadingBar: true })
+          .success(() => {
+            sv.cnt = 0;
+            return resolve();
+          });
+      });
+    };
+    sv.remove = notif => {
+      return $http.get('/api/notifs/' + notif + '/remove', { ignoreLoadingBar: true }).success(res => {
+        sv.cnt = res;
+      });
     };
     // sv.clearNotifs = function () {
     //   $http.get('/api/clearAll', { ignoreLoadingBar: true })

@@ -72,7 +72,10 @@ exports.delete = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(notif);
+      Notif.find({ to: req.user._id }).count(function (err, count) {
+        if (err) return res.end();
+        return res.jsonp(count);
+      });
     }
   });
 };

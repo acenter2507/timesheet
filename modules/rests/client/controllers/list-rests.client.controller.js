@@ -5,9 +5,9 @@
     .module('rests')
     .controller('RestsListController', RestsListController);
 
-  RestsListController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', '$document', 'Socket'];
+  RestsListController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', '$document', 'Socket', '$stateParams', 'Notifications'];
 
-  function RestsListController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, $document, Socket) {
+  function RestsListController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, $document, Socket, $stateParams, Notifications) {
     var vm = this;
     vm.condition = { sort: '-created' };
     vm.busy = false;
@@ -26,8 +26,10 @@
       prepareRestAction();
       handleSearch();
     }
-    function prepareRests() {
-      return RestsService.query().$promise;
+    function prepareNotification() {
+      if ($stateParams.notif) {
+        Notifications.remove($stateParams.notif);
+      }
     }
     function prepareCalendar() {
       vm.calendar = { view: 'month' };

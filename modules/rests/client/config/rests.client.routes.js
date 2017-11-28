@@ -16,7 +16,7 @@
         ncyBreadcrumb: { label: '休暇' }
       })
       .state('rests.list', {
-        url: '?notifId',
+        url: '?notif',
         templateUrl: 'modules/rests/client/views/list-rests.client.view.html',
         controller: 'RestsListController',
         controllerAs: 'vm',
@@ -24,7 +24,7 @@
         ncyBreadcrumb: { label: '一覧' }
       })
       .state('rests.review', {
-        url: '/review?notifId',
+        url: '/review?notif',
         templateUrl: 'modules/rests/client/views/review-rest.client.view.html',
         controller: 'RestsReviewController',
         controllerAs: 'vm',
@@ -41,7 +41,7 @@
         ncyBreadcrumb: { label: '登録' }
       })
       .state('rests.edit', {
-        url: '/:restId/edit?notifId',
+        url: '/:restId/edit?notif',
         templateUrl: 'modules/rests/client/views/form-rest.client.view.html',
         controller: 'RestInputController',
         controllerAs: 'vm',
@@ -50,7 +50,7 @@
         ncyBreadcrumb: { label: '編集' }
       })
       .state('rests.view', {
-        url: '/:restId?notifId',
+        url: '/:restId?notif',
         templateUrl: 'modules/rests/client/views/view-rest.client.view.html',
         controller: 'RestsController',
         controllerAs: 'vm',
