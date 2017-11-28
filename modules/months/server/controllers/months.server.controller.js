@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Month
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var month = new Month(req.body);
   month.user = req.user;
 
-  month.save(function(err) {
+  month.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Month
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var month = req.month ? req.month.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Month
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var month = req.month;
 
   month = _.extend(month, req.body);
 
-  month.save(function(err) {
+  month.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Month
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var month = req.month;
 
-  month.remove(function(err) {
+  month.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +80,8 @@ exports.delete = function(req, res) {
 /**
  * List of Months
  */
-exports.list = function(req, res) {
-  Month.find().sort('-created').populate('user', 'displayName').exec(function(err, months) {
+exports.list = function (req, res) {
+  Month.find().sort('-created').populate('user', 'displayName').exec(function (err, months) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -93,9 +93,25 @@ exports.list = function(req, res) {
 };
 
 /**
+ * Get all month in year of 1 user
+ */
+exports.getMonthsOfYearByUser = function (req, res) {
+  var year = req.body.year;
+  var userId = req.body.userId;
+  if (!year || !userId) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
+
+  Month.find({ user: userId, year: year })
+    .populate('history')
+    .exec(function (err, months) {
+    if (err)
+      return res.status(400).send({ message: 'データを取得できません。' });
+    return res.jsonp(months);
+  });
+};
+/**
  * Month middleware
  */
-exports.monthByID = function(req, res, next, id) {
+exports.monthByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

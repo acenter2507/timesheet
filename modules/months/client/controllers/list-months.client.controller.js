@@ -5,23 +5,44 @@
     .module('months')
     .controller('MonthsListController', MonthsListController);
 
-  MonthsListController.$inject = ['MonthsService', '$scope', '$state', 'DateUtil', '$stateParams'];
+  MonthsListController.$inject = ['MonthsService', '$scope', '$state', 'DateUtil', '$stateParams', 'CommonService', 'MonthsApi'];
 
-  function MonthsListController(MonthsService, $scope, $state, DateUtil, $stateParams) {
+  function MonthsListController(MonthsService, $scope, $state, DateUtil, $stateParams, CommonService, MonthsApi) {
     var vm = this;
-    vm.busy = false;
+    vm.datas = [];
+    vm.months = [];
+    vm.createMonthBusy = false;
 
     onCreate();
     function onCreate() {
-      preapreParams();
+      prepareParams();
+      prepareMonths();
+      console.log(moment().year());
     }
 
-    function preapreParams() {
+    function prepareParams() {
       var param = $stateParams.year;
       if (param) {
         vm.currentYear = moment(param, 'YYYY');
       } else {
         vm.currentYear = moment(new Date(), 'YYYY');
+      }
+    }
+    function prepareMonths() {
+      MonthsApi.getMonthsOfYearByUser(vm.currentYear.format('YYYY'), $scope.user._id)
+        .success(res => {
+          vm.datas = res;
+          console.log(res);
+          prepareShowingData();
+        })
+        .error(err => {
+          $scope.handleShowToast(err.message, true);
+        })
+    }
+    function prepareShowingData() {
+      for (var index = 1; index <= 12; index++) {
+        var month = _.findWhere(vm.datas, { month: index });
+        vm.months.push({ index: index, month: month });
       }
     }
 
@@ -34,8 +55,19 @@
       $state.go('months.list', { year: nextYear.format('YYYY') });
     };
     vm.handleCurrentYear = () => {
-      var current =  moment(new Date(), 'YYYY');
+      var current = moment(new Date(), 'YYYY');
       $state.go('months.list', { year: current.format('YYYY') });
     };
+    vm.handleCreateMonth = index => {
+      if (vm.createMonthBusy) return;
+      // vm.createMonthBusy = true;
+
+      // var newMonth = new MonthsService({
+      //   year: vm.currentYear.format('YYYY')
+      // })
+    };
+    vm.handleSendRequestMonth = month => { };
+    vm.handleDeleteMonth = month => { };
+    vm.handleViewHistory = month => { };
   }
 }());

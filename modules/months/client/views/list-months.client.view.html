@@ -6,12 +6,49 @@
     <div class="col-xs-12 text-center">
       <div class="btn-group">
         <button class="btn btn-primary btn-sm" ng-click="vm.handleNextYear()">去年</button>
-        <button class="btn btn-primary btn-sm" ng-click="vm.handleCurrentYear()">今年</button>
+        <button class="btn btn-default btn-sm" ng-click="vm.handleCurrentYear()">今年</button>
         <button class="btn btn-primary btn-sm" ng-click="vm.handlePreviousYear()">来年</button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-default">
+            <tr>
+              <th class="text-center">月</th>
+              <th class="text-center">状態</th>
+              <th class="d-sm-down-none">出勤日数</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in vm.months">
+              <td class="text-center">{{ item.index}}</td>
+              <td class="text-center">
+                <span class="label label-default" ng-if="!item.month">未作成</span>
+                <span class="label label-primary" ng-if="item.month.status === 1">{{ item.month.status | MonthStatusFilter}}</span>
+                <span class="label badge-warning" ng-if="item.month.status === 2">{{ item.month.status | MonthStatusFilter}}</span>
+                <span class="label badge-success" ng-if="item.month.status === 3">{{ item.month.status | MonthStatusFilter}}</span>
+                <span class="label badge-danger" ng-if="item.month.status === 4">{{ item.month.status | MonthStatusFilter}}</span>
+              </td>
+              <td>
+                  <a ng-if="!item.month" class="btn btn-default btn-xs" ng-click="vm.handleCreateMonth(item.index)"><i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createMonthBusy"></i> 作成</a>
+                  <a ng-if="item.month.status === 1" class="btn btn-primary btn-xs" ng-click="vm.handleSendRequestMonth(item.month)">申請</a>
+                  <a ng-if="item.month.status === 1 || item.month.status === 4" class="btn btn-success btn-xs" ui-sref="months.view({ monthId: item.month._id })">編集</a>
+                  <a ng-if="item.month.status === 1 || item.month.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleDeleteMonth(item.month)">削除</a>
+                  <a class="btn btn-info btn-xs" ng-click="vm.handleViewHistory(item.month)">歴史</a>
+                  <a class="btn btn-default btn-xs" ui-sref="months.view({ monthId: item.month._id })">詳細</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
-<a class="btn-quick" ui-sref="rests.create">
+<!-- <a class="btn-quick" ui-sref="rests.create">
   <i class="fa fa-plus"></i>
-</a>
+</a> -->
