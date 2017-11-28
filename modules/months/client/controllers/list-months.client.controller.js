@@ -104,18 +104,17 @@
       }
     };
     vm.handleCreateAll = () => {
-      if (vm.isShowHistory) return;
+      if (vm.createMonthBusy) return;
       $scope.handleShowConfirm({
         message: '今年月の勤務表を全て作成しますか？'
       }, () => {
-        vm.isShowHistory = true;
+        vm.createMonthBusy = true;
         var undefineds = [];
         vm.months.forEach(item => {
           if (!item.month)
             return undefineds.push(item.index);
         });
         if (undefineds.length === 0) return $scope.handleShowToast('今年の勤務表は全部作成されました。');
-        console.log(undefineds);
         var promises = [];
         for (let i = 0; i < undefineds.length; i++) {
           var index = undefineds[i];
@@ -126,13 +125,20 @@
           promises.push(newMonth.$save());
         }
         Promise.all(promises).then(res => {
-          console.log(res);
+          for (let i = 0; i < undefineds.length; i++) {
+            var index = undefineds[i];
+            var newMonth = _.findWhere(res, { month: index });
+            var oldItem = _.findWhere(vm.months, { index: index });
+            if (newMonth && oldItem) {
+              _.extend(oldItem, { month: newMonth });
+            }
+          }
           vm.createMonthBusy = false;
         })
-        .catch(err => {
-          console.log(err);
-          vm.createMonthBusy = false;
-        });
+          .catch(err => {
+            $scope.handleShowToast(err.data.message, true);
+            vm.createMonthBusy = false;
+          });
       });
     };
   }
