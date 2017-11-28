@@ -7,23 +7,30 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Month = mongoose.model('Month'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('underscore');
 
 /**
  * Create a Month
  */
 exports.create = function (req, res) {
   var month = new Month(req.body);
-  month.user = req.user;
+  month.user = req.user._id;
+
+  Month.findOne({ user: req.user._id, month: month.month, year: month.year }).exec((err, _month) => {
+    if (err) return res.status(400).send({ message: 'データが保存できません。' });
+    if (_month) return res.status(400).send({ message: 'この月の勤務表が既に作成されました。' });
+    month.status = 1;
+    month.historys = [{ action: 1, comment: '', timing: month.created, user: month.user }];
+    if (req.user.department) {
+      month.department = req.user.department._id || req.user.department;
+    }
+    month.search = req.user.displayName + '勤務表時間' + month.year;
+    month.roles = req.user.roles;
+  });
 
   month.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(month);
-    }
+    if (err) return res.status(400).send({ message: 'データが保存できません。' });
+    res.jsonp(month);
   });
 };
 

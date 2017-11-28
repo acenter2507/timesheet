@@ -38,6 +38,17 @@ var MonthSchema = new Schema({
     created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now },
   }],
+  search: { type: String },
+  department: { type: Schema.ObjectId, ref: 'Department' },
+  // Roles
+  roles: {
+    type: [{
+      type: String,
+      enum: ['user', 'accountant', 'manager', 'admin']
+    }],
+    default: ['user'],
+    required: 'Please provide at least one role'
+  },
   created: { type: Date, default: Date.now },
   user: { type: Schema.ObjectId, ref: 'User' }
 });

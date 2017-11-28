@@ -60,11 +60,19 @@
     };
     vm.handleCreateMonth = index => {
       if (vm.createMonthBusy) return;
-      // vm.createMonthBusy = true;
+      vm.createMonthBusy = true;
 
-      // var newMonth = new MonthsService({
-      //   year: vm.currentYear.format('YYYY')
-      // })
+      var newMonth = new MonthsService({
+        year: vm.currentYear.year(),
+        month: index
+      });
+      newMonth.$save(res => {
+        console.log(res);
+        // var oldMonth = _.findWhere(vm.months, { index: index });
+        // _.extend(oldMonth, { month: res });
+      }, err => {
+        $scope.handleShowToast(err.data.message, true);
+      });
     };
     vm.handleSendRequestMonth = month => { };
     vm.handleDeleteMonth = month => { };
