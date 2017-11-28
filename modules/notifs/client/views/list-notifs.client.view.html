@@ -4,12 +4,8 @@
   </div>
   <div class="list-group">
     <a ng-repeat="notif in vm.notifs" ui-sref="{{notif.state}}" class="list-group-item">
-      <small class="list-group-item-text">
-        <span ng-bind="notif.created | LLLL"></span>
-        <span ng-if="notif.from">{{notif.from.displayName}}</span>
-        <span ng-if="!notif.from">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading">notif.message</h4>
+      <small ng-bind="notif.created | LLLL"></small>
+      <h4 class="list-group-item-heading">{{notif.message}}</h4>
     </a>
   </div>
 </section>
