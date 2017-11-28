@@ -7,7 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Notif = mongoose.model('Notif'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('underscore');
 
 /**
  * Create a Notif
@@ -81,15 +81,18 @@ exports.delete = function (req, res) {
  * List of Notifs
  */
 exports.list = function (req, res) {
-  Notif.find().sort('-created').populate('user', 'displayName').exec(function (err, notifs) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(notifs);
-    }
-  });
+  Notif.find({ to: req.user._id })
+    .sort('-created')
+    .populate('from', 'displayName profileImageURL')
+    .exec(function (err, notifs) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(notifs);
+      }
+    });
 };
 
 /**

@@ -3,7 +3,7 @@
     <h1>Notifications</h1>
   </div>
   <div class="list-group">
-    <a ng-repeat="notif in Notifications.notifications" ui-sref="{{notif.state}}" class="list-group-item">
+    <a ng-repeat="notif in vm.notifs" ui-sref="{{notif.state}}" class="list-group-item">
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="notif.created | date:'mediumDate'"></span>
