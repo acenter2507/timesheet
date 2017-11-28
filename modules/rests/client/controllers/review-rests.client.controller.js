@@ -190,7 +190,7 @@
         RestsApi.approve(rest._id)
           .success(data => {
             _.extend(rest, data);
-            Socket.emit('rest_review', { rest: vm.rest._id, user: $scope.user._id });
+            Socket.emit('rest_review', { rest: rest._id, user: $scope.user._id });
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);
@@ -209,7 +209,7 @@
           RestsApi.reject(rest._id, { comment: comment })
             .success(data => {
               _.extend(rest, data);
-              Socket.emit('rest_review', { rest: vm.rest._id, user: $scope.user._id });
+              Socket.emit('rest_review', { rest: rest._id, user: $scope.user._id });
             })
             .error(err => {
               $scope.handleShowToast(err.message, true);
