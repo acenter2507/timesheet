@@ -5,14 +5,14 @@
     </div>
     <div class="col-xs-12 text-center">
       <div class="btn-group">
-        <button class="btn btn-primary btn-sm" ng-click="vm.handleNextYear()">去年</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.handleNextYear()"><i class="fa fa-angle-double-left"></i> 去年</button>
         <button class="btn btn-default btn-sm" ng-click="vm.handleCurrentYear()">今年</button>
-        <button class="btn btn-primary btn-sm" ng-click="vm.handlePreviousYear()">来年</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.handlePreviousYear()">来年 <i class="fa fa-angle-double-right"></i></button>
       </div>
     </div>
     <div class="clearfix"></div>
   </div>
-  <div class="row">
+  <div class="row mg10t">
     <div class="col-xs-12">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -27,7 +27,6 @@
           <tbody>
             <tr ng-repeat="item in vm.months">
               <td class="text-center">{{ item.index}}</td>
-              <td class="d-sm-down-none"></td>
               <td class="text-center">
                 <span class="label label-default" ng-if="!item.month">未作成</span>
                 <span class="label label-primary" ng-if="item.month.status === 1">{{ item.month.status | MonthStatusFilter}}</span>
@@ -35,6 +34,7 @@
                 <span class="label badge-success" ng-if="item.month.status === 3">{{ item.month.status | MonthStatusFilter}}</span>
                 <span class="label badge-danger" ng-if="item.month.status === 4">{{ item.month.status | MonthStatusFilter}}</span>
               </td>
+              <td class="d-sm-down-none"></td>
               <td>
                   <a ng-if="!item.month" class="btn btn-default btn-xs" ng-click="vm.handleCreateMonth(item.index)"><i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createMonthBusy"></i> 作成</a>
                   <a ng-if="item.month.status === 1" class="btn btn-primary btn-xs" ng-click="vm.handleSendRequestMonth(item.month)">申請</a>
