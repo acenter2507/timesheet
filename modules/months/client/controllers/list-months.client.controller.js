@@ -108,13 +108,13 @@
       $scope.handleShowConfirm({
         message: '今年月の勤務表を全て作成しますか？'
       }, () => {
-        vm.createMonthBusy = true;
         var undefineds = [];
         vm.months.forEach(item => {
           if (!item.month)
             return undefineds.push(item.index);
         });
-        if (undefineds.length === 0) return $scope.handleShowToast('今年の勤務表は全部作成されました。');
+        if (undefineds.length === 0) return $scope.handleShowToast('今年の勤務表は全部作成されました。', true);
+        vm.createMonthBusy = true;
         var promises = [];
         for (let i = 0; i < undefineds.length; i++) {
           var index = undefineds[i];
