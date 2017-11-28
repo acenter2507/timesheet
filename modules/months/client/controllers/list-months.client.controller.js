@@ -82,7 +82,7 @@
       $scope.handleShowConfirm({
         message: item.month.month + '月の勤務時間を削除しますか？'
       }, () => {
-        var rsMonth = new RestsService({ _id: item.month._id });
+        var rsMonth = new MonthsService({ _id: item.month._id });
         rsMonth.$remove(() => {
           item.month = undefined;
         });
