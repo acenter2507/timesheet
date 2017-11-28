@@ -75,7 +75,7 @@
         vm.createMonthBusy = false;
       });
     };
-    vm.handleSendRequestMonth = month => {
+    vm.handleSendRequestMonth = item => {
     };
     vm.handleDeleteMonth = item => {
       if (!item.month) return;
