@@ -79,7 +79,6 @@
     };
     vm.handleDeleteMonth = item => {
       if (!item.month) return;
-      console.log(item);
       $scope.handleShowConfirm({
         message: item.month.month + '月の勤務時間を削除しますか？'
       }, () => {
@@ -103,6 +102,37 @@
       } else {
         return $state.go('profile.view', { userId: user._id });
       }
+    };
+    vm.handleCreateAll = () => {
+      if (vm.isShowHistory) return;
+      $scope.handleShowConfirm({
+        message: item.month.month + '月の勤務時間を削除しますか？'
+      }, () => {
+        vm.isShowHistory = true;
+        var undefineds = [];
+        vm.months.forEach(item => {
+          if (!item.month)
+            return undefineds.push(item.index);
+        });
+        if (undefineds.length === 0) return $scope.handleShowToast('今年の勤務表は全部作成されました。');
+        var promises = [];
+        for (let i = 0; i <= undefineds.length; i++) {
+          var index = undefineds[i];
+          var newMonth = new MonthsService({
+            year: vm.currentYear.year(),
+            month: index
+          });
+          promises.push(newMonth.$save());
+        }
+        Promise.all(promises).then(res => {
+          console.log(res);
+          vm.createMonthBusy = false;
+        })
+        .catch(err => {
+          console.log(err);
+          vm.createMonthBusy = false;
+        });
+      });
     };
   }
 }());
