@@ -54,6 +54,7 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     // Socket
     if ($scope.isLogged) {
       prepareSocketListener();
+      Notifications.count();
     }
   }
   function prepareDeviceChecking() {

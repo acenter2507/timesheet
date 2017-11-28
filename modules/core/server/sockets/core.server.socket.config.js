@@ -5,6 +5,7 @@ const _ = require('underscore');
 module.exports = function (io, socket) {
   socket.on('init', function (req) {
     if (!_.contains(global.onlineUsers, { socket: socket.id })) {
+      console.log('Has user connection from: ' + req.user);
       global.onlineUsers.push({ socket: socket.id, user: req.user });
     }
   });
