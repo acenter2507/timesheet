@@ -227,7 +227,7 @@ a:hover .header-profile-image {
     height: 15px;
     width: 15px;
     background-color: #999; }
-    .navbar .navbar-toggle .badge-notifications.active {
+    .user-header-dropdown-toggle .badge-notifications.active {
       border: 2px solid #fff;
       background-color: #ff4444; }
 
