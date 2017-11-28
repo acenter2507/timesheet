@@ -34,6 +34,7 @@ module.exports = function (io, socket) {
                   notif.message = notif.from.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
                   notif.save().then(_notif => {
                     var socketUser = _.findWhere(global.onlineUsers, { user: leader.toString() });
+                    if (!socketUser) return;
                     io.sockets.connected[socketUser.socket].emit('notifications');
                   });
                 } else {
@@ -46,7 +47,8 @@ module.exports = function (io, socket) {
                     state: 'rests.review'
                   });
                   newNotif.save(_notif => {
-                    var socketUser = _.findWhere(global.onlineUsers, { user: leader });
+                    var socketUser = _.findWhere(global.onlineUsers, { user: leader.toString() });
+                    if (!socketUser) return;
                     io.sockets.connected[socketUser.socket].emit('notifications');
                   });
                 }
@@ -67,6 +69,7 @@ module.exports = function (io, socket) {
                     notif.message = notif.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
                     notif.save().then(_notif => {
                       var socketUser = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
+                      if (!socketUser) return;
                       io.sockets.connected[socketUser.socket].emit('notifications');
                     });
                   } else {
@@ -80,6 +83,7 @@ module.exports = function (io, socket) {
                     });
                     newNotif.save(_notif => {
                       var socketUser = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
+                      if (!socketUser) return;
                       io.sockets.connected[socketUser.socket].emit('notifications');
                     });
                   }
