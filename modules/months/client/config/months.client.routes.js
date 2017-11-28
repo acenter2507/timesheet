@@ -20,7 +20,8 @@
         templateUrl: 'modules/months/client/views/list-months.client.view.html',
         controller: 'MonthsListController',
         controllerAs: 'vm',
-        data: { roles: ['user', 'admin', 'manager', 'accountant'] }
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '一覧' }
       })
       .state('months.create', {
         url: '/create',

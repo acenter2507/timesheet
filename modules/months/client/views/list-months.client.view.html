@@ -4,9 +4,11 @@
       <h4 class="text-center mg5y">{{ vm.currentYear.format('YYYY[年]')}}</h4>
     </div>
     <div class="col-xs-12 text-center">
-      <button class="btn btn-primary btn-sm" ng-click="vm.handleNextYear()">去年</button>
-      <button class="btn btn-primary btn-sm" ng-click="vm.handleCurrentYear()">今年</button>
-      <button class="btn btn-primary btn-sm" ng-click="vm.handlePreviousYear()">来年</button>
+      <div class="btn-group">
+        <button class="btn btn-primary btn-sm" ng-click="vm.handleNextYear()">去年</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.handleCurrentYear()">今年</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.handlePreviousYear()">来年</button>
+      </div>
     </div>
   </div>
 </div>
