@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Months</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="month in vm.months"
+       ui-sref="months.view({ monthId: month._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="month.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="month.user" ng-bind="month.user.displayName"></span>
+        <span ng-if="!month.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="month.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.months.$resolved && !vm.months.length">
+    No Months yet, why don't you <a ui-sref="months.create">create one</a>?
+  </div>
+</section>
