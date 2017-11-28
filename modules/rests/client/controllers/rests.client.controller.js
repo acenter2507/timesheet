@@ -6,9 +6,9 @@
     .module('rests')
     .controller('RestsController', RestsController);
 
-  RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService', 'DateUtil', 'RestsApi', 'ngDialog'];
+  RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService', 'DateUtil', 'RestsApi', 'ngDialog', 'Socket'];
 
-  function RestsController($scope, $state, rest, CommonService, DateUtil, RestsApi, ngDialog) {
+  function RestsController($scope, $state, rest, CommonService, DateUtil, RestsApi, ngDialog, Socket) {
     var vm = this;
     vm.rest = rest;
 
