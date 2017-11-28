@@ -37,7 +37,7 @@
         })
         .error(err => {
           $scope.handleShowToast(err.message, true);
-        })
+        });
     }
     function prepareShowingData() {
       for (var index = 1; index <= 12; index++) {
