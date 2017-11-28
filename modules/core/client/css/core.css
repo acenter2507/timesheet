@@ -436,3 +436,37 @@ ul.user-menu {
         white-space: nowrap;}
         ul.user-menu .dropdown-item:hover {
           background-color: #f3f3f3; }
+
+.badge-pill {
+  padding-right: 0.6em;
+  padding-left: 0.6em; }
+
+.badge-default {
+  background-color: #b0bec5; }
+  .badge-default[href]:focus, .badge-default[href]:hover {
+    background-color: #93a6af; }
+
+.badge-primary {
+  background-color: #20a8d8; }
+  .badge-primary[href]:focus, .badge-primary[href]:hover {
+    background-color: #1985ac; }
+
+.badge-success {
+  background-color: #4dbd74; }
+  .badge-success[href]:focus, .badge-success[href]:hover {
+    background-color: #3a9d5d; }
+
+.badge-info {
+  background-color: #63c2de; }
+  .badge-info[href]:focus, .badge-info[href]:hover {
+    background-color: #39b2d5; }
+
+.badge-warning {
+  background-color: #f8cb00; }
+  .badge-warning[href]:focus, .badge-warning[href]:hover {
+    background-color: #c5a100; }
+
+.badge-danger {
+  background-color: #f86c6b; }
+  .badge-danger[href]:focus, .badge-danger[href]:hover {
+    background-color: #f63c3a; }

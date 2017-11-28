@@ -43,19 +43,16 @@
       <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
         <img ng-src="{{user.profileImageURL}}" alt="{{user.displayName}}" class="header-profile-image" />
         <span class="badge-notifications" ng-class="{ 'active': Notifications.cnt > 0 || Messages.cnt > 0 }"></span>
-        <!-- <span ng-bind="user.displayName"></span> <b class="caret"></b> -->
       </a>
       <ul class="dropdown-menu user-menu" role="menu">
-        <div class="dropdown-header text-center">
-          <strong>{{user.displayName}}</strong>
-        </div>
+        <div class="dropdown-header text-center"><strong>{{user.displayName}}</strong></div>
         <a class="dropdown-item" ui-sref="notifs.list">
           <i class="fa fa-bell-o"></i> お知らせ
-          <span class="badge badge-info">{{Notifications.cnt}}</span>
+          <span class="badge" ng-class="{'badge-danger': Notifications.cnt > 0}">{{Notifications.cnt}}</span>
         </a>
         <a class="dropdown-item" ui-sref="messages.list">
           <i class="fa fa-envelope-o"></i> メッセージ
-          <span class="badge badge-info">{{Messages.cnt}}</span>
+          <span class="badge" ng-class="{'badge-success': Messages.cnt > 0}">{{Messages.cnt}}</span>
         </a>
         <div class="dropdown-header text-center">
           <strong>プロファイル</strong>
