@@ -79,6 +79,7 @@
     };
     vm.handleDeleteMonth = item => {
       if (!item.month) return;
+      console.log(item);
       $scope.handleShowConfirm({
         message: item.month.month + '月の勤務時間を削除しますか？'
       }, () => {
