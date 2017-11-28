@@ -77,7 +77,17 @@
     };
     vm.handleSendRequestMonth = month => {
     };
-    vm.handleDeleteMonth = month => { };
+    vm.handleDeleteMonth = item => {
+      if (!item.month) return;
+      $scope.handleShowConfirm({
+        message: item.month.month + '月の勤務時間を削除しますか？'
+      }, () => {
+        var rsMonth = new RestsService({ _id: item.month._id });
+        rsMonth.$remove(() => {
+          item.month = undefined;
+        });
+      });
+    };
     vm.handleViewHistory = month => {
       vm.isShowHistory = true;
       vm.historys = month.historys;
