@@ -33,6 +33,7 @@ module.exports = function (io, socket) {
                   notif.count += 1;
                   notif.message = notif.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
                   notif.save().then(_notif => {
+                    console.log(global.onlineUsers);
                     var socketIds = _.findWhere(global.onlineUsers, { user: leader });
                     io.sockets.connected[socketIds].emit('notifications');
                   });
@@ -46,6 +47,7 @@ module.exports = function (io, socket) {
                     state: 'rests.review'
                   });
                   newNotif.save(_notif => {
+                    console.log(global.onlineUsers);
                     var socketIds = _.findWhere(global.onlineUsers, { user: leader });
                     io.sockets.connected[socketIds].emit('notifications');
                   });
@@ -66,6 +68,7 @@ module.exports = function (io, socket) {
                     notif.count += 1;
                     notif.message = notif.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
                     notif.save().then(_notif => {
+                      console.log(global.onlineUsers);
                       var socketIds = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
                       io.sockets.connected[socketIds].emit('notifications');
                     });
@@ -79,6 +82,7 @@ module.exports = function (io, socket) {
                       state: 'rests.review'
                     });
                     newNotif.save(_notif => {
+                      console.log(global.onlineUsers);
                       var socketIds = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
                       io.sockets.connected[socketIds].emit('notifications');
                     });
