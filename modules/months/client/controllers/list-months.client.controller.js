@@ -32,6 +32,7 @@
       MonthsApi.getMonthsOfYearByUser(vm.currentYear.year(), $scope.user._id)
         .success(res => {
           vm.datas = res;
+          console.log(res);
           prepareShowingData();
         })
         .error(err => {
