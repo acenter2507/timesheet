@@ -115,6 +115,7 @@
             return undefineds.push(item.index);
         });
         if (undefineds.length === 0) return $scope.handleShowToast('今年の勤務表は全部作成されました。');
+        console.log(undefineds);
         var promises = [];
         for (let i = 0; i <= undefineds.length; i++) {
           var index = undefineds[i];
