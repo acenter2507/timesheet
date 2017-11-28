@@ -5,9 +5,9 @@
     .module('months')
     .controller('MonthsListController', MonthsListController);
 
-  MonthsListController.$inject = ['MonthsService', '$scope', '$state'];
+  MonthsListController.$inject = ['MonthsService', '$scope', '$state', 'DateUtil'];
 
-  function MonthsListController(MonthsService, $scope, $state) {
+  function MonthsListController(MonthsService, $scope, $state, DateUtil) {
     var vm = this;
     vm.busy = false;
 
