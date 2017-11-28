@@ -89,9 +89,9 @@
         });
       });
     };
-    vm.handleViewHistory = month => {
+    vm.handleViewHistory = item => {
       vm.isShowHistory = true;
-      vm.historys = month.historys;
+      vm.historys = item.month.historys;
     };
     vm.handleCloseHistory = () => {
       vm.isShowHistory = false;
