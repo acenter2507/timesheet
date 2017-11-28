@@ -175,7 +175,7 @@
         RestsApi.request(rest._id)
           .success(data => {
             _.extend(rest, data);
-            Socket.emit('request', { restId: rest._id, userId: $scope.user._id });
+            Socket.emit('rest_request', { restId: rest._id, userId: $scope.user._id });
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);

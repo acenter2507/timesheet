@@ -12,7 +12,7 @@ var notifs = require(path.resolve('./modules/notifs/server/controllers/notifs.se
 module.exports = function (io, socket) {
   var notifSocket = notifs.notifSocket(io, socket);
   // Send request Rest
-  socket.on('request', req => {
+  socket.on('rest_request', req => {
     Rest.findById(req.restId).exec((err, rest) => {
       if (err) return;
       if (!rest) return;
@@ -95,5 +95,30 @@ module.exports = function (io, socket) {
     });
     // io.sockets.in(req.pollId).emit('poll_like', req.likeCnt);
     // notifSocket.pollLikeNotif(req);
+  });
+  socket.on('rest_review', req => {
+    Rest.findById(req.rest).exec((err, rest) => {
+      if (err) return;
+      if (!rest) return;
+      if (rest.status !== 3 && rest.status !== 4) return;
+      User.findById(req.user).exec((err, user) => {
+        if (err) return;
+        if (!user) return;
+        var newNotif = new Notif({
+          from: user._id,
+          to: rest.user._id || rest.user,
+          message: user.displayName + 'さんがあなたの休暇を' + (rest.status === 3) ? '承認' : '拒否' + 'しました。',
+          type: 2,
+          count: 1,
+          state: 'rests.list'
+        });
+        newNotif.save(_notif => {
+          var userId = rest.user._id || rest.user;
+          var socketUser = _.findWhere(global.onlineUsers, { user: userId.toString() });
+          if (!socketUser) return;
+          io.sockets.connected[socketUser.socket].emit('notifications');
+        });
+      });
+    });
   });
 };

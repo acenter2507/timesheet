@@ -13,8 +13,7 @@ var NotifSchema = new Schema({
   from: { type: Schema.ObjectId, ref: 'User' },
   to: { type: Schema.ObjectId, ref: 'User' },
   // 1: Request Rest
-  // 2: Reject rest
-  // 3: Approve rest
+  // 2: Review rest
   type: { type: Number, default: 0 },
   message: { type: String, required: true },
   state: { type: String, default: '' },
