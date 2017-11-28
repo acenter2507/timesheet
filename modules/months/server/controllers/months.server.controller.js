@@ -103,10 +103,10 @@ exports.getMonthsOfYearByUser = function (req, res) {
   Month.find({ user: userId, year: year })
     .populate('history')
     .exec(function (err, months) {
-    if (err)
-      return res.status(400).send({ message: 'データを取得できません。' });
-    return res.jsonp(months);
-  });
+      if (err)
+        return res.status(400).send({ message: 'データを取得できません。' });
+      return res.jsonp(months);
+    });
 };
 /**
  * Month middleware
