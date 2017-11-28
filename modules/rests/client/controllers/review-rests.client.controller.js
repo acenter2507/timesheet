@@ -5,9 +5,9 @@
     .module('rests')
     .controller('RestsReviewController', RestsReviewController);
 
-  RestsReviewController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', 'DepartmentsService', 'ngDialog', '$document'];
+  RestsReviewController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', 'DepartmentsService', 'ngDialog', '$document', '$stateParams', 'Notifications'];
 
-  function RestsReviewController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, DepartmentsService, ngDialog, $document) {
+  function RestsReviewController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, DepartmentsService, ngDialog, $document, $stateParams, Notifications) {
     var vm = this;
     vm.busy = false;
     vm.page = 1;
@@ -22,11 +22,17 @@
 
     onCreate();
     function onCreate() {
+      prepareNotification();
       prepareCalendar();
       prepareRestAction();
       prepareDepartments();
       prepareCondition();
       handleSearch();
+    }
+    function prepareNotification() {
+      if ($stateParams.notif) {
+        Notifications.remove($stateParams.notif);
+      }
     }
     function prepareCalendar() {
       vm.calendar = { view: 'month' };

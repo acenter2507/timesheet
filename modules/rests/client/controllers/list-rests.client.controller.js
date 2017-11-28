@@ -22,6 +22,7 @@
 
     onCreate();
     function onCreate() {
+      prepareNotification();
       prepareCalendar();
       prepareRestAction();
       handleSearch();

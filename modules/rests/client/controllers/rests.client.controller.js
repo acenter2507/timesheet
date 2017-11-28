@@ -6,15 +6,16 @@
     .module('rests')
     .controller('RestsController', RestsController);
 
-  RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService', 'DateUtil', 'RestsApi', 'ngDialog', 'Socket'];
+  RestsController.$inject = ['$scope', '$state', 'restResolve', 'CommonService', 'DateUtil', 'RestsApi', 'ngDialog', 'Socket', '$stateParams', 'Notifications'];
 
-  function RestsController($scope, $state, rest, CommonService, DateUtil, RestsApi, ngDialog, Socket) {
+  function RestsController($scope, $state, rest, CommonService, DateUtil, RestsApi, ngDialog, Socket, $stateParams, Notifications) {
     var vm = this;
     vm.rest = rest;
 
     onCreate();
     function onCreate() {
       prepareSecurity();
+      prepareNotification();
       prepareCalendar();
     }
     function prepareSecurity() {
@@ -41,6 +42,11 @@
       if (CommonService.isAccountant(vm.rest.user.roles) && !($scope.isAccountant || $scope.isAdmin)) {
         $scope.handleShowToast('この休暇をみる権限がありません。', true);
         return handlePreviousScreen();
+      }
+    }
+    function prepareNotification() {
+      if ($stateParams.notif) {
+        Notifications.remove($stateParams.notif);
       }
     }
     function prepareCalendar() {
