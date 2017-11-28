@@ -22,19 +22,28 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }]
   }, {
+    roles: ['accountant'],
+    allows: [{
+      resources: '/api/months',
+      permissions: '*'
+    }, {
+      resources: '/api/months/:monthId',
+      permissions: '*'
+    }]
+  }, {
+    roles: ['manager'],
+    allows: [{
+      resources: '/api/months',
+      permissions: '*'
+    }, {
+      resources: '/api/months/:monthId',
+      permissions: '*'
+    }]
+  }, {
     roles: ['user'],
     allows: [{
       resources: '/api/months',
       permissions: ['get', 'post']
-    }, {
-      resources: '/api/months/:monthId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/months',
-      permissions: ['get']
     }, {
       resources: '/api/months/:monthId',
       permissions: ['get']
