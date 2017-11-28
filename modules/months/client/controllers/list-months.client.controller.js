@@ -17,7 +17,7 @@
     function onCreate() {
       prepareParams();
       prepareMonths();
-      console.log(moment().year());
+      console.log(vm.currentYear.year());
     }
 
     function prepareParams() {
@@ -25,11 +25,11 @@
       if (param) {
         vm.currentYear = moment(param, 'YYYY');
       } else {
-        vm.currentYear = moment(new Date(), 'YYYY');
+        vm.currentYear = moment();
       }
     }
     function prepareMonths() {
-      MonthsApi.getMonthsOfYearByUser(vm.currentYear.format('YYYY'), $scope.user._id)
+      MonthsApi.getMonthsOfYearByUser(vm.currentYear.year(), $scope.user._id)
         .success(res => {
           vm.datas = res;
           console.log(res);
@@ -48,15 +48,15 @@
 
     vm.handleNextYear = () => {
       var lastYear = vm.currentYear.clone().subtract(1, 'years');
-      $state.go('months.list', { year: lastYear.format('YYYY') });
+      $state.go('months.list', { year: lastYear.year() });
     };
     vm.handlePreviousYear = () => {
       var nextYear = vm.currentYear.clone().add(1, 'years');
-      $state.go('months.list', { year: nextYear.format('YYYY') });
+      $state.go('months.list', { year: nextYear.year() });
     };
     vm.handleCurrentYear = () => {
       var current = moment(new Date(), 'YYYY');
-      $state.go('months.list', { year: current.format('YYYY') });
+      $state.go('months.list', { year: current.year() });
     };
     vm.handleCreateMonth = index => {
       if (vm.createMonthBusy) return;

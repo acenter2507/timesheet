@@ -1,7 +1,7 @@
 <div class="container-fluid animated fadeIn mg100b">
   <div class="row">
     <div class="col-xs-12">
-      <h4 class="text-center mg5y">{{ vm.currentYear.format('YYYY[年]')}}</h4>
+      <h4 class="text-center mg5y">{{ vm.currentYear.year() + 年}}</h4>
     </div>
     <div class="col-xs-12 text-center">
       <div class="btn-group">
@@ -27,6 +27,7 @@
           <tbody>
             <tr ng-repeat="item in vm.months">
               <td class="text-center">{{ item.index}}</td>
+              <td class="d-sm-down-none"></td>
               <td class="text-center">
                 <span class="label label-default" ng-if="!item.month">未作成</span>
                 <span class="label label-primary" ng-if="item.month.status === 1">{{ item.month.status | MonthStatusFilter}}</span>
