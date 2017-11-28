@@ -17,7 +17,6 @@
     function onCreate() {
       prepareParams();
       prepareMonths();
-      console.log(vm.currentYear.year());
     }
 
     function prepareParams() {
@@ -32,7 +31,6 @@
       MonthsApi.getMonthsOfYearByUser(vm.currentYear.year(), $scope.user._id)
         .success(res => {
           vm.datas = res;
-          console.log(res);
           prepareShowingData();
         })
         .error(err => {

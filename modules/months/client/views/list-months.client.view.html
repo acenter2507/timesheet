@@ -34,7 +34,7 @@
                 <span class="label badge-success" ng-if="item.month.status === 3">{{ item.month.status | MonthStatusFilter}}</span>
                 <span class="label badge-danger" ng-if="item.month.status === 4">{{ item.month.status | MonthStatusFilter}}</span>
               </td>
-              <td class="d-sm-down-none"></td>
+              <td class="d-sm-down-none">{{item.month.works.length}}</td>
               <td>
                 <a ng-if="!item.month" class="btn btn-default btn-xs" ng-click="vm.handleCreateMonth(item.index)"><i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createMonthBusy"></i> 作成</a>
                 <a ng-if="item.month.status === 1" class="btn btn-primary btn-xs" ng-click="vm.handleSendRequestMonth(item.month)">申請</a>
