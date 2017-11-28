@@ -14,7 +14,7 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var month = new Month(req.body);
-  month.user = req.user;
+  month.user = req.user._id;
 
   Month.findOne({ user: req.user._id, month: month.month, year: month.year }).exec((err, _month) => {
     if (err) return res.status(400).send({ message: 'データが保存できません。' });
