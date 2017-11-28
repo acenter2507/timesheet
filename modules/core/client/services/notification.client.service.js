@@ -13,7 +13,7 @@
     sv.notifications = [];
     sv.count = function () {
       $http.get('/api/notifs/count', { ignoreLoadingBar: true })
-        .then(res => {
+        .success(res => {
           sv.cnt = res;
           console.log('Notifications: ', res);
         });
