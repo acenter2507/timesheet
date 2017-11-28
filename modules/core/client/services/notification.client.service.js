@@ -15,6 +15,7 @@
       $http.get('/api/notifs/count', { ignoreLoadingBar: true })
         .then(res => {
           sv.cnt = res;
+          console.log('Notifications: ', res);
         });
     };
     // sv.clearNotifs = function () {

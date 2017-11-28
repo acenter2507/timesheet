@@ -19,7 +19,8 @@ var NotifSchema = new Schema({
   message: { type: String, required: true },
   state: { type: String, default: '' },
   status: { type: Number, default: 0 },
-  count: { type: Number, default: 0 },  // Số người có chung hoạt động 
+  // Số lần request
+  count: { type: Number, default: 0 },
   created: { type: Date, default: Date.now }
 });
 
