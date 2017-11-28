@@ -120,7 +120,7 @@ exports.notifByID = function (req, res, next, id) {
  * Count of Notifs
  */
 exports.count = function (req, res) {
-  Notif.find().count(function (err, count) {
+  Notif.find({ to: req.user._id }).count(function (err, count) {
     if (err) return res.end();
     return res.jsonp(count);
   });
