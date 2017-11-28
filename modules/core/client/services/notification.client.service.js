@@ -11,12 +11,15 @@
     var sv = {};
     sv.cnt = 0;
     sv.notifications = [];
-    sv.count = function () {
+    sv.count = () => {
       $http.get('/api/notifs/count', { ignoreLoadingBar: true })
         .success(res => {
           sv.cnt = res;
           console.log('Notifications: ', res);
         });
+    };
+    sv.clear = function () {
+      return $http.get('/api/notifs/clear', { ignoreLoadingBar: true });
     };
     // sv.clearNotifs = function () {
     //   $http.get('/api/clearAll', { ignoreLoadingBar: true })

@@ -129,6 +129,15 @@ exports.count = function (req, res) {
   });
 };
 
+/**
+ * Clear all Notifs of user
+ */
+exports.clear = function (req, res) {
+  Notif.remove({ to: req.user._id }, () => {
+    res.end();
+  });
+};
+
 exports.notifSocket = (io, socket) => {
   return {
     // User send a rest

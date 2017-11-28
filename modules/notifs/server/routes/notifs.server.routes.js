@@ -8,6 +8,7 @@ var notifsPolicy = require('../policies/notifs.server.policy'),
 
 module.exports = function(app) {
   app.route('/api/notifs/count').get(notifs.count);
+  app.route('/api/notifs/clear').get(notifs.clear);
   // Notifs Routes
   app.route('/api/notifs').all(notifsPolicy.isAllowed)
     .get(notifs.list)
