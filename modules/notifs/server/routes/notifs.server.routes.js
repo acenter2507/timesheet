@@ -7,7 +7,7 @@ var notifsPolicy = require('../policies/notifs.server.policy'),
   notifs = require('../controllers/notifs.server.controller');
 
 module.exports = function(app) {
-  app.route('/api/notifs/count').post(notifs.count);
+  app.route('/api/notifs/count').get(notifs.count);
   // Notifs Routes
   app.route('/api/notifs').all(notifsPolicy.isAllowed)
     .get(notifs.list)
