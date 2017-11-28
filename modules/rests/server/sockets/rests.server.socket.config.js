@@ -33,10 +33,8 @@ module.exports = function (io, socket) {
                   notif.count += 1;
                   notif.message = notif.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
                   notif.save().then(_notif => {
-                    console.log(global.onlineUsers);
-                    console.log(leader);
-                    var socketIds = _.findWhere(global.onlineUsers, { user: leader.toString() });
-                    io.sockets.connected[socketIds].emit('notifications');
+                    var socketUser = _.findWhere(global.onlineUsers, { user: leader.toString() });
+                    io.sockets.connected[socketUser.socket].emit('notifications');
                   });
                 } else {
                   var newNotif = new Notif({
@@ -48,10 +46,8 @@ module.exports = function (io, socket) {
                     state: 'rests.review'
                   });
                   newNotif.save(_notif => {
-                    console.log(global.onlineUsers);
-                    console.log(leader);
-                    var socketIds = _.findWhere(global.onlineUsers, { user: leader });
-                    io.sockets.connected[socketIds].emit('notifications');
+                    var socketUser = _.findWhere(global.onlineUsers, { user: leader });
+                    io.sockets.connected[socketUser.socket].emit('notifications');
                   });
                 }
               });
@@ -70,10 +66,8 @@ module.exports = function (io, socket) {
                     notif.count += 1;
                     notif.message = notif.displayName + 'さんから休暇リクエスト' + notif.count + '個があります';
                     notif.save().then(_notif => {
-                      console.log(global.onlineUsers);
-                      console.log(accountant);
-                      var socketIds = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
-                      io.sockets.connected[socketIds].emit('notifications');
+                      var socketUser = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
+                      io.sockets.connected[socketUser.socket].emit('notifications');
                     });
                   } else {
                     var newNotif = new Notif({
@@ -85,10 +79,8 @@ module.exports = function (io, socket) {
                       state: 'rests.review'
                     });
                     newNotif.save(_notif => {
-                      console.log(global.onlineUsers);
-                      console.log(accountant);
-                      var socketIds = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
-                      io.sockets.connected[socketIds].emit('notifications');
+                      var socketUser = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
+                      io.sockets.connected[socketUser.socket].emit('notifications');
                     });
                   }
                 });

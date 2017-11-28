@@ -13,8 +13,8 @@ module.exports = function (io, socket) {
 
   // Emit the status event when a socket client is disconnected
   socket.on('disconnect', function () {
+    console.log('Has user disconnection from: ' + socket.id);
     if (_.contains(global.onlineUsers, socket.id)) {
-      console.log('Has user disconnection from: ' + socket.id);
       global.onlineUsers = _.without(global.onlineUsers, _.findWhere(global.onlineUsers, { socket: socket.id }));
       console.log(global.onlineUsers);
     }
