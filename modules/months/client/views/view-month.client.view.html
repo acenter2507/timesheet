@@ -13,7 +13,7 @@
       <form name="vm.form.workFrom">
         <div class="form-group" show-errors>
           <div class="col-xs-12 col-sm-12 col-md-6">
-            <textarea name="content" class="form-control h50" required></textarea>
+            <textarea name="content" class="form-control h50" ng-model="vm.tmpWork.content" required></textarea>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-3">
             <div uib-timepicker ng-model="vm.tmpWork.start" hour-step="1" minute-step="5" show-meridian="true">
