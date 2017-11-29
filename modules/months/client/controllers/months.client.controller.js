@@ -51,7 +51,7 @@
           vm.rests = res;
         })
         .error(err => {
-          $scope.handleShowToast(err.data.message, true);
+          $scope.handleShowToast(err.message, true);
         });
     }
     // Trở về màn hình trước
