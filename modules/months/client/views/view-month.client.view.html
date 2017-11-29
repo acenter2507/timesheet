@@ -41,7 +41,7 @@
               <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td>
               <td ng-if="!item.work" colspan="5">まだ登録していません。</td>
               <td ng-if="item.work && item.work.rest" colspan="5">
-                <span ng-bind-html="item.work.rest.description"></span>
+                <span ng-bind-html="item.work.rest.description | nl2br"></span>
               </td>
               <td ng-if="item.work && !item.work.rest">{{item.work.content}}</td>
               <td ng-if="item.work && !item.work.rest">{{item.work.start}}</td>
