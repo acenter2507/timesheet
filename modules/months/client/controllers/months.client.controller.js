@@ -42,42 +42,50 @@
       });
     }
     function prepareRest() {
-      var startRanger = vm.startDate.clone().startOf('date').format();
-      var endRanger = vm.endDate.clone().endOf('date').format();
-      RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
-        .success(res => {
-          vm.rests = res;
-        })
-        .error(err => {
-          $scope.handleShowToast(err.message, true);
-        });
+      return new Promise((resolve, reject) => {
+        var startRanger = vm.startDate.clone().startOf('date').format();
+        var endRanger = vm.endDate.clone().endOf('date').format();
+        RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
+          .success(res => {
+            vm.rests = res;
+            return resolve();
+          })
+          .error(err => {
+            vm.rests = [];
+            $scope.handleShowToast(err.message, true);
+            return resolve();
+          });
+      });
     }
     function prepareShowingData() {
-      for (var index = 0; index < vm.dates.length; index++) {
-        var date = vm.dates[index];
-        var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
-        var rest = getRestByDate(date);
-        if (work) {
-          if (!work.rest && rest) {
-            work.rest = rest;
-            work.content = undefined;
-            work.start = undefined;
-            work.end = undefined;
-            work.middleRest = undefined;
-            work.transfer = undefined;
+      return new Promise((resolve, reject) => {
+        for (var index = 0; index < vm.dates.length; index++) {
+          var date = vm.dates[index];
+          var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
+          var rest = getRestByDate(date);
+          if (work) {
+            if (!work.rest && rest) {
+              work.rest = rest;
+              work.content = undefined;
+              work.start = undefined;
+              work.end = undefined;
+              work.middleRest = undefined;
+              work.transfer = undefined;
+            }
+          } else {
+            if (rest) {
+              work = {
+                month: date.month(),
+                date: date.date(),
+                day: date.day(),
+                rest: rest
+              };
+            }
           }
-        } else {
-          if (rest) {
-            work = {
-              month: date.month(),
-              date: date.date(),
-              day: date.day(),
-              rest: rest
-            };
-          }
+          vm.datas.push({ date: date, work: work });
         }
-        vm.datas.push({ date: date, work: work });
-      }
+        return resolve();
+      });
     }
     function getRestByDate(date) {
       for (let index = 0; index < vm.rests.length; index++) {
