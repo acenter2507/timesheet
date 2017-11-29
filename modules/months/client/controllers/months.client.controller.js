@@ -11,6 +11,7 @@
   function MonthsController($scope, $state, $window, month) {
     var vm = this;
     vm.month = month;
+    console.log(vm.month);
     vm.dates = [];
     vm.currentMonth = moment().year(vm.month.year).month(vm.month.month - 1);
     console.log(vm.currentMonth.format('YYYY/MM/DD'));
