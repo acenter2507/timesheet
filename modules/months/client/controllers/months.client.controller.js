@@ -11,13 +11,19 @@
   function MonthsController ($scope, $state, $window, month) {
     var vm = this;
     vm.month = month;
+    vm.dates = [];
     vm.currentMonth = moment().year(vm.month.year).month(vm.month.month);
+    console.log(vm.currentMonth);
 
+    function prepareDates() {
+
+    }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
       $state.go($state.previous.state.name || 'months.list', $state.previous.params);
     }
+
     // // Remove existing Month
     // function remove() {
     //   if ($window.confirm('Are you sure you want to delete?')) {
