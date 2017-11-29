@@ -103,10 +103,7 @@
         const rest = vm.rests[index];
         var start = moment(rest.start).format();
         var end = moment(rest.end).format();
-        console.log(date.format());
-        console.log(start);
-        console.log(end);
-        if (date.isBetween(start, end, null, '[]')) {
+        if (date.isBetween(start, end, 'date', '[]')) {
           return rest;
         }
       }
