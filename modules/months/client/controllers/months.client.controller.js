@@ -26,6 +26,9 @@
         })
         .then(() => {
           return prepareShowingData();
+        })
+        .then(() => {
+          return vm.month.$update();
         });
     }
 
@@ -80,6 +83,7 @@
                 day: date.day(),
                 rest: rest
               };
+              vm.month.workDates.push(work);
             }
           }
           vm.datas.push({ date: date, work: work });
