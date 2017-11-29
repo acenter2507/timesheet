@@ -331,11 +331,13 @@ exports.getRestOfCurrentUserInRange = function (req, res) {
       },
       { status: 3 },
     ]
-  }).exec((err, rests) => {
-    if (err)
-      return res.status(400).send({ message: 'データを取得できません。' });
-    return res.jsonp(rests);
-  });
+  })
+    .populate('holiday')
+    .exec((err, rests) => {
+      if (err)
+        return res.status(400).send({ message: 'データを取得できません。' });
+      return res.jsonp(rests);
+    });
 };
 exports.getRestReview = function (req, res) {
   var page = req.body.page || 1;

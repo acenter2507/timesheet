@@ -42,7 +42,8 @@
               <!-- 未入力 -->
               <td ng-if="!item.work" colspan="5">まだ登録していません。</td>
               <!-- お休み -->
-              <td class="bg-default" ng-if="item.work && item.work.rest" colspan="5">
+              <td ng-if="item.work && item.work.rest" colspan="5">
+                <span>{{item.work.rest.holiday.name}}</span>
                 <span ng-bind-html="item.work.rest.description | nl2br"></span>
               </td>
               <!-- 出勤 -->
