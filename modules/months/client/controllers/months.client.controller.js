@@ -17,6 +17,8 @@
     vm.rests = [];
     vm.currentMonth = moment().year(vm.month.year).month(vm.month.month - 1);
     vm.createWorkDateBusy = false;
+    vm.isShowWorkDateForm = true;
+    vm.tmpWork = {};
 
     onCreate();
     function onCreate() {

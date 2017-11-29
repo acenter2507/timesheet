@@ -11,58 +11,65 @@
   <div class="row mg10t" id="months-view-form" ng-show="vm.isShowWorkDateForm">
     <div class="col-xs-12">
       <form name="vm.form.workFrom">
-          <div class="form-group">
-            <div class="col-xs-12 col-sm-12 col-md-6"></div>
-            <label for="rest">休暇連携</label>
-            
+        <div class="form-group" show-errors>
+          <div class="col-xs-12 col-sm-12 col-md-6">
+            <textarea name="content" class="form-control h50" required></textarea>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+            <div uib-timepicker ng-model="vm.tmpWork.start" hour-step="1" minute-step="5" show-meridian="true">
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+            <div timepicker ng-model="vm.tmpWork.end" hour-step="1" minute-step="5" show-meridian="true">
+            </div>
           </div>
       </form>
-    </div>
-  </div>
-  <div class="row mg10t" id="months-view-works">
-    <div class="col-xs-12">
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead class="thead-default">
-            <tr>
-              <th class="text-center">日付</th>
-              <th class="text-center">曜日</th>
-              <th>業務内容</th>
-              <th class="text-center">開始</th>
-              <th class="text-center">終了</th>
-              <th class="text-center">休憩</th>
-              <th class="text-center">情報</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="item in vm.datas">
-              <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
-              <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td>
-              <!-- 未入力 -->
-              <td ng-if="!item.work" colspan="5">まだ登録していません。</td>
-              <!-- お休み -->
-              <td ng-if="item.work && item.work.rest" colspan="5">
-                <span>{{item.work.rest.holiday.name}}</span>
-                <span ng-bind-html="item.work.rest.description | nl2br"></span>
-              </td>
-              <!-- 出勤 -->
-              <td ng-if="item.work && !item.work.rest">{{item.work.content}}</td>
-              <td ng-if="item.work && !item.work.rest">{{item.work.start}}</td>
-              <td ng-if="item.work && !item.work.rest">{{item.work.end}}</td>
-              <td ng-if="item.work && !item.work.rest">{{item.work.middleRest}}</td>
-              <td ng-if="item.work && !item.work.rest">計算情報</td>
-              <td>
-                <a ng-if="!item.work" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">
-                  <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkDateBusy"></i> 作成
-                </a>
-                <a ng-if="item.work" class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(item)">編集</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
-  </div>
+    <div class="row mg10t" id="months-view-works">
+      <div class="col-xs-12">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="thead-default">
+              <tr>
+                <th class="text-center">日付</th>
+                <th class="text-center">曜日</th>
+                <th>業務内容</th>
+                <th class="text-center">開始</th>
+                <th class="text-center">終了</th>
+                <th class="text-center">休憩</th>
+                <th class="text-center">情報</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in vm.datas">
+                <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
+                <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td>
+                <!-- 未入力 -->
+                <td ng-if="!item.work" colspan="5">まだ登録していません。</td>
+                <!-- お休み -->
+                <td ng-if="item.work && item.work.rest" colspan="5">
+                  <span>{{item.work.rest.holiday.name}}</span>
+                  <span ng-bind-html="item.work.rest.description | nl2br"></span>
+                </td>
+                <!-- 出勤 -->
+                <td ng-if="item.work && !item.work.rest">{{item.work.content}}</td>
+                <td ng-if="item.work && !item.work.rest">{{item.work.start}}</td>
+                <td ng-if="item.work && !item.work.rest">{{item.work.end}}</td>
+                <td ng-if="item.work && !item.work.rest">{{item.work.middleRest}}</td>
+                <td ng-if="item.work && !item.work.rest">計算情報</td>
+                <td>
+                  <a ng-if="!item.work" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">
+                    <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkDateBusy"></i> 作成
+                  </a>
+                  <a ng-if="item.work" class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(item)">編集</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-</div>
+  </div>
