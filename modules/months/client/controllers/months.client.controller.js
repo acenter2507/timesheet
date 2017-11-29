@@ -44,7 +44,7 @@
           var item = vm.startDate.clone().add(index, 'days');
           vm.dates.push(item);
         }
-        return resolve()
+        return resolve();
       });
     }
     function prepareRest() {
