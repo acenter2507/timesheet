@@ -101,7 +101,7 @@
     function getRestByDate(date) {
       for (let index = 0; index < vm.rests.length; index++) {
         const rest = vm.rests[index];
-        if (date.isBetween(rest.start, rest.end, null, '[]')) {
+        if (date.isBetween(moment(rest.start).format('YYYY/MM/DD'), moment(rest.end).format('YYYY/MM/DD'), null, '[]')) {
           return rest;
         }
       }
