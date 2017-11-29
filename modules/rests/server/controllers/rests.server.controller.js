@@ -319,10 +319,18 @@ exports.getRestOfCurrentUserInRange = function (req, res) {
     return res.status(400).send({ message: 'リクエストのデータが不足です。' });
 
   Rest.find({
-    user: userId,
-    start: { $gte: start },
-    end: { $lt: end },
-    status: 3
+    $and: [
+      { user: userId },
+      {
+        $or: [
+          { start: { $gte: start } },
+          { start: { $lte: end } },
+          { end: { $gte: start } },
+          { end: { $lte: end } }
+        ]
+      },
+      { status: 3 },
+    ]
   }).exec((err, rests) => {
     if (err)
       return res.status(400).send({ message: 'データを取得できません。' });

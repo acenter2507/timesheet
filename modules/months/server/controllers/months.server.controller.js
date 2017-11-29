@@ -17,7 +17,6 @@ exports.create = function (req, res) {
   month.user = req.user._id;
 
   Month.findOne({ user: req.user._id, month: month.month, year: month.year }).exec((err, _month) => {
-    console.log(err);
     if (err) return res.status(400).send({ message: 'データが保存できません。' });
     if (_month) return res.status(400).send({ message: 'この月の勤務表が既に作成されました。' });
     month.status = 1;
