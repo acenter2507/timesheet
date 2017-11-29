@@ -39,10 +39,13 @@
             <tr ng-repeat="item in vm.datas">
               <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
               <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td>
+              <!-- 未入力 -->
               <td ng-if="!item.work" colspan="5">まだ登録していません。</td>
-              <td ng-if="item.work && item.work.rest" colspan="5">
+              <!-- お休み -->
+              <td class="bg-default" ng-if="item.work && item.work.rest" colspan="5">
                 <span ng-bind-html="item.work.rest.description | nl2br"></span>
               </td>
+              <!-- 出勤 -->
               <td ng-if="item.work && !item.work.rest">{{item.work.content}}</td>
               <td ng-if="item.work && !item.work.rest">{{item.work.start}}</td>
               <td ng-if="item.work && !item.work.rest">{{item.work.end}}</td>
