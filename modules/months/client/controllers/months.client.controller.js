@@ -46,7 +46,7 @@
       var endRanger = vm.endDate.clone().startOf('date').format();
       console.log(startRanger);
       console.log(endRanger);
-      RestsApi.getRestOfCurrentUserAndMonth(startRanger, endRanger, $scope.user._id)
+      RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
         .success(res => {
           console.log(res);
         })
