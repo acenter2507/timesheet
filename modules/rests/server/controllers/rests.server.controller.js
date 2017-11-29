@@ -315,8 +315,19 @@ exports.getRestOfCurrentUserInRange = function (req, res) {
   var start = req.body.start;
   var end = req.body.end;
 
-  console.log(req.body);
-  res.end();
+  if (!userId || !start || !end)
+    return res.status(400).send({ message: 'リクエストのデータが不足です。' });
+
+  Rest.find({
+    user: userId,
+    start: { $gte: start },
+    end: { $lt: end },
+    status: 3
+  }).exec((err, rests) => {
+    if (err)
+      return res.status(400).send({ message: 'データを取得できません。' });
+    return res.jsonp(rests);
+  });
 };
 exports.getRestReview = function (req, res) {
   var page = req.body.page || 1;
