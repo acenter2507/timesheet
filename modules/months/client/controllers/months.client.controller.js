@@ -20,39 +20,72 @@
 
     onCreate();
     function onCreate() {
-      prepareDates();
-      prepareShowingData();
-      prepareRest();
+      prepareDates()
+        .then(() => {
+          return prepareRest();
+        })
+        .then(() => {
+          return prepareShowingData();
+        });
     }
 
     function prepareDates() {
-      vm.startDate = moment(vm.currentMonth).subtract(1, 'months').date(21);
-      vm.endDate = moment(vm.currentMonth).date(20);
-      var durration = vm.endDate.diff(vm.startDate, 'days');
-      for (var index = 0; index <= durration; index++) {
-        var item = vm.startDate.clone().add(index, 'days');
-        vm.dates.push(item);
-      }
-    }
-    function prepareShowingData() {
-      for (var index = 0; index < vm.dates.length; index++) {
-        var date = vm.dates[index];
-        var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
-        vm.datas.push({ date: date, work: work });
-      }
+      return new Promise((resolve, reject) => {
+        vm.startDate = moment(vm.currentMonth).subtract(1, 'months').date(21);
+        vm.endDate = moment(vm.currentMonth).date(20);
+        var durration = vm.endDate.diff(vm.startDate, 'days');
+        for (var index = 0; index <= durration; index++) {
+          var item = vm.startDate.clone().add(index, 'days');
+          vm.dates.push(item);
+        }
+        return resolve()
+      });
     }
     function prepareRest() {
       var startRanger = vm.startDate.clone().startOf('date').format();
       var endRanger = vm.endDate.clone().endOf('date').format();
-      console.log(startRanger);
-      console.log(endRanger);
-      RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger)
+      RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
         .success(res => {
           vm.rests = res;
         })
         .error(err => {
           $scope.handleShowToast(err.message, true);
         });
+    }
+    function prepareShowingData() {
+      for (var index = 0; index < vm.dates.length; index++) {
+        var date = vm.dates[index];
+        var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
+        var rest = getRestByDate(date);
+        if (work) {
+          if (!work.rest && rest) {
+            work.rest = rest;
+            work.content = undefined;
+            work.start = undefined;
+            work.end = undefined;
+            work.middleRest = undefined;
+            work.transfer = undefined;
+          }
+        } else {
+          if (rest) {
+            work = {
+              month: date.month(),
+              date: date.date(),
+              day: date.day(),
+              rest: rest
+            };
+          }
+        }
+        vm.datas.push({ date: date, work: work });
+      }
+    }
+    function getRestByDate(date) {
+      for (let index = 0; index < vm.rests.length; index++) {
+        const rest = vm.rests[index];
+        if (date.isBetween(rest.start, rest.end, null, '[]')) {
+          return rest;
+        }
+      }
     }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;
