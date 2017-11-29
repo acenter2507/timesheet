@@ -27,8 +27,11 @@
         .then(() => {
           return prepareShowingData();
         })
-        .then(() => {
-          return vm.month.$update();
+        .then(isChange => {
+          if (isChange) {
+            console.log('Save new timesheet');
+            vm.month.$update();
+          }
         });
     }
 
@@ -62,6 +65,7 @@
     }
     function prepareShowingData() {
       return new Promise((resolve, reject) => {
+        var isChange = false;
         for (var index = 0; index < vm.dates.length; index++) {
           var date = vm.dates[index];
           var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
@@ -74,6 +78,7 @@
               work.end = undefined;
               work.middleRest = undefined;
               work.transfer = undefined;
+              isChange = true;
             }
           } else {
             if (rest) {
@@ -84,11 +89,12 @@
                 rest: rest
               };
               vm.month.workDates.push(work);
+              isChange = true;
             }
           }
           vm.datas.push({ date: date, work: work });
         }
-        return resolve();
+        return resolve(isChange);
       });
     }
     function getRestByDate(date) {
