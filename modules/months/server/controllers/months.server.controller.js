@@ -51,16 +51,15 @@ exports.create = function (req, res) {
  */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
-  var month = req.month;
-  Month.find(month)
+  Month.findById(req.month._id)
     .populate({
       path: 'workDates',
       populate: {
         path: 'rest',
         model: 'Rest'
       }
-    }).exec(function(error, _month) {
-      month = _month ? _month.toObject() : {};
+    }).exec(function (error, _month) {
+      var month = _month ? _month.toObject() : {};
       month.isCurrentUserOwner = req.user && month.user && month.user._id.toString() === req.user._id.toString();
       res.jsonp(month);
     });
@@ -154,14 +153,14 @@ exports.monthByID = function (req, res, next, id) {
   Month.findById(id)
     .populate('user', 'displayName')
     .exec(function (err, month) {
-    if (err) {
-      return next(err);
-    } else if (!month) {
-      return res.status(404).send({
-        message: '勤務表情報が見た借りません。'
-      });
-    }
-    req.month = month;
-    next();
-  });
+      if (err) {
+        return next(err);
+      } else if (!month) {
+        return res.status(404).send({
+          message: '勤務表情報が見た借りません。'
+        });
+      }
+      req.month = month;
+      next();
+    });
 };
