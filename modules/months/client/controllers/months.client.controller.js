@@ -12,7 +12,7 @@
     var vm = this;
     vm.month = month;
     vm.dates = [];
-    vm.currentMonth = moment().year(vm.month.year).month(vm.month.month);
+    vm.currentMonth = moment().year(vm.month.year).month(vm.month.month - 1);
     console.log(vm.currentMonth.format('YYYY/MM/DD'));
 
     function prepareDates() {
