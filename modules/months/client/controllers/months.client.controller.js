@@ -28,6 +28,7 @@
         var item = vm.startDate.clone().add(index, 'days');
         vm.dates.push(item);
       }
+      console.log(vm.startDate.format('YYYY/MM/DD'));
     }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;
