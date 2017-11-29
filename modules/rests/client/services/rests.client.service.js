@@ -21,6 +21,9 @@
     this.getRestOfCurrentUser = (condition, page) => {
       return $http.post('/api/rests/owner', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
+    this.getRestOfCurrentUserInRange = (start, end, userId) => {
+      return $http.post('/api/rests/owner_in_range', { start: start, end: end, userId: userId }, { ignoreLoadingBar: true });
+    };
     this.getRestReview = (condition, page) => {
       return $http.post('/api/rests/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };

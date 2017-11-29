@@ -310,6 +310,14 @@ exports.getRestOfCurrentUser = function (req, res) {
   });
 };
 
+exports.getRestOfCurrentUserInRange = function (req, res) {
+  var userId = req.body.userId;
+  var start = req.body.start;
+  var end = req.body.end;
+
+  console.log(req.body);
+  res.end();
+};
 exports.getRestReview = function (req, res) {
   var page = req.body.page || 1;
   var condition = req.body.condition || {};

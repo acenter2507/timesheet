@@ -51,13 +51,19 @@ exports.create = function (req, res) {
  */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
-  var month = req.month ? req.month.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  month.isCurrentUserOwner = req.user && month.user && month.user._id.toString() === req.user._id.toString();
-
-  res.jsonp(month);
+  var month = req.month;
+  Month.find(month)
+    .populate({
+      path: 'workDates',
+      populate: {
+        path: 'rest',
+        model: 'Rest'
+      }
+    }).exec(function(error, _month) {
+      month = _month ? _month.toJSON() : {};
+      month.isCurrentUserOwner = req.user && month.user && month.user._id.toString() === req.user._id.toString();
+      res.jsonp(month);
+    });
 };
 
 /**
@@ -147,7 +153,6 @@ exports.monthByID = function (req, res, next, id) {
 
   Month.findById(id)
     .populate('user', 'displayName')
-    .populate('workDates')
     .exec(function (err, month) {
     if (err) {
       return next(err);

@@ -8,15 +8,26 @@
         <i class="fa fa-angle-double-left"></i> 戻る</button>
     </div>
   </div>
-  <div class="row mg10t">
+  <div class="row mg10t" id="months-view-form" ng-show="vm.isShowWorkDateForm">
     <div class="col-xs-12">
-      <div class="table-responsive" id="months-view-works">
+      <form name="vm.form.workFrom">
+          <div class="form-group" show-errors>
+            <div class="col-xs-12 col-sm-12 col-md-6"></div>
+            <label for="rest">休暇連携</label>
+            
+          </div>
+      </form>
+    </div>
+  </div>
+  <div class="row mg10t" id="months-view-works">
+    <div class="col-xs-12">
+      <div class="table-responsive">
         <table class="table table-bordered">
           <thead class="thead-default">
             <tr>
               <th class="text-center">日付</th>
               <th class="text-center">曜日</th>
-              <th class="text-center">業務内容</th>
+              <th>業務内容</th>
               <th class="text-center">開始</th>
               <th class="text-center">終了</th>
               <th class="text-center">休憩</th>
@@ -29,11 +40,14 @@
               <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
               <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td>
               <td ng-if="!item.work" colspan="5">まだ登録していません。</td>
-              <td ng-if="item.work">item.work.content</td>
-              <td ng-if="item.work">item.work.start</td>
-              <td ng-if="item.work">item.work.end</td>
-              <td ng-if="item.work">item.work.middleRest</td>
-              <td ng-if="item.work">計算情報</td>
+              <td ng-if="item.work && item.rest" colspan="5">
+                <span ng-bind-html="item.rest.description"></span>
+              </td>
+              <td ng-if="item.work && !item.rest">item.work.content</td>
+              <td ng-if="item.work && !item.rest">item.work.start</td>
+              <td ng-if="item.work && !item.rest">item.work.end</td>
+              <td ng-if="item.work && !item.rest">item.work.middleRest</td>
+              <td ng-if="item.work && !item.rest">計算情報</td>
               <td>
                 <a ng-if="!item.work" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">
                   <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkDateBusy"></i> 作成

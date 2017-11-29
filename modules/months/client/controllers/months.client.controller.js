@@ -6,13 +6,15 @@
     .module('months')
     .controller('MonthsController', MonthsController);
 
-  MonthsController.$inject = ['$scope', '$state', '$window', 'monthResolve'];
+  MonthsController.$inject = ['$scope', '$state', '$window', 'monthResolve', 'RestsApi'];
 
-  function MonthsController($scope, $state, $window, month) {
+  function MonthsController($scope, $state, $window, month, RestsApi) {
     var vm = this;
     vm.month = month;
+    vm.form = {};
     vm.datas = [];
     vm.dates = [];
+    vm.rests = [];
     vm.currentMonth = moment().year(vm.month.year).month(vm.month.month - 1);
     vm.createWorkDateBusy = false;
 
@@ -20,6 +22,7 @@
     function onCreate() {
       prepareDates();
       prepareShowingData();
+      prepareRest();
     }
 
     function prepareDates() {
@@ -37,6 +40,19 @@
         var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
         vm.datas.push({ date: date, work: work });
       }
+    }
+    function prepareRest() {
+      var startRanger = vm.startDate.clone().startOf('date').format();
+      var endRanger = vm.endDate.clone().startOf('date').format();
+      console.log(startRanger);
+      console.log(endRanger);
+      RestsApi.getRestOfCurrentUserAndMonth(startRanger, endRanger, $scope.user._id)
+        .success(res => {
+          console.log(res);
+        })
+        .error(err => {
+          console.log(err);
+        });
     }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;
