@@ -11,14 +11,14 @@
   function MonthsController($scope, $state, $window, month) {
     var vm = this;
     vm.month = month;
-    console.log(vm.month);
+    vm.datas = [];
     vm.dates = [];
     vm.currentMonth = moment().year(vm.month.year).month(vm.month.month - 1);
-    console.log(vm.currentMonth.format('YYYY/MM/DD'));
 
     onCreate();
     function onCreate() {
       prepareDates();
+      prepareShowingData();
     }
 
     function prepareDates() {
@@ -29,7 +29,14 @@
         var item = vm.startDate.clone().add(index, 'days');
         vm.dates.push(item);
       }
-      console.log(vm.startDate.format('YYYY/MM/DD'));
+    }
+    function prepareShowingData() {
+      for (var index = 0; index < vm.dates.length; index++) {
+        var date = vm.dates[index];
+        console.log(date.month() + ' - ' + date.date());
+        var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
+        vm.datas.push({ date: date, work: work });
+      }
     }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;

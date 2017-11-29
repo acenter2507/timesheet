@@ -147,7 +147,7 @@ exports.monthByID = function (req, res, next, id) {
 
   Month.findById(id)
     .populate('user', 'displayName')
-    .populate('works')
+    .populate('workDates')
     .exec(function (err, month) {
     if (err) {
       return next(err);

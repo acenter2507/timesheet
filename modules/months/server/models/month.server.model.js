@@ -25,8 +25,10 @@ var MonthSchema = new Schema({
     // Owner
     user: { type: Schema.ObjectId, ref: 'User' },
   }],
-  workDate: [{
-    date: { type: Number, required: true },
+  workDates: [{
+    month: { type: Number, required: true }, // カレンダーの月
+    date: { type: Number, required: true }, // カレンダーの日
+    day: { type: Number, required: true }, // 曜日
     content: { type: String, trim: true }, // 業務内容
     start: { type: String, default: '' }, // 開始
     end: { type: String, default: '' }, // 終了
