@@ -46,12 +46,12 @@
       var endRanger = vm.endDate.clone().endOf('date').format();
       console.log(startRanger);
       console.log(endRanger);
-      RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
+      RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger)
         .success(res => {
-          console.log(res);
+          vm.rests = res;
         })
         .error(err => {
-          console.log(err);
+          $scope.handleShowToast(err.data.message, true);
         });
     }
     // Trở về màn hình trước
