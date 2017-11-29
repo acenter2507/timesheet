@@ -15,8 +15,14 @@
     vm.currentMonth = moment().year(vm.month.year).month(vm.month.month - 1);
     console.log(vm.currentMonth.format('YYYY/MM/DD'));
 
-    function prepareDates() {
+    onCreate();
+    function onCreate() {
+      prepareDates();
+    }
 
+    function prepareDates() {
+      vm.startDate = moment(vm.currentMonth).subtract(1, 'months').date(21);
+      console.log(vm.startDate.format('YYYY/MM/DD'));
     }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;
