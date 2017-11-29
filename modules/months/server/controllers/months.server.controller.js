@@ -60,7 +60,7 @@ exports.read = function (req, res) {
         model: 'Rest'
       }
     }).exec(function(error, _month) {
-      month = _month ? _month.toObject(); : {};
+      month = _month ? _month.toObject() : {};
       month.isCurrentUserOwner = req.user && month.user && month.user._id.toString() === req.user._id.toString();
       res.jsonp(month);
     });
