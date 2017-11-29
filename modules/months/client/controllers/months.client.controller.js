@@ -8,7 +8,7 @@
 
   MonthsController.$inject = ['$scope', '$state', '$window', 'monthResolve'];
 
-  function MonthsController ($scope, $state, $window, month) {
+  function MonthsController($scope, $state, $window, month) {
     var vm = this;
     vm.month = month;
     vm.dates = [];
@@ -22,7 +22,12 @@
 
     function prepareDates() {
       vm.startDate = moment(vm.currentMonth).subtract(1, 'months').date(21);
-      console.log(vm.startDate.format('YYYY/MM/DD'));
+      vm.endDate = moment(vm.currentMonth).date(20);
+      var durration = vm.endDate.diff(vm.startDate, 'days');
+      for (var index = 0; index <= durration; index++) {
+        var item = vm.startDate.clone().add(index, 'days');
+        vm.dates.push(item);
+      }
     }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;
