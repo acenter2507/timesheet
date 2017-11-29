@@ -25,6 +25,7 @@
           return prepareRest();
         })
         .then(() => {
+          console.log(vm.rests);
           return prepareShowingData();
         })
         .then(isChange => {
