@@ -14,6 +14,7 @@
     vm.datas = [];
     vm.dates = [];
     vm.currentMonth = moment().year(vm.month.year).month(vm.month.month - 1);
+    vm.createWorkDateBusy = false;
 
     onCreate();
     function onCreate() {
@@ -33,7 +34,6 @@
     function prepareShowingData() {
       for (var index = 0; index < vm.dates.length; index++) {
         var date = vm.dates[index];
-        console.log(date.month() + ' - ' + date.date());
         var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
         vm.datas.push({ date: date, work: work });
       }
