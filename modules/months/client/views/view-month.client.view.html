@@ -13,16 +13,15 @@
       <form name="vm.form.workFrom">
         <div class="form-group" show-errors>
           <div class="col-xs-12 col-sm-12 col-md-6">
-            <label for="content">検索キー</label>
-            <textarea name="content" class="form-control h50" ng-model="vm.tmpWork.content" required></textarea>
+            <textarea name="content" class="form-control h100p" ng-model="vm.tmpWork.content" required></textarea>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-3">
+          <div class="col-xs-12 col-sm-6 col-md-6">
             <label for="start">開始</label>
-            <div timepicker ng-model="vm.tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></div>
+            <timepicker ng-model="vm.tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+            <label for="end">終了</label>
+            <timepicker ng-model="vm.tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-3">
-            <label for="end">終了</label>
-            <div timepicker ng-model="vm.tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></div>
           </div>
       </form>
       </div>
