@@ -13,18 +13,18 @@
       <form name="vm.form.workFrom">
         <div class="form-group" show-errors>
           <div class="month-input">
-            <div class="month-start">
+            <div class="item month-start">
               <label for="start">開始</label>
               <timepicker ng-model="vm.tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
             </div>
-            <div class="month-end">
+            <div class="item month-end">
               <label for="end">終了</label>
               <timepicker ng-model="vm.tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
             </div>
-            <div class="month-content">
+            <div class="item month-content">
               <textarea name="content" class="form-control h100p" ng-model="vm.tmpWork.content" required></textarea>
             </div>
-            <div class="month-other">
+            <div class="item month-other">
               <button class="btn btn-primary">Save</button>
             </div>
           </div>
