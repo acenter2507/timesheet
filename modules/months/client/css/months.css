@@ -4,3 +4,5 @@
   flex-direction: row; }
   .month-input .item{
     margin: 5px; }
+  .month-input .month-content{
+    flex-grow: 1; }
