@@ -1,6 +1,6 @@
 .month-input {
   width: 100%;
   display: flex;
-  flex-direction: row-reverse; }
+  flex-direction: row; }
   .month-input .item{
     margin: 5px; }
