@@ -13,15 +13,16 @@
       <form name="vm.form.workFrom">
         <div class="form-group" show-errors>
           <div class="col-xs-12 col-sm-12 col-md-6">
+            <label for="content">検索キー</label>
             <textarea name="content" class="form-control h50" ng-model="vm.tmpWork.content" required></textarea>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-3">
-            <div timepicker ng-model="vm.tmpWork.start" hour-step="1" minute-step="5" show-meridian="false">
-            </div>
+            <label for="start">開始</label>
+            <div timepicker ng-model="vm.tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></div>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-3">
-            <div timepicker ng-model="vm.tmpWork.end" hour-step="1" minute-step="5" show-meridian="false">
-            </div>
+            <label for="end">終了</label>
+            <div timepicker ng-model="vm.tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></div>
           </div>
       </form>
       </div>
@@ -47,7 +48,7 @@
                 <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
                 <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td>
                 <!-- 未入力 -->
-                <td ng-if="!item.work" colspan="5">まだ登録していません。</td>
+                <td ng-if="!item.work" colspan="5"></td>
                 <!-- お休み -->
                 <td ng-if="item.work && item.work.rest" colspan="5">
                   <span>{{item.work.rest.holiday.name}}</span>
@@ -61,7 +62,7 @@
                 <td ng-if="item.work && !item.work.rest">計算情報</td>
                 <td>
                   <a ng-if="!item.work" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">
-                    <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkDateBusy"></i> 作成
+                    <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkDateBusy"></i> 入力
                   </a>
                   <a ng-if="item.work" class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(item)">編集</a>
                 </td>
