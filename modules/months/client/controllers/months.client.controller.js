@@ -121,7 +121,9 @@
     vm.handleEditWorkDate = item => {
       handleOpenInputTimesheet();
     };
-    function handleOpenInputTimesheet() {
+    function handleOpenInputTimesheet(item) {
+      $scope.tmpWork = item;
+      console.log($scope.tmpWork);
       var mDialog = ngDialog.open({
         template: 'timesheetInput.html',
         scope: $scope
