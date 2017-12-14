@@ -3,41 +3,18 @@
     <div class="col-xs-12">
       <h3 class="text-center mg5y">{{ vm.month.year + '年' + vm.month.month + '月'}}</h3>
     </div>
-    <div class="col-xs-12 text-center">
+    <div class="col-xs-12">
       <button class="btn btn-default btn-sm" ng-click="vm.handlePreviousScreen()">
-        <i class="fa fa-angle-double-left"></i> 戻る</button>
+        <i class="fa fa-angle-double-left"></i> 戻る
+      </button>
     </div>
   </div>
-  <div class="row mg10t" id="months-view-form" ng-show="vm.isShowWorkDateForm">
+
+  <div class="row">
     <div class="col-xs-12">
-      <div class="well">
-        <form name="vm.form.workFrom">
-          <div class="form-group" show-errors>
-            <div class="month-input">
-              <div class="item month-start">
-                <label for="start">開始</label>
-                <timepicker ng-model="vm.tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
-              </div>
-              <div class="item month-end">
-                <label for="end">終了</label>
-                <timepicker ng-model="vm.tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
-              </div>
-              <div class="item month-content">
-                <label for="content">作業内容</label>
-                <textarea name="content" class="form-control h100" ng-model="vm.tmpWork.content" required></textarea>
-              </div>
-              <div class="item month-other">
-                <button class="btn btn-primary btn-block">Save</button>
-              </div>
-            </div>
-        </form>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12" id="months-view-works">
       <div class="table-responsive">
         <table class="table table-bordered">
-          <thead class="thead-default">
+          <thead>
             <tr>
               <th class="text-center">日付</th>
               <th class="text-center">曜日</th>
@@ -77,11 +54,18 @@
         </table>
       </div>
     </div>
-
   </div>
 
 </div>
-
 <script type="text/ng-template" id="timesheetInput.html">
   <p>Title</p>
 </script>
+<form>
+  <div class="form-group">
+    <timepicker ng-model="tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+    <timepicker ng-model="tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+  </div>
+  <div class="form-group">
+    <textarea name="content" class="form-control h100" ng-model="tmpWork.content" required></textarea>
+  </div>
+</form>
