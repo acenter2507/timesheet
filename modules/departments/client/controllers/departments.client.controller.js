@@ -15,11 +15,10 @@
     '$stateParams',
     'DepartmentsApi',
     'CommonService',
-    'AdminUserService',
-    'ngDialog'
+    'AdminUserService'
   ];
 
-  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi, CommonService, AdminUserService, ngDialog) {
+  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi, CommonService, AdminUserService) {
     var vm = this;
 
     vm.department = department;
