@@ -61,8 +61,7 @@
   <h4>{{item.date | LL}}</h4>
   <form>
     <div class="form-group" ng-if="item.work.rest">
-      <span>登録した休暇：</span>
-      <a ui-sref="rests.view({ restId: item.work.rest._id })">{{item.work.rest.description}}</a>
+      <span>登録した休暇：{{item.work.rest.description}}</span>
     </div>
     <div class="form-group">
       <div class="col-xs-6 pdnl">
@@ -80,7 +79,11 @@
     </div>
     <div class="form-group">
       <label for="content">作業内容</label>
-      <textarea name="content" class="form-control h50" ng-model="tmpWork.content" required></textarea>
+      <textarea name="content" class="form-control h50" ng-model="item.work.content" required></textarea>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-sm pull-right btn-default" ng-click="closeThisDialog()">キャンセル</button>
+      <button class="btn btn-sm pull-right btn-primary mg10r" ng-click="confirm()">保存</button>
     </div>
   </form>
 </script>
