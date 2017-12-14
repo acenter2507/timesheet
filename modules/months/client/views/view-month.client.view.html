@@ -60,6 +60,10 @@
 <script type="text/ng-template" id="timesheetInput.html">
   <p>Title</p>
   <form>
+    <div class="form-group" ng-if="item.work.rest">
+      <span>登録した休暇：</span>
+      <a ui-sref="rests.view({ restId: item.work.rest._id })">{{item.work.rest.description}}</a>
+    </div>
     <div class="form-group">
       <div class="col-xs-6 pdnl">
         <label for="start">開始</label>
@@ -72,7 +76,7 @@
     </div>
     <div class="form-group">
       <label for="content">作業内容</label>
-      <textarea name="content" class="form-control h100" ng-model="tmpWork.content" required></textarea>
+      <textarea name="content" class="form-control h50" ng-model="tmpWork.content" required></textarea>
     </div>
   </form>
 </script>
