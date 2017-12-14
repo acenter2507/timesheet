@@ -59,13 +59,13 @@
 </div>
 <script type="text/ng-template" id="timesheetInput.html">
   <p>Title</p>
+  <form>
+    <div class="form-group">
+      <timepicker ng-model="tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+      <timepicker ng-model="tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+    </div>
+    <div class="form-group">
+      <textarea name="content" class="form-control h100" ng-model="tmpWork.content" required></textarea>
+    </div>
+  </form>
 </script>
-<form>
-  <div class="form-group">
-    <timepicker ng-model="tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
-    <timepicker ng-model="tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
-  </div>
-  <div class="form-group">
-    <textarea name="content" class="form-control h100" ng-model="tmpWork.content" required></textarea>
-  </div>
-</form>
