@@ -124,6 +124,7 @@
       handleOpenInputTimesheet();
     };
     function handleOpenInputTimesheet(item) {
+      $scope.item = item;
       var mDialog = ngDialog.open({
         template: 'timesheetInput.html',
         scope: $scope
