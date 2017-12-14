@@ -6,9 +6,9 @@
     .module('months')
     .controller('MonthsController', MonthsController);
 
-  MonthsController.$inject = ['$scope', '$state', '$window', 'monthResolve', 'RestsApi'];
+  MonthsController.$inject = ['$scope', '$state', '$window', 'monthResolve', 'RestsApi', 'ngDialog'];
 
-  function MonthsController($scope, $state, $window, month, RestsApi) {
+  function MonthsController($scope, $state, $window, month, RestsApi, ngDialog) {
     var vm = this;
     vm.month = month;
     vm.form = {};
