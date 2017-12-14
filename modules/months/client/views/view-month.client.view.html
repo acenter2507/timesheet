@@ -61,8 +61,14 @@
   <p>Title</p>
   <form>
     <div class="form-group">
-      <timepicker ng-model="tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
-      <timepicker ng-model="tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+      <div class="col-xs-6">
+        <label for="start">開始</label>
+        <timepicker ng-model="tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+      </div>
+      <div class="col-xs-6">
+        <label for="end">終了</label>
+        <timepicker ng-model="tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+      </div>
     </div>
     <div class="form-group">
       <textarea name="content" class="form-control h100" ng-model="tmpWork.content" required></textarea>
