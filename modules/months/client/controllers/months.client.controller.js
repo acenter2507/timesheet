@@ -116,19 +116,19 @@
       $state.go($state.previous.state.name || 'months.list', $state.previous.params);
     }
     vm.handleCreateWorkDate = item => {
+      console.log(item);
       handleOpenInputTimesheet();
     };
     vm.handleEditWorkDate = item => {
+      console.log(item);
       handleOpenInputTimesheet();
     };
     function handleOpenInputTimesheet(item) {
-      $scope.tmpWork = item;
-      console.log($scope.tmpWork);
       var mDialog = ngDialog.open({
         template: 'timesheetInput.html',
         scope: $scope
       });
-      mDialog.closePromise.then(function (res) {});
+      mDialog.closePromise.then(function (res) { });
     }
 
     // // Remove existing Month
