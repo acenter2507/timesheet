@@ -117,11 +117,11 @@
     }
     vm.handleCreateWorkDate = item => {
       console.log(item);
-      handleOpenInputTimesheet();
+      handleOpenInputTimesheet(item);
     };
     vm.handleEditWorkDate = item => {
       console.log(item);
-      handleOpenInputTimesheet();
+      handleOpenInputTimesheet(item);
     };
     function handleOpenInputTimesheet(item) {
       $scope.item = item;
