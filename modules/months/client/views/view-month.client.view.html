@@ -58,7 +58,7 @@
 
 </div>
 <script type="text/ng-template" id="timesheetInput.html">
-  <p>Title</p>
+  <p>{{item.date | LLLL}}</p>
   <form>
     <div class="form-group" ng-if="item.work.rest">
       <span>登録した休暇：</span>
