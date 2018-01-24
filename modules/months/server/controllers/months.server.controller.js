@@ -162,7 +162,7 @@ exports.monthByID = function (req, res, next, id) {
         path: 'workDates.rests',
         model: 'Rest'
       }, function (err, month) {
-        return next(err);
+        if (err) return next(err);
         req.month = month;
         next();
       });
