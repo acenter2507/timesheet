@@ -24,7 +24,8 @@ exports.create = function (req, res) {
   }
 
   isConflictRest(rest).then(result => {
-    if (!result) return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
+    if (!result) rest.warning = "この日には二つの休暇が入っている。";
+    //if (!result) return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
 
     rest.historys = [{ action: 1, comment: '', timing: rest.created, user: rest.user }];
     if (req.body.isSendWhenSave) {
@@ -76,7 +77,8 @@ exports.update = function (req, res) {
   }
 
   isConflictRest(rest).then(result => {
-    if (!result) return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
+    if (!result) rest.warning = "この日には二つの休暇が入っている。";
+    // return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
 
     rest.status = 1;
     rest.historys.push({ action: 2, comment: '', timing: new Date(), user: req.user._id });

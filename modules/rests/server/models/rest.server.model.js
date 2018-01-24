@@ -35,6 +35,8 @@ var RestSchema = new Schema({
     default: ['user'],
     required: 'Please provide at least one role'
   },
+  // Warning
+  warning: { type: String },
   // Create date
   created: { type: Date, default: Date.now },
   historys: [{
