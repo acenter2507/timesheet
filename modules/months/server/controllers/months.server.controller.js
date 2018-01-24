@@ -149,13 +149,7 @@ exports.monthByID = function (req, res, next, id) {
 
   Month.findById(id)
     .populate('user', 'displayName')
-    .populate({
-      path: 'workDates',
-      populate: {
-        path: 'rests',
-        model: 'Rest'
-      }
-    })
+    .populate('workDates')
     .exec(function (err, month) {
       if (err) {
         return next(err);
@@ -164,8 +158,13 @@ exports.monthByID = function (req, res, next, id) {
           message: '勤務表情報が見た借りません。'
         });
       }
-      req.month = month;
-      console.log(month);
-      next();
+      Month.populate(month, {
+        path: 'workDates.rests',
+        model: 'Rest'
+      }, function (err, month) {
+        return next(err);
+        req.month = month;
+        next();
+      });
     });
 };
