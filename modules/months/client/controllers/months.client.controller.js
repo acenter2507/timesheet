@@ -116,11 +116,9 @@
       $state.go($state.previous.state.name || 'months.list', $state.previous.params);
     }
     vm.handleCreateWorkDate = item => {
-      console.log(item);
       handleOpenInputTimesheet(item);
     };
     vm.handleEditWorkDate = item => {
-      console.log(item);
       handleOpenInputTimesheet(item);
     };
     function handleOpenInputTimesheet(item) {

@@ -149,6 +149,13 @@ exports.monthByID = function (req, res, next, id) {
 
   Month.findById(id)
     .populate('user', 'displayName')
+    .populate({
+      path: 'workDates',
+      populate: {
+        path: 'rests',
+        model: 'Rest'
+      }
+    })
     .exec(function (err, month) {
       if (err) {
         return next(err);
