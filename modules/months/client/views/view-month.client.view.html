@@ -62,7 +62,7 @@
   <form>
     <div class="form-group" ng-if="item.work.rests.length > 0">
       <span>休暇：</span>
-      <a ng-repeat="rest in item.work.rests">{{ rest.description }}</a>
+      <a ng-repeat="rest in item.work.rests" ng-class="{'mg5l': !$first}">{{ rest.description }}</a>
     </div>
     <div class="form-group">
       <div class="col-xs-6 pdnl">
