@@ -72,13 +72,8 @@
           var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
           var rests = getRestByDate(date);
           if (work) {
-            if ((!work.rests || work.rests.length === 0) && rests.length > 0) {
-              work.rests = rests;
-              work.content = undefined;
-              work.start = undefined;
-              work.end = undefined;
-              work.middleRest = undefined;
-              work.transfer = undefined;
+            work.rests = rests;
+            if (work.rests.length !== rests.length) {
               isChange = true;
             }
           } else {
