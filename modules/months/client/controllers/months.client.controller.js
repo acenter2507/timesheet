@@ -55,7 +55,6 @@
         RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
           .success(res => {
             vm.rests = res;
-            console.log(res);
             return resolve();
           })
           .error(err => {
@@ -125,6 +124,7 @@
       handleOpenInputTimesheet(item);
     };
     function handleOpenInputTimesheet(item) {
+      console.log(item);
       $scope.item = item;
       var mDialog = ngDialog.open({
         template: 'timesheetInput.html',
