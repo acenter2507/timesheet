@@ -154,7 +154,10 @@
               <div>{{ rest.end | LL }}</div>
             </td>
             <td>{{ rest.duration }}</td>
-            <td><p ng-bind-html="rest.description | nl2br"></p></td>
+            <td>
+              <p ng-bind-html="rest.description | nl2br"></p>
+              <p class="text-danger">{{ rest.warning }}</p>
+            </td>
             <td ng-switch="rest.status">
               <span class="label label-default" ng-switch-when="1">{{ rest.status | RestStatusFilter}}</span>
               <span class="label label-warning" ng-switch-when="2">{{ rest.status | RestStatusFilter}}</span>
