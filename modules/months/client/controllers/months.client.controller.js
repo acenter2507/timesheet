@@ -55,6 +55,7 @@
         RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
           .success(res => {
             vm.rests = res;
+            console.log(res);
             return resolve();
           })
           .error(err => {
@@ -82,7 +83,7 @@
               isChange = true;
             }
           } else {
-            if (rests) {
+            if (rests.length > 0) {
               work = {
                 month: date.month(),
                 date: date.date(),
