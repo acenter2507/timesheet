@@ -33,16 +33,16 @@
               <!-- 未入力 -->
               <td ng-if="!item.work" colspan="5"></td>
               <!-- お休み -->
-              <td ng-if="item.work && item.work.rest" colspan="5">
+              <!-- <td ng-if="item.work && item.work.rest" colspan="5">
                 <span>{{item.work.rest.holiday.name}}</span>
                 <span ng-bind-html="item.work.rest.description | nl2br"></span>
-              </td>
+              </td> -->
               <!-- 出勤 -->
-              <td ng-if="item.work && !item.work.rest">{{item.work.content}}</td>
-              <td ng-if="item.work && !item.work.rest">{{item.work.start}}</td>
-              <td ng-if="item.work && !item.work.rest">{{item.work.end}}</td>
-              <td ng-if="item.work && !item.work.rest">{{item.work.middleRest}}</td>
-              <td ng-if="item.work && !item.work.rest">計算情報</td>
+              <td ng-if="item.work">{{item.work.start}}</td>
+              <td ng-if="item.work">{{item.work.end}}</td>
+              <td ng-if="item.work">{{item.work.content}}</td>
+              <td ng-if="item.work">{{item.work.middleRest}}</td>
+              <td ng-if="item.work">計算情報</td>
               <td>
                 <a ng-if="!item.work" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">
                   <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkDateBusy"></i> 入力

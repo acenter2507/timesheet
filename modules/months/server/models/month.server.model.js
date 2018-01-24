@@ -35,7 +35,7 @@ var MonthSchema = new Schema({
     middleRest: { type: Number, default: 1 }, // 休憩 (hour)
     overtime: { type: Number, default: 0 }, // 時間外
     late: { type: Number, default: 0 }, // 深夜
-    rest: { type: Schema.ObjectId, ref: 'Rest' }, // 休日形態
+    rests: [{ type: Schema.ObjectId, ref: 'Rest' }], // 休日形態
     transfer: { type: Boolean, default: false }, // 振替
     created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now },

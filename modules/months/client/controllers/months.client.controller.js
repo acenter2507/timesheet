@@ -27,12 +27,10 @@
           return prepareRest();
         })
         .then(() => {
-          console.log(vm.rests);
           return prepareShowingData();
         })
         .then(isChange => {
           if (isChange) {
-            console.log('Save new timesheet');
             vm.month.$update();
           }
         });
@@ -72,10 +70,10 @@
         for (var index = 0; index < vm.dates.length; index++) {
           var date = vm.dates[index];
           var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
-          var rest = getRestByDate(date);
+          var rests = getRestByDate(date);
           if (work) {
-            if (!work.rest && rest) {
-              work.rest = rest;
+            if ((!work.rests || work.rests.length === 0) && rests.length > 0) {
+              work.rests = rests;
               work.content = undefined;
               work.start = undefined;
               work.end = undefined;
@@ -84,12 +82,12 @@
               isChange = true;
             }
           } else {
-            if (rest) {
+            if (rests) {
               work = {
                 month: date.month(),
                 date: date.date(),
                 day: date.day(),
-                rest: rest
+                rests: rests
               };
               vm.month.workDates.push(work);
               isChange = true;
@@ -101,14 +99,16 @@
       });
     }
     function getRestByDate(date) {
+      var rests = [];
       for (let index = 0; index < vm.rests.length; index++) {
         const rest = vm.rests[index];
         var start = moment(rest.start).format();
         var end = moment(rest.end).format();
         if (date.isBetween(start, end, 'date', '[]')) {
-          return rest;
+          rests.push(rest);
         }
       }
+      return rests;
     }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;
