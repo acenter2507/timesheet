@@ -140,6 +140,7 @@
         if (!res.value) return;
         // Verify input info
         console.log(res.value.start.format());
+        console.log(res.value.start.format());
       });
     }
 
