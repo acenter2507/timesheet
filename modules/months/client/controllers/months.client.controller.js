@@ -114,9 +114,11 @@
       // if (item.work.rests.length > 0 ) {
       //   item.work.start = '00:00';
       // }
-      item.work.start = '00:00:00';
-      item.work.end = '00:00:00';
-      item.work.middleRest = 0;
+      item.work = {
+        start: '00:00:00',
+        end: '00:00:00',
+        middleRest: 0
+      };
       handleOpenInputTimesheet(item);
     };
     vm.handleEditWorkDate = item => {
