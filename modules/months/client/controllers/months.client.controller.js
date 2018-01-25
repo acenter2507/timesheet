@@ -115,13 +115,13 @@
       //   item.work.start = '00:00';
       // }
       item.isNew = true;
-      console.log(item);
-      item.work = {
+      tpmWork = {
         start: item.date.hour(0).minute(0),
         end: item.date.hour(0).minute(0),
-        middleRest: 0
+        middleRest: 0,
+        rests: []
       };
-      handleOpenInputTimesheet(item);
+      handleOpenInputTimesheet(item, tpmWork);
     };
     vm.handleEditWorkDate = item => {
       item.work.start = '00:00:00';
@@ -129,13 +129,16 @@
       item.work.middleRest = 0;
       handleOpenInputTimesheet(item);
     };
-    function handleOpenInputTimesheet(item) {
+    function handleOpenInputTimesheet(item, tpmWork) {
       $scope.item = item;
+      $scope.tpmWork = tpmWork;
       var mDialog = ngDialog.open({
         template: 'timesheetInput.html',
         scope: $scope
       });
-      mDialog.closePromise.then(function (res) { });
+      mDialog.closePromise.then(function (res) {
+        console.log(res);
+      });
     }
 
     // // Remove existing Month
