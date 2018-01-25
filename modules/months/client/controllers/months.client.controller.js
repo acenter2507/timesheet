@@ -115,8 +115,8 @@
       //   item.work.start = '00:00';
       // }
       item.work = {
-        start: '00:00:00',
-        end: '00:00:00',
+        start: null,
+        end: null,
         middleRest: 0
       };
       handleOpenInputTimesheet(item);
