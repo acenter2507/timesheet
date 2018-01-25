@@ -139,7 +139,7 @@
       mDialog.closePromise.then(function (res) {
         if (!res.value) return;
         // Verify input info
-        console.log(res.value.start.utc().format());
+        console.log(res.value.start.format());
       });
     }
 
