@@ -125,6 +125,12 @@
     };
     vm.handleEditWorkDate = item => {
       var tmpWork = item.work;
+      if(!tmpWork.start) {
+        tmpWork.start = item.date.clone().hour(0).minute(0);
+      }
+      if(!tmpWork.end) {
+        tmpWork.end = item.date.clone().hour(0).minute(0);
+      }
       handleOpenInputTimesheet(item);
     };
     function handleOpenInputTimesheet(item, tmpWork) {
