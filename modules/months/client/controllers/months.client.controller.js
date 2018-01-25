@@ -141,6 +141,7 @@
         scope: $scope
       });
       mDialog.closePromise.then(function (res) {
+        console.log(res);
         if (!res.value) return;
         // Verify input info
         console.log(res.value.start.format());
