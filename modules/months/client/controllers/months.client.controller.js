@@ -35,7 +35,6 @@
           }
         });
     }
-
     function prepareDates() {
       return new Promise((resolve, reject) => {
         vm.startDate = moment(vm.currentMonth).subtract(1, 'months').date(21);
@@ -111,13 +110,22 @@
       $state.go($state.previous.state.name || 'months.list', $state.previous.params);
     }
     vm.handleCreateWorkDate = item => {
+      // Check this date is has any rests
+      // if (item.work.rests.length > 0 ) {
+      //   item.work.start = '00:00';
+      // }
+      item.work.start = '00:00:00';
+      item.work.end = '00:00:00';
+      item.work.middleRest = 0;
       handleOpenInputTimesheet(item);
     };
     vm.handleEditWorkDate = item => {
+      item.work.start = '00:00:00';
+      item.work.end = '00:00:00';
+      item.work.middleRest = 0;
       handleOpenInputTimesheet(item);
     };
     function handleOpenInputTimesheet(item) {
-      console.log(item);
       $scope.item = item;
       var mDialog = ngDialog.open({
         template: 'timesheetInput.html',
