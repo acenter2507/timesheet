@@ -124,9 +124,7 @@
       handleOpenInputTimesheet(item, tmpWork);
     };
     vm.handleEditWorkDate = item => {
-      item.work.start = '00:00:00';
-      item.work.end = '00:00:00';
-      item.work.middleRest = 0;
+      var tmpWork = item.work;
       handleOpenInputTimesheet(item);
     };
     function handleOpenInputTimesheet(item, tmpWork) {
