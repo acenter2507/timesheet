@@ -117,8 +117,8 @@
       item.isNew = true;
       console.log(item);
       item.work = {
-        start: item.date.hour(0),
-        end: item.date.hour(0),
+        start: item.date.hour(0).minute(0),
+        end: item.date.hour(0).minute(0),
         middleRest: 0
       };
       handleOpenInputTimesheet(item);
