@@ -116,8 +116,8 @@
       // }
       item.isNew = true;
       var tmpWork = {
-        start: item.date.clone().utc().hour(0).minute(0),
-        end: item.date.clone().utc().hour(0).minute(0),
+        start: item.date.clone().hour(0).minute(0),
+        end: item.date.clone().hour(0).minute(0),
         middleRest: 0,
         rests: []
       };
@@ -139,7 +139,7 @@
       mDialog.closePromise.then(function (res) {
         if (!res.value) return;
         // Verify input info
-        console.log(res.value.start.format());
+        console.log(res.value.start.utc().format());
       });
     }
 
