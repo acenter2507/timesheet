@@ -142,7 +142,7 @@
       });
       mDialog.closePromise.then(function (res) {
         console.log(res);
-        if (!res.value) return;
+        if (!res.value || res.value === '$document') return;
         // Verify input info
         console.log(res.value.start.format());
         console.log(res.value.end.format());
