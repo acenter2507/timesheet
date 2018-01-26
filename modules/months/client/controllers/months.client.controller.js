@@ -124,7 +124,7 @@
       handleOpenInputTimesheet(item, tmpWork);
     };
     vm.handleEditWorkDate = item => {
-      var tmpWork = item.work;
+      var tmpWork = _.clone(item.work);
       if(!tmpWork.start) {
         tmpWork.start = item.date.clone().hour(0).minute(0);
       }
@@ -141,12 +141,14 @@
         scope: $scope
       });
       mDialog.closePromise.then(function (res) {
-        console.log(res);
         if (!res.value || res.value === '$document') return;
         // Verify input info
-        console.log(res.value.start.format());
-        console.log(res.value.end.format());
+        handleSaveWorkDate(res.value, item);
       });
+    }
+    function handleSaveWorkDate(workDate, item) {
+      console.log(workDate);
+      console.log(item);
     }
 
     // // Remove existing Month
