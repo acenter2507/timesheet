@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Workrests</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="workrest in vm.workrests"
+       ui-sref="workrests.view({ workrestId: workrest._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="workrest.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="workrest.user" ng-bind="workrest.user.displayName"></span>
+        <span ng-if="!workrest.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="workrest.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.workrests.$resolved && !vm.workrests.length">
+    No Workrests yet, why don't you <a ui-sref="workrests.create">create one</a>?
+  </div>
+</section>
