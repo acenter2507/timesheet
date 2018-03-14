@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Workmonths</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="workmonth in vm.workmonths"
+       ui-sref="workmonths.view({ workmonthId: workmonth._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="workmonth.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="workmonth.user" ng-bind="workmonth.user.displayName"></span>
+        <span ng-if="!workmonth.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="workmonth.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.workmonths.$resolved && !vm.workmonths.length">
+    No Workmonths yet, why don't you <a ui-sref="workmonths.create">create one</a>?
+  </div>
+</section>
