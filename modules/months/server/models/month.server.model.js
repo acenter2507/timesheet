@@ -25,21 +25,7 @@ var MonthSchema = new Schema({
     // Owner
     user: { type: Schema.ObjectId, ref: 'User' },
   }],
-  workDates: [{
-    month: { type: Number }, // カレンダーの月
-    date: { type: Number }, // カレンダーの日
-    day: { type: Number }, // 曜日
-    content: { type: String, trim: true }, // 業務内容
-    start: { type: String, default: '' }, // 開始
-    end: { type: String, default: '' }, // 終了
-    middleRest: { type: Number }, // 休憩 (hour)
-    overtime: { type: Number, default: 0 }, // 時間外
-    late: { type: Number, default: 0 }, // 深夜
-    rests: [{ type: Schema.ObjectId, ref: 'Rest' }], // 休日形態
-    transfer: { type: Boolean, default: false }, // 振替
-    created: { type: Date, default: Date.now },
-    updated: { type: Date, default: Date.now },
-  }],
+  workDates: [{ type: Schema.ObjectId, ref: 'Workdate' }],
   search: { type: String },
   department: { type: Schema.ObjectId, ref: 'Department' },
   // Roles

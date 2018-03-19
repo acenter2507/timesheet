@@ -13,6 +13,10 @@ var mongoose = require('mongoose'),
 var HolidaySchema = new Schema({
   name: { type: String, default: '', required: true, trim: true },
   isPaid: { type: Boolean, default: false },
+  // 最短
+  min: { type: Number, default: 0 },
+  // 最長
+  max: { type: Number, default: 0 },
   created: { type: Date, default: Date.now },
   user: { type: Schema.ObjectId, ref: 'User' }
 });

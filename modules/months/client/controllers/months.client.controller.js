@@ -20,6 +20,9 @@
     vm.isShowWorkDateForm = true;
     vm.tmpWork = {};
 
+    vm.busy = false;
+    vm.stopped = false;
+
     onCreate();
     function onCreate() {
       prepareDates()
@@ -63,6 +66,23 @@
           });
       });
     }
+    function preapreWorkDates() {
+      return new Promise((resolve, reject) => {
+        for (var index = 0; index < vm.dates.length; index++) {
+          var date = vm.dates[index];
+          var workDate = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
+          var workRests = getRestByDate(date);
+          if (workDate._id) {
+
+            if (workDate.rests.length != rests.length) {
+              compareArrays(workDate.rests, rests);
+            }
+          } else {
+
+          }
+        }
+      });
+    }
     function prepareShowingData() {
       return new Promise((resolve, reject) => {
         var isChange = false;
@@ -104,6 +124,10 @@
       }
       return rests;
     }
+    function comapreArrays(arr1, arr2) {
+      var rest = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
+      
+    }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
@@ -136,6 +160,7 @@
     function handleOpenInputTimesheet(item, tmpWork) {
       $scope.item = item;
       $scope.tmpWork = tmpWork;
+      $scope.handleSaveWorkDate = handleSaveWorkDate;
       var mDialog = ngDialog.open({
         template: 'timesheetInput.html',
         scope: $scope
@@ -145,6 +170,7 @@
         // Verify input info
         handleSaveWorkDate(res.value, item);
       });
+
     }
     function handleSaveWorkDate(workDate, item) {
       console.log(workDate);

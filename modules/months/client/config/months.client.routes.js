@@ -31,6 +31,14 @@
         resolve: { monthResolve: getMonth },
         data: { roles: ['user', 'admin', 'manager', 'accountant'] },
         ncyBreadcrumb: { label: '詳細' }
+      })
+      .state('months.date', {
+        url: '/:date',
+        templateUrl: 'modules/months/client/views/date-month.client.view.html',
+        controller: 'DateController',
+        controllerAs: 'vm',
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '勤務時間入力' }
       });
   }
 
