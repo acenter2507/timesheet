@@ -74,8 +74,8 @@
           var workRests = getRestByDate(date);
           if (workDate._id) {
 
-            if (workDate.rests.length != rests.length) {
-              compareArrays(workDate.rests, rests);
+            if (workDate.rests.length !== rests.length) {
+              //compareArrays(workDate.rests, rests);
             }
           } else {
 
@@ -126,7 +126,6 @@
     }
     function comapreArrays(arr1, arr2) {
       var rest = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
-      
     }
     // Trở về màn hình trước
     vm.handlePreviousScreen = handlePreviousScreen;

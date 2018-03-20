@@ -19,7 +19,7 @@ exports.create = function(req, res) {
   workrest.user = req.user;
 
   // 有給休暇の日数を確認
-  if (req.body.isPaid && rest.duration > req.user.company.paidHolidayCnt) {
+  if (req.body.isPaid && workrest.duration > req.user.company.paidHolidayCnt) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
 
@@ -82,9 +82,9 @@ exports.update = function(req, res) {
 
   isConflictRest(workrest).then(result => {
     if (!result) {
-      rest.warning = "この日には二つの休暇が入っている。";
+      workrest.warning = "この日には二つの休暇が入っている。";
     } else {
-      rest.warning = "";
+      workrest.warning = "";
     }
     // return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
 
@@ -419,7 +419,7 @@ exports.getRestReview = function (req, res) {
 
 function isConflictRest(workrest) {
   return new Promise((resolve, reject) => {
-    Rest.find({ user: workrest.user, _id: { $ne: rest._id } }).exec((err, workrests) => {
+    Workrest.find({ user: workrest.user, _id: { $ne: rest._id } }).exec((err, workrests) => {
       workrests.forEach(element => {
         if (_moment(workrest.start).isBetween(element.start, element.end, null, '[]') || _moment(workrest.end).isBetween(element.start, element.end, null, '[]') || _moment(element.start).isBetween(workrest.start, workrest.end, null, '[]') || _moment(element.end).isBetween(workrest.start, workrest.end, null, '[]')) {
           return resolve(false);

@@ -27,13 +27,13 @@
     this.getRestReview = (condition, page) => {
       return $http.post('/api/workrests/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
-    this.approve = restId => {
+    this.approve = workrestId => {
       return $http.post('/api/workrests/' + workrestId + '/approve', { ignoreLoadingBar: true });
     };
-    this.reject = (restId, data) => {
+    this.reject = (workrestId, data) => {
       return $http.post('/api/workrests/' + workrestId + '/reject', { data: data }, { ignoreLoadingBar: true });
     };
-    this.request = restId => {
+    this.request = workrestId => {
       return $http.post('/api/workrests/' + workrestId + '/request', null, { ignoreLoadingBar: true });
     };
     
