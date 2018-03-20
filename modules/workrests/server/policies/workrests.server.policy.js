@@ -20,6 +20,12 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/workrests/:workrestId',
       permissions: '*'
+    }, {
+      resources: '/api/workrests/:workrestId/approve',
+      permissions: ['post']
+    }, {
+      resources: '/api/workrests/:workrestId/reject',
+      permissions: ['post']
     }]
   }, {
     roles: ['user'],
@@ -29,15 +35,39 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/workrests/:workrestId',
       permissions: ['get']
+    }, {
+      resources: '/api/rests/:workrestId/request',
+      permissions: ['post']
     }]
   }, {
-    roles: ['guest'],
+    roles: ['accountant'],
     allows: [{
       resources: '/api/workrests',
-      permissions: ['get']
+      permissions: '*'
     }, {
       resources: '/api/workrests/:workrestId',
-      permissions: ['get']
+      permissions: '*'
+    }, {
+      resources: '/api/workrests/:workrestId/approve',
+      permissions: ['post']
+    }, {
+      resources: '/api/workrests/:workrestId/reject',
+      permissions: ['post']
+    }]
+  }, {
+    roles: ['manager'],
+    allows: [{
+      resources: '/api/workrests',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/workrests/:workrestId',
+      permissions: ['get', 'put']
+    }, {
+      resources: '/api/workrests/:workrestId/approve',
+      permissions: ['post']
+    }, {
+      resources: '/api/workrests/:workrestId/reject',
+      permissions: ['post']
     }]
   }]);
 };

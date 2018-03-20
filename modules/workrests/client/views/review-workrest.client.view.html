@@ -140,10 +140,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-show="vm.rests.length === 0">
+          <tr ng-show="vm.workrests.length === 0">
             <td colspan="7">データが見つかりません。</td>
           </tr>
-          <tr ng-repeat="rest in vm.rests track by $index">
+          <tr ng-repeat="rest in vm.workrests track by $index">
             <td>
               <img class="user-common-avatar-small" src="{{rest.user.profileImageURL}}">
               <a ng-click="vm.handleViewDetailUser(rest.user)">{{rest.user.displayName}}</a>

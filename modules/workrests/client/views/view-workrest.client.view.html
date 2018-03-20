@@ -1,26 +1,153 @@
-<section>
-  <div class="page-header">
-    <h1 ng-bind="vm.workrest.name"></h1>
+<div class="container-fluid animated fadeIn">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <a ng-if="(vm.workrest.status === 1 || vm.workrest.status === 2 || vm.workrest.status === 4) && vm.workrest.isCurrentUserOwner" class="btn btn-danger pull-right mg5r"
+          ng-click="vm.handleDeleteRest()">
+          削除</a>
+        <a ng-if="(vm.workrest.status === 1 || vm.workrest.status === 4) && vm.workrest.isCurrentUserOwner" class="btn btn-success pull-right mg5r"
+          ui-sref="rests.edit({ restId: vm.workrest._id })">
+          編集</a>
+        <a ng-if="vm.workrest.status === 1 && vm.workrest.isCurrentUserOwner" class="btn btn-primary pull-right mg5r" ng-click="vm.handleSendRequestRest()">
+          申請</a>
+
+        <a ng-if="vm.workrest.status === 2 && !vm.workrest.isCurrentUserOwner && isLeader" class="btn btn-primary pull-right mg5r" ng-click="vm.handleApproveRest()">
+          承認</a>
+        <a ng-if="vm.workrest.status === 2 && !vm.workrest.isCurrentUserOwner && isLeader" class="btn btn-danger pull-right mg5r" ng-click="vm.handleRejectRest()">
+          拒否</a>
+        <div class="clearfix"></div>
+      </div>
+    </div>
   </div>
-  <div class="pull-right"
-       ng-show="vm.workrest.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="workrests.edit({ workrestId: vm.workrest._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <!-- # MOBILE # -->
+      <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
+        <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">
+          <i class="fa fa-calendar"></i> {{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
+        <div collapse="isCloseCalendar">
+          <div class="row text-center mg5t">
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+              <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+            </div>
+          </div>
+          <h3 class="text-center">{{ vm.calendar.title }}</h3>
+          <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+            cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+            on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+          </mwl-calendar>
+        </div>
+      </div>
+      <!-- # DESKTOP # -->
+      <div class="form-group" ng-if="!isMobile">
+        <div class="row text-center">
+          <div class="btn-group">
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+          </div>
+        </div>
+        <h3 class="text-center">{{ vm.calendar.title }}</h3>
+        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+        </mwl-calendar>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="well">
+        <h4>状態：
+          <span ng-switch="vm.workrest.status">
+            <span class="label label-default" ng-switch-when="1">{{ vm.workrest.status | RestStatusFilter}}</span>
+            <span class="label label-warning" ng-switch-when="2">{{ vm.workrest.status | RestStatusFilter}}</span>
+            <span class="label label-success" ng-switch-when="3">{{ vm.workrest.status | RestStatusFilter}}</span>
+            <span class="label label-danger" ng-switch-when="4">{{ vm.workrest.status | RestStatusFilter}}</span>
+            <span class="label label-primary" ng-switch-when="5">{{ vm.workrest.status | RestStatusFilter}}</span>
+          </span>
+        </h4>
+        <div class="user-item-block">
+          <div class="user-basic-info">
+            <div class="user-avatar">
+              <img src="{{:: vm.workrest.user.profileImageURL }}">
+            </div>
+            <div class="user-info">
+              <a class="user-info-name" ng-click="vm.handleViewDetailUser(vm.workrest.user)">{{:: vm.workrest.user.displayName}}</a>
+              <a class="font-sm" ng-href="mailto:{{vm.workrest.user.email}}">{{::vm.workrest.user.email}}</a>
+            </div>
+            <!-- <div class="user-action" ng-if="leader._id !== user._id">
+              <div dropdown dropdown-append-to-body>
+                <a dropdown-toggle class="user-options">
+                  <i class="glyphicon glyphicon-option-horizontal"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                  <li>
+                    <a ng-click="vm.handleViewDetailUser(leader)">
+                      <i class="fa fa-info-circle"></i> 詳細情報</a>
+                  </li>
+                  <li ng-if="isAdmin || isAccountant">
+                    <a ui-sref="users.edit({ userId: leader._id })">
+                      <i class="fa fa-pencil-square-o"></i> 編集</a>
+                  </li>
+                  <li ng-if="isAdmin || isAccountant">
+                    <a ui-sref="users.timesheet({ userId: leader._id })">
+                      <i class="fa fa-calendar"></i> 勤務表レビュー</a>
+                  </li>
+                  <li>
+                    <a ng-click="vm.handleSendMessageUser(leader)">
+                      <i class="fa fa-commenting"></i> メッセージ送信</a>
+                  </li>
+                  <li>
+                    <a ng-href="mailto:{{leader.email}}">
+                      <i class="fa fa-envelope"></i> メール送信</a>
+                  </li>
+                  <li ng-if="isAdmin || isAccountant">
+                    <a ng-click="vm.handleRemoveUserFromDepartment(leader)">
+                      <i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a>
+                  </li>
+                  <li ng-if="isAdmin || isAccountant">
+                    <a ng-click="vm.handleLogicDeleteUser(leader)">
+                      <i class="fa fa-user-times"></i> 削除</a>
+                  </li>
+                  <li ng-if="isAdmin">
+                    <a ng-click="vm.handleDatabaseDeleteUser(leader)">
+                      <i class="fa fa-trash"></i> 完全削除</a>
+                  </li>
+                </ul>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <table>
+          <tr>
+            <td>形態：</td>
+            <td>{{ vm.workrest.holiday.name }}</td>
+          </tr>
+          <tr>
+            <td>開始：</td>
+            <td>{{ vm.workrest.start | LL}}</td>
+          </tr>
+          <tr>
+            <td>終了：</td>
+            <td>{{ vm.workrest.end | LL}}</td>
+          </tr>
+          <tr>
+            <td>期間：</td>
+            <td>{{ vm.workrest.duration }} 日間</td>
+          </tr>
+          <tr>
+            <td>事由：</td>
+            <td>
+              <p ng-bind-html="vm.workrest.description | nl2br"></p>
+            </td>
+          </tr>
+          <tr>
+            <td>警告：</td>
+            <td>{{ vm.workrest.warning }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.workrest.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.workrest.user"
-            ng-bind="vm.workrest.user.displayName"></span>
-      <span ng-if="!vm.workrest.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.workrest.content"></p>
-</section>
+</div>

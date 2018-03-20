@@ -3,11 +3,11 @@
 
   angular
     .module('rests')
-    .controller('RestsReviewController', RestsReviewController);
+    .controller('WorkrestsReviewController', WorkrestsReviewController);
 
-  RestsReviewController.$inject = ['$scope', '$state', 'RestsService', 'CommonService', 'DateUtil', 'RestsApi', 'DepartmentsService', 'ngDialog', '$document', '$stateParams', 'Notifications', 'Socket'];
+    WorkrestsReviewController.$inject = ['$scope', '$state', 'WorkrestsService', 'CommonService', 'DateUtil', 'RestsApi', 'DepartmentsService', 'ngDialog', '$document', '$stateParams', 'Notifications', 'Socket'];
 
-  function RestsReviewController($scope, $state, RestsService, CommonService, DateUtil, RestsApi, DepartmentsService, ngDialog, $document, $stateParams, Notifications, Socket) {
+  function WorkrestsReviewController($scope, $state, WorkrestsService, CommonService, DateUtil, RestsApi, DepartmentsService, ngDialog, $document, $stateParams, Notifications, Socket) {
     var vm = this;
     vm.busy = false;
     vm.page = 1;
@@ -65,27 +65,27 @@
         remove: {
           label: '<i class=\'fa fa-trash\'></i>',
           onClick: function (args) {
-            var rest = _.findWhere(vm.rests, { _id: args.calendarEvent.id });
+            var rest = _.findWhere(vm.workrests, { _id: args.calendarEvent.id });
             vm.handleDeleteRest(rest);
           }
         },
         edit: {
           label: '<i class=\'fa fa-pencil-square-o\'></i>',
           onClick: function (args) {
-            $state.go('rests.edit', { restId: args.calendarEvent.id });
+            $state.go('workrests.edit', { workrestId: args.calendarEvent.id });
           }
         },
         approve: {
           label: '<i class=\'fa fa-check-square-o\'></i>',
           onClick: function (args) {
-            var rest = _.findWhere(vm.rests, { _id: args.calendarEvent.id });
+            var rest = _.findWhere(vm.workrests, { _id: args.calendarEvent.id });
             vm.handleApproveRest(rest);
           }
         },
         reject: {
           label: '<i class=\'fa fa-minus-circle\'></i>',
           onClick: function (args) {
-            var rest = _.findWhere(vm.rests, { _id: args.calendarEvent.id });
+            var rest = _.findWhere(vm.workrests, { _id: args.calendarEvent.id });
             vm.handleRejectRest(rest);
           }
         }
@@ -104,8 +104,8 @@
     }
     function prepareCalendarEvent() {
       vm.events = [];
-      if (vm.rests.length === 0) return;
-      vm.rests.forEach(rest => {
+      if (vm.workrests.length === 0) return;
+      vm.workrests.forEach(rest => {
         var color;
         var actions = [];
         switch (rest.status) {
@@ -150,9 +150,9 @@
     function handleSearch() {
       if (vm.busy) return;
       vm.busy = true;
-      RestsApi.getRestReview(vm.condition, vm.page)
+      WorkrestsApi.getRestReview(vm.condition, vm.page)
         .success(res => {
-          vm.rests = res.docs;
+          vm.workrests = res.docs;
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
           prepareCalendar();
@@ -181,23 +181,23 @@
       return false;
     };
     vm.handleRestClicked = calendarEvent => {
-      $state.go('rests.view', { restId: calendarEvent.id });
+      $state.go('workrests.view', { restId: calendarEvent.id });
     };
-    vm.handleApproveRest = rest => {
+    vm.handleApproveRest = workrest => {
       $scope.handleShowConfirm({
         message: 'この休暇を承認しますか？'
       }, () => {
-        RestsApi.approve(rest._id)
+        WorkrestsApi.approve(workrest._id)
           .success(data => {
-            _.extend(rest, data);
-            Socket.emit('rest_review', { rest: rest._id, user: $scope.user._id });
+            _.extend(workrest, data);
+            Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
-    vm.handleRejectRest = rest => {
+    vm.handleRejectRest = workrest => {
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',
         scope: $scope
@@ -206,10 +206,10 @@
         $scope.handleShowConfirm({
           message: 'この休暇を拒否しますか？'
         }, () => {
-          RestsApi.reject(rest._id, { comment: comment })
+          WorkrestsApi.reject(workrest._id, { comment: comment })
             .success(data => {
-              _.extend(rest, data);
-              Socket.emit('rest_review', { rest: rest._id, user: $scope.user._id });
+              _.extend(workrest, data);
+              Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
             })
             .error(err => {
               $scope.handleShowToast(err.message, true);

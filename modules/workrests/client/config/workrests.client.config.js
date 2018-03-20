@@ -10,23 +10,28 @@
   function menuConfig(menuService) {
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
-      title: 'Workrests',
+      title: '休暇',
       state: 'workrests',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['user']
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'workrests', {
-      title: 'List Workrests',
+      title: '一覧',
       state: 'workrests.list'
     });
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'workrests', {
-      title: 'Create Workrest',
-      state: 'workrests.create',
-      roles: ['user']
+      title: '登録',
+      state: 'workrests.create'
+    });
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'workrests', {
+      title: '確認',
+      state: 'workrests.review',
+      roles: ['admin', 'manager', 'accountant']
     });
   }
 }());

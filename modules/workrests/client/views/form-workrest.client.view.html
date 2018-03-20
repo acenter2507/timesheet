@@ -1,24 +1,121 @@
-<section>
-  <div class="page-header">
-    <h1>{{vm.workrest._id ? 'Edit Workrest' : 'New Workrest'}}</h1>
+<div class="container-fluid animated fadeIn">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <button ng-click="vm.handleSaveRest(vm.form.restForm.$valid)" class="btn btn-primary pull-right">
+          <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存</button>
+        <!-- <button ng-if="vm.workrest.status === 1" ng-click="vm.handleSendRest()" class="btn btn-success pull-right">申請</button>
+        <button ng-if="vm.workrest.status === 5" ng-click="vm.handleReSendRest()" class="btn btn-success pull-right">再申請</button>
+        <button ng-if="vm.workrest.status === 2 || vm.workrest.status === 4" ng-click="vm.handleCancelRest()" class="btn btn-success pull-right">申請キャンセル</button> -->
+        <div class="clearfix"></div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-12">
-    <form name="vm.form.workrestForm" class="form-horizontal" ng-submit="vm.save(vm.form.workrestForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.workrest.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.workrestForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Workrest name is required.</p>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <!-- Calendar -->
+      <!-- # MOBILE # -->
+      <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
+        <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar"><i class="fa fa-calendar"></i> {{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
+        <div collapse="isCloseCalendar">
+          <div class="row text-center mg5t">
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+              <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+            </div>
+          </div>
+          <h3 class="text-center">{{ vm.calendar.title }}</h3>
+          <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+            cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+            on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+          </mwl-calendar>
+        </div>
+      </div>
+      <!-- # DESKTOP # -->
+      <div class="form-group" ng-if="!isMobile">
+        <div class="row text-center">
+          <div class="btn-group">
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
           </div>
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.workrest._id ? 'Update' : 'Create'}}</button>
+        <h3 class="text-center">{{ vm.calendar.title }}</h3>
+        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+        </mwl-calendar>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <form name="vm.form.restForm" novalidate>
+        <!-- Kind of holiday -->
+        <div class="form-group" show-errors>
+          <label for="holiday">休日形態：</label>
+          <select name="holiday" class="form-control" ng-model="vm.workrest.holiday" required>
+            <option ng-repeat="holiday in vm.holidays" value="{{holiday._id}}" ng-selected="holiday._id.toString() === vm.workrest.holiday.toString()">{{holiday.name}}</option>
+          </select>
+          <div ng-messages="vm.form.restForm.holiday.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">休日形態は必須です。</p>
+          </div>
         </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
+        <!-- Range start -->
+        <div class="form-group" ng-init="startDatePickerOpen = false;">
+          <label class="w100p" for="start">開始</label>
+          <div class="input-group">
+            <input name="start" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.start" is-open="startDatePickerOpen"
+              min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇開始"
+              ng-change="vm.handleRestRangeChanged()" date-disabled="vm.disableWeekend(date, mode)" show-weeks="false" readonly="true"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </span>
+          </div>
         </div>
-      </fieldset>
-    </form>
+        <!-- Range end -->
+        <div class="form-group" ng-init="endDatePickerOpen = false;">
+          <label class="w100p" for="end">終了</label>
+          <div class="input-group">
+            <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.end" is-open="endDatePickerOpen"
+              min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇終了"
+              ng-change="vm.handleRestRangeChanged()" date-disabled="vm.disableWeekend(date, mode)" show-weeks="false" readonly="true"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="endDatePickerOpen = true;">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+        <!-- Duration -->
+        <div class="form-group" show-errors>
+          <label for="duration">期間</label>
+          <div class="input-group">
+            <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.workrest.duration" required ng-change="vm.handleRestDurationChanged()"
+              ng-keyup="vm.handleChangeRestDuration()" />
+            <span class="input-group-addon">日間</span>
+          </div>
+          <div ng-messages="vm.form.restForm.duration.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">期間は必須です。</p>
+            <p class="help-block error-text" ng-message="min">期間は0.5日間以上です。</p>
+          </div>
+        </div>
+        <!-- Reason -->
+        <div class="form-group" show-errors>
+          <label for="description">事由</label>
+          <textarea name="description" class="form-control" data-ng-model="vm.workrest.description" required></textarea>
+          <div ng-messages="vm.form.restForm.description.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">事由は必須です。</p>
+          </div>
+        </div>
+        <!-- Check box -->
+        <div class="form-group" ng-if="isUser">
+          <div class="checkbox" ng-if="vm.workrest.status === 1 || vm.workrest.status === 4">
+            <label><input type="checkbox" ng-model="vm.workrest.isSendWhenSave" value="">保存する際に申請する</label>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-</section>
+</div>

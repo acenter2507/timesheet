@@ -12,54 +12,51 @@
       .state('workrests', {
         abstract: true,
         url: '/workrests',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        ncyBreadcrumb: { label: '休暇' }
       })
       .state('workrests.list', {
-        url: '',
+        url: '?notif',
         templateUrl: 'modules/workrests/client/views/list-workrests.client.view.html',
         controller: 'WorkrestsListController',
         controllerAs: 'vm',
-        data: {
-          pageTitle: 'Workrests List'
-        }
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '一覧' }
+      })
+      .state('workrests.review', {
+        url: '/review?notif',
+        templateUrl: 'modules/rests/client/views/review-workrest.client.view.html',
+        controller: 'WorkrestsReviewController',
+        controllerAs: 'vm',
+        data: { roles: ['admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '確認' }
       })
       .state('workrests.create', {
         url: '/create',
         templateUrl: 'modules/workrests/client/views/form-workrest.client.view.html',
-        controller: 'WorkrestsController',
+        controller: 'WorkrestInputController',
         controllerAs: 'vm',
-        resolve: {
-          workrestResolve: newWorkrest
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Workrests Create'
-        }
+        resolve: { workrestResolve: newWorkrest },
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '登録' }
       })
       .state('workrests.edit', {
-        url: '/:workrestId/edit',
+        url: '/:workrestId/edit?notif',
         templateUrl: 'modules/workrests/client/views/form-workrest.client.view.html',
-        controller: 'WorkrestsController',
+        controller: 'WorkrestInputController',
         controllerAs: 'vm',
-        resolve: {
-          workrestResolve: getWorkrest
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Workrest {{ workrestResolve.name }}'
-        }
+        resolve: { workrestResolve: getWorkrest },
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '編集' }
       })
       .state('workrests.view', {
-        url: '/:workrestId',
+        url: '/:workrestId?notif',
         templateUrl: 'modules/workrests/client/views/view-workrest.client.view.html',
         controller: 'WorkrestsController',
         controllerAs: 'vm',
-        resolve: {
-          workrestResolve: getWorkrest
-        },
-        data: {
-          pageTitle: 'Workrest {{ workrestResolve.name }}'
-        }
+        resolve: { workrestResolve: getWorkrest },
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '詳細' }
       });
   }
 

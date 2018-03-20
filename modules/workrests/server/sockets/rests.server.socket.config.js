@@ -3,7 +3,7 @@
 const _ = require('underscore');
 var path = require('path'),
   mongoose = require('mongoose'),
-  Rest = mongoose.model('Rest'),
+  Rest = mongoose.model('Workrest'),
   Notif = mongoose.model('Notif'),
   User = mongoose.model('User');
 
