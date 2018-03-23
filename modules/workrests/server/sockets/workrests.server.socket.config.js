@@ -44,7 +44,7 @@ module.exports = function (io, socket) {
                     message: user.displayName + 'さんから休暇リクエストがあります',
                     type: 1,
                     count: 1,
-                    state: 'rests.review'
+                    state: 'workrests.review'
                   });
                   newNotif.save(_notif => {
                     var socketUser = _.findWhere(global.onlineUsers, { user: leader.toString() });
@@ -79,7 +79,7 @@ module.exports = function (io, socket) {
                       message: user.displayName + 'さんから休暇リクエストがあります',
                       type: 1,
                       count: 1,
-                      state: 'rests.review'
+                      state: 'workrests.review'
                     });
                     newNotif.save(_notif => {
                       var socketUser = _.findWhere(global.onlineUsers, { user: accountant._id.toString() });
@@ -113,7 +113,7 @@ module.exports = function (io, socket) {
           message: message,
           type: 2,
           count: 1,
-          state: 'rests.list'
+          state: 'workrests.list'
         });
         newNotif.save(_notif => {
           var userId = rest.user._id || rest.user;

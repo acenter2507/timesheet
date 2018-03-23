@@ -60,9 +60,9 @@
 <script type="text/ng-template" id="timesheetInput.html">
   <h4>{{item.date | LL}}</h4>
   <form>
-    <div class="form-group" ng-if="tmpWork.rests.length > 0">
+    <div class="form-group" ng-if="tmpWork.workrests.length > 0">
       <span>休暇：</span>
-      <a ng-repeat="rest in tmpWork.rests" ng-class="{'mg5l': !$first}">{{ rest.description }}</a>
+      <a ng-repeat="rest in tmpWork.workrests" ng-class="{'mg5l': !$first}">{{ rest.description }}</a>
     </div>
     <div class="form-group">
       <div class="col-xs-6 pdnl">

@@ -14,7 +14,7 @@
     vm.form = {};
     vm.datas = [];
     vm.dates = [];
-    vm.rests = [];
+    vm.workrests = [];
     vm.currentMonth = moment().year(vm.month.year).month(vm.month.month - 1);
     vm.createWorkDateBusy = false;
     vm.isShowWorkDateForm = true;
@@ -56,11 +56,11 @@
         var endRanger = vm.endDate.clone().endOf('date').format();
         RestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
           .success(res => {
-            vm.rests = res;
+            vm.workrests = res;
             return resolve();
           })
           .error(err => {
-            vm.rests = [];
+            vm.workrests = [];
             $scope.handleShowToast(err.message, true);
             return resolve();
           });
@@ -74,8 +74,8 @@
           var workRests = getRestByDate(date);
           if (workDate._id) {
 
-            if (workDate.rests.length !== vm.rests.length) {
-              //compareArrays(workDate.rests, rests);
+            if (workDate.workrests.length !== vm.workrests.length) {
+              //compareArrays(workDate.workrests, workrests);
             }
           } else {
 
@@ -89,19 +89,19 @@
         for (var index = 0; index < vm.dates.length; index++) {
           var date = vm.dates[index];
           var work = _.findWhere(vm.month.workDates, { month: date.month(), date: date.date() });
-          var rests = getRestByDate(date);
+          var workrests = getRestByDate(date);
           if (work) {
-            work.rests = rests;
-            if (work.rests.length !== rests.length) {
+            work.workrests = workrests;
+            if (work.workrests.length !== workrests.length) {
               isChange = true;
             }
           } else {
-            if (rests.length > 0) {
+            if (workrests.length > 0) {
               work = {
                 month: date.month(),
                 date: date.date(),
                 day: date.day(),
-                rests: rests
+                workrests: workrests
               };
               vm.month.workDates.push(work);
               isChange = true;
@@ -113,16 +113,16 @@
       });
     }
     function getRestByDate(date) {
-      var rests = [];
-      for (let index = 0; index < vm.rests.length; index++) {
-        const rest = vm.rests[index];
+      var workrests = [];
+      for (let index = 0; index < vm.workrests.length; index++) {
+        const rest = vm.workrests[index];
         var start = moment(rest.start).format();
         var end = moment(rest.end).format();
         if (date.isBetween(start, end, 'date', '[]')) {
-          rests.push(rest);
+          workrests.push(rest);
         }
       }
-      return rests;
+      return workrests;
     }
     function comapreArrays(arr1, arr2) {
       var rest = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
@@ -133,8 +133,8 @@
       $state.go($state.previous.state.name || 'months.list', $state.previous.params);
     }
     vm.handleCreateWorkDate = item => {
-      // Check this date is has any rests
-      // if (item.work.rests.length > 0 ) {
+      // Check this date is has any workrests
+      // if (item.work.workrests.length > 0 ) {
       //   item.work.start = '00:00';
       // }
       item.isNew = true;
@@ -142,7 +142,7 @@
         start: item.date.clone().hour(0).minute(0),
         end: item.date.clone().hour(0).minute(0),
         middleRest: 0,
-        rests: []
+        workrests: []
       };
       handleOpenInputTimesheet(item, tmpWork);
     };
