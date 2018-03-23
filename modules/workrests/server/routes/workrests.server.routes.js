@@ -21,9 +21,9 @@ module.exports = function(app) {
     .put(workrests.update)
     .delete(workrests.delete);
 
-    app.route('/api/workrests/:workrestId/request').all(workrestsPolicy.isAllowed).post(workrests.request);
-    app.route('/api/workrests/:workrestId/approve').all(workrestsPolicy.isAllowed).post(workrests.approve);
-    app.route('/api/workrests/:workrestId/reject').all(workrestsPolicy.isAllowed).post(workrests.reject);
+  app.route('/api/workrests/:workrestId/request').all(workrestsPolicy.isAllowed).post(workrests.request);
+  app.route('/api/workrests/:workrestId/approve').all(workrestsPolicy.isAllowed).post(workrests.approve);
+  app.route('/api/workrests/:workrestId/reject').all(workrestsPolicy.isAllowed).post(workrests.reject);
 
   // Finish by binding the Workrest middleware
   app.param('workrestId', workrests.workrestByID);

@@ -6,7 +6,7 @@
     .module('workrests')
     .controller('WorkrestsController', WorkrestsController);
 
-  WorkrestsController.$inject = ['$scope', '$state', 'workrestResolve',  'CommonService', 'DateUtil', 'WorkrestsApi', 'ngDialog', 'Socket', '$stateParams', 'Notifications'];
+  WorkrestsController.$inject = ['$scope', '$state', 'workrestResolve', 'CommonService', 'DateUtil', 'WorkrestsApi', 'ngDialog', 'Socket', '$stateParams', 'Notifications'];
 
   function WorkrestsController ($scope, $state, workrest, CommonService, DateUtil, WorkrestsApi, ngDialog, Socket, $stateParams, Notifications) {
     var vm = this;

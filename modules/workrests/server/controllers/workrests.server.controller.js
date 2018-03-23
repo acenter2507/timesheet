@@ -25,9 +25,9 @@ exports.create = function(req, res) {
 
   isConflictRest(workrest).then(result => {
     if (!result) {
-      workrest.warning = "この日には二つの休暇が入っている。";
+      workrest.warning = 'この日には二つの休暇が入っている。';
     } else {
-      workrest.warning = "";
+      workrest.warning = '';
     }
     //if (!result) return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
 
@@ -82,9 +82,9 @@ exports.update = function(req, res) {
 
   isConflictRest(workrest).then(result => {
     if (!result) {
-      workrest.warning = "この日には二つの休暇が入っている。";
+      workrest.warning = 'この日には二つの休暇が入っている。';
     } else {
-      workrest.warning = "";
+      workrest.warning = '';
     }
     // return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
 
