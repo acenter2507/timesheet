@@ -74,7 +74,7 @@
           var workRests = getRestByDate(date);
           if (workDate._id) {
 
-            if (workDate.rests.length !== rests.length) {
+            if (workDate.rests.length !== vm.rests.length) {
               //compareArrays(workDate.rests, rests);
             }
           } else {

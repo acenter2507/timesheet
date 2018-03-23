@@ -419,7 +419,7 @@ exports.getRestReview = function (req, res) {
 
 function isConflictRest(workrest) {
   return new Promise((resolve, reject) => {
-    Workrest.find({ user: workrest.user, _id: { $ne: rest._id } }).exec((err, workrests) => {
+    Workrest.find({ user: workrest.user, _id: { $ne: workrest._id } }).exec((err, workrests) => {
       workrests.forEach(element => {
         if (_moment(workrest.start).isBetween(element.start, element.end, null, '[]') || _moment(workrest.end).isBetween(element.start, element.end, null, '[]') || _moment(element.start).isBetween(workrest.start, workrest.end, null, '[]') || _moment(element.end).isBetween(workrest.start, workrest.end, null, '[]')) {
           return resolve(false);
