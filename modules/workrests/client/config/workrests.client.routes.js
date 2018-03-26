@@ -25,7 +25,7 @@
       })
       .state('workrests.review', {
         url: '/review?notif',
-        templateUrl: 'modules/rests/client/views/review-workrest.client.view.html',
+        templateUrl: 'modules/workrests/client/views/review-workrest.client.view.html',
         controller: 'WorkrestsReviewController',
         controllerAs: 'vm',
         data: { roles: ['admin', 'manager', 'accountant'] },
