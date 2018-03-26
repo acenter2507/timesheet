@@ -91,6 +91,14 @@
       }
       vm.busy = true;
       var holiday = _.findWhere(vm.holidays, { _id: vm.rest.holiday });
+      if (vm.workrest.duration > holiday.max) {
+        $scope.handleShowToast('選択した休暇形態の最長期間を超えている！', true);
+        return false;
+      }
+      if (vm.workrest.duration < holiday.min) {
+        $scope.handleShowToast('休暇期間が短すぎます！', true);
+        return false;
+      }
       vm.workrest.isPaid = holiday.isPaid;
       if (vm.workrest._id) {
         vm.workrest.$update(successCallback, errorCallback);
