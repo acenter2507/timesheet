@@ -93,10 +93,12 @@
       var holiday = _.findWhere(vm.holidays, { _id: vm.workrest.holiday });
       if (vm.workrest.duration > holiday.max) {
         $scope.handleShowToast('選択した休暇形態の最長期間を超えている！', true);
+        vm.busy = false;
         return false;
       }
       if (vm.workrest.duration < holiday.min) {
         $scope.handleShowToast('休暇期間が短すぎます！', true);
+        vm.busy = false;
         return false;
       }
       vm.workrest.isPaid = holiday.isPaid;
@@ -163,30 +165,6 @@
       var holiday = JapaneseHolidays.isHoliday(new Date(date));
       return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6) || holiday);
     };
-
-    // Save Rest
-    function save(isValid) {
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.workrestForm');
-        return false;
-      }
-
-      if (vm.workrest._id) {
-        vm.workrest.$update(successCallback, errorCallback);
-      } else {
-        vm.workrest.$save(successCallback, errorCallback);
-      }
-
-      function successCallback(res) {
-        $state.go('workrests.view', {
-          workrestId: res._id
-        });
-      }
-
-      function errorCallback(res) {
-        vm.error = res.data.message;
-      }
-    }
 
   }
 }());
