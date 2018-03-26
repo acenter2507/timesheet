@@ -181,7 +181,7 @@
       return false;
     };
     vm.handleRestClicked = calendarEvent => {
-      $state.go('workrests.view', { restId: calendarEvent.id });
+      $state.go('workrests.view', { workrestId: calendarEvent.id });
     };
     vm.handleApproveRest = workrest => {
       $scope.handleShowConfirm({

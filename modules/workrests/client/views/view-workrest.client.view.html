@@ -6,7 +6,7 @@
           ng-click="vm.handleDeleteRest()">
           削除</a>
         <a ng-if="(vm.workrest.status === 1 || vm.workrest.status === 4) && vm.workrest.isCurrentUserOwner" class="btn btn-success pull-right mg5r"
-          ui-sref="workrests.edit({ restId: vm.workrest._id })">
+          ui-sref="workrests.edit({ workrestId: vm.workrest._id })">
           編集</a>
         <a ng-if="vm.workrest.status === 1 && vm.workrest.isCurrentUserOwner" class="btn btn-primary pull-right mg5r" ng-click="vm.handleSendRequestRest()">
           申請</a>
