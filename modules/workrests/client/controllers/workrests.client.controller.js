@@ -112,7 +112,7 @@
         WorkrestsApi.approve(vm.workrest._id)
           .success(data => {
             _.extend(vm.workrest, data);
-            Socket.emit('rest_review', { workrest: vm.workrestId._id, user: $scope.user._id });
+            Socket.emit('rest_review', { workrestId: vm.workrest._id, user: $scope.user._id });
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);

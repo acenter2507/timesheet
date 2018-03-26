@@ -3,7 +3,7 @@
 const _ = require('underscore');
 var path = require('path'),
   mongoose = require('mongoose'),
-  Rest = mongoose.model('Workrest'),
+  Workrest = mongoose.model('Workrest'),
   Notif = mongoose.model('Notif'),
   User = mongoose.model('User');
 
@@ -13,10 +13,10 @@ module.exports = function (io, socket) {
   var notifSocket = notifs.notifSocket(io, socket);
   // Send request Rest
   socket.on('rest_request', req => {
-    Rest.findById(req.restId).exec((err, rest) => {
+    Workrest.findById(req.workrestId).exec((err, workrest) => {
       if (err) return;
-      if (!rest) return;
-      if (rest.status !== 2) return;
+      if (!workrest) return;
+      if (workrest.status !== 2) return;
       User.findById(req.userId).exec((err, user) => {
         if (err) return;
         if (!user) return;
@@ -97,26 +97,26 @@ module.exports = function (io, socket) {
     // notifSocket.pollLikeNotif(req);
   });
   socket.on('rest_review', req => {
-    Rest.findById(req.rest).exec((err, rest) => {
+    Workrest.findById(req.workrestId).exec((err, workrest) => {
       if (err) return;
-      if (!rest) return;
-      if (rest.status !== 3 && rest.status !== 4) return;
+      if (!workrest) return;
+      if (workrest.status !== 3 && workrest.status !== 4) return;
       User.findById(req.user).exec((err, user) => {
         if (err) return;
         if (!user) return;
-        var message = (rest.status === 3) ? '承認' : '拒否';
+        var message = (workrest.status === 3) ? '承認' : '拒否';
         message = user.displayName + 'さんがあなたの休暇を' + message + 'しました。';
 
         var newNotif = new Notif({
           from: user._id,
-          to: rest.user._id || rest.user,
+          to: workrest.user._id || workrest.user,
           message: message,
           type: 2,
           count: 1,
           state: 'workrests.list'
         });
         newNotif.save(_notif => {
-          var userId = rest.user._id || rest.user;
+          var userId = workrest.user._id || workrest.user;
           var socketUser = _.findWhere(global.onlineUsers, { user: userId.toString() });
           if (!socketUser) return;
           io.sockets.connected[socketUser.socket].emit('notifications');
