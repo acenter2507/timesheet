@@ -433,9 +433,11 @@ function isConflictRest(workrest) {
           || _moment(workrest.end).isBetween(element.start, element.end, null, '[]')
           || _moment(element.start).isBetween(workrest.start, workrest.end, null, '[]')
           || _moment(element.end).isBetween(workrest.start, workrest.end, null, '[]')) {
+            console.log('Error conflict');
           return resolve(false);
         }
       });
+      console.log('Not Error conflict');
       return resolve(true);
     });
   });
