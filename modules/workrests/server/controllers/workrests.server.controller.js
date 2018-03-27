@@ -14,7 +14,7 @@ var path = require('path'),
 /**
  * Create a Workrest
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var workrest = new Workrest(req.body);
   workrest.user = req.user;
 
@@ -62,7 +62,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Workrest
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var workrest = req.workrest ? req.workrest.toJSON() : {};
   workrest.isCurrentUserOwner = req.user && workrest.user && workrest.user._id.toString() === req.user._id.toString();
@@ -72,7 +72,7 @@ exports.read = function(req, res) {
 /**
  * Update a Workrest
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var workrest = req.workrest;
   workrest = _.extend(workrest, req.body);
   // 有給休暇の日数を確認
@@ -203,7 +203,7 @@ exports.reject = function (req, res) {
 /**
  * Delete an Workrest
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var workrest = req.workrest;
 
   if (workrest.status === 2) {
@@ -225,7 +225,7 @@ exports.delete = function(req, res) {
 /**
  * List of Workrests
  */
-exports.list = function(req, res) {
+exports.list = function (req, res) {
   Workrest.find({ user: req.user._id })
     .sort('-created')
     .populate('holiday', 'name isPaid')
@@ -243,7 +243,7 @@ exports.list = function(req, res) {
 /**
  * Workrest middleware
  */
-exports.workrestByID = function(req, res, next, id) {
+exports.workrestByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -252,18 +252,18 @@ exports.workrestByID = function(req, res, next, id) {
   }
 
   Workrest.findById(id)
-  .populate('user', 'displayName roles leaders profileImageURL email company')
-  .populate('holiday', 'name isPaid').exec(function (err, workrest) {
-    if (err) {
-      return next(err);
-    } else if (!workrest) {
-      return res.status(404).send({
-        message: 'No Workrest with that identifier has been found'
-      });
-    }
-    req.workrest = workrest;
-    next();
-  });
+    .populate('user', 'displayName roles leaders profileImageURL email company')
+    .populate('holiday', 'name isPaid').exec(function (err, workrest) {
+      if (err) {
+        return next(err);
+      } else if (!workrest) {
+        return res.status(404).send({
+          message: 'No Workrest with that identifier has been found'
+        });
+      }
+      req.workrest = workrest;
+      next();
+    });
 };
 
 exports.getRestOfCurrentUser = function (req, res) {
@@ -419,9 +419,19 @@ exports.getRestReview = function (req, res) {
 
 function isConflictRest(workrest) {
   return new Promise((resolve, reject) => {
-    Workrest.find({ user: workrest.user, _id: { $ne: workrest._id } }).exec((err, workrests) => {
+    var condition = {
+      _id: { $ne: workrest._id },
+      user: workrest.user
+      //start: { $gte: new Date() }
+    };
+    Workrest.find(condition).exec((err, workrests) => {
+      if (workrests.length === 0) return resolve(true);
+      console.log(workrests)
       workrests.forEach(element => {
-        if (_moment(workrest.start).isBetween(element.start, element.end, null, '[]') || _moment(workrest.end).isBetween(element.start, element.end, null, '[]') || _moment(element.start).isBetween(workrest.start, workrest.end, null, '[]') || _moment(element.end).isBetween(workrest.start, workrest.end, null, '[]')) {
+        if (_moment(workrest.start).isBetween(element.start, element.end, null, '[]')
+          || _moment(workrest.end).isBetween(element.start, element.end, null, '[]')
+          || _moment(element.start).isBetween(workrest.start, workrest.end, null, '[]')
+          || _moment(element.end).isBetween(workrest.start, workrest.end, null, '[]')) {
           return resolve(false);
         }
       });
