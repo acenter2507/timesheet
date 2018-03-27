@@ -418,6 +418,7 @@ exports.getRestReview = function (req, res) {
 };
 
 function isConflictRest(workrest) {
+  console.log(workrest);
   return new Promise((resolve, reject) => {
     var condition = {
       _id: { $ne: workrest._id },
