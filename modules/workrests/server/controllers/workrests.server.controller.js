@@ -418,7 +418,6 @@ exports.getRestReview = function (req, res) {
 };
 
 function isConflictRest(workrest) {
-  console.log(workrest);
   return new Promise((resolve, reject) => {
     var condition = {
       _id: { $ne: workrest._id },
@@ -427,17 +426,16 @@ function isConflictRest(workrest) {
     };
     Workrest.find(condition).exec((err, workrests) => {
       if (workrests.length === 0) return resolve(true);
-      console.log(workrests);
-      workrests.forEach(element => {
+      for (let index = 0; index < workrests.length; index++) {
+        const element = workrests[index];
         if (_moment(workrest.start).isBetween(element.start, element.end, null, '[]')
           || _moment(workrest.end).isBetween(element.start, element.end, null, '[]')
           || _moment(element.start).isBetween(workrest.start, workrest.end, null, '[]')
           || _moment(element.end).isBetween(workrest.start, workrest.end, null, '[]')) {
-            console.log('Error conflict');
           return resolve(false);
         }
-      });
-      console.log('Not Error conflict');
+        
+      }
       return resolve(true);
     });
   });
