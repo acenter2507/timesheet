@@ -25,12 +25,8 @@
     function onCreate() {
       vm.syncData = true;
       prepareDates()
-        .then(() => {
-          return prepareRest();
-        })
-        .then(() => {
-          return prepareShowingData();
-        })
+        .then(prepareRest())
+        .then(prepareShowingData())
         .then(isChange => {
           if (isChange) {
             //vm.workmonth.$update();
@@ -52,6 +48,7 @@
           var item = vm.startDate.clone().add(index, 'days');
           vm.dates.push(item);
         }
+        console.log(vm.dates);
         return resolve();
       });
     }
@@ -64,6 +61,7 @@
         WorkrestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
           .success(res => {
             vm.workrests = res;
+            console.log(vm.workrests);
             return resolve();
           })
           .error(err => {
