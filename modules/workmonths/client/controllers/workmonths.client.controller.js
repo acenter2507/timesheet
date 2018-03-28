@@ -6,9 +6,9 @@
     .module('workmonths')
     .controller('WorkmonthsController', WorkmonthsController);
 
-  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkrestsApi'];
+  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkrestsApi', 'WorkdatesService'];
 
-  function WorkmonthsController ($scope, $state, $window, workmonth, WorkrestsApi) {
+  function WorkmonthsController($scope, $state, $window, workmonth, WorkrestsApi, WorkdatesService) {
     var vm = this;
 
     vm.workmonth = workmonth;
@@ -32,11 +32,7 @@
         .then(() => {
           return prepareShowingData();
         })
-        .then(isChange => {
-          if (isChange) {
-            //vm.workmonth.$update();
-            console.log('Changed');
-          }
+        .then(() => {
           vm.syncData = false;
         });
     }
@@ -65,7 +61,6 @@
         WorkrestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
           .success(res => {
             vm.workrests = res;
-            console.log(vm.workrests);
             return resolve();
           })
           .error(err => {
@@ -80,33 +75,38 @@
       return new Promise((resolve, reject) => {
         var isChange = false;
 
+        var workdatesSave = [];
         for (var index = 0; index < vm.dates.length; index++) {
           var date = vm.dates[index];
           var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
-          console.log(date.format());
-          console.log('--');
           var workrests = getRestByDate(date);
           // Trường hợp workdate đã được tạo
           if (workdate) {
-            workdate.workrests = workrests;
-            if (workdate.workrests.length !== workrests.length) {
-              isChange = true;
+            var diff = _.difference(workdate.workrests, workrests);
+            if (diff.length > 0) {
+              workdate.workrests = workrests;
+              var rs_workdate = new WorkdatesService(workdate);
+              workdatesSave.push(rs_workdate.$update());
+              rs_workdate.$update(res => {
+                vm.datas.push({ date: date, workdate: res });
+              });
             }
           } else {
             if (workrests.length > 0) {
-              workdate = new WorkdatesService({
+              var rs_workdate = new WorkdatesService({
                 month: date.month() + 1,
                 date: date.date(),
                 day: date.day(),
                 workrests: workrests
               });
-              vm.workmonths.workDates.push(workdate);
-              isChange = true;
+              rs_workdate.$save(res => {
+                vm.datas.push({ date: date, workdate: res });
+                vm.workmonth.workdates.push(res);
+              });
             }
           }
-          vm.datas.push({ date: date, workdate: workdate });
         }
-        return resolve(isChange);
+        return resolve();
       });
     }
     function getRestByDate(date) {
@@ -121,7 +121,7 @@
           workrests.push(rest);
         }
       }
-      return workrests;
+      return _.pluck(workrests, '_id');
     }
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
