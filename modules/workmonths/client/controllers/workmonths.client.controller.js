@@ -14,7 +14,6 @@
     vm.workmonth = workmonth;
     vm.datas = [];
     vm.currentMonth = moment().year(vm.workmonth.year).month(vm.workmonth.month - 1);
-    console.log(vm.currentMonth.format());
 
     vm.syncData = false;
 
@@ -80,13 +79,11 @@
       return new Promise((resolve, reject) => {
         var isChange = false;
 
-        console.log(vm.workrests);
-
         for (var index = 0; index < vm.dates.length; index++) {
           var date = vm.dates[index];
           var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
+          console.log(date);
           var workrests = getRestByDate(date);
-          console.log(workrests);
           // Trường hợp workdate đã được tạo
           if (workdate) {
             workdate.workrests = workrests;
@@ -119,7 +116,6 @@
         console.log(start);
         console.log(end);
         if (date.isBetween(start, end, 'date', '[]')) {
-          console.log(date);
           workrests.push(rest);
         }
       }
