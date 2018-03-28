@@ -93,6 +93,7 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
       }
     });
   };
+  // Hiển thị Dashboard
   $scope.handleShowDashboardMenu = () => {
     var mDialog = ngDialog.open({
       template: 'modules/core/client/views/templates/dashboard.dialog.template.html',

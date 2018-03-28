@@ -1,26 +1,100 @@
-<section>
-  <div class="page-header">
-    <h1 ng-bind="vm.workmonth.name"></h1>
+<div class="container-fluid animated fadeIn mg100b">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3 class="text-center mg5y">{{ vm.workmonth.year + '年' + vm.workmonth.month + '月'}}</h3>
+    </div>
+    <div class="col-xs-12">
+      <button class="btn btn-default btn-sm" ng-click="vm.handlePreviousScreen()">
+        <i class="fa fa-angle-double-left"></i> 戻る
+      </button>
+    </div>
   </div>
-  <div class="pull-right"
-       ng-show="vm.workmonth.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="workmonths.edit({ workmonthId: vm.workmonth._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
+
+  <div class="row" ng-show="vm.syncData">
+    <div class="col-xs-12 text-center">
+      <i class="fa fa-spinner fa-pulse fa-fw"></i>
+    </div>
+    <div class="col-xs-12 text-center">
+      <p>データを同期中...</p>
+    </div>
   </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.workmonth.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.workmonth.user"
-            ng-bind="vm.workmonth.user.displayName"></span>
-      <span ng-if="!vm.workmonth.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.workmonth.content"></p>
-</section>
+
+  <div class="row" ng-hide="vm.syncData">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="text-center">日付</th>
+              <th class="text-center">曜日</th>
+              <th>業務内容</th>
+              <th class="text-center">開始</th>
+              <th class="text-center">終了</th>
+              <th class="text-center">休憩</th>
+              <th class="text-center">情報</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in vm.datas">
+              <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
+              <td ng-class="{'bg-danger': item.date.day() === 0, 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td>
+              <!-- 未入力 -->
+              <td ng-if="!item.work" colspan="5"></td>
+              <!-- お休み -->
+              <!-- <td ng-if="item.work && item.work.rest" colspan="5">
+                <span>{{item.work.rest.holiday.name}}</span>
+                <span ng-bind-html="item.work.rest.description | nl2br"></span>
+              </td> -->
+              <!-- 出勤 -->
+              <td ng-if="item.work">{{item.work.start}}</td>
+              <td ng-if="item.work">{{item.work.end}}</td>
+              <td ng-if="item.work">{{item.work.content}}</td>
+              <td ng-if="item.work">{{item.work.middleRest}}</td>
+              <td ng-if="item.work">計算情報</td>
+              <td>
+                <a ng-if="!item.work" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">
+                  <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkDateBusy"></i> 入力
+                </a>
+                <a ng-if="item.work" class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(item)">編集</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- <script type="text/ng-template" id="timesheetInput.html">
+  <h4>{{item.date | LL}}</h4>
+  <form>
+    <div class="form-group" ng-if="tmpWork.workrests.length > 0">
+      <span>休暇：</span>
+      <a ng-repeat="rest in tmpWork.workrests" ng-class="{'mg5l': !$first}">{{ rest.description }}</a>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-6 pdnl">
+        <label for="start">開始</label>
+        <timepicker ng-model="tmpWork.start" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+      </div>
+      <div class="col-xs-6">
+        <label for="end">終了</label>
+        <timepicker ng-model="tmpWork.end" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="rest">休憩時間（分）</label>
+      <input class="form-control" type="number" ng-model="tmpWork.middleRest" step="1" min="0">
+    </div>
+    <div class="form-group">
+      <label for="content">作業内容</label>
+      <textarea name="content" class="form-control h50" ng-model="tmpWork.content" required></textarea>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-sm pull-right btn-primary" ng-click="handleSaveWorkDate(tmpWork, item)">保存</button>
+      <button class="btn btn-sm pull-right btn-default mg10r" ng-click="closeThisDialog()">キャンセル</button>
+      <div class="clearfix"></div>
+    </div>
+  </form>
+</script> -->
