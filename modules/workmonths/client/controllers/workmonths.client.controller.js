@@ -78,6 +78,9 @@
     function prepareShowingData() {
       return new Promise((resolve, reject) => {
         var isChange = false;
+
+        console.log(vm.workrests);
+
         for (var index = 0; index < vm.dates.length; index++) {
           var date = vm.dates[index];
           var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
