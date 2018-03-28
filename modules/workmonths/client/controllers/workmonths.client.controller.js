@@ -78,47 +78,6 @@
       });
     }
 
-    function prepareShowingData() {
-      return new Promise((resolve, reject) => {
-        console.log(vm.workmonth);
-        // for (var index = 0; index < vm.dates.length; index++) {
-        //   var date = vm.dates[index];
-        //   var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
-        //   var workrests = getRestByDate(date);
-
-        //   var workrest_ids = _.pluck(workrests, '_id');
-
-
-
-
-
-          // Trường hợp workdate đã được tạo
-          // if (workdate) {
-          //   var diff = _.difference(workdate.workrests, workrests);
-          //   if (diff.length > 0) {
-          //     workdate.workrests = workrests;
-          //     var rs_workdate = new WorkdatesService(workdate);
-          //     workdatesSave.push(rs_workdate.$update());
-          //   }
-          // } else {
-          //   if (workrests.length > 0) {
-          //     var rs_workdate = new WorkdatesService({
-          //       month: date.month() + 1,
-          //       date: date.date(),
-          //       day: date.day(),
-          //       workrests: workrests
-          //     });
-          //     rs_workdate.$save(res => {
-          //       vm.datas.push({ date: date, workdate: res });
-          //     });
-          //     workdatesSave.push(rs_workdate.$save());
-          //   }
-          // }
-          // vm.datas.push({ date: date, workdate: workdate });
-        // }
-        return resolve();
-      });
-    }
     function preapreWorkdates() {
       return new Promise((resolve, reject) => {
         var workdatesSave = [];
@@ -144,6 +103,50 @@
             return resolve();
           });
         });
+      });
+    }
+    function prepareShowingData() {
+      return new Promise((resolve, reject) => {
+        var workdatesSave = [];
+        for (var index = 0; index < vm.dates.length; index++) {
+          var date = vm.dates[index];
+          var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
+          var workrests = getRestByDate(date);
+
+          var workrest_ids = _.pluck(workrests, '_id');
+
+          if (workdate.workrests.length !== workrests.length) {
+            var rs_workdate = new WorkdatesService({ _id: workdate._id, workrests: workrest_ids });
+            workdate.workrests = workrests;
+            workdatesSave.push(rs_workdate.$update());
+          }
+          vm.datas.push({ date: date, workdate: workdate });
+          // if (workdate) {
+          //   var diff = _.difference(workdate.workrests, workrests);
+          //   if (diff.length > 0) {
+          //     workdate.workrests = workrests;
+          //     var rs_workdate = new WorkdatesService(workdate);
+          //     workdatesSave.push(rs_workdate.$update());
+          //   }
+          // } else {
+          //   if (workrests.length > 0) {
+          //     var rs_workdate = new WorkdatesService({
+          //       month: date.month() + 1,
+          //       date: date.date(),
+          //       day: date.day(),
+          //       workrests: workrests
+          //     });
+          //     rs_workdate.$save(res => {
+          //       vm.datas.push({ date: date, workdate: res });
+          //     });
+          //     workdatesSave.push(rs_workdate.$save());
+          //   }
+          // }
+          // vm.datas.push({ date: date, workdate: workdate });
+          Promise.all(workdatesSave).then(() => {
+            return resolve();
+          })
+        }
       });
     }
     function getRestByDate(date) {
