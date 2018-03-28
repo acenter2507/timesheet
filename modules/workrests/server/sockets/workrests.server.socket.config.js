@@ -13,7 +13,6 @@ module.exports = function (io, socket) {
   var notifSocket = notifs.notifSocket(io, socket);
   // Send request Rest
   socket.on('rest_request', req => {
-    console.log(req.workrestId);
     Workrest.findById(req.workrestId).exec((err, workrest) => {
       if (err) return;
       if (!workrest) return;
@@ -98,7 +97,6 @@ module.exports = function (io, socket) {
     // notifSocket.pollLikeNotif(req);
   });
   socket.on('rest_review', req => {
-    console.log(req.workrestId);
     Workrest.findById(req.workrestId).exec((err, workrest) => {
       if (err) return;
       if (!workrest) return;

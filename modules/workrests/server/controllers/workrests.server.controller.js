@@ -164,9 +164,13 @@ exports.approve = function (req, res) {
         if (err)
           return res.status(400).send({ message: '新しいデータを取得できません。' });
         res.jsonp(workrest);
+        console.log('Rest start: ', workrest.start);
+        console.log('Rest end: ', workrest.end);
         // Xử lý mapping ngày nghỉ vào Workdate
         var start = _moment(workrest.start);
         var end = _moment(workrest.end);
+        console.log('start: ', start);
+        console.log('end: ', end);
         var duration = end.diff(start, 'days');
         console.log('duration: ' + duration);
         for (let index = 1; index <= duration; index++) {
