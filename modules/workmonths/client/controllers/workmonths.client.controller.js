@@ -118,6 +118,7 @@
         console.log(start);
         console.log(end);
         if (date.isBetween(start, end, 'date', '[]')) {
+          console.log(date);
           workrests.push(rest);
         }
       }
