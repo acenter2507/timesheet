@@ -32,10 +32,10 @@
                 <td class="text-center">{{ item.index + '月'}}</td>
                 <td class="text-center">
                   <span class="label label-default" ng-if="!item.month">未作成</span>
-                  <span class="label label-primary" ng-if="item.month.status === 1">{{ item.month.status | MonthStatusFilter}}</span>
-                  <span class="label badge-warning" ng-if="item.month.status === 2">{{ item.month.status | MonthStatusFilter}}</span>
-                  <span class="label badge-success" ng-if="item.month.status === 3">{{ item.month.status | MonthStatusFilter}}</span>
-                  <span class="label badge-danger" ng-if="item.month.status === 4">{{ item.month.status | MonthStatusFilter}}</span>
+                  <span class="label label-primary" ng-if="item.month.status === 1">{{ item.month.status | WorkmonthStatusFilter}}</span>
+                  <span class="label badge-warning" ng-if="item.month.status === 2">{{ item.month.status | WorkmonthStatusFilter}}</span>
+                  <span class="label badge-success" ng-if="item.month.status === 3">{{ item.month.status | WorkmonthStatusFilter}}</span>
+                  <span class="label badge-danger" ng-if="item.month.status === 4">{{ item.month.status | WorkmonthStatusFilter}}</span>
                 </td>
                 <td class="d-sm-down-none">{{item.month.works.length}}</td>
                 <td>
@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row mg10t">
+    <div class="row mg10t">
       <div class="col-xs-12">
         <div class="form-group">
           <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
@@ -84,5 +84,5 @@
           </table>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
