@@ -12,6 +12,8 @@
     vm.createMonthBusy = false;
     vm.isShowHistory = false;
 
+    vm.workmonths = [];
+
     onCreate();
     function onCreate() {
       prepareParams();
@@ -29,18 +31,16 @@
     function prepareMonths() {
       WorkmonthsApi.getWorkMonthsByYearAndUser(vm.currentYear.year(), $scope.user._id)
         .success(res => {
-          vm.datas = res;
-          console.log(vm.datas);
-          prepareShowingData();
+          prepareShowingData(res);
         })
         .error(err => {
           $scope.handleShowToast(err.message, true);
         });
     }
-    function prepareShowingData() {
+    function prepareShowingData(datas) {
       for (var index = 1; index <= 12; index++) {
-        var month = _.findWhere(vm.datas, { month: index });
-        vm.months.push({ index: index, month: month });
+        var month = _.findWhere(datas, { month: index });
+        vm.workmonths.push({ index: index, month: month });
       }
     }
 
