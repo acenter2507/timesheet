@@ -32,19 +32,13 @@ exports.create = function (req, res) {
  */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
-  if (req.workmonth) {
-    Workmonth.populate(req.workmonth, { path: 'workdates' }, function(err, workmonth) {
-      return res.jsonp(workmonth);
-    });
-  } else {
-    res.jsonp({});
-  }
-  // var workmonth = req.workmonth ? req.workmonth.toJSON() : {};
+  var workmonth = req.workmonth ? req.workmonth.toJSON() : {};
 
-  // // Add a custom field to the Article, for determining if the current User is the "owner".
-  // // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  // workmonth.isCurrentUserOwner = req.user && workmonth.user && workmonth.user._id.toString() === req.user._id.toString();
+  // Add a custom field to the Article, for determining if the current User is the "owner".
+  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
+  workmonth.isCurrentUserOwner = req.user && workmonth.user && workmonth.user._id.toString() === req.user._id.toString();
 
+  res.jsonp(workmonth);
 };
 
 /**
@@ -135,6 +129,7 @@ exports.workmonthByID = function (req, res, next, id) {
 
   Workmonth.findById(id)
     .populate('user', 'displayName')
+    .populate('workdates')
     .exec(function (err, workmonth) {
       if (err) {
         return next(err);
