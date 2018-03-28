@@ -140,7 +140,7 @@
             const element = workrdates[index];
             vm.workmonth.workdates.push(element);
           }
-          vm.workmonth.$save(() => {
+          vm.workmonth.$update(() => {
             return resolve();
           });
         });
