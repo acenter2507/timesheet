@@ -12,6 +12,7 @@
     var vm = this;
 
     vm.workmonth = workmonth;
+    console.log(vm.workmonth);
     vm.datas = [];
     vm.currentMonth = moment().year(vm.workmonth.year).month(vm.workmonth.month - 1);
 
@@ -79,7 +80,6 @@
 
     function prepareShowingData() {
       return new Promise((resolve, reject) => {
-        console.log(vm.workmonth);
         // for (var index = 0; index < vm.dates.length; index++) {
         //   var date = vm.dates[index];
         //   var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
