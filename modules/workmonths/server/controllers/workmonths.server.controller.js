@@ -33,10 +33,7 @@ exports.create = function (req, res) {
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   if (req.workmonth) {
-    Workmonth.populate(req.workmonth, {
-      path: 'workdates',
-      populate: { path: 'workrests' }
-    }, function(err, workmonth) {
+    Workmonth.populate(req.workmonth, { path: 'workdates' }, function(err, workmonth) {
       return res.jsonp(workmonth);
     });
   } else {
