@@ -25,7 +25,7 @@ exports.create = function (req, res) {
 
   isConflictRest(workrest).then(result => {
     if (!result) {
-      workrest.warning = 'この日には二つの休暇が入っている。';
+      workrest.warning = 'この日には二つの休暇以上入っている。';
     } else {
       workrest.warning = '';
     }

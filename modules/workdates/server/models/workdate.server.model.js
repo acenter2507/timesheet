@@ -11,7 +11,8 @@ var mongoose = require('mongoose'),
  * Workdate Schema
  */
 var WorkdateSchema = new Schema({
-  monthDb: { type: Schema.ObjectId, ref: 'Month' },
+  workmonth: { type: Schema.ObjectId, ref: 'Workmonth' },
+  workrests: [{ type: Schema.ObjectId, ref: 'Workrest' }], // 休日形態
   month: { type: Number }, // カレンダーの月
   date: { type: Number }, // カレンダーの日
   day: { type: Number }, // 曜日
@@ -21,7 +22,6 @@ var WorkdateSchema = new Schema({
   middleRest: { type: Number }, // 休憩 (hour)
   overtime: { type: Number, default: 0 }, // 時間外
   late: { type: Number, default: 0 }, // 深夜
-  workrests: [{ type: Schema.ObjectId, ref: 'Workrest' }], // 休日形態
   transfer: { type: Boolean, default: false }, // 振替
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now },

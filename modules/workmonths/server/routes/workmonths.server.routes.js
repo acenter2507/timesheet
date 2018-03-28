@@ -7,6 +7,9 @@ var workmonthsPolicy = require('../policies/workmonths.server.policy'),
   workmonths = require('../controllers/workmonths.server.controller');
 
 module.exports = function(app) {
+  // Get all month in year of 1 user
+  app.route('/api/months/workmonthsByYearAndUser').post(workmonths.getMonthsOfYearByUser);
+
   // Workmonths Routes
   app.route('/api/workmonths').all(workmonthsPolicy.isAllowed)
     .get(workmonths.list)

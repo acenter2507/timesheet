@@ -7,16 +7,16 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Workmonth = mongoose.model('Workmonth'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('underscore');
 
 /**
  * Create a Workmonth
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var workmonth = new Workmonth(req.body);
   workmonth.user = req.user;
 
-  workmonth.save(function(err) {
+  workmonth.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Workmonth
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var workmonth = req.workmonth ? req.workmonth.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Workmonth
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var workmonth = req.workmonth;
 
   workmonth = _.extend(workmonth, req.body);
 
-  workmonth.save(function(err) {
+  workmonth.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Workmonth
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var workmonth = req.workmonth;
 
-  workmonth.remove(function(err) {
+  workmonth.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +80,8 @@ exports.delete = function(req, res) {
 /**
  * List of Workmonths
  */
-exports.list = function(req, res) {
-  Workmonth.find().sort('-created').populate('user', 'displayName').exec(function(err, workmonths) {
+exports.list = function (req, res) {
+  Workmonth.find().sort('-created').populate('user', 'displayName').exec(function (err, workmonths) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -93,25 +93,52 @@ exports.list = function(req, res) {
 };
 
 /**
+ * Get all month in year of 1 user
+ */
+exports.getMonthsOfYearByUser = function (req, res) {
+  var year = req.body.year;
+  var userId = req.body.userId;
+  if (!year || !userId) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
+
+  Workmonth.find({ user: userId, year: year })
+    .populate({
+      path: 'historys',
+      populate: {
+        path: 'user',
+        select: 'displayName profileImageURL',
+        model: 'User'
+      }
+    })
+    .exec(function (err, workmonths) {
+      if (err)
+        return res.status(400).send({ message: 'データを取得できません。' });
+      return res.jsonp(workmonths);
+    });
+};
+
+/**
  * Workmonth middleware
  */
-exports.workmonthByID = function(req, res, next, id) {
+exports.workmonthByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Workmonth is invalid'
+      message: '勤務表情報が見た借りません。'
     });
   }
 
-  Workmonth.findById(id).populate('user', 'displayName').exec(function (err, workmonth) {
-    if (err) {
-      return next(err);
-    } else if (!workmonth) {
-      return res.status(404).send({
-        message: 'No Workmonth with that identifier has been found'
-      });
-    }
-    req.workmonth = workmonth;
-    next();
-  });
+  Workmonth.findById(id)
+    .populate('user', 'displayName')
+    .populate('workdates')
+    .exec(function (err, workmonth) {
+      if (err) {
+        return next(err);
+      } else if (!workmonth) {
+        return res.status(404).send({
+          message: '勤務表情報が見た借りません。'
+        });
+      }
+      req.workmonth = workmonth;
+      next();
+    });
 };

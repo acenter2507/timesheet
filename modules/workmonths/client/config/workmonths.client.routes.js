@@ -12,54 +12,25 @@
       .state('workmonths', {
         abstract: true,
         url: '/workmonths',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        ncyBreadcrumb: { label: '勤務表' }
       })
       .state('workmonths.list', {
-        url: '',
+        url: '?year',
         templateUrl: 'modules/workmonths/client/views/list-workmonths.client.view.html',
         controller: 'WorkmonthsListController',
         controllerAs: 'vm',
-        data: {
-          pageTitle: 'Workmonths List'
-        }
-      })
-      .state('workmonths.create', {
-        url: '/create',
-        templateUrl: 'modules/workmonths/client/views/form-workmonth.client.view.html',
-        controller: 'WorkmonthsController',
-        controllerAs: 'vm',
-        resolve: {
-          workmonthResolve: newWorkmonth
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Workmonths Create'
-        }
-      })
-      .state('workmonths.edit', {
-        url: '/:workmonthId/edit',
-        templateUrl: 'modules/workmonths/client/views/form-workmonth.client.view.html',
-        controller: 'WorkmonthsController',
-        controllerAs: 'vm',
-        resolve: {
-          workmonthResolve: getWorkmonth
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Workmonth {{ workmonthResolve.name }}'
-        }
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '一覧' }
       })
       .state('workmonths.view', {
         url: '/:workmonthId',
         templateUrl: 'modules/workmonths/client/views/view-workmonth.client.view.html',
         controller: 'WorkmonthsController',
         controllerAs: 'vm',
-        resolve: {
-          workmonthResolve: getWorkmonth
-        },
-        data: {
-          pageTitle: 'Workmonth {{ workmonthResolve.name }}'
-        }
+        resolve: { workmonthResolve: getWorkmonth },
+        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '詳細' }
       });
   }
 
