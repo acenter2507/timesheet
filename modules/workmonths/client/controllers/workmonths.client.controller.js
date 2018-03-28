@@ -82,20 +82,21 @@
           var date = vm.dates[index];
           var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
           var workrests = getRestByDate(date);
+          console.log(workrests);
           // Trường hợp workdate đã được tạo
-          if (workdate) {
+          if (workdate._id) {
             workdate.workrests = workrests;
             if (workdate.workrests.length !== workrests.length) {
               isChange = true;
             }
           } else {
             if (workrests.length > 0) {
-              workdate = {
+              workdate = new WorkdatesService({
                 month: date.month() + 1,
                 date: date.date(),
                 day: date.day(),
                 workrests: workrests
-              };
+              });
               vm.workmonths.workDates.push(workdate);
               isChange = true;
             }
