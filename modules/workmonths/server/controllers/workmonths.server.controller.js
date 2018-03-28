@@ -37,8 +37,10 @@ exports.read = function (req, res) {
       path: 'workdates',
       populate: { path: 'workrests' }
     }, function(err, workmonth) {
-      res.jsonp(workmonth);
-    })
+      return res.jsonp(workmonth);
+    });
+  } else {
+    res.jsonp(workmonth);
   }
   // var workmonth = req.workmonth ? req.workmonth.toJSON() : {};
 
@@ -46,7 +48,6 @@ exports.read = function (req, res) {
   // // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   // workmonth.isCurrentUserOwner = req.user && workmonth.user && workmonth.user._id.toString() === req.user._id.toString();
 
-  // res.jsonp(workmonth);
 };
 
 /**
