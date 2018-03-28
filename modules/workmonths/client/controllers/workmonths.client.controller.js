@@ -24,6 +24,7 @@
     onCreate();
     function onCreate() {
       vm.syncData = true;
+      console.log(vm.workmonth);
       prepareDates()
         .then(() => {
           return prepareRest();
@@ -64,7 +65,6 @@
         WorkrestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
           .success(res => {
             vm.workrests = res;
-            console.log(vm.workrests);
             return resolve();
           })
           .error(err => {
@@ -82,6 +82,7 @@
           var date = vm.dates[index];
           var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
           var workrests = getRestByDate(date);
+          // Trường hợp workdate đã được tạo
           if (workdate) {
             workdate.workrests = workrests;
             if (workdate.workrests.length !== workrests.length) {
