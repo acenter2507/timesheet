@@ -84,7 +84,7 @@
           var workrests = getRestByDate(date);
           console.log(workrests);
           // Trường hợp workdate đã được tạo
-          if (workdate._id) {
+          if (workdate) {
             workdate.workrests = workrests;
             if (workdate.workrests.length !== workrests.length) {
               isChange = true;
