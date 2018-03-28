@@ -125,7 +125,7 @@
         for (var index = 0; index < vm.dates.length; index++) {
           var date = vm.dates[index];
           var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
-          if (!workdate || workdate._id) {
+          if (!workdate) {
             var rs_workdate = new WorkdatesService({
               workmonth: vm.workmonth._id,
               month: date.month() + 1,
