@@ -145,7 +145,7 @@
           // vm.datas.push({ date: date, workdate: workdate });
           Promise.all(workdatesSave).then(() => {
             return resolve();
-          })
+          });
         }
       });
     }
