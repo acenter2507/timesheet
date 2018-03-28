@@ -14,7 +14,7 @@
     vm.workmonth = workmonth;
     vm.datas = [];
     vm.currentMonth = moment().year(vm.workmonth.year).month(vm.workmonth.month - 1);
-    console.log(vm.currentMont.format());
+    console.log(vm.currentMonth.format());
 
     vm.syncData = false;
 
