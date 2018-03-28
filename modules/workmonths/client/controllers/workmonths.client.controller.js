@@ -35,8 +35,8 @@
           if (isChange) {
             //vm.workmonth.$update();
             console.log('Changed');
-            vm.syncData = false;
           }
+          vm.syncData = false;
         });
     }
     // Tạo danh sách các ngày trong tháng
@@ -52,7 +52,6 @@
           var item = vm.startDate.clone().add(index, 'days');
           vm.dates.push(item);
         }
-        console.log(vm.dates);
         return resolve();
       });
     }
@@ -102,7 +101,6 @@
           }
           vm.datas.push({ date: date, workdate: workdate });
         }
-        console.log('Done', vm.datas);
         return resolve(isChange);
       });
     }
