@@ -102,6 +102,7 @@
           }
           vm.datas.push({ date: date, workdate: workdate });
         }
+        console.log('Done', vm.datas);
         return resolve(isChange);
       });
     }
