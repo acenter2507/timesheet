@@ -12,7 +12,6 @@
     var vm = this;
 
     vm.workmonth = workmonth;
-    console.log(vm.workmonth);
     vm.datas = [];
     vm.currentMonth = moment().year(vm.workmonth.year).month(vm.workmonth.month - 1);
 
@@ -80,6 +79,7 @@
 
     function prepareShowingData() {
       return new Promise((resolve, reject) => {
+        console.log(vm.workmonth);
         // for (var index = 0; index < vm.dates.length; index++) {
         //   var date = vm.dates[index];
         //   var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
@@ -121,27 +121,28 @@
     function preapreWorkdates() {
       return new Promise((resolve, reject) => {
         var workdatesSave = [];
-        // for (var index = 0; index < vm.dates.length; index++) {
-        //   var date = vm.dates[index];
-        //   var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
-        //   if (!workdate || workdate._id) {
-        //     var rs_workdate = new WorkdatesService({
-        //       workmonth: vm.workmonth._id,
-        //       month: date.month() + 1,
-        //       date: date.date(),
-        //       day: date.day()
-        //     });
-        //     workdatesSave.push(rs_workdate.$save());
-        //   }
-        // }
-        // Promise.all(workdatesSave).then(workrdates => {
-        //   for (let index = 0; index < workrdates.length; index++) {
-        //     const element = workrdates[index];
-        //     vm.workmonth.workdates.push(element);
-        //   }
-        //   return resolve();
-        // });
-        return resolve();
+        for (var index = 0; index < vm.dates.length; index++) {
+          var date = vm.dates[index];
+          var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
+          if (!workdate || workdate._id) {
+            var rs_workdate = new WorkdatesService({
+              workmonth: vm.workmonth._id,
+              month: date.month() + 1,
+              date: date.date(),
+              day: date.day()
+            });
+            workdatesSave.push(rs_workdate.$save());
+          }
+        }
+        Promise.all(workdatesSave).then(workrdates => {
+          for (let index = 0; index < workrdates.length; index++) {
+            const element = workrdates[index];
+            vm.workmonth.workdates.push(element);
+          }
+          vm.workmonth.$save(() => {
+            return resolve();
+          });
+        });
       });
     }
     function getRestByDate(date) {

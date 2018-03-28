@@ -37,8 +37,7 @@ exports.read = function (req, res) {
       return res.jsonp(workmonth);
     });
   } else {
-    var workmonth = req.workmonth ? req.workmonth.toJSON() : {};
-    res.jsonp(workmonth);
+    res.jsonp({});
   }
   // var workmonth = req.workmonth ? req.workmonth.toJSON() : {};
 
