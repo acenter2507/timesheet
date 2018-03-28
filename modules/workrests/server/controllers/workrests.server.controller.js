@@ -171,7 +171,7 @@ exports.approve = function (req, res) {
         var end = _moment(workrest.end);
         console.log('start: ', start);
         console.log('end: ', end);
-        var duration = end.diff(start, 'days');
+        var duration = end.diff(start, 'days', true);
         console.log('duration: ' + duration);
         for (let index = 1; index <= duration; index++) {
           var temp = start.clone().add(index, 'days');
