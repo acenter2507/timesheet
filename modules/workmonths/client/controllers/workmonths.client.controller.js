@@ -94,7 +94,7 @@
                 day: date.day(),
                 workrests: workrests
               };
-              vm.workmonths.workDates.push(work);
+              vm.workmonths.workDates.push(workdate);
               isChange = true;
             }
           }
