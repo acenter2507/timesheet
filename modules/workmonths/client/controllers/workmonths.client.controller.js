@@ -85,7 +85,7 @@
             var diff = _.difference(workdate.workrests, workrests);
             if (diff.length > 0) {
               workdate.workrests = workrests;
-              var rs_workdate = new WorkdatesService(workdate);
+              let rs_workdate = new WorkdatesService(workdate);
               workdatesSave.push(rs_workdate.$update());
               rs_workdate.$update(res => {
                 vm.datas.push({ date: date, workdate: res });
@@ -93,7 +93,7 @@
             }
           } else {
             if (workrests.length > 0) {
-              var rs_workdate = new WorkdatesService({
+              let rs_workdate = new WorkdatesService({
                 month: date.month() + 1,
                 date: date.date(),
                 day: date.day(),
