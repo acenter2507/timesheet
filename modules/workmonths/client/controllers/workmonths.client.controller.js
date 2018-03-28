@@ -115,6 +115,8 @@
         const rest = vm.workrests[index];
         var start = moment(rest.start).format();
         var end = moment(rest.end).format();
+        console.log(start);
+        console.log(end);
         if (date.isBetween(start, end, 'date', '[]')) {
           workrests.push(rest);
         }
