@@ -82,7 +82,7 @@
         for (var index = 0; index < vm.dates.length; index++) {
           var date = vm.dates[index];
           var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
-          console.log(date);
+          console.log(date.format());
           var workrests = getRestByDate(date);
           // Trường hợp workdate đã được tạo
           if (workdate) {
