@@ -330,8 +330,8 @@ exports.getRestOfCurrentUserInRange = function (req, res) {
       {
         $or: [
           { $and: [ { start: { $lte: start } }, { end: { $gte: start } }, { end: { $lte: end } } ] },
-          { $and: [ { start: { $gte: start } }, { end: { $lte: end}} ] },
-          { $and: [ { start: { $lte: start } }, { end: { $gte: end}} ] },
+          { $and: [ { start: { $gte: start } }, { end: { $lte: end } } ] },
+          { $and: [ { start: { $lte: start } }, { end: { $gte: end } } ] },
           { $and: [ { start: { $gte: start } }, { start: { $lte: end } }, { end: { $gte: end } } ] }
         ]
       },
