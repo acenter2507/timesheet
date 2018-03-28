@@ -163,7 +163,18 @@ exports.approve = function (req, res) {
       .exec((err, rest) => {
         if (err)
           return res.status(400).send({ message: '新しいデータを取得できません。' });
-        return res.jsonp(workrest);
+        res.jsonp(workrest);
+        // Xử lý mapping ngày nghỉ vào Workdate
+        var start = _moment(workrest.start);
+        var end = _moment(workrest.end);
+        var duration = end.diff(start, 'days');
+        for (let index = 1; index <= duration; index++) {
+          temp = start.clone().add(index, 'days');
+          var date = temp.date();
+          var month = temp.month() + 1;
+          var year = temp.year();
+          console.log('date: ' + date + ' month: ' + month + ' year: ' + year);
+        }
       });
   });
 };
