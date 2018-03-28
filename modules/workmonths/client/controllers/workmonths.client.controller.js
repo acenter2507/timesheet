@@ -62,11 +62,10 @@
       return new Promise((resolve, reject) => {
         var startRanger = vm.startDate.clone().startOf('date').format();
         var endRanger = vm.endDate.clone().endOf('date').format();
-        console.log(startRanger);
-        console.log(endRanger);
         WorkrestsApi.getRestOfCurrentUserInRange(startRanger, endRanger, $scope.user._id)
           .success(res => {
             vm.workrests = res;
+            console.log(vm.workrests);
             return resolve();
           })
           .error(err => {
