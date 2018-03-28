@@ -31,20 +31,20 @@
               <tr ng-repeat="item in vm.workmonths">
                 <td class="text-center">{{ item.index + '月'}}</td>
                 <td class="text-center">
-                  <span class="label label-default" ng-if="!item.month">未作成</span>
-                  <span class="label label-primary" ng-if="item.month.status === 1">{{ item.month.status | WorkmonthStatusFilter}}</span>
-                  <span class="label badge-warning" ng-if="item.month.status === 2">{{ item.month.status | WorkmonthStatusFilter}}</span>
-                  <span class="label badge-success" ng-if="item.month.status === 3">{{ item.month.status | WorkmonthStatusFilter}}</span>
-                  <span class="label badge-danger" ng-if="item.month.status === 4">{{ item.month.status | WorkmonthStatusFilter}}</span>
+                  <span class="label label-default" ng-if="!item.workmonth">未作成</span>
+                  <span class="label label-primary" ng-if="item.workmonth.status === 1">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
+                  <span class="label badge-warning" ng-if="item.workmonth.status === 2">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
+                  <span class="label badge-success" ng-if="item.workmonth.status === 3">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
+                  <span class="label badge-danger" ng-if="item.workmonth.status === 4">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
                 </td>
                 <td class="d-sm-down-none">{{item.month.works.length}}</td>
                 <td>
-                  <a ng-if="!item.month" class="btn btn-default btn-xs" ng-click="vm.handleCreateMonth(item.index)">
+                  <a ng-if="!item.workmonth" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkMonth(item.index)">
                     <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createMonthBusy"></i> 作成</a>
-                  <a ng-if="item.month.status === 1" class="btn btn-primary btn-xs" ng-click="vm.handleSendRequestMonth(item)">申請</a>
-                  <a ng-if="item.month.status === 1 || item.month.status === 4" class="btn btn-success btn-xs" ui-sref="workmonths.view({ workmonthId: item.month._id })">編集</a>
-                  <a ng-if="item.month.status === 1 || item.month.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleDeleteMonth(item)">削除</a>
-                  <a ng-if="item.month" class="btn btn-info btn-xs" ng-click="vm.handleViewHistory(item)">歴史</a>
+                  <a ng-if="item.workmonth.status === 1" class="btn btn-primary btn-xs" ng-click="vm.handleSendRequestWorkmonth(item)">申請</a>
+                  <a ng-if="item.workmonth.status === 1 || item.workmonth.status === 4" class="btn btn-success btn-xs" ui-sref="workmonths.view({ workmonthId: item.month._id })">編集</a>
+                  <a ng-if="item.workmonth.status === 1 || item.workmonth.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleDeleteMonth(item)">削除</a>
+                  <a ng-if="item.workmonth" class="btn btn-info btn-xs" ng-click="vm.handleViewHistory(item)">歴史</a>
                   <a class="btn btn-default btn-xs" ng-click="vm.handleCreateAll()">全て作成</a>
                 </td>
               </tr>
