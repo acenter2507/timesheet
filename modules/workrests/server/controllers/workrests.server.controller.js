@@ -170,7 +170,7 @@ exports.approve = function (req, res) {
         var duration = end.diff(start, 'days');
         console.log('duration: ' + duration);
         for (let index = 1; index <= duration; index++) {
-          temp = start.clone().add(index, 'days');
+          var temp = start.clone().add(index, 'days');
           var date = temp.date();
           var month = temp.month() + 1;
           var year = temp.year();
