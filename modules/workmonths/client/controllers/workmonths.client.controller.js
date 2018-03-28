@@ -25,8 +25,12 @@
     function onCreate() {
       vm.syncData = true;
       prepareDates()
-        .then(prepareRest())
-        .then(prepareShowingData())
+        .then(() => {
+          return prepareRest();
+        })
+        .then(() => {
+          return prepareShowingData();
+        })
         .then(isChange => {
           if (isChange) {
             //vm.workmonth.$update();
