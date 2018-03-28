@@ -5,7 +5,7 @@
   angular
     .module('workmonths')
     .factory('WorkmonthsService', WorkmonthsService)
-    .factory('WorkmonthsApi', MonthsApi);
+    .factory('WorkmonthsApi', WorkmonthsApi);
 
   WorkmonthsService.$inject = ['$resource'];
 
