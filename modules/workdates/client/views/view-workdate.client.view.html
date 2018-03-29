@@ -26,6 +26,7 @@
           <div class="form-group">
             <label for="content">作業内容</label>
             <textarea name="content" class="form-control h50" ng-model="vm.workdate.content"></textarea>
+            <span ng-show="vm.error.content.error">{{vm.error.content.message}}</span>
           </div>
           <!-- 時間 -->
           <div class="form-group">
