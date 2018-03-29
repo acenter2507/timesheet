@@ -162,8 +162,8 @@
       vm.createWorkDateBusy = true;
       var workrests = [];
       var workrest_ids = [];
-      var offdate = JapaneseHolidays.isHoliday(new Date(date.format('YYYY/MM/DD')));
-      if (!DateUtil.isWeekend(date) && !offdate) {
+      var offdate = JapaneseHolidays.isHoliday(new Date(item.date.format('YYYY/MM/DD')));
+      if (!DateUtil.isWeekend(item.date) && !offdate) {
         workrests = getRestByDate(item.date);
         workrest_ids = _.pluck(workrests, '_id');
       }
