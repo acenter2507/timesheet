@@ -14,6 +14,10 @@
     vm.workdate = workdate;
     vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
 
+    vm.handlePreviousScreen = handlePreviousScreen;
+    function handlePreviousScreen() {
+      $state.go($state.previous.state.name || 'workmonths.view', $state.previous.params || { workmonthId: vm.workdate.workmonth._id });
+    }
     // // Remove existing Workdate
     // function remove() {
     //   if ($window.confirm('Are you sure you want to delete?')) {
