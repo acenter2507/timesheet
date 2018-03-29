@@ -125,7 +125,6 @@
             continue;
           }
 
-
           var workrests = getRestByDate(date);
           var workrest_ids = _.pluck(workrests, '_id');
 
@@ -159,5 +158,35 @@
       $state.go($state.previous.state.name || 'workmonths.list', $state.previous.params);
     }
 
+    vm.handleCreateWorkDate = item => {
+      var workrests = [];
+      var workrest_ids = [];
+      var offdate = JapaneseHolidays.isHoliday(new Date(date.format('YYYY/MM/DD')));
+      if (!DateUtil.isWeekend(date) && !offdate) {
+        workrests = getRestByDate(item.date);
+        workrest_ids = _.pluck(workrests, '_id');
+      }
+      var rs_workdate = new WorkdatesService({
+        workmonth: vm.workmonth._id,
+        month: item.date.month() + 1,
+        date: item.date.date(),
+        day: item.date.day(),
+        workrests: workrest_ids
+      });
+
+      rs_workdate.$save(res => {
+        item.workdate = res;
+        item.workrests = workrests;
+      });
+    };
+
+    vm.handleViewWorkrest = item => {
+
+    };
+
+    vm.handleEditWorkDate = item => {
+      if (!item.workdate || !item.workdate._id) return;
+      $state.go('workdates.view', { workdateId: item.workdate._id });
+    };
   }
 }());

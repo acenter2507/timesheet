@@ -65,9 +65,7 @@
               </td>
               <td><button ng-if="item.workrests.length > 0" class="btn btn-danger btn-xs" ng-click="vm.handleViewWorkrest(item)">休暇詳細</button></td>
               <td>
-                <a ng-if="!item.workdate" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">
-                  <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkDateBusy"></i> 作成
-                </a>
+                <a ng-if="!item.workdate" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">作成</a>
                 <a ng-if="item.workdate" class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(item)">編集</a>
               </td>
             </tr>
