@@ -8,7 +8,7 @@
 
   WorkdatesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'workdateResolve'];
 
-  function WorkdatesController ($scope, $state, $window, Authentication, workdate) {
+  function WorkdatesController($scope, $state, $window, Authentication, workdate) {
     var vm = this;
 
     vm.workdate = workdate;
@@ -18,7 +18,7 @@
     function handlePreviousScreen() {
       var state = $state.previous.state.name || 'workmonths.view';
       var params = state === 'workmonths.view' ? { workmonthId: vm.workdate.workmonth._id } : $state.previous.params;
-      $state.go(state, params );
+      $state.go(state, params);
     }
     // // Remove existing Workdate
     // function remove() {
