@@ -73,6 +73,8 @@
         }
       }
       if (isError) return;
+      console.log(vm.workdate.start);
+      console.log(vm.workdate.end);
       // Verify Start
       if (moment(vm.workdate.start, 'HH:mm', true).isValid()) {
         vm.error.start = { error: true, message: '時間フォーマットが違います！' };
