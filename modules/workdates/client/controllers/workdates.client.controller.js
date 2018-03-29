@@ -74,11 +74,11 @@
       }
       if (isError) return;
       // Verify Start
-      if (!moment(vm.workdate.start, 'HH:mm', true).isValid()) {
+      if (!moment(vm.workdate.start, 'HH:mm', true).isValid() && !moment(vm.workdate.start, 'H:mm', true).isValid()) {
         vm.error.start = { error: true, message: '時間フォーマットが違います！' };
         isError = true;
       }
-      if (!moment(vm.workdate.end, 'HH:mm', true).isValid()) {
+      if (!moment(vm.workdate.end, 'HH:mm', true).isValid() && !moment(vm.workdate.end, 'H:mm', true).isValid()) {
         vm.error.end = { error: true, message: '時間フォーマットが違います！' };
         isError = true;
       }
