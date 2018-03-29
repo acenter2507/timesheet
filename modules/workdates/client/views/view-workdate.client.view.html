@@ -14,6 +14,12 @@
     <div class="col-sm-6">
       <div class="well">
         <form>
+          <!-- 休暇 -->
+          <div class="form-group">
+            <label for="content">休暇</label>
+            <button ng-if="vm.workdate.workrests.length > 0" class="btn btn-danger btn-sm" ng-click="vm.handleViewWorkrest()">休暇詳細</button>
+            <p ng-if="vm.workdate.workrests.length === 0">休暇なし</p>
+          </div>
           <!-- 作業内容 -->
           <div class="form-group">
             <label for="content">作業内容</label>
@@ -49,3 +55,32 @@
     </div>
   </div>
 </div>
+
+<script type="text/ng-template" id="workrests_list.html">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>休暇形態</th>
+              <th>理由</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="workrest in workrests">
+              <td>{{ workrest.holiday.name }}</td>
+              <td>{{ workrest.description }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-sm pull-right btn-danger" ng-click="closeThisDialog()">閉じる</button>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</script>

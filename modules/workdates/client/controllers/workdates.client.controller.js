@@ -6,9 +6,9 @@
     .module('workdates')
     .controller('WorkdatesController', WorkdatesController);
 
-  WorkdatesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'workdateResolve'];
+  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog'];
 
-  function WorkdatesController($scope, $state, $window, Authentication, workdate) {
+  function WorkdatesController($scope, $state, $window, workdate, ngDialog) {
     var vm = this;
 
     vm.workdate = workdate;
@@ -21,6 +21,30 @@
       var params = state === 'workmonths.view' ? { workmonthId: vm.workdate.workmonth._id } : $state.previous.params;
       $state.go(state, params);
     }
+
+    vm.handleViewWorkrest = () => {
+      $scope.workrests = vm.workdate.workrests;
+      var mDialog = ngDialog.open({
+        template: 'workrests_list.html',
+        scope: $scope
+      });
+      mDialog.closePromise.then(function (res) {
+        delete $scope.workrests;
+      });
+    };
+
+    vm.handleSetDefaultWorkdateInfo = () => {
+      vm.workdate.start = '09:00';
+      vm.workdate.end = '17:30';
+      vm.workdate.middleRest = '60';
+    };
+
+    vm.handleClearWorkdateInfo = () => {
+      vm.workdate.content = '';
+      vm.workdate.start = '';
+      vm.workdate.end = '';
+      vm.workdate.middleRest = '';
+    };
     // // Remove existing Workdate
     // function remove() {
     //   if ($window.confirm('Are you sure you want to delete?')) {
