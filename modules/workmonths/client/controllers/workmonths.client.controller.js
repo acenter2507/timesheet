@@ -109,24 +109,24 @@
       return new Promise((resolve, reject) => {
         var workdatesSave = [];
         for (var index = 0; index < vm.dates.length; index++) {
-          var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
           var date = vm.dates[index];
-          var workrests = getRestByDate(date);
+          var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
 
           // Nếu là cuối tuần thì ko apply ngày nghỉ
           if (DateUtil.isWeekend(date)) {
-            vm.datas.push({ date: date, workdate: workdate, workrests: workrests });
+            vm.datas.push({ date: date, workdate: workdate, workrests: [] });
             continue;
           }
 
           // Nếu ngày hiện tại là ngày lễ
           var offdate = JapaneseHolidays.isHoliday(new Date(date.format('YYYY/MM/DD')));
           if (offdate) {
-            vm.datas.push({ date: date, workdate: workdate, workrests: workrests });
+            vm.datas.push({ date: date, workdate: workdate, workrests: [] });
             continue;
           }
 
 
+          var workrests = getRestByDate(date);
           var workrest_ids = _.pluck(workrests, '_id');
 
           var diff = _.difference(workdate.workrests, workrest_ids);
