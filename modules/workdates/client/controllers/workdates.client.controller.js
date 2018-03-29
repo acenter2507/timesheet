@@ -12,7 +12,7 @@
     var vm = this;
 
     vm.workdate = workdate;
-    console.log(vm.workdate);
+    vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
 
     // // Remove existing Workdate
     // function remove() {
