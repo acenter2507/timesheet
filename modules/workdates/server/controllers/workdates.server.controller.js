@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Workdate
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var workdate = new Workdate(req.body);
   workdate.user = req.user;
 
-  workdate.save(function(err) {
+  workdate.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,12 +30,9 @@ exports.create = function(req, res) {
 /**
  * Show the current Workdate
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var workdate = req.workdate ? req.workdate.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   workdate.isCurrentUserOwner = req.user && workdate.user && workdate.user._id.toString() === req.user._id.toString();
 
   res.jsonp(workdate);
@@ -44,12 +41,12 @@ exports.read = function(req, res) {
 /**
  * Update a Workdate
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var workdate = req.workdate;
 
   workdate = _.extend(workdate, req.body);
 
-  workdate.save(function(err) {
+  workdate.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +60,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Workdate
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var workdate = req.workdate;
 
-  workdate.remove(function(err) {
+  workdate.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +77,8 @@ exports.delete = function(req, res) {
 /**
  * List of Workdates
  */
-exports.list = function(req, res) {
-  Workdate.find().sort('-created').populate('user', 'displayName').exec(function(err, workdates) {
+exports.list = function (req, res) {
+  Workdate.find().sort('-created').populate('user', 'displayName').exec(function (err, workdates) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +92,7 @@ exports.list = function(req, res) {
 /**
  * Workdate middleware
  */
-exports.workdateByID = function(req, res, next, id) {
+exports.workdateByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -103,15 +100,22 @@ exports.workdateByID = function(req, res, next, id) {
     });
   }
 
-  Workdate.findById(id).populate('user', 'displayName').exec(function (err, workdate) {
-    if (err) {
-      return next(err);
-    } else if (!workdate) {
-      return res.status(404).send({
-        message: 'No Workdate with that identifier has been found'
-      });
-    }
-    req.workdate = workdate;
-    next();
-  });
+  Workdate.findById(id)
+    .populate('user', 'displayName')
+    .populate('workmonth')
+    .populate({
+      path: 'workrest',
+      populate: { path: 'holiday' }
+    })
+    .exec(function (err, workdate) {
+      if (err) {
+        return next(err);
+      } else if (!workdate) {
+        return res.status(404).send({
+          message: 'No Workdate with that identifier has been found'
+        });
+      }
+      req.workdate = workdate;
+      next();
+    });
 };
