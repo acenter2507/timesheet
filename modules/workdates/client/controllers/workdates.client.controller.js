@@ -51,7 +51,7 @@
       var isError = false;
       vm.error = {};
       if (unInput(vm.workdate.start) && unInput(vm.workdate.end) && unInput(vm.workdate.content) && unInput(vm.workdate.middleRest)) {
-        isError = false;
+        return;
       } else if (!unInput(vm.workdate.start) && !unInput(vm.workdate.end) && unInput(vm.workdate.content) && unInput(vm.workdate.middleRest)) {
         isError = false;
       } else {
