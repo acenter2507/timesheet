@@ -15,6 +15,11 @@
     console.log(vm.workdate);
     vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
 
+    vm.error = {
+      start: { error: false, message: '' },
+      end: { error: false, message: '' },
+      middleRest: { error: false, message: '' },
+    };
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
       var state = $state.previous.state.name || 'workmonths.view';
@@ -45,6 +50,37 @@
       vm.workdate.end = '';
       vm.workdate.middleRest = '';
     };
+
+    vm.handleSaveWorkdate = () => {
+      // Verify Start
+      var isError = false;
+      if (vm.workdate.start !== '' && vm.workdate.end !== '' && vm.workdate.content !== '' && vm.workdate.middleRest !== '') {
+
+      } else if (vm.workdate.start == '' && vm.workdate.end == '' && vm.workdate.content == '' && vm.workdate.middleRest !== '') {
+
+      } else {
+        if (vm.workdate.start == '') {
+          vm.error.start = { error: true, message: '開始時間を入力してください！' };
+          isError = true;
+        }
+        if (vm.workdate.end == '') {
+          vm.error.end = { error: true, message: '終了時間を入力してください！' };
+          isError = true;
+        }
+        if (vm.workdate.content == '') {
+          vm.error.content = { error: true, message: '作業内容を入力してください！' };
+          isError = true;
+        }
+        if (vm.workdate.middleRest == '') {
+          vm.error.middleRest = { error: true, message: '休憩時間を入力してください！' };
+          isError = true;
+        }
+      }
+      if (isError) return;
+      // Verify ENd
+      // Verify 
+    }
+
     // // Remove existing Workdate
     // function remove() {
     //   if ($window.confirm('Are you sure you want to delete?')) {
