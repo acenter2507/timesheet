@@ -36,7 +36,7 @@
     vm.handleSetDefaultWorkdateInfo = () => {
       vm.workdate.start = '09:00';
       vm.workdate.end = '17:30';
-      vm.workdate.middleRest = '60';
+      vm.workdate.middleRest = 60;
     };
 
     vm.handleClearWorkdateInfo = () => {
