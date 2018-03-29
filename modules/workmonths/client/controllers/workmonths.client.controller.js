@@ -110,7 +110,7 @@
         var workdatesSave = [];
         for (var index = 0; index < vm.dates.length; index++) {
           var date = vm.dates[index];
-          if (date.day() === 0 || date.day() === 6) return;
+          if (date.day() === 0 || date.day() === 6) continue;
           var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
           var workrests = getRestByDate(date);
 
