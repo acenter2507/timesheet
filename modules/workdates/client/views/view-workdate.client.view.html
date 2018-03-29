@@ -17,7 +17,9 @@
           <!-- 休暇 -->
           <div class="form-group">
             <label for="content">休暇</label>
-            <button ng-if="vm.workdate.workrests.length > 0" class="btn btn-danger btn-sm" ng-click="vm.handleViewWorkrest()">休暇詳細</button>
+            <div>
+              <button ng-if="vm.workdate.workrests.length > 0" class="btn btn-danger btn-sm" ng-click="vm.handleViewWorkrest()">休暇詳細</button>
+            </div>
             <p ng-if="vm.workdate.workrests.length === 0">休暇なし</p>
           </div>
           <!-- 作業内容 -->
