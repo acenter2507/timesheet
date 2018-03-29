@@ -30,11 +30,11 @@
           <!-- 時間 -->
           <div class="form-group">
             <div class="col-xs-6 pdnl">
-              <label for="start">開始</label>
+              <label for="start">開始（hh:mm）</label>
               <input type="text" class="form-control" ng-model="vm.workdate.start">
             </div>
             <div class="col-xs-6 pdnr">
-              <label for="end">終了</label>
+              <label for="end">終了（hh:mm）</label>
               <input type="text" class="form-control" ng-model="vm.workdate.end">
             </div>
             <div class="clearfix"></div>
@@ -46,11 +46,11 @@
               <input class="form-control" type="number" ng-model="vm.workdate.middleRest" step="10" min="0">
             </div>
             <div class="col-sm-4 pdn">
-              <label for="overtime">時間外</label>
-              <input class="form-control" type="number" ng-model="vm.workdate.overtime" disabled>
+              <label for="overtime">時間外（時）</label>
+              <input class="form-control" ng-model="vm.workdate.overtime" disabled>
             </div>
             <div class="col-sm-4 pdnr">
-              <label for="overnight">深夜</label>
+              <label for="overnight">深夜（時）</label>
               <input type="text" class="form-control" ng-model="vm.workdate.overnight" disabled>
             </div>
             <div class="clearfix"></div>
