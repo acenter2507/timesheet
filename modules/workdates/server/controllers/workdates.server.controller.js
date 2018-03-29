@@ -104,7 +104,7 @@ exports.workdateByID = function (req, res, next, id) {
     .populate('user', 'displayName')
     .populate('workmonth')
     .populate({
-      path: 'workrest',
+      path: 'workrests',
       populate: { path: 'holiday' }
     })
     .exec(function (err, workdate) {
