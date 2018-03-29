@@ -183,7 +183,14 @@
     };
 
     vm.handleViewWorkrest = item => {
-
+      $scope.item = item;
+      var mDialog = ngDialog.open({
+        template: 'workrests_list.html',
+        scope: $scope
+      });
+      mDialog.closePromise.then(function (res) {
+        delete $scope.item;
+      });
     };
 
     vm.handleEditWorkDate = item => {
