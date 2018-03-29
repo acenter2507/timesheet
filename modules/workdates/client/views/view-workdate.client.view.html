@@ -19,6 +19,7 @@
             <label for="content">作業内容</label>
             <textarea name="content" class="form-control h50" ng-model="vm.workdate.content" required></textarea>
           </div>
+          <!-- 時間 -->
           <div class="form-group">
             <div class="col-xs-6 pdnl">
               <label for="start">開始</label>
@@ -28,10 +29,16 @@
               <label for="end">終了</label>
               <input type="text" class="form-control" ng-model="vm.workdate.end">
             </div>
-            <div class="form-group">
-              <label for="rest">休憩時間（分）</label>
-              <input class="form-control" type="number" ng-model="vm.workdate.middleRest" step="1" min="0">
-            </div>
+          </div>
+          <!-- 休憩 -->
+          <div class="form-group">
+            <label for="rest">休憩時間（分）</label>
+            <input class="form-control" type="number" ng-model="vm.workdate.middleRest" step="1" min="0">
+          </div>
+          <!-- Buttons -->
+          <div class="form-group">
+            <button class="btn btn-default" ng-click="vm.handleSetDefaultWorkdateInfo()">デフォルト</button>
+            <button class="btn btn-default" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
           </div>
         </form>
       </div>
