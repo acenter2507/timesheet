@@ -56,22 +56,22 @@
       var isError = false;
       if (vm.workdate.start !== '' && vm.workdate.end !== '' && vm.workdate.content !== '' && vm.workdate.middleRest !== '') {
 
-      } else if (vm.workdate.start == '' && vm.workdate.end == '' && vm.workdate.content == '' && vm.workdate.middleRest !== '') {
+      } else if (vm.workdate.start === '' && vm.workdate.end === '' && vm.workdate.content === '' && vm.workdate.middleRest === '') {
 
       } else {
-        if (vm.workdate.start == '') {
+        if (vm.workdate.start === '') {
           vm.error.start = { error: true, message: '開始時間を入力してください！' };
           isError = true;
         }
-        if (vm.workdate.end == '') {
+        if (vm.workdate.end === '') {
           vm.error.end = { error: true, message: '終了時間を入力してください！' };
           isError = true;
         }
-        if (vm.workdate.content == '') {
+        if (vm.workdate.content === '') {
           vm.error.content = { error: true, message: '作業内容を入力してください！' };
           isError = true;
         }
-        if (vm.workdate.middleRest == '') {
+        if (vm.workdate.middleRest === '') {
           vm.error.middleRest = { error: true, message: '休憩時間を入力してください！' };
           isError = true;
         }
