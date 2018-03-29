@@ -29,6 +29,7 @@
               <label for="end">終了</label>
               <input type="text" class="form-control" ng-model="vm.workdate.end">
             </div>
+            <div class="clearfix"></div>
           </div>
           <!-- 休憩 -->
           <div class="form-group">
@@ -38,7 +39,7 @@
           <!-- Buttons -->
           <div class="form-group">
             <button class="btn btn-default" ng-click="vm.handleSetDefaultWorkdateInfo()">デフォルト</button>
-            <button class="btn btn-default" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
+            <button class="btn btn-danger" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
           </div>
         </form>
       </div>
