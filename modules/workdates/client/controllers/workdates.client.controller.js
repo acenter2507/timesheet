@@ -110,8 +110,10 @@
 
       // Tính thời gian nghỉ giải lao
       var middle_rest = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
-      console.log(duration);
-      console.log(middle_rest);
+      var work_duration = duration - middle_rest;
+      
+      // Tính thời gian làm việc ngoài giờ
+      vm.workdate.overtime = work_duration - 7.5;
     };
 
     function unInput(data) {
