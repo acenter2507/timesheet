@@ -130,7 +130,7 @@
       overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange, 1);
       
       console.log("before_overnight_duration: " + before_overnight_duration);
-      console.log("overnight_duration: " + before_overnight_duration);
+      console.log("overnight_duration: " + overnight_duration);
       console.log("rest_duration: " + rest_duration);
       console.log("work_duration: " + work_duration);
       vm.workdate.overtime = overtime_duration;
