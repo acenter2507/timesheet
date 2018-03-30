@@ -13,6 +13,7 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="well">
+        <h4>勤務時間入力</h4>
         <form>
           <!-- 休暇 -->
           <div class="form-group">
@@ -32,12 +33,12 @@
           <div class="form-group">
             <div class="col-xs-6 pdnl">
               <label for="start">開始（hh:mm）</label>
-              <input type="text" class="form-control" ng-model="vm.workdate.start">
+              <input type="text" class="form-control" ng-model="vm.workdate.start" ng-change="vm.handleChangedInput()">
               <span class="text-danger" ng-show="vm.error.start.error">{{vm.error.start.message}}</span>
             </div>
             <div class="col-xs-6 pdnr">
               <label for="end">終了（hh:mm）</label>
-              <input type="text" class="form-control" ng-model="vm.workdate.end">
+              <input type="text" class="form-control" ng-model="vm.workdate.end" ng-change="vm.handleChangedInput()">
               <span class="text-danger" ng-show="vm.error.end.error">{{vm.error.end.message}}</span>
             </div>
             <div class="clearfix"></div>
@@ -46,11 +47,11 @@
           <div class="form-group">
             <div class="col-sm-3 pdnl">
               <label for="middleRest">休憩時間（分）</label>
-              <input class="form-control" type="number" ng-model="vm.workdate.middleRest" step="10" min="0">
+              <input class="form-control" type="number" ng-model="vm.workdate.middleRest" step="10" min="0" ng-change="vm.handleChangedInput()">
               <span class="text-danger" ng-show="vm.error.middleRest.error">{{vm.error.middleRest.message}}</span>
             </div>
             <div class="col-sm-3">
-              <label for="overnight">深夜（時）</label>
+              <label for="overnight"></label>
               <input type="text" class="form-control" ng-model="vm.workdate.overnight" disabled>
             </div>
             <div class="col-sm-3">
@@ -73,7 +74,9 @@
       </div>
     </div>
     <div class="col-sm-6">
-      <div class="well"></div>
+      <div class="well">
+        <h4>{{:: vm.workdate.workmonth.year }}年{{:: vm.workdate.workmonth.month }}月の状態</h4>
+      </div>
     </div>
   </div>
 </div>
