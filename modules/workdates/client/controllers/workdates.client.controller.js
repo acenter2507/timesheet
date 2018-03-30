@@ -102,8 +102,8 @@
       if (duration <= 0) {
         var mildle_max = moment('24:00', 'HH:mm');
         var mildle_min = moment('00:00', 'HH:mm');
-        mildle_1_duration = mildle_max.diff(start, 'hours', true);
-        mildle_2_duration = end.diff(mildle_min, 'hours', true);
+        var mildle_1_duration = mildle_max.diff(start, 'hours', true);
+        var mildle_2_duration = end.diff(mildle_min, 'hours', true);
         duration = mildle_1_duration + mildle_2_duration;
       }
       console.log(duration);
