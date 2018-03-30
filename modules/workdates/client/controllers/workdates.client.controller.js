@@ -6,9 +6,9 @@
     .module('workdates')
     .controller('WorkdatesController', WorkdatesController);
 
-  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog'];
+  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil'];
 
-  function WorkdatesController($scope, $state, $window, workdate, ngDialog) {
+  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil) {
     var vm = this;
 
     vm.workdate = workdate;
@@ -109,7 +109,7 @@
       }
 
       // Tính thời gian nghỉ giải lao
-      var middle_rest = vm.workdate.middleRest / 60;
+      var middle_rest = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
       console.log(duration);
       console.log(middle_rest);
     };
