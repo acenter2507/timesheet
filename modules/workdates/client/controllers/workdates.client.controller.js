@@ -127,7 +127,7 @@
 
       // Tính thời gian nghỉ giải lao
       rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
-      overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange);
+      overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange, 1);
       
       vm.workdate.overtime = overtime_duration;
       vm.workdate.overnight = overnight_duration;
