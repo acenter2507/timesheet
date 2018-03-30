@@ -115,7 +115,7 @@
         var temp_min = moment('00:00', 'HH:mm');
         // Tổng thời gian overnight
         if (end.isBefore(temp_max)) {
-          overnight = end.diff(overnight, 'hours', true);
+          overnight_duration = end.diff(overnight, 'hours', true);
         } else {
           // Thời gian từ Giờ tính overnight đến nữa đêm
           var overnight_to_midnight_duration = temp_max.diff(overnight, 'hours', true);
