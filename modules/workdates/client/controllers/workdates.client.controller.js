@@ -104,6 +104,7 @@
       var work_duration = 0;
       var overtime_duration = 0;
       var overnight_duration = 0;
+      var rest_duration = 0;
       // Trường hợp kết thúc trước Giờ tính overnight
       if (end.isBefore(overnight)) {
         work_duration = end.diff(start, 'hours', true);
@@ -125,8 +126,8 @@
       }
 
       // Tính thời gian nghỉ giải lao
-      var middle_rest = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
-      var overtime_duration = NumberUtil.precisionRound(work_duration - middle_rest - Constant.workRange);
+      rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
+      overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange);
       
       vm.workdate.overtime = overtime_duration;
       vm.workdate.overnight = overnight_duration;
