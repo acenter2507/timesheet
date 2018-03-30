@@ -99,6 +99,13 @@
       var start = moment(vm.workdate.start, 'HH:mm');
       var end = moment(vm.workdate.end, 'HH:mm');
       var duration = end.diff(start, 'hours', true);
+      if (duration <= 0) {
+        var mildle_max = moment('24:00', 'HH:mm');
+        var mildle_min = moment('00:00', 'HH:mm');
+        mildle_1_duration = mildle_max.diff(start, 'hours', true);
+        mildle_2_duration = end.diff(mildle_min, 'hours', true);
+        duration = mildle_1_duration + mildle_2_duration;
+      }
       console.log(duration);
     };
 
