@@ -127,6 +127,16 @@
       // Tính thời gian nghỉ giải lao
       rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
       overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
+      if (overtime_duration < 0) {
+        overtime_duration = 0;
+      }
+      
+      console.log("before_overnight_duration: " + before_overnight_duration);
+      console.log("overnight_duration: " + overnight_duration);
+      console.log("rest_duration: " + rest_duration);
+      console.log("work_duration: " + work_duration);
+      vm.workdate.overtime = overtime_duration;
+      vm.workdate.overnight = overnight_duration;
 
 
 
@@ -151,15 +161,15 @@
       // }
 
       // Tính thời gian nghỉ giải lao
-      rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
-      overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
+      // rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
+      // overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
       
-      console.log("before_overnight_duration: " + before_overnight_duration);
-      console.log("overnight_duration: " + overnight_duration);
-      console.log("rest_duration: " + rest_duration);
-      console.log("work_duration: " + work_duration);
-      vm.workdate.overtime = overtime_duration;
-      vm.workdate.overnight = overnight_duration;
+      // console.log("before_overnight_duration: " + before_overnight_duration);
+      // console.log("overnight_duration: " + overnight_duration);
+      // console.log("rest_duration: " + rest_duration);
+      // console.log("work_duration: " + work_duration);
+      // vm.workdate.overtime = overtime_duration;
+      // vm.workdate.overnight = overnight_duration;
     };
 
     function unInput(data) {
