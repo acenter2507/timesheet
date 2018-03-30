@@ -6,9 +6,9 @@
     .module('workdates')
     .controller('WorkdatesController', WorkdatesController);
 
-  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil'];
+  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant'];
 
-  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil) {
+  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant) {
     var vm = this;
 
     vm.workdate = workdate;
@@ -99,21 +99,37 @@
       // Tính thời gian có mặt ở công ty
       var start = moment(vm.workdate.start, 'HH:mm');
       var end = moment(vm.workdate.end, 'HH:mm');
-      var duration = end.diff(start, 'hours', true);
-      if (duration <= 0) {
+      var overnight = moment(Constant.overnightStart, 'HH:mm');
+
+      var work_duration = 0;
+      var overtime_duration = 0;
+      var overnight_duration = 0;
+      // Trường hợp kết thúc trước Giờ tính overnight
+      if (end.isBefore(overnight)) {
+        work_duration = end.diff(start, 'hours', true);
+      } else {
+        // Khoảng thời gian làm việc cho đến trước Giờ tính overnight
+        var before_overnight_duration = overnight.diff(start, 'hours', true);
         var temp_max = moment('24:00', 'HH:mm');
         var temp_min = moment('00:00', 'HH:mm');
-        var temp_1_duration = temp_max.diff(start, 'hours', true);
-        var temp_2_duration = end.diff(temp_min, 'hours', true);
-        duration = temp_1_duration + temp_2_duration;
+        // Tổng thời gian overnight
+        if (end.isBefore(temp_max)) {
+          overnight = end.diff(overnight, 'hours', true);
+        } else {
+          // Thời gian từ Giờ tính overnight đến nữa đêm
+          var overnight_to_midnight_duration = temp_max.diff(overnight, 'hours', true);
+          var midnight_to_end_duration = end.diff(temp_min, 'hours', true);
+          overnight_duration = overnight_to_midnight_duration + midnight_to_end_duration;
+        }
+        work_duration = before_overnight_duration + overnight_duration;
       }
 
       // Tính thời gian nghỉ giải lao
       var middle_rest = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
-      var work_duration = duration - middle_rest;
+      var overtime_duration = NumberUtil.precisionRound(work_duration - middle_rest - Constant.workRange);
       
-      // Tính thời gian làm việc ngoài giờ
-      vm.workdate.overtime = work_duration - 7.5;
+      vm.workdate.overtime = overtime_duration;
+      vm.workdate.overnight = overnight_duration;
     };
 
     function unInput(data) {
