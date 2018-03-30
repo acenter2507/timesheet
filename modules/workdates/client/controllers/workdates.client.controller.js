@@ -131,10 +131,6 @@
         overtime_duration = 0;
       }
       
-      console.log("before_overnight_duration: " + before_overnight_duration);
-      console.log("overnight_duration: " + overnight_duration);
-      console.log("rest_duration: " + rest_duration);
-      console.log("work_duration: " + work_duration);
       vm.workdate.overtime = overtime_duration;
       vm.workdate.overnight = overnight_duration;
 
