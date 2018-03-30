@@ -127,7 +127,7 @@
 
       // Tính thời gian nghỉ giải lao
       rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
-      overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange, 1);
+      overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
       
       console.log("before_overnight_duration: " + before_overnight_duration);
       console.log("overnight_duration: " + overnight_duration);
