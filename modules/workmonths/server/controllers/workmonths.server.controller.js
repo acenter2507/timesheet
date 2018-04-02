@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Workmonth = mongoose.model('Workmonth'),
+  Workdate = mongoose.model('Workdate'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore');
 
@@ -72,6 +73,8 @@ exports.delete = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      // Xóa bỏ các date đã tạo trong month này
+      Workdate.remove({ workmonth: workmonth._id }).exec();
       res.jsonp(workmonth);
     }
   });
