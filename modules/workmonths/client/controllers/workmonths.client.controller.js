@@ -88,7 +88,8 @@
               workmonth: vm.workmonth._id,
               month: date.month() + 1,
               date: date.date(),
-              day: date.day()
+              day: date.day(),
+              isHoliday: DateUtil.isWeekend(date) || JapaneseHolidays.isHoliday(new Date(date.format('YYYY/MM/DD')))
             });
             workdatesSave.push(rs_workdate.$save());
           }

@@ -98,6 +98,9 @@
       if (!moment(vm.workdate.end, 'HH:mm', true).isValid()) {
         return;
       }
+
+      // Bắt đầu tính thời gian
+      
       // Tính thời gian có mặt ở công ty
       var start = moment(vm.workdate.start, 'HH:mm');
       var end = moment(vm.workdate.end, 'HH:mm');
@@ -123,8 +126,15 @@
       var endovertime_to_end_duration = 0;
       // Thời gian làm việc từ nửa đêm đến kết thúc
       var midnight_to_end_duration = 0;
+      // Thời gian tính làm việc tiêu chuẩn trong 1 ngày
+      var work_range = 0;
       // Tính thời gian nghỉ giải lao
       rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
+
+      // Nếu là ngày bình thường (ngày nghỉ = 0)
+      if (!vm.workdate.isHoliday) {
+        work_range = Constant.workRange;
+      }
 
       // Trường hợp End nhỏ hơn start (làm qua đêm)
       if (end.isBefore(start) || end.isSame(start)) {
@@ -146,7 +156,7 @@
           // Tính tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - work_range - overnight_duration, 1);
         } else {
           // Tính thời gian từ nửa đêm đến thời điểm kết thúc ovetnight
           midnight_to_endovertime_duration = overnightEnd.diff(temp_min, 'hours', true);
@@ -157,7 +167,7 @@
           // Tính tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration + endovertime_to_end_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - work_range - overnight_duration, 1);
         }
       } else {
         // Trường hợp kết thúc trước thời gian tính overnight
@@ -167,7 +177,7 @@
           // Thời gian overnight
           overnight_duration = 0;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - work_range - overnight_duration, 1);
         } else {
           // Trường hợp kết thúc trong khoảng overnight đến nữa đêm
           // Tính thời gian bắt đầu đến lúc overnight
@@ -177,7 +187,7 @@
           // Tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - work_range - overnight_duration, 1);
         }
       }
       
