@@ -6,9 +6,9 @@
     .module('workmonths')
     .controller('WorkmonthsController', WorkmonthsController);
 
-  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkrestsApi', 'WorkdatesService', 'DateUtil', 'ngDialog'];
+  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkrestsApi', 'WorkdatesService', 'DateUtil', 'ngDialog', 'CommonService'];
 
-  function WorkmonthsController($scope, $state, $window, workmonth, WorkrestsApi, WorkdatesService, DateUtil, ngDialog) {
+  function WorkmonthsController($scope, $state, $window, workmonth, WorkrestsApi, WorkdatesService, DateUtil, ngDialog, CommonService) {
     var vm = this;
 
     vm.workmonth = workmonth;
@@ -128,11 +128,7 @@
           var workrests = getRestByDate(date);
           var workrest_ids = _.pluck(workrests, '_id');
 
-          var diff = _.difference(workdate.workrests, workrest_ids);
-          console.log(diff);
-          console.log(workrest_ids);
-          console.log(workdate.workrests);
-          if (diff.length > 0) {
+          if (!CommonService.comapreTwoArrays(workdate.workrests, workrest_ids)) {
             var rs_workdate = new WorkdatesService({ _id: workdate._id, workrests: workrest_ids });
             workdate.workrests = workrest_ids;
             workdatesSave.push(rs_workdate.$update());
