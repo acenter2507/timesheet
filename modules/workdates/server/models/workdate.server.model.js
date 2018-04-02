@@ -21,7 +21,7 @@ var WorkdateSchema = new Schema({
   end: { type: String, default: '' }, // 終了
   middleRest: { type: Number }, // 休憩 (hour)
   overtime: { type: Number, default: 0 }, // 時間外
-  late: { type: Number, default: 0 }, // 深夜
+  overnight: { type: Number, default: 0 }, // 深夜
   transfer: { type: Boolean, default: false }, // 振替
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now },
