@@ -66,6 +66,25 @@
             <button class="btn btn-warning" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
             <button class="btn btn-primary" ng-click="vm.handleSaveWorkdate()">保存</button>
           </div>
+          <div class="form-group">
+            <p>
+              <span class="mg10r">★</span>
+              <span>深夜時間は</span>
+              <span>{{:: Constant.overnightStart }}</span>
+              <span>～</span>
+              <span>{{:: Constant.overnightEnd }}</span>
+              <span>まで</span>
+            </p>
+            <p>
+              <span class="mg10r">★</span>
+              <span>入力する時間は30分単位で入力してください。</span>
+              <span>{{:: Constant.overnightStart }}</span>
+            </p>
+            <p>
+              <span class="mg10r">★</span>
+              <span>また日をまたがる時間の場合は00:00から加算した入力をお願いします。</span>
+            </p>
+          </div>
         </form>
       </div>
     </div>
