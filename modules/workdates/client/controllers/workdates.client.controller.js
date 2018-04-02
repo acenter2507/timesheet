@@ -133,9 +133,9 @@
         // Mốc thời gian bắt đầu 1 ngày
         var temp_min = moment('00:00', 'HH:mm');
         // Tính thời gian làm việc từ lúc bắt đầu đến thời điểm tính overnight
-        before_overnight_duration = overnight.diff(start, 'hours', true);
+        before_overnight_duration = overnightStart.diff(start, 'hours', true);
         // Tính thời gian làm việc từ lúc overnight đến nữa đêm
-        overnight_to_midnight_duration = temp_max.diff(overnight, 'hours', true);
+        overnight_to_midnight_duration = temp_max.diff(overnightStart, 'hours', true);
 
         // Tính trường hợp kết thúc trước khi hết tính overnight
         if (end.isBefore(overnightEnd) || end.isSame(overnightEnd)) {
@@ -161,7 +161,7 @@
         }
       } else {
         // Trường hợp kết thúc trước thời gian tính overnight
-        if (end.isBefore(overnight) || end.isSame(overnight)) {
+        if (end.isBefore(overnightStart) || end.isSame(overnightStart)) {
           // Thời gian làm việc cả ngày
           work_duration = end.diff(start, 'hours', true);
           // Thời gian overnight
@@ -171,9 +171,9 @@
         } else {
           // Trường hợp kết thúc trong khoảng overnight đến nữa đêm
           // Tính thời gian bắt đầu đến lúc overnight
-          before_overnight_duration = overnight.diff(start, 'hours', true);
+          before_overnight_duration = overnightStart.diff(start, 'hours', true);
           // Tính thời gian từ lúc overnight đến lúc kết thúc
-          overnight_duration = end.diff(overnight, 'hours', true);
+          overnight_duration = end.diff(overnightStart, 'hours', true);
           // Tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration;
           // Tính thời gian làm thêm giờ
