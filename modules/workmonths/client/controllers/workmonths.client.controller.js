@@ -130,6 +130,8 @@
 
           var diff = _.difference(workdate.workrests, workrest_ids);
           console.log(diff);
+          console.log(workrest_ids);
+          console.log(workdate.workrests);
           if (diff.length > 0) {
             var rs_workdate = new WorkdatesService({ _id: workdate._id, workrests: workrest_ids });
             workdate.workrests = workrest_ids;
