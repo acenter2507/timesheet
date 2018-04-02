@@ -101,71 +101,66 @@
       var end = moment(vm.workdate.end, 'HH:mm');
       var overnight = moment(Constant.overnightStart, 'HH:mm');
 
+      // Tổng thời gian có mặt tại công ty trong ngày
       var work_duration = 0;
+      // Thời gian làm thêm giờ
       var overtime_duration = 0;
+      // Thời gian làm đềm (từ mốc giờ đã set trước)
       var overnight_duration = 0;
+      // Thời gian nghỉ giải lao
       var rest_duration = 0;
+
+      // Thời gian làm việc từ lúc bắt đầu đến lúc tính overnight
+      var before_overnight_duration = 0;
+      // Thời gian làm việc từ lúc bắt đầu tính overnight đến nữa đêm
+      var overnight_to_midnight_duration = 0;
+      // Thời gian làm việc từ nửa đêm đến kết thúc
+      var midnight_to_end_duration = 0;
+
       // Trường hợp End nhỏ hơn start (làm qua đêm)
       if (end.isBefore(start) || end.isSame(start)) {
+        // Mốc thời gian kết thúc 1 ngày
         var temp_max = moment('24:00', 'HH:mm');
+        // Mốc thời gian bắt đầu 1 ngày
         var temp_min = moment('00:00', 'HH:mm');
-        var before_overnight_duration = overnight.diff(start, 'hours', true);
-        var overnight_to_midnight_duration = temp_max.diff(overnight, 'hours', true);
-        var midnight_to_end_duration = end.diff(temp_min, 'hours', true);
-        work_duration = before_overnight_duration + overnight_to_midnight_duration + midnight_to_end_duration;
+        // Tính thời gian làm việc từ lúc bắt đầu đến thời điểm tính overnight
+        before_overnight_duration = overnight.diff(start, 'hours', true);
+        // Tính thời gian làm việc từ lúc overnight đến nữa đêm
+        overnight_to_midnight_duration = temp_max.diff(overnight, 'hours', true);
+        // Tính thời gian làm giệc từ lúc nữa đêm đến khi kết thúc
+        midnight_to_end_duration = end.diff(temp_min, 'hours', true);
+        // Thời gian overnight
         overnight_duration = overnight_to_midnight_duration + midnight_to_end_duration;
-      } else { // Làm đến nữa đêm
+        // Tính tổng thời gian làm việc trong ngày
+        work_duration = before_overnight_duration + overnight_duration;
+      } else {
+        // Trường hợp kết thúc trước thời gian tính overnight
         if (end.isBefore(overnight) || end.isSame(overnight)) {
+          // Thời gian làm việc cả ngày
           work_duration = end.diff(start, 'hours', true);
+          // Thời gian overnight
           overnight_duration = 0;
         } else {
-          var before_overnight_duration = overnight.diff(start, 'hours', true);
+          // Trường hợp kết thúc trong khoảng overnight đến nữa đêm
+          // Tính thời gian bắt đầu đến lúc overnight
+          before_overnight_duration = overnight.diff(start, 'hours', true);
+          // Tính thời gian từ lúc overnight đến lúc kết thúc
           overnight_duration = end.diff(overnight, 'hours', true);
+          // Tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration;
         }
       }
       // Tính thời gian nghỉ giải lao
       rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
+      // Tính thời gian làm thêm giờ
       overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
+      // Nếu thời gian làm thêm giờ < 0 thì cho về 0
       if (overtime_duration < 0) {
         overtime_duration = 0;
       }
       
       vm.workdate.overtime = overtime_duration;
       vm.workdate.overnight = overnight_duration;
-
-
-
-      // Trường hợp kết thúc trước Giờ tính overnight
-      // if (end.isBefore(overnight)) {
-      //   work_duration = end.diff(start, 'hours', true);
-      // } else {
-      //   // Khoảng thời gian làm việc cho đến trước Giờ tính overnight
-      //   var before_overnight_duration = overnight.diff(start, 'hours', true);
-      //   var temp_max = moment('24:00', 'HH:mm');
-      //   var temp_min = moment('00:00', 'HH:mm');
-      //   // Tổng thời gian overnight
-      //   if (end.isBefore(temp_max)) {
-      //     overnight_duration = end.diff(overnight, 'hours', true);
-      //   } else {
-      //     // Thời gian từ Giờ tính overnight đến nữa đêm
-      //     var overnight_to_midnight_duration = temp_max.diff(overnight, 'hours', true);
-      //     var midnight_to_end_duration = end.diff(temp_min, 'hours', true);
-      //     overnight_duration = overnight_to_midnight_duration + midnight_to_end_duration;
-      //   }
-      //   work_duration = before_overnight_duration + overnight_duration;
-      // }
-
-      // Tính thời gian nghỉ giải lao
-      // rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
-      // overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - Constant.workRange - overnight_duration, 1);
-      
-      // console.log("before_overnight_duration: " + before_overnight_duration);
-      // console.log("overnight_duration: " + overnight_duration);
-      // console.log("rest_duration: " + rest_duration);
-      // console.log("work_duration: " + work_duration);
-      // vm.workdate.overtime = overtime_duration;
-      // vm.workdate.overnight = overnight_duration;
     };
 
     function unInput(data) {
