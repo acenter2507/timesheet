@@ -79,8 +79,8 @@
           vm.error.content = { error: true, message: '作業内容を入力してください！' };
           isError = true;
         }
-        if (CommonService.isStringEmpty(vm.workdate.middleRest)) {
-          vm.error.middleRest = { error: true, message: '休憩時間を入力してください！' };
+        if (vm.workdate.middleRest < 0) {
+          vm.error.middleRest = { error: true, message: '休憩時間は0以上入力してください！' };
           isError = true;
         }
       }
