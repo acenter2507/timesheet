@@ -13,6 +13,10 @@
 
     vm.Constant = Constant;
     vm.workdate = workdate;
+    vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight;
+    vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime;
+    vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate;
+    vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.middleRest;
     vm.error = {};
     console.log(vm.workdate);
     vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
@@ -112,6 +116,10 @@
       if (isError) {
         vm.workdate.overtime = 0;
         vm.workdate.overnight = 0;
+        vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight;
+        vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime;
+        vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.middleRest;
+        vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate;
         return;
       }
 
@@ -207,6 +215,10 @@
 
       vm.workdate.overtime = overtime_duration;
       vm.workdate.overnight = overnight_duration;
+      vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight + vm.workdate.overnight;
+      vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime + vm.workdate.overtime;
+      vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.middleRest + rest_duration;
+      vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate + 1;
     };
 
     vm.handleCompensatoryOff = () => {
