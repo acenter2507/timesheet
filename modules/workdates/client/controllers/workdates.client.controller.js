@@ -84,7 +84,10 @@
           isError = true;
         }
       }
-      if (isError) return;
+      if (isError) {
+        vm.busy = false;
+        return;
+      }
       // Verify Start
       if (!moment(vm.workdate.start, 'HH:mm', true).isValid()) {
         vm.error.start = { error: true, message: '時間フォーマットが違います！' };
