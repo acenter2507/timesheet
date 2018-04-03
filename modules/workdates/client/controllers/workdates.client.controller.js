@@ -214,6 +214,7 @@
         .success(res => {
           if (res.length === 0) {
             $scope.handleShowToast('今月は休日に出勤したことがありません。', true);
+            vm.workdate.transfer = false;
             vm.busy = false;
           } else {
             $scope.workdates = res;
@@ -222,12 +223,12 @@
               scope: $scope
             }).then(workdateId => {
               if (!workdateId) {
-                vm.workdate.transfer = !vm.workdate.transfer;
-                vm.busy = false;
+                vm.workdate.transfer = false;
               } else {
                 vm.workdate.transfer_workdate = workdateId;
-                vm.busy = false;
               }
+              delete $scope.workdates;
+              vm.busy = false;
             });
           }
         })
