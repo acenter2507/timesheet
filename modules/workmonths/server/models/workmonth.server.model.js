@@ -17,6 +17,11 @@ var WorkmonthSchema = new Schema({
   status: { type: Number, default: 1 },
   workdates: [{ type: Schema.ObjectId, ref: 'Workdate' }],
   department: { type: Schema.ObjectId, ref: 'Department' },
+  // Số ngày làm việc trong 1 tháng
+  numWorkDate: { type: Number },
+  overtime: { type: Number, default: 0 }, // 時間外
+  overnight: { type: Number, default: 0 }, // 深夜
+  middleRest: { type: Number }, // 休憩 (hour)
   search: { type: String },
   // Roles
   roles: {

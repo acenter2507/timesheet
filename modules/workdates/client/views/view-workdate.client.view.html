@@ -92,7 +92,31 @@
     </div>
     <div class="col-sm-6">
       <div class="well">
-        <h4>{{:: vm.workdate.workmonth.year }}年{{:: vm.workdate.workmonth.month }}月の状態</h4>
+        <h4 class="mg5b">{{:: vm.workdate.workmonth.year }}年{{:: vm.workdate.workmonth.month }}月の状態</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>出勤日数</th>
+                <th>残業時間</th>
+                <th>深夜時間</th>
+                <th>休憩時間</th>
+                <th>休出</th>
+                <th>休深</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ vm.workdate.workmonth.numWorkDate }}</td>
+                <td>{{ vm.workdate.workmonth.overtime }}</td>
+                <td>{{ vm.workdate.workmonth.overnight }}</td>
+                <td>{{ vm.workdate.workmonth.middleRest }}</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

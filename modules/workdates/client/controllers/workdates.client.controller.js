@@ -12,8 +12,8 @@
     var vm = this;
 
     vm.Constant = Constant;
-
     vm.workdate = workdate;
+    vm.error = {};
     console.log(vm.workdate);
     vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
 
@@ -47,9 +47,18 @@
     };
 
     vm.handleSaveWorkdate = () => {
+      if (vm.busy) return;
+      vm.busy = true;
       var isError = false;
       vm.error = {};
+
+      // Trường hợp tất cả các trường đều trống
       if (CommonService.isStringEmpty(vm.workdate.start) && CommonService.isStringEmpty(vm.workdate.end) && CommonService.isStringEmpty(vm.workdate.content) && CommonService.isStringEmpty(vm.workdate.middleRest)) {
+        $scope.handleShowConfirm({
+          message: '全ての項目が空欄になっていますがよろしいでしょうか？'
+        }, () => {
+          handleStartSave();
+        });
         return;
       } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && CommonService.isStringEmpty(vm.workdate.content) && CommonService.isStringEmpty(vm.workdate.middleRest)) {
         isError = false;
@@ -81,18 +90,28 @@
         vm.error.end = { error: true, message: '時間フォーマットが違います！' };
         isError = true;
       }
-      if (isError) return;
-
-      // Verify ENd
-      // Verify 
+      if (!isError) handleStartSave();
     };
 
+    function handleStartSave() {
+      console.log(vm.workdate);
+      vm.busy = false;
+    }
+
     vm.handleChangedInput = () => {
-      if (CommonService.isStringEmpty(vm.workdate.start) || CommonService.isStringEmpty(vm.workdate.end) || CommonService.isStringEmpty(vm.workdate.middleRest)) return;
-      if (!moment(vm.workdate.start, 'HH:mm', true).isValid()) {
-        return;
+      var isError = false;
+      // 1 trong 3 trường bị trống
+      if (CommonService.isStringEmpty(vm.workdate.start) || CommonService.isStringEmpty(vm.workdate.end) || CommonService.isStringEmpty(vm.workdate.middleRest)) {
+        isError = true;
       }
-      if (!moment(vm.workdate.end, 'HH:mm', true).isValid()) {
+      // 1 trong 2 trường thời gian bị sai
+      if (!moment(vm.workdate.start, 'HH:mm', true).isValid() || !moment(vm.workdate.end, 'HH:mm', true).isValid()) {
+        isError = true;
+      }
+
+      if (isError) {
+        vm.workdate.overtime = 0;
+        vm.workdate.overnight = 0;
         return;
       }
 
@@ -240,15 +259,11 @@
         });
     };
 
-    function selectedWorkdate(workdateId) {
-      
-    }
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
       var state = $state.previous.state.name || 'workmonths.view';
       var params = state === 'workmonths.view' ? { workmonthId: vm.workdate.workmonth._id } : $state.previous.params;
       $state.go(state, params);
     }
-
   }
 }());
