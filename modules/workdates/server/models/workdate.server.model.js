@@ -20,7 +20,7 @@ var WorkdateSchema = new Schema({
   content: { type: String, trim: true }, // 業務内容
   start: { type: String, default: '' }, // 開始
   end: { type: String, default: '' }, // 終了
-  middleRest: { type: Number }, // 休憩 (hour)
+  middleRest: { type: Number, default: 0 }, // 休憩 (hour)
   overtime: { type: Number, default: 0 }, // 時間外
   overnight: { type: Number, default: 0 }, // 深夜
   transfer: { type: Boolean, default: false }, // 振替
