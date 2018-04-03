@@ -64,7 +64,7 @@
           handleStartSave();
         });
         return;
-      } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && CommonService.isStringEmpty(vm.workdate.content) && CommonService.isStringEmpty(vm.workdate.middleRest)) {
+      } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && !CommonService.isStringEmpty(vm.workdate.content) && vm.workdate.middleRest >= 0) {
         isError = false;
       } else {
         if (CommonService.isStringEmpty(vm.workdate.start)) {
