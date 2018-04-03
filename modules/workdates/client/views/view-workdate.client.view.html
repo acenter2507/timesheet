@@ -17,15 +17,19 @@
         <form>
           <!-- 休暇 -->
           <div class="form-group">
-            <label for="content">休暇</label>
-            <div>
-              <button ng-if="vm.workdate.workrests.length > 0" class="btn btn-danger btn-sm" ng-click="vm.handleViewWorkrest()">休暇詳細</button>
+            <label for="content">休暇：</label>
+            <div ng-if="vm.workdate.workrests.length > 0">
+              <button class="btn btn-danger btn-sm" ng-click="vm.handleViewWorkrest()">休暇詳細</button>
+            </div>
+            <div ng-if="vm.workdate.workrests.length === 0">
+              <span class="mg10r">休暇なし</span>
+              <label ng-if="!vm.workdate.isHoliday"><input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">振替休日</label>
             </div>
             <p ng-if="vm.workdate.workrests.length === 0">休暇なし</p>
           </div>
           <!-- 作業内容 -->
           <div class="form-group">
-            <label for="content">作業内容</label>
+            <label for="content">作業内容：</label>
             <textarea name="content" class="form-control h50" ng-model="vm.workdate.content"></textarea>
             <span class="text-danger" ng-show="vm.error.content.error">{{vm.error.content.message}}</span>
           </div>
@@ -64,7 +68,7 @@
           <div class="form-group">
             <button class="btn btn-default" ng-click="vm.handleSetDefaultWorkdateInfo()">デフォルト</button>
             <button class="btn btn-warning" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
-            <button class="btn btn-primary" ng-click="vm.handleSaveWorkdate()">保存</button>
+            <button class="btn btn-primary" ng-click="vm.handleSaveWorkdate()" ng-disabled="vm.busy">保存</button>
           </div>
           <div class="form-group">
             <p>
@@ -120,6 +124,45 @@
   <div class="row">
     <div class="col-xs-12">
       <button class="btn btn-sm pull-right btn-danger" ng-click="closeThisDialog()">閉じる</button>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="workdates_list.html">
+  <h4>出勤した休日の一覧</h4>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>選択</th>
+              <th>日付</th>
+              <th>作業内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="workdate in workdates">
+              <td class="text-center">
+                <input type="radio" ng-model="workdateId" value="{{ workdate._id }}" name="workdateId">
+              </td>
+              <td>
+                <span>{{ workdate.workmonth.year }}</span><span>年</span>
+                <span>{{ workdate.month }}</span><span>月</span>
+                <span>{{ workdate.date }}</span><span>日</span>
+              <td>{{ workdate.content }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-sm pull-right btn-danger" ng-click="closeThisDialog()">閉じる</button>
+      <button class="btn btn-primary pull-right mg10r" ng-click="confirm(workdateId)">確認</button>
       <div class="clearfix"></div>
     </div>
   </div>

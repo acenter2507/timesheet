@@ -33,5 +33,11 @@ function CommonService() {
     }
     return true;
   };
+  this.isStringEmpty = str => {
+    if (!str || str === '') {
+      return true;
+    }
+    return false;
+  };
   return this;
 }

@@ -120,6 +120,32 @@ exports.getMonthsOfYearByUser = function (req, res) {
 };
 
 /**
+ * Get all month in year of 1 user
+ */
+exports.getHolidayWorking = function (req, res) {
+  var workmonthId = req.body.workmonthId;
+  if (!workmonthId) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
+
+  var condition = {
+    $and: [
+      { workmonth: workmonthId },
+      { isHoliday: true },
+      { $or: [
+        { overtime: { $gt: 0 } },
+        { overnight: { $gt: 0 } }
+      ]}
+    ]
+  };
+  Workdate.find(condition)
+    .populate('workmonth', 'year')
+    .exec(function (err, workmonths) {
+      if (err)
+        return res.status(400).send({ message: 'データを取得できません。' });
+      return res.jsonp(workmonths);
+    });
+};
+
+/**
  * Workmonth middleware
  */
 exports.workmonthByID = function (req, res, next, id) {

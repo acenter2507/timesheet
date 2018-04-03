@@ -6,9 +6,9 @@
     .module('workdates')
     .controller('WorkdatesController', WorkdatesController);
 
-  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant'];
+  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant', 'CommonService', 'WorkmonthsApi'];
 
-  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant) {
+  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant, CommonService, WorkmonthsApi) {
     var vm = this;
 
     vm.Constant = Constant;
@@ -17,13 +17,7 @@
     console.log(vm.workdate);
     vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
 
-    vm.error = {};
-    vm.handlePreviousScreen = handlePreviousScreen;
-    function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'workmonths.view';
-      var params = state === 'workmonths.view' ? { workmonthId: vm.workdate.workmonth._id } : $state.previous.params;
-      $state.go(state, params);
-    }
+    vm.busy = false;
 
     vm.handleViewWorkrest = () => {
       $scope.workrests = vm.workdate.workrests;
@@ -52,24 +46,24 @@
     vm.handleSaveWorkdate = () => {
       var isError = false;
       vm.error = {};
-      if (unInput(vm.workdate.start) && unInput(vm.workdate.end) && unInput(vm.workdate.content) && unInput(vm.workdate.middleRest)) {
+      if (CommonService.isStringEmpty(vm.workdate.start) && CommonService.isStringEmpty(vm.workdate.end) && CommonService.isStringEmpty(vm.workdate.content) && CommonService.isStringEmpty(vm.workdate.middleRest)) {
         return;
-      } else if (!unInput(vm.workdate.start) && !unInput(vm.workdate.end) && unInput(vm.workdate.content) && unInput(vm.workdate.middleRest)) {
+      } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && CommonService.isStringEmpty(vm.workdate.content) && CommonService.isStringEmpty(vm.workdate.middleRest)) {
         isError = false;
       } else {
-        if (unInput(vm.workdate.start)) {
+        if (CommonService.isStringEmpty(vm.workdate.start)) {
           vm.error.start = { error: true, message: '開始時間を入力してください！' };
           isError = true;
         }
-        if (unInput(vm.workdate.end)) {
+        if (CommonService.isStringEmpty(vm.workdate.end)) {
           vm.error.end = { error: true, message: '終了時間を入力してください！' };
           isError = true;
         }
-        if (unInput(vm.workdate.content)) {
+        if (CommonService.isStringEmpty(vm.workdate.content)) {
           vm.error.content = { error: true, message: '作業内容を入力してください！' };
           isError = true;
         }
-        if (unInput(vm.workdate.middleRest)) {
+        if (CommonService.isStringEmpty(vm.workdate.middleRest)) {
           vm.error.middleRest = { error: true, message: '休憩時間を入力してください！' };
           isError = true;
         }
@@ -91,7 +85,7 @@
     };
 
     vm.handleChangedInput = () => {
-      if (unInput(vm.workdate.start) || unInput(vm.workdate.end) || unInput(vm.workdate.middleRest)) return;
+      if (CommonService.isStringEmpty(vm.workdate.start) || CommonService.isStringEmpty(vm.workdate.end) || CommonService.isStringEmpty(vm.workdate.middleRest)) return;
       if (!moment(vm.workdate.start, 'HH:mm', true).isValid()) {
         return;
       }
@@ -99,8 +93,6 @@
         return;
       }
 
-      // Bắt đầu tính thời gian
-      
       // Tính thời gian có mặt ở công ty
       var start = moment(vm.workdate.start, 'HH:mm');
       var end = moment(vm.workdate.end, 'HH:mm');
@@ -190,48 +182,69 @@
           overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - work_range - overnight_duration, 1);
         }
       }
-      
+
       vm.workdate.overtime = overtime_duration;
       vm.workdate.overnight = overnight_duration;
     };
 
-    function unInput(data) {
-      if (!data || data === '') {
-        return true;
+    vm.handleCompensatoryOff = () => {
+      if (vm.busy) {
+        vm.workdate.transfer = !vm.workdate.transfer;
+        return;
       }
-      return false;
+
+      if (!vm.workdate.transfer) return;
+
+      // Trường hợp ngày này đã có đăng ký ngày nghỉ trước
+      if (vm.workdate.workrests.length > 0) {
+        $scope.handleShowToast('当日は既に休暇が登録されました。', true);
+        vm.workdate.transfer = false;
+        return;
+      }
+      // Kiểm tra hôm nay là ngày nghỉ, ngày lễ
+      if (vm.workdate.isHoliday) {
+        $scope.handleShowToast('当日は既に休暇が登録されました。', true);
+        vm.workdate.transfer = false;
+        return;
+      }
+      // Kiểm tra trong tháng có tồn tại ngày cuối tuần có đi làm không
+      var workmonthId = vm.workdate.workmonth._id || vm.workdate.workmonth;
+      vm.busy = true;
+      WorkmonthsApi.getHolidayWorking(workmonthId)
+        .success(res => {
+          if (res.length === 0) {
+            $scope.handleShowToast('今月は休日に出勤したことがありません。', true);
+            vm.busy = false;
+          } else {
+            $scope.workdates = res;
+            ngDialog.openConfirm({
+              templateUrl: 'workdates_list.html',
+              scope: $scope
+            }).then(workdateId => {
+              if (!workdateId) {
+                vm.workdate.transfer = !vm.workdate.transfer;
+                vm.busy = false;
+              } else {
+                vm.workdate.transfer_workdate = workdateId;
+                vm.busy = false;
+              }
+            });
+          }
+        })
+        .error(err => {
+          $scope.handleShowToast(err.message, true);
+        });
+    };
+
+    function selectedWorkdate(workdateId) {
+      
+    }
+    vm.handlePreviousScreen = handlePreviousScreen;
+    function handlePreviousScreen() {
+      var state = $state.previous.state.name || 'workmonths.view';
+      var params = state === 'workmonths.view' ? { workmonthId: vm.workdate.workmonth._id } : $state.previous.params;
+      $state.go(state, params);
     }
 
-    // // Remove existing Workdate
-    // function remove() {
-    //   if ($window.confirm('Are you sure you want to delete?')) {
-    //     vm.workdate.$remove($state.go('workdates.list'));
-    //   }
-    // }
-
-    // // Save Workdate
-    // function save(isValid) {
-    //   if (!isValid) {
-    //     $scope.$broadcast('show-errors-check-validity', 'vm.form.workdateForm');
-    //     return false;
-    //   }
-
-    //   // TODO: move create/update logic to service
-    //   if (vm.workdate._id) {
-    //     vm.workdate.$update(successCallback, errorCallback);
-    //   } else {
-    //     vm.workdate.$save(successCallback, errorCallback);
-    //   }
-
-    //   function successCallback(res) {
-    //     $state.go('workdates.view', {
-    //       workdateId: res._id
-    //     });
-    //   }
-
-    //   function errorCallback(res) {
-    //     vm.error = res.data.message;
-    //   }
-    // }
   }
 }());
