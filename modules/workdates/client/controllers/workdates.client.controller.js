@@ -106,6 +106,7 @@
       var isError = false;
       // 1 trong 3 trường bị trống
       if (CommonService.isStringEmpty(vm.workdate.start) || CommonService.isStringEmpty(vm.workdate.end) || CommonService.isStringEmpty(vm.workdate.middleRest)) {
+        console.log(vm.workdate.middleRest);
         isError = true;
       }
       // 1 trong 2 trường thời gian bị sai
