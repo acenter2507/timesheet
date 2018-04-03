@@ -25,7 +25,6 @@
               <span class="mg10r">休暇なし</span>
               <label ng-if="!vm.workdate.isHoliday"><input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">振替休日</label>
             </div>
-            <p ng-if="vm.workdate.workrests.length === 0">休暇なし</p>
           </div>
           <!-- 作業内容 -->
           <div class="form-group">
