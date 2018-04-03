@@ -94,7 +94,11 @@
         vm.error.end = { error: true, message: '時間フォーマットが違います！' };
         isError = true;
       }
-      if (!isError) handleStartSave();
+      if (isError) {
+        vm.busy = false;
+        return;
+      }
+      handleStartSave();
     };
 
     function handleStartSave() {
