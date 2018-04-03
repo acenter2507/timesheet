@@ -34,6 +34,7 @@
       vm.workdate.start = '09:00';
       vm.workdate.end = '17:30';
       vm.workdate.middleRest = 60;
+      vm.handleChangedInput();
     };
 
     vm.handleClearWorkdateInfo = () => {
@@ -41,6 +42,8 @@
       vm.workdate.start = '';
       vm.workdate.end = '';
       vm.workdate.middleRest = '';
+      vm.workdate.overtime = 0;
+      vm.workdate.overnight = 0;
     };
 
     vm.handleSaveWorkdate = () => {
