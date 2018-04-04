@@ -128,7 +128,7 @@
       rs_workdate.$update(() => {
         vm.busy = false;
         $scope.handleShowToast('勤務時間を保存しました！', false);
-      })
+      });
     }
 
     vm.handleChangedInput = () => {
@@ -268,8 +268,8 @@
       }
 
       if (!vm.workdate.transfer) {
-        return;
         vm.workdate.transfer_workdate = null;
+        return;
       }
 
       // Trường hợp ngày này đã có đăng ký ngày nghỉ trước
