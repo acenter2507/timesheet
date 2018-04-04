@@ -51,10 +51,9 @@ WorkmonthSchema.statics.calculatorWorkdates = function (workmonthId) {
   return this.findById(workmonthId)
     .populate('workdates')
     .exec((err, workmonth) => {
-      console.log(workmonth);
       if (err || !workmonth) return;
       if (workmonth.workdates.length === 0) return;
-      var numWorkDate, overtime, overnight, middleRest = 0;
+      var numWorkDate = 0, overtime = 0, overnight = 0, middleRest = 0;
       for (let index = 0; index < workmonth.workdates.length; index++) {
         const workdate = workmonth.workdates[index];
         // Cộng ngày làm việc

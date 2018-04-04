@@ -128,10 +128,6 @@
           var workrests = getRestByDate(date);
           var workrest_ids = _.pluck(workrests, '_id');
 
-          console.log(workdate.workrests);
-          console.log(workrest_ids);
-          console.log("-------------------------------");
-
           if (!CommonService.comapreTwoArrays(workdate.workrests, workrest_ids)) {
             var rs_workdate = new WorkdatesService({ _id: workdate._id, workrests: workrest_ids });
             workdate.workrests = workrest_ids;
