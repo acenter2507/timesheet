@@ -47,4 +47,31 @@ var WorkmonthSchema = new Schema({
 });
 WorkmonthSchema.plugin(paginate);
 
+WorkmonthSchema.statics.calculatorWorkdates = function (workmonthId) {
+  return this.findById(workmonthId)
+    .populate('workdates')
+    .exec((err, workmonth) => {
+      if (err || !workmonth) return;
+      if (workmonth.workdates.length === 0) return;
+      var numWorkDate, overtime, overnight, middleRest = 0;
+      for (let index = 0; index < workmonth.workdates.length; index++) {
+        const workdate = workmonth.workdates[index];
+        // Cộng ngày làm việc
+        if (workdate.start && workdate.start !== '') {
+          numWorkDate += 1;
+        }
+        // Cộng thời gian nghỉ giải lao
+        middleRest += workdate.middleRest;
+        overtime += workdate.overtime;
+        overnight += workdate.overnight;
+      }
+      workmonth.middleRest = middleRest;
+      workmonth.numWorkDate = numWorkDate;
+      workmonth.overtime = overtime;
+      workmonth.overnight = overnight;
+      return workmonth.save();
+    });
+};
+
+
 mongoose.model('Workmonth', WorkmonthSchema);

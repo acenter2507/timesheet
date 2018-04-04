@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Workdate = mongoose.model('Workdate'),
+  Workmonth = mongoose.model('Workmonth'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -52,6 +53,8 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      var workmonthId = workdate.workmonth._id || workdate.workmonth;
+      Workmonth.calculatorWorkdates(workmonthId);
       res.jsonp(workdate);
     }
   });

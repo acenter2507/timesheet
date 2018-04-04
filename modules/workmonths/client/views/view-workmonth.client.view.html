@@ -30,7 +30,6 @@
               <th>業務内容</th>
               <th class="text-center">開始</th>
               <th class="text-center">終了</th>
-              <th class="text-center">休憩</th>
               <th class="text-center">休暇</th>
               <th>操作</th>
             </tr>
@@ -58,10 +57,6 @@
               <td ng-if="item.workdate">
                 <p ng-if="item.workdate.content">{{:: item.workdate.content }}</p>
                 <p ng-if="!item.workdate.content">未入力</p>
-              </td>
-              <td ng-if="item.workdate">
-                <p ng-if="item.workdate.middleRest">{{:: item.workdate.middleRest }}</p>
-                <p ng-if="!item.workdate.middleRest">未入力</p>
               </td>
               <td>
                 <button ng-if="item.workrests.length > 0" class="btn btn-danger btn-xs" ng-click="vm.handleViewWorkrest(item)">休暇詳細</button>
