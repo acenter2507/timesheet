@@ -6,17 +6,25 @@
     .module('workdates')
     .controller('WorkdatesController', WorkdatesController);
 
-  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant', 'CommonService', 'WorkmonthsApi'];
+  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant', 'CommonService', 'WorkmonthsApi', 'WorkmonthsService'];
 
-  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant, CommonService, WorkmonthsApi) {
+  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant, CommonService, WorkmonthsApi, WorkmonthsService) {
     var vm = this;
 
     vm.Constant = Constant;
     vm.workdate = workdate;
+
+    // Backup info
+    vm.workdate.bk_start = vm.workdate.start;
+    vm.workdate.new_middleRest = vm.workdate.middleRest;
+    vm.workdate.new_overtime = vm.workdate.overtime;
+    vm.workdate.new_overnight = vm.workdate.overnight;
+
     vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight;
     vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime;
     vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate;
     vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.middleRest;
+
     vm.error = {};
     console.log(vm.workdate);
     vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
@@ -37,7 +45,7 @@
     vm.handleSetDefaultWorkdateInfo = () => {
       vm.workdate.start = '09:00';
       vm.workdate.end = '17:30';
-      vm.workdate.middleRest = 60;
+      vm.workdate.new_middleRest = 1;
       vm.handleChangedInput();
     };
 
@@ -45,9 +53,9 @@
       vm.workdate.content = '';
       vm.workdate.start = '';
       vm.workdate.end = '';
-      vm.workdate.middleRest = '';
-      vm.workdate.overtime = 0;
-      vm.workdate.overnight = 0;
+      vm.workdate.new_middleRest = 0;
+      vm.workdate.new_overtime = 0;
+      vm.workdate.new_overnight = 0;
     };
 
     vm.handleSaveWorkdate = () => {
@@ -106,6 +114,7 @@
 
     function handleStartSave() {
       console.log(vm.workdate);
+
       vm.busy = false;
     }
 
@@ -124,8 +133,8 @@
       }
 
       if (isError) {
-        vm.workdate.overtime = 0;
-        vm.workdate.overnight = 0;
+        vm.workdate.new_overtime = 0;
+        vm.workdate.new_overnight = 0;
         vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight;
         vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime;
         vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.middleRest;
@@ -161,7 +170,7 @@
       // Thời gian tính làm việc tiêu chuẩn trong 1 ngày
       var work_range = 0;
       // Tính thời gian nghỉ giải lao
-      rest_duration = NumberUtil.precisionRound(vm.workdate.middleRest / 60, 1);
+      vm.workdate.new_middleRest = NumberUtil.precisionRound(vm.workdate.new_middleRest, 1);
 
       // Nếu là ngày bình thường (ngày nghỉ = 0)
       if (!vm.workdate.isHoliday) {
@@ -188,7 +197,7 @@
           // Tính tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - work_range - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
         } else {
           // Tính thời gian từ nửa đêm đến thời điểm kết thúc ovetnight
           midnight_to_endovertime_duration = overnightEnd.diff(temp_min, 'hours', true);
@@ -199,7 +208,7 @@
           // Tính tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration + endovertime_to_end_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - work_range - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
         }
       } else {
         // Trường hợp kết thúc trước thời gian tính overnight
@@ -209,7 +218,7 @@
           // Thời gian overnight
           overnight_duration = 0;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - work_range - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
         } else {
           // Trường hợp kết thúc trong khoảng overnight đến nữa đêm
           // Tính thời gian bắt đầu đến lúc overnight
@@ -219,16 +228,24 @@
           // Tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - rest_duration - work_range - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
         }
       }
 
-      vm.workdate.overtime = overtime_duration;
-      vm.workdate.overnight = overnight_duration;
-      vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight + vm.workdate.overnight;
-      vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime + vm.workdate.overtime;
-      vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.middleRest + rest_duration;
-      vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate + 1;
+      vm.workdate.new_overtime = overtime_duration;
+      vm.workdate.new_overnight = overnight_duration;
+
+      var diff_overnight = vm.workdate.new_overnight - vm.workdate.overnight;
+      var diff_overtime = vm.workdate.new_overtime - vm.workdate.overtime;
+      var diff_middleRest = vm.workdate.new_middleRest - vm.workdate.middleRest;
+      
+      vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.new_overnight + diff_overnight;
+      vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.new_overtime + diff_overtime;
+      vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.new_middleRest + diff_middleRest;
+
+      if (CommonService.isStringEmpty(vm.workdate.bk_start)) {
+        vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate + 1;
+      }
     };
 
     vm.handleCompensatoryOff = () => {
