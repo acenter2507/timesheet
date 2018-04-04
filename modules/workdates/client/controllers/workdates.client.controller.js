@@ -6,9 +6,9 @@
     .module('workdates')
     .controller('WorkdatesController', WorkdatesController);
 
-  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant', 'CommonService', 'WorkmonthsApi', 'WorkmonthsService'];
+  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant', 'CommonService', 'WorkmonthsApi', 'WorkmonthsService', 'WorkdatesService'];
 
-  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant, CommonService, WorkmonthsApi, WorkmonthsService) {
+  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant, CommonService, WorkmonthsApi, WorkmonthsService, WorkdatesService) {
     var vm = this;
 
     vm.Constant = Constant;
@@ -65,14 +65,14 @@
       vm.error = {};
 
       // Trường hợp tất cả các trường đều trống
-      if (CommonService.isStringEmpty(vm.workdate.start) && CommonService.isStringEmpty(vm.workdate.end) && CommonService.isStringEmpty(vm.workdate.content) && CommonService.isStringEmpty(vm.workdate.middleRest)) {
+      if (CommonService.isStringEmpty(vm.workdate.start) && CommonService.isStringEmpty(vm.workdate.end) && CommonService.isStringEmpty(vm.workdate.content)) {
         $scope.handleShowConfirm({
           message: '全ての項目が空欄になっていますがよろしいでしょうか？'
         }, () => {
           handleStartSave();
         });
         return;
-      } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && !CommonService.isStringEmpty(vm.workdate.content) && vm.workdate.middleRest >= 0) {
+      } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && !CommonService.isStringEmpty(vm.workdate.content) && vm.workdate.new_middleRest >= 0) {
         isError = false;
       } else {
         if (CommonService.isStringEmpty(vm.workdate.start)) {
@@ -87,7 +87,7 @@
           vm.error.content = { error: true, message: '作業内容を入力してください！' };
           isError = true;
         }
-        if (vm.workdate.middleRest < 0) {
+        if (vm.workdate.new_middleRest < 0) {
           vm.error.middleRest = { error: true, message: '休憩時間は0以上入力してください！' };
           isError = true;
         }
@@ -114,8 +114,21 @@
 
     function handleStartSave() {
       console.log(vm.workdate);
-
-      vm.busy = false;
+      var rs_workdate = new WorkdatesService({
+        _id: vm.workdate._id,
+        content: vm.workdate.content,
+        start: vm.workdate.start,
+        end: vm.workdate.end,
+        middleRest: vm.workdate.new_middleRest,
+        overtime: vm.workdate.new_overtime,
+        overnight: vm.workdate.new_overnight,
+        transfer: vm.workdate.transfer,
+        transfer_workdate: vm.workdate.transfer_workdate,
+      });
+      rs_workdate.$update(() => {
+        vm.busy = false;
+        $scope.handleShowToast('勤務時間を保存しました！', false);
+      })
     }
 
     vm.handleChangedInput = () => {
@@ -124,7 +137,7 @@
       if (CommonService.isStringEmpty(vm.workdate.start) || CommonService.isStringEmpty(vm.workdate.end)) {
         isError = true;
       }
-      if (vm.workdate.middleRest < 0) {
+      if (vm.workdate.new_middleRest < 0) {
         isError = true;
       }
       // 1 trong 2 trường thời gian bị sai
@@ -254,7 +267,10 @@
         return;
       }
 
-      if (!vm.workdate.transfer) return;
+      if (!vm.workdate.transfer) {
+        return;
+        vm.workdate.transfer_workdate = null;
+      }
 
       // Trường hợp ngày này đã có đăng ký ngày nghỉ trước
       if (vm.workdate.workrests.length > 0) {
