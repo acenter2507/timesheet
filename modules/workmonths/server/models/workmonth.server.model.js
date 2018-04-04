@@ -51,6 +51,7 @@ WorkmonthSchema.statics.calculatorWorkdates = function (workmonthId) {
   return this.findById(workmonthId)
     .populate('workdates')
     .exec((err, workmonth) => {
+      console.log(workmonth);
       if (err || !workmonth) return;
       if (workmonth.workdates.length === 0) return;
       var numWorkDate, overtime, overnight, middleRest = 0;
