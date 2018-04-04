@@ -56,6 +56,7 @@
       vm.workdate.new_middleRest = 0;
       vm.workdate.new_overtime = 0;
       vm.workdate.new_overnight = 0;
+      vm.handleChangedInput();
     };
 
     vm.handleSaveWorkdate = () => {
