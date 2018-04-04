@@ -36,13 +36,8 @@
           </thead>
           <tbody>
             <tr ng-repeat="item in vm.datas">
-              <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }">
-                <span>{{item.date.format('MMMM D[日]')}}</span>
-                <small ng-if="item.workdate.isHoliday && typeof item.workdate.isHoliday === 'string'">（{{}}）</small>
-              </td>
-              <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }">
-                <span>{{item.date.format('dddd')}}</span>
-              </td>
+              <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
+              <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td>
               <!-- 未入力 -->
               <td ng-if="!item.workdate" colspan="5"></td>
               <!-- お休み -->
