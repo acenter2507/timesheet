@@ -54,10 +54,13 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="col-xs-6 pdnl">
+        <div class="col-xs-4 pdnl">
+          <input class="form-control" min="1" type="number" step="0.5" placeholder="計算時間" ng-model="holiday.hours">
+        </div>
+        <div class="col-xs-4 pdnl">
           <input class="form-control" min="0.5" type="number" step="0.5" placeholder="最短" ng-model="holiday.min">
         </div>
-        <div class="col-xs-6 pdnr">
+        <div class="col-xs-4 pdnr">
           <input class="form-control" min="0.5" type="number" step="0.5" placeholder="最長" ng-model="holiday.max">
         </div>
       </div>

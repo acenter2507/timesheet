@@ -13,6 +13,8 @@ var mongoose = require('mongoose'),
 var HolidaySchema = new Schema({
   name: { type: String, default: '', required: true, trim: true },
   isPaid: { type: Boolean, default: false },
+  // Thời gian tính tương đương
+  hours: { type: Number, default: 0 },
   // 最短
   min: { type: Number, default: 0 },
   // 最長
