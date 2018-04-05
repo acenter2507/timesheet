@@ -424,11 +424,17 @@ function isConflictRest(workrest) {
       user: workrest.user
       //start: { $gte: new Date() }
     };
+    
     Workrest.find(condition).exec((err, workrests) => {
       if (workrests.length === 0) return resolve(true);
+      var start = _moment().year(workrest.start.year).month(workrest.start.month - 1).date(workrest.start.date);
+      var end = _moment().year(workrest.end.year).month(workrest.end.month - 1).date(workrest.end.date);
       for (let index = 0; index < workrests.length; index++) {
         const element = workrests[index];
-        if (_moment(workrest.start).isBetween(element.start, element.end, null, '[]') || _moment(workrest.end).isBetween(element.start, element.end, null, '[]') || _moment(element.start).isBetween(workrest.start, workrest.end, null, '[]') || _moment(element.end).isBetween(workrest.start, workrest.end, null, '[]')) {
+        var element_start = _moment().year(element.start.year).month(element.start.month - 1).date(element.start.date);
+        var element_end = _moment().year(element.end.year).month(element.end.month - 1).date(element.end.date);
+
+        if (_moment(start).isBetween(element_start, element_end, null, '[]') || _moment(end).isBetween(element_start, element_end, null, '[]') || _moment(element_start).isBetween(start, end, null, '[]') || _moment(element_end).isBetween(start, end, null, '[]')) {
           return resolve(false);
         }
       }

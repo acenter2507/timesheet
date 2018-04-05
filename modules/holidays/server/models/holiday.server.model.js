@@ -15,10 +15,8 @@ var HolidaySchema = new Schema({
   isPaid: { type: Boolean, default: false },
   // Thời gian tính tương đương
   hours: { type: Number, default: 0 },
-  // 最短
-  min: { type: Number, default: 0 },
-  // 最長
-  max: { type: Number, default: 0 },
+  // Đơn vị tính
+  unit: { type: Number, default: 0 },
   created: { type: Date, default: Date.now },
   user: { type: Schema.ObjectId, ref: 'User' }
 });
