@@ -22,41 +22,43 @@ exports.create = function (req, res) {
   if (req.body.isPaid && workrest.duration > req.user.company.paidHolidayCnt) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
+  console.log(workrest);
+  res.status(400).end();
 
-  isConflictRest(workrest).then(result => {
-    if (!result) {
-      workrest.warning = 'この日には二つの休暇以上入っている。';
-    } else {
-      workrest.warning = '';
-    }
-    //if (!result) return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
+  // isConflictRest(workrest).then(result => {
+  //   if (!result) {
+  //     workrest.warning = 'この日には二つの休暇以上入っている。';
+  //   } else {
+  //     workrest.warning = '';
+  //   }
+  //   //if (!result) return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
 
-    workrest.historys = [{ action: 1, comment: '', timing: workrest.created, user: workrest.user }];
-    if (req.body.isSendWhenSave) {
-      workrest.status = 2;
-      workrest.historys.push({ action: 3, comment: '', timing: new Date(), user: workrest.user });
-    }
-    if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
-      workrest.status = 3;
-      workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: workrest.user });
-    }
-    // Create search support field
-    workrest.search = req.user.displayName + '-' + workrest.duration + '-' + workrest.description;
-    if (req.user.department) {
-      workrest.department = req.user.department._id || req.user.department;
-    }
-    workrest.roles = req.user.roles;
-    workrest.save((err, workrest) => {
-      if (err)
-        return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-      res.jsonp(workrest);
-      if (workrest.status === 2 || workrest.status === 3) {
-        // 有給休暇の残日を計算する
-        var newHolidayCnt = req.user.company.paidHolidayCnt - workrest.duration;
-        User.updateHolidays(req.user._id, newHolidayCnt);
-      }
-    });
-  });
+  //   workrest.historys = [{ action: 1, comment: '', timing: workrest.created, user: workrest.user }];
+  //   if (req.body.isSendWhenSave) {
+  //     workrest.status = 2;
+  //     workrest.historys.push({ action: 3, comment: '', timing: new Date(), user: workrest.user });
+  //   }
+  //   if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
+  //     workrest.status = 3;
+  //     workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: workrest.user });
+  //   }
+  //   // Create search support field
+  //   workrest.search = req.user.displayName + '-' + workrest.duration + '-' + workrest.description;
+  //   if (req.user.department) {
+  //     workrest.department = req.user.department._id || req.user.department;
+  //   }
+  //   workrest.roles = req.user.roles;
+  //   workrest.save((err, workrest) => {
+  //     if (err)
+  //       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+  //     res.jsonp(workrest);
+  //     if (workrest.status === 2 || workrest.status === 3) {
+  //       // 有給休暇の残日を計算する
+  //       var newHolidayCnt = req.user.company.paidHolidayCnt - workrest.duration;
+  //       User.updateHolidays(req.user._id, newHolidayCnt);
+  //     }
+  //   });
+  // });
 };
 
 /**
