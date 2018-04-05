@@ -113,9 +113,11 @@
         vm.busy = false;
         return;
       }
-      if (holiday.unit < 1) {
+      if (holiday.unit < 1 && vm.workrest.duration === 1) {
+        // Trường hợp loại ngày nghỉ là nửa ngày thì chuyển duration về nửa ngày
         vm.workrest.duration = holiday.unit;
       }
+      
       vm.workrest.isPaid = holiday.isPaid;
       vm.workrest.hours = holiday.hours;
 
@@ -130,7 +132,6 @@
         date: moment(vm.rest_end, 'YYYY/MM/DD').date()
       };
 
-      console.log(vm.workrest);
       // if (vm.workrest._id) {
       //   vm.workrest.$update(successCallback, errorCallback);
       // } else {
