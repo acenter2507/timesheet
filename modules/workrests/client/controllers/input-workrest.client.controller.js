@@ -21,8 +21,10 @@
         vm.workrest.status = 1;
         vm.workrest.duration = 0;
       } else {
-        vm.rest_start = moment().year(vm.workrest.start.year).month(vm.workrest.start.month - 1).date(vm.workrest.start.date).format('YYYY/MM/DD');
-        vm.rest_end = moment().year(vm.workrest.end.year).month(vm.workrest.end.month - 1).date(vm.workrest.end.date).format('YYYY/MM/DD');
+        // vm.rest_start = moment().year(vm.workrest.start.year).month(vm.workrest.start.month - 1).date(vm.workrest.start.date).format('YYYY/MM/DD');
+        // vm.rest_end = moment().year(vm.workrest.end.year).month(vm.workrest.end.month - 1).date(vm.workrest.end.date).format('YYYY/MM/DD');
+        vm.rest_start = vm.workrest.start;
+        vm.rest_end = vm.workrest.end;
       }
       prepareCalendar();
       prepareHodidays();
@@ -72,12 +74,16 @@
     vm.handleCalendarRangeSelected = (start, end) => {
       vm.rest_start = start;
       vm.rest_end = end;
+      console.log('handleCalendarRangeSelected start', vm.rest_start.format());
+      console.log('handleCalendarRangeSelected end', vm.rest_end.format());
       vm.handleRestRangeChanged();
     };
     vm.handleCalendarClicked = date => {
       if (DateUtil.isWorkOffDate(date)) return;
       vm.rest_start = date;
       vm.rest_end = date;
+      console.log('handleCalendarClicked start', vm.rest_start.format());
+      console.log('handleCalendarClicked end', vm.rest_end.format());
 
       vm.handleRestRangeChanged();
     };
@@ -121,33 +127,35 @@
       vm.workrest.isPaid = holiday.isPaid;
       vm.workrest.hours = holiday.hours;
 
-      vm.workrest.start = {
-        year: moment(vm.rest_start, 'YYYY/MM/DD').year(),
-        month: moment(vm.rest_start, 'YYYY/MM/DD').month() + 1,
-        date: moment(vm.rest_start, 'YYYY/MM/DD').date()
-      };
-      vm.workrest.end = {
-        year: moment(vm.rest_end, 'YYYY/MM/DD').year(),
-        month: moment(vm.rest_end, 'YYYY/MM/DD').month() + 1,
-        date: moment(vm.rest_end, 'YYYY/MM/DD').date()
-      };
+      console.log('handleSaveRest start', vm.rest_start.format());
+      console.log('handleSaveRest end', vm.rest_end.format());
+      // vm.workrest.start = {
+      //   year: moment(vm.rest_start, 'YYYY/MM/DD').year(),
+      //   month: moment(vm.rest_start, 'YYYY/MM/DD').month() + 1,
+      //   date: moment(vm.rest_start, 'YYYY/MM/DD').date()
+      // };
+      // vm.workrest.end = {
+      //   year: moment(vm.rest_end, 'YYYY/MM/DD').year(),
+      //   month: moment(vm.rest_end, 'YYYY/MM/DD').month() + 1,
+      //   date: moment(vm.rest_end, 'YYYY/MM/DD').date()
+      // };
 
-      if (vm.workrest._id) {
-        vm.workrest.$update(successCallback, errorCallback);
-      } else {
-        vm.workrest.$save(successCallback, errorCallback);
-      }
+      // if (vm.workrest._id) {
+      //   vm.workrest.$update(successCallback, errorCallback);
+      // } else {
+      //   vm.workrest.$save(successCallback, errorCallback);
+      // }
 
-      function successCallback(res) {
-        vm.busy = false;
-        Socket.emit('rest_request', { workrestId: res, userId: $scope.user._id });
-        $state.go('workrests.view', { workrestId: res._id });
-      }
+      // function successCallback(res) {
+      //   vm.busy = false;
+      //   Socket.emit('rest_request', { workrestId: res, userId: $scope.user._id });
+      //   $state.go('workrests.view', { workrestId: res._id });
+      // }
 
-      function errorCallback(res) {
-        $scope.handleShowToast(res.data.message, true);
-        vm.busy = false;
-      }
+      // function errorCallback(res) {
+      //   $scope.handleShowToast(res.data.message, true);
+      //   vm.busy = false;
+      // }
     };
     // vm.handleRestDurationChanged = () => {
     //   if (!vm.workrest.start || !vm.workrest.end) {
