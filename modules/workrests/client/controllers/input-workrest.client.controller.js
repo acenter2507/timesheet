@@ -132,22 +132,22 @@
         date: moment(vm.rest_end, 'YYYY/MM/DD').date()
       };
 
-      // if (vm.workrest._id) {
-      //   vm.workrest.$update(successCallback, errorCallback);
-      // } else {
-      //   vm.workrest.$save(successCallback, errorCallback);
-      // }
+      if (vm.workrest._id) {
+        vm.workrest.$update(successCallback, errorCallback);
+      } else {
+        vm.workrest.$save(successCallback, errorCallback);
+      }
 
-      // function successCallback(res) {
-      //   vm.busy = false;
-      //   Socket.emit('rest_request', { workrestId: res, userId: $scope.user._id });
-      //   $state.go('workrests.view', { workrestId: res._id });
-      // }
+      function successCallback(res) {
+        vm.busy = false;
+        Socket.emit('rest_request', { workrestId: res, userId: $scope.user._id });
+        $state.go('workrests.view', { workrestId: res._id });
+      }
 
-      // function errorCallback(res) {
-      //   $scope.handleShowToast(res.data.message, true);
-      //   vm.busy = false;
-      // }
+      function errorCallback(res) {
+        $scope.handleShowToast(res.data.message, true);
+        vm.busy = false;
+      }
     };
     // vm.handleRestDurationChanged = () => {
     //   if (!vm.workrest.start || !vm.workrest.end) {
