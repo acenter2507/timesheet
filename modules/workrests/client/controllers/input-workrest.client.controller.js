@@ -111,8 +111,6 @@
       vm.workrest.isPaid = holiday.isPaid;
       vm.workrest.hours = holiday.hours;
 
-      console.log(vm.rest_start);
-      console.log(vm.rest_end);
       // vm.workrest.start = {
       //   year: vm.rest_start.year(),
       //   month: vm.rest_start.month() + 1,
