@@ -44,6 +44,15 @@
         delete $scope.handleSaveHoliday;
       });
     };
+    // Delete holida
+    vm.handleDeleteHoliday = holiday => {
+      $scope.handleShowConfirm({
+        message: '' + holiday.name + 'を削除しますか？'
+      }, () => {
+        vm.holidays = _.without(vm.holidays, holiday);
+        holiday.$remove();
+      });
+    };
     // Save Holiday
     function handleSaveHoliday(isValid) {
       if (!isValid) {
