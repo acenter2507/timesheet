@@ -82,7 +82,7 @@
       if (DateUtil.isWorkOffDate(date)) return;
       vm.rest_start = date;
       vm.rest_end = date;
-      console.log('start', vm.rest_start);
+      console.log('start', vm.rest_start.format());
       console.log('start', typeof vm.rest_start);
       console.log('end', vm.rest_end);
       console.log('end', typeof vm.rest_end);
