@@ -96,12 +96,24 @@
         vm.busy = false;
         return false;
       }
-      if (vm.workrest.duration < holiday.min) {
-        $scope.handleShowToast('休暇期間が短すぎます！', true);
-        vm.busy = false;
-        return false;
-      }
+
       vm.workrest.isPaid = holiday.isPaid;
+      vm.workrest.hours = holiday.hours;
+
+      var start = {
+        year: vm.workrest.start.year(),
+        month: vm.workrest.start.month() - 1,
+        date: vm.workrest.start.date()
+      };
+      var end = {
+        year: vm.workrest.end.year(),
+        month: vm.workrest.end.month() - 1,
+        date: vm.workrest.end.date()
+      };
+
+      vm.workrest.start = start;
+      vm.workrest.end = end;
+
       if (vm.workrest._id) {
         vm.workrest.$update(successCallback, errorCallback);
       } else {
@@ -135,32 +147,32 @@
       vm.workrest.duration = duration;
       prepareCalendar();
     };
-    vm.handleRestDurationChanged = () => {
-      if (!vm.workrest.start || !vm.workrest.end) {
-        vm.workrest.duration = 0;
-        return;
-      }
-      if (vm.workrest.duration <= 0) {
-        $scope.handleShowToast('休暇の期間が無効になっています。', true);
-        vm.handleRestRangeChanged();
-        return;
-      }
-      var start = moment(vm.workrest.start);
-      var end = moment(vm.workrest.end);
-      var duration = DateUtil.getWorkDays(start, end);
-      if (vm.workrest.duration > duration) {
-        vm.workrest.duration = duration;
-        prepareCalendar();
-        $scope.handleShowToast('期間が超えています。', true);
-        return;
-      }
-      if (vm.workrest.duration < (duration - 0.5)) {
-        vm.workrest.duration = duration - 0.5;
-        prepareCalendar();
-        $scope.handleShowToast('期間が間違います。', true);
-        return;
-      }
-    };
+    // vm.handleRestDurationChanged = () => {
+    //   if (!vm.workrest.start || !vm.workrest.end) {
+    //     vm.workrest.duration = 0;
+    //     return;
+    //   }
+    //   if (vm.workrest.duration <= 0) {
+    //     $scope.handleShowToast('休暇の期間が無効になっています。', true);
+    //     vm.handleRestRangeChanged();
+    //     return;
+    //   }
+    //   var start = moment(vm.workrest.start);
+    //   var end = moment(vm.workrest.end);
+    //   var duration = DateUtil.getWorkDays(start, end);
+    //   if (vm.workrest.duration > duration) {
+    //     vm.workrest.duration = duration;
+    //     prepareCalendar();
+    //     $scope.handleShowToast('期間が超えています。', true);
+    //     return;
+    //   }
+    //   if (vm.workrest.duration < (duration - 0.5)) {
+    //     vm.workrest.duration = duration - 0.5;
+    //     prepareCalendar();
+    //     $scope.handleShowToast('期間が間違います。', true);
+    //     return;
+    //   }
+    // };
     vm.disableWeekend = (date, mode) => {
       var holiday = JapaneseHolidays.isHoliday(new Date(date));
       return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6) || holiday);

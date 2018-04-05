@@ -12,15 +12,27 @@ var mongoose = require('mongoose'),
  */
 var WorkrestSchema = new Schema({
   holiday: { type: Schema.ObjectId, ref: 'Holiday' },
-  // Start vacation
-  start: { type: Date },
-  // End vacation
-  end: { type: Date },
+  start: {
+    year: { type: String },
+    month: { type: String },
+    date: { type: String }
+  },
+  end: {
+    year: { type: String },
+    month: { type: String },
+    date: { type: String }
+  },
+  // // Start vacation
+  // start: { type: Date },
+  // // End vacation
+  // end: { type: Date },
   // Duration of vacation
-  duration: { type: Number },
+  duration: { type: Number, default: 0 },
+  // Thời gian tính khi nghỉ
+  hours: { type: Number, default: 0 },
   // Reason of vacation
   description: { type: String },
-  // Status of vacation: 1:Not send - 2:Waiting - 3:Approved - 4:Rejected - 5:Done
+  // Status of vacation: 1:Not send - 2:Waiting - 3:Approved - 4:Rejected - 5:Done - 6:Request delete
   status: { type: Number },
   // search
   search: { type: String },
