@@ -74,16 +74,16 @@
     vm.handleCalendarRangeSelected = (start, end) => {
       vm.rest_start = start;
       vm.rest_end = end;
-      console.log('handleCalendarRangeSelected start', vm.rest_start.format());
-      console.log('handleCalendarRangeSelected end', vm.rest_end.format());
+      console.log('handleCalendarRangeSelected start', vm.rest_start);
+      console.log('handleCalendarRangeSelected end', vm.rest_end);
       vm.handleRestRangeChanged();
     };
     vm.handleCalendarClicked = date => {
       if (DateUtil.isWorkOffDate(date)) return;
       vm.rest_start = date;
       vm.rest_end = date;
-      console.log('handleCalendarClicked start', vm.rest_start.format());
-      console.log('handleCalendarClicked end', vm.rest_end.format());
+      console.log('handleCalendarClicked start', vm.rest_start);
+      console.log('handleCalendarClicked end', vm.rest_end);
 
       vm.handleRestRangeChanged();
     };
@@ -127,8 +127,8 @@
       vm.workrest.isPaid = holiday.isPaid;
       vm.workrest.hours = holiday.hours;
 
-      console.log('handleSaveRest start', vm.rest_start.format());
-      console.log('handleSaveRest end', vm.rest_end.format());
+      console.log('handleSaveRest start', vm.rest_start);
+      console.log('handleSaveRest end', vm.rest_end);
       // vm.workrest.start = {
       //   year: moment(vm.rest_start, 'YYYY/MM/DD').year(),
       //   month: moment(vm.rest_start, 'YYYY/MM/DD').month() + 1,
