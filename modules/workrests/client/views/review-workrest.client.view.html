@@ -150,8 +150,8 @@
             </td>
             <td>{{ rest.holiday.name }}</td>
             <td>
-              <div>{{ rest.start | LL }}</div>
-              <div>{{ rest.end | LL }}</div>
+              <div>{{ { year: rest.start.year, month: rest.start.month - 1, date: rest.start.date } | LL }}</div>
+              <div>{{ { year: rest.end.year, month: rest.end.month - 1, date: rest.end.date } | LL }}</div>
             </td>
             <td>{{ rest.duration }}</td>
             <td>

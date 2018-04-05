@@ -130,8 +130,8 @@
           </tr>
           <tr ng-repeat="rest in vm.workrests track by $index">
             <td>{{ rest.holiday.name }}</td>
-            <td>{{ rest.start | LL }}</td>
-            <td>{{ rest.end | LL }}</td>
+            <td>{{ { year: rest.start.year, month: rest.start.month - 1, date: rest.start.date } | LL }}</td>
+            <td>{{ { year: rest.end.year, month: rest.end.month - 1, date: rest.end.date } | LL }}</td>
             <td>{{ rest.duration }}</td>
             <td><p ng-bind-html="rest.description | nl2br"></p></td>
             <td ng-switch="rest.status">
