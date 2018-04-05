@@ -123,10 +123,8 @@
       vm.workrest.isPaid = holiday.isPaid;
       vm.workrest.hours = holiday.hours;
 
-      console.log('start', vm.rest_start);
-      console.log('start', typeof vm.rest_start);
-      console.log('end', vm.rest_end);
-      console.log('end', typeof vm.rest_end);
+      console.log('start', moment(vm.rest_start).utc().format());
+      console.log('end', moment(vm.rest_end).utc().format());
       // vm.workrest.start = {
       //   year: moment(vm.rest_start, 'YYYY/MM/DD').year(),
       //   month: moment(vm.rest_start, 'YYYY/MM/DD').month() + 1,
