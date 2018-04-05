@@ -104,7 +104,15 @@
         return false;
       }
       vm.busy = true;
+      // Loại ngày nghỉ
       var holiday = _.findWhere(vm.holidays, { _id: vm.workrest.holiday });
+      // Kiểm tra loại hình nghỉ và thời hạn ngày đã chọn
+      if (holiday.unit < 1 && vm.workrest.duration > 1) {
+        // Trường hợp đơn vị loại ngày nghỉ là 0.5 thì không thể chọn được nghỉ nhiều ngày
+        $scope.handleShowToast('休暇形態と休暇の期間が合いません！', true);
+        vm.busy = false;
+        return;
+      }
       if (holiday.unit < 1) {
         vm.workrest.duration = holiday.unit;
       }
