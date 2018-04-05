@@ -95,6 +95,7 @@
         return;
       }
       vm.workrest.duration = duration;
+      console.log("duration", duration);
       prepareCalendar();
     };
     vm.handleSaveRest = isValid => {
