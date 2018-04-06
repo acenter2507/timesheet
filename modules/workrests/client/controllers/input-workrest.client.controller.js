@@ -123,17 +123,8 @@
       vm.workrest.isPaid = holiday.isPaid;
       vm.workrest.hours = holiday.hours;
 
-      console.log('start', moment(vm.rest_start, 'YYYY/MM/DD').format());
-      console.log('end', moment(vm.rest_end, 'YYYY/MM/DD').format());
-
-
-      vm.workrest.start = moment(vm.rest_start, 'YYYY/MM/DD').format();
-      vm.workrest.end = moment(vm.rest_end, 'YYYY/MM/DD').format();
-      // vm.workrest.end = {
-      //   year: moment(vm.rest_end, 'YYYY/MM/DD').year(),
-      //   month: moment(vm.rest_end, 'YYYY/MM/DD').month() + 1,
-      //   date: moment(vm.rest_end, 'YYYY/MM/DD').date()
-      // };
+      vm.workrest.start = moment(vm.rest_start).format('YYYY/MM/DD');
+      vm.workrest.end = moment(vm.rest_end).format('YYYY/MM/DD');
 
       if (vm.workrest._id) {
         vm.workrest.$update(successCallback, errorCallback);
