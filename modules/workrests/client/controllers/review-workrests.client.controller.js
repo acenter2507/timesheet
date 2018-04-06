@@ -137,8 +137,8 @@
           id: rest._id.toString(),
           title: rest.user.displayName + '・' + rest.holiday.name,
           color: color,
-          startsAt: moment().year(rest.start.year).month(rest.start.month - 1).date(rest.start.date).toDate(),
-          endsAt: moment().year(rest.end.year).month(rest.end.month - 1).date(rest.end.date).toDate(),
+          startsAt: moment(rest.start).toDate(),
+          endsAt: moment(rest.end).toDate(),
           actions: actions
         });
       });

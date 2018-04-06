@@ -125,7 +125,6 @@
 
       vm.workrest.start = moment(vm.rest_start).format('YYYY/MM/DD');
       vm.workrest.end = moment(vm.rest_end).format('YYYY/MM/DD');
-      console.log(vm.workrest);
 
       if (vm.workrest._id) {
         vm.workrest.$update(successCallback, errorCallback);
@@ -137,7 +136,6 @@
         vm.busy = false;
         Socket.emit('rest_request', { workrestId: res, userId: $scope.user._id });
         $state.go('workrests.view', { workrestId: res._id });
-        console.log(moment(res.start).format());
       }
 
       function errorCallback(res) {
