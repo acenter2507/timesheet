@@ -137,7 +137,7 @@
         vm.busy = false;
         Socket.emit('rest_request', { workrestId: res, userId: $scope.user._id });
         $state.go('workrests.view', { workrestId: res._id });
-        console.log(res);
+        console.log(moment(res.start).format());
       }
 
       function errorCallback(res) {
