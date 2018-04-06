@@ -146,7 +146,7 @@
                 <a dropdown-toggle class="btn btn-xs btn-default">
                   <i class="glyphicon glyphicon-option-horizontal"></i>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-right mg10t" role="menu">
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
                   <li ng-if="rest.status === 1">
                     <a ng-click="vm.handleSendRequestRest(rest)">
                       <i class="fa fa-info-circle"></i> 申請</a>
@@ -161,7 +161,7 @@
                   </li>
                   <li>
                     <a ng-click="vm.handleViewHistory(rest)">
-                      <i class="fa fa-clock"></i> 歴史</a>
+                      <i class="far fa-clock"></i> 歴史</a>
                   </li>
                   <li>
                     <a ui-sref="workrests.view({ workrestId: rest._id })">
