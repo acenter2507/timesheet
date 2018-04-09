@@ -40,11 +40,6 @@ exports.create = function (req, res) {
       if (err)
         return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
       res.jsonp(workrest);
-      // if (workrest.status === 2 || workrest.status === 3) {
-      //   // 有給休暇の残日を計算する
-      //   var newHolidayCnt = req.user.company.paidHolidayCnt - workrest.duration;
-      //   User.updateHolidays(req.user._id, newHolidayCnt);
-      // }
     });
   });
 };
@@ -202,9 +197,6 @@ exports.reject = function (req, res) {
   workrest.save((err, workrest) => {
     if (err)
       return res.status(400).send({ message: '拒否処理が完了できません。' });
-    // 有給休暇の残日を計算する
-    var newHolidayCnt = workrest.user.company.paidHolidayCnt + workrest.duration;
-    User.updateHolidays(workrest.user._id, newHolidayCnt);
     Workrest.findOne(workrest)
       .populate({
         path: 'historys',
