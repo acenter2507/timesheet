@@ -21,8 +21,8 @@
         vm.workrest.status = 1;
         vm.workrest.duration = 0;
       } else {
-        vm.workrest.start = moment(vm.workrest.start).format();
-        vm.workrest.end = moment(vm.workrest.end).format();
+        vm.workrest.start = moment(vm.workrest.start).format('YYYY-MM-DD');
+        vm.workrest.end = moment(vm.workrest.end).format('YYYY-MM-DD');
       }
       prepareCalendar();
       prepareHodidays();
