@@ -36,7 +36,12 @@
     this.request = workrestId => {
       return $http.post('/api/workrests/' + workrestId + '/request', null, { ignoreLoadingBar: true });
     };
-    
+    this.cancel = workrestId => {
+      return $http.post('/api/workrests/' + workrestId + '/cancel', null, { ignoreLoadingBar: true });
+    };
+    this.deleteRequest = workrestId => {
+      return $http.post('/api/workrests/' + workrestId + '/deleteRequest', null, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());

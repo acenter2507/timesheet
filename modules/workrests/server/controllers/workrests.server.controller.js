@@ -96,6 +96,33 @@ exports.cancel = function (req, res) {
 };
 
 /**
+ * Gửi thỉnh cầu review
+ */
+exports.deleteRequest = function (req, res) {
+  var workrest = req.workrest;
+  // Kiểm tra status của Ngày nghỉ
+  if (workrest.status !== 1 && workrest.status !== 4) {
+    return res.status(400).send({ message: 'この休暇は申請できません！' });
+  }
+
+  // Kiểm tra lượng ngày nghỉ còn lại
+  if (workrest.isPaid && workrest.duration > req.user.company.paidHolidayCnt) {
+    return res.status(400).send({ message: '有給休暇の残日が不足です。' });
+  }
+
+  workrest.status = 2;
+  workrest.historys.push({ action: 3, comment: '', timing: new Date(), user: workrest.user });
+  workrest.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+    res.jsonp(workrest);
+    // 有給休暇の残日を計算する
+    // var newHolidayCnt = req.user.company.paidHolidayCnt - rest.duration;
+    // User.updateHolidays(req.user._id, newHolidayCnt);
+  });
+};
+
+/**
  * Xem chi tiết thông tin ngày nghỉ
  */
 exports.read = function (req, res) {
@@ -111,10 +138,6 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var workrest = req.workrest;
   workrest = _.extend(workrest, req.body);
-  // 有給休暇の日数を確認
-  if (req.body.isPaid && workrest.duration > req.user.company.paidHolidayCnt) {
-    return res.status(400).send({ message: '有給休暇の残日が不足です。' });
-  }
 
   isConflictRest(workrest).then(result => {
     if (!result) {
@@ -127,15 +150,6 @@ exports.update = function (req, res) {
     workrest.status = 1;
     workrest.historys.push({ action: 2, comment: '', timing: new Date(), user: req.user._id });
 
-    if (req.body.isSendWhenSave) {
-      workrest.status = 2;
-      workrest.historys.push({ action: 3, comment: '', timing: new Date(), user: req.user._id });
-    }
-
-    if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
-      workrest.status = 3;
-      workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: workrest.user });
-    }
     // Create search support field
     workrest.search = req.user.displayName + '-' + workrest.duration + '-' + workrest.description;
     if (req.user.department) {
@@ -146,16 +160,9 @@ exports.update = function (req, res) {
       if (err)
         return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
       res.jsonp(workrest);
-      if (workrest.status === 2) {
-        // 有給休暇の残日を計算する
-        var newHolidayCnt = req.user.company.paidHolidayCnt - workrest.duration;
-        User.updateHolidays(req.user._id, newHolidayCnt);
-        /* TODO */
-      }
     });
   });
 };
-
 
 /**
  * Approve a Rest

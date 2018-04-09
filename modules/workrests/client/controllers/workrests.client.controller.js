@@ -84,6 +84,7 @@
     vm.handleCalendarClicked = date => {
       return false;
     };
+    // Xóa ngày nghỉ
     vm.handleDeleteRest = () => {
       $scope.handleShowConfirm({
         message: '休暇登録を削除しますか？'
@@ -91,6 +92,7 @@
         vm.workrest.$remove(handlePreviousScreen());
       });
     };
+    // Gửi thỉnh cầu cho leader
     vm.handleSendRequestRest = () => {
       $scope.handleShowConfirm({
         message: '休暇を申請しますか？'
@@ -105,6 +107,37 @@
           });
       });
     };
+    // Hủy bỏ thỉnh cầu
+    vm.handleCancelRequestRest = () => {
+      $scope.handleShowConfirm({
+        message: '休暇の申請を取り消しますか？'
+      }, () => {
+        WorkrestsApi.cancel(vm.workrest._id)
+          .success(data => {
+            _.extend(vm.workrest, data);
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    // Gửi thỉnh cầu xóa bỏ ngày nghỉ
+    vm.handleSendRequestDelete = () => {
+      $scope.handleShowConfirm({
+        message: '休暇を取り消す申請を送りますか？'
+      }, () => {
+        WorkrestsApi.deleteRequest(vm.workrest._id)
+          .success(data => {
+            _.extend(vm.workrest, data);
+            Socket.emit('rest_delete_request', { workrestId: vm.workrest._id, userId: $scope.user._id });
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+
+    // Chấp nhận ngày nghỉ
     vm.handleApproveRest = () => {
       $scope.handleShowConfirm({
         message: 'この休暇を承認しますか？'
@@ -119,6 +152,7 @@
           });
       });
     };
+    // Không chấp nhận ngày nghỉ
     vm.handleRejectRest = () => {
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',
