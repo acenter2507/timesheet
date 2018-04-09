@@ -41,8 +41,10 @@
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = moment().startOf('month').toDate();
-      vm.tempStart = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start).format() : vm.workrest.start;
-      vm.tempEnd = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end).format() : vm.workrest.end;
+      // vm.tempStart = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start).format() : vm.workrest.start;
+      // vm.tempEnd = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end).format() : vm.workrest.end;
+      vm.tempStart = vm.workrest.start;
+      vm.tempEnd = vm.workrest.end;
 
       vm.calendar.cellModifier = function (cell) {
         // cell.cssClass = 'odd-cell';
