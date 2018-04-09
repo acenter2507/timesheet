@@ -11,7 +11,6 @@
   function WorkrestsController ($scope, $state, workrest, CommonService, DateUtil, WorkrestsApi, ngDialog, Socket, $stateParams, Notifications) {
     var vm = this;
     vm.workrest = workrest;
-    console.log(vm.workrest);
 
     onCreate();
     function onCreate() {
