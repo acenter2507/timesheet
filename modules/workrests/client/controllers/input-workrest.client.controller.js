@@ -26,7 +26,7 @@
         vm.rest_start = vm.workrest.start;
         vm.rest_end = vm.workrest.end;
         console.log(vm.workrest);
-        console.log(moment(vm.rest_start, 'YYYY/MM/DD').format());
+        console.log(moment(vm.rest_start).format());
       }
       prepareCalendar();
       prepareHodidays();
