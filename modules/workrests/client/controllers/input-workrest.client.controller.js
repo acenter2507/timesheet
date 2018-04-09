@@ -39,7 +39,7 @@
     // Chuẩn bị dữ liệu hiển thị Calendar
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
-      vm.calendar.viewDate = moment().startOf('month').toDate();
+      vm.calendar.viewDate = (vm.workrest.start) ? moment(vm.workrest.start).startOf('month').toDate() : moment().startOf('month').toDate();
       vm.tempStart = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start, 'YYYY/MM/DD').format() : vm.workrest.start;
       vm.tempEnd = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end, 'YYYY/MM/DD').format() : vm.workrest.end;
 
