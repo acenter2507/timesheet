@@ -82,28 +82,22 @@
 
       vm.handleRestRangeChanged();
     };
-    vm.handleRestRangeChanged = () => {
-      if (!vm.workrest.start || !vm.workrest.end) {
-        vm.workrest.duration = 0;
-        return;
-      }
-      var start = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start, 'YYYY/MM/DD') : moment(vm.workrest.start);
-      var end = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end, 'YYYY/MM/DD') : moment(vm.workrest.end);
-      var duration = DateUtil.getWorkDays(start, end);
-      if (duration < 0) {
-        $scope.handleShowToast('開始日または終了日が間違います。', true);
-        vm.workrest.duration = 0;
-        return;
-      }
-      vm.workrest.duration = duration;
-      prepareCalendar();
-    };
     vm.handleSaveRest = isValid => {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
         $scope.handleShowToast('休暇情報が間違います。再確認ください！', true);
         return false;
       }
+      // Kiểm tra ngày start ngày kết thúc
+      var start = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start, 'YYYY/MM/DD').format() : vm.workrest.start;
+      var end = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end, 'YYYY/MM/DD').format() : vm.workrest.end;
+      var duration = DateUtil.getWorkDays(start, end);
+      if (duration < 0) {
+        $scope.handleShowToast('開始日または終了日が間違います。', true);
+        return false;
+      }
+      vm.workrest.duration = duration;
+
       vm.busy = true;
       // Loại ngày nghỉ
       var holiday = _.findWhere(vm.holidays, { _id: vm.workrest.holiday });
