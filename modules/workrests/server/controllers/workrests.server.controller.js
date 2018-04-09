@@ -169,27 +169,32 @@ exports.update = function (req, res) {
  */
 exports.approve = function (req, res) {
   var workrest = req.workrest;
-  workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
-  workrest.status = 3;
-  workrest.save((err, rest) => {
-    if (err)
-      return res.status(400).send({ message: '承認処理が完了できません。' });
-    Workrest.findOne(workrest).populate({
-      path: 'historys',
-      populate: {
-        path: 'user',
-        select: 'displayName profileImageURL',
-        model: 'User'
-      }
-    })
-      .populate('holiday', 'name isPaid')
-      .populate('user', 'displayName profileImageURL')
-      .exec((err, rest) => {
-        if (err)
-          return res.status(400).send({ message: '新しいデータを取得できません。' });
-        return res.jsonp(workrest);
-      });
-  });
+
+  // Kiểm tra số ngày nghỉ còn lại
+  console.log(workrest);
+  res.end();
+
+  // workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
+  // workrest.status = 3;
+  // workrest.save((err, rest) => {
+  //   if (err)
+  //     return res.status(400).send({ message: '承認処理が完了できません。' });
+  //   Workrest.findOne(workrest).populate({
+  //     path: 'historys',
+  //     populate: {
+  //       path: 'user',
+  //       select: 'displayName profileImageURL',
+  //       model: 'User'
+  //     }
+  //   })
+  //     .populate('holiday', 'name isPaid')
+  //     .populate('user', 'displayName profileImageURL')
+  //     .exec((err, rest) => {
+  //       if (err)
+  //         return res.status(400).send({ message: '新しいデータを取得できません。' });
+  //       return res.jsonp(workrest);
+  //     });
+  // });
 };
 
 /**
