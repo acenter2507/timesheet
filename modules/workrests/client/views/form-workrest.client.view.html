@@ -64,7 +64,7 @@
         <div class="form-group" ng-init="startDatePickerOpen = false;">
           <label class="w100p" for="start">開始</label>
           <div class="input-group">
-            <input name="start" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.start" is-open="startDatePickerOpen"
+            <input name="start" type="text" class="form-control" ng-model="vm.workrest.start" is-open="startDatePickerOpen"
               min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇開始"
               ng-change="vm.handleRestRangeChanged()" date-disabled="vm.disableWeekend(date, mode)" show-weeks="false" readonly="true"/>
             <span class="input-group-btn">
@@ -78,7 +78,7 @@
         <div class="form-group" ng-init="endDatePickerOpen = false;">
           <label class="w100p" for="end">終了</label>
           <div class="input-group">
-            <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.end" is-open="endDatePickerOpen"
+            <input name="end" type="text" class="form-control" ng-model="vm.workrest.end" is-open="endDatePickerOpen"
               min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇終了"
               ng-change="vm.handleRestRangeChanged()" date-disabled="vm.disableWeekend(date, mode)" show-weeks="false" readonly="true"/>
             <span class="input-group-btn">
