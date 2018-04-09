@@ -119,7 +119,6 @@
 
       // vm.workrest.start = moment(vm.rest_start).format('YYYY/MM/DD');
       // vm.workrest.end = moment(vm.rest_end).format('YYYY/MM/DD');
-      console.log(vm.workrest);
 
       if (vm.workrest._id) {
         vm.workrest.$update(successCallback, errorCallback);

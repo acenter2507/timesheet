@@ -98,6 +98,7 @@
     }
     function prepareCondition() {
       vm.condition = {
+        status: 2,
         sort: '-created',
         limit: 20
       };
