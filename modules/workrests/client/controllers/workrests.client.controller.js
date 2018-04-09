@@ -136,7 +136,6 @@
           });
       });
     };
-
     // Chấp nhận ngày nghỉ
     vm.handleApproveRest = () => {
       $scope.handleShowConfirm({

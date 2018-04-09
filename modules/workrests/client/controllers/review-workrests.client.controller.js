@@ -184,6 +184,7 @@
     vm.handleRestClicked = calendarEvent => {
       $state.go('workrests.view', { workrestId: calendarEvent.id });
     };
+    // Chấp nhận ngày nghỉ
     vm.handleApproveRest = workrest => {
       $scope.handleShowConfirm({
         message: 'この休暇を承認しますか？'
@@ -198,6 +199,7 @@
           });
       });
     };
+    // Không chấp nhận ngày nghỉ
     vm.handleRejectRest = workrest => {
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',

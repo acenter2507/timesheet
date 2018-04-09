@@ -70,9 +70,6 @@ exports.request = function (req, res) {
     if (err)
       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
     res.jsonp(workrest);
-    // 有給休暇の残日を計算する
-    // var newHolidayCnt = req.user.company.paidHolidayCnt - rest.duration;
-    // User.updateHolidays(req.user._id, newHolidayCnt);
   });
 };
 
@@ -163,30 +160,36 @@ exports.approve = function (req, res) {
   var workrest = req.workrest;
 
   // Kiểm tra số ngày nghỉ còn lại
-  console.log(workrest);
-  res.end();
+  if (workrest.isPaid && workrest.duration > workrest.user.company.paidHolidayCnt) {
+    return res.status(400).send({ message: '有給休暇の残日が不足です。' });
+  }
 
-  // workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
-  // workrest.status = 3;
-  // workrest.save((err, rest) => {
-  //   if (err)
-  //     return res.status(400).send({ message: '承認処理が完了できません。' });
-  //   Workrest.findOne(workrest).populate({
-  //     path: 'historys',
-  //     populate: {
-  //       path: 'user',
-  //       select: 'displayName profileImageURL',
-  //       model: 'User'
-  //     }
-  //   })
-  //     .populate('holiday', 'name isPaid')
-  //     .populate('user', 'displayName profileImageURL')
-  //     .exec((err, rest) => {
-  //       if (err)
-  //         return res.status(400).send({ message: '新しいデータを取得できません。' });
-  //       return res.jsonp(workrest);
-  //     });
-  // });
+  workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
+  workrest.status = 3;
+  workrest.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: '承認処理が完了できません。' });
+    Workrest.findOne(workrest).populate({
+      path: 'historys',
+      populate: {
+        path: 'user',
+        select: 'displayName profileImageURL',
+        model: 'User'
+      }
+    })
+      .populate('holiday', 'name isPaid')
+      .populate('user')
+      .exec((err, rest) => {
+        if (err)
+          return res.status(400).send({ message: '新しいデータを取得できません。' });
+        res.jsonp(workrest);
+        // 有給休暇の残日を計算する
+        var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
+        User.updateHolidays(req.user._id, newHolidayCnt);
+        // TODO
+        // Load lại toàn bộ thông tin workmonth và workdate
+      });
+  });
 };
 
 /**
@@ -212,7 +215,7 @@ exports.reject = function (req, res) {
         }
       })
       .populate('holiday', 'name isPaid')
-      .populate('user', 'displayName profileImageURL')
+      .populate('user')
       .exec((err, rest) => {
         if (err)
           return res.status(400).send({ message: '新しいデータを取得できません。' });
@@ -227,11 +230,11 @@ exports.reject = function (req, res) {
 exports.delete = function (req, res) {
   var workrest = req.workrest;
 
-  if (workrest.status === 2) {
-    // 有給休暇の残日を計算する
-    var newHolidayCnt = workrest.user.company.paidHolidayCnt + workrest.duration;
-    User.updateHolidays(workrest.user._id, newHolidayCnt);
-  }
+  // if (workrest.status === 2) {
+  //   // 有給休暇の残日を計算する
+  //   var newHolidayCnt = workrest.user.company.paidHolidayCnt + workrest.duration;
+  //   User.updateHolidays(workrest.user._id, newHolidayCnt);
+  // }
   workrest.remove(function (err) {
     if (err) {
       return res.status(400).send({
@@ -350,10 +353,10 @@ exports.getRestOfCurrentUserInRange = function (req, res) {
       { user: userId },
       {
         $or: [
-          { $and: [ { start: { $lte: start } }, { end: { $gte: start } }, { end: { $lte: end } } ] },
-          { $and: [ { start: { $gte: start } }, { end: { $lte: end } } ] },
-          { $and: [ { start: { $lte: start } }, { end: { $gte: end } } ] },
-          { $and: [ { start: { $gte: start } }, { start: { $lte: end } }, { end: { $gte: end } } ] }
+          { $and: [{ start: { $lte: start } }, { end: { $gte: start } }, { end: { $lte: end } }] },
+          { $and: [{ start: { $gte: start } }, { end: { $lte: end } }] },
+          { $and: [{ start: { $lte: start } }, { end: { $gte: end } }] },
+          { $and: [{ start: { $gte: start } }, { start: { $lte: end } }, { end: { $gte: end } }] }
         ]
       },
       { status: 3 },
@@ -445,7 +448,7 @@ function isConflictRest(workrest) {
       user: workrest.user
       //start: { $gte: new Date() }
     };
-    
+
     Workrest.find(condition).exec((err, workrests) => {
       if (workrests.length === 0) return resolve(true);
       for (let index = 0; index < workrests.length; index++) {
