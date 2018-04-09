@@ -162,6 +162,7 @@
     vm.handleRestClicked = calendarEvent => {
       $state.go('workrests.view', { workrestId: calendarEvent.id });
     };
+    // Xóa bỏ Ngày nghỉ
     vm.handleDeleteRest = workrest => {
       $scope.handleShowConfirm({
         message: '削除しますか？'
@@ -172,6 +173,7 @@
         });
       });
     };
+    // Gửi thỉnh cầu đến leader
     vm.handleSendRequestRest = workrest => {
       $scope.handleShowConfirm({
         message: '休暇を申請しますか？'
@@ -180,6 +182,35 @@
           .success(data => {
             _.extend(workrest, data);
             Socket.emit('rest_request', { workrestId: workrest._id, userId: $scope.user._id });
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    // Hủy bỏ thỉnh cầu
+    vm.handleCancelRequestRest = workrest => {
+      $scope.handleShowConfirm({
+        message: '休暇の申請を取り消しますか？'
+      }, () => {
+        WorkrestsApi.cancel(workrest._id)
+          .success(data => {
+            _.extend(workrest, data);
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    // Gửi thỉnh cầu xóa bỏ ngày nghỉ
+    vm.handleSendRequestDelete = workrest => {
+      $scope.handleShowConfirm({
+        message: '休暇を取り消す申請を送りますか？'
+      }, () => {
+        WorkrestsApi.deleteRequest(workrest._id)
+          .success(data => {
+            _.extend(workrest, data);
+            Socket.emit('rest_delete_request', { workrestId: workrest._id, userId: $scope.user._id });
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);
