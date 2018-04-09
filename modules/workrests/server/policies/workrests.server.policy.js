@@ -38,6 +38,12 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/rests/:workrestId/request',
       permissions: ['post']
+    }, {
+      resources: '/api/rests/:workrestId/cancel',
+      permissions: ['post']
+    }, {
+      resources: '/api/rests/:workrestId/deleteRequest',
+      permissions: ['post']
     }]
   }, {
     roles: ['accountant'],
