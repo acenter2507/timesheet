@@ -77,6 +77,25 @@ exports.request = function (req, res) {
 };
 
 /**
+ * Hủy bỏ thỉnh cầu
+ */
+exports.cancel = function (req, res) {
+  var workrest = req.workrest;
+  // Kiểm tra status của Ngày nghỉ
+  if (workrest.status !== 2) {
+    return res.status(400).send({ message: '現在確認中の状態ではありません！' });
+  }
+
+  workrest.status = 1;
+  workrest.historys.push({ action: 6, comment: '', timing: new Date(), user: workrest.user });
+  workrest.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+    res.jsonp(workrest);
+  });
+};
+
+/**
  * Xem chi tiết thông tin ngày nghỉ
  */
 exports.read = function (req, res) {

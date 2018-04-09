@@ -32,7 +32,7 @@ var WorkrestSchema = new Schema({
   hours: { type: Number, default: 0 },
   // Reason of vacation
   description: { type: String },
-  // Status of vacation: 1:Not send - 2:Waiting - 3:Approved - 4:Rejected - 5:Done - 6:Request delete
+  // Status of vacation: 1:Not send - 2:Waiting - 3:Approved - 4:Rejected - 5:Request delete
   status: { type: Number },
   // search
   search: { type: String },
@@ -52,7 +52,7 @@ var WorkrestSchema = new Schema({
   // Create date
   created: { type: Date, default: Date.now },
   historys: [{
-    // Action of history 1:Created - 2:Updated - 3:Send - 4:Approved - 5:Rejected - 6:Using
+    // Action of history 1:Created - 2:Updated - 3:Send - 4:Approved - 5:Rejected - 6:Cancel request
     action: { type: Number },
     // Comment of history
     comment: { type: String },
