@@ -25,6 +25,7 @@
         // vm.rest_end = moment().year(vm.workrest.end.year).month(vm.workrest.end.month - 1).date(vm.workrest.end.date).format('YYYY/MM/DD');
         vm.rest_start = vm.workrest.start;
         vm.rest_end = vm.workrest.end;
+        console.log(vm.workrest);
       }
       prepareCalendar();
       prepareHodidays();
@@ -103,7 +104,7 @@
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
         $scope.handleShowToast('休暇情報が間違います。再確認ください！', true);
-        console.log(vm.form.restForm.error);
+        console.log(vm.form.restForm);
         return false;
       }
       vm.busy = true;
