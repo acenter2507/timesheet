@@ -87,8 +87,8 @@
         vm.workrest.duration = 0;
         return;
       }
-      var start = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start) : moment(vm.workrest.start);
-      var end = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end) : moment(vm.workrest.end);
+      var start = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start, 'YYYY/MM/DD') : moment(vm.workrest.start);
+      var end = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end, 'YYYY/MM/DD') : moment(vm.workrest.end);
       var duration = DateUtil.getWorkDays(start, end);
       if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
@@ -102,7 +102,6 @@
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
         $scope.handleShowToast('休暇情報が間違います。再確認ください！', true);
-        console.log(vm.form.restForm);
         return false;
       }
       vm.busy = true;
