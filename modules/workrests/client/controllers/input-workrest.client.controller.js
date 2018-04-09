@@ -44,8 +44,8 @@
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = moment().startOf('month').toDate();
-      vm.tempStart = (typeof vm.rest_start === 'string') ? moment(vm.rest_start, 'YYYY/MM/DD').format() : vm.rest_start;
-      vm.tempEnd = (typeof vm.rest_end === 'string') ? moment(vm.rest_end, 'YYYY/MM/DD').format() : vm.rest_end;
+      vm.tempStart = (typeof vm.rest_start === 'string') ? moment(vm.rest_start).format() : vm.rest_start;
+      vm.tempEnd = (typeof vm.rest_end === 'string') ? moment(vm.rest_end).format() : vm.rest_end;
 
       vm.calendar.cellModifier = function (cell) {
         // cell.cssClass = 'odd-cell';
@@ -90,8 +90,8 @@
         vm.workrest.duration = 0;
         return;
       }
-      var start = (typeof vm.rest_start === 'string') ? moment(vm.rest_start, 'YYYY/MM/DD') : moment(vm.rest_start);
-      var end = (typeof vm.rest_end === 'string') ? moment(vm.rest_end, 'YYYY/MM/DD') : moment(vm.rest_end);
+      var start = (typeof vm.rest_start === 'string') ? moment(vm.rest_start) : moment(vm.rest_start);
+      var end = (typeof vm.rest_end === 'string') ? moment(vm.rest_end) : moment(vm.rest_end);
       var duration = DateUtil.getWorkDays(start, end);
       if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
@@ -128,6 +128,7 @@
 
       vm.workrest.start = moment(vm.rest_start).format('YYYY/MM/DD');
       vm.workrest.end = moment(vm.rest_end).format('YYYY/MM/DD');
+      console.log(vm.workrest.start);
 
       if (vm.workrest._id) {
         vm.workrest.$update(successCallback, errorCallback);
