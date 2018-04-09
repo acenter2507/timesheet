@@ -147,29 +147,40 @@
                   <i class="glyphicon glyphicon-option-horizontal"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                  <li ng-if="rest.status === 1">
-                    <a ng-click="vm.handleSendRequestRest(rest)">
-                      <i class="fa fa-info-circle"></i> 申請</a>
-                  </li>
-                  <li ng-if="rest.status === 1 || rest.status === 4">
-                    <a ui-sref="workrests.edit({ workrestId: rest._id })">
-                      <i class="fa fa-pencil-square-o"></i> 編集</a>
-                  </li>
-                  <li ng-if="rest.status === 1 || rest.status === 2">
-                    <a ng-click="vm.handleDeleteRest(rest)">
-                      <i class="fa fa-trash"></i> 削除</a>
-                  </li>
-                  <li>
-                    <a ng-click="vm.handleViewHistory(rest)">
-                      <i class="fa fa-clock-o"></i> 歴史</a>
-                  </li>
+                  <!-- Xem detail Workrest -->
                   <li>
                     <a ui-sref="workrests.view({ workrestId: rest._id })">
                       <i class="fa fa-eye"></i> 詳細</a>
                   </li>
+                  <!-- Gửi request -->
+                  <li ng-if="rest.status === 1">
+                    <a ng-click="vm.handleSendRequestRest(rest)">
+                      <i class="fa fa-info-circle"></i> 申請</a>
+                  </li>
+                  <!-- Hủy bỏ request -->
+                  <li ng-if="rest.status === 2">
+                    <a ng-click="vm.handleCancelRequestRest(rest)">
+                      <i class="fa fa-info-circle"></i> 申請</a>
+                  </li>
+                  <!-- Chỉnh sửa khi chưa request hoặc khi bị reject -->
+                  <li ng-if="rest.status === 1 || rest.status === 4">
+                    <a ui-sref="workrests.edit({ workrestId: rest._id })">
+                      <i class="fa fa-pencil-square-o"></i> 編集</a>
+                  </li>
+                  <!-- Xóa khi đang ở trạng thái chưa request hoặc bị reject -->
+                  <li ng-if="rest.status === 1 || rest.status === 4">
+                    <a ng-click="vm.handleDeleteRest(rest)">
+                      <i class="fa fa-trash"></i> 削除</a>
+                  </li>
+                  <!-- Gửi nhờ xóa rest -->
                   <li ng-if="rest.status === 3">
-                    <a ng-click="vm.handleViewHistory(rest)">
+                    <a ng-click="vm.handleRequestDelete(rest)">
                       <i class="fa fa-times-circle"></i> 取り消し申請</a>
+                  </li>
+                  <!-- Xem lịch sử -->
+                  <li>
+                    <a ng-click="vm.handleViewHistory(rest)">
+                      <i class="fa fa-clock-o"></i> 歴史</a>
                   </li>
                 </ul>
               </div>

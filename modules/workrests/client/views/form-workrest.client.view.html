@@ -88,31 +88,12 @@
             </span>
           </div>
         </div>
-        <!-- Duration -->
-        <!-- <div class="form-group" show-errors>
-          <label for="duration">期間</label>
-          <div class="input-group">
-            <input name="duration" type="number" class="form-control" step="0.5" min="0.5" ng-model="vm.workrest.duration" required ng-change="vm.handleRestDurationChanged()"
-              ng-keyup="vm.handleChangeRestDuration()" />
-            <span class="input-group-addon">日間</span>
-          </div>
-          <div ng-messages="vm.form.restForm.duration.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">期間は必須です。</p>
-            <p class="help-block error-text" ng-message="min">期間は0.5日間以上です。</p>
-          </div>
-        </div> -->
         <!-- Reason -->
         <div class="form-group" show-errors>
           <label for="description">事由</label>
           <textarea name="description" class="form-control" data-ng-model="vm.workrest.description" required></textarea>
           <div ng-messages="vm.form.restForm.description.$error" role="alert">
             <p class="help-block error-text" ng-message="required">事由は必須です。</p>
-          </div>
-        </div>
-        <!-- Check box -->
-        <div class="form-group" ng-if="isUser">
-          <div class="checkbox" ng-if="vm.workrest.status === 1 || vm.workrest.status === 4">
-            <label><input type="checkbox" ng-model="vm.workrest.isSendWhenSave" value="">保存する際に申請する</label>
           </div>
         </div>
       </form>
