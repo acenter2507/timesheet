@@ -73,11 +73,16 @@
     vm.handleCalendarRangeSelected = (start, end) => {
       vm.workrest.start = start;
       vm.workrest.end = end;
+      prepareCalendar();
     };
     vm.handleCalendarClicked = date => {
       if (DateUtil.isWorkOffDate(date)) return;
       vm.workrest.start = date;
       vm.workrest.end = date;
+      prepareCalendar();
+    };
+    vm.handleRestRangeChanged = () => {
+      prepareCalendar();
     };
     vm.handleSaveRest = isValid => {
       if (!isValid) {
