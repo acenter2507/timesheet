@@ -180,7 +180,7 @@ exports.approve = function (req, res) {
         res.jsonp(workrest);
         // 有給休暇の残日を計算する
         var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
-        User.updateHolidays(req.user._id, newHolidayCnt);
+        User.updateHolidays(workrest.user._id, newHolidayCnt);
         // TODO
         // Load lại toàn bộ thông tin workmonth và workdate
       });
