@@ -96,29 +96,21 @@ exports.cancel = function (req, res) {
 };
 
 /**
- * Gửi thỉnh cầu review
+ * Gửi thỉnh cầu xóa Ngày nghỉ đã được approve
  */
 exports.deleteRequest = function (req, res) {
   var workrest = req.workrest;
   // Kiểm tra status của Ngày nghỉ
-  if (workrest.status !== 1 && workrest.status !== 4) {
-    return res.status(400).send({ message: 'この休暇は申請できません！' });
+  if (workrest.status !== 3) {
+    return res.status(400).send({ message: '取り消し申請は確認済みの休暇しかできません！' });
   }
 
-  // Kiểm tra lượng ngày nghỉ còn lại
-  if (workrest.isPaid && workrest.duration > req.user.company.paidHolidayCnt) {
-    return res.status(400).send({ message: '有給休暇の残日が不足です。' });
-  }
-
-  workrest.status = 2;
-  workrest.historys.push({ action: 3, comment: '', timing: new Date(), user: workrest.user });
+  workrest.status = 5;
+  workrest.historys.push({ action: 7, comment: '', timing: new Date(), user: workrest.user });
   workrest.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
     res.jsonp(workrest);
-    // 有給休暇の残日を計算する
-    // var newHolidayCnt = req.user.company.paidHolidayCnt - rest.duration;
-    // User.updateHolidays(req.user._id, newHolidayCnt);
   });
 };
 
