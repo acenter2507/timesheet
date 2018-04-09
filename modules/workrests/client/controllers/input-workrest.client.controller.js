@@ -103,6 +103,7 @@
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
         $scope.handleShowToast('休暇情報が間違います。再確認ください！', true);
+        console.log(vm.form.restForm.error);
         return false;
       }
       vm.busy = true;
