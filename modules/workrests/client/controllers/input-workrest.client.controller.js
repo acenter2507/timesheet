@@ -73,14 +73,11 @@
     vm.handleCalendarRangeSelected = (start, end) => {
       vm.workrest.start = start;
       vm.workrest.end = end;
-      vm.handleRestRangeChanged();
     };
     vm.handleCalendarClicked = date => {
       if (DateUtil.isWorkOffDate(date)) return;
       vm.workrest.start = date;
       vm.workrest.end = date;
-
-      vm.handleRestRangeChanged();
     };
     vm.handleSaveRest = isValid => {
       if (!isValid) {
@@ -89,8 +86,8 @@
         return false;
       }
       // Kiểm tra ngày start ngày kết thúc
-      var start = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start, 'YYYY/MM/DD').format() : vm.workrest.start;
-      var end = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end, 'YYYY/MM/DD').format() : vm.workrest.end;
+      var start = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start, 'YYYY/MM/DD') : moment(vm.workrest.start);
+      var end = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end, 'YYYY/MM/DD') : moment(vm.workrest.end);
       var duration = DateUtil.getWorkDays(start, end);
       if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
