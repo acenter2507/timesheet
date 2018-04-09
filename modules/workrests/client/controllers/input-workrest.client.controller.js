@@ -20,13 +20,6 @@
         // Set status is Not send
         vm.workrest.status = 1;
         vm.workrest.duration = 0;
-      } else {
-        // vm.rest_start = moment().year(vm.workrest.start.year).month(vm.workrest.start.month - 1).date(vm.workrest.start.date).format('YYYY/MM/DD');
-        // vm.rest_end = moment().year(vm.workrest.end.year).month(vm.workrest.end.month - 1).date(vm.workrest.end.date).format('YYYY/MM/DD');
-        vm.rest_start = vm.workrest.start;
-        vm.rest_end = vm.workrest.end;
-        console.log(vm.workrest);
-        console.log(moment(vm.rest_start).format());
       }
       prepareCalendar();
       prepareHodidays();
@@ -44,8 +37,8 @@
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = moment().startOf('month').toDate();
-      vm.tempStart = (typeof vm.rest_start === 'string') ? moment(vm.rest_start).format() : vm.rest_start;
-      vm.tempEnd = (typeof vm.rest_end === 'string') ? moment(vm.rest_end).format() : vm.rest_end;
+      vm.tempStart = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start).format() : vm.workrest.start;
+      vm.tempEnd = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end).format() : vm.workrest.end;
 
       vm.calendar.cellModifier = function (cell) {
         // cell.cssClass = 'odd-cell';
@@ -74,24 +67,24 @@
       return false;
     };
     vm.handleCalendarRangeSelected = (start, end) => {
-      vm.rest_start = start;
-      vm.rest_end = end;
+      vm.workrest.start = start;
+      vm.workrest.end = end;
       vm.handleRestRangeChanged();
     };
     vm.handleCalendarClicked = date => {
       if (DateUtil.isWorkOffDate(date)) return;
-      vm.rest_start = date;
-      vm.rest_end = date;
+      vm.workrest.start = date;
+      vm.workrest.end = date;
 
       vm.handleRestRangeChanged();
     };
     vm.handleRestRangeChanged = () => {
-      if (!vm.rest_start || !vm.rest_end) {
+      if (!vm.workrest.start || !vm.workrest.end) {
         vm.workrest.duration = 0;
         return;
       }
-      var start = (typeof vm.rest_start === 'string') ? moment(vm.rest_start) : moment(vm.rest_start);
-      var end = (typeof vm.rest_end === 'string') ? moment(vm.rest_end) : moment(vm.rest_end);
+      var start = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start) : moment(vm.workrest.start);
+      var end = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end) : moment(vm.workrest.end);
       var duration = DateUtil.getWorkDays(start, end);
       if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
@@ -126,9 +119,9 @@
       vm.workrest.isPaid = holiday.isPaid;
       vm.workrest.hours = holiday.hours;
 
-      vm.workrest.start = moment(vm.rest_start).format('YYYY/MM/DD');
-      vm.workrest.end = moment(vm.rest_end).format('YYYY/MM/DD');
-      console.log(vm.workrest.start);
+      // vm.workrest.start = moment(vm.rest_start).format('YYYY/MM/DD');
+      // vm.workrest.end = moment(vm.rest_end).format('YYYY/MM/DD');
+      console.log(vm.workrest);
 
       if (vm.workrest._id) {
         vm.workrest.$update(successCallback, errorCallback);
@@ -147,32 +140,6 @@
         vm.busy = false;
       }
     };
-    // vm.handleRestDurationChanged = () => {
-    //   if (!vm.workrest.start || !vm.workrest.end) {
-    //     vm.workrest.duration = 0;
-    //     return;
-    //   }
-    //   if (vm.workrest.duration <= 0) {
-    //     $scope.handleShowToast('休暇の期間が無効になっています。', true);
-    //     vm.handleRestRangeChanged();
-    //     return;
-    //   }
-    //   var start = moment(vm.workrest.start);
-    //   var end = moment(vm.workrest.end);
-    //   var duration = DateUtil.getWorkDays(start, end);
-    //   if (vm.workrest.duration > duration) {
-    //     vm.workrest.duration = duration;
-    //     prepareCalendar();
-    //     $scope.handleShowToast('期間が超えています。', true);
-    //     return;
-    //   }
-    //   if (vm.workrest.duration < (duration - 0.5)) {
-    //     vm.workrest.duration = duration - 0.5;
-    //     prepareCalendar();
-    //     $scope.handleShowToast('期間が間違います。', true);
-    //     return;
-    //   }
-    // };
     vm.disableWeekend = (date, mode) => {
       var holiday = JapaneseHolidays.isHoliday(new Date(date));
       return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6) || holiday);
