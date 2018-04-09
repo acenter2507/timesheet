@@ -10,7 +10,7 @@
         <a ng-if="(vm.workrest.status === 1 || vm.workrest.status === 4) && vm.workrest.isCurrentUserOwner" class="btn btn-primary pull-right mg5r"
           ng-click="vm.handleSendRequestRest()">
           申請</a>
-        <a ng-if="vm.workrest.status === 5 && vm.workrest.isCurrentUserOwner" class="btn btn-primary pull-warning mg5r" ng-click="vm.handleSendRequestDelete()">
+        <a ng-if="vm.workrest.status === 3 && vm.workrest.isCurrentUserOwner" class="btn btn-primary pull-warning mg5r" ng-click="vm.handleSendRequestDelete()">
           取り消し申請</a>
 
         <!-- Dành cho leader -->
