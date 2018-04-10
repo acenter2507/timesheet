@@ -24,7 +24,7 @@
         ncyBreadcrumb: { label: '一覧' }
       })
       .state('workrests.review', {
-        url: '/review?notif',
+        url: '/review?notif?status',
         templateUrl: 'modules/workrests/client/views/review-workrest.client.view.html',
         controller: 'WorkrestsReviewController',
         controllerAs: 'vm',

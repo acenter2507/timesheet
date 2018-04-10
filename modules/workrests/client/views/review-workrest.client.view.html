@@ -1,4 +1,5 @@
 <div class="container-fluid animated fadeIn">
+  <!-- Tool tìm kiếm -->
   <div class="row" id="rests-review-tools">
     <div class="col-xs-12">
       <!-- 検索ツール -->
@@ -50,9 +51,12 @@
             <div class="col-sm-6">
               <label for="status">状態</label>
               <select name="status" class="form-control" ng-model="vm.condition.status">
-                <option value="2">確認中</option>
+                <option value ng-if="isAccountant || isAdmin">全て</option>
+                <option value="1" ng-if="isAccountant || isAdmin">未申請</option>
+                <option value="2">申請中</option>
                 <option value="3">承認</option>
                 <option value="4">拒否</option>
+                <option value="5" ng-if="isAccountant || isAdmin">取り消し申請中</option>
               </select>
             </div>
             <div class="col-sm-6">
@@ -78,10 +82,10 @@
             <div class="col-sm-6">
               <label for="roles">役割</label>
               <select name="roles" class="form-control" ng-model="vm.condition.roles" ng-list>
-                <option value>指定しない</option>
+                <option value ng-if="isAccountant || isAdmin">指定しない</option>
                 <option value="user">一般社員</option>
-                <option value="user,accountant">経理</option>
-                <option value="user,manager">マネージャ</option>
+                <option value="user,accountant" ng-if="isAccountant || isAdmin">経理</option>
+                <option value="user,manager" ng-if="isAccountant || isAdmin">マネージャ</option>
               </select>
             </div>
             <div class="clearfix"></div>
@@ -97,6 +101,7 @@
       </accordion>
     </div>
   </div>
+  <!-- Lịch -->
   <div class="row" id="rests-review-calendar">
     <div class="col-xs-12">
       <accordion close-others="true" ng-init="openAdvance = false;">
@@ -121,6 +126,7 @@
       </accordion>
     </div>
   </div>
+  <!-- Danh sách ngày nghỉ -->
   <div class="row" id="rests-review-rests">
     <div class="col-xs-12">
       <!-- 休暇一覧 -->
@@ -179,6 +185,7 @@
       </ul>
     </div>
   </div>
+  <!-- Bảng history -->
   <div class="row" id="rests-review-historys">
     <div class="col-xs-12">
       <!-- 歴史 -->
@@ -199,7 +206,9 @@
           <tr ng-repeat="history in vm.historys">
             <td>{{history.timing | LLLL}}</td>
             <td>{{history.action | RestActionFilter}}</td>
-            <td><p ng-bind-html="history.comment | nl2br"></p></td>
+            <td>
+              <p ng-bind-html="history.comment | nl2br"></p>
+            </td>
             <td>
               <a ng-click="vm.handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
             </td>

@@ -98,10 +98,10 @@
     }
     function prepareCondition() {
       vm.condition = {
-        status: 2,
         sort: '-created',
         limit: 20
       };
+      vm.condition.status = ($stateParams.status) ? $stateParams.status : 2;
     }
     function prepareCalendarEvent() {
       vm.events = [];
