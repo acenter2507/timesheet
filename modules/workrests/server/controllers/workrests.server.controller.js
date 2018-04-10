@@ -31,11 +31,11 @@ exports.create = function (req, res) {
     //   workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: workrest.user });
     // }
     // Create search support field
-    workrest.search = req.user.displayName + '-' + workrest.duration + '-' + workrest.description;
-    if (req.user.department) {
-      workrest.department = req.user.department._id || req.user.department;
+    workrest.search = workrest.user.displayName + '-' + workrest.duration + '-' + workrest.description;
+    if (workrest.user.department) {
+      workrest.department = workrest.user.department._id || workrest.user.department;
     }
-    workrest.roles = req.user.roles;
+    workrest.roles = workrest.user.roles;
     workrest.save((err, workrest) => {
       if (err)
         return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
@@ -55,7 +55,7 @@ exports.request = function (req, res) {
   }
 
   // Kiểm tra lượng ngày nghỉ còn lại
-  if (workrest.isPaid && workrest.duration > req.user.company.paidHolidayCnt) {
+  if (workrest.isPaid && workrest.duration > workrest.user.company.paidHolidayCnt) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
 
@@ -135,9 +135,9 @@ exports.update = function (req, res) {
     workrest.historys.push({ action: 2, comment: '', timing: new Date(), user: req.user._id });
 
     // Create search support field
-    workrest.search = req.user.displayName + '-' + workrest.duration + '-' + workrest.description;
-    if (req.user.department) {
-      workrest.department = req.user.department._id || req.user.department;
+    workrest.search = workrest.user.displayName + '-' + workrest.duration + '-' + workrest.description;
+    if (workrest.user.department) {
+      workrest.department = workrest.user.department._id || workrest.user.department;
     }
 
     workrest.save((err, workrest) => {

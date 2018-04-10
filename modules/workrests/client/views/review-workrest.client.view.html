@@ -169,10 +169,36 @@
               <span class="label label-warning" ng-switch-when="5">{{ rest.status | RestStatusFilter}}</span>
             </td>
             <td>
-              <a ng-if="rest.status === 2" class="btn btn-primary btn-xs" ng-click="vm.handleApproveRest(rest)">承認する</a>
-              <a ng-if="rest.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleRejectRest(rest)">拒否する</a>
-              <a class="btn btn-info btn-xs" ng-click="vm.handleViewHistory(rest)">歴史</a>
-              <a class="btn btn-success btn-xs" ui-sref="workrests.view({ workrestId: rest._id })">詳細</a>
+              <div dropdown dropdown-append-to-body>
+                <a dropdown-toggle class="btn btn-xs btn-default"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                  <!-- Xem detail Workrest -->
+                  <li>
+                    <a ui-sref="workrests.view({ workrestId: rest._id })">
+                      <i class="fa fa-eye"></i> 詳細</a>
+                  </li>
+                  <!-- Chấp nhận thỉnh cầu nghỉ -->
+                  <li ng-if="rest.status === 2">
+                    <a ng-click="vm.handleApproveRest(rest)">
+                      <i class="fa fa-check-square-o"></i> 承認する</a>
+                  </li>
+                  <!-- Từ chối thỉnh cầu nghỉ -->
+                  <li ng-if="rest.status === 2">
+                    <a ng-click="vm.handleRejectRest(rest)">
+                      <i class="fa fa-minus-circle"></i> 拒否する</a>
+                  </li>
+                  <!-- Gửi nhờ xóa rest -->
+                  <li ng-if="rest.status === 5">
+                    <a ng-click="vm.handleDelete(rest)">
+                      <i class="fa fa-trash"></i> 取り消す</a>
+                  </li>
+                  <!-- Xem lịch sử -->
+                  <li>
+                    <a ng-click="vm.handleViewHistory(rest)">
+                      <i class="fa fa-clock-o"></i> 歴史</a>
+                  </li>
+                </ul>
+              </div>
             </td>
           </tr>
         </tbody>
