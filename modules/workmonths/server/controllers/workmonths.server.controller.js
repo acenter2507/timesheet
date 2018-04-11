@@ -44,7 +44,7 @@ exports.create = function (req, res) {
     var _promises = [];
     for (let index = 0; index < workdates.length; index++) {
       const workdate = workdates[index];
-      _promises.push(getWorkrestsForWorkdate(workdate))
+      _promises.push(getWorkrestsForWorkdate(workdate));
     }
     return Promise.all(_promises);
   })
