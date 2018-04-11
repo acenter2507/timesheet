@@ -174,10 +174,11 @@ exports.approve = function (req, res) {
     })
       .populate('holiday', 'name isPaid')
       .populate('user')
-      .exec((err, rest) => {
+      .exec((err, workrest) => {
         if (err)
           return res.status(400).send({ message: '新しいデータを取得できません。' });
         res.jsonp(workrest);
+        console.log(workrest);
         // 有給休暇の残日を計算する
         var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
         User.updateHolidays(workrest.user._id, newHolidayCnt);
