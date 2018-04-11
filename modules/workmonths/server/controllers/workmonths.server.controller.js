@@ -32,7 +32,7 @@ exports.create = function (req, res) {
     var workdate = new Workdate({
       workmonth: workmonth._id,
       year: date.year(),
-      month: date.month() - 1,
+      month: date.month(),
       date: date.date(),
       isHoliday: isWeekend(date) || jh.isHoliday(new Date(date.format('YYYY/MM/DD'))),
       user: workmonth.user._id || workmonth.user
