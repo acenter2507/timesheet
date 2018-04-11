@@ -207,7 +207,7 @@ function isWeekend(date) {
 }
 // Lấy danh sách ngày nghỉ của 1 ngày làm việc
 function getWorkrestsForWorkdate(workdate) {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     var date = _m().year(workdate.year).month(workdate.month).date(workdate.date).startOf('date').format();
     Workrest.find({
       $and: [
@@ -224,6 +224,6 @@ function getWorkrestsForWorkdate(workdate) {
       if (err)
         return reject(err);
       return resolve(workrests);
-    })
+    });
   });
 }
