@@ -32,7 +32,7 @@ exports.create = function (req, res) {
     var workdate = new Workdate({
       workmonth: workmonth._id,
       year: workmonth.year,
-      month: workmonth.month,
+      month: date.month() - 1,
       date: date.date(),
       isHoliday: isWeekend(date) || jh.isHoliday(new Date(date.format('YYYY/MM/DD'))),
       user: workmonth.user._id || workmonth.user
@@ -217,7 +217,7 @@ function isWeekend(date) {
 // Lấy danh sách ngày nghỉ của 1 ngày làm việc
 function getWorkrestsForWorkdate(workdate) {
   return new Promise((resolve, reject) => {
-    var date = _m().year(workdate.year).month(workdate.month).date(workdate.date).startOf('date').format();
+    var date = _m().year(workdate.year).month(workdate.month -1).date(workdate.date).startOf('date').format();
     console.log(date);
     Workrest.find({
       $and: [
