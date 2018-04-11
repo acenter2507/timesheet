@@ -36,7 +36,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="item in vm.workmonth.workdates">
-              <td ng-class="{'bg-danger': item.day === 0 || (item.isHoliday && item.day !== 6), 'bg-warning': item.day === 6 }">{{:: item.time.format('MMMM D[日] dddd') }}</td>
+              <td ng-class="{'bg-danger': item.day === 0 || (item.isHoliday && item.day !== 6), 'bg-warning': item.day === 6 }">{{:: item.time.format('MMMM D[日] dd') }}</td>
               <!-- <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
               <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td> -->
               <!-- 未入力 -->
