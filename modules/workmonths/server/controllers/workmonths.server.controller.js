@@ -21,7 +21,11 @@ exports.create = function (req, res) {
 
   // Tạo các ngày làm việc trong tháng
   var current = _m().year(workmonth.year).month(workmonth.month - 1).startOf('month');
-  console.log(current);
+  var startDate = current.clone().subtract(1, 'months').date(21);
+  var endDate = current.clone().date(20);
+  console.log(current.format());
+  console.log(startDate.format());
+  console.log(endDate.format());
   res.end();
   // workmonth.save(function (err) {
   //   if (err) {
