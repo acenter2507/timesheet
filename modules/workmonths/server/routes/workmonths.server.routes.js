@@ -21,6 +21,11 @@ module.exports = function(app) {
     .put(workmonths.update)
     .delete(workmonths.delete);
 
+    app.route('/api/workmonths/:workmonthId/request').all(workmonthsPolicy.isAllowed).post(workmonths.request);
+    app.route('/api/workmonths/:workmonthId/cancel').all(workmonthsPolicy.isAllowed).post(workmonths.cancel);
+    app.route('/api/workmonths/:workmonthId/approve').all(workmonthsPolicy.isAllowed).post(workmonths.approve);
+    app.route('/api/workmonths/:workmonthId/reject').all(workmonthsPolicy.isAllowed).post(workmonths.reject);
+
   // Finish by binding the Workmonth middleware
   app.param('workmonthId', workmonths.workmonthByID);
 };

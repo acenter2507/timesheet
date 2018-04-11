@@ -20,6 +20,12 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/workmonths/:workmonthId',
       permissions: '*'
+    }, {
+      resources: '/api/workmonths/:workmonthId/approve',
+      permissions: ['post']
+    }, {
+      resources: '/api/workmonths/:workmonthId/reject',
+      permissions: ['post']
     }]
   }, {
     roles: ['user'],
@@ -31,13 +37,34 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }]
   }, {
-    roles: ['guest'],
+    roles: ['accountant'],
     allows: [{
       resources: '/api/workmonths',
-      permissions: ['get']
+      permissions: '*'
     }, {
       resources: '/api/workmonths/:workmonthId',
-      permissions: ['get']
+      permissions: '*'
+    }, {
+      resources: '/api/workmonths/:workmonthId/approve',
+      permissions: ['post']
+    }, {
+      resources: '/api/workmonths/:workmonthId/reject',
+      permissions: ['post']
+    }]
+  }, {
+    roles: ['manager'],
+    allows: [{
+      resources: '/api/workmonths',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/workmonths/:workmonthId',
+      permissions: ['get', 'put']
+    }, {
+      resources: '/api/workmonths/:workmonthId/approve',
+      permissions: ['post']
+    }, {
+      resources: '/api/workmonths/:workmonthId/reject',
+      permissions: ['post']
     }]
   }]);
 };

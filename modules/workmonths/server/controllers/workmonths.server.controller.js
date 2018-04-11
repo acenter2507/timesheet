@@ -72,19 +72,11 @@ exports.create = function (req, res) {
       return res.jsonp(workmonth);
     })
     .catch(err => {
+      Workdate.remove({ workmonth: workmonth._id }).exec();
       return res.status(400).send({
         message: 'エラーで勤務表を作成できません！'
       });
     });
-  // workmonth.save(function (err) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   } else {
-  //     res.jsonp(workmonth);
-  //   }
-  // });
 };
 
 /**
@@ -137,6 +129,38 @@ exports.delete = function (req, res) {
       res.jsonp(workmonth);
     }
   });
+};
+
+/**
+ * Gửi thỉnh cầu
+ */
+exports.request = function (req, res) {
+  var workmonth = req.workmonth;
+  res.end();
+};
+
+/**
+ * Hủy bỏ thỉnh cầu
+ */
+exports.cancel = function (req, res) {
+  var workmonth = req.workmonth;
+  res.end();
+};
+
+/**
+ * Chấp nhận bản timesheet
+ */
+exports.approve = function (req, res) {
+  var workmonth = req.workmonth;
+  res.end();
+};
+
+/**
+ * Từ chối bản timesheet
+ */
+exports.reject = function (req, res) {
+  var workmonth = req.workmonth;
+  res.end();
 };
 
 /**
