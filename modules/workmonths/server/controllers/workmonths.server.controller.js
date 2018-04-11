@@ -218,6 +218,7 @@ function isWeekend(date) {
 function getWorkrestsForWorkdate(workdate) {
   return new Promise((resolve, reject) => {
     var date = _m().year(workdate.year).month(workdate.month).date(workdate.date).startOf('date').format();
+    console.log(date);
     Workrest.find({
       $and: [
         { start: { $lte: date } },
