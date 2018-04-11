@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
 var WorkdateSchema = new Schema({
   workmonth: { type: Schema.ObjectId, ref: 'Workmonth' },
   workrests: [{ type: Schema.ObjectId, ref: 'Workrest' }], // 休日形態
+  year: { type: Number },
   month: { type: Number }, // カレンダーの月
   date: { type: Number }, // カレンダーの日
   day: { type: Number }, // 曜日

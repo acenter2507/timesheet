@@ -29,7 +29,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="item in vm.workmonths">
-                <td class="text-center">{{ item.workmonth.index + '月'}}</td>
+                <td class="text-center">{{ item.index + '月'}}</td>
                 <td class="text-center">
                   <span class="label label-default" ng-if="!item.workmonth">未作成</span>
                   <span class="label label-primary" ng-if="item.workmonth.status === 1">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
@@ -37,7 +37,7 @@
                   <span class="label badge-success" ng-if="item.workmonth.status === 3">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
                   <span class="label badge-danger" ng-if="item.workmonth.status === 4">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
                 </td>
-                <td class="d-sm-down-none">{{item.numWorkDate}}</td>
+                <td class="d-sm-down-none">{{item.workmonth.numWorkDate}}</td>
                 <td>
                   <a ng-if="!item.workmonth" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkMonth(item.index)">
                     <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createMonthBusy"></i> 作成</a>

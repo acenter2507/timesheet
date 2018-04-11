@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Workmonth = mongoose.model('Workmonth'),
   Workdate = mongoose.model('Workdate'),
+  Workrest = mongoose.model('Workrest'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore'),
   _m = require('moment'),
@@ -23,11 +24,28 @@ exports.create = function (req, res) {
   var current = _m().year(workmonth.year).month(workmonth.month - 1).startOf('month');
   var startDate = current.clone().subtract(1, 'months').date(21);
   var endDate = current.clone().date(20);
-
   var durration = endDate.diff(startDate, 'days');
 
-  console.log(durration);
-  res.end();
+  var promises = [];
+  for (let index = 0; index <= durration; index++) {
+    var date = startDate.clone().add(index, 'days');
+    var workdate = new Workdate({
+      workmonth: workmonth._id,
+      year: workmonth.year,
+      month: workmonth.month,
+      date: date.date(),
+      isHoliday: isWeekend(date) || jh.isHoliday(new Date(date.format('YYYY/MM/DD'))),
+      user: workmonth.user._id || workmonth.user
+    });
+
+    promises.push(workdate.save());
+  }
+  Promise.all(promises).then(workdates => {
+    console.log(workdates);
+    res.end();
+  }).catch(err => {
+    res.end();
+  });
   // workmonth.save(function (err) {
   //   if (err) {
   //     return res.status(400).send({
@@ -183,3 +201,29 @@ exports.workmonthByID = function (req, res, next, id) {
       next();
     });
 };
+
+function isWeekend(date) {
+  return date.day() === 0 || date.day() === 6;
+}
+// Lấy danh sách ngày nghỉ của 1 ngày làm việc
+function getWorkrestsForWorkdate(workdate) {
+  return Promise((resolve, reject) => {
+    var date = _m().year(workdate.year).month(workdate.month).date(workdate.date).startOf('date').format();
+    Workrest.find({
+      $and: [
+        { start: { $lte: date } },
+        { end: { $gte: date } },
+        {
+          $or: [
+            { status: 3 },
+            { status: 5 },
+          ]
+        }
+      ]
+    }).exec(function (err, workrests) {
+      if (err)
+        return reject(err);
+      return resolve(workrests);
+    })
+  });
+}
