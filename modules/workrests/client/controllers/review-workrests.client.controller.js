@@ -226,16 +226,12 @@
     // Xóa ngày nghỉ theo thỉnh cầu
     vm.handleDelete = workrest => {
       $scope.handleShowConfirm({
-        message: 'この休暇を承認しますか？'
+        message: '削除しますか？'
       }, () => {
-        WorkrestsApi.approve(workrest._id)
-          .success(data => {
-            _.extend(workrest, data);
-            Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
-          })
-          .error(err => {
-            $scope.handleShowToast(err.message, true);
-          });
+        var rsRest = new WorkrestsService({ _id: workrest._id });
+        rsRest.$remove(() => {
+          vm.workrests = _.without(vm.workrests, workrest);
+        });
       });
     };
     vm.handleViewHistory = rest => {
