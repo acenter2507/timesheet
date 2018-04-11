@@ -50,8 +50,7 @@ exports.create = function (req, res) {
       const workdate = workdates[index];
       const workrests = arr[index];
       let workrestIds = _.pluck(workrests, '_id');
-      console.log(workrestIds);
-      workdate.workdates = workrestIds;
+      workdate.workrests = workrestIds;
       _promises.push(workdate.save());
     }
     return Promise.all(_promises);
