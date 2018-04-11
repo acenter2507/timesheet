@@ -23,9 +23,10 @@ exports.create = function (req, res) {
   var current = _m().year(workmonth.year).month(workmonth.month - 1).startOf('month');
   var startDate = current.clone().subtract(1, 'months').date(21);
   var endDate = current.clone().date(20);
-  console.log(current.format());
-  console.log(startDate.format());
-  console.log(endDate.format());
+
+  var durration = endDate.diff(startDate, 'days');
+
+  console.log(durration);
   res.end();
   // workmonth.save(function (err) {
   //   if (err) {
