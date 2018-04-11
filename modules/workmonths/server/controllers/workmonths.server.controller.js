@@ -8,7 +8,9 @@ var path = require('path'),
   Workmonth = mongoose.model('Workmonth'),
   Workdate = mongoose.model('Workdate'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('underscore');
+  _ = require('underscore'),
+  _m = require('moment'),
+  jh = require('japanese-holidays');
 
 /**
  * Create a Workmonth
@@ -17,15 +19,19 @@ exports.create = function (req, res) {
   var workmonth = new Workmonth(req.body);
   workmonth.user = req.user;
 
-  workmonth.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(workmonth);
-    }
-  });
+  // Tạo các ngày làm việc trong tháng
+  var current = _m().year(vm.workmonth.year).month(workmonth.month - 1);
+  console.log(current);
+  res.end();
+  // workmonth.save(function (err) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     res.jsonp(workmonth);
+  //   }
+  // });
 };
 
 /**
