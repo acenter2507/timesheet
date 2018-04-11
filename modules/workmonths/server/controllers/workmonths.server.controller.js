@@ -40,36 +40,29 @@ exports.create = function (req, res) {
       user: workmonth.user._id || workmonth.user
     });
 
-    promises.push(workdate.save());
+    workdates.push(workdate);
+    promises.push(getWorkrestsForWorkdate(workdate));
   }
-  Promise.all(promises).then(_workdates => {
-    workdates = _workdates;
+
+  Promise.all(promises).then(arr => {
     var _promises = [];
-    for (let index = 0; index < workdates.length; index++) {
-      const workdate = workdates[index];
-      _promises.push(getWorkrestsForWorkdate(workdate));
-    }
-    return Promise.all(_promises);
-  })
-  .then(arr => {
-    var __promises = [];
     for (let index = 0; index < workdates.length; index++) {
       const workdate = workdates[index];
       const workrests = arr[index];
       let workrestIds = _.pluck(workrests, '_id');
       workdate.workdates = workrestIds;
-      __promises.push(workdate.save());
+      _promises.push(workdate.save());
     }
-    return Promise.all(__promises);
+    return Promise.all(_promises);
   })
-  .then(_workdates => {
-    workdates = _workdates;
-    console.log(workdates);
-    res.end();
-  })
-  .catch(err => {
-    res.end();
-  });
+    .then(_workdates => {
+      workdates = _workdates;
+      console.log(workdates);
+      res.end();
+    })
+    .catch(err => {
+      res.end();
+    });
   // workmonth.save(function (err) {
   //   if (err) {
   //     return res.status(400).send({
@@ -232,7 +225,7 @@ function isWeekend(date) {
 // Lấy danh sách ngày nghỉ của 1 ngày làm việc
 function getWorkrestsForWorkdate(workdate) {
   return new Promise((resolve, reject) => {
-    var date = _m().year(workdate.year).month(workdate.month -1).date(workdate.date).startOf('date').format();
+    var date = _m().year(workdate.year).month(workdate.month - 1).date(workdate.date).startOf('date').format();
     Workrest.find({
       $and: [
         { start: { $lte: date } },
