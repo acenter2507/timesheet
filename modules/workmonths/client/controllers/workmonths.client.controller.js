@@ -108,7 +108,7 @@
     }
     function prepareShowingData2() {
       vm.workmonth.workdates.forEach(workdate => {
-        workdate.time = moment().year(workdate.year).month(workdate.month).date(workdate.date);
+        workdate.time = moment().year(workdate.year).month(workdate.month - 1).date(workdate.date);
       });
     }
     function prepareShowingData() {
