@@ -31,7 +31,7 @@ exports.create = function (req, res) {
     var date = startDate.clone().add(index, 'days');
     var workdate = new Workdate({
       workmonth: workmonth._id,
-      year: workmonth.year,
+      year: date.year(),
       month: date.month() - 1,
       date: date.date(),
       isHoliday: isWeekend(date) || jh.isHoliday(new Date(date.format('YYYY/MM/DD'))),
