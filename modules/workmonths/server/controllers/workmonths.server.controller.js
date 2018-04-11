@@ -36,6 +36,7 @@ exports.create = function (req, res) {
       year: date.year(),
       month: date.month() + 1,
       date: date.date(),
+      day: date.day(),
       isHoliday: isWeekend(date) || jh.isHoliday(new Date(date.format('YYYY/MM/DD'))),
       user: workmonth.user._id || workmonth.user
     });
