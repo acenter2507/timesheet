@@ -20,7 +20,7 @@ exports.create = function (req, res) {
   workmonth.user = req.user;
 
   // Tạo các ngày làm việc trong tháng
-  var current = _m().year(vm.workmonth.year).month(workmonth.month - 1);
+  var current = _m().year(workmonth.year).month(workmonth.month - 1);
   console.log(current);
   res.end();
   // workmonth.save(function (err) {
