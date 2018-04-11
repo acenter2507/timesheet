@@ -223,6 +223,7 @@ exports.reject = function (req, res) {
 exports.delete = function (req, res) {
   var workrest = req.workrest;
 
+  console.log(workrest);
   if (workrest.status === 3) {
     // 有給休暇の残日を計算する
     var newHolidayCnt = workrest.user.company.paidHolidayCnt + workrest.duration;
