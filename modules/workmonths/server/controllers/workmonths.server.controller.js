@@ -41,9 +41,18 @@ exports.create = function (req, res) {
     promises.push(workdate.save());
   }
   Promise.all(promises).then(workdates => {
-    console.log(workdates);
+    var _promises = [];
+    for (let index = 0; index < workdates.length; index++) {
+      const workdate = workdates[index];
+      _promises.push(getWorkrestsForWorkdate(workdate))
+    }
+    return Promise.all(_promises);
+  })
+  .then(arr => {
+    console.log(arr);
     res.end();
-  }).catch(err => {
+  })
+  .catch(err => {
     res.end();
   });
   // workmonth.save(function (err) {
