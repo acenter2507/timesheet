@@ -178,7 +178,6 @@ exports.approve = function (req, res) {
         if (err)
           return res.status(400).send({ message: '新しいデータを取得できません。' });
         res.jsonp(workrest);
-        console.log(workrest);
         // 有給休暇の残日を計算する
         var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
         User.updateHolidays(workrest.user._id, newHolidayCnt);
@@ -222,8 +221,7 @@ exports.reject = function (req, res) {
  */
 exports.delete = function (req, res) {
   var workrest = req.workrest;
-
-  console.log(workrest);
+  // Đối với những Ngày nghỉ đã được approve thì trả lại số ngày nghỉ
   if (workrest.status === 5) {
     // 有給休暇の残日を計算する
     var newHolidayCnt = workrest.user.company.paidHolidayCnt + workrest.duration;
