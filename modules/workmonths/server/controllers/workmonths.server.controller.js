@@ -20,6 +20,8 @@ exports.create = function (req, res) {
   var workmonth = new Workmonth(req.body);
   workmonth.user = req.user;
 
+  var workdates = [];
+
   // Tạo các ngày làm việc trong tháng
   var current = _m().year(workmonth.year).month(workmonth.month - 1).startOf('month');
   var startDate = current.clone().subtract(1, 'months').date(21);
@@ -40,7 +42,8 @@ exports.create = function (req, res) {
 
     promises.push(workdate.save());
   }
-  Promise.all(promises).then(workdates => {
+  Promise.all(promises).then(_workdates => {
+    workdates = _workdates;
     var _promises = [];
     for (let index = 0; index < workdates.length; index++) {
       const workdate = workdates[index];
@@ -49,7 +52,19 @@ exports.create = function (req, res) {
     return Promise.all(_promises);
   })
   .then(arr => {
-    console.log(arr);
+    var __promises = [];
+    for (let index = 0; index < workdates.length; index++) {
+      const workdate = workdates[index];
+      const workrests = arr[index];
+      let workrestIds = _.pluck(workrests, '_id');
+      workdate.workdates = workrestIds;
+      __promises.push(workdate.save());
+    }
+    return Promise.all(__promises);
+  })
+  .then(_workdates => {
+    workdates = _workdates;
+    console.log(workdates);
     res.end();
   })
   .catch(err => {
@@ -218,7 +233,6 @@ function isWeekend(date) {
 function getWorkrestsForWorkdate(workdate) {
   return new Promise((resolve, reject) => {
     var date = _m().year(workdate.year).month(workdate.month -1).date(workdate.date).startOf('date').format();
-    console.log(date);
     Workrest.find({
       $and: [
         { start: { $lte: date } },
