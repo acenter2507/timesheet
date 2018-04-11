@@ -41,26 +41,40 @@ exports.create = function (req, res) {
     });
 
     workdates.push(workdate);
+    // Lấy danh sách những ngày nghỉ đã đăng ký
     promises.push(getWorkrestsForWorkdate(workdate));
   }
 
-  Promise.all(promises).then(arr => {
-    var _promises = [];
-    for (let index = 0; index < workdates.length; index++) {
-      const workdate = workdates[index];
-      const workrests = arr[index];
-      let workrestIds = _.pluck(workrests, '_id');
-      workdate.workrests = workrestIds;
-      _promises.push(workdate.save());
-    }
-    return Promise.all(_promises);
-  })
+  Promise.all(promises)
+    .then(arr => {
+      var _promises = [];
+      for (let index = 0; index < workdates.length; index++) {
+        const workdate = workdates[index];
+        const workrests = arr[index];
+        let workrestIds = _.pluck(workrests, '_id');
+        workdate.workrests = workrestIds;
+        _promises.push(workdate.save());
+      }
+      return Promise.all(_promises);
+    })
     .then(_workdates => {
       workdates = _workdates;
-      res.end();
+      var workdateIds = _.pluck(workdates, '_id');
+      workmonth.workdates = workdateIds;
+      if (req.user.department) {
+        workmonth.department = req.user.department._id || req.user.department;
+      }
+      workmonth.roles = req.user.roles;
+      workmonth.historys = [{ action: 1, comment: '', timing: new Date(), user: workmonth.user }];
+      return workmonth.save();
+    })
+    .then(_workmonth => {
+      return res.jsonp(workmonth);
     })
     .catch(err => {
-      res.end();
+      return res.status(400).send({
+        message: 'エラーで勤務表を作成できません！'
+      });
     });
   // workmonth.save(function (err) {
   //   if (err) {
