@@ -26,7 +26,7 @@
           <thead>
             <tr>
               <th class="text-center">日付</th>
-              <th class="text-center">曜日</th>
+              <!-- <th class="text-center">曜日</th> -->
               <th>業務内容</th>
               <th class="text-center">開始</th>
               <th class="text-center">終了</th>
@@ -35,37 +35,38 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="item in vm.datas">
-              <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
-              <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td>
+            <tr ng-repeat="item in vm.workmonth.workdates">
+              <td ng-class="{'bg-danger': item.day === 0 || (item.isHoliday && item.day !== 6), 'bg-warning': item.day === 6 }">{{:: item.time.format('MMMM D[日] dddd') }}</td>
+              <!-- <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('MMMM D[日]')"></td>
+              <td ng-class="{'bg-danger': item.date.day() === 0 || (item.workdate.isHoliday && item.date.day() !== 6), 'bg-warning': item.date.day() === 6 }" ng-bind="item.date.format('dddd')"></td> -->
               <!-- 未入力 -->
-              <td ng-if="!item.workdate" colspan="5"></td>
+              <td ng-if="!item" colspan="5"></td>
               <!-- お休み -->
               <!-- <td ng-if="item.work && item.work.rest" colspan="5">
                 <span>{{item.work.rest.holiday.name}}</span>
                 <span ng-bind-html="item.work.rest.description | nl2br"></span>
               </td> -->
               <!-- 出勤 -->
-              <td ng-if="item.workdate">
-                <p ng-if="item.workdate.start">{{:: item.workdate.start }}</p>
-                <p ng-if="!item.workdate.start">未入力</p>
+              <td ng-if="item">
+                <p ng-if="item.start">{{:: item.start }}</p>
+                <p ng-if="!item.start">未入力</p>
               </td>
-              <td ng-if="item.workdate">
-                <p ng-if="item.workdate.end">{{:: item.workdate.end }}</p>
-                <p ng-if="!item.workdate.end">未入力</p>
+              <td ng-if="item">
+                <p ng-if="item.end">{{:: item.end }}</p>
+                <p ng-if="!item.end">未入力</p>
               </td>
-              <td ng-if="item.workdate">
-                <p ng-if="item.workdate.content">{{:: item.workdate.content }}</p>
-                <p ng-if="!item.workdate.content">未入力</p>
+              <td ng-if="item">
+                <p ng-if="item.content">{{:: item.content }}</p>
+                <p ng-if="!item.content">未入力</p>
               </td>
               <td>
                 <button ng-if="item.workrests.length > 0" class="btn btn-danger btn-xs" ng-click="vm.handleViewWorkrest(item)">休暇詳細</button>
               </td>
               <td>
-                <a ng-if="!item.workdate" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">
+                <a ng-if="!item" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkDate(item)">
                   <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkDateBusy"></i> 作成
                 </a>
-                <a ng-if="item.workdate" class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(item)">編集</a>
+                <a ng-if="item" class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(item)">編集</a>
               </td>
             </tr>
           </tbody>

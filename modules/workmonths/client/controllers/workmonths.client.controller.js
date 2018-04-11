@@ -23,24 +23,25 @@
 
     onCreate();
     function onCreate() {
-      vm.syncData = true;
-      prepareDates()
-        .then(() => {
-          return preapreWorkdates();
-        })
-        .then(() => {
-          return prepareRest();
-        })
-        .then(() => {
-          return prepareShowingData();
-        })
-        .then(isChange => {
-          if (isChange) {
-            //vm.workmonth.$update();
-            console.log('Changed');
-          }
-          vm.syncData = false;
-        });
+      prepareShowingData2();
+      // vm.syncData = true;
+      // prepareDates()
+      //   .then(() => {
+      //     return preapreWorkdates();
+      //   })
+      //   .then(() => {
+      //     return prepareRest();
+      //   })
+      //   .then(() => {
+      //     return prepareShowingData();
+      //   })
+      //   .then(isChange => {
+      //     if (isChange) {
+      //       //vm.workmonth.$update();
+      //       console.log('Changed');
+      //     }
+      //     vm.syncData = false;
+      //   });
     }
     // Tạo danh sách các ngày trong tháng
     function prepareDates() {
@@ -103,6 +104,11 @@
             return resolve();
           });
         });
+      });
+    }
+    function prepareShowingData2() {
+      vm.workmonth.workdates.forEach(workdate => {
+        workdate.time = moment().year(workdate.year).month(workdate.month).date(workdate.date);
       });
     }
     function prepareShowingData() {
