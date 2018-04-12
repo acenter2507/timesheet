@@ -10,13 +10,11 @@
   WorkdatesService.$inject = ['$resource'];
 
   function WorkdatesService($resource) {
-    return $resource('api/workdates/:workdateId', {
-      workdateId: '@_id'
-    }, {
-        update: {
-          method: 'PUT'
-        }
-      });
+    return $resource('api/workdates/:workdateId', { workdateId: '@_id' }, {
+      update: {
+        method: 'PUT'
+      }
+    });
   }
 
   WorkdatesApi.$inject = ['$http'];
