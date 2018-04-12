@@ -125,16 +125,16 @@ exports.workdateByID = function (req, res, next, id) {
 };
 
 // Kiểm tra có thể add 1 workrest vào workdate hay không
-exports.verifyWorkdateWithWorkrest = function (date, workrest) {
+exports.verifyWorkdateWithWorkrest = function (mDate, workrest) {
   return new Promise((resolve, reject) => {
     var result = {
       problem: false,
       confirm: false,
       warnings: []
     };
-    var year = date.year();
-    var month = date.month() + 1;
-    var date = date.date();
+    var year = mDate.year();
+    var month = mDate.month() + 1;
+    var date = mDate.date();
     var workdate;
     Workdate.find({ year: year, month: month, date: date })
       .populate('workrests')
@@ -184,7 +184,7 @@ exports.verifyWorkdateWithWorkrest = function (date, workrest) {
           if (workdate.work_duration > 0) {
             result.problem = true;
             result.confirm = true;
-            var str = date.format('LL');
+            var str = mDate.format('LL');
             result.warnings.push(str + 'に勤務時間が入力されている。');
           }
         }

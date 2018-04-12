@@ -26,10 +26,10 @@ exports.create = function (req, res) {
   var current = _m().year(workmonth.year).month(workmonth.month - 1).startOf('month');
   var startDate = current.clone().subtract(1, 'months').date(21);
   var endDate = current.clone().date(20);
-  var durration = endDate.diff(startDate, 'days');
+  var duration = endDate.diff(startDate, 'days');
 
   var promises = [];
-  for (let index = 0; index <= durration; index++) {
+  for (let index = 0; index <= duration; index++) {
     var date = startDate.clone().add(index, 'days');
     var workdate = new Workdate({
       workmonth: workmonth._id,

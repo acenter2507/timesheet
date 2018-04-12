@@ -166,7 +166,7 @@ exports.approve = function (req, res) {
   var duration  = end.diff(start, 'days');
 
   var promises = [];
-  for (let index = 0; index <= durration; index++) {
+  for (let index = 0; index <= duration; index++) {
     var date = start.clone().add(index, 'days');
     promises.push(workdateController.verifyWorkdateWithWorkrest(date, workrest));
   }
