@@ -33,4 +33,29 @@ var WorkdateSchema = new Schema({
 });
 WorkdateSchema.plugin(paginate);
 
+WorkdateSchema.statics.addWorkrest = function (workrestId, year, month, date) {
+  return this.find({ year: year, month: month, date: date })
+    .exec(function (err, workdates) {
+      if (err || workdates.length === 0) return;
+      for (let index = 0; index < workdates.length; index++) {
+        const element = workdates[index];
+        element.workrests.push(workrestId);
+        element.save();
+      }
+    });
+};
+
+WorkdateSchema.statics.removeWorkrest = function (workrestId, year, month, date) {
+  return this.find({ year: year, month: month, date: date })
+    .exec(function (err, workdates) {
+      if (err || workdates.length === 0) return;
+      for (let index = 0; index < workdates.length; index++) {
+        const element = workdates[index];
+        element.workrests.pull(workrestId);
+        element.save();
+      }
+    });
+};
+
+
 mongoose.model('Workdate', WorkdateSchema);

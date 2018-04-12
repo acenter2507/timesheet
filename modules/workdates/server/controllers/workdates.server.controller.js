@@ -9,7 +9,8 @@ var path = require('path'),
   Workmonth = mongoose.model('Workmonth'),
   Workrest = mongoose.model('Workrest'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('underscore'),
+  _m = require('moment');
 
 /**
  * Create a Workdate
@@ -195,3 +196,17 @@ exports.verifyWorkdateWithWorkrest = function (mDate, workrest) {
       });
   });
 };
+// Add mới 1 workrest vào các workdate liên quan
+exports.addWorkrestToWorkdates = function (workrest) {
+  return new Promise((resolve, reject) => {
+    var start = _m(workrest.start);
+    var end = _m(workrest.end);
+    var duration = end.diff(start, 'days');
+    var promises = [];
+    for (let index = 0; index <= duration; index++) {
+      var current = start.clone().add(index, 'days');
+      promises.push(Workdate.addWorkrest(workrest._id, current.year(), current.month + 1, current.date()));
+    }
+    return Promise.all(promises);
+  });
+}

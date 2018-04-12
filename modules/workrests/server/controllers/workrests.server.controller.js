@@ -152,50 +152,6 @@ exports.update = function (req, res) {
 /**
  * Approve a Rest
  */
-exports.verify = function (req, res) {
-  var workrest = req.workrest;
-
-  // Kiểm tra workmonth và workdate
-  var start = _moment(workrest.start);
-  var end = _moment(workrest.end);
-  var duration = end.diff(start, 'days');
-  console.log(duration);
-
-  var promises = [];
-  for (let index = 0; index <= duration; index++) {
-    var date = start.clone().add(index, 'days');
-    promises.push(workdateController.verifyWorkdateWithWorkrest(date, workrest));
-  }
-  Promise.all(promises)
-    .then(result => {
-      var messages = [];
-      var error = false;
-      for (let index = 0; index < result.length; index++) {
-        const checked = result[index];
-        if (checked.problem && !checked.confirm) {
-          return res.send(checked);
-        }
-        if (checked.problem && checked.confirm) {
-          error = true;
-          messages = _.union(messages, checked.warnings);
-        }
-      }
-      if (error) {
-        messages = _.uniq(messages);
-        return res.send({ problem: true, confirm: true, warnings: messages });
-      } else {
-        return res.send({ problem: false });
-      }
-    })
-    .catch(err => {
-      return res.status(400).send({ message: 'エラーが発生しました！' });
-    });
-
-};
-
-/**
- * Approve a Rest
- */
 exports.approve = function (req, res) {
   var workrest = req.workrest;
 
@@ -227,6 +183,8 @@ exports.approve = function (req, res) {
         // 有給休暇の残日を計算する
         var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
         User.updateHolidays(workrest.user._id, newHolidayCnt);
+        // Thêm workrest vào các workdate có liên quan
+        workdateController.addWorkrestToWorkdates(workrest);
         // TODO
         // Load lại toàn bộ thông tin workmonth và workdate
       });
