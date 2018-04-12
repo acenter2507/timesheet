@@ -189,12 +189,46 @@
       $scope.handleShowConfirm({
         message: 'この休暇を承認しますか？'
       }, () => {
-        WorkrestsApi.approve(workrest._id)
-          .success(data => {
-            _.extend(workrest, data);
-            Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
+        WorkrestsApi.verify(workrest._id)
+          .then(res => {
+            var result = res.data;
+            if (result.problem && !result.confirm) {
+              $scope.handleShowToast(result.warnings[0], true);
+              return;
+            }
+
+            if (result.problem && result.confirm) {
+              var message = result.warnings[0];
+              for (let index = 1; index < result.warnings; index++) {
+                message += '<br>' + result.warnings[index];
+              }
+              message += '<br>' + '休暇を承認しますか？';
+              $scope.handleShowConfirm({
+                message: message
+              }, () => {
+                WorkrestsApi.approve(workrest._id)
+                  .success(workrest => {
+                    _.extend(workrest, data);
+                    Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
+                  })
+                  .error(err => {
+                    $scope.handleShowToast(err.message, true);
+                  });;
+              });
+              return;
+            }
+
+            WorkrestsApi.approve(workrest._id)
+              .success(workrest => {
+                _.extend(workrest, data);
+                Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
+              })
+              .error(err => {
+                $scope.handleShowToast(err.message, true);
+              });;
+
           })
-          .error(err => {
+          .catch(err => {
             $scope.handleShowToast(err.message, true);
           });
       });

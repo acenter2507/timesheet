@@ -26,6 +26,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/workrests/:workrestId/reject',
       permissions: ['post']
+    }, {
+      resources: '/api/workrests/:workrestId/verify',
+      permissions: ['post']
     }]
   }, {
     roles: ['user'],
@@ -53,6 +56,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/workrests/:workrestId/reject',
       permissions: ['post']
+    }, {
+      resources: '/api/workrests/:workrestId/verify',
+      permissions: ['post']
     }]
   }, {
     roles: ['manager'],
@@ -67,6 +73,9 @@ exports.invokeRolesPolicies = function () {
       permissions: ['post']
     }, {
       resources: '/api/workrests/:workrestId/reject',
+      permissions: ['post']
+    }, {
+      resources: '/api/workrests/:workrestId/verify',
       permissions: ['post']
     }]
   }]);
