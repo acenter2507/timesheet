@@ -205,7 +205,7 @@ exports.addWorkrestToWorkdates = function (workrest) {
     var promises = [];
     for (let index = 0; index <= duration; index++) {
       var current = start.clone().add(index, 'days');
-      promises.push(Workdate.addWorkrest(workrest._id, current.year(), current.month + 1, current.date()));
+      promises.push(Workdate.addWorkrest(workrest._id, current.year(), current.month() + 1, current.date()));
     }
     return Promise.all(promises);
   });
