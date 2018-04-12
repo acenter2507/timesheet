@@ -22,7 +22,7 @@
   WorkdatesApi.$inject = ['$http'];
   function WorkdatesApi($http) {
     this.getWorkrestsInWorkdate = (workdateId) => {
-      return $http.post('/api/workdates/' + workrestId + '/workrests', {}, { ignoreLoadingBar: true });
+      return $http.post('/api/workdates/' + workdateId + '/workrests', {}, { ignoreLoadingBar: true });
     };
     return this;
   }

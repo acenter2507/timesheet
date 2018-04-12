@@ -17,7 +17,7 @@ module.exports = function (app) {
     .put(workdates.update)
     .delete(workdates.delete);
 
-  app.route('/api/workdates/:workdateId/workrests').post(workmonths.workrests);
+  app.route('/api/workdates/:workdateId/workrests').post(workdates.workrests);
   // Finish by binding the Workdate middleware
   app.param('workdateId', workdates.workdateByID);
 };
