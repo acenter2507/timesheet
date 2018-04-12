@@ -141,9 +141,9 @@ exports.verifyWorkdateWithWorkrest = function (mDate, workrest) {
       .populate('workmonth')
       .populate('transfer_workdate')
       .exec()
-      .then(workdate => {
-        console.log(workdate);
-        if (!workdate) return resolve(result);
+      .then(workdates => {
+        if (workdates.length === 0) return resolve(result);
+        workdate = workdates[0];
         // Trường hợp đã có 2 workrest trở lên
         if (workdate.workrests.length > 1) {
           result.problem = true;
