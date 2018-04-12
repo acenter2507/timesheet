@@ -189,8 +189,7 @@ exports.verifyWorkdateWithWorkrest = function (mDate, workrest) {
           }
         }
         return resolve(result);
-      })
-      .catch(err => {
+      }, err => {
         return reject(result);
       });
   });
