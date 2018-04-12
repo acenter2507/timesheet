@@ -209,4 +209,4 @@ exports.addWorkrestToWorkdates = function (workrest) {
     }
     return Promise.all(promises);
   });
-}
+};
