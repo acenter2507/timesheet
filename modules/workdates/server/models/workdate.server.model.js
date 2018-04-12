@@ -24,6 +24,7 @@ var WorkdateSchema = new Schema({
   middleRest: { type: Number, default: 0 }, // 休憩 (hour)
   overtime: { type: Number, default: 0 }, // 時間外
   overnight: { type: Number, default: 0 }, // 深夜
+  work_duration: { type: Number, default: 0 }, // Số tiếng đã làm việc
   transfer: { type: Boolean, default: false }, // 振替
   transfer_workdate: { type: Schema.ObjectId, ref: 'Workdate' },
   created: { type: Date, default: Date.now },

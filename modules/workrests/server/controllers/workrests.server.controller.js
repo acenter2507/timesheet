@@ -8,6 +8,7 @@ var path = require('path'),
   Workrest = mongoose.model('Workrest'),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  workdateController = require(path.resolve('./modules/workdates/server/controllers/workdates.server.controller')),
   _ = require('underscore'),
   _moment = require('moment');
 
@@ -159,32 +160,53 @@ exports.approve = function (req, res) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
 
-  workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
-  workrest.status = 3;
-  workrest.save((err, rest) => {
-    if (err)
-      return res.status(400).send({ message: '承認処理が完了できません。' });
-    Workrest.findOne(workrest).populate({
-      path: 'historys',
-      populate: {
-        path: 'user',
-        select: 'displayName profileImageURL',
-        model: 'User'
-      }
+  // Kiểm tra workmonth và workdate
+  var start = _moment(workrest.start);
+  var end = _moment(workrest.end);
+  var duration  = end.diff(start, 'days');
+
+  var promises = [];
+  for (let index = 0; index <= durration; index++) {
+    var date = start.clone().add(index, 'days');
+    promises.push(workdateController.verifyWorkdate(date, workrest));
+  }
+  Promise.all(promises)
+    .then(result => {
+      console.log(result);
+      res.end();
     })
-      .populate('holiday', 'name isPaid')
-      .populate('user')
-      .exec((err, workrest) => {
-        if (err)
-          return res.status(400).send({ message: '新しいデータを取得できません。' });
-        res.jsonp(workrest);
-        // 有給休暇の残日を計算する
-        var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
-        User.updateHolidays(workrest.user._id, newHolidayCnt);
-        // TODO
-        // Load lại toàn bộ thông tin workmonth và workdate
-      });
-  });
+    .catch(err => {
+      console.log(err);
+      res.end();
+    });
+
+  // workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
+  // workrest.status = 3;
+  // workrest.save((err, rest) => {
+  //   if (err)
+  //     return res.status(400).send({ message: '承認処理が完了できません。' });
+  //   Workrest.findOne(workrest)
+  //     .populate({
+  //       path: 'historys',
+  //       populate: {
+  //         path: 'user',
+  //         select: 'displayName profileImageURL',
+  //         model: 'User'
+  //       }
+  //     })
+  //     .populate('holiday', 'name isPaid')
+  //     .populate('user')
+  //     .exec((err, workrest) => {
+  //       if (err)
+  //         return res.status(400).send({ message: '新しいデータを取得できません。' });
+  //       res.jsonp(workrest);
+  //       // 有給休暇の残日を計算する
+  //       var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
+  //       User.updateHolidays(workrest.user._id, newHolidayCnt);
+  //       // TODO
+  //       // Load lại toàn bộ thông tin workmonth và workdate
+  //     });
+  // });
 };
 
 /**

@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Workdate = mongoose.model('Workdate'),
   Workmonth = mongoose.model('Workmonth'),
+  Workrest = mongoose.model('Workrest'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -121,4 +122,76 @@ exports.workdateByID = function (req, res, next, id) {
       req.workdate = workdate;
       next();
     });
+};
+
+// Kiểm tra có thể add 1 workrest vào workdate hay không
+exports.verifyWorkdateWithWorkrest = function (date, workrest) {
+  return new Promise((resolve, reject) => {
+    var result = {
+      problem: false,
+      confirm: false,
+      warnings: []
+    };
+    var year = date.year();
+    var month = date.month() + 1;
+    var date = date.date();
+    var workdate;
+    Workdate.find({ year: year, month: month, date: date })
+      .populate('workrests')
+      .populate('workmonth')
+      .populate('transfer_workdate')
+      .exec()
+      .then(workdate => {
+        if (!workdate) return resolve(result);
+        // Trường hợp đã có 2 workrest trở lên
+        if (workdate.workrests.length > 1) {
+          result.problem = true;
+          result.confirm = false;
+          result.warnings.push('二つの休暇が既に申請されましたので休暇を追加できません！');
+          return resolve(result);
+        }
+        // Trường hợp có 1 workrest
+        if (workdate.workrests.length === 1) {
+          var old_workrest = workdate.workrests[0];
+          if (old_workrest.holiday.unit === 1) {
+            result.problem = true;
+            result.confirm = false;
+            result.warnings.push('一日休暇が既に申請されましたので休暇を追加できません！');
+            return resolve(result);
+          } else {
+            if (workrest.holiday.unit === 1) {
+              result.problem = true;
+              result.confirm = false;
+              result.warnings.push('半日休暇が既に申請されましたので休暇を追加できません！');
+              return resolve(result);
+            }
+          }
+        }
+        // Kiểm tra workmonth đang ở trạng thái gì
+        if (workdate.workmonth.status === 2) {
+          result.problem = true;
+          result.confirm = true;
+          result.warnings.push('この日の勤務表が申請されました。');
+        }
+        // Nếu timesheet đã được approve
+        if (workdate.workmonth.status === 3) {
+          result.problem = true;
+          result.confirm = true;
+          result.warnings.push('この日の勤務表が承認されました。');
+        }
+        // Trường hợp chưa có workrest nào tồn tại thì kiểm tra thời gian đã nhập
+        if (workdate.workrests.length === 0 && workrest.holiday.unit === 1) {
+          if (workdate.work_duration > 0) {
+            result.problem = true;
+            result.confirm = true;
+            var str = date.format('LL');
+            result.warnings.push(str + 'に勤務時間が入力されている。');
+          }
+        }
+        return resolve(result);
+      })
+      .catch(err => {
+        return reject(result);
+      });
+  });
 };
