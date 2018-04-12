@@ -102,7 +102,7 @@ exports.workrests = function (req, res) {
   var promises = [];
   for (let index = 0; index < workdate.workrests.length; index++) {
     const workrestID = workdate.workrests[index]._id || workdate.workrests[index];
-    promises.push(Workrest.findById(workrestID).exec());
+    promises.push(Workrest.findById(workrestID).populate('holiday').exec());
   }
   Promise.all(promises)
     .then(workrests => {
