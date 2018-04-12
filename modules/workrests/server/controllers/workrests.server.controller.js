@@ -225,18 +225,20 @@ exports.reject = function (req, res) {
  */
 exports.delete = function (req, res) {
   var workrest = req.workrest;
-  // Đối với những Ngày nghỉ đã được approve thì trả lại số ngày nghỉ
-  if (workrest.status === 5) {
-    // 有給休暇の残日を計算する
-    var newHolidayCnt = workrest.user.company.paidHolidayCnt + workrest.duration;
-    User.updateHolidays(workrest.user._id, newHolidayCnt);
-  }
   workrest.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      // Đối với những Ngày nghỉ đã được approve thì trả lại số ngày nghỉ
+      if (workrest.status === 5 || workrest.status === 3) {
+        // 有給休暇の残日を計算する
+        var newHolidayCnt = workrest.user.company.paidHolidayCnt + workrest.duration;
+        User.updateHolidays(workrest.user._id, newHolidayCnt);
+        // Xóa bỏ workrest khỏi workdate liên quan
+        workdateController.removeWorkrestToWorkdates(workrest);
+      }
       res.jsonp(workrest);
     }
   });

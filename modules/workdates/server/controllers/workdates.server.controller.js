@@ -210,3 +210,17 @@ exports.addWorkrestToWorkdates = function (workrest) {
     return Promise.all(promises);
   });
 };
+// Xóa 1 workrest khỏi các workdate liên quan
+exports.removeWorkrestToWorkdates = function (workrest) {
+  return new Promise((resolve, reject) => {
+    var start = _m(workrest.start);
+    var end = _m(workrest.end);
+    var duration = end.diff(start, 'days');
+    var promises = [];
+    for (let index = 0; index <= duration; index++) {
+      var current = start.clone().add(index, 'days');
+      promises.push(Workdate.removeWorkrest(workrest._id, current.year(), current.month() + 1, current.date()));
+    }
+    return Promise.all(promises);
+  });
+};
