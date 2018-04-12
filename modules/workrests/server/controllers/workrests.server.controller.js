@@ -168,7 +168,7 @@ exports.approve = function (req, res) {
   var promises = [];
   for (let index = 0; index <= durration; index++) {
     var date = start.clone().add(index, 'days');
-    promises.push(workdateController.verifyWorkdate(date, workrest));
+    promises.push(workdateController.verifyWorkdateWithWorkrest(date, workrest));
   }
   Promise.all(promises)
     .then(result => {
