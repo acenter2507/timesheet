@@ -177,7 +177,7 @@ exports.verify = function (req, res) {
         }
         if (checked.problem && checked.confirm) {
           error = true;
-          messages = _.union(messages, checked.warnings)
+          messages = _.union(messages, checked.warnings);
         }
       }
       if (error) {

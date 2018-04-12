@@ -207,25 +207,25 @@
                 message: message
               }, () => {
                 WorkrestsApi.approve(workrest._id)
-                  .success(workrest => {
+                  .success(data => {
                     _.extend(workrest, data);
                     Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
                   })
                   .error(err => {
                     $scope.handleShowToast(err.message, true);
-                  });;
+                  });
               });
               return;
             }
 
             WorkrestsApi.approve(workrest._id)
-              .success(workrest => {
+              .success(data => {
                 _.extend(workrest, data);
                 Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
               })
               .error(err => {
                 $scope.handleShowToast(err.message, true);
-              });;
+              });
 
           })
           .catch(err => {
