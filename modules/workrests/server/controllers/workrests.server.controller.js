@@ -164,6 +164,7 @@ exports.approve = function (req, res) {
   var start = _moment(workrest.start);
   var end = _moment(workrest.end);
   var duration  = end.diff(start, 'days');
+  console.log(duration);
 
   var promises = [];
   for (let index = 0; index <= duration; index++) {
