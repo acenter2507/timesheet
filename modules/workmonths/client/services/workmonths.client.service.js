@@ -19,10 +19,10 @@
   WorkmonthsApi.$inject = ['$http'];
   function WorkmonthsApi($http) {
     this.getWorkMonthsByYearAndUser = (year, userId) => {
-      return $http.post('/api/months/workmonthsByYearAndUser', { year: year, userId: userId }, { ignoreLoadingBar: true });
+      return $http.post('/api/workmonths/workmonthsByYearAndUser', { year: year, userId: userId }, { ignoreLoadingBar: true });
     };
     this.getHolidayWorking = (workmonthId) => {
-      return $http.post('/api/months/getHolidayWorking', { workmonthId: workmonthId }, { ignoreLoadingBar: true });
+      return $http.post('/api/workmonths/getHolidayWorking', { workmonthId: workmonthId }, { ignoreLoadingBar: true });
     };
     return this;
   }

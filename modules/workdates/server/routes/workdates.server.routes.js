@@ -6,7 +6,7 @@
 var workdatesPolicy = require('../policies/workdates.server.policy'),
   workdates = require('../controllers/workdates.server.controller');
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Workdates Routes
   app.route('/api/workdates').all(workdatesPolicy.isAllowed)
     .get(workdates.list)
@@ -17,6 +17,7 @@ module.exports = function(app) {
     .put(workdates.update)
     .delete(workdates.delete);
 
+  app.route('/api/workdates/:workdateId/workrests').post(workmonths.workrests);
   // Finish by binding the Workdate middleware
   app.param('workdateId', workdates.workdateByID);
 };

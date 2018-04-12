@@ -6,9 +6,9 @@
     .module('workmonths')
     .controller('WorkmonthsController', WorkmonthsController);
 
-  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkrestsApi', 'WorkdatesService', 'DateUtil', 'ngDialog', 'CommonService'];
+  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkrestsApi', 'WorkdatesApi', 'DateUtil', 'ngDialog', 'CommonService'];
 
-  function WorkmonthsController($scope, $state, $window, workmonth, WorkrestsApi, WorkdatesService, DateUtil, ngDialog, CommonService) {
+  function WorkmonthsController($scope, $state, $window, workmonth, WorkrestsApi, WorkdatesApi, DateUtil, ngDialog, CommonService) {
     var vm = this;
 
     vm.workmonth = workmonth;
@@ -34,14 +34,22 @@
       $state.go($state.previous.state.name || 'workmonths.list', $state.previous.params);
     }
     vm.handleViewWorkrest = workdate => {
-      $scope.workdate = workdate;
-      var mDialog = ngDialog.open({
-        template: 'workrests_list.html',
-        scope: $scope
-      });
-      mDialog.closePromise.then(function (res) {
-        delete $scope.workdate;
-      });
+      WorkdatesApi.getWorkrestsInWorkdate(workdate._id)
+        .success(res => {
+          $scope.workrests = res;
+          $scope.time = workdate.time;
+          var mDialog = ngDialog.open({
+            template: 'workrests_list.html',
+            scope: $scope
+          });
+          mDialog.closePromise.then(function (res) {
+            delete $scope.workrests;
+            delete $scope.time;
+          });
+        })
+        .error(err => {
+          $scope.handleShowToast(err.message, true);
+        });
     };
 
     vm.handleEditWorkDate = workdate => {
@@ -113,77 +121,77 @@
   //     });
   //   });
   // }
-    // function prepareShowingData_() {
-    //   return new Promise((resolve, reject) => {
-    //     var workdatesSave = [];
-    //     for (var index = 0; index < vm.dates.length; index++) {
-    //       var date = vm.dates[index];
-    //       var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
+  // function prepareShowingData_() {
+  //   return new Promise((resolve, reject) => {
+  //     var workdatesSave = [];
+  //     for (var index = 0; index < vm.dates.length; index++) {
+  //       var date = vm.dates[index];
+  //       var workdate = _.findWhere(vm.workmonth.workdates, { month: date.month() + 1, date: date.date() });
 
-    //       // Nếu là cuối tuần thì ko apply ngày nghỉ
-    //       if (DateUtil.isWeekend(date)) {
-    //         vm.datas.push({ date: date, workdate: workdate, workrests: [] });
-    //         continue;
-    //       }
+  //       // Nếu là cuối tuần thì ko apply ngày nghỉ
+  //       if (DateUtil.isWeekend(date)) {
+  //         vm.datas.push({ date: date, workdate: workdate, workrests: [] });
+  //         continue;
+  //       }
 
-    //       // Nếu ngày hiện tại là ngày lễ
-    //       var offdate = JapaneseHolidays.isHoliday(new Date(date.format('YYYY/MM/DD')));
-    //       if (offdate) {
-    //         vm.datas.push({ date: date, workdate: workdate, workrests: [] });
-    //         continue;
-    //       }
+  //       // Nếu ngày hiện tại là ngày lễ
+  //       var offdate = JapaneseHolidays.isHoliday(new Date(date.format('YYYY/MM/DD')));
+  //       if (offdate) {
+  //         vm.datas.push({ date: date, workdate: workdate, workrests: [] });
+  //         continue;
+  //       }
 
-    //       var workrests = getRestByDate(date);
-    //       var workrest_ids = _.pluck(workrests, '_id');
+  //       var workrests = getRestByDate(date);
+  //       var workrest_ids = _.pluck(workrests, '_id');
 
-    //       if (!CommonService.comapreTwoArrays(workdate.workrests, workrest_ids)) {
-    //         var rs_workdate = new WorkdatesService({ _id: workdate._id, workrests: workrest_ids });
-    //         workdate.workrests = workrest_ids;
-    //         workdatesSave.push(rs_workdate.$update());
-    //       }
-    //       vm.datas.push({ date: date, workdate: workdate, workrests: workrests });
-    //     }
-    //     Promise.all(workdatesSave).then(() => {
-    //       return resolve();
-    //     });
-    //   });
-    // }
-    // function getRestByDate(date) {
-    //   var workrests = [];
-    //   for (let index = 0; index < vm.workrests.length; index++) {
-    //     const rest = vm.workrests[index];
-    //     var start = moment(rest.start).format();
-    //     var end = moment(rest.end).format();
-    //     if (date.isBetween(start, end, 'date', '[]')) {
-    //       workrests.push(rest);
-    //     }
-    //   }
-    //   return workrests;
-    // }
-    // vm.createWorkDateBusy = false;
-    // vm.handleCreateWorkDate = item => {
-    //   if (vm.createWorkDateBusy) return;
-    //   vm.createWorkDateBusy = true;
-    //   var workrests = [];
-    //   var workrest_ids = [];
-    //   var offdate = JapaneseHolidays.isHoliday(new Date(item.date.format('YYYY/MM/DD')));
-    //   if (!DateUtil.isWeekend(item.date) && !offdate) {
-    //     workrests = getRestByDate(item.date);
-    //     workrest_ids = _.pluck(workrests, '_id');
-    //   }
-    //   var rs_workdate = new WorkdatesService({
-    //     workmonth: vm.workmonth._id,
-    //     month: item.date.month() + 1,
-    //     date: item.date.date(),
-    //     day: item.date.day(),
-    //     workrests: workrest_ids
-    //   });
+  //       if (!CommonService.comapreTwoArrays(workdate.workrests, workrest_ids)) {
+  //         var rs_workdate = new WorkdatesService({ _id: workdate._id, workrests: workrest_ids });
+  //         workdate.workrests = workrest_ids;
+  //         workdatesSave.push(rs_workdate.$update());
+  //       }
+  //       vm.datas.push({ date: date, workdate: workdate, workrests: workrests });
+  //     }
+  //     Promise.all(workdatesSave).then(() => {
+  //       return resolve();
+  //     });
+  //   });
+  // }
+  // function getRestByDate(date) {
+  //   var workrests = [];
+  //   for (let index = 0; index < vm.workrests.length; index++) {
+  //     const rest = vm.workrests[index];
+  //     var start = moment(rest.start).format();
+  //     var end = moment(rest.end).format();
+  //     if (date.isBetween(start, end, 'date', '[]')) {
+  //       workrests.push(rest);
+  //     }
+  //   }
+  //   return workrests;
+  // }
+  // vm.createWorkDateBusy = false;
+  // vm.handleCreateWorkDate = item => {
+  //   if (vm.createWorkDateBusy) return;
+  //   vm.createWorkDateBusy = true;
+  //   var workrests = [];
+  //   var workrest_ids = [];
+  //   var offdate = JapaneseHolidays.isHoliday(new Date(item.date.format('YYYY/MM/DD')));
+  //   if (!DateUtil.isWeekend(item.date) && !offdate) {
+  //     workrests = getRestByDate(item.date);
+  //     workrest_ids = _.pluck(workrests, '_id');
+  //   }
+  //   var rs_workdate = new WorkdatesService({
+  //     workmonth: vm.workmonth._id,
+  //     month: item.date.month() + 1,
+  //     date: item.date.date(),
+  //     day: item.date.day(),
+  //     workrests: workrest_ids
+  //   });
 
-    //   rs_workdate.$save(res => {
-    //     item.workdate = res;
-    //     item.workrests = workrests;
-    //     vm.createWorkDateBusy = false;
-    //   });
-    // };
+  //   rs_workdate.$save(res => {
+  //     item.workdate = res;
+  //     item.workrests = workrests;
+  //     vm.createWorkDateBusy = false;
+  //   });
+  // };
 
 }());

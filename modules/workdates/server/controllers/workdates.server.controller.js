@@ -95,6 +95,27 @@ exports.list = function (req, res) {
 };
 
 /**
+ * Lấy danh sách Workrest trong 1 Workdate
+ */
+exports.workrests = function (req, res) {
+  var workdate = req.workdate;
+  var promises = [];
+  for (let index = 0; index < workdate.workrests.length; index++) {
+    const workrestID = workdate.workrests[index]._id || workdate.workrests[index];
+    promises.push(Workrest.findById(workrestID).exec());
+  }
+  Promise.all(promises)
+    .then(workrests => {
+      res.jsonp(workrests);
+    })
+    .catch(err => {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    });
+};
+
+/**
  * Workdate middleware
  */
 exports.workdateByID = function (req, res, next, id) {

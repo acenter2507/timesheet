@@ -31,33 +31,20 @@
               <th class="text-center">開始</th>
               <th class="text-center">終了</th>
               <th class="text-center">休暇</th>
+              <th class="text-center">警告</th>
               <th>操作</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="workdate in vm.workmonth.workdates">
-              <td ng-class="{'bg-danger': workdate.day === 0 || (workdate.isHoliday && workdate.day !== 6), 'bg-warning': workdate.day === 6 }">{{:: workdate.time.format('MMMM D[日] dd') }}</td>
-              <!-- 未入力 -->
-              <td ng-if="!workdate" colspan="5"></td>
-              <!-- お休み -->
-              <!-- <td ng-if="item.work && item.work.rest" colspan="5">
-                <span>{{item.work.rest.holiday.name}}</span>
-                <span ng-bind-html="item.work.rest.description | nl2br"></span>
-              </td> -->
+              <td ng-class="{'bg-danger': workdate.day === 0 || (workdate.isHoliday && workdate.day !== 6), 'bg-warning': workdate.day === 6 }">
+                {{:: workdate.time.format('MMMM D[日] dd') }}
+              </td>
               <!-- 出勤 -->
-              <td>
-                <p ng-if="workdate.start">{{:: item.start }}</p>
-                <p ng-if="!workdate.start">未入力</p>
-              </td>
-              <td>
-                <p ng-if="workdate.end">{{:: item.end }}</p>
-                <p ng-if="!workdate.end">未入力</p>
-              </td>
-              <td>
-                <p ng-if="workdate.content">{{:: item.content }}</p>
-                <p ng-if="!workdate.content">未入力</p>
-              </td>
-              <td>
+              <td>{{:: item.content || '未入力' }}</td>
+              <td>{{:: item.start || '未入力' }}</td>
+              <td>{{:: item.end || '未入力' }}</td>
+              <td class="text-center">
                 <button ng-if="workdate.workrests.length > 0" class="btn btn-danger btn-xs" ng-click="vm.handleViewWorkrest(workdate)">休暇詳細</button>
               </td>
               <td>
@@ -72,7 +59,7 @@
 </div>
 
 <script type="text/ng-template" id="workrests_list.html">
-  <h4>{{workdate.time | LL}}</h4>
+  <h4>{{time | LL}}</h4>
   <div class="row">
     <div class="col-xs-12">
       <div class="table-responsive">
@@ -84,7 +71,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="workrest in workdate.workrests">
+            <tr ng-repeat="workrest in workrests">
               <td>{{ workrest.holiday.name }}</td>
               <td>{{ workrest.description }}</td>
             </tr>
