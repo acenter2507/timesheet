@@ -98,7 +98,6 @@ exports.read = function (req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       return res.jsonp(workmonth);
-
     });
 };
 
