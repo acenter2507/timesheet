@@ -84,14 +84,22 @@ exports.create = function (req, res) {
  * Show the current Workmonth
  */
 exports.read = function (req, res) {
-  // convert mongoose document to JSON
-  var workmonth = req.workmonth ? req.workmonth.toJSON() : {};
+  Workrest.findById(req.workmonth._id)
+    .populate({
+      path: 'historys', populate: [
+        { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+      ]
+    })
+    .populate('user', 'displayName')
+    .populate('workdates')
+    .exec(function (err, workmonth) {
+      if (err)
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      return res.jsonp(workmonth);
 
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  workmonth.isCurrentUserOwner = req.user && workmonth.user && workmonth.user._id.toString() === req.user._id.toString();
-
-  res.jsonp(workmonth);
+    });
 };
 
 /**
