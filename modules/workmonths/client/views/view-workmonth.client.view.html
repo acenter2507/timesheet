@@ -37,8 +37,7 @@
             </td>
           </tr>
           <tr>
-            <td colspan="2">
-              <button class="btn btn-sm btn-default" ng-click="vm.handlePreviousScreen()">戻る</button>
+            <td colspan="2" class="text-right">
               <button class="btn btn-sm btn-info" ng-click="vm.handleViewYear()">{{:: vm.workmonth.year}}</button>
               <button ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" class="btn btn-sm btn-default">申請</button>
               <button ng-if="vm.workmonth.status === 2" class="btn btn-sm btn-warning">キャンセル</button>
