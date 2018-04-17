@@ -84,7 +84,7 @@ exports.create = function (req, res) {
  * Show the current Workmonth
  */
 exports.read = function (req, res) {
-  Workrest.findById(req.workmonth._id)
+  Workmonth.findById(req.workmonth._id)
     .populate({
       path: 'historys', populate: [
         { path: 'user', select: 'displayName profileImageURL', model: 'User' },
