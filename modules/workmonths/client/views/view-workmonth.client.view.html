@@ -5,6 +5,37 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-xs-12">
+      <!-- 歴史 -->
+      <div class="form-group">
+        <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
+      </div>
+      <div class="clearfix mg5y"></div>
+      <table class="table table-bordered" ng-show="vm.isShowHistory">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>操作</th>
+            <th>コメント</th>
+            <th>操作者</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="history in vm.workmonth.historys">
+            <td>{{history.timing | LLLL}}</td>
+            <td>{{history.action | RestActionFilter}}</td>
+            <td>
+              <p ng-bind-html="history.comment | nl2br"></p>
+            </td>
+            <td>
+              <a ng-click="vm.handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-4 col-sm-12 col-md-push-8 col-lg-3 col-lg-push-9">
       <div class="well">
         <table class="table">
@@ -42,6 +73,7 @@
               <button ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" class="btn btn-sm btn-default" ng-click="vm.handleSendRequestMonth()">申請</button>
               <button ng-if="vm.workmonth.status === 2" class="btn btn-sm btn-warning" ng-click="vm.handleCancelRequestMonth()">キャンセル</button>
               <button ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" class="btn btn-sm btn-danger" ng-click="vm.handleDeleteMonth()">削除</button>
+              <button class="btn btn-info btn-sm" ng-click="vm.handleViewHistory()">歴史</button>
             </td>
           </tr>
         </table>

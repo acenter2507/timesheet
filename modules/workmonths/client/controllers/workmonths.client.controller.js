@@ -14,6 +14,8 @@
     vm.workmonth = workmonth;
     vm.currentMonth = moment().year(vm.workmonth.year).month(vm.workmonth.month - 1);
 
+    vm.isShowHistory = false;
+
     onCreate();
     function onCreate() {
       prepareShowingData();
@@ -80,6 +82,12 @@
             $scope.handleShowToast(err.message, true);
           });
       });
+    };
+    vm.handleViewHistory = rest => {
+      vm.isShowHistory = true;
+    };
+    vm.handleCloseHistory = () => {
+      vm.isShowHistory = false;
     };
     // Xóa workmonth
     vm.handleDeleteMonth = () => {
