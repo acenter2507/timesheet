@@ -24,6 +24,18 @@
     this.getHolidayWorking = (workmonthId) => {
       return $http.post('/api/workmonths/getHolidayWorking', { workmonthId: workmonthId }, { ignoreLoadingBar: true });
     };
+    this.approve = workmonthId => {
+      return $http.post('/api/workmonths/' + workmonthId + '/approve', null, { ignoreLoadingBar: true });
+    };
+    this.reject = (workmonthId, data) => {
+      return $http.post('/api/workmonths/' + workmonthId + '/reject', { data: data }, { ignoreLoadingBar: true });
+    };
+    this.request = workmonthId => {
+      return $http.post('/api/workmonths/' + workmonthId + '/request', null, { ignoreLoadingBar: true });
+    };
+    this.cancel = workmonthId => {
+      return $http.post('/api/workmonths/' + workmonthId + '/cancel', null, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());

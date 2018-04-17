@@ -38,10 +38,10 @@
           </tr>
           <tr>
             <td colspan="2" class="text-right">
-              <button class="btn btn-sm btn-info" ng-click="vm.handleViewYear()">{{:: vm.workmonth.year}}</button>
-              <button ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" class="btn btn-sm btn-default">申請</button>
-              <button ng-if="vm.workmonth.status === 2" class="btn btn-sm btn-warning">キャンセル</button>
-              <button ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" class="btn btn-sm btn-danger">削除</button>
+              <button class="btn btn-sm btn-success" ng-click="vm.handleViewYear()">{{:: vm.workmonth.year}}</button>
+              <button ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" class="btn btn-sm btn-default" ng-click="vm.handleSendRequestMonth()">申請</button>
+              <button ng-if="vm.workmonth.status === 2" class="btn btn-sm btn-warning" ng-click="vm.handleCancelRequestMonth()">キャンセル</button>
+              <button ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" class="btn btn-sm btn-danger" ng-click="vm.handleDeleteMonth()">削除</button>
             </td>
           </tr>
         </table>
@@ -58,6 +58,7 @@
               <th>開始</th>
               <th>終了</th>
               <th class="text-center">休暇</th>
+              <th>メモ</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -67,12 +68,13 @@
                 {{:: workdate.time.format('MMMM D[日] dd') }}
               </td>
               <!-- 出勤 -->
-              <td>{{:: item.content || '未入力' }}</td>
-              <td>{{:: item.start || '未入力' }}</td>
-              <td>{{:: item.end || '未入力' }}</td>
+              <td>{{:: workdate.content || '未入力' }}</td>
+              <td>{{:: workdate.start || '未入力' }}</td>
+              <td>{{:: workdate.end || '未入力' }}</td>
               <td class="text-center">
                 <button ng-if="workdate.workrests.length > 0" class="btn btn-danger btn-xs" ng-click="vm.handleViewWorkrest(workdate)">休暇詳細</button>
               </td>
+              <td>{{:: workdate.note || '' }}</td>
               <td>
                 <a class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(workdate)">編集</a>
               </td>
