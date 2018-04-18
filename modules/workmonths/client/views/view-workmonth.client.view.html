@@ -100,9 +100,9 @@
                 {{:: workdate.time.format('MMMM D[日] dd') }}
               </td>
               <!-- 出勤 -->
-              <td>{{:: workdate.content || '未入力' }}</td>
-              <td>{{:: workdate.start || '未入力' }}</td>
-              <td>{{:: workdate.end || '未入力' }}</td>
+              <td>{{:: workdate.content }}</td>
+              <td>{{:: workdate.start }}</td>
+              <td>{{:: workdate.end }}</td>
               <td class="text-center">
                 <button ng-if="workdate.workrests.length > 0" class="btn btn-danger btn-xs" ng-click="vm.handleViewWorkrest(workdate)">休暇詳細</button>
               </td>
