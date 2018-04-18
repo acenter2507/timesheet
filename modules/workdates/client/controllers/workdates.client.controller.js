@@ -114,7 +114,6 @@
     };
 
     function handleStartSave() {
-      console.log(vm.workdate);
       var rs_workdate = new WorkdatesService({
         _id: vm.workdate._id,
         content: vm.workdate.content,
@@ -190,7 +189,7 @@
       if (!vm.workdate.isHoliday) {
         work_range = Constant.workRange;
       }
-
+      
       // Trường hợp End nhỏ hơn start (làm qua đêm)
       if (end.isBefore(start) || end.isSame(start)) {
         // Mốc thời gian kết thúc 1 ngày
@@ -246,6 +245,8 @@
         }
       }
 
+
+
       vm.workdate.new_overtime = overtime_duration;
       vm.workdate.new_overnight = overnight_duration;
 
@@ -260,6 +261,7 @@
       if (CommonService.isStringEmpty(vm.workdate.bk_start)) {
         vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate + 1;
       }
+      vm.workdate.work_duration = work_duration;
     };
 
     vm.handleCompensatoryOff = () => {
