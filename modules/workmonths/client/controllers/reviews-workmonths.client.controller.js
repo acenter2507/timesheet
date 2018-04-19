@@ -64,6 +64,7 @@
         });
     }
     vm.handleUserSelected = user => {
+      vm.userSearchKey = user.displayName;
       console.log(user);
     };
   }
