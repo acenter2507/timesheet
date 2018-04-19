@@ -358,7 +358,8 @@ exports.getWorkmonthsReview = function (req, res) {
     sort: condition.sort,
     page: page,
     populate: [
-      { path: 'workdates' }
+      { path: 'workdates' },
+      { path: 'user', select: 'profileImageURL displayName' }
     ],
     // populate: [
     //   { path: 'workdates', select: 'name isPaid' },
