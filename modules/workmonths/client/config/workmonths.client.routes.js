@@ -23,6 +23,14 @@
         data: { roles: ['user', 'admin', 'manager', 'accountant'] },
         ncyBreadcrumb: { label: '一覧' }
       })
+      .state('workmonths.reviews', {
+        url: '?user',
+        templateUrl: 'modules/workmonths/client/views/reviews-workmonths.client.view.html',
+        controller: 'WorkmonthsReviewsController',
+        controllerAs: 'vm',
+        data: { roles: ['accountant', 'admin'] },
+        ncyBreadcrumb: { label: '確認' }
+      })
       .state('workmonths.view', {
         url: '/:workmonthId',
         templateUrl: 'modules/workmonths/client/views/view-workmonth.client.view.html',

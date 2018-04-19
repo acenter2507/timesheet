@@ -165,7 +165,7 @@
     function handleSearchUser() {
       if (vm.isSearching) return;
       vm.isSearching = true;
-      AdminUserApi.searchUsers(vm.searchKey)
+      AdminUserApi.searchUsers({ key: vm.searchKey, department: true })
         .success(users => {
           vm.searchResult = users;
           vm.isSearching = false;

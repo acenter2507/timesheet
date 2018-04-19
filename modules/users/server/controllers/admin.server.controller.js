@@ -202,10 +202,18 @@ exports.loadUsers = function (req, res) {
  * Tìm kiếm user với key và list ignore
  */
 exports.searchUsers = function (req, res) {
-  var key = req.body.key;
-  var roles = req.body.roles || [];
+  var condition = req.body.condition || {};
+  var key = condition.key;
+  var roles = condition.roles || [];
+  var department = condition.department || false;
+
   var ands = [{ roles: { $ne: 'admin' } }];
-  ands.push({ $or: [{ department: null }, { department: { $exists: false } }] });
+  if (roles.length > 0) {
+    ands.push({ roles: roles });
+  }
+  if (department) {
+    ands.push({ $or: [{ department: null }, { department: { $exists: false } }] });
+  }
 
   if (key && key.length > 0) {
     var key_lower = key.toLowerCase();
@@ -221,6 +229,7 @@ exports.searchUsers = function (req, res) {
 
     ands.push({ $or: or_arr });
   }
+
   var query = { $and: ands };
   User.find(query)
     .select('displayName email profileImageURL roles')
