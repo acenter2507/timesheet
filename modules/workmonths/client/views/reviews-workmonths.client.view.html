@@ -175,7 +175,7 @@
           <tr ng-repeat="workmonth in vm.workmonths track by $index">
             <td>
               <img class="user-common-avatar-small" src="{{workmonth.user.profileImageURL}}">
-              <a ng-click="vm.handleViewDetailUser(workmonth.user)">{{rest.user.displayName}}</a>
+              <a ng-click="vm.handleViewDetailUser(workmonth.user)">{{workmonth.user.displayName}}</a>
             </td>
             <td>{{ workmonth.year }}</td>
             <td>{{ workmonth.month }}</td>
