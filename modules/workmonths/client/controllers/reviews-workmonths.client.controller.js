@@ -50,15 +50,17 @@
     function handleSearchUser() {
       if (vm.isUserSearching) return;
       vm.isUserSearching = true;
+      vm.isShowUserDropdown = true;
       AdminUserApi.searchUsers({ key: vm.userSearchKey, department: false })
         .success(users => {
           vm.users = users;
-          vm.isSearching = false;
+          vm.isUserSearching = false;
           if (!$scope.$$phase) $scope.$digest();
         })
         .error(err => {
           $scope.handleShowToast(err.message, true);
           vm.isUserSearching = false;
+          vm.isShowUserDropdown = false;
         });
     }
     vm.handleLeaderSelected = user => {
