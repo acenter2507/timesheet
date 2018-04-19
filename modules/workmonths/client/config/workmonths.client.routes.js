@@ -31,6 +31,15 @@
         data: { roles: ['accountant', 'admin'] },
         ncyBreadcrumb: { label: '確認' }
       })
+      .state('workmonths.review', {
+        url: '/review/:workmonthId',
+        templateUrl: 'modules/workmonths/client/views/review-workmonth.client.view.html',
+        controller: 'WorkmonthReviewController',
+        controllerAs: 'vm',
+        resolve: { workmonthResolve: getWorkmonth },
+        data: { roles: ['accountant', 'admin'] },
+        ncyBreadcrumb: { label: '詳細確認' }
+      })
       .state('workmonths.view', {
         url: '/:workmonthId',
         templateUrl: 'modules/workmonths/client/views/view-workmonth.client.view.html',
