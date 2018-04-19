@@ -5,9 +5,9 @@
     .module('workmonths')
     .controller('WorkmonthsReviewsController', WorkmonthsReviewsController);
 
-  WorkmonthsReviewsController.$inject = ['WorkmonthsService', '$scope', '$state', 'DateUtil', '$stateParams', 'CommonService', 'WorkmonthsApi', '$timeout'];
+  WorkmonthsReviewsController.$inject = ['WorkmonthsService', '$scope', '$state', 'DateUtil', '$stateParams', 'CommonService', 'WorkmonthsApi', '$timeout', 'AdminUserApi'];
 
-  function WorkmonthsReviewsController(WorkmonthsService, $scope, $state, DateUtil, $stateParams, CommonService, WorkmonthsApi, $timeout) {
+  function WorkmonthsReviewsController(WorkmonthsService, $scope, $state, DateUtil, $stateParams, CommonService, WorkmonthsApi, $timeout, AdminUserApi) {
     var vm = this;
 
     vm.workmonths = [];
