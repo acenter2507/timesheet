@@ -10,6 +10,7 @@ module.exports = function (app) {
   // Get all month in year of 1 user
   app.route('/api/workmonths/workmonthsByYearAndUser').post(workmonths.getMonthsOfYearByUser);
   app.route('/api/workmonths/getHolidayWorking').post(workmonths.getHolidayWorking);
+  app.route('/api/workrests/review').post(workmonths.getWorkmonthsReview);
 
   // Workmonths Routes
   app.route('/api/workmonths').all(workmonthsPolicy.isAllowed)

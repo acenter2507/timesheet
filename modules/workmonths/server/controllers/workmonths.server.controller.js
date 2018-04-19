@@ -321,3 +321,62 @@ function getWorkrestsForWorkdate(workdate) {
     });
   });
 }
+
+
+exports.getWorkmonthsReview = function (req, res) {
+  var page = req.body.page || 1;
+  var condition = req.body.condition || {};
+  var query = {};
+  var and_arr = [];
+  if (condition.start) {
+    and_arr.push({ start: { $gte: condition.start } });
+  }
+  if (condition.end) {
+    and_arr.push({ end: { $lte: condition.end } });
+  }
+  if (condition.status) {
+    and_arr.push({ status: condition.status });
+  }
+  if (_.contains(req.user.roles, 'manager')) {
+    if (!req.user.department) {
+      return res.jsonp({ docs: [], pages: 0, total: 0 });
+    }
+    var department = req.user.department._id || req.user.department;
+    and_arr.push({ department: department });
+    and_arr.push({ roles: { $ne: ['manager', 'admin', 'accountant'] } });
+  } else {
+    if (condition.department) {
+      if (condition.department === 'empty') {
+        and_arr.push({ department: null });
+      } else {
+        and_arr.push({ department: condition.department });
+      }
+    }
+    if (condition.roles && condition.roles.length > 0) {
+      and_arr.push({ roles: condition.roles });
+    }
+  }
+  if (and_arr.length > 0) {
+    query = { $and: and_arr };
+  }
+  Workrest.paginate(query, {
+    sort: condition.sort,
+    page: page,
+    populate: [
+      { path: 'holiday', select: 'name isPaid' },
+      { path: 'user', select: 'displayName profileImageURL' },
+      {
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      },
+    ],
+    limit: condition.limit
+  }).then(function (rests) {
+    res.jsonp(rests);
+  }, err => {
+    return res.status(400).send({
+      message: errorHandler.getErrorMessage(err)
+    });
+  });
+};

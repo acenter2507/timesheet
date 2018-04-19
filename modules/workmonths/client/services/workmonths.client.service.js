@@ -24,6 +24,9 @@
     this.getHolidayWorking = (workmonthId) => {
       return $http.post('/api/workmonths/getHolidayWorking', { workmonthId: workmonthId }, { ignoreLoadingBar: true });
     };
+    this.getWorkmonthsReview = (condition, page) => {
+      return $http.post('/api/workmonths/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
+    };
     this.approve = workmonthId => {
       return $http.post('/api/workmonths/' + workmonthId + '/approve', null, { ignoreLoadingBar: true });
     };
