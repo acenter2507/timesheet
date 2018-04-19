@@ -24,7 +24,7 @@
         ncyBreadcrumb: { label: '一覧' }
       })
       .state('workmonths.reviews', {
-        url: '?user',
+        url: '/reviews?user',
         templateUrl: 'modules/workmonths/client/views/reviews-workmonths.client.view.html',
         controller: 'WorkmonthsReviewsController',
         controllerAs: 'vm',
