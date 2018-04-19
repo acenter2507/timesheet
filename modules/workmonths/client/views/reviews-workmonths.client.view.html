@@ -87,8 +87,8 @@
                 <li ng-show="!vm.userSearching && vm.users.length === 0" class="pd12x">データが見つかりません。</li>
                 <li ng-repeat="user in vm.users">
                   <a ng-click="vm.handleUserSelected(user)">
-                    <img src="{{::user.profieImageURL}}" class="user-common-avatar-small">
-                    <span>{{::user.displayNamle}}</span>
+                    <img src="{{:: user.profieImageURL }}" class="user-common-avatar-small">
+                    <span>{{:: user.displayNamle }}</span>
                   </a>
                 </li>
               </ul>
