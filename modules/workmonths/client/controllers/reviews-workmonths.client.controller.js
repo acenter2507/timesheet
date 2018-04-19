@@ -30,8 +30,11 @@
     // Khởi tạo điều kiện search
     function prepareCondition() {
       vm.condition = {
-
+        sort: '-created',
+        limit: 20
       };
+      vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
+      vm.condition.user = ($stateParams.user) ? $stateParams.user : undefined;
     }
     function prepareDepartments() {
       DepartmentsService.query().$promise.then(data => {
@@ -40,7 +43,7 @@
     }
 
     vm.handleClearCondition = () => {
-      vm.condition = {};
+      prepareCondition();
     };
 
     vm.handleStartSearch = () => {
@@ -97,5 +100,13 @@
           vm.isShowUserDropdown = false;
         });
     }
+    // View user detail page
+    vm.handleViewDetailUser = user => {
+      if ($scope.isAdmin || $scope.isAccountant) {
+        return $state.go('users.view', { userId: user._id });
+      } else {
+        return $state.go('profile.view', { userId: user._id });
+      }
+    };
   }
 }());
