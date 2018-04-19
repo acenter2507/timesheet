@@ -22,7 +22,9 @@
     onCreate();
     function onCreate() {
       prepareParams();
+      prepareDepartments();
       prepareCondition();
+      handleSearch();
     }
     function prepareParams() {
 
