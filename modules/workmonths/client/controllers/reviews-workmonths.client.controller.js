@@ -7,7 +7,7 @@
 
   WorkmonthsReviewsController.$inject = ['WorkmonthsService', '$scope', '$state', 'DateUtil', '$stateParams', 'CommonService', 'WorkmonthsApi', '$timeout'];
 
-  function WorkmonthsListController(WorkmonthsService, $scope, $state, DateUtil, $stateParams, CommonService, WorkmonthsApi, $timeout) {
+  function WorkmonthsReviewsController(WorkmonthsService, $scope, $state, DateUtil, $stateParams, CommonService, WorkmonthsApi, $timeout) {
     var vm = this;
 
     vm.workmonths = [];
@@ -18,6 +18,9 @@
     function onCreate() {
       prepareParams();
       prepareCondition();
+    }
+    function prepareParams() {
+
     }
     // Khởi tạo điều kiện search
     function prepareCondition() {
