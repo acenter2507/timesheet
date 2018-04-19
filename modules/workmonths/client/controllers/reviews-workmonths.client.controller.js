@@ -63,7 +63,7 @@
           vm.isShowUserDropdown = false;
         });
     }
-    vm.handleLeaderSelected = user => {
+    vm.handleUserSelected = user => {
       console.log(user);
     };
   }
