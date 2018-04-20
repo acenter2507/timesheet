@@ -131,14 +131,14 @@
                 <p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p>
               </td>
               <td>
-                <div ng-repeat="comment in workdate.comments | limitTo: 3">
+                <div ng-repeat="comment in workdate.comments | limitTo: 1">
                   <strong>{{ comment.author }}</strong>
                   <small>{{ comment.time }}</small>
                   <p class="text-justify" ng-bind-html="comment.content | nl2br"></p>
                   <hr class="mgn mg5b">
                 </div>
-                <a ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 3">もっと見る</a>
-                <a ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
+                <a class="mg5x" ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 1">全て</a>
+                <a class="mg5x" ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
               </td>
               <td>
                 <span ng-if="workdate.transfer">{{:: workdate.transfer_workdate.year + '年' + workdate.transfer_workdate.month + '月' + workdate.transfer_workdate.date
