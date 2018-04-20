@@ -27,7 +27,13 @@ var WorkdateSchema = new Schema({
   work_duration: { type: Number, default: 0 }, // Số tiếng đã làm việc
   transfer: { type: Boolean, default: false }, // 振替
   transfer_workdate: { type: Schema.ObjectId, ref: 'Workdate' },
-  note: { type: String },
+  comments: [
+    {
+      author: { type: String },
+      content: { type: String },
+      time: { type: String }
+    }
+  ],
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now },
   user: { type: Schema.ObjectId, ref: 'User' }
