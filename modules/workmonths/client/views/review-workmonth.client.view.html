@@ -149,8 +149,8 @@
                 <p class="text-warning" ng-repeat="warning in workdate.warnings">{{ warning }}</p>
               </td>
               <td>
-                <div><a class="btn btn-xs btn-warning" ng-click="vm.handleAutoCheckWorkdate(workdate)">チェック</a></div>
-                <div><a class="btn btn-xs btn-info" ui-href="workdates.review({ workdateId: workdate._id })">編集</a></div>
+                <a class="btn btn-xs btn-warning" ng-click="vm.handleAutoCheckWorkdate(workdate)">チェック</a>
+                <a class="btn btn-xs btn-info" ui-href="workdates.review({ workdateId: workdate._id })">編集</a>
               </td>
             </tr>
           </tbody>
