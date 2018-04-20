@@ -176,6 +176,9 @@
       if (workdate.isHoliday && !CommonService.isEmptyString(workdate.start) && workdate.transfer) {
         warnings.push('この日が振り替えられましたので時間計算の確認が必要');
       }
+      if (!workdate.isHoliday && CommonService.isEmptyString(workdate.start) && !workdate.transfer_workdate) {
+        warnings.push('平日なのに出勤情報がありません！');
+      }
       workdate.warnings = warnings;
     }
     // Kiểm tra các ngày trong tháng
