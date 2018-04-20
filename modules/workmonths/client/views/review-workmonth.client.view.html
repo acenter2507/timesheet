@@ -146,7 +146,7 @@
                   + '日'}}</span>
               </td>
               <td>
-                <span ng-repeat="warning in workdate.warnings">{{ warning }}</span>
+                <p class="text-warning" ng-repeat="warning in workdate.warnings">{{ warning }}</p>
               </td>
               <td>
                 <a ng-click="vm.handleAutoCheckWorkdate(workdate)">チェック</a><br>
