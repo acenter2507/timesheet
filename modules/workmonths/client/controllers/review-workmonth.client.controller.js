@@ -144,6 +144,25 @@
         delete $scope.comment;
       });
     };
+    // Kiểm tra 1 workdate có hợp lệ hay không
+    vm.handleAutoCheckWorkdate = handleAutoCheckWorkdate;
+    function handleAutoCheckWorkdate (workdate) {
+      console.log(workdate);
+      return new Promise((resolve, reject) => {
+
+      });
+    }
+    // Kiểm tra các ngày trong tháng
+    vm.handleAutoCheckWorkmonth = () => {
+    };
+    // Chấp nhận timesheet hợp lệ
+    vm.handleApproveWorkmonth = () => {};
+    // Không chấp nhận timesheet
+    vm.handleRejectWorkmonth = () => {};
+    // Xóa bỏ Workmanth
+    vm.handleDeleteMonth = () => {};
+
+
   }
 
 
