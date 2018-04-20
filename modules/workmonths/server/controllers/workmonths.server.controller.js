@@ -91,7 +91,16 @@ exports.read = function (req, res) {
       ]
     })
     .populate('user', 'displayName roles status profileImageURL')
-    .populate('workdates')
+    .populate({
+      path: 'workdates', populate: [
+        { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        {
+          path: 'workrests', populate: [
+            { path: 'holiday', model: 'Holiday' },
+          ]
+        },
+      ]
+    })
     .exec(function (err, workmonth) {
       if (err)
         return res.status(400).send({

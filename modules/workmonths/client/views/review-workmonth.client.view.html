@@ -103,13 +103,15 @@
           <thead>
             <tr>
               <th>日付</th>
-              <!-- <th class="text-center">曜日</th> -->
               <th>業務内容</th>
               <th>開始</th>
               <th>終了</th>
-              <th class="text-center">休暇</th>
+              <th>休憩</th>
+              <th>時間外</th>
+              <th>深夜</th>
+              <th>休暇</th>
               <th>メモ</th>
-              <th>操作</th>
+              <th>振替休日</th>
             </tr>
           </thead>
           <tbody>
@@ -121,6 +123,9 @@
               <td>{{:: workdate.content }}</td>
               <td>{{:: workdate.start }}</td>
               <td>{{:: workdate.end }}</td>
+              <td>{{:: workdate.middleRest }}</td>
+              <td>{{:: workdate.overtime }}</td>
+              <td>{{:: workdate.overnight }}</td>
               <td class="text-center">
                 <button ng-if="workdate.workrests.length > 0" class="btn btn-danger btn-xs" ng-click="vm.handleViewWorkrest(workdate)">休暇詳細</button>
               </td>
