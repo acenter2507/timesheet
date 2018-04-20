@@ -131,11 +131,11 @@
                 <p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p>
               </td>
               <td>
-                <p ng-repeat="comment in workdate.comments | limitTo: 3">
+                <div ng-repeat="comment in workdate.comments | limitTo: 3">
                   <strong>{{ comment.author }}</strong>
                   <small>{{ comment.time }}</small>
                   <p>{{ comment.content | nl2br }}</p>
-                </p>
+                </div>
                 <a ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 3">もっと見る</a>
                 <a ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
               </td>
