@@ -95,7 +95,9 @@ exports.read = function (req, res) {
       path: 'workdates', populate: [
         { path: 'user', select: 'displayName profileImageURL', model: 'User' },
         { path: 'transfer_workdate', model: 'Workdate' },
-        { path: 'workrests', model: 'Workrest'},
+        { path: 'workrests', model: 'Workrest', populate: [
+          { path: 'holiday', model: 'Holiday' }
+        ]},
       ]
     })
     .exec(function (err, workmonth) {
