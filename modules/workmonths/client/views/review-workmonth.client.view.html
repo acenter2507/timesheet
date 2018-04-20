@@ -113,6 +113,7 @@
               <th>メモ</th>
               <th>振替休日</th>
               <th>警告</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -146,6 +147,10 @@
               </td>
               <td>
                 <span ng-repeat="warning in workdate.warnings">{{ warning }}</span>
+              </td>
+              <td>
+                <a ng-click="vm.handleAutoCheckWorkdate(workdate)">チェック</a>
+                <a ui-href="workdates.review({ workdateId: workdate._id })">編集</a>
               </td>
             </tr>
           </tbody>
