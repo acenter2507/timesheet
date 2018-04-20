@@ -187,8 +187,8 @@
   <h3>{{ tmp_time }}</h3>
   <div ng-repeat="comment in tmp_comments">
     <strong>{{comment.author}}</strong>
-    <span>{{comment.content}}</span>
     <small>{{comment.time}}</small>
+    <p>{{comment.content | nl2br}}</p>
   </div>
   <div class="form-group mg12t mgnb">
     <button class="btn btn-default pull-right" ng-click="closeThisDialog()">閉じる</button>
