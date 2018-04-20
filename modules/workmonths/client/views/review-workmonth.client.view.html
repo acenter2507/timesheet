@@ -130,7 +130,9 @@
                 <button ng-if="workdate.workrests.length > 0" class="btn btn-danger btn-xs" ng-click="vm.handleViewWorkrest(workdate)">休暇詳細</button>
               </td>
               <td>{{:: workdate.note }}</td>
-              <td>振替休日</td>
+              <td>
+                <p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p>
+              </td>
               <!-- <td>
                 <a class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(workdate)">編集</a>
               </td> -->
