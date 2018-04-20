@@ -162,7 +162,7 @@
         warnings.push('休暇の期間が多すぎている。休暇の確認が必要');
       }
       // Kiểm tra có đăng ký nghỉ nhưng vẫn đi làm
-      if (isPaid_duration > 0 && !CommonService.isEmptyString(workdate.start)) {
+      if (isPaid_duration > 0 && !CommonService.isStringEmpty(workdate.start)) {
         warnings.push('休暇が申請されたが出勤しているので残業時間の確認が必要');
       }
       // Kiểm tra thông tin xin nghỉ bù
@@ -170,22 +170,24 @@
         warnings.push('振替休暇が申請されたので出勤時間の確認が必要');
       }
       // Kiểm tra nếu là ngày lễ, đi làm
-      if (workdate.isHoliday && !CommonService.isEmptyString(workdate.start)) {
+      if (workdate.isHoliday && !CommonService.isStringEmpty(workdate.start)) {
         warnings.push('休日に出勤しましたので出勤時間の確認が必要');
       }
-      if (workdate.isHoliday && !CommonService.isEmptyString(workdate.start) && workdate.transfer) {
+      if (workdate.isHoliday && !CommonService.isStringEmpty(workdate.start) && workdate.transfer) {
         warnings.push('この日が振り替えられましたので時間計算の確認が必要');
       }
-      if (!workdate.isHoliday && CommonService.isEmptyString(workdate.start) && !workdate.transfer_workdate) {
+      if (!workdate.isHoliday && CommonService.isStringEmpty(workdate.start) && !workdate.transfer_workdate) {
         warnings.push('平日なのに出勤情報がありません！');
       }
       workdate.warnings = warnings;
+
     }
     // Kiểm tra các ngày trong tháng
     vm.handleAutoCheckWorkmonth = () => {
       vm.workmonth.workdates.forEach(workdate => {
         handleAutoCheckWorkdate(workdate);
       });
+      if (!$scope.$$phase) $scope.$digest();
     };
     // Chấp nhận timesheet hợp lệ
     vm.handleApproveWorkmonth = () => {};
