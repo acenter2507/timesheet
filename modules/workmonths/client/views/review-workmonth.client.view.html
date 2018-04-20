@@ -142,7 +142,7 @@
                 <a class="mg5x" ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
               </td>
               <td>
-                <span ng-if="workdate.transfer">{{:: workdate.transfer_workdate.year + '年' + workdate.transfer_workdate.month + '月' + workdate.transfer_workdate.date
+                <span ng-if="workdate.transfer_workdate._id">{{:: workdate.transfer_workdate.year + '年' + workdate.transfer_workdate.month + '月' + workdate.transfer_workdate.date
                   + '日'}}</span>
               </td>
               <td>

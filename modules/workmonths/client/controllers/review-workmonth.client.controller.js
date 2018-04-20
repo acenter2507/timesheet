@@ -6,9 +6,9 @@
     .module('workmonths')
     .controller('WorkmonthReviewController', WorkmonthReviewController);
 
-  WorkmonthReviewController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'Socket'];
+  WorkmonthReviewController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'Socket', 'CommonService'];
 
-  function WorkmonthReviewController($scope, $state, $window, workmonth, WorkdatesApi, ngDialog, WorkmonthsApi, Socket) {
+  function WorkmonthReviewController($scope, $state, $window, workmonth, WorkdatesApi, ngDialog, WorkmonthsApi, Socket, CommonService) {
     var vm = this;
 
     vm.workmonth = workmonth;
@@ -147,13 +147,42 @@
     // Kiểm tra 1 workdate có hợp lệ hay không
     vm.handleAutoCheckWorkdate = handleAutoCheckWorkdate;
     function handleAutoCheckWorkdate (workdate) {
-      console.log(workdate);
-      return new Promise((resolve, reject) => {
-
-      });
+      var warnings = [];
+      // Kiểm tra duration của các đơn xin nghỉ
+      var rest_duration = 0;
+      var isPaid_duration = 0;
+      for (let i = 0; i < workdate.workrests.length; i++) {
+        const workrest = workdate.workrests[i];
+        rest_duration += workrest.duration;
+        if (workrest.holiday.isPaid) {
+          isPaid_duration += workrest.duration;
+        }
+      }
+      if (rest_duration > 1) {
+        warnings.push('休暇の期間が多すぎている。休暇の確認が必要');
+      }
+      // Kiểm tra có đăng ký nghỉ nhưng vẫn đi làm
+      if (isPaid_duration > 0 && !CommonService.isEmptyString(workdate.start)) {
+        warnings.push('休暇が申請されたが出勤しているので残業時間の確認が必要');
+      }
+      // Kiểm tra thông tin xin nghỉ bù
+      if (workdate.transfer_workdate._id) {
+        warnings.push('振替休暇が申請されたので出勤時間の確認が必要');
+      }
+      // Kiểm tra nếu là ngày lễ, đi làm
+      if (workdate.isHoliday && !CommonService.isEmptyString(workdate.start)) {
+        warnings.push('休日に出勤しましたので出勤時間の確認が必要');
+      }
+      if (workdate.isHoliday && !CommonService.isEmptyString(workdate.start) && workdate.transfer) {
+        warnings.push('この日が振り替えられましたので時間計算の確認が必要');
+      }
+      workdate.warnings = warnings;
     }
     // Kiểm tra các ngày trong tháng
     vm.handleAutoCheckWorkmonth = () => {
+      vm.workmonth.workdates.forEach(workdate => {
+        handleAutoCheckWorkdate(workdate);
+      });
     };
     // Chấp nhận timesheet hợp lệ
     vm.handleApproveWorkmonth = () => {};
