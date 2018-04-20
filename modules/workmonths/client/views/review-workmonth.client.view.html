@@ -135,7 +135,7 @@
                   <strong>{{ comment.author }}</strong>
                   <small>{{ comment.time }}</small>
                   <p class="text-justify" ng-bind-html="comment.content | nl2br"></p>
-                  <hr>
+                  <hr class="mgn mg5b">
                 </div>
                 <a ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 3">もっと見る</a>
                 <a ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
@@ -193,7 +193,7 @@
     <strong>{{comment.author}}</strong>
     <small>{{comment.time}}</small>
     <p class="text-justify" ng-bind-html="comment.content | nl2br"></p>
-    <hr>
+    <hr class="mgn mg5b">
   </div>
   <div class="form-group mg12t mgnb">
     <button class="btn btn-default pull-right" ng-click="closeThisDialog()">閉じる</button>
