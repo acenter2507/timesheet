@@ -132,9 +132,9 @@
               </td>
               <td>
                 <p ng-repeat="comment in workdate.comments | limitTo: 3">
-                  <strong>{{comment.author}}</strong>
-                  <small>{{comment.time}}</small>
-                  <p>{{comment.content | nl2br}}</p>
+                  <strong>{{ comment.author }}</strong>
+                  <small>{{ comment.time }}</small>
+                  <p>{{ comment.content | nl2br }}</p>
                 </p>
                 <a ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 3">もっと見る</a>
                 <a ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
