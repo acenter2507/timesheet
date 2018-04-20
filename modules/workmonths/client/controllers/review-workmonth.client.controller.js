@@ -12,7 +12,6 @@
     var vm = this;
 
     vm.workmonth = workmonth;
-    console.log(vm.workmonth);
     vm.currentMonth = moment().year(vm.workmonth.year).month(vm.workmonth.month - 1);
 
     vm.isShowHistory = false;
