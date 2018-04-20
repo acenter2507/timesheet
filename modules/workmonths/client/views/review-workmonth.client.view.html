@@ -133,13 +133,16 @@
               <td>
                 <p ng-repeat="comment in workdate.comments | limitTo: 3">
                   <strong>{{comment.author}}</strong>
-                  <span>{{comment.content}}</span>
                   <small>{{comment.time}}</small>
+                  <p>{{comment.content | nl2br}}</p>
                 </p>
                 <a ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 3">もっと見る</a>
                 <a ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
               </td>
-              <td><span ng-if="workdate.transfer">{{:: workdate.transfer_workdate.year + '年' + workdate.transfer_workdate.month + '月' + workdate.transfer_workdate.date + '日'}}</span></td>
+              <td>
+                <span ng-if="workdate.transfer">{{:: workdate.transfer_workdate.year + '年' + workdate.transfer_workdate.month + '月' + workdate.transfer_workdate.date
+                  + '日'}}</span>
+              </td>
               <td>
                 <span ng-repeat="warning in workdate.warnings">{{ warning }}</span>
               </td>
