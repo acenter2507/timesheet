@@ -90,7 +90,7 @@ exports.read = function (req, res) {
         { path: 'user', select: 'displayName profileImageURL', model: 'User' },
       ]
     })
-    .populate('user', 'displayName')
+    .populate('user', 'displayName roles status profileImageURL')
     .populate('workdates')
     .exec(function (err, workmonth) {
       if (err)
