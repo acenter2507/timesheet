@@ -144,8 +144,20 @@
         delete $scope.comment;
       });
     };
+    // Kiểm tra các ngày trong tháng
+    vm.handleAutoCheckWorkmonth = () => {
+      vm.workmonth.workdates.forEach(workdate => {
+        handleAutoCheckWorkdate(workdate);
+      });
+      if (!$scope.$$phase) $scope.$digest();
+    };
+    // Chấp nhận timesheet hợp lệ
+    vm.handleApproveWorkmonth = () => {};
+    // Không chấp nhận timesheet
+    vm.handleRejectWorkmonth = () => {};
+    // Xóa bỏ Workmanth
+    vm.handleDeleteMonth = () => {};
     // Kiểm tra 1 workdate có hợp lệ hay không
-    vm.handleAutoCheckWorkdate = handleAutoCheckWorkdate;
     function handleAutoCheckWorkdate (workdate) {
       var warnings = [];
       // Kiểm tra duration của các đơn xin nghỉ
@@ -182,19 +194,7 @@
       workdate.warnings = warnings;
 
     }
-    // Kiểm tra các ngày trong tháng
-    vm.handleAutoCheckWorkmonth = () => {
-      vm.workmonth.workdates.forEach(workdate => {
-        handleAutoCheckWorkdate(workdate);
-      });
-      if (!$scope.$$phase) $scope.$digest();
-    };
-    // Chấp nhận timesheet hợp lệ
-    vm.handleApproveWorkmonth = () => {};
-    // Không chấp nhận timesheet
-    vm.handleRejectWorkmonth = () => {};
-    // Xóa bỏ Workmanth
-    vm.handleDeleteMonth = () => {};
+    
   }
 
 
