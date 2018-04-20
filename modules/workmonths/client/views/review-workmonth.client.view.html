@@ -38,7 +38,7 @@
   <div class="row">
     <div class="col-md-4 col-sm-12 col-md-push-8 col-lg-3 col-lg-push-9">
       <div class="well">
-        <div>
+        <div class="w100p text-right">
           <button class="btn btn-sm btn-success" ng-click="vm.handleViewYear()">{{:: vm.workmonth.year}}</button>
           <button class="btn btn-sm btn-default" ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" ng-click="vm.handleSendRequestMonth()">申請</button>
           <button class="btn btn-sm btn-warning" ng-if="vm.workmonth.status === 2" ng-click="vm.handleCancelRequestMonth()">キャンセル</button>
