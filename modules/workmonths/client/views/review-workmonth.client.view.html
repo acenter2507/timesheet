@@ -38,6 +38,23 @@
   <div class="row">
     <div class="col-md-4 col-sm-12 col-md-push-8 col-lg-3 col-lg-push-9">
       <div class="well">
+        <div class="user-item-block">
+          <div class="user-basic-info">
+            <div class="user-avatar">
+              <img src="{{:: vm.workmonth.user.profileImageURL }}">
+              <span class="user-status" ng-class="{ 'working': vm.workmonth.user.status === 1, 'retired': vm.workmonth.user.status === 2 }"></span>
+            </div>
+            <div class="user-info">
+              <span class="user-info-name">{{:: vm.workmonth.user.displayName}}</span>
+              <span class="font-sm">{{::vm.workmonth.user.roles | RoleFilter}}</span>
+            </div>
+            <div class="user-action">
+              <a class="user-options" ng-click="vm.handleAddUserToDepartment(member)">
+                <i class="fa fa-user-plus"></i>
+              </a>
+            </div>
+          </div>
+        </div>
         <table class="table">
           <tr>
             <td>出勤日数</td>
