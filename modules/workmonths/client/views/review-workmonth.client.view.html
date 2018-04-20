@@ -131,7 +131,7 @@
                 <p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p>
               </td>
               <td>
-                <p ng-repeat="comment in workdate.comments limit 3">
+                <p ng-repeat="comment in workdate.comments | limitTo: 3">
                   <strong>{{comment.author}}</strong>
                   <span>{{comment.content}}</span>
                   <small>{{comment.content}}</small>
