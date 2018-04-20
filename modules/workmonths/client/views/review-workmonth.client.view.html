@@ -149,7 +149,7 @@
                 <span ng-repeat="warning in workdate.warnings">{{ warning }}</span>
               </td>
               <td>
-                <a ng-click="vm.handleAutoCheckWorkdate(workdate)">チェック</a>
+                <a ng-click="vm.handleAutoCheckWorkdate(workdate)">チェック</a><br>
                 <a ui-href="workdates.review({ workdateId: workdate._id })">編集</a>
               </td>
             </tr>
