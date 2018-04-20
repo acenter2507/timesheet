@@ -166,7 +166,7 @@
         warnings.push('休暇が申請されたが出勤しているので残業時間の確認が必要');
       }
       // Kiểm tra thông tin xin nghỉ bù
-      if (!workdate.transfer_workdate) {
+      if (workdate.transfer_workdate) {
         warnings.push('振替休暇が申請されたので出勤時間の確認が必要');
       }
       // Kiểm tra nếu là ngày lễ, đi làm
