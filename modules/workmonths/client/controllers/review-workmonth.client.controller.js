@@ -102,6 +102,10 @@
     function handlePreviousScreen() {
       $state.go($state.previous.state.name || 'workmonths.list', $state.previous.params);
     }
+    // Xem các thông tin cần thiết của user
+    vm.handleViewUserInfo = user => {
+      console.log(user);
+    };
   }
 
 
