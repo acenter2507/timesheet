@@ -22,6 +22,9 @@
     this.getWorkrestsInWorkdate = (workdateId) => {
       return $http.post('/api/workdates/' + workdateId + '/workrests', {}, { ignoreLoadingBar: true });
     };
+    this.addComment = (workdateId, comment) => {
+      return $http.post('/api/workdates/' + workdateId + '/add_comment', { comment: comment }, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());

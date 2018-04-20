@@ -244,14 +244,3 @@
     </div>
   </div>
 </div>
-
-<!-- コメント入力 -->
-<script type="text/ng-template" id="commentTemplate.html">
-  <p>何かコメントがあればご記入してください！</p>
-  <textarea name="description" class="form-control" data-ng-model="comment" required></textarea>
-  <div class="form-group mg12t mgnb">
-    <button class="btn btn-default pull-right" ng-click="closeThisDialog()">キャンセル</button>
-    <button class="btn btn-primary pull-right mg10r" ng-click="confirm(comment)">送信</button>
-    <div class="clearfix"></div>
-  </div>
-</script>

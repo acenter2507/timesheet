@@ -89,8 +89,8 @@
               <th>業務内容</th>
               <th>開始</th>
               <th>終了</th>
-              <th class="text-center">休暇</th>
-              <th>メモ</th>
+              <th>休暇</th>
+              <th>コメント</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -104,9 +104,15 @@
               <td>{{:: workdate.start }}</td>
               <td>{{:: workdate.end }}</td>
               <td class="text-center">
-                <button ng-if="workdate.workrests.length > 0" class="btn btn-danger btn-xs" ng-click="vm.handleViewWorkrest(workdate)">休暇詳細</button>
+                <p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p>
               </td>
-              <td>{{:: workdate.note || '' }}</td>
+              <td>
+                <p ng-repeat="comment in workdate.comments | limitTo: 3">
+                  <strong>{{comment.author}}</strong>
+                  <span>{{comment.content}}</span>
+                  <small>{{comment.time}}</small>
+                </p>
+              </td>
               <td>
                 <a class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(workdate)">編集</a>
               </td>

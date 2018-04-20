@@ -204,12 +204,12 @@
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',
         scope: $scope
-      }).then(comment => {
-        delete $scope.comment;
+      }).then(content => {
+        delete $scope.content;
         $scope.handleShowConfirm({
           message: 'この休暇を拒否しますか？'
         }, () => {
-          WorkrestsApi.reject(workrest._id, { comment: comment })
+          WorkrestsApi.reject(workrest._id, { comment: content })
             .success(data => {
               _.extend(workrest, data);
               Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
@@ -219,7 +219,7 @@
             });
         });
       }, () => {
-        delete $scope.comment;
+        delete $scope.content;
       });
 
     };

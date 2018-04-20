@@ -106,6 +106,32 @@
     vm.handleViewUserInfo = user => {
       console.log(user);
     };
+    // Xem tất cả các comment
+    vm.handleViewMoreWorkdateComment = workdate => { };
+    // Nhập mới 1 comment
+    vm.handleWriteWorkdateComment = workdate => {
+
+      ngDialog.openConfirm({
+        templateUrl: 'commentTemplate.html',
+        scope: $scope
+      }).then(content => {
+        if (!content || content === '') return;
+        var comment = {
+          content: content,
+          author: $scope.user.displayName,
+          time: moment().format('LLLL')
+        };
+        WorkdatesApi.addComment(workdate._id, comment)
+          .success(res => {
+            workdate.comments.push(comment);
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      }, () => {
+        delete $scope.comment;
+      });
+    };
   }
 
 

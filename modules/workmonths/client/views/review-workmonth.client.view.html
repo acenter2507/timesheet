@@ -127,14 +127,14 @@
               <td>{{:: workdate.middleRest }}</td>
               <td>{{:: workdate.overtime }}</td>
               <td>{{:: workdate.overnight }}</td>
-              <td class="text-center">
+              <td>
                 <p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p>
               </td>
               <td>
                 <p ng-repeat="comment in workdate.comments | limitTo: 3">
                   <strong>{{comment.author}}</strong>
                   <span>{{comment.content}}</span>
-                  <small>{{comment.content}}</small>
+                  <small>{{comment.time}}</small>
                 </p>
                 <a ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 3">もっと見る</a>
                 <a ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
@@ -143,9 +143,6 @@
               <td>
                 <span ng-repeat="warning in workdate.warnings">{{ warning }}</span>
               </td>
-              <!-- <td>
-                <a class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(workdate)">編集</a>
-              </td> -->
             </tr>
           </tbody>
         </table>
