@@ -251,9 +251,13 @@ exports.addComment = function (req, res) {
   var comment = req.body.comment;
 
   workdate.comments.push(comment);
-  workdate.save().exec((err, workdate) => {
-    if (err)
-      return res.status(400).send({ message: 'コメントを追加できません' });
-    return res.end();
+  workdate.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: ('コメントを追加できません！')
+      });
+    } else {
+      res.end();
+    }
   });
 };
