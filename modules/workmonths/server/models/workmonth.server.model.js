@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
 var WorkmonthSchema = new Schema({
   year: { type: Number, required: true },
   month: { type: Number, required: true },
-  // 1-Unsend, 2-Watting, 3-Approve, 4-Reject
+  // 1-Unsend, 2-Watting, 3-Approve, 4-Reject, 5: Lock
   status: { type: Number, default: 1 },
   workdates: [{ type: Schema.ObjectId, ref: 'Workdate' }],
   department: { type: Schema.ObjectId, ref: 'Department' },
