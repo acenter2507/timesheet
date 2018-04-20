@@ -359,7 +359,12 @@ exports.getWorkmonthsReview = function (req, res) {
     page: page,
     populate: [
       { path: 'workdates' },
-      { path: 'user', select: 'profileImageURL displayName' }
+      { path: 'user', select: 'profileImageURL displayName' },
+      {
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      },
     ],
     // populate: [
     //   { path: 'workdates', select: 'name isPaid' },

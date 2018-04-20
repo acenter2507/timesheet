@@ -18,6 +18,7 @@
     vm.page = 1;
     vm.pages = [];
     vm.total = 0;
+    vm.historys = [];
 
     onCreate();
     function onCreate() {
@@ -109,6 +110,13 @@
       } else {
         return $state.go('profile.view', { userId: user._id });
       }
+    };
+    vm.handleViewHistory = workmonth => {
+      vm.isShowHistory = true;
+      vm.historys = workmonth.historys;
+    };
+    vm.handleCloseHistory = () => {
+      vm.isShowHistory = false;
     };
   }
 }());
