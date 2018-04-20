@@ -176,7 +176,7 @@
       if (workdate.isHoliday && !CommonService.isStringEmpty(workdate.start) && workdate.transfer) {
         warnings.push('この日が振り替えられましたので時間計算の確認が必要');
       }
-      if (!workdate.isHoliday && CommonService.isStringEmpty(workdate.start) && !workdate.transfer_workdate) {
+      if (!workdate.isHoliday && CommonService.isStringEmpty(workdate.start) && !workdate.transfer_workdate && rest_duration === 0) {
         warnings.push('平日なのに出勤情報がありません！');
       }
       workdate.warnings = warnings;
@@ -195,8 +195,6 @@
     vm.handleRejectWorkmonth = () => {};
     // Xóa bỏ Workmanth
     vm.handleDeleteMonth = () => {};
-
-
   }
 
 
