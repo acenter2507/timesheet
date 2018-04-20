@@ -111,7 +111,7 @@
       $scope.tmp_time = moment().year(workdate.year).month(workdate.month - 1).date(workdate.date).format('LLL');
       $scope.tmp_comments = workdate.comments;
       ngDialog.openConfirm({
-        templateUrl: 'commentTemplate.html',
+        templateUrl: 'commentsTemplate.html',
         scope: $scope
       }).then(content => {
         delete $scope.tmp_time;
