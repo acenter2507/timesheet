@@ -8,6 +8,7 @@
     .config(toastConfig)
     .config(toolTipConfig)
     .config(calendarCf)
+    .config(ngTagsInputConfig)
     .run(runConfig);
 
   loadingBarConfig.$inject = ['cfpLoadingBarProvider'];
@@ -59,6 +60,13 @@
   calendarCf.$inject = ['calendarConfig'];
   function calendarCf(calendarConfig) {
     calendarConfig.dateFormatter = 'moment';
+  }
+
+  ngTagsInputConfig.$inject = ['tagsInputConfigProvider'];
+  function ngTagsInputConfig(tagsInputConfigProvider) {
+    tagsInputConfigProvider.setDefaults('tagsInput', {
+      placeholder: ''
+    });
   }
 
   function runConfig(amMoment) {
