@@ -80,11 +80,11 @@
           </div>
           <!-- 休暇 -->
           <div class="form-group">
-            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 pdnl">
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 pdn">
               <label>休暇：</label>
               <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html" add-from-autocomplete-only="true"></tags-input>
             </div>
-            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 pdnr">
+            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 pdn">
               <label>asdasd</label>
               <button class="btn btn-default btn-block">選択</button>
             </div>
@@ -101,12 +101,6 @@
               <label ng-if="!vm.workdate.isHoliday">
                 <input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">選択</label>
             </div>
-          </div>
-          <!-- Buttons -->
-          <div class="form-group">
-            <button class="btn btn-default" ng-click="vm.handleSetDefaultWorkdateInfo()">デフォルト</button>
-            <button class="btn btn-warning" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
-            <button class="btn btn-primary" ng-click="vm.handleSaveWorkdate()" ng-disabled="vm.busy">保存</button>
           </div>
           <!-- Note -->
           <div class="form-group">
