@@ -26,7 +26,9 @@ var WorkdateSchema = new Schema({
   overnight: { type: Number, default: 0 }, // 深夜
   work_duration: { type: Number, default: 0 }, // Số tiếng đã làm việc
   transfer: { type: Boolean, default: false }, // Ngày này được sử dụng transfer
-  transfer_workdate: { type: Schema.ObjectId, ref: 'Workdate' }, // Ngày liên kết khi transfer
+  transfers: [ //transfer_workdate
+    { type: Schema.ObjectId, ref: 'Workdate' }
+  ], // Ngày liên kết khi transfer
   comments: [
     {
       author: { type: String },

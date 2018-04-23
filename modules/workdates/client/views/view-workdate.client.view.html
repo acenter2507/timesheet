@@ -11,21 +11,40 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-md-4 col-sm-12 col-md-push-8 col-lg-3 col-lg-push-9">
+      <div class="well">
+        <div class="w100p text-right">
+          <button class="btn btn-sm btn-default" ng-click="vm.handleSetDefaultWorkdateInfo()">デフォルト</button>
+          <button class="btn btn-sm btn-warning" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
+          <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveWorkdate()" ng-disabled="vm.busy">保存</button>
+        </div>
+      </div>
+      <div class="well">
+        <h4 class="mg5b">{{:: vm.workdate.workmonth.year }}年{{:: vm.workdate.workmonth.month }}月の状態</h4>
+        <table class="table">
+          <tr>
+            <td>出勤日数</td>
+            <td class="text-right">{{:: vm.workdate.workmonth.new_numWorkDate }}</td>
+          </tr>
+          <tr>
+            <td>残業時間</td>
+            <td class="text-right">{{:: vm.workdate.workmonth.new_overtime }}</td>
+          </tr>
+          <tr>
+            <td>深夜時間</td>
+            <td class="text-right">{{:: vm.workdate.workmonth.new_overnight }}</td>
+          </tr>
+          <tr>
+            <td>休憩時間</td>
+            <td class="text-right">{{:: vm.workdate.workmonth.new_middleRest }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-12 col-md-pull-4 col-lg-9 col-lg-pull-3">
       <div class="well">
         <h4>勤務時間入力</h4>
         <form>
-          <!-- 休暇 -->
-          <div class="form-group">
-            <label for="content">休暇：</label>
-            <div ng-if="vm.workdate.workrests.length > 0">
-              <button class="btn btn-danger btn-sm" ng-click="vm.handleViewWorkrest()">休暇詳細</button>
-            </div>
-            <div ng-if="vm.workdate.workrests.length === 0">
-              <span class="mg10r">休暇なし</span>
-              <label ng-if="!vm.workdate.isHoliday"><input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">振替休日</label>
-            </div>
-          </div>
           <!-- 作業内容 -->
           <div class="form-group">
             <label for="content">作業内容：</label>
@@ -63,12 +82,34 @@
             </div>
             <div class="clearfix"></div>
           </div>
+          <!-- 休暇 -->
+          <div class="form-group">
+            <label for="workrest">休暇：</label>
+            <div ng-if="vm.workdate.workrests.length > 0">
+              <button class="btn btn-danger btn-sm" ng-click="vm.handleViewWorkrest()">休暇詳細</button>
+            </div>
+            <div ng-if="vm.workdate.workrests.length === 0">
+              <span class="mg10r">休暇なし</span>
+              <label ng-if="!vm.workdate.isHoliday">
+                <input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">振替休日</label>
+            </div>
+          </div>
+          <!-- 振替 -->
+          <div class="form-group">
+            <label for="content">振替休暇：</label>
+            <div ng-if="vm.workdate.workrests.length === 0">
+              <span class="mg10r">休暇なし</span>
+              <label ng-if="!vm.workdate.isHoliday">
+                <input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">振替休日</label>
+            </div>
+          </div>
           <!-- Buttons -->
           <div class="form-group">
             <button class="btn btn-default" ng-click="vm.handleSetDefaultWorkdateInfo()">デフォルト</button>
             <button class="btn btn-warning" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
             <button class="btn btn-primary" ng-click="vm.handleSaveWorkdate()" ng-disabled="vm.busy">保存</button>
           </div>
+          <!-- Note -->
           <div class="form-group">
             <p>
               <span class="mg10r">★</span>
@@ -90,38 +131,10 @@
         </form>
       </div>
     </div>
-    <div class="col-sm-6">
-      <div class="well">
-        <h4 class="mg5b">{{:: vm.workdate.workmonth.year }}年{{:: vm.workdate.workmonth.month }}月の状態</h4>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>出勤日数</th>
-                <th>残業時間</th>
-                <th>深夜時間</th>
-                <th>休憩時間</th>
-                <th>休出</th>
-                <th>休深</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{ vm.workdate.workmonth.new_numWorkDate }}</td>
-                <td>{{ vm.workdate.workmonth.new_overtime }}</td>
-                <td>{{ vm.workdate.workmonth.new_overnight }}</td>
-                <td>{{ vm.workdate.workmonth.new_middleRest }}</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
+<!-- Template -->
 <script type="text/ng-template" id="workrests_list.html">
   <h4>申請した休暇の一覧</h4>
   <div class="row">
@@ -151,7 +164,6 @@
     </div>
   </div>
 </script>
-
 
 <script type="text/ng-template" id="workdates_list.html">
   <h4>出勤した休日の一覧</h4>
