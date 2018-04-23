@@ -79,7 +79,7 @@
             <div class="clearfix"></div>
           </div>
           <!-- 休暇 -->
-          <div class="form-group">
+          <div class="form-group" ng-if="vm.workdate.workdates.length > 0">
             <label>休暇：</label>
             <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html" add-from-autocomplete-only="true"></tags-input>
           </div>
