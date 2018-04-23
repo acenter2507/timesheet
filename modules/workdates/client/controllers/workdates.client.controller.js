@@ -190,7 +190,7 @@
       if (!vm.workdate.isHoliday) {
         work_range = Constant.workRange;
       }
-      
+
       // Trường hợp End nhỏ hơn start (làm qua đêm)
       if (end.isBefore(start) || end.isSame(start)) {
         // Mốc thời gian kết thúc 1 ngày
@@ -254,7 +254,7 @@
       var diff_overnight = vm.workdate.new_overnight - vm.workdate.overnight;
       var diff_overtime = vm.workdate.new_overtime - vm.workdate.overtime;
       var diff_middleRest = vm.workdate.new_middleRest - vm.workdate.middleRest;
-      
+
       vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.new_overnight + diff_overnight;
       vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.new_overtime + diff_overtime;
       vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.new_middleRest + diff_middleRest;
@@ -280,8 +280,7 @@
           } else {
             $scope.workdates = res;
             $scope.workdates.forEach(workdate => {
-              workdate = workdate.toJSON();
-              if (_.contains(vm.workdate.transfers, { _id: workdate._id })) {
+              if (_.findWhere(vm.workdate.transfers, { _id: workdate._id })) {
                 workdate.selected = true;
               }
             });
