@@ -282,11 +282,9 @@
               templateUrl: 'workdates_list.html',
               scope: $scope
             }).then(workdateId => {
-              if (!workdateId) {
-                vm.workdate.transfer = false;
-              } else {
-                vm.workdate.transfer_workdate = workdateId;
-              }
+              delete $scope.workdates;
+              vm.busy = false;
+            }, () => {
               delete $scope.workdates;
               vm.busy = false;
             });
@@ -297,17 +295,17 @@
         });
 
       // Trường hợp ngày này đã có đăng ký ngày nghỉ trước
-      if (vm.workdate.workrests.length > 0) {
-        $scope.handleShowToast('当日は既に休暇が登録されました。', true);
-        vm.workdate.transfer = false;
-        return;
-      }
-      // Kiểm tra hôm nay là ngày nghỉ, ngày lễ
-      if (vm.workdate.isHoliday) {
-        $scope.handleShowToast('当日は既に休暇が登録されました。', true);
-        vm.workdate.transfer = false;
-        return;
-      }
+      // if (vm.workdate.workrests.length > 0) {
+      //   $scope.handleShowToast('当日は既に休暇が登録されました。', true);
+      //   vm.workdate.transfer = false;
+      //   return;
+      // }
+      // // Kiểm tra hôm nay là ngày nghỉ, ngày lễ
+      // if (vm.workdate.isHoliday) {
+      //   $scope.handleShowToast('当日は既に休暇が登録されました。', true);
+      //   vm.workdate.transfer = false;
+      //   return;
+      // }
     };
 
     vm.handlePreviousScreen = handlePreviousScreen;
