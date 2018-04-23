@@ -82,14 +82,11 @@
           <div class="form-group">
             <label>休暇：</label>
             <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html" add-from-autocomplete-only="true"></tags-input>
-            <!-- <a ng-repeat="workrest in vm.workdate.workrests" ng-class="{ 'mg5l': !$first }" ui-sref="workrests.view({ workrestId: workrest._id })">{{:: workrest.holiday.name }}</a>
-            <a ng-if="vm.workdate.workrests.length === 0" ui-sref="workrests.create" class="btn btn-sm btn-primary">登録</a> -->
           </div>
           <!-- 振替 -->
           <div class="form-group" ng-if="!vm.workdate.isHoliday">
-            <label for="content">振替休暇：</label>
             <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 pdn">
-              <label>休暇：</label>
+              <label for="content">振替休暇：</label>
               <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html" add-from-autocomplete-only="true"></tags-input>
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 pdn">
@@ -199,6 +196,8 @@
 </script>
 
 <script type="text/ng-template" id="workrest_tags.html">
-  <span ng-bind="data.holiday.name"></span>
+  <span>
+    <a ui-sref="workrests.view({ workrestId: data._id })" ng-bind="data.holiday.name"></a>
+  </span>
   <!-- <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a> -->
 </script>
