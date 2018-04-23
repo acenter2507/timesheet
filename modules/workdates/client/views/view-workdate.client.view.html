@@ -3,17 +3,13 @@
     <div class="col-xs-12">
       <h3 class="text-center mg5y">{{:: vm.date | LL }} {{vm.date.format('dddd')}}</h3>
     </div>
-    <div class="col-xs-12 mg5b">
-      <button class="btn btn-default btn-sm" ng-click="vm.handlePreviousScreen()">
-        <i class="fa fa-angle-double-left"></i> 戻る
-      </button>
-    </div>
   </div>
 
   <div class="row">
     <div class="col-md-4 col-sm-12 col-md-push-8 col-lg-3 col-lg-push-9">
       <div class="well">
         <div class="w100p text-right">
+          <button class="btn btn-default btn-sm" ng-click="vm.handlePreviousScreen()">戻る</button>
           <button class="btn btn-sm btn-default" ng-click="vm.handleSetDefaultWorkdateInfo()">デフォルト</button>
           <button class="btn btn-sm btn-warning" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
           <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveWorkdate()" ng-disabled="vm.busy">保存</button>
@@ -85,14 +81,8 @@
           <!-- 休暇 -->
           <div class="form-group">
             <label for="workrest">休暇：</label>
-            <div ng-if="vm.workdate.workrests.length > 0">
-              <button class="btn btn-danger btn-sm" ng-click="vm.handleViewWorkrest()">休暇詳細</button>
-            </div>
-            <div ng-if="vm.workdate.workrests.length === 0">
-              <span class="mg10r">休暇なし</span>
-              <label ng-if="!vm.workdate.isHoliday">
-                <input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">振替休日</label>
-            </div>
+            <a ui-href="workrests.view({ workrestId: workrest._id })" ng-repeat="workrest in vm.workdate.workrests" ng-class="{ 'mg5l': !$first }">{{:: workrest.holiday.name }}</a>
+            <a ng-if="vm.workdate.workrests.length === 0" ui-href="workrests.create" class="btn btn-sm btn-primary">登録</a>
           </div>
           <!-- 振替 -->
           <div class="form-group">
@@ -100,7 +90,7 @@
             <div ng-if="vm.workdate.workrests.length === 0">
               <span class="mg10r">休暇なし</span>
               <label ng-if="!vm.workdate.isHoliday">
-                <input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">振替休日</label>
+                <input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">選択</label>
             </div>
           </div>
           <!-- Buttons -->
