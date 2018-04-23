@@ -281,8 +281,10 @@
             ngDialog.openConfirm({
               templateUrl: 'workdates_list.html',
               scope: $scope
-            }).then(workdateId => {
-              console.log($scope.workdates);
+            }).then(() => {
+              var selectedIds = _.pluck(_.filter($scope.workdates, { selected: true }), '_id');
+
+              console.log(selectedIds);
               delete $scope.workdates;
               vm.busy = false;
             }, () => {
