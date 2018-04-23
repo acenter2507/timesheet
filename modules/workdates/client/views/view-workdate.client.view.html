@@ -167,7 +167,6 @@
           <tbody>
             <tr ng-repeat="workdate in workdates">
               <td class="text-center">
-                <input type="radio" ng-model="workdateId" value="{{ workdate._id }}" name="workdateId">
                 <div class="checkbox">
                   <label><input type="checkbox" value="{{workdate._id}}" ng-model="workdate.selected" name="selectedWorkdates[]"></label>
                 </div>
