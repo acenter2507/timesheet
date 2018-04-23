@@ -280,6 +280,7 @@
           } else {
             $scope.workdates = res;
             $scope.workdates.forEach(workdate => {
+              workdate = workdate.toJSON();
               if (_.contains(vm.workdate.transfers, { _id: workdate._id })) {
                 workdate.selected = true;
               }
