@@ -286,6 +286,7 @@
               delete $scope.workdates;
               vm.busy = false;
             }, () => {
+              console.log("Cancel");
               console.log($scope.workdates);
               delete $scope.workdates;
               vm.busy = false;
