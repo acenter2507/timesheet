@@ -284,6 +284,7 @@
                 workdate.selected = true;
               }
             });
+            console.log($scope.workdates);
             ngDialog.openConfirm({
               templateUrl: 'workdates_list.html',
               scope: $scope
