@@ -114,6 +114,7 @@
     };
 
     function handleStartSave() {
+      console.log(vm.workdate.transfers);
       var rs_workdate = new WorkdatesService({
         _id: vm.workdate._id,
         content: vm.workdate.content,
@@ -122,8 +123,7 @@
         middleRest: vm.workdate.new_middleRest,
         overtime: vm.workdate.new_overtime,
         overnight: vm.workdate.new_overnight,
-        transfer: vm.workdate.transfer,
-        transfer_workdate: vm.workdate.transfer_workdate,
+        transfers: vm.workdate.transfers,
       });
       rs_workdate.$update(() => {
         vm.busy = false;
