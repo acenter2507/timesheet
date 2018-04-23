@@ -11,7 +11,8 @@ module.exports = {
         'public/lib/ng-img-crop/compile/unminified/ng-img-crop.css',
         'public/lib/ng-dialog/css/ngDialog.min.css',
         'public/lib/ng-dialog/css/ngDialog-theme-default.min.css',
-        'public/lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css'
+        'public/lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css',
+        'public/lib/ng-tags-input/ng-tags-input.css'
       ],
       js: [
         'public/lib/jquery/dist/jquery.js',
@@ -22,6 +23,7 @@ module.exports = {
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/angular-ui-utils/ui-utils.js',
         'https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.3.20/angular-locale_ja-jp.min.js',
+        'https://cdn.rawgit.com/osamutake/japanese-holidays-js/master/lib/japanese-holidays.min.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/angular-file-upload/angular-file-upload.js',
         'public/lib/underscore/underscore.js',
@@ -38,7 +40,8 @@ module.exports = {
         'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js',
         'public/lib/ua-parser-js/dist/ua-parser.min.js',
         'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
-        'public/lib/angular-socket-io/socket.js'
+        'public/lib/angular-socket-io/socket.js',
+        'public/lib/ng-tags-input/ng-tags-input.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

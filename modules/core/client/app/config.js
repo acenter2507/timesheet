@@ -21,7 +21,8 @@ var ApplicationConfiguration = (function () {
     'ngDialog',
     'ncy-angular-breadcrumb',
     'mwl.calendar',
-    'btford.socket-io'
+    'btford.socket-io',
+    'ngTagsInput'
   ];
 
   // Add a new vertical module
