@@ -81,7 +81,7 @@
           <!-- 休暇 -->
           <div class="form-group">
             <label for="workrest">休暇：</label>
-            <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html"></tags-input>
+            <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html" placeholder=""></tags-input>
             <!-- <a ng-repeat="workrest in vm.workdate.workrests" ng-class="{ 'mg5l': !$first }" ui-sref="workrests.view({ workrestId: workrest._id })">{{:: workrest.holiday.name }}</a>
             <a ng-if="vm.workdate.workrests.length === 0" ui-sref="workrests.create" class="btn btn-sm btn-primary">登録</a> -->
           </div>
