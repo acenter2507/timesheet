@@ -34,11 +34,26 @@ exports.create = function (req, res) {
  * Show the current Workdate
  */
 exports.read = function (req, res) {
-  // convert mongoose document to JSON
-  var workdate = req.workdate ? req.workdate.toJSON() : {};
-  workdate.isCurrentUserOwner = req.user && workdate.user && workdate.user._id.toString() === req.user._id.toString();
-
-  res.jsonp(workdate);
+  Workdate.findById(req.workdate._id)
+    .populate('user', 'displayName')
+    .populate('workmonth')
+    .populate('transfer', 'year month date')
+    .populate({
+      path: 'workrests',
+      populate: { path: 'holiday' }
+    })
+    .exec(function (err, workdate) {
+      if (err) {
+        return next(err);
+      } else if (!workdate) {
+        return res.status(404).send({
+          message: 'No Workdate with that identifier has been found'
+        });
+      }
+      var js_workdate = workdate ? workdate.toJSON() : {};
+      js_workdate.isCurrentUserOwner = req.user && workdate.user && workdate.user._id.toString() === req.user._id.toString();
+      return res.jsonp(js_workdate);
+    });
 };
 
 /**
@@ -161,7 +176,7 @@ exports.verifyWorkdateWithWorkrest = function (mDate, workrest) {
     Workdate.find({ year: year, month: month, date: date })
       .populate('workrests')
       .populate('workmonth')
-      .populate('transfer_workdate')
+      .populate('transfers')
       .exec()
       .then(workdates => {
         if (workdates.length === 0) return resolve(result);

@@ -87,7 +87,7 @@
           <div class="form-group" ng-if="!vm.workdate.isHoliday">
             <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 pdn pd5r">
               <label for="content">振替休暇：</label>
-              <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html" add-from-autocomplete-only="true"></tags-input>
+              <tags-input class="my-tags" ng-model="vm.workdate.transfers" template="transfer_tags.html" add-from-autocomplete-only="true"></tags-input>
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 pdn pd5l">
               <label>　</label>
@@ -193,5 +193,10 @@
 
 <script type="text/ng-template" id="workrest_tags.html">
   <a ui-sref="workrests.view({ workrestId: data._id })" ng-bind="data.holiday.name"></a>
+  <!-- <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a> -->
+</script>
+
+<script type="text/ng-template" id="transfer_tags.html">
+  <a ui-sref="workdates.view({ workdateId: data._id })">{{ data.year + '年' + data.month + '月' + data.date + '日' }}</a>
   <!-- <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a> -->
 </script>

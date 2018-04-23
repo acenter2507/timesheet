@@ -278,11 +278,14 @@
             vm.busy = false;
           } else {
             $scope.workdates = res;
+            
             ngDialog.openConfirm({
               templateUrl: 'workdates_list.html',
               scope: $scope
             }).then(() => {
-              var selectedIds = _.pluck(_.filter($scope.workdates, { selected: true }), '_id');
+              var selecteds = _.filter($scope.workdates, { selected: true });
+              vm.workdate.transfers = 
+
 
               console.log(selectedIds);
               delete $scope.workdates;
