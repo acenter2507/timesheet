@@ -80,21 +80,23 @@
           </div>
           <!-- 休暇 -->
           <div class="form-group">
-            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 pdn">
-              <label>休暇：</label>
-              <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html" add-from-autocomplete-only="true"></tags-input>
-            </div>
-            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 pdn">
-              <label>asdasd</label>
-              <button class="btn btn-default btn-block">選択</button>
-            </div>
-            <div class="clearfix"></div>
+            <label>休暇：</label>
+            <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html" add-from-autocomplete-only="true"></tags-input>
             <!-- <a ng-repeat="workrest in vm.workdate.workrests" ng-class="{ 'mg5l': !$first }" ui-sref="workrests.view({ workrestId: workrest._id })">{{:: workrest.holiday.name }}</a>
             <a ng-if="vm.workdate.workrests.length === 0" ui-sref="workrests.create" class="btn btn-sm btn-primary">登録</a> -->
           </div>
           <!-- 振替 -->
           <div class="form-group" ng-if="!vm.workdate.isHoliday">
             <label for="content">振替休暇：</label>
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 pdn">
+              <label>休暇：</label>
+              <tags-input class="my-tags" ng-model="vm.workdate.workrests" template="workrest_tags.html" add-from-autocomplete-only="true"></tags-input>
+            </div>
+            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 pdn">
+              <label>asdasd</label>
+              <button class="btn btn-default btn-block" ng-click="vm.handleCompensatoryOff()">選択</button>
+            </div>
+            <div class="clearfix"></div>
 
             <div ng-if="vm.workdate.workrests.length === 0">
               <span class="mg10r">休暇なし</span>
