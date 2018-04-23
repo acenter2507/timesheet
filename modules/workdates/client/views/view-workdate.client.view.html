@@ -81,12 +81,13 @@
           <!-- 休暇 -->
           <div class="form-group">
             <label for="workrest">休暇：</label>
-            <a ui-href="workrests.view({ workrestId: workrest._id })" ng-repeat="workrest in vm.workdate.workrests" ng-class="{ 'mg5l': !$first }">{{:: workrest.holiday.name }}</a>
+            <a ng-repeat="workrest in vm.workdate.workrests" ng-class="{ 'mg5l': !$first }" ui-href="workrests.view({ workrestId: workrest._id })">{{:: workrest.holiday.name }}</a>
             <a ng-if="vm.workdate.workrests.length === 0" ui-href="workrests.create" class="btn btn-sm btn-primary">登録</a>
           </div>
           <!-- 振替 -->
-          <div class="form-group">
+          <div class="form-group" ng-if="!vm.workdate.isHoliday">
             <label for="content">振替休暇：</label>
+
             <div ng-if="vm.workdate.workrests.length === 0">
               <span class="mg10r">休暇なし</span>
               <label ng-if="!vm.workdate.isHoliday">
