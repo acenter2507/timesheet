@@ -84,6 +84,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
+              <th></th>
               <th>日付</th>
               <!-- <th class="text-center">曜日</th> -->
               <th>業務内容</th>
@@ -91,11 +92,13 @@
               <th>終了</th>
               <th>休暇</th>
               <th>コメント</th>
-              <th>操作</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="workdate in vm.workmonth.workdates">
+              <td>
+                <a class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(workdate)">編集</a>
+              </td>
               <td ng-class="{'bg-danger': workdate.day === 0 || (workdate.isHoliday && workdate.day !== 6), 'bg-warning': workdate.day === 6 }">
                 {{:: workdate.time.format('MMMM D[日] dd') }}
               </td>
@@ -112,9 +115,6 @@
                   <span>{{comment.content}}</span>
                   <small>{{comment.time}}</small>
                 </p>
-              </td>
-              <td>
-                <a class="btn btn-primary btn-xs" ng-click="vm.handleEditWorkDate(workdate)">編集</a>
               </td>
             </tr>
           </tbody>
