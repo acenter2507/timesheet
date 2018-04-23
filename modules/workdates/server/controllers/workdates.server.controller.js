@@ -43,11 +43,9 @@ exports.read = function (req, res) {
       populate: { path: 'holiday' }
     })
     .exec(function (err, workdate) {
-      if (err) {
-        return next(err);
-      } else if (!workdate) {
+      if (err || !workdate) {
         return res.status(404).send({
-          message: 'No Workdate with that identifier has been found'
+          message: 'エラーになりました！'
         });
       }
       var js_workdate = workdate ? workdate.toJSON() : {};
