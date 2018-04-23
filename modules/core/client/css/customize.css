@@ -1,4 +1,7 @@
 /* ngTagsInput */
+.my-tags .host {
+  margin-top: 0;
+}
 .my-tags .tags {
   background-color: #fff;
   border: 1px solid #ccc;
