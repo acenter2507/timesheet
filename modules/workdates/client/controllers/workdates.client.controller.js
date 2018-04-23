@@ -125,10 +125,11 @@
         overnight: vm.workdate.new_overnight,
         transfers: vm.workdate.transfers,
       });
-      rs_workdate.$update(() => {
-        vm.busy = false;
-        $scope.handleShowToast('勤務時間を保存しました！', false);
-      });
+      vm.busy = false;
+      // rs_workdate.$update(() => {
+      //   vm.busy = false;
+      //   $scope.handleShowToast('勤務時間を保存しました！', false);
+      // });
     }
 
     vm.handleChangedInput = () => {
