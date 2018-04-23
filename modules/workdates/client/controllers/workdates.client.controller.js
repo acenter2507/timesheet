@@ -283,18 +283,16 @@
                 workdate.selected = true;
               }
             });
-
             ngDialog.openConfirm({
               templateUrl: 'workdates_list.html',
               scope: $scope
             }).then(() => {
               var selecteds = _.filter($scope.workdates, { selected: true });
               vm.workdate.transfers = selecteds;
+              console.log(selecteds);
               delete $scope.workdates;
               vm.busy = false;
             }, () => {
-              console.log("Cancel");
-              console.log($scope.workdates);
               delete $scope.workdates;
               vm.busy = false;
             });
