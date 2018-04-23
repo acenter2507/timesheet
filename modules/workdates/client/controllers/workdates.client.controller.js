@@ -114,7 +114,7 @@
     };
 
     function handleStartSave() {
-      console.log(vm.workdate.transfers);
+      var transfers = _.pluck(vm.workdate.transfers, '_id');
       var rs_workdate = new WorkdatesService({
         _id: vm.workdate._id,
         content: vm.workdate.content,
@@ -123,13 +123,13 @@
         middleRest: vm.workdate.new_middleRest,
         overtime: vm.workdate.new_overtime,
         overnight: vm.workdate.new_overnight,
-        transfers: vm.workdate.transfers,
+        transfers: transfers,
       });
       vm.busy = false;
-      // rs_workdate.$update(() => {
-      //   vm.busy = false;
-      //   $scope.handleShowToast('勤務時間を保存しました！', false);
-      // });
+      rs_workdate.$update(() => {
+        vm.busy = false;
+        $scope.handleShowToast('勤務時間を保存しました！', false);
+      });
     }
 
     vm.handleChangedInput = () => {
