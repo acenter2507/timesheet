@@ -94,12 +94,6 @@
               <button class="btn btn-success btn-block" ng-click="vm.handleCompensatoryOff()">選択</button>
             </div>
             <div class="clearfix"></div>
-
-            <div ng-if="vm.workdate.workrests.length === 0">
-              <span class="mg10r">休暇なし</span>
-              <label ng-if="!vm.workdate.isHoliday">
-                <input name="transfer" type="checkbox" ng-model="vm.workdate.transfer" ng-change="vm.handleCompensatoryOff()">選択</label>
-            </div>
           </div>
           <!-- Note -->
           <div class="form-group">
@@ -174,6 +168,9 @@
             <tr ng-repeat="workdate in workdates">
               <td class="text-center">
                 <input type="radio" ng-model="workdateId" value="{{ workdate._id }}" name="workdateId">
+                <div class="checkbox">
+                  <label><input type="checkbox" value="{{workdate._id}}" ng-model="workdate.selected" name="selectedWorkdates[]"></label>
+                </div>
               </td>
               <td>
                 <span>{{ workdate.workmonth.year }}</span><span>年</span>

@@ -266,25 +266,6 @@
 
     vm.handleCompensatoryOff = () => {
       if (vm.busy) {
-        vm.workdate.transfer = !vm.workdate.transfer;
-        return;
-      }
-
-      if (!vm.workdate.transfer) {
-        vm.workdate.transfer_workdate = null;
-        return;
-      }
-
-      // Trường hợp ngày này đã có đăng ký ngày nghỉ trước
-      if (vm.workdate.workrests.length > 0) {
-        $scope.handleShowToast('当日は既に休暇が登録されました。', true);
-        vm.workdate.transfer = false;
-        return;
-      }
-      // Kiểm tra hôm nay là ngày nghỉ, ngày lễ
-      if (vm.workdate.isHoliday) {
-        $scope.handleShowToast('当日は既に休暇が登録されました。', true);
-        vm.workdate.transfer = false;
         return;
       }
       // Kiểm tra trong tháng có tồn tại ngày cuối tuần có đi làm không
@@ -294,7 +275,6 @@
         .success(res => {
           if (res.length === 0) {
             $scope.handleShowToast('今月は休日に出勤したことがありません。', true);
-            vm.workdate.transfer = false;
             vm.busy = false;
           } else {
             $scope.workdates = res;
@@ -315,6 +295,19 @@
         .error(err => {
           $scope.handleShowToast(err.message, true);
         });
+
+      // Trường hợp ngày này đã có đăng ký ngày nghỉ trước
+      if (vm.workdate.workrests.length > 0) {
+        $scope.handleShowToast('当日は既に休暇が登録されました。', true);
+        vm.workdate.transfer = false;
+        return;
+      }
+      // Kiểm tra hôm nay là ngày nghỉ, ngày lễ
+      if (vm.workdate.isHoliday) {
+        $scope.handleShowToast('当日は既に休暇が登録されました。', true);
+        vm.workdate.transfer = false;
+        return;
+      }
     };
 
     vm.handlePreviousScreen = handlePreviousScreen;
