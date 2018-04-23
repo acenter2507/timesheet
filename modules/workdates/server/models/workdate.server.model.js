@@ -67,4 +67,13 @@ WorkdateSchema.statics.removeWorkrest = function (workrestId, year, month, date)
 };
 
 
+WorkdateSchema.statics.setTransfer = function (workdateId, isTransfer) {
+  return this.findById(workdateId)
+    .exec(function (err, workdates) {
+      if (!workdate) return;
+      workdate.transfer = isTransfer;
+      workdate.save();
+    });
+};
+
 mongoose.model('Workdate', WorkdateSchema);

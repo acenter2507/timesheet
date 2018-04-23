@@ -47,6 +47,9 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var workdate = req.workdate;
 
+  var old_transfers = _.pluck(req.workdate.transfers, '_id');
+  var new_transfers = req.body.transfers || [];
+
   workdate = _.extend(workdate, req.body);
 
   workdate.save(function (err) {
@@ -57,6 +60,19 @@ exports.update = function (req, res) {
     } else {
       var workmonthId = workdate.workmonth._id || workdate.workmonth;
       Workmonth.calculatorWorkdates(workmonthId);
+      // Bỏ đánh dấu nghỉ thế
+      for (let i = 0; i < old_transfers.length; i++) {
+        const transferId = old_transfers[i];
+        if (!_.contains(new_transfers, transferId))
+        Workdate.setTransfer(transferId, false);
+      }
+      // Đánh dấu nghỉ thế
+      for (let i = 0; i < new_transfers.length; i++) {
+        const transferId = new_transfers[i];
+        if (!_.contains(old_transfers, transferId))
+        Workdate.setTransfer(transferId, true);
+      }
+      
       res.jsonp(workdate);
     }
   });
