@@ -278,6 +278,11 @@
             vm.busy = false;
           } else {
             $scope.workdates = res;
+            $scope.workdates.forEach(workdate => {
+              if (_.contains(vm.workdate.transfers, { _id: workdate._id })) {
+                workdate.selected = true;
+              }
+            });
 
             ngDialog.openConfirm({
               templateUrl: 'workdates_list.html',
@@ -285,8 +290,6 @@
             }).then(() => {
               var selecteds = _.filter($scope.workdates, { selected: true });
               vm.workdate.transfers = selecteds;
-
-
               console.log(selecteds);
               delete $scope.workdates;
               vm.busy = false;
