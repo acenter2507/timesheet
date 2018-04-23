@@ -262,7 +262,11 @@ exports.getHolidayWorking = function (req, res) {
   var condition = {
     $and: [
       { workmonth: workmonthId },
-      { isHoliday: { $ne: false } },
+      {
+        $and: [
+          { isHoliday: { $ne: false } },
+          { isHoliday: { $exists: false } }]
+      },
       {
         $or: [
           { overtime: { $gt: 0 } },
