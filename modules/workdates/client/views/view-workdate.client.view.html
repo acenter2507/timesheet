@@ -87,7 +87,7 @@
           </div>
           <!-- 振替 -->
           <div class="form-group" ng-if="!vm.workdate.isHoliday">
-            <label for="content">振替休暇：</label>
+            <label for="content">振替休暇：</label> 
 
             <div ng-if="vm.workdate.workrests.length === 0">
               <span class="mg10r">休暇なし</span>
@@ -196,6 +196,6 @@
 </script>
 
 <script type="text/ng-template" id="workrest_tags.html">
-  <span>{{workrest.holiday.name}}</span>
+  <span ng-bind="date.holiday.name"></span>
   <!-- <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a> -->
 </script>
