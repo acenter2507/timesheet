@@ -29,6 +29,10 @@
   color: #fff;
 }
 
+.my-tags .tags .tag-item a {
+  color: #fff;
+}
+
 .my-tags .tags .tag-item button {
   background: transparent;
   color: #000;
