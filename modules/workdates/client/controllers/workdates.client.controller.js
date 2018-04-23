@@ -282,9 +282,11 @@
               templateUrl: 'workdates_list.html',
               scope: $scope
             }).then(workdateId => {
+              console.log($scope.workdates);
               delete $scope.workdates;
               vm.busy = false;
             }, () => {
+              console.log($scope.workdates);
               delete $scope.workdates;
               vm.busy = false;
             });
