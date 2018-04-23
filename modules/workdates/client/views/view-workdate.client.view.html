@@ -87,7 +87,7 @@
           <div class="form-group" ng-if="!vm.workdate.isHoliday">
             <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 pdn pd5r">
               <label for="content">振替休暇：</label>
-              <tags-input class="my-tags" ng-model="vm.workdate.transfers" template="transfer_tags.html" add-from-autocomplete-only="true"></tags-input>
+              <tags-input class="my-tags" ng-model="vm.workdate.transfers" key-property="_id" template="transfer_tags.html" add-from-autocomplete-only="true"></tags-input>
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 pdn pd5l">
               <label>　</label>
