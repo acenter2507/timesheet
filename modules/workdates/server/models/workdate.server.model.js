@@ -17,7 +17,7 @@ var WorkdateSchema = new Schema({
   month: { type: Number }, // カレンダーの月
   date: { type: Number }, // カレンダーの日
   day: { type: Number }, // 曜日
-  isHoliday: { type: String, default: false }, // 休日
+  isHoliday: { type: Boolean, default: false }, // 休日
   content: { type: String, trim: true }, // 業務内容
   start: { type: String, default: '' }, // 開始
   end: { type: String, default: '' }, // 終了
