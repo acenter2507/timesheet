@@ -107,11 +107,11 @@
               <td>{{:: workdate.content }}</td>
               <td>{{:: workdate.start }}</td>
               <td>{{:: workdate.end }}</td>
+              <td><p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p></td>
               <td>
                 <span ng-if="workdate.transfer">振り替えされた。</span>
                 <p ng-repeat="transfer in workdate.transfers track by $index">{{ transfer.year + '年' + transfer.month + '月' + transfer.date + '日' }}</p>
               </td>
-              <td><p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p></td>
               <td>
                 <p ng-repeat="comment in workdate.comments | limitTo: 3">
                   <strong>{{comment.author}}</strong>
