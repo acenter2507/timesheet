@@ -115,7 +115,7 @@
 
     };
     // Cancle copy workdate
-    vm.handlePasteWorkdate = function(workdate) {
+    vm.handleCancleCopyWorkdate = function() {
       vm.isCopying = false;
       vm.copyingWorkdate = {};
     };
