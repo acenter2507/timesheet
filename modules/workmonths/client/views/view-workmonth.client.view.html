@@ -97,7 +97,7 @@
           <tbody>
             <tr ng-repeat="workdate in vm.workmonth.workdates">
               <td>
-                <button class="btn btn-xs btn-default" ng-show="!vm.isCopying && workdate._id !== vm.copyingWorkdate._id" ng-click="vm.handlePasteWorkdate(workdate)">貼り付け</button>
+                <button class="btn btn-xs btn-default" ng-show="vm.isCopying && workdate._id !== vm.copyingWorkdate._id" ng-click="vm.handlePasteWorkdate(workdate)">貼り付け</button>
                 <button class="btn btn-xs btn-default" ng-show="!vm.isCopying && workdate._id === vm.copyingWorkdate._id" ng-click="vm.handleCancleCopyWorkdate()">キャンセル</button>
                 <div dropdown dropdown-append-to-body ng-show="!vm.isCopying">
                   <a dropdown-toggle class="btn btn-xs btn-default"><i class="glyphicon glyphicon-option-horizontal"></i></a>
