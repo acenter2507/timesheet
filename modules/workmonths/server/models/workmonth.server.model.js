@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
-  _ = require('lodash'),
+  _ = require('underscore'),
   Schema = mongoose.Schema;
 
 /**
@@ -84,12 +84,18 @@ WorkmonthSchema.statics.updateStatusTransfers = function (workmonthId) {
 
       for (let i = 0; i < workmonth.workdates.length; i++) {
         const element = workmonth.workdates[i];
-        if (element.transfers.length > 0) {
-          console.log(element.transfers[0]);
+        if (element.transfers.length === 0) {
+          continue;
         }
-        //transfers = _.union(transfers, element.transfers);
+        for (let y = 0; y < element.transfers.length; y++) {
+          const element = element.transfers[y].toString();
+          if (!_.contains(transfers, element)) {
+            transfers.push(element);
+          }
+          
+        }
       }
-      // console.log(transfers);
+      console.log(transfers);
       return;
     });
 };
