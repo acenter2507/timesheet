@@ -69,7 +69,7 @@ WorkdateSchema.statics.removeWorkrest = function (workrestId, year, month, date)
 
 WorkdateSchema.statics.setTransfer = function (workdateId, isTransfer) {
   return this.findById(workdateId)
-    .exec(function (err, workdates) {
+    .exec(function (err, workdate) {
       if (!workdate) return;
       workdate.transfer = isTransfer;
       workdate.save();
