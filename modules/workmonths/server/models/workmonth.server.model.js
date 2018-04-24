@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
+  _ = require('underscore'),
   Schema = mongoose.Schema;
 
 /**
@@ -70,6 +71,22 @@ WorkmonthSchema.statics.calculatorWorkdates = function (workmonthId) {
       workmonth.overtime = overtime;
       workmonth.overnight = overnight;
       return workmonth.save();
+    });
+};
+
+WorkmonthSchema.statics.updateStatusTransfers = function (workmonthId) {
+  return this.findById(workmonthId)
+    .populate('workdates')
+    .exec((err, workmonth) => {
+      if (err || !workmonth) return;
+      if (workmonth.workdates.length === 0) return;
+      var transfers = [];
+
+      for (let i = 0; i < workmonth.workdates.length; i++) {
+        const element = workmonth.workdates[i];
+        console.log(element.transfers);
+      }
+      return;
     });
 };
 
