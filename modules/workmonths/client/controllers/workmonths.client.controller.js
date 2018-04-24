@@ -102,6 +102,23 @@
     function handlePreviousScreen() {
       $state.go($state.previous.state.name || 'workmonths.list', $state.previous.params);
     }
+    // Chức năng copy workdate
+    vm.isCopying = false;
+    vm.copyingWorkdate = {};
+    // Copy workdate
+    vm.handleCopyWorkdate = function(workdate) {
+      vm.isCopying = true;
+      vm.copyingWorkdate = workdate;
+    };
+    // Paste workdate
+    vm.handlePasteWorkdate = function(workdate) {
+
+    };
+    // Cancle copy workdate
+    vm.handlePasteWorkdate = function(workdate) {
+      vm.isCopying = false;
+      vm.copyingWorkdate = {};
+    };
   }
 
 
