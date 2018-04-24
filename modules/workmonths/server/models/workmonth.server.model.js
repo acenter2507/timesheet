@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
-  _ = require('underscore'),
+  _ = require('lodash'),
   Schema = mongoose.Schema;
 
 /**
@@ -84,7 +84,7 @@ WorkmonthSchema.statics.updateStatusTransfers = function (workmonthId) {
 
       for (let i = 0; i < workmonth.workdates.length; i++) {
         const element = workmonth.workdates[i];
-        transfers = _.uniq(_.union(transfers, element.transfers));
+        transfers = _.union(transfers, element.transfers);
       }
       console.log(transfers);
       return;
