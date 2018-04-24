@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+  Workdate = mongoose.model('Workdate'),
   paginate = require('mongoose-paginate'),
   _ = require('underscore'),
   Schema = mongoose.Schema;
@@ -92,10 +93,18 @@ WorkmonthSchema.statics.updateStatusTransfers = function (workmonthId) {
           if (!_.contains(transfers, element)) {
             transfers.push(element);
           }
-          
+
         }
       }
-      console.log(transfers);
+      for (let z = 0; z < workmonth.workdates.length; z++) {
+        const workdate = workmonth.workdates[z];
+        const workdateId = workdate._id.toString();
+        if (_.contains(transfers, workdateId) && workdate.isHoliday) {
+          Workdate.setTransfer(workdateId, true);
+        } else {
+          Workdate.setTransfer(workdateId, false);
+        }
+      }
       return;
     });
 };
