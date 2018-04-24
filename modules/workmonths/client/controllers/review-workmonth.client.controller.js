@@ -159,7 +159,7 @@
         warnings.push('休暇が申請されたが出勤しているので残業時間の確認が必要');
       }
       // Kiểm tra thông tin xin nghỉ bù
-      if (workdate.transfer_workdate) {
+      if (workdate.transfers.length > 0) {
         warnings.push('振替休暇が申請されたので出勤時間の確認が必要');
       }
       // Kiểm tra nếu là ngày lễ, đi làm
@@ -169,7 +169,7 @@
       if (workdate.isHoliday && !CommonService.isStringEmpty(workdate.start) && workdate.transfer) {
         warnings.push('この日が振り替えられましたので時間計算の確認が必要');
       }
-      if (!workdate.isHoliday && CommonService.isStringEmpty(workdate.start) && !workdate.transfer_workdate && rest_duration === 0) {
+      if (!workdate.isHoliday && CommonService.isStringEmpty(workdate.start) && workdate.transfers.length > 0 && rest_duration === 0) {
         warnings.push('平日なのに出勤情報がありません！');
       }
       workdate.warnings = warnings;
