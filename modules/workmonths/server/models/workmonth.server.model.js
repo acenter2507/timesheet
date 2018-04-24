@@ -85,7 +85,7 @@ WorkmonthSchema.statics.updateStatusTransfers = function (workmonthId) {
       for (let i = 0; i < workmonth.workdates.length; i++) {
         const element = workmonth.workdates[i];
         if (element.transfers.length > 0) {
-          console.log(typeof element.transfers[0]);
+          console.log(element.transfers[0]);
         }
         //transfers = _.union(transfers, element.transfers);
       }
