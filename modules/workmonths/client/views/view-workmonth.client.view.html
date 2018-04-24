@@ -101,7 +101,7 @@
                 <button class="btn btn-xs btn-default" ng-show="vm.isCopying && workdate._id === vm.copyingWorkdate._id" ng-click="vm.handleCancleCopyWorkdate()">キャンセル</button>
                 <div dropdown dropdown-append-to-body ng-show="!vm.isCopying">
                   <a dropdown-toggle class="btn btn-xs btn-default"><i class="glyphicon glyphicon-option-horizontal"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                  <ul class="dropdown-menu dropdown-menu-left" role="menu">
                     <!-- Sửa nếu chưa được approve -->
                     <li ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4">
                       <a ui-sref="workdates.view({ workdateId: workdate._id })"><i class="fa fa-pencil-square-o"></i> 編集</a>
