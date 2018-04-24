@@ -161,6 +161,7 @@
               <th>選択</th>
               <th>日付</th>
               <th>作業内容</th>
+              <th>状態</th>
             </tr>
           </thead>
           <tbody>
@@ -175,6 +176,10 @@
                 <span>{{ workdate.month }}</span><span>月</span>
                 <span>{{ workdate.date }}</span><span>日</span>
               <td>{{ workdate.content }}</td>
+              <td>
+                <span ng-if="workdate.transfer">振替済み</span>
+                <span ng-if="!workdate.transfer">未振替</span>
+              </td>
             </tr>
           </tbody>
         </table>
