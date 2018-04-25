@@ -89,6 +89,7 @@
               <th>業務内容</th>
               <th>開始</th>
               <th>終了</th>
+              <th>休憩</th>
               <th>休暇</th>
               <th>振替</th>
               <th>コメント</th>
@@ -117,9 +118,10 @@
                 {{:: workdate.time.format('MMMM D[日] dd') }}
               </td>
               <!-- 出勤 -->
-              <td>{{:: workdate.content }}</td>
-              <td>{{:: workdate.start }}</td>
-              <td>{{:: workdate.end }}</td>
+              <td>{{ workdate.content }}</td>
+              <td>{{ workdate.start }}</td>
+              <td>{{ workdate.end }}</td>
+              <td>{{ workdate.middleRest }}</td>
               <td><p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p></td>
               <td>
                 <span ng-if="workdate.transfer">振り替えされた。</span>
