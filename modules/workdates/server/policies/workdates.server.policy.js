@@ -22,6 +22,15 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }]
   }, {
+    roles: ['accountant'],
+    allows: [{
+      resources: '/api/workdates',
+      permissions: '*'
+    }, {
+      resources: '/api/workdates/:workdateId',
+      permissions: '*'
+    }]
+  }, {
     roles: ['user'],
     allows: [{
       resources: '/api/workdates',
@@ -63,9 +72,7 @@ exports.isAllowed = function (req, res, next) {
         // Access granted! Invoke next middleware
         return next();
       } else {
-        return res.status(403).json({
-          message: 'User is not authorized'
-        });
+        return res.status(403).json({ message: '権限がありません！' });
       }
     }
   });
