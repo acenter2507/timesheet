@@ -59,9 +59,15 @@ exports.update = function (req, res) {
       });
     } else {
       var workmonthId = workdate.workmonth._id || workdate.workmonth;
-      Workmonth.calculatorWorkdates(workmonthId);
-      Workmonth.updateStatusTransfers(workmonthId);
-      res.jsonp(workdate);
+      Workmonth.calculatorWorkdates(workmonthId)
+        .then(() => {
+          return Workmonth.updateStatusTransfers(workmonthId);
+        })
+        .then(() => {
+          Workdate.findById(workdate._id).exec((err, workdate) => {
+            res.jsonp(workdate);
+          });
+        });
     }
   });
 };
