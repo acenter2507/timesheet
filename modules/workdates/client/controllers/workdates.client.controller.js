@@ -19,6 +19,7 @@
     vm.workdate.new_middleRest = vm.workdate.middleRest;
     vm.workdate.new_overtime = vm.workdate.overtime;
     vm.workdate.new_overnight = vm.workdate.overnight;
+    vm.workdate.new_work_duration = vm.workdate.work_duration;
 
     vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight;
     vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime;
@@ -122,6 +123,7 @@
         middleRest: vm.workdate.new_middleRest,
         overtime: vm.workdate.new_overtime,
         overnight: vm.workdate.new_overnight,
+        work_duration: vm.workdate.new_work_duration,
         transfers: transfers,
       });
       vm.busy = false;
@@ -148,6 +150,7 @@
       if (isError) {
         vm.workdate.new_overtime = 0;
         vm.workdate.new_overnight = 0;
+        vm.workdate.new_work_duration = 0;
         vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight;
         vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime;
         vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.middleRest;
@@ -167,17 +170,15 @@
       var overtime_duration = 0;
       // Thời gian làm đềm (từ mốc giờ đã set trước)
       var overnight_duration = 0;
-      // Thời gian nghỉ giải lao
-      var rest_duration = 0;
 
       // Thời gian làm việc từ lúc bắt đầu đến lúc tính overnight
       var before_overnight_duration = 0;
       // Thời gian làm việc từ lúc bắt đầu tính overnight đến nữa đêm
       var overnight_to_midnight_duration = 0;
       // Thời gian làm việc từ lúc nữa đêm đến kết thúc tính overnight
-      var midnight_to_endovertime_duration = 0;
-      // Thời gian làm việc từ lúc nữa đêm đến kết thúc tính overnight
-      var endovertime_to_end_duration = 0;
+      var midnight_to_endovernight_duration = 0;
+      // Thời gian làm việc từ lúc kết thúc tính overnight đến về
+      var endovernight_to_end_duration = 0;
       // Thời gian làm việc từ nửa đêm đến kết thúc
       var midnight_to_end_duration = 0;
       // Thời gian tính làm việc tiêu chuẩn trong 1 ngày
@@ -189,6 +190,10 @@
       if (!vm.workdate.isHoliday) {
         work_range = Constant.workRange;
       }
+      // TODO
+      // Đối với trường hợp ngày bình thường, xin nghỉ 1 buổi, hoặc cả ngày nhưng vẫn đi làm
+      // Xin nghỉ 1 buổi thì phải làm trên 7.5 mới tính OT
+      // Xin nghỉ 1 ngày thì mặc định thời gian làm đều tính là OT
 
       // Trường hợp End nhỏ hơn start (làm qua đêm)
       if (end.isBefore(start) || end.isSame(start)) {
@@ -213,13 +218,13 @@
           overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
         } else {
           // Tính thời gian từ nửa đêm đến thời điểm kết thúc ovetnight
-          midnight_to_endovertime_duration = overnightEnd.diff(temp_min, 'hours', true);
+          midnight_to_endovernight_duration = overnightEnd.diff(temp_min, 'hours', true);
           // Tính thời gian từ lúc kết thúc overnight đến khi về
-          endovertime_to_end_duration = end.diff(overnightEnd, 'hours', true);
+          endovernight_to_end_duration = end.diff(overnightEnd, 'hours', true);
           // Thời gian overnight
-          overnight_duration = overnight_to_midnight_duration + midnight_to_endovertime_duration;
+          overnight_duration = overnight_to_midnight_duration + midnight_to_endovernight_duration;
           // Tính tổng thời gian làm việc trong ngày
-          work_duration = before_overnight_duration + overnight_duration + endovertime_to_end_duration;
+          work_duration = before_overnight_duration + overnight_duration + endovernight_to_end_duration;
           // Tính thời gian làm thêm giờ
           overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
         }
@@ -245,10 +250,9 @@
         }
       }
 
-
-
       vm.workdate.new_overtime = overtime_duration;
       vm.workdate.new_overnight = overnight_duration;
+      vm.workdate.new_work_duration = work_duration;
 
       var diff_overnight = vm.workdate.new_overnight - vm.workdate.overnight;
       var diff_overtime = vm.workdate.new_overtime - vm.workdate.overtime;
