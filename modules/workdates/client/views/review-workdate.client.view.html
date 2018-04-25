@@ -36,6 +36,15 @@
           </tr>
         </table>
       </div>
+      <div class="well">
+        <h4 class="mg5b">コメント</h4>
+        <div ng-repeat="comment in vm.workdate.comments">
+          <strong>{{comment.author}}</strong>
+          <small>{{comment.time}}</small>
+          <p class="text-justify" ng-bind-html="comment.content | nl2br"></p>
+          <hr class="mgn mg5b">
+        </div>
+      </div>
     </div>
     <div class="col-md-8 col-sm-12 col-md-pull-4 col-lg-9 col-lg-pull-3">
       <div class="well">
