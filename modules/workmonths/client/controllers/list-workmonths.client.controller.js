@@ -74,11 +74,23 @@
       });
     };
     vm.handleSendRequestWorkmonth = item => {
+      $scope.handleShowConfirm({
+        message: item.workmonth.month + '月の勤務表を申請しますか？'
+      }, () => {
+        WorkmonthsApi.request(item.workmonth._id)
+          .success(data => {
+            _.extend(item.workmonth, data);
+            Socket.emit('month_request', { workmonthId: item.workmonth._id, userId: $scope.user._id });
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
     };
     vm.handleDeleteWorkmonth = item => {
       if (!item.workmonth) return;
       $scope.handleShowConfirm({
-        message: item.workmonth.month + '月の勤務時間を削除しますか？'
+        message: item.workmonth.month + '月の勤務表を削除しますか？'
       }, () => {
         var rsMonth = new WorkmonthsService({ _id: item.workmonth._id });
         rsMonth.$remove(() => {
