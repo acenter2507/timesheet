@@ -156,7 +156,7 @@ exports.delete = function (req, res) {
 exports.request = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
-  if (req.user._id !== workmonth.user._id) {
+  if (req.user._id.toString() !== workmonth.user._id.toString()) {
     return res.status(400).send({ message: '勤務表の申請は本人が必要になります！' });
   }
   // Kiểm tra trạng thái của timesheet
@@ -178,7 +178,7 @@ exports.request = function (req, res) {
 exports.cancel = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
-  if (req.user._id !== workmonth.user._id) {
+  if (req.user._id.toString() !== workmonth.user._id.toString()) {
     return res.status(400).send({ message: '勤務表の申請のキャンセルは本人が必要になります！' });
   }
   // Kiểm tra trạng thái của timesheet
