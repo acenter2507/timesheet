@@ -6,9 +6,9 @@
     .module('workmonths')
     .controller('WorkmonthReviewController', WorkmonthReviewController);
 
-  WorkmonthReviewController.$inject = ['$scope', '$state', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'CommonService', 'WorkrestsApi'];
+  WorkmonthReviewController.$inject = ['$scope', '$state', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'CommonService', 'WorkrestsApi', 'Socket'];
 
-  function WorkmonthReviewController($scope, $state, workmonth, WorkdatesApi, ngDialog, WorkmonthsApi, CommonService, WorkrestsApi) {
+  function WorkmonthReviewController($scope, $state, workmonth, WorkdatesApi, ngDialog, WorkmonthsApi, CommonService, WorkrestsApi, Socket) {
     var vm = this;
 
     vm.workmonth = workmonth;
@@ -20,35 +20,66 @@
     onCreate();
     function onCreate() {
       prepareShowingData();
-      prepareWorkrests();
+      // prepareWorkrests();
     }
     function prepareShowingData() {
       vm.workmonth.workdates.forEach(workdate => {
         workdate.time = moment().year(workdate.year).month(workdate.month - 1).date(workdate.date);
       });
     }
-    function prepareWorkrests() {
-      var start = vm.currentMonth.clone().subtract(1, 'months').date(21).format();
-      var end = vm.currentMonth.clone().date(20).format();
-      var userId = vm.workmonth.user._id;
-      WorkrestsApi.getRestOfCurrentUserInRange(start, end, userId)
-        .success(workrests => {
-          vm.workrests = workrests;
-          console.log(vm.workrests);
-        });
-    }
+    // function prepareWorkrests() {
+    //   var start = vm.currentMonth.clone().subtract(1, 'months').date(21).format();
+    //   var end = vm.currentMonth.clone().date(20).format();
+    //   var userId = vm.workmonth.user._id;
+    //   WorkrestsApi.getRestOfCurrentUserInRange(start, end, userId)
+    //     .success(workrests => {
+    //       vm.workrests = workrests;
+    //     });
+    // }
     vm.handleViewHistory = rest => {
       vm.isShowHistory = true;
     };
     vm.handleCloseHistory = () => {
       vm.isShowHistory = false;
     };
-    // Xóa workmonth
+    // Chấp nhận timesheet hợp lệ
+    vm.handleApproveWorkmonth = () => {
+      $scope.handleShowConfirm({
+        message: 'この勤務表を承認しますか？'
+      }, () => {
+        WorkmonthsApi.approve()
+          .success(workmonth => {
+            _.extend(vm.workmonth, workmonth);
+            Socket.emit('month_approve', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    // Không chấp nhận timesheet
+    vm.handleRejectWorkmonth = () => {
+      $scope.handleShowConfirm({
+        message: 'この勤務表を拒否しますか？'
+      }, () => {
+        WorkmonthsApi.reject()
+          .success(workmonth => {
+            _.extend(vm.workmonth, workmonth);
+            Socket.emit('month_reject', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    // Xóa bỏ Workmanth
     vm.handleDeleteMonth = () => {
       $scope.handleShowConfirm({
-        message: '勤務表を削除しますか？'
+        message: 'この勤務表を完全削除しますか？'
       }, () => {
-        vm.workmonth.$remove(vm.handleViewYear());
+        vm.workmonth.$remove(() => {
+          handlePreviousScreen();
+        });
       });
     };
     // Xem các thông tin cần thiết của user
@@ -99,44 +130,6 @@
         handleAutoCheckWorkdate(workdate);
       });
       if (!$scope.$$phase) $scope.$digest();
-    };
-    // Chấp nhận timesheet hợp lệ
-    vm.handleApproveWorkmonth = () => {
-      $scope.handleShowConfirm({
-        message: 'この勤務表を承認しますか？'
-      }, () => {
-        WorkmonthsApi.approve()
-          .success(workmonth => {
-            _.extend(vm.workmonth, workmonth);
-          })
-          .error(err => {
-            $scope.handleShowToast(err.message, true);
-          });
-      });
-    };
-    // Không chấp nhận timesheet
-    vm.handleRejectWorkmonth = () => {
-      $scope.handleShowConfirm({
-        message: 'この勤務表を拒否しますか？'
-      }, () => {
-        WorkmonthsApi.reject()
-          .success(workmonth => {
-            _.extend(vm.workmonth, workmonth);
-          })
-          .error(err => {
-            $scope.handleShowToast(err.message, true);
-          });
-      });
-    };
-    // Xóa bỏ Workmanth
-    vm.handleDeleteMonth = () => {
-      $scope.handleShowConfirm({
-        message: 'この勤務表を完全削除しますか？'
-      }, () => {
-        vm.workmonth.$remove(() => {
-          handlePreviousScreen();
-        });
-      });
     };
     // Kiểm tra 1 workdate có hợp lệ hay không
     function handleAutoCheckWorkdate(workdate) {

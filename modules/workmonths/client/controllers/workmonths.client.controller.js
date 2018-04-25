@@ -12,7 +12,6 @@
     var vm = this;
 
     vm.workmonth = workmonth;
-    console.log(vm.workmonth);
     vm.currentMonth = moment().year(vm.workmonth.year).month(vm.workmonth.month - 1);
 
     vm.isShowHistory = false;
@@ -27,30 +26,6 @@
       });
     }
 
-    // Xem các đơn xin nghỉ trong 1 ngày
-    vm.handleViewWorkrest = workdate => {
-      WorkdatesApi.getWorkrestsInWorkdate(workdate._id)
-        .success(res => {
-          $scope.workrests = res;
-          $scope.time = workdate.time;
-          var mDialog = ngDialog.open({
-            template: 'workrests_list.html',
-            scope: $scope
-          });
-          mDialog.closePromise.then(function (res) {
-            delete $scope.workrests;
-            delete $scope.time;
-          });
-        })
-        .error(err => {
-          $scope.handleShowToast(err.message, true);
-        });
-    };
-    // Đến màn hình chỉnh sửa workdate
-    vm.handleEditWorkDate = workdate => {
-      if (!workdate || !workdate._id) return;
-      $state.go('workdates.view', { workdateId: workdate._id });
-    };
     // Về màn hình xem workmonth theo năm hiện tại
     vm.handleViewYear = () => {
       $state.go('workmonths.list', { year: vm.workmonth.year });
@@ -78,25 +53,26 @@
         WorkmonthsApi.cancel(vm.workmonth._id)
           .success(data => {
             _.extend(vm.workmonth, data);
+            Socket.emit('month_cancel', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
           .error(err => {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
-    vm.handleViewHistory = rest => {
+    // Xóa workmonth
+    vm.handleDeleteMonth = () => {
+      $scope.handleShowConfirm({
+        message: 'この勤務表を完全削除しますか？'
+      }, () => {
+        vm.workmonth.$remove(handlePreviousScreen());
+      });
+    };
+    vm.handleViewHistory = () => {
       vm.isShowHistory = true;
     };
     vm.handleCloseHistory = () => {
       vm.isShowHistory = false;
-    };
-    // Xóa workmonth
-    vm.handleDeleteMonth = () => {
-      $scope.handleShowConfirm({
-        message: '勤務表を削除しますか？'
-      }, () => {
-        vm.workmonth.$remove(vm.handleViewYear());
-      });
     };
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
