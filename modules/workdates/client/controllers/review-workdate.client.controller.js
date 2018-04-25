@@ -4,11 +4,11 @@
   // Workdates controller
   angular
     .module('workdates')
-    .controller('WorkdatesController', WorkdatesController);
+    .controller('WorkdateReviewController', WorkdateReviewController);
 
-  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant', 'CommonService', 'WorkmonthsApi', 'WorkmonthsService', 'WorkdatesService'];
+  WorkdateReviewController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant', 'CommonService', 'WorkmonthsApi', 'WorkmonthsService', 'WorkdatesService'];
 
-  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant, CommonService, WorkmonthsApi, WorkmonthsService, WorkdatesService) {
+  function WorkdateReviewController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant, CommonService, WorkmonthsApi, WorkmonthsService, WorkdatesService) {
     var vm = this;
 
     vm.Constant = Constant;
@@ -31,7 +31,7 @@
 
     vm.busy = false;
 
-    vm.handleViewWorkrest = function() {
+    vm.handleViewWorkrest = function () {
       $scope.workrests = vm.workdate.workrests;
       var mDialog = ngDialog.open({
         template: 'workrests_list.html',
@@ -42,14 +42,14 @@
       });
     };
 
-    vm.handleSetDefaultWorkdateInfo = function() {
+    vm.handleSetDefaultWorkdateInfo = function () {
       vm.workdate.start = '09:00';
       vm.workdate.end = '17:30';
       vm.workdate.new_middleRest = 1;
       vm.handleChangedInput();
     };
 
-    vm.handleClearWorkdateInfo = function() {
+    vm.handleClearWorkdateInfo = function () {
       vm.workdate.content = '';
       vm.workdate.start = '';
       vm.workdate.end = '';
@@ -59,7 +59,7 @@
       vm.handleChangedInput();
     };
 
-    vm.handleSaveWorkdate = function() {
+    vm.handleSaveWorkdate = function () {
       if (vm.busy) return;
       vm.busy = true;
       var isError = false;
@@ -69,7 +69,7 @@
       if (CommonService.isStringEmpty(vm.workdate.start) && CommonService.isStringEmpty(vm.workdate.end) && CommonService.isStringEmpty(vm.workdate.content)) {
         $scope.handleShowConfirm({
           message: '全ての項目が空欄になっていますがよろしいでしょうか？'
-        }, function() {
+        }, function () {
           handleStartSave();
         });
         return;
@@ -127,13 +127,13 @@
         transfers: transfers,
       });
       vm.busy = false;
-      rs_workdate.$update(function() {
+      rs_workdate.$update(function () {
         vm.busy = false;
         $scope.handleShowToast('勤務時間を保存しました！', false);
       });
     }
 
-    vm.handleChangedInput = function() {
+    vm.handleChangedInput = function () {
       var isError = false;
       // 1 trong 3 trường bị trống
       if (CommonService.isStringEmpty(vm.workdate.start) || CommonService.isStringEmpty(vm.workdate.end)) {
@@ -268,7 +268,7 @@
       vm.workdate.work_duration = work_duration;
     };
 
-    vm.handleCompensatoryOff = function() {
+    vm.handleCompensatoryOff = function () {
       if (vm.busy) {
         return;
       }
@@ -290,12 +290,12 @@
             ngDialog.openConfirm({
               templateUrl: 'workdates_list.html',
               scope: $scope
-            }).then(function() {
+            }).then(function () {
               var selecteds = _.filter($scope.workdates, { selected: true });
               vm.workdate.transfers = selecteds;
               delete $scope.workdates;
               vm.busy = false;
-            }, function() {
+            }, function () {
               delete $scope.workdates;
               vm.busy = false;
             });
