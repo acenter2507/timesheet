@@ -16,7 +16,6 @@
           <tr>
             <th>日付</th>
             <th>操作</th>
-            <th>コメント</th>
             <th>操作者</th>
           </tr>
         </thead>
@@ -24,9 +23,6 @@
           <tr ng-repeat="history in vm.workmonth.historys">
             <td>{{history.timing | LLLL}}</td>
             <td>{{history.action | RestActionFilter}}</td>
-            <td>
-              <p ng-bind-html="history.comment | nl2br"></p>
-            </td>
             <td>
               <a ng-click="vm.handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
             </td>

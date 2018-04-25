@@ -37,8 +37,6 @@ var WorkmonthSchema = new Schema({
   historys: [{
     // Action of history 1:Created - 2:Updated - 3:Send - 4:Approved - 5:Rejected - 6:Cancel
     action: { type: Number },
-    // Comment of history
-    comment: { type: String },
     // Time of history
     timing: { type: Date },
     // Owner

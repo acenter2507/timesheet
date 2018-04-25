@@ -164,7 +164,7 @@ exports.request = function (req, res) {
     return res.status(400).send({ message: '現在の勤務表の状態で申請できません！' });
   }
   workmonth.status = 2;
-  workmonth.historys.push({ action: 3, comment: '', timing: new Date(), user: workmonth.user });
+  workmonth.historys.push({ action: 3, timing: new Date(), user: workmonth.user });
   workmonth.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
@@ -187,7 +187,7 @@ exports.cancel = function (req, res) {
   }
 
   workmonth.status = 1;
-  workmonth.historys.push({ action: 6, comment: '', timing: new Date(), user: workmonth.user });
+  workmonth.historys.push({ action: 6, timing: new Date(), user: workmonth.user });
   workmonth.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
@@ -210,7 +210,7 @@ exports.approve = function (req, res) {
   }
 
   workmonth.status = 3;
-  workmonth.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
+  workmonth.historys.push({ action: 4, timing: new Date(), user: req.user._id });
   workmonth.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: '承認処理が完了できません。' });
@@ -233,7 +233,7 @@ exports.reject = function (req, res) {
   }
 
   workmonth.status = 4;
-  workmonth.historys.push({ action: 5, comment: req.body.data.comment, timing: new Date(), user: req.user._id });
+  workmonth.historys.push({ action: 5, timing: new Date(), user: req.user._id });
 
   workmonth.save((err, workrest) => {
     if (err)
