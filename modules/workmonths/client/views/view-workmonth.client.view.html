@@ -121,7 +121,9 @@
               <td>{{ workdate.content }}</td>
               <td>{{ workdate.start }}</td>
               <td>{{ workdate.end }}</td>
-              <td>{{ workdate.middleRest || '' }}</td>
+              <td>
+                <span ng-show="workdate.start">{{ workdate.middleRest }}</span>
+              </td>
               <td><p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p></td>
               <td>
                 <span ng-if="workdate.transfer">振り替えされた。</span>
