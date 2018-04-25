@@ -119,28 +119,31 @@
       workdate.end = vm.copyingWorkdate.end;
       workdate.middleRest = vm.copyingWorkdate.middleRest;
       workdate.content = vm.copyingWorkdate.content;
-      calculateTimeWorkdate(workdate);
-      var rs_workdate = new WorkdatesService({
-        _id: workdate._id,
-        start: workdate.start,
-        end: workdate.end,
-        content: workdate.content,
-        middleRest: workdate.middleRest,
-        overtime: workdate.overtime,
-        overnight: workdate.overnight,
-        work_duration: workdate.work_duration
-      });
-      rs_workdate.$update(function(res) {
-        console.log(res);
-        vm.workmonth.middleRest = res.workmonth.middleRest;
-        vm.workmonth.numWorkDate = res.workmonth.numWorkDate;
-        vm.workmonth.overnight = res.workmonth.overnight;
-        vm.workmonth.overtime = res.workmonth.overtime;
+      if (calculateTimeWorkdate(workdate)) {
+        var rs_workdate = new WorkdatesService({
+          _id: workdate._id,
+          start: workdate.start,
+          end: workdate.end,
+          content: workdate.content,
+          middleRest: workdate.middleRest,
+          overtime: workdate.overtime,
+          overnight: workdate.overnight,
+          work_duration: workdate.work_duration
+        });
+        rs_workdate.$update(function (res) {
+          console.log(res);
+          vm.workmonth.middleRest = res.workmonth.middleRest;
+          vm.workmonth.numWorkDate = res.workmonth.numWorkDate;
+          vm.workmonth.overnight = res.workmonth.overnight;
+          vm.workmonth.overtime = res.workmonth.overtime;
+          vm.isSaving = false;
+        }, function (err) {
+          console.log(err);
+          vm.isSaving = false;
+        });
+      } else {
         vm.isSaving = false;
-      }, function(err) {
-        console.log(err);
-        vm.isSaving = false;
-      });
+      }
     };
     // Cancle copy workdate
     vm.handleCancleCopyWorkdate = function () {
@@ -149,11 +152,14 @@
     };
 
     function calculateTimeWorkdate(workdate) {
-      if (CommonService.isStringEmpty(workdate.start) || CommonService.isStringEmpty(workdate.end) || CommonService.isStringEmpty(workdate.content)) {
-        return;
+      if (CommonService.isStringEmpty(workdate.start) && CommonService.isStringEmpty(workdate.end) && CommonService.isStringEmpty(workdate.content)) {
+        workdate.overtime = 0;
+        workdate.overnight = 0;
+        workdate.work_duration = 0;
+        return true;
       }
-      if (workdate.middleRest < 0) {
-        return;
+      if (CommonService.isStringEmpty(workdate.start) || CommonService.isStringEmpty(workdate.end) || CommonService.isStringEmpty(workdate.content) || workdate.middleRest < 0) {
+        return false;
       }
       // Tính thời gian có mặt ở công ty
       var start = moment(workdate.start, 'HH:mm');
@@ -252,6 +258,7 @@
       workdate.overtime = overtime_duration;
       workdate.overnight = overnight_duration;
       workdate.work_duration = work_duration;
+      return true;
     }
   }
 }());
