@@ -130,7 +130,7 @@
         overnight: workdate.overnight,
         work_duration: workdate.work_duration
       });
-      rs_workdate.$save(function(res) {
+      rs_workdate.$update(function(res) {
         console.log(res);
         vm.isSaving = false;
       }, function(err) {
