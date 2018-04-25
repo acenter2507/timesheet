@@ -131,14 +131,12 @@
           work_duration: workdate.work_duration
         });
         rs_workdate.$update(function (res) {
-          console.log(res);
           vm.workmonth.middleRest = res.workmonth.middleRest;
           vm.workmonth.numWorkDate = res.workmonth.numWorkDate;
           vm.workmonth.overnight = res.workmonth.overnight;
           vm.workmonth.overtime = res.workmonth.overtime;
           vm.isSaving = false;
         }, function (err) {
-          console.log(err);
           vm.isSaving = false;
         });
       } else {
@@ -149,6 +147,44 @@
     vm.handleCancleCopyWorkdate = function () {
       vm.isCopying = false;
       vm.copyingWorkdate = {};
+    };
+    // Xem tất cả các comment
+    vm.handleViewMoreWorkdateComment = workdate => {
+      $scope.tmp_time = moment().year(workdate.year).month(workdate.month - 1).date(workdate.date).format('LL');
+      $scope.tmp_comments = workdate.comments;
+      ngDialog.openConfirm({
+        templateUrl: 'commentsTempalte.html',
+        scope: $scope
+      }).then(content => {
+        delete $scope.tmp_time;
+        delete $scope.tmp_comments;
+      }, () => {
+        delete $scope.tmp_time;
+        delete $scope.tmp_comments;
+      });
+    };
+    // Nhập mới 1 comment
+    vm.handleWriteWorkdateComment = workdate => {
+      ngDialog.openConfirm({
+        templateUrl: 'commentTemplate.html',
+        scope: $scope
+      }).then(content => {
+        if (!content || content === '') return;
+        var comment = {
+          content: content,
+          author: $scope.user.displayName,
+          time: moment().format('LLLL')
+        };
+        WorkdatesApi.addComment(workdate._id, comment)
+          .success(res => {
+            workdate.comments.push(comment);
+          })
+          .error(err => {
+            $scope.handleShowToast(err.message, true);
+          });
+      }, () => {
+        delete $scope.comment;
+      });
     };
 
     function calculateTimeWorkdate(workdate) {

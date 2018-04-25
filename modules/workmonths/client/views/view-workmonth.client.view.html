@@ -142,11 +142,13 @@
                 <p ng-repeat="transfer in workdate.transfers track by $index">{{ transfer.year + '年' + transfer.month + '月' + transfer.date + '日' }}</p>
               </td>
               <td>
-                <p ng-repeat="comment in workdate.comments | limitTo: 3">
+                <p ng-repeat="comment in workdate.comments | limitTo: 1">
                   <strong>{{comment.author}}</strong>
                   <span>{{comment.content}}</span>
                   <small>{{comment.time}}</small>
                 </p>
+                <a class="mg5x" ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 1">全て</a>
+                <a class="mg5x" ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
               </td>
             </tr>
           </tbody>
@@ -184,5 +186,20 @@
       <button class="btn btn-sm pull-right btn-danger" ng-click="closeThisDialog()">閉じる</button>
       <div class="clearfix"></div>
     </div>
+  </div>
+</script>
+
+<!-- コメント入力 -->
+<script type="text/ng-template" id="commentsTempalte.html">
+  <h3>{{ tmp_time }}</h3>
+  <div ng-repeat="comment in tmp_comments">
+    <strong>{{comment.author}}</strong>
+    <small>{{comment.time}}</small>
+    <p class="text-justify" ng-bind-html="comment.content | nl2br"></p>
+    <hr class="mgn mg5b">
+  </div>
+  <div class="form-group mg12t mgnb">
+    <button class="btn btn-default pull-right" ng-click="closeThisDialog()">閉じる</button>
+    <div class="clearfix"></div>
   </div>
 </script>
