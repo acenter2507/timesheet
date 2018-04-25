@@ -201,7 +201,7 @@ exports.cancel = function (req, res) {
 exports.approve = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
-  if (_.contains(req.user.roles, 'accountant')) {
+  if (!_.contains(req.user.roles, 'accountant')) {
     return res.status(400).send({ message: '経理部以外はできません！' });
   }
   // Kiểm tra trạng thái của timesheet
@@ -224,7 +224,7 @@ exports.approve = function (req, res) {
 exports.reject = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
-  if (_.contains(req.user.roles, 'accountant')) {
+  if (!_.contains(req.user.roles, 'accountant')) {
     return res.status(400).send({ message: '経理部以外はできません！' });
   }
   // Kiểm tra trạng thái của timesheet
