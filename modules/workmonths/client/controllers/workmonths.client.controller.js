@@ -132,6 +132,10 @@
       });
       rs_workdate.$update(function(res) {
         console.log(res);
+        vm.workmonth.middleRest = res.workmonth.middleRest;
+        vm.workmonth.numWorkDate = res.workmonth.numWorkDate;
+        vm.workmonth.overnight = res.workmonth.overnight;
+        vm.workmonth.overtime = res.workmonth.overtime;
         vm.isSaving = false;
       }, function(err) {
         console.log(err);
