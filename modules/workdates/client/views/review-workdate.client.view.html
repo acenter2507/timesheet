@@ -69,11 +69,11 @@
             </div>
             <div class="col-sm-4">
               <label for="overtime">時間外（時）</label>
-              <input class="form-control" ng-model="vm.workdate.new_overtime" disabled>
+              <input class="form-control" ng-model="vm.workdate.new_overtime">
             </div>
             <div class="col-sm-4 pdnr">
               <label for="overnight">深夜（時）</label>
-              <input type="text" class="form-control" ng-model="vm.workdate.new_overnight" disabled>
+              <input type="text" class="form-control" ng-model="vm.workdate.new_overnight">
             </div>
             <div class="clearfix"></div>
           </div>
@@ -96,6 +96,10 @@
           </div>
           <!-- Note -->
           <div class="form-group">
+            <p class="text-danger">
+              <span class="mg10r">★★</span>
+              <span>このページは自動で計算しないので修正した結果はそのまま保存されます。</span>
+            </p>
             <p>
               <span class="mg10r">★</span>
               <span>深夜時間は</span>
