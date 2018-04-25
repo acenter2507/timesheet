@@ -53,7 +53,7 @@
           handleStartSave();
         });
         return;
-      } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && !CommonService.isStringEmpty(vm.workdate.content) && vm.workdate.new_middleRest >= 0) {
+      } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && !CommonService.isStringEmpty(vm.workdate.content) && vm.workdate.middleRest >= 0) {
         isError = false;
       } else {
         if (CommonService.isStringEmpty(vm.workdate.start)) {
@@ -68,7 +68,7 @@
           vm.error.content = { error: true, message: '作業内容を入力してください！' };
           isError = true;
         }
-        if (vm.workdate.new_middleRest < 0) {
+        if (vm.workdate.middleRest < 0) {
           vm.error.middleRest = { error: true, message: '休憩時間は0以上入力してください！' };
           isError = true;
         }
@@ -100,10 +100,9 @@
         content: vm.workdate.content,
         start: vm.workdate.start,
         end: vm.workdate.end,
-        middleRest: vm.workdate.new_middleRest,
-        overtime: vm.workdate.new_overtime,
-        overnight: vm.workdate.new_overnight,
-        work_duration: vm.workdate.new_work_duration,
+        middleRest: vm.workdate.middleRest,
+        overtime: vm.workdate.overtime,
+        overnight: vm.workdate.overnight,
         transfers: transfers,
       });
       vm.busy = true;
