@@ -6,9 +6,9 @@
     .module('workmonths')
     .controller('WorkmonthsController', WorkmonthsController);
 
-  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'Socket', 'Constant', 'CommonService'];
+  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'Socket', 'Constant', 'CommonService', 'NumberUtil'];
 
-  function WorkmonthsController($scope, $state, $window, workmonth, WorkdatesApi, ngDialog, WorkmonthsApi, Socket, Constant, CommonService) {
+  function WorkmonthsController($scope, $state, $window, workmonth, WorkdatesApi, ngDialog, WorkmonthsApi, Socket, Constant, CommonService, NumberUtil) {
     var vm = this;
 
     vm.workmonth = workmonth;
