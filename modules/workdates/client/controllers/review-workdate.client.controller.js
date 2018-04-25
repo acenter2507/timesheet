@@ -108,6 +108,7 @@
       });
       vm.busy = true;
       rs_workdate.$update(function (res) {
+        console.log(res);
         vm.workdate.workmonth.middleRest = res.workmonth.middleRest;
         vm.workdate.workmonth.numWorkDate = res.workmonth.numWorkDate;
         vm.workdate.workmonth.overnight = res.workmonth.overnight;
