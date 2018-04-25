@@ -41,7 +41,7 @@
         <div class="w100p text-right">
           <button class="btn btn-sm btn-success" ng-click="vm.handleAutoCheckWorkmonth()">自動チェック</button>
           <button class="btn btn-sm btn-primary" ng-if="vm.workmonth.status === 2" ng-click="vm.handleApproveWorkmonth()">確認</button>
-          <button class="btn btn-sm btn-danger" ng-if="vm.workmonth.status === 2" ng-click="vm.handleRejectWorkmonth()">拒否</button>
+          <button class="btn btn-sm btn-warning" ng-if="vm.workmonth.status === 2" ng-click="vm.handleRejectWorkmonth()">拒否</button>
           <button class="btn btn-sm btn-danger" ng-click="vm.handleDeleteMonth()">削除</button>
           <button class="btn btn-sm btn-info" ng-click="vm.handleViewHistory()">歴史</button>
         </div>
