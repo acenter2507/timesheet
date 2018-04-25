@@ -23,6 +23,15 @@
         resolve: { workdateResolve: getWorkdate },
         data: { roles: ['user'] },
         ncyBreadcrumb: { label: '入力' }
+      })
+      .state('workdates.review', {
+        url: '/:workdateId/review',
+        templateUrl: 'modules/workdates/client/views/review-workdate.client.view.html',
+        controller: 'WorkdateReviewController',
+        controllerAs: 'vm',
+        resolve: { workdateResolve: getWorkdate },
+        data: { roles: ['accountant'] },
+        ncyBreadcrumb: { label: '編集' }
       });
   }
 
