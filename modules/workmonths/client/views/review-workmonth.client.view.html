@@ -102,6 +102,7 @@
         <table class="table table-bordered">
           <thead class="bg-primary">
             <tr>
+              <th ng-show="vm.workmonth.status === 3"></th>
               <th>日付</th>
               <th>業務内容</th>
               <th>開始</th>
@@ -113,11 +114,13 @@
               <th>振替</th>
               <th>コメント</th>
               <th>警告</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="workdate in vm.workmonth.workdates">
+              <td ng-show="vm.workmonth.status === 3">
+                <a class="btn btn-xs btn-primary" ui-href="workdates.review({ workdateId: workdate._id })">編集</a>
+              </td>
               <td ng-class="{'bg-danger': workdate.day === 0 || (workdate.isHoliday && workdate.day !== 6), 'bg-warning': workdate.day === 6 }">
                 {{:: workdate.time.format('MMMM D[日] dd') }}
               </td>
@@ -146,9 +149,6 @@
               </td>
               <td>
                 <p class="text-warning" ng-repeat="warning in workdate.warnings">{{ warning }}</p>
-              </td>
-              <td>
-                <a class="btn btn-xs btn-primary" ui-href="workdates.review({ workdateId: workdate._id })">編集</a>
               </td>
             </tr>
           </tbody>
