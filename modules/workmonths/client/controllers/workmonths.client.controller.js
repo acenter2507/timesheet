@@ -222,7 +222,7 @@
           // Tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - workdate.new_middleRest - work_range - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - workdate.middleRest - work_range - overnight_duration, 1);
         }
       }
 
