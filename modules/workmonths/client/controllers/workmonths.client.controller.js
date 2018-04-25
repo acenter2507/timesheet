@@ -6,9 +6,9 @@
     .module('workmonths')
     .controller('WorkmonthsController', WorkmonthsController);
 
-  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'Socket', 'Constant', 'CommonService', 'NumberUtil'];
+  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'Socket', 'Constant', 'CommonService', 'NumberUtil', 'WorkdatesService'];
 
-  function WorkmonthsController($scope, $state, $window, workmonth, WorkdatesApi, ngDialog, WorkmonthsApi, Socket, Constant, CommonService, NumberUtil) {
+  function WorkmonthsController($scope, $state, $window, workmonth, WorkdatesApi, ngDialog, WorkmonthsApi, Socket, Constant, CommonService, NumberUtil, WorkdatesService) {
     var vm = this;
 
     vm.workmonth = workmonth;
@@ -104,6 +104,7 @@
     }
     // Chức năng copy workdate
     vm.isCopying = false;
+    vm.isSaving = false;
     vm.copyingWorkdate = {};
     // Copy workdate
     vm.handleCopyWorkdate = function (workdate) {
@@ -112,12 +113,30 @@
     };
     // Paste workdate
     vm.handlePasteWorkdate = function (workdate) {
+      if (vm.isSaving) return;
+      vm.isSaving = true;
       workdate.start = vm.copyingWorkdate.start;
       workdate.end = vm.copyingWorkdate.end;
       workdate.middleRest = vm.copyingWorkdate.middleRest;
       workdate.content = vm.copyingWorkdate.content;
       calculateTimeWorkdate(workdate);
-      console.log(workdate);
+      var rs_workdate = new WorkdatesService({
+        _id: workdate._id,
+        start: workdate.start,
+        end: workdate.end,
+        content: workdate.content,
+        middleRest: workdate.middleRest,
+        overtime: workdate.overtime,
+        overnight: workdate.overnight,
+        work_duration: workdate.work_duration
+      });
+      rs_workdate.$save(function(res) {
+        console.log(res);
+        vm.isSaving = false;
+      }, function(err) {
+        console.log(err);
+        vm.isSaving = false;
+      });
     };
     // Cancle copy workdate
     vm.handleCancleCopyWorkdate = function () {

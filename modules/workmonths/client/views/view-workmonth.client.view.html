@@ -98,18 +98,28 @@
           <tbody>
             <tr ng-repeat="workdate in vm.workmonth.workdates">
               <td>
-                <button class="btn btn-xs btn-default" ng-show="vm.isCopying && workdate._id !== vm.copyingWorkdate._id" ng-click="vm.handlePasteWorkdate(workdate)">貼り付け</button>
-                <button class="btn btn-xs btn-danger" ng-show="vm.isCopying && workdate._id === vm.copyingWorkdate._id" ng-click="vm.handleCancleCopyWorkdate()">キャンセル</button>
+                <button class="btn btn-xs btn-default" ng-show="vm.isCopying && workdate._id !== vm.copyingWorkdate._id" ng-click="vm.handlePasteWorkdate(workdate)">
+                  <span ng-hide="vm.isSaving">貼り付け</span>
+                  <i ng-show="vm.isSaving" class="fa fa-spinner fa-pulse fa-fw"></i>
+                </button>
+                <button class="btn btn-xs btn-danger" ng-show="vm.isCopying && workdate._id === vm.copyingWorkdate._id" ng-click="vm.handleCancleCopyWorkdate()">
+                  <span ng-hide="vm.isSaving">キャンセル</span>
+                  <i ng-show="vm.isSaving" class="fa fa-spinner fa-pulse fa-fw"></i>
+                </button>
                 <div dropdown dropdown-append-to-body ng-show="!vm.isCopying">
-                  <a dropdown-toggle class="btn btn-xs btn-default"><i class="glyphicon glyphicon-option-horizontal"></i></a>
+                  <a dropdown-toggle class="btn btn-xs btn-default">
+                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                  </a>
                   <ul class="dropdown-menu dropdown-menu-left" role="menu">
                     <!-- Sửa nếu chưa được approve -->
                     <li ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4">
-                      <a ui-sref="workdates.view({ workdateId: workdate._id })"><i class="fa fa-pencil-square-o"></i> 編集</a>
+                      <a ui-sref="workdates.view({ workdateId: workdate._id })">
+                        <i class="fa fa-pencil-square-o"></i> 編集</a>
                     </li>
                     <!-- Copy -->
                     <li ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4">
-                      <a ng-click="vm.handleCopyWorkdate(workdate)"><i class="fa fa-copy"></i> コピー</a>
+                      <a ng-click="vm.handleCopyWorkdate(workdate)">
+                        <i class="fa fa-copy"></i> コピー</a>
                     </li>
                   </ul>
                 </div>
@@ -124,7 +134,9 @@
               <td>
                 <span ng-show="workdate.start">{{ workdate.middleRest }}</span>
               </td>
-              <td><p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p></td>
+              <td>
+                <p ng-repeat="workrest in workdate.workrests">{{:: workrest.holiday.name }}</p>
+              </td>
               <td>
                 <span ng-if="workdate.transfer">振り替えされた。</span>
                 <p ng-repeat="transfer in workdate.transfers track by $index">{{ transfer.year + '年' + transfer.month + '月' + transfer.date + '日' }}</p>
