@@ -115,7 +115,7 @@
           <tbody>
             <tr ng-repeat="workdate in vm.workmonth.workdates">
               <td ng-show="vm.workmonth.status === 3">
-                <a class="btn btn-xs btn-primary" ui-href="workdates.review({ workdateId: workdate._id })">編集</a>
+                <a class="btn btn-xs btn-primary" ui-sref="workdates.review({ workdateId: workdate._id })">編集</a>
               </td>
               <td ng-class="{'bg-danger': workdate.day === 0 || (workdate.isHoliday && workdate.day !== 6), 'bg-warning': workdate.day === 6 }">
                 {{:: workdate.time.format('MMMM D[日] dd') }}
