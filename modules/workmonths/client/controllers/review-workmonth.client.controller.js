@@ -47,7 +47,7 @@
       $scope.handleShowConfirm({
         message: 'この勤務表を承認しますか？'
       }, () => {
-        WorkmonthsApi.approve()
+        WorkmonthsApi.approve(vm.workmonth._id)
           .success(workmonth => {
             _.extend(vm.workmonth, workmonth);
             Socket.emit('month_approve', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
@@ -62,7 +62,7 @@
       $scope.handleShowConfirm({
         message: 'この勤務表を拒否しますか？'
       }, () => {
-        WorkmonthsApi.reject()
+        WorkmonthsApi.reject(vm.workmonth._id)
           .success(workmonth => {
             _.extend(vm.workmonth, workmonth);
             Socket.emit('month_reject', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
