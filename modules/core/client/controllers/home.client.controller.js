@@ -5,6 +5,7 @@ angular.module('core').controller('HomeController', ['$scope', 'WorkrestsApi',
     // This provides Authentication context.
     $scope.workrests = [];
 
+    prepareWorkrests();
     function prepareWorkrests() {
       WorkrestsApi.getWorkrestsToday()
         .then(function (workrests) {
