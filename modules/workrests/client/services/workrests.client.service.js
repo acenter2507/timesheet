@@ -18,6 +18,9 @@
   }
   WorkrestsApi.$inject = ['$http'];
   function WorkrestsApi($http) {
+    this.getWorkrestsToday = (date) => {
+      return $http.post('/api/workrests/today', { date: date }, { ignoreLoadingBar: true });
+    };
     this.getRestOfCurrentUser = (condition, page) => {
       return $http.post('/api/workrests/owner', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };

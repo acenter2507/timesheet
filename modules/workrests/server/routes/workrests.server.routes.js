@@ -11,6 +11,7 @@ module.exports = function(app) {
   app.route('/api/workrests/owner').post(workrests.getRestOfCurrentUser);
   app.route('/api/workrests/owner_in_range').post(workrests.getRestOfCurrentUserInRange);
   app.route('/api/workrests/review').post(workrests.getRestReview);
+  app.route('/api/workrests/today').post(workrests.getWorkrestsToday);
 
   app.route('/api/workrests').all(workrestsPolicy.isAllowed)
     .get(workrests.list)

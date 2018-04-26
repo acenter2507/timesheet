@@ -439,6 +439,12 @@ exports.getRestReview = function (req, res) {
   });
 };
 
+exports.getWorkrestsToday = function (req, res) {
+  var currentDate = _moment();
+  console.log(currentDate.format());
+  res.end();
+};
+
 function isConflictRest(workrest) {
   return new Promise((resolve, reject) => {
     var condition = {

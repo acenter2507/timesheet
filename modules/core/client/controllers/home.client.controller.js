@@ -3,6 +3,16 @@
 angular.module('core').controller('HomeController', ['$scope', 'WorkrestsApi',
   function ($scope, WorkrestsApi) {
     // This provides Authentication context.
-    console.log($scope.currentTime);
+    $scope.workrests = [];
+
+    function prepareWorkrests() {
+      WorkrestsApi.getWorkrestsToday()
+        .then(function (workrests) {
+          $scope.workrests = workrests;
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    }
   }
 ]);
