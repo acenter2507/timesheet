@@ -100,5 +100,4 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
       scope: $scope
     });
   };
-
 }

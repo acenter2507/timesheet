@@ -1,14 +1,28 @@
 <div class="container-fluid animated fadeIn">
   <div class="row" ng-controller="HomeController">
-    <div class="jumbotron text-center">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-          <img alt="MEAN.JS" class="img-responsive text-center" src="modules/core/client/img/brand/logo.png" />
+    <div class="col-md-8">
+
+    </div>
+    <div class="col-md-4">
+      <div class="well">
+        <h3>本日にお休み</h3>
+        <div class="user-item-block">
+          <div class="user-basic-info">
+            <div class="user-avatar">
+              <img src="{{:: vm.workmonth.user.profileImageURL }}">
+              <span class="user-status" ng-class="{ 'working': vm.workmonth.user.status === 1, 'retired': vm.workmonth.user.status === 2 }"></span>
+            </div>
+            <div class="user-info">
+              <span class="user-info-name">{{:: vm.workmonth.user.displayName}}</span>
+              <span class="font-sm">{{::vm.workmonth.user.roles | RoleFilter}}</span>
+            </div>
+            <div class="user-action">
+              <a class="user-options" ng-click="vm.handleViewUserInfo(vm.workmonth.user)">
+                <i class="fa fa-info-circle"></i>
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-      <br>
-      <div class="row">
-        <p class="lead">ホーム画面</p>
       </div>
     </div>
   </div>
