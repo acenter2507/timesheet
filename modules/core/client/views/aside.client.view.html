@@ -34,28 +34,15 @@
       <li class="nav-item">
         <a class="nav-link" ui-sref-active="active" ui-sref="home"><i class="fa fa-newspaper-o"></i> ホーム</a>
       </li>
-      <!--<li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="polls.create"><i class="fa fa-pencil-square-o"></i> {{ 'LB_NEW_POLL' | translate }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="categorys.list"><i class="fa fa-list"></i> {{ 'LB_CATEGORYS' | translate }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="tags.list"><i class="fa fa-tags"></i> {{ 'LB_TAGS' | translate }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="search"><i class="fa fa-search"></i> {{ 'LB_ADVANCE_SEARCH' | translate }}</a>
-      </li>
-      <li class="nav-item" ng-show="isAdmin">
-        <a class="nav-link" ui-sref-active="active" ui-sref="admin.dashboard"><i class="fa fa-tachometer"></i> {{ 'LB_ADMIN' | translate }}</a>
-      </li>-->
-
       <li class="nav-title">ナビゲーション</li>
       <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="users.list"><i class="fa fa-users"></i> 社員</a>
+        <a class="nav-link" ui-sref-active="active" ui-sref="users.list" ng-if="isLeader"<i class="fa fa-users"></i> 社員</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" ui-sref-active="active" ui-sref="departments.list"><i class="fa fa-sitemap"></i> 部署</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" ui-sref-active="active" ui-sref="workmonths.list"><i class="fa fa-calendar"></i> 勤務表</a>
       </li>
       <!--<li class="nav-title">{{ 'LB_OTHER' | translate }}</li>
       <li class="nav-item">

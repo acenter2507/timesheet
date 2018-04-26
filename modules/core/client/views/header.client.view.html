@@ -8,6 +8,7 @@
     <span class="icon-bar"></span>
     <span class="icon-bar"></span>
   </a>
+  <!-- Menu -->
   <ul class="nav navbar-nav d-sm-down-none" ng-if="menu.shouldRender(user);">
     <li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(user);" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }"
       class="{{item.class}}" dropdown="item.type === 'dropdown'">
