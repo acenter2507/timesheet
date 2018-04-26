@@ -5,9 +5,9 @@
     .module('workmonths')
     .controller('WorkmonthsListController', WorkmonthsListController);
 
-  WorkmonthsListController.$inject = ['WorkmonthsService', '$scope', '$state', 'DateUtil', '$stateParams', 'CommonService', 'WorkmonthsApi'];
+  WorkmonthsListController.$inject = ['WorkmonthsService', '$scope', '$state', 'DateUtil', '$stateParams', 'CommonService', 'WorkmonthsApi', 'Socket'];
 
-  function WorkmonthsListController(WorkmonthsService, $scope, $state, DateUtil, $stateParams, CommonService, WorkmonthsApi) {
+  function WorkmonthsListController(WorkmonthsService, $scope, $state, DateUtil, $stateParams, CommonService, WorkmonthsApi, Socket) {
     var vm = this;
     vm.createMonthBusy = false;
     vm.isShowHistory = false;
