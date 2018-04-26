@@ -6,20 +6,16 @@
     <div class="col-md-4">
       <div class="well">
         <h3>本日にお休み</h3>
-        <div class="user-item-block">
+        <span ng-if="workrests.length === 0">全員出勤</span>
+        <div class="user-item-block" ng-repeat="workrest in workrests">
           <div class="user-basic-info">
             <div class="user-avatar">
-              <img src="{{:: vm.workmonth.user.profileImageURL }}">
-              <span class="user-status" ng-class="{ 'working': vm.workmonth.user.status === 1, 'retired': vm.workmonth.user.status === 2 }"></span>
+              <img src="{{:: workrest.user.profileImageURL }}">
+              <span class="user-status" ng-class="{ 'working': workrest.user.status === 1, 'retired': workrest.user.status === 2 }"></span>
             </div>
             <div class="user-info">
-              <span class="user-info-name">{{:: vm.workmonth.user.displayName}}</span>
-              <span class="font-sm">{{::vm.workmonth.user.roles | RoleFilter}}</span>
-            </div>
-            <div class="user-action">
-              <a class="user-options" ng-click="vm.handleViewUserInfo(vm.workmonth.user)">
-                <i class="fa fa-info-circle"></i>
-              </a>
+              <span class="user-info-name">{{:: workrest.user.displayName}}</span>
+              <span class="font-sm">{{::workrest.holiday.name}}</span>
             </div>
           </div>
         </div>

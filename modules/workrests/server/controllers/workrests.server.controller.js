@@ -440,9 +440,19 @@ exports.getRestReview = function (req, res) {
 };
 
 exports.getWorkrestsToday = function (req, res) {
-  var currentDate = _moment();
-  console.log(currentDate.format());
-  res.end();
+  var currentDate = _moment().format();
+  Workrest.find({
+    start: { $lte: currentDate },
+    end: { $gte: currentDate },
+    status: 3,
+  })
+    .populate('holiday', 'name')
+    .populate('user', 'displayName profileImageURL')
+    .exec((err, workrests) => {
+      if (err)
+        return res.end();
+      return res.jsonp(workrests);
+    });
 };
 
 function isConflictRest(workrest) {
