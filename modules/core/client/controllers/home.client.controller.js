@@ -9,6 +9,7 @@ angular.module('core').controller('HomeController', ['$scope', 'WorkrestsApi',
     function prepareWorkrests() {
       WorkrestsApi.getWorkrestsToday()
         .then(function (workrests) {
+          console.log(workrests);
           $scope.workrests = workrests;
         })
         .catch(function (err) {
