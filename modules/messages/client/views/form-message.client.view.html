@@ -7,6 +7,9 @@
         <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value=2 ng-change="vm.handleDestinationChanged()">部署選択</label>
         <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value=3 ng-change="vm.handleDestinationChanged()">社員選択</label>
         <tags-input class="my-tags" ng-model="vm.message.deparments" template="deparments_tags.html"></tags-input>
+        <pre>
+          {{vm.message}}
+        </pre>
         <div ng-show="vm.message.destination === 2" class="form-group">
           <span>aaa</span>
           <!-- <tags-input class="my-tags" ng-model="vm.message.deparments" template="deparments_tags.html"></tags-input> -->
