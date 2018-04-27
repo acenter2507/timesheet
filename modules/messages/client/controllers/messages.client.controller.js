@@ -12,6 +12,7 @@
     var vm = this;
 
     vm.message = message;
+    vm.message.destination = 1;
     vm.form = {};
 
     vm.handleDestinationChanged = function() {
