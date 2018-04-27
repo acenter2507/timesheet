@@ -12,29 +12,24 @@
       .state('messages', {
         abstract: true,
         url: '/messages',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        ncyBreadcrumb: { label: 'メッセージ' }
       })
       .state('messages.list', {
         url: '',
         templateUrl: 'modules/messages/client/views/list-messages.client.view.html',
         controller: 'MessagesListController',
         controllerAs: 'vm',
-        data: {
-          pageTitle: 'Messages List'
-        }
+        ncyBreadcrumb: { label: '一覧' }
       })
       .state('messages.create', {
         url: '/create',
         templateUrl: 'modules/messages/client/views/form-message.client.view.html',
         controller: 'MessagesController',
         controllerAs: 'vm',
-        resolve: {
-          messageResolve: newMessage
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Messages Create'
-        }
+        resolve: { messageResolve: newMessage },
+        data: { roles: ['admin', 'accountant'] },
+        ncyBreadcrumb: { label: '作成' }
       })
       .state('messages.edit', {
         url: '/:messageId/edit',
@@ -44,22 +39,16 @@
         resolve: {
           messageResolve: getMessage
         },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Message {{ messageResolve.name }}'
-        }
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '一覧' }
       })
       .state('messages.view', {
         url: '/:messageId',
         templateUrl: 'modules/messages/client/views/view-message.client.view.html',
         controller: 'MessagesController',
         controllerAs: 'vm',
-        resolve: {
-          messageResolve: getMessage
-        },
-        data: {
-          pageTitle: 'Message {{ messageResolve.name }}'
-        }
+        resolve: { messageResolve: getMessage },
+        ncyBreadcrumb: { label: '詳細' }
       });
   }
 

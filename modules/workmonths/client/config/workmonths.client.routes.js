@@ -13,7 +13,7 @@
         abstract: true,
         url: '/workmonths',
         template: '<ui-view/>',
-        ncyBreadcrumb: { label: '勤務表' }
+        ncyBreadcrumb: { label: 'メッセージ' }
       })
       .state('workmonths.list', {
         url: '?year',
