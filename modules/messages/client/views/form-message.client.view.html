@@ -3,11 +3,25 @@
     <div class="col-md-8 col-lg-9">
       <div class="well">
         <label>宛先：</label>
-        <label class="mg10l"><input type="radio" ng-model="name" value="1">全員</label>
-        <label class="mg5l"><input type="radio" ng-model="name" value="2">部署選択</label>
-        <label class="mg5l"><input type="radio" ng-model="name" value="3">社員選択</label>
+        <label class="mg10l"><input type="radio" ng-model="vm.message.destination" value="1">全員</label>
+        <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value="2">部署選択</label>
+        <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value="3">社員選択</label>
+        <div class="form-group">
+          <tags-input ng-show="vm.message.destination === 2" class="my-tags" ng-model="vm.message.deparments" template="deparments_tags.html"></tags-input>
+          <tags-input ng-show="vm.message.destination === 3" class="my-tags" ng-model="vm.message.users" template="users_tags.html"></tags-input>
+        </div>
       </div>
     </div>
     <div class="col-md-4 col-lg-3"></div>
   </div>
 </div>
+
+<script type="text/ng-template" id="deparments_tags.html">
+  <a ui-sref="deparments.view({ deparmentId: data._id })">{{ data.name }}</a>
+  <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
+</script>
+
+<script type="text/ng-template" id="users_tags.html">
+  <a ui-sref="users.view({ userId: data._id })">{{ user.displayName }}</a>
+  <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
+</script>
