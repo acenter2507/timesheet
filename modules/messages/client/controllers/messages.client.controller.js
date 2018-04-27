@@ -19,13 +19,6 @@
       console.log(vm.message.destination);
     };
 
-    // Remove existing Message
-    function remove() {
-      if ($window.confirm('Are you sure you want to delete?')) {
-        vm.message.$remove($state.go('messages.list'));
-      }
-    }
-
     // Save Message
     function save(isValid) {
       if (!isValid) {
