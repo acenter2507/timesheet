@@ -6,17 +6,17 @@
     .module('messages')
     .controller('MessagesController', MessagesController);
 
-  MessagesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'messageResolve'];
+  MessagesController.$inject = ['$scope', '$state', 'messageResolve'];
 
-  function MessagesController ($scope, $state, $window, Authentication, message) {
+  function MessagesController ($scope, $state, message) {
     var vm = this;
 
-    vm.authentication = Authentication;
     vm.message = message;
-    vm.error = null;
     vm.form = {};
-    vm.remove = remove;
-    vm.save = save;
+
+    vm.handleDestinationChanged = function() {
+      console.log(vm.message.destination);
+    };
 
     // Remove existing Message
     function remove() {
