@@ -3,15 +3,17 @@
     <div class="col-md-8 col-lg-9">
       <div class="well">
         <label>宛先：</label>
-        <label class="mg10l"><input type="radio" ng-model="vm.message.destination" value="1" ng-change="vm.handleDestinationChanged()">全員</label>
-        <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value="2" ng-change="vm.handleDestinationChanged()">部署選択</label>
-        <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value="3" ng-change="vm.handleDestinationChanged()">社員選択</label>
+        <label class="mg10l"><input type="radio" ng-model="vm.message.destination" value=1 ng-change="vm.handleDestinationChanged()">全員</label>
+        <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value=2 ng-change="vm.handleDestinationChanged()">部署選択</label>
+        <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value=3 ng-change="vm.handleDestinationChanged()">社員選択</label>
         <tags-input class="my-tags" ng-model="vm.message.deparments" template="deparments_tags.html"></tags-input>
         <div ng-show="vm.message.destination === 2" class="form-group">
-          <tags-input class="my-tags" ng-model="vm.message.deparments" template="deparments_tags.html"></tags-input>
+          <span>aaa</span>
+          <!-- <tags-input class="my-tags" ng-model="vm.message.deparments" template="deparments_tags.html"></tags-input> -->
         </div>
         <div ng-show="vm.message.destination === 3" class="form-group">
-          <tags-input class="my-tags" ng-model="vm.message.users" template="users_tags.html"></tags-input>
+            <span>bbb</span>
+          <!-- <tags-input class="my-tags" ng-model="vm.message.users" template="users_tags.html"></tags-input> -->
         </div>
       </div>
     </div>
