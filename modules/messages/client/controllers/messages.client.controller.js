@@ -8,16 +8,32 @@
 
   MessagesController.$inject = ['$scope', '$state', 'messageResolve'];
 
-  function MessagesController ($scope, $state, message) {
+  function MessagesController($scope, $state, message) {
     var vm = this;
 
     vm.message = message;
     vm.message.destination = 1;
     vm.form = {};
 
-    vm.handleDestinationChanged = function() {
+    vm.handleDestinationChanged = function () {
       console.log(vm.message.destination);
     };
+    vm.handleSearchUsers = function ($query) {
+      console.log($query);
+      return [
+        {
+          image: './modules/core/client/img/brand/logo.png',
+          name: 'Ha Nhat Lenh',
+          department: { name: 'IT統括部' }
+        },
+        {
+          image: './modules/core/client/img/brand/logo.png',
+          name: 'Ha Nhat Lenh',
+          department: { name: 'IT統括部' }
+        }
+      ];
+    };
+
 
     // Save Message
     function save(isValid) {

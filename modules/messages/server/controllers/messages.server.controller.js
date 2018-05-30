@@ -7,7 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Message = mongoose.model('Message'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('underscore');
 
 /**
  * Create a Message

@@ -38,3 +38,34 @@
   color: #000;
   opacity: .4;
 }
+
+.my-autocomplete .left-panel {
+  float: left;
+}
+
+.my-autocomplete .left-panel img {
+  width: 48px;
+  height: 48px;
+  vertical-align: middle;
+}
+
+.my-autocomplete .right-panel {
+  float: left;
+  margin-left: 5px;
+  margin-top: 7px;
+}
+
+.my-autocomplete .right-panel span:first-child {
+  font-size: 16px;
+}
+
+.my-autocomplete .right-panel span:nth-child(2) {
+  font-size: 14px;
+  color: gray;
+}
+
+.my-autocomplete .right-panel span:last-child {
+  display: block;
+  font-size: 14px;
+  font-style: italic;
+}

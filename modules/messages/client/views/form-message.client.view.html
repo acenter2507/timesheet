@@ -3,18 +3,25 @@
     <div class="col-md-8 col-lg-9">
       <div class="well">
         <label>宛先：</label>
-        <label class="mg10l"><input type="radio" ng-model="vm.message.destination" value=1 ng-change="vm.handleDestinationChanged()">全員</label>
-        <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value=2 ng-change="vm.handleDestinationChanged()">部署選択</label>
-        <label class="mg5l"><input type="radio" ng-model="vm.message.destination" value=3 ng-change="vm.handleDestinationChanged()">社員選択</label>
+        <label class="mg10l">
+          <input type="radio" ng-model="vm.message.destination" value=1 ng-change="vm.handleDestinationChanged()">全員</label>
+        <label class="mg5l">
+          <input type="radio" ng-model="vm.message.destination" value=2 ng-change="vm.handleDestinationChanged()">部署選択</label>
+        <label class="mg5l">
+          <input type="radio" ng-model="vm.message.destination" value=3 ng-change="vm.handleDestinationChanged()">社員選択</label>
         <div ng-show="vm.message.destination === '2'" class="form-group">
           <tags-input class="my-tags" ng-model="vm.message.deparments" template="deparments_tags.html"></tags-input>
         </div>
         <div ng-show="vm.message.destination === '3'" class="form-group">
-          <tags-input class="my-tags" ng-model="vm.message.users" template="users_tags.html"></tags-input>
+          <tags-input class="my-tags" ng-model="vm.message.users" template="users_tags.html">
+            <auto-complete source="vm.handleSearchUsers($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
+              template="autocomplete.html"></auto-complete>
+          </tags-input>
         </div>
       </div>
     </div>
     <div class="col-md-4 col-lg-3"></div>
+
   </div>
 </div>
 
@@ -26,4 +33,17 @@
 <script type="text/ng-template" id="users_tags.html">
   <a ui-sref="users.view({ userId: data._id })">{{ user.displayName }}</a>
   <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
+</script>
+
+<script type="text/ng-template" id="autocomplete.html">
+  <div class="my-autocomplete">
+    <div class="left-panel">
+      <img src="{{data.image}}" />
+    </div>
+    <div class="right-panel">
+      <span ng-bind-html="$highlight($getDisplayText())"></span>
+      <span>({{data.name}})</span>
+      <span>{{data.department.name}}</span>
+    </div>
+  </div>
 </script>
