@@ -22,13 +22,15 @@
       console.log($query);
       return [
         {
+          _id: 111,
           image: './modules/core/client/img/brand/logo.png',
           name: 'Ha Nhat Lenh',
           department: { name: 'IT統括部' }
         },
         {
+          _id: 222,
           image: './modules/core/client/img/brand/logo.png',
-          name: 'Ha Nhat Lenh',
+          name: '田中 ',
           department: { name: 'IT統括部' }
         }
       ];
