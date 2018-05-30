@@ -10,19 +10,14 @@
         <label class="mg5l">
           <input type="radio" ng-model="vm.message.destination" value=3 ng-change="vm.handleDestinationChanged()">社員選択</label>
         <div ng-show="vm.message.destination === '2'" class="form-group">
-          <h3>Departments</h3>
           <tags-input class="my-tags" ng-model="vm.message.deparments" key-property="_id" template="deparments_tags.html"></tags-input>
         </div>
         <div ng-show="vm.message.destination === '3'" class="form-group">
-          <h3>Users</h3>
           <tags-input class="my-tags" ng-model="vm.message.users" key-property="_id" template="users_tags.html">
-            <auto-complete source="vm.handleSearchUsers($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
+            <auto-complete source="vm.handleSearchUsers($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
               template="autocomplete.html"></auto-complete>
           </tags-input>
         </div>
-      </div>
-      <div class="well">
-        <label>コンテンツ：</label>
         <textarea class="form-control h500"></textarea> 
       </div>
     </div>
