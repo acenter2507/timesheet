@@ -45,8 +45,8 @@
       <img src="{{ data.profileImageURL || data.avatar }}" />
     </div>
     <div class="right-panel">
-      <span>{{data.name}}</span>
-      <span>{{data.email}}</span>
+      <span>{{ data.displayName || data.name }}</span>
+      <span>{{ data.email }}</span>
     </div>
   </div>
 </script>
