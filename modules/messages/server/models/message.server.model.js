@@ -15,6 +15,8 @@ var MessageSchema = new Schema({
   to: { type: Schema.ObjectId, ref: 'User' },
   content: { type: String, required: true },
   links: [{ type: String }],
+  // 1: Normal - 2: Hight - 3: Urgent
+  flag: { type: Number, default: 1 },
   status: { type: Number, default: 0 },
   created: { type: Date, default: Date.now }
 });

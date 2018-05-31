@@ -200,3 +200,40 @@ exports.addUser = function (req, res) {
     });
   });
 };
+
+/**
+ * Search department with key
+ */
+exports.search = function (req, res) {
+  var condition = req.body.condition || {};
+  var query = {};
+  var ands = [];
+
+
+  var key = condition.key;
+
+  if (key && key.length > 0) {
+    var key_lower = key.toLowerCase();
+    var key_upper = key.toUpperCase();
+    var or_arr = [
+      { name: { $regex: '.*' + key + '.*' } },
+      { name: { $regex: '.*' + key_lower + '.*' } },
+      { name: { $regex: '.*' + key_upper + '.*' } },
+      { email: { $regex: '.*' + key + '.*' } },
+      { email: { $regex: '.*' + key_lower + '.*' } },
+      { email: { $regex: '.*' + key_upper + '.*' } }
+    ];
+    ands.push({ $or: or_arr });
+  }
+
+  if (ands.length > 0) {
+    query = { $and: ands };
+  }
+  Department.find(query)
+    .select('name email avatar')
+    .exec((err, departments) => {
+      if (err) res.status(400).send(err);
+      res.jsonp(departments);
+    });
+};
+

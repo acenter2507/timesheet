@@ -7,6 +7,7 @@ var departmentsPolicy = require('../policies/departments.server.policy'),
   departments = require('../controllers/departments.server.controller');
 
 module.exports = function(app) {
+  app.route('/api/departments/search').post(departments.search);
   // Departments Routes
   app.route('/api/departments').all(departmentsPolicy.isAllowed)
     .get(departments.list)

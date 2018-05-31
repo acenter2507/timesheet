@@ -25,6 +25,9 @@
     this.addMemberToDepartment = (departmentId, userId) => {
       return $http.post('/api/departments/' + departmentId + '/addUser', { userId: userId }, { ignoreLoadingBar: true });
     };
+    this.search = (condition) => {
+      return $http.post('/api/departments/search', { condition: condition }, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());

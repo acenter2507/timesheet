@@ -6,9 +6,9 @@
     .module('messages')
     .controller('MessagesController', MessagesController);
 
-  MessagesController.$inject = ['$scope', '$state', 'messageResolve'];
+  MessagesController.$inject = ['$scope', '$state', 'messageResolve', 'AdminUserApi', 'CommonService', 'DepartmentsApi'];
 
-  function MessagesController($scope, $state, message) {
+  function MessagesController($scope, $state, message, AdminUserApi, CommonService, DepartmentsApi) {
     var vm = this;
 
     vm.message = message;
@@ -19,21 +19,24 @@
       console.log(vm.message.destination);
     };
     vm.handleSearchUsers = function ($query) {
-      console.log($query);
-      return [
-        {
-          _id: 111,
-          image: './modules/core/client/img/brand/logo.png',
-          name: 'Ha Nhat Lenh',
-          department: { name: 'IT統括部' }
-        },
-        {
-          _id: 222,
-          image: './modules/core/client/img/brand/logo.png',
-          name: '田中 ',
-          department: { name: 'IT統括部' }
-        }
-      ];
+      if (CommonService.isStringEmpty($query)) {
+        return;
+      }
+
+      AdminUserApi.searchUsers({ key: $query, department: false })
+        .success(users => {
+          return users;
+        });
+    };
+    vm.handleSearchDepartments = function ($query) {
+      if (CommonService.isStringEmpty($query)) {
+        return;
+      }
+
+      DepartmentsApi.search({ key: $query })
+        .success(departments => {
+          return departments;
+        });
     };
 
 
