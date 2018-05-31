@@ -46,16 +46,20 @@
 
       return deferred.promise;
     };
-
-
-    // Save Message
-    function save(isValid) {
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.messageForm');
-        return false;
+    vm.handleSendMessage = function () {
+      if (CommonService.isStringEmpty(vm.message.content)) {
+        $scope.handleShowToast('お知らせの内容を入力してください！');
+        return;
+      }
+      if (vm.message.destination === 2 && vm.message.deparments.length === 0) {
+        $scope.handleShowToast('宛先を追加してください！');
+        return;
+      }
+      if (vm.message.destination === 3 && vm.message.users.length === 0) {
+        $scope.handleShowToast('宛先を追加してください！');
+        return;
       }
 
-      // TODO: move create/update logic to service
       if (vm.message._id) {
         vm.message.$update(successCallback, errorCallback);
       } else {
@@ -63,14 +67,21 @@
       }
 
       function successCallback(res) {
-        $state.go('messages.view', {
-          messageId: res._id
-        });
+        $scope.handleShowToast('お知らせを送信しました！', false);
       }
 
       function errorCallback(res) {
-        vm.error = res.data.message;
+        $scope.handleShowToast('お知らせを送信できません！', false);
       }
-    }
+
+
+    };
+    vm.handleCancelMessage = function () {
+      $scope.handleShowConfirm({
+        message: 'お知らせの送信をキャンセルしますか？'
+      }, () => {
+        $state.go($state.previous.state.name || 'home', $state.previous.params);
+      });
+    };
   }
 }());
