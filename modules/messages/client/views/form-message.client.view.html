@@ -10,17 +10,22 @@
         <label class="mg5l">
           <input type="radio" ng-model="vm.message.destination" value=3 ng-change="vm.handleDestinationChanged()">社員選択</label>
         <div ng-show="vm.message.destination === '2'" class="form-group">
-          <tags-input class="my-tags" ng-model="vm.message.deparments" key-property="_id" template="deparments_tags.html" display-property="name" placeholder="部門検索" replace-spaces-with-dashes="false">
+          <tags-input class="my-tags" ng-model="vm.message.deparments" key-property="_id" template="deparments_tags.html" display-property="name"
+            placeholder="部門検索" replace-spaces-with-dashes="false">
             <auto-complete source="vm.handleSearchDepartments($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
               template="autocomplete.html"></auto-complete>
           </tags-input>
         </div>
         <div ng-show="vm.message.destination === '3'" class="form-group">
-          <tags-input class="my-tags" ng-model="vm.message.users" key-property="_id" template="users_tags.html" display-property="displayName" placeholder="社員検索" replace-spaces-with-dashes="false">
+          <tags-input class="my-tags" ng-model="vm.message.users" key-property="_id" template="users_tags.html" display-property="displayName"
+            placeholder="社員検索" replace-spaces-with-dashes="false">
             <auto-complete source="vm.handleSearchUsers($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
               template="autocomplete.html"></auto-complete>
           </tags-input>
         </div>
+      </div>
+
+      <div class="well">
         <textarea class="form-control h500"></textarea>
       </div>
     </div>
