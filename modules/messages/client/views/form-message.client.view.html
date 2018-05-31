@@ -10,7 +10,10 @@
         <label class="mg5l">
           <input type="radio" ng-model="vm.message.destination" value=3 ng-change="vm.handleDestinationChanged()">社員選択</label>
         <div ng-show="vm.message.destination === '2'" class="form-group">
-          <tags-input class="my-tags" ng-model="vm.message.deparments" key-property="_id" template="deparments_tags.html"></tags-input>
+          <tags-input class="my-tags" ng-model="vm.message.deparments" key-property="_id" template="deparments_tags.html">
+            <auto-complete source="vm.handleSearchDepartment($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
+              template="autocomplete.html"></auto-complete>
+          </tags-input>
         </div>
         <div ng-show="vm.message.destination === '3'" class="form-group">
           <tags-input class="my-tags" ng-model="vm.message.users" key-property="_id" template="users_tags.html">
@@ -18,7 +21,7 @@
               template="autocomplete.html"></auto-complete>
           </tags-input>
         </div>
-        <textarea class="form-control h500"></textarea> 
+        <textarea class="form-control h500"></textarea>
       </div>
     </div>
     <div class="col-md-4 col-lg-3"></div>
@@ -39,11 +42,11 @@
 <script type="text/ng-template" id="autocomplete.html">
   <div class="my-autocomplete">
     <div class="left-panel">
-      <img src="{{data.image}}" />
+      <img src="{{ data.profileImageURL || data.avatar }}" />
     </div>
     <div class="right-panel">
       <strong>{{data.name}}</strong>
-      <span>{{data.department.name}}</span>
+      <span>{{data.email}}</span>
     </div>
   </div>
 </script>
