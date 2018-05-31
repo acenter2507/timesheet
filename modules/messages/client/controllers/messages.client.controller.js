@@ -25,6 +25,7 @@
 
       AdminUserApi.searchUsers({ key: $query, department: false })
         .success(users => {
+          console.log(users);
           return users;
         });
     };
