@@ -20,7 +20,7 @@
     };
     vm.handleSearchUsers = function ($query) {
       if (CommonService.isStringEmpty($query)) {
-        return;
+        return [];
       }
 
       AdminUserApi.searchUsers({ key: $query, department: false })
@@ -30,7 +30,7 @@
     };
     vm.handleSearchDepartments = function ($query) {
       if (CommonService.isStringEmpty($query)) {
-        return;
+        return [];
       }
 
       DepartmentsApi.search({ key: $query })
