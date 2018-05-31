@@ -17,6 +17,8 @@
 
     vm.handleDestinationChanged = function () {
       // console.log(vm.message.destination);
+      vm.message.users = [];
+      vm.message.deparments = [];
     };
     vm.handleSearchUsers = function ($query) {
       if (CommonService.isStringEmpty($query)) {
