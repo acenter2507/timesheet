@@ -6,9 +6,9 @@
     .module('messages')
     .controller('MessagesController', MessagesController);
 
-  MessagesController.$inject = ['$scope', '$state', 'messageResolve', 'AdminUserApi', 'CommonService', 'DepartmentsApi'];
+  MessagesController.$inject = ['$scope', '$state', 'messageResolve', 'AdminUserApi', 'CommonService', 'DepartmentsApi', '$q'];
 
-  function MessagesController($scope, $state, message, AdminUserApi, CommonService, DepartmentsApi) {
+  function MessagesController($scope, $state, message, AdminUserApi, CommonService, DepartmentsApi, $q) {
     var vm = this;
 
     vm.message = message;
@@ -16,28 +16,33 @@
     vm.form = {};
 
     vm.handleDestinationChanged = function () {
-      console.log(vm.message.destination);
+      // console.log(vm.message.destination);
     };
     vm.handleSearchUsers = function ($query) {
       if (CommonService.isStringEmpty($query)) {
         return [];
       }
 
+      var deferred = $q.defer();
       AdminUserApi.searchUsers({ key: $query, department: false })
         .success(users => {
-          console.log(users);
-          return users;
+          deferred.resolve(users);
         });
+
+      return deferred.promise;
     };
     vm.handleSearchDepartments = function ($query) {
       if (CommonService.isStringEmpty($query)) {
         return [];
       }
 
+      var deferred = $q.defer();
       DepartmentsApi.search({ key: $query })
         .success(departments => {
-          return departments;
+          deferred.resolve(departments);
         });
+
+      return deferred.promise;
     };
 
 
