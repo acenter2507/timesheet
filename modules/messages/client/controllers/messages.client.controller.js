@@ -6,9 +6,9 @@
     .module('messages')
     .controller('MessagesController', MessagesController);
 
-  MessagesController.$inject = ['$scope', '$state', 'messageResolve', 'AdminUserApi', 'CommonService', 'DepartmentsApi', '$q'];
+  MessagesController.$inject = ['$scope', '$state', 'messageResolve', 'AdminUserApi', 'CommonService', 'DepartmentsApi', '$q', 'Socket'];
 
-  function MessagesController($scope, $state, message, AdminUserApi, CommonService, DepartmentsApi, $q) {
+  function MessagesController($scope, $state, message, AdminUserApi, CommonService, DepartmentsApi, $q, Socket) {
     var vm = this;
 
     vm.message = message;
@@ -48,15 +48,15 @@
     };
     vm.handleSendMessage = function () {
       if (CommonService.isStringEmpty(vm.message.content)) {
-        $scope.handleShowToast('お知らせの内容を入力してください！');
+        $scope.handleShowToast('お知らせの内容を入力してください！', true);
         return;
       }
       if (vm.message.destination === 2 && vm.message.deparments.length === 0) {
-        $scope.handleShowToast('宛先を追加してください！');
+        $scope.handleShowToast('宛先を追加してください！', true);
         return;
       }
       if (vm.message.destination === 3 && vm.message.users.length === 0) {
-        $scope.handleShowToast('宛先を追加してください！');
+        $scope.handleShowToast('宛先を追加してください！', true);
         return;
       }
 
@@ -68,13 +68,12 @@
 
       function successCallback(res) {
         $scope.handleShowToast('お知らせを送信しました！', false);
+        Socket.emit('message_send', { destination: vm.message.destination });
       }
 
       function errorCallback(res) {
         $scope.handleShowToast('お知らせを送信できません！', false);
       }
-
-
     };
     vm.handleCancelMessage = function () {
       $scope.handleShowConfirm({

@@ -6,33 +6,75 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Message = mongoose.model('Message'),
+  User = mongoose.model('User'),
+  Department = mongoose.model('Department'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore');
 
 /**
  * Create a Message
  */
-exports.create = function(req, res) {
-  console.log(req.body);
-  // var message = new Message(req.body);
-  // message.user = req.user;
+exports.create = function (req, res) {
+  console.log(global.onlineUsers);
+  var socketUser = _.findWhere(global.onlineUsers, { user: req.user._id.toString() });
+  if (socketUser) {
+    global.io.sockets.connected[socketUser.socket].emit('messages');
+  }
 
-  // message.save(function(err) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   } else {
-  //     res.jsonp(message);
-  //   }
-  // });
-  res.end();
+  getUsers(req.body)
+    .then(users => {
+      var promises = createPromiseMessages(users, { content: req.body.content });
+      return Promise.all(promises);
+    })
+    .then(messages => {
+      messages.forEach(message => {
+        var socketUser = _.findWhere(global.onlineUsers, { user: message.to.toString() });
+        if (socketUser) {
+          global.io.sockets.connected[socketUser.socket].emit('messages');
+        }
+      });
+      res.end();
+    })
+    .catch(err => {
+      res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+    });
+
+  function getUsers(data) {
+    return new Promise((resolve, reject) => {
+      var destination = parseInt(data.destination) || 1;
+      if (destination === 1) {
+        User.find({ status: 1, roles: { $ne: 'admin' }, _id: { $ne: req.user._id } }).exec(function (err, users) {
+          if (err) return reject(err);
+          return resolve(users);
+        });
+      } else if (destination === 2) {
+        User.find({ status: 1, roles: { $ne: 'admin', department: { $in: data.departments } } }).exec(function (err, users) {
+          if (err) return reject(err);
+          return resolve(users);
+        });
+      } else {
+        User.find({ status: 1, roles: { $ne: 'admin', _id: { $in: data.users } } }).exec(function (err, users) {
+          if (err) return reject(err);
+          return resolve(users);
+        });
+      }
+    });
+  }
+  function createPromiseMessages(users, data) {
+    var promises = [];
+    users.forEach(user => {
+      var message = new Message(data);
+      message.to = user._id;
+      promises.push(message.save());
+    });
+    return promises;
+  }
 };
 
 /**
  * Show the current Message
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var message = req.message ? req.message.toJSON() : {};
 
@@ -46,12 +88,12 @@ exports.read = function(req, res) {
 /**
  * Update a Message
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var message = req.message;
 
   message = _.extend(message, req.body);
 
-  message.save(function(err) {
+  message.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -65,10 +107,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Message
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var message = req.message;
 
-  message.remove(function(err) {
+  message.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -82,8 +124,8 @@ exports.delete = function(req, res) {
 /**
  * List of Messages
  */
-exports.list = function(req, res) {
-  Message.find().sort('-created').populate('user', 'displayName').exec(function(err, messages) {
+exports.list = function (req, res) {
+  Message.find().sort('-created').populate('user', 'displayName').exec(function (err, messages) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -97,7 +139,7 @@ exports.list = function(req, res) {
 /**
  * Message middleware
  */
-exports.messageByID = function(req, res, next, id) {
+exports.messageByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -116,4 +158,14 @@ exports.messageByID = function(req, res, next, id) {
     req.message = message;
     next();
   });
+};
+
+exports.count = function (req, res) {
+  res.end();
+};
+exports.clear = function (req, res) {
+  res.end();
+};
+exports.remove = function (req, res) {
+  res.end();
 };

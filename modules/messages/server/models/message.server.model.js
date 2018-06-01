@@ -17,7 +17,7 @@ var MessageSchema = new Schema({
   links: [{ type: String }],
   // 1: Normal - 2: Hight - 3: Urgent
   flag: { type: Number, default: 1 },
-  status: { type: Number, default: 0 },
+  status: { type: Number, default: 1 },
   created: { type: Date, default: Date.now }
 });
 

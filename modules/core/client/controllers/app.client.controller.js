@@ -40,6 +40,10 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
       console.log('Has inform Notifications');
       Notifications.count();
     });
+    Socket.on('messages', () => {
+      console.log('Has inform messages');
+      Messages.count();
+    });
     
   }
   function onCreate() {
