@@ -11,9 +11,9 @@ var mongoose = require('mongoose'),
  * Message Schema
  */
 var MessageSchema = new Schema({
-  from: { type: String, required: true },
+  from: { type: Schema.ObjectId, ref: 'User' },
   to: { type: Schema.ObjectId, ref: 'User' },
-  content: { type: String, required: true },
+  content: { type: String },
   links: [{ type: String }],
   // 1: Normal - 2: Hight - 3: Urgent
   flag: { type: Number, default: 1 },

@@ -48,10 +48,7 @@ exports.create = function (req, res) {
           return resolve(users);
         });
       } else {
-        User.find({ status: 1, roles: { $ne: 'admin', _id: { $in: data.users } } }).exec(function (err, users) {
-          if (err) return reject(err);
-          return resolve(users);
-        });
+        return resolve(data.users);
       }
     });
   }
@@ -59,7 +56,7 @@ exports.create = function (req, res) {
     var promises = [];
     users.forEach(user => {
       var message = new Message(data);
-      message.to = user._id;
+      message.to = user._id || user;
       promises.push(message.save());
     });
     return promises;
