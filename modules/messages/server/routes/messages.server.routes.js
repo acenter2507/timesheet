@@ -19,7 +19,7 @@ module.exports = function (app) {
     .put(messages.update)
     .delete(messages.delete);
 
-  app.route('/api/messages/:messageId/remove').delete(messages.remove);
+  app.route('/api/messages/:messageId/remove').get(messages.remove);
 
   // Finish by binding the Message middleware
   app.param('messageId', messages.messageByID);

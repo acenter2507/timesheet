@@ -15,12 +15,6 @@ var path = require('path'),
  * Create a Message
  */
 exports.create = function (req, res) {
-  console.log(global.onlineUsers);
-  var socketUser = _.findWhere(global.onlineUsers, { user: req.user._id.toString() });
-  if (socketUser) {
-    global.io.sockets.connected[socketUser.socket].emit('messages');
-  }
-
   getUsers(req.body)
     .then(users => {
       var promises = createPromiseMessages(users, { content: req.body.content });
@@ -36,6 +30,7 @@ exports.create = function (req, res) {
       res.end();
     })
     .catch(err => {
+      console.log(err);
       res.status(400).send({ message: errorHandler.getErrorMessage(err) });
     });
 
