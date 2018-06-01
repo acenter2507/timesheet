@@ -6,7 +6,7 @@
 var messagesPolicy = require('../policies/messages.server.policy'),
   messages = require('../controllers/messages.server.controller');
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.route('/api/messages/count').get(messages.count);
   app.route('/api/messages/clear').get(messages.clear);
   // Messages Routes
@@ -19,7 +19,7 @@ module.exports = function(app) {
     .put(messages.update)
     .delete(messages.delete);
 
-    app.route('/api/messages/:messageId/remove').delete(messages.remove);
+  app.route('/api/messages/:messageId/remove').delete(messages.remove);
 
   // Finish by binding the Message middleware
   app.param('messageId', messages.messageByID);
