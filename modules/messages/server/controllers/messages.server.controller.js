@@ -13,18 +13,20 @@ var path = require('path'),
  * Create a Message
  */
 exports.create = function(req, res) {
-  var message = new Message(req.body);
-  message.user = req.user;
+  console.log(req.body);
+  // var message = new Message(req.body);
+  // message.user = req.user;
 
-  message.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(message);
-    }
-  });
+  // message.save(function(err) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     res.jsonp(message);
+  //   }
+  // });
+  res.end();
 };
 
 /**
