@@ -4,7 +4,15 @@ module.exports = {
   client: {
     lib: {
       css: [
-        'public/lib/bootstrap/dist/css/bootstrap.min.css'
+        'public/lib/bootstrap/dist/css/bootstrap.min.css',
+        'public/lib/font-awesome/css/font-awesome.min.css',
+        'public/lib/angular-toastr/dist/angular-toastr.min.css',
+        'public/lib/angular-loading-bar/build/loading-bar.min.css',
+        'public/lib/ng-img-crop/compile/minified/ng-img-crop.css',
+        'public/lib/ng-dialog/css/ngDialog.min.css',
+        'public/lib/ng-dialog/css/ngDialog-theme-default.min.css',
+        'public/lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css',
+        'public/lib/ng-tags-input/ng-tags-input.min.css'
       ],
       js: [
         'public/lib/angular/angular.min.js',
