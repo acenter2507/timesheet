@@ -15,14 +15,32 @@ module.exports = {
         'public/lib/ng-tags-input/ng-tags-input.min.css'
       ],
       js: [
+        'public/lib/jquery/dist/jquery.min.js',
         'public/lib/angular/angular.min.js',
         'public/lib/angular-resource/angular-resource.min.js',
         'public/lib/angular-animate/angular-animate.min.js',
         'public/lib/angular-messages/angular-messages.min.js',
         'public/lib/angular-ui-router/release/angular-ui-router.min.js',
         'public/lib/angular-ui-utils/ui-utils.min.js',
+        'public/lib/other-libraries/angular-locale_ja-jp.min.js',
+        'public/lib/other-libraries/japanese-holidays.min.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
-        'public/lib/angular-file-upload/angular-file-upload.min.js'
+        'public/lib/angular-file-upload/angular-file-upload.min.js',
+        'public/lib/underscore/underscore-min.js',
+        'public/lib/moment/min/moment.min.js',
+        'public/lib/moment/min/locales.min.js',
+        'public/lib/moment-timezone/builds/moment-timezone.min.js',
+        'public/lib/angular-moment/angular-moment.min.js',
+        'public/lib/angular-toastr/dist/angular-toastr.tpls.min.js',
+        'public/lib/ng-dialog/js/ngDialog.min.js',
+        'public/lib/angular-loading-bar/build/loading-bar.min.js',
+        'public/lib/ng-img-crop/compile/minified/ng-img-crop.js',
+        'public/lib/angular-elastic/elastic.js',
+        'public/lib/angular-breadcrumb/dist/angular-breadcrumb.min.js',
+        'public/lib/ua-parser-js/dist/ua-parser.min.js',
+        'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
+        'public/lib/angular-socket-io/socket.min.js',
+        'public/lib/ng-tags-input/ng-tags-input.min.js'
       ]
     },
     css: 'public/dist/application.min.css',
