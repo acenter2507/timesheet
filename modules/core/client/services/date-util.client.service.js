@@ -5,7 +5,7 @@ angular.module('core').factory('DateUtil', DateUtil);
 DateUtil.$inject = [];
 function DateUtil() {
   // 範囲の中に出勤日を取得
-  this.getWorkDays = (start, end) => {
+  this.getWorkDays = function(start, end) {
     var duration = end.diff(start, 'days');
     if (duration < 0) {
       return duration;
@@ -27,7 +27,7 @@ function DateUtil() {
     return cnt;
   };
   // 祝日チェック
-  this.isHoliday = date => {
+  this.isHoliday = function(date) {
     if (moment.isMoment(date)) {
       return JapaneseHolidays.isHoliday(new Date(date.format('YYYY/MM/DD')));
     } else {
@@ -35,7 +35,7 @@ function DateUtil() {
     }
   };
   // 週末チェック
-  this.isWeekend = date => {
+  this.isWeekend = function(date) {
     if (moment.isMoment(date)) {
       return date.day() === 0 || date.day() === 6;
     } else {
@@ -44,11 +44,11 @@ function DateUtil() {
     }
   };
   // 出勤日チェック
-  this.isWorkDate = date => {
+  this.isWorkDate = function(date) {
     return !(this.isHoliday(date) || this.isWeekend(date));
   };
   // 休日チェック
-  this.isWorkOffDate = date => {
+  this.isWorkOffDate = function(date) {
     return this.isHoliday(date) || this.isWeekend(date);
   };
   return this;

@@ -16,7 +16,7 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
 
   function prepareScopeListener() {
     // Watch user info
-    $scope.$watch('Authentication.user', () => {
+    $scope.$watch('Authentication.user', function() {
       onCreate();
     });
     // Listen webapp state change
@@ -36,11 +36,11 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
       Socket.connect();
     }
     Socket.emit('init', { user: $scope.Authentication.user._id });
-    Socket.on('notifications', () => {
+    Socket.on('notifications', function() {
       console.log('Has inform Notifications');
       Notifications.count();
     });
-    Socket.on('messages', () => {
+    Socket.on('messages', function() {
       console.log('Has inform messages');
       Messages.count();
     });
@@ -85,12 +85,12 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     ngDialog.openConfirm({
       templateUrl: 'confirmTemplate.html',
       scope: $scope
-    }).then(res => {
+    }).then(function(res) {
       delete $scope.dialog;
       if (resolve) {
         resolve(res);
       }
-    }, res => {
+    }, function(res) {
       delete $scope.dialog;
       if (reject) {
         reject(res);
@@ -98,7 +98,7 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     });
   };
   // Hiển thị Dashboard
-  $scope.handleShowDashboardMenu = () => {
+  $scope.handleShowDashboardMenu = function() {
     var mDialog = ngDialog.open({
       template: 'modules/core/client/views/templates/dashboard.dialog.template.html',
       scope: $scope

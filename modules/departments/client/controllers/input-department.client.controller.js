@@ -112,16 +112,16 @@
       vm.uploader.clearQueue();
     };
     // Remove existing Department
-    vm.handleDeleteDepartment = () => {
+    vm.handleDeleteDepartment = function () {
       $scope.handleShowConfirm({
         message: vm.department.name + 'を削除しますか？'
-      }, () => {
+      }, function () {
         vm.department.$remove($state.go('departments.list'));
       });
     };
 
     // Save Department
-    vm.handleStartSave = isValid => {
+    vm.handleStartSave = function (isValid) {
       if (vm.busy) return;
       vm.busy = true;
       if (!isValid) {
@@ -158,7 +158,7 @@
     }
 
     // Select image from gallery
-    vm.handleSelectImageGallery = () => {
+    vm.handleSelectImageGallery = function () {
       $scope.selectedImage = '';
       var mDialog = ngDialog.open({
         template: 'modules/core/client/views/templates/images-gallery.dialog.template.html',
@@ -175,10 +175,10 @@
       });
     };
     // Cancel
-    vm.handleCancelInput = () => {
+    vm.handleCancelInput = function () {
       $scope.handleShowConfirm({
         message: '操作を止めますか？'
-      }, () => {
+      }, function () {
         handlePreviousScreen();
       });
     };

@@ -13,7 +13,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     }
 
     function prepareDepartments() {
-      DepartmentsService.query(data => {
+      DepartmentsService.query(function (data) {
         vm.departments = data;
       });
     }
@@ -32,14 +32,14 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
-    vm.handleSendMessage = () => {
+    vm.handleSendMessage = function () {
       $scope.handleShowToast('只今、この機能は作成中です。');
     };
     // Đổi trạng thái user sang nghỉ việc
-    vm.handleRetired = () => {
+    vm.handleRetired = function () {
       $scope.handleShowConfirm({
         message: vm.user.displayName + 'を退職させますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: vm.user._id });
         rsUser.status = 2;
         vm.user.status = 2;
@@ -47,10 +47,10 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       });
     };
     // Đổi trạng thái user sang nghỉ việc
-    vm.handleReWorking = () => {
+    vm.handleReWorking = function () {
       $scope.handleShowConfirm({
         message: vm.user.displayName + 'を在職させますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: vm.user._id });
         rsUser.status = 1;
         vm.user.status = 1;
@@ -58,44 +58,44 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       });
     };
     // Thay đổi mật khẩu của user
-    vm.handleChangePassword = () => {
+    vm.handleChangePassword = function () {
       ngDialog.openConfirm({
         templateUrl: 'changePassTemplate.html',
         scope: $scope
-      }).then(password => {
+      }).then(function (password) {
         AdminUserApi.changeUserPassword(vm.user._id, password)
-          .success(() => {
+          .success(function () {
             $scope.handleShowToast('パスワードが変更しました。', false);
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Thay đổi role của user
-    vm.handleChangeRoles = () => {
+    vm.handleChangeRoles = function () {
       $scope.roles = getMainRole(vm.user.roles);
       ngDialog.openConfirm({
         templateUrl: 'selectRolesTemplate.html',
         scope: $scope
-      }).then(result => {
+      }).then(function (result) {
         delete $scope.roles;
         var roles = (result !== 'user') ? ['user', result] : [result];
         if (angular.equals(roles, vm.user.roles)) return;
         AdminUserApi.changeUserRoles(vm.user._id, roles)
-          .success(res => {
+          .success(function (res) {
             vm.user.roles = roles;
             $scope.handleShowToast('役割が変更しました。', false);
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
-      }, () => {
+      }, function () {
         delete $scope.roles;
       });
     };
     // Thay đổi bộ phận của user
-    vm.handleChangeDepartment = () => {
+    vm.handleChangeDepartment = function () {
       var currentDepartment = (vm.user.department) ? vm.user.department._id || vm.user.department : undefined;
       $scope.dialog = {
         departments: vm.departments,
@@ -104,27 +104,27 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       ngDialog.openConfirm({
         templateUrl: 'selectDepartmentTemplate.html',
         scope: $scope
-      }).then(newDepartment => {
+      }).then(function (newDepartment) {
         delete $scope.dialog;
         if (currentDepartment && newDepartment && newDepartment.toString() === currentDepartment.toString()) return;
         if (!newDepartment && !currentDepartment) return;
         AdminUserApi.changeUserDepartment(vm.user._id, newDepartment)
-          .success(res => {
+          .success(function (res) {
             vm.user.department = _.findWhere(vm.departments, { _id: newDepartment });
             $scope.handleShowToast('役割が変更しました。', false);
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
-      }, () => {
+      }, function () {
         delete $scope.dialog;
       });
     };
     // Logic delete
-    vm.handleLogicDeleteUser = user => {
+    vm.handleLogicDeleteUser = function (user) {
       $scope.handleShowConfirm({
         message: vm.user.displayName + 'を削除しますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: vm.user._id });
         rsUser.status = 3;
         rsUser.$update();
@@ -135,10 +135,10 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       });
     };
     // Restore account
-    vm.handleResetUser = () => {
+    vm.handleResetUser = function () {
       $scope.handleShowConfirm({
         message: vm.user.displayName + 'を復元しますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: vm.user._id });
         rsUser.status = 1;
         vm.user.status = 1;
@@ -146,10 +146,10 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       });
     };
     // Remove database
-    vm.handleDatabaseDeleteUser = user => {
+    vm.handleDatabaseDeleteUser = function (user) {
       $scope.handleShowConfirm({
         message: vm.user.displayName + 'を完全削除しますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: vm.user._id });
         rsUser.$remove();
         handlePreviousScreen();

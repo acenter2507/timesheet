@@ -19,10 +19,10 @@
 
   WorkdatesApi.$inject = ['$http'];
   function WorkdatesApi($http) {
-    this.getWorkrestsInWorkdate = (workdateId) => {
+    this.getWorkrestsInWorkdate = function (workdateId) {
       return $http.post('/api/workdates/' + workdateId + '/workrests', {}, { ignoreLoadingBar: true });
     };
-    this.addComment = (workdateId, comment) => {
+    this.addComment = function (workdateId, comment) {
       return $http.post('/api/workdates/' + workdateId + '/add_comment', { comment: comment }, { ignoreLoadingBar: true });
     };
     return this;

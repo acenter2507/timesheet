@@ -44,33 +44,33 @@
     function prepareParams() {
     }
     // Remove existing Department
-    vm.handleDeleteDepartment = () => {
+    vm.handleDeleteDepartment = function () {
       $scope.handleShowConfirm({
         message: vm.department.name + 'を削除しますか？'
-      }, () => {
-        vm.department.$remove(() => {
+      }, function () {
+        vm.department.$remove(function () {
           $state.go('departments.list');
         });
       });
     };
     // Send message to all member
-    vm.handleSendMessageDepartment = () => {
+    vm.handleSendMessageDepartment = function () {
       $scope.handleShowToast('只今、この機能は作成中です。');
     };
     // Send message to all leader
-    vm.handleSendMessageLeader = () => {
+    vm.handleSendMessageLeader = function () {
       $scope.handleShowToast('只今、この機能は作成中です。');
     };
     // Send message to all member
-    vm.handleSendMessageMember = () => {
+    vm.handleSendMessageMember = function () {
       $scope.handleShowToast('只今、この機能は作成中です。');
     };
     // Send message to only user
-    vm.handleSendMessageUser = user => {
+    vm.handleSendMessageUser = function (user) {
       $scope.handleShowToast('只今、この機能は作成中です。');
     };
     // View user detail page
-    vm.handleViewDetailUser = user => {
+    vm.handleViewDetailUser = function (user) {
       if ($scope.isAdmin || $scope.isAccountant) {
         return $state.go('users.view', { userId: user._id });
       } else {
@@ -78,23 +78,23 @@
       }
     };
     // Remove member from department
-    vm.handleRemoveUserFromDepartment = user => {
+    vm.handleRemoveUserFromDepartment = function (user) {
       $scope.handleShowConfirm({
         message: user.displayName + 'を部署から削除しますか？'
-      }, () => {
+      }, function () {
         vm.department.leaders = _.without(vm.department.leaders, user);
         vm.department.members = _.without(vm.department.members, user);
         DepartmentsApi.removeUser(vm.department._id, user._id);
       });
     };
     // Logic remove user
-    vm.handleLogicDeleteUser = user => {
+    vm.handleLogicDeleteUser = function (user) {
       $scope.handleShowConfirm({
         message: user.displayName + 'を削除しますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: user._id });
         rsUser.status = 3;
-        rsUser.$update(() => {
+        rsUser.$update(function () {
           vm.department.leaders = _.without(vm.department.leaders, user);
           vm.department.members = _.without(vm.department.members, user);
           DepartmentsApi.removeUser(vm.department._id, user._id);
@@ -102,10 +102,10 @@
       });
     };
     // Physico remove user
-    vm.handleDatabaseDeleteUser = user => {
+    vm.handleDatabaseDeleteUser = function (user) {
       $scope.handleShowConfirm({
         message: user.displayName + 'を完全削除しますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: user._id });
         vm.department.leaders = _.without(vm.department.leaders, user);
         vm.department.members = _.without(vm.department.members, user);
@@ -113,16 +113,16 @@
       });
     };
     // Add new leader
-    vm.handleStartSearchMember = () => {
+    vm.handleStartSearchMember = function () {
       angular.element('body').toggleClass('open-left-aside');
     };
     // Add a user to department
-    vm.handleAddUserToDepartment = member => {
+    vm.handleAddUserToDepartment = function (member) {
       $scope.handleShowConfirm({
         message: member.displayName + 'を' + vm.department.name + 'に追加しますか？'
-      }, () => {
+      }, function () {
         DepartmentsApi.addMemberToDepartment(vm.department._id, member._id)
-          .success(user => {
+          .success(function (user) {
             if (CommonService.isManager(user.roles)) {
               vm.department.leaders.push(user);
             } else {
@@ -131,18 +131,18 @@
             vm.searchResult = _.without(vm.searchResult, member);
             if (!$scope.$$phase) $scope.$digest();
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
-    vm.closeLeftAside = () => {
+    vm.closeLeftAside = function () {
       angular.element('body').removeClass('open-left-aside');
     };
     /**
      * HANDLES
      */
-    vm.handleSearchChanged = () => {
+    vm.handleSearchChanged = function () {
       if (vm.searchKey === '') return;
       if (vm.searchTimer) {
         $timeout.cancel(vm.searchTimer);
@@ -150,7 +150,7 @@
       }
       vm.searchTimer = $timeout(handleSearchUser, 500);
     };
-    // vm.handleLeaderSelected = (leader) => {
+    // vm.handleLeaderSelected = function (leader) {
     //   var item = _.findWhere(vm.department.leaders, { _id: leader._id });
     //   if (!item) {
     //     vm.department.leaders.push(leader);
@@ -159,19 +159,19 @@
     //   vm.isShowLeaderDropdown = true;
     //   if (!$scope.$$phase) $scope.$digest();
     // };
-    // vm.handleLeaderRemoved = (leader) => {
+    // vm.handleLeaderRemoved = function(leader) {
     //   vm.department.leaders = _.without(vm.department.leaders, leader);
     // };
     function handleSearchUser() {
       if (vm.isSearching) return;
       vm.isSearching = true;
       AdminUserApi.searchUsers({ key: vm.searchKey, department: true })
-        .success(users => {
+        .success(function (users) {
           vm.searchResult = users;
           vm.isSearching = false;
           if (!$scope.$$phase) $scope.$digest();
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
           vm.isSearching = false;
         });

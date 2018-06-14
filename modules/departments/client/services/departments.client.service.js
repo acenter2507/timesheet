@@ -19,13 +19,13 @@
 
   DepartmentsApi.$inject = ['$http'];
   function DepartmentsApi($http) {
-    this.removeUser = (departmentId, userId) => {
+    this.removeUser = function (departmentId, userId) {
       return $http.post('/api/departments/' + departmentId + '/removeUser', { userId: userId }, { ignoreLoadingBar: true });
     };
-    this.addMemberToDepartment = (departmentId, userId) => {
+    this.addMemberToDepartment = function (departmentId, userId) {
       return $http.post('/api/departments/' + departmentId + '/addUser', { userId: userId }, { ignoreLoadingBar: true });
     };
-    this.search = (condition) => {
+    this.search = function (condition) {
       return $http.post('/api/departments/search', { condition: condition }, { ignoreLoadingBar: true });
     };
     return this;

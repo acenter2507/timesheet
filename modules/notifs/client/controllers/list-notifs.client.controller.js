@@ -12,16 +12,16 @@
 
     vm.notifs = NotifsService.query();
 
-    vm.handleClearAllNotifications = () => {
+    vm.handleClearAllNotifications = function () {
       $scope.handleShowConfirm({
         message: '全ての通知を削除しますか？'
-      }, () => {
-        Notifications.clear().then(() => {
+      }, function () {
+        Notifications.clear().then(function () {
           vm.notifs = [];
         });
       });
     };
-    vm.handleViewDetailNotification = notif => {
+    vm.handleViewDetailNotification = function (notif) {
       $state.go(notif.state, { notif: notif._id });
     };
   }

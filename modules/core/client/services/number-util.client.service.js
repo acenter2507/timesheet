@@ -5,7 +5,7 @@ angular.module('core').factory('NumberUtil', NumberUtil);
 NumberUtil.$inject = [];
 function NumberUtil() {
   // Làm tròn số
-  this.precisionRound = (number, precision) => {
+  this.precisionRound = function(number, precision) {
     var factor = Math.pow(10, precision);
     return Math.round(number * factor) / factor;
   };

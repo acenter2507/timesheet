@@ -21,57 +21,57 @@
       prepareShowingData();
     }
     function prepareShowingData() {
-      vm.workmonth.workdates.forEach(workdate => {
+      vm.workmonth.workdates.forEach(function (workdate) {
         workdate.time = moment().year(workdate.year).month(workdate.month - 1).date(workdate.date);
       });
     }
 
     // Về màn hình xem workmonth theo năm hiện tại
-    vm.handleViewYear = () => {
+    vm.handleViewYear = function () {
       $state.go('workmonths.list', { year: vm.workmonth.year });
     };
     // Gửi yêu cầu phê duyệt workmonth
-    vm.handleSendRequestMonth = () => {
+    vm.handleSendRequestMonth = function () {
       $scope.handleShowConfirm({
         message: '勤務表を申請しますか？'
-      }, () => {
+      }, function () {
         WorkmonthsApi.request(vm.workmonth._id)
-          .success(data => {
+          .success(function (data) {
             _.extend(vm.workmonth, data);
             Socket.emit('month_request', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Hủy yêu cầu phê duyệt workmonth
-    vm.handleCancelRequestMonth = () => {
+    vm.handleCancelRequestMonth = function () {
       $scope.handleShowConfirm({
         message: '勤務表の申請を取り消しますか？'
-      }, () => {
+      }, function () {
         WorkmonthsApi.cancel(vm.workmonth._id)
-          .success(data => {
+          .success(function (data) {
             _.extend(vm.workmonth, data);
             Socket.emit('month_cancel', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Xóa workmonth
-    vm.handleDeleteMonth = () => {
+    vm.handleDeleteMonth = function () {
       $scope.handleShowConfirm({
         message: 'この勤務表を完全削除しますか？'
-      }, () => {
+      }, function () {
         vm.workmonth.$remove(handlePreviousScreen());
       });
     };
-    vm.handleViewHistory = () => {
+    vm.handleViewHistory = function () {
       vm.isShowHistory = true;
     };
-    vm.handleCloseHistory = () => {
+    vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
     };
     vm.handlePreviousScreen = handlePreviousScreen;
@@ -125,26 +125,26 @@
       vm.copyingWorkdate = {};
     };
     // Xem tất cả các comment
-    vm.handleViewMoreWorkdateComment = workdate => {
+    vm.handleViewMoreWorkdateComment = function (workdate) {
       $scope.tmp_time = moment().year(workdate.year).month(workdate.month - 1).date(workdate.date).format('LL');
       $scope.tmp_comments = workdate.comments;
       ngDialog.openConfirm({
         templateUrl: 'commentsTempalte.html',
         scope: $scope
-      }).then(content => {
+      }).then(function (content) {
         delete $scope.tmp_time;
         delete $scope.tmp_comments;
-      }, () => {
+      }, function () {
         delete $scope.tmp_time;
         delete $scope.tmp_comments;
       });
     };
     // Nhập mới 1 comment
-    vm.handleWriteWorkdateComment = workdate => {
+    vm.handleWriteWorkdateComment = function (workdate) {
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',
         scope: $scope
-      }).then(content => {
+      }).then(function (content) {
         if (!content || content === '') return;
         var comment = {
           content: content,
@@ -152,13 +152,13 @@
           time: moment().format('LLLL')
         };
         WorkdatesApi.addComment(workdate._id, comment)
-          .success(res => {
+          .success(function (res) {
             workdate.comments.push(comment);
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
-      }, () => {
+      }, function () {
         delete $scope.comment;
       });
     };

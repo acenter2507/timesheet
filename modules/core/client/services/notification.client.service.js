@@ -11,21 +11,21 @@
     var sv = {};
     sv.cnt = 0;
     sv.notifications = [];
-    sv.count = () => {
+    sv.count = function () {
       $http.get('/api/notifs/count', { ignoreLoadingBar: true })
-        .success(res => { sv.cnt = res; });
+        .success(function (res) { sv.cnt = res; });
     };
     sv.clear = function () {
-      return new Promise((resolve, reject) => {
+      return new Promise(function (resolve, reject) {
         $http.get('/api/notifs/clear', { ignoreLoadingBar: true })
-          .success(() => {
+          .success(function () {
             sv.cnt = 0;
             return resolve();
           });
       });
     };
-    sv.remove = notif => {
-      return $http.get('/api/notifs/' + notif + '/remove', { ignoreLoadingBar: true }).success(res => {
+    sv.remove = function (notif) {
+      return $http.get('/api/notifs/' + notif + '/remove', { ignoreLoadingBar: true }).success(function (res) {
         sv.cnt = res;
       });
     };

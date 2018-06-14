@@ -113,7 +113,7 @@
         vm.workdate.workmonth.overtime = res.workmonth.overtime;
         vm.busy = false;
         $scope.handleShowToast('勤務時間を保存しました！', false);
-      }, function(err) {
+      }, function (err) {
         vm.busy = false;
         $scope.handleShowToast('勤務時間を保存できません！', true);
       });
@@ -127,13 +127,13 @@
       var workmonthId = vm.workdate.workmonth._id || vm.workdate.workmonth;
       vm.busy = true;
       WorkmonthsApi.getHolidayWorking(workmonthId)
-        .success(res => {
+        .success(function (res) {
           if (res.length === 0) {
             $scope.handleShowToast('今月は休日に出勤したことがありません。', true);
             vm.busy = false;
           } else {
             $scope.workdates = res;
-            $scope.workdates.forEach(workdate => {
+            $scope.workdates.forEach(function (workdate) {
               if (_.findWhere(vm.workdate.transfers, { _id: workdate._id })) {
                 workdate.selected = true;
               }
@@ -152,7 +152,7 @@
             });
           }
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
         });
     };

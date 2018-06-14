@@ -27,7 +27,7 @@
 
       var deferred = $q.defer();
       AdminUserApi.searchUsers({ key: $query, department: false })
-        .success(users => {
+        .success(function (users) {
           deferred.resolve(users);
         });
 
@@ -40,7 +40,7 @@
 
       var deferred = $q.defer();
       DepartmentsApi.search({ key: $query })
-        .success(departments => {
+        .success(function (departments) {
           deferred.resolve(departments);
         });
 
@@ -78,7 +78,7 @@
     vm.handleCancelMessage = function () {
       $scope.handleShowConfirm({
         message: 'お知らせの送信をキャンセルしますか？'
-      }, () => {
+      }, function () {
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       });
     };

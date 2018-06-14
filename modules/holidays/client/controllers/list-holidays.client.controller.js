@@ -16,7 +16,7 @@
     vm.holidays = HolidaysService.query();
 
     // Add holiday
-    vm.handleAddNewHoliday = () => {
+    vm.handleAddNewHoliday = function () {
       $scope.holiday = new HolidaysService();
       $scope.handleSaveHoliday = handleSaveHoliday;
 
@@ -30,7 +30,7 @@
       });
     };
     // Edit holiday
-    vm.handleEditHoliday = holiday => {
+    vm.handleEditHoliday = function (holiday) {
       $scope.holiday = _.clone(holiday);
       $scope.handleSaveHoliday = handleSaveHoliday;
 
@@ -45,10 +45,10 @@
       });
     };
     // Delete holida
-    vm.handleDeleteHoliday = holiday => {
+    vm.handleDeleteHoliday = function (holiday) {
       $scope.handleShowConfirm({
         message: '' + holiday.name + 'を削除しますか？'
-      }, () => {
+      }, function () {
         vm.holidays = _.without(vm.holidays, holiday);
         holiday.$remove();
       });

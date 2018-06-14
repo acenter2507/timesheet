@@ -12,10 +12,10 @@
 
     vm.departments = DepartmentsService.query();
 
-    vm.handleDeleteDepartment = department => {
+    vm.handleDeleteDepartment = function (department) {
       $scope.handleShowConfirm({
         message: department.name + 'を削除しますか？'
-      }, () => {
+      }, function () {
         department.$remove();
         vm.departments = _.without(vm.departments, department);
       });

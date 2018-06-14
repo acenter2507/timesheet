@@ -9,22 +9,22 @@
   AdminUserApi.$inject = ['$http'];
 
   function AdminUserApi($http) {
-    this.loadUsers = (condition, page) => {
+    this.loadUsers = function (condition, page) {
       return $http.post('/api/users/list', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
-    this.changeUserPassword = (userId, newPassword) => {
+    this.changeUserPassword = function (userId, newPassword) {
       return $http.post('/api/users/' + userId + '/resetpass', { newPassword: newPassword }, { ignoreLoadingBar: true });
     };
-    this.changeUserRoles = (userId, newRoles) => {
+    this.changeUserRoles = function (userId, newRoles) {
       return $http.post('/api/users/' + userId + '/roles', { newRoles: newRoles }, { ignoreLoadingBar: true });
     };
-    this.changeUserDepartment = (userId, newDepartment) => {
+    this.changeUserDepartment = function (userId, newDepartment) {
       return $http.post('/api/users/' + userId + '/department', { newDepartment: newDepartment }, { ignoreLoadingBar: true });
     };
-    this.clearDeletedUsers = () => {
+    this.clearDeletedUsers = function () {
       return $http.get('/api/users/clearDeletedUsers', { ignoreLoadingBar: true });
     };
-    this.searchUsers = (condition) => {
+    this.searchUsers = function (condition) {
       return $http.post('/api/users/search', { condition: condition }, { ignoreLoadingBar: true });
     };
     return this;

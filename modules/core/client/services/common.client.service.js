@@ -4,26 +4,26 @@ angular.module('core').factory('CommonService', CommonService);
 
 CommonService.$inject = [];
 function CommonService() {
-  this.isAdmin = roles => {
+  this.isAdmin = function(roles) {
     return _.contains(roles, 'admin');
   };
-  this.isManager = roles => {
+  this.isManager = function(roles) {
     return _.contains(roles, 'manager');
   };
-  this.isAccountant = roles => {
+  this.isAccountant = function(roles) {
     return _.contains(roles, 'accountant') && roles.length === 2;
   };
-  this.isMember = roles => {
+  this.isMember = function(roles) {
     return roles.length === 1;
   };
-  this.createArrayFromRange = range => {
+  this.createArrayFromRange = function(range) {
     var array = [];
     for (var i = 1; i <= range; i++) {
       array.push(i);
     }
     return array;
   };
-  this.comapreTwoArrays = (arr1, arr2) => {
+  this.comapreTwoArrays = function(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
     for (let index = 0; index < arr1.length; index++) {
       const element = arr1[index];
@@ -33,7 +33,7 @@ function CommonService() {
     }
     return true;
   };
-  this.isStringEmpty = str => {
+  this.isStringEmpty = function(str) {
     if (!str || str === '') {
       return true;
     }

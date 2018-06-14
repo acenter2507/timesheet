@@ -8,7 +8,7 @@
 
   WorkrestsController.$inject = ['$scope', '$state', 'workrestResolve', 'CommonService', 'DateUtil', 'WorkrestsApi', 'ngDialog', 'Socket', '$stateParams', 'Notifications'];
 
-  function WorkrestsController ($scope, $state, workrest, CommonService, DateUtil, WorkrestsApi, ngDialog, Socket, $stateParams, Notifications) {
+  function WorkrestsController($scope, $state, workrest, CommonService, DateUtil, WorkrestsApi, ngDialog, Socket, $stateParams, Notifications) {
     var vm = this;
     vm.workrest = workrest;
 
@@ -75,108 +75,108 @@
         }
       };
     }
-    vm.handleCalendarEventClicked = () => {
+    vm.handleCalendarEventClicked = function () {
       return false;
     };
-    vm.handleCalendarRangeSelected = (start, end) => {
+    vm.handleCalendarRangeSelected = function (start, end) {
       return false;
     };
-    vm.handleCalendarClicked = date => {
+    vm.handleCalendarClicked = function (date) {
       return false;
     };
     // Xóa ngày nghỉ
-    vm.handleDeleteRest = () => {
+    vm.handleDeleteRest = function () {
       $scope.handleShowConfirm({
         message: '休暇登録を削除しますか？'
-      }, () => {
+      }, function () {
         vm.workrest.$remove(handlePreviousScreen());
       });
     };
     // Gửi thỉnh cầu cho leader
-    vm.handleSendRequestRest = () => {
+    vm.handleSendRequestRest = function () {
       $scope.handleShowConfirm({
         message: '休暇を申請しますか？'
-      }, () => {
+      }, function () {
         WorkrestsApi.request(vm.workrest._id)
-          .success(data => {
+          .success(function (data) {
             _.extend(vm.workrest, data);
             Socket.emit('rest_request', { workrestId: vm.workrest._id, userId: $scope.user._id });
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Hủy bỏ thỉnh cầu
-    vm.handleCancelRequestRest = () => {
+    vm.handleCancelRequestRest = function () {
       $scope.handleShowConfirm({
         message: '休暇の申請を取り消しますか？'
-      }, () => {
+      }, function () {
         WorkrestsApi.cancel(vm.workrest._id)
-          .success(data => {
+          .success(function (data) {
             _.extend(vm.workrest, data);
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Gửi thỉnh cầu xóa bỏ ngày nghỉ
-    vm.handleSendRequestDelete = () => {
+    vm.handleSendRequestDelete = function () {
       $scope.handleShowConfirm({
         message: '休暇を取り消す申請を送りますか？'
-      }, () => {
+      }, function () {
         WorkrestsApi.deleteRequest(vm.workrest._id)
-          .success(data => {
+          .success(function (data) {
             _.extend(vm.workrest, data);
             Socket.emit('rest_delete_request', { workrestId: vm.workrest._id, userId: $scope.user._id });
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Chấp nhận ngày nghỉ
-    vm.handleApproveRest = () => {
+    vm.handleApproveRest = function () {
       $scope.handleShowConfirm({
         message: 'この休暇を承認しますか？'
-      }, () => {
+      }, function () {
         WorkrestsApi.approve(vm.workrest._id)
-          .success(data => {
+          .success(function (data) {
             _.extend(vm.workrest, data);
             Socket.emit('rest_review', { workrestId: vm.workrest._id, user: $scope.user._id });
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Không chấp nhận ngày nghỉ
-    vm.handleRejectRest = () => {
+    vm.handleRejectRest = function () {
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',
         scope: $scope
-      }).then(comment => {
+      }).then(function (comment) {
         delete $scope.comment;
         $scope.handleShowConfirm({
           message: 'この休暇を拒否しますか？'
-        }, () => {
+        }, function () {
           WorkrestsApi.reject(vm.workrest._id, { comment: comment })
-            .success(data => {
+            .success(function (data) {
               _.extend(vm.workrest, data);
               Socket.emit('rest_review', { workrestId: vm.workrest._id, user: $scope.user._id });
             })
-            .error(err => {
+            .error(function (err) {
               $scope.handleShowToast(err.message, true);
             });
         });
-      }, () => {
+      }, function () {
         delete $scope.comment;
       });
 
     };
     // View user detail page
-    vm.handleViewDetailUser = user => {
+    vm.handleViewDetailUser = function (user) {
       if ($scope.isAdmin || $scope.isAccountant) {
         return $state.go('users.view', { userId: user._id });
       } else {

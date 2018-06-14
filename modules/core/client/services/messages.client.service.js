@@ -11,22 +11,22 @@
     var sv = {};
     sv.cnt = 0;
     sv.messages = [];
-    sv.count = () => {
+    sv.count = function () {
       $http.get('/api/messages/count', { ignoreLoadingBar: true })
-        .success(res => { sv.cnt = res; });
+        .success(function (res) { sv.cnt = res; });
     };
     sv.clear = function () {
-      return new Promise((resolve, reject) => {
+      return new Promise(function (resolve, reject) {
         $http.get('/api/messages/clear', { ignoreLoadingBar: true })
-          .success(() => {
+          .success(function () {
             sv.cnt = 0;
             return resolve();
           });
       });
     };
-    sv.remove = messageId => {
+    sv.remove = function (messageId) {
       return $http.get('/api/messages/' + messageId + '/remove', { ignoreLoadingBar: true })
-        .success(res => {
+        .success(function (res) {
           sv.cnt = res;
         });
     };

@@ -28,71 +28,71 @@ angular.module('users.admin').controller('UserListController', [
 
     function handleLoadManagerUsers() {
       AdminUserApi.loadUsers({ roles: 'manager' }, vm.manager.page)
-        .success(res => {
+        .success(function (res) {
           vm.manager.data = res.docs;
           vm.manager.pages = createArrayFromRange(res.pages);
           vm.manager.total = res.total;
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
         });
     }
     function handleLoadMemberUsers() {
       AdminUserApi.loadUsers({ roles: ['user', 'accountant'] }, vm.member.page)
-        .success(res => {
+        .success(function (res) {
           vm.member.data = res.docs;
           vm.member.pages = createArrayFromRange(res.pages);
           vm.member.total = res.total;
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
         });
     }
     function handleLoadAdminUsers() {
       AdminUserApi.loadUsers({ roles: 'admin' }, vm.admin.page)
-        .success(res => {
+        .success(function (res) {
           vm.admin.data = res.docs;
           vm.admin.pages = createArrayFromRange(res.pages);
           vm.admin.total = res.total;
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
         });
     }
     function handleLoadDeletedUsers() {
       AdminUserApi.loadUsers({ mode: 'deleted' }, vm.deleted.page)
-        .success(res => {
+        .success(function (res) {
           vm.deleted.data = res.docs;
           vm.deleted.pages = createArrayFromRange(res.pages);
           vm.deleted.total = res.total;
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
         });
     }
 
-    vm.handleChangeManagerPage = page => {
+    vm.handleChangeManagerPage = function (page) {
       if (vm.manager.page === page) return;
       vm.manager.page = page;
       handleLoadManagerUsers();
     };
-    vm.handleChangeMemberPage = page => {
+    vm.handleChangeMemberPage = function (page) {
       if (vm.member.page === page) return;
       vm.member.page = page;
       handleLoadMemberUsers();
     };
-    vm.handleChangeAdminPage = page => {
+    vm.handleChangeAdminPage = function (page) {
       if (vm.admin.page === page) return;
       vm.admin.page = page;
       handleLoadAdminUsers();
     };
-    vm.handleChangeDeletedPage = page => {
+    vm.handleChangeDeletedPage = function (page) {
       if (vm.deleted.page === page) return;
       vm.deleted.page = page;
       handleLoadDeletedUsers();
     };
     // View detail user
-    vm.handleViewDetailUser = user => {
+    vm.handleViewDetailUser = function (user) {
       if ($scope.isAdmin || $scope.isAccountant) {
         return $state.go('users.view', { userId: user._id });
       } else {
@@ -100,19 +100,19 @@ angular.module('users.admin').controller('UserListController', [
       }
     };
     // Gửi message đến toàn bộ user trong 1 group
-    vm.sendMessageAll = group => {
+    vm.sendMessageAll = function (group) {
       $scope.handleShowToast('只今、この機能は作成中です。');
     };
-    vm.handleSendMessageUser = user => {
+    vm.handleSendMessageUser = function (user) {
       $scope.handleShowToast('只今、この機能は作成中です。');
     };
-    vm.handleLogicDeleteUser = user => {
+    vm.handleLogicDeleteUser = function (user) {
       $scope.handleShowConfirm({
         message: user.displayName + 'を削除しますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: user._id });
         rsUser.status = 3;
-        rsUser.$update(() => {
+        rsUser.$update(function () {
           if ($scope.isAdmin) {
             vm.deleted.page = 1;
             handleLoadDeletedUsers();
@@ -131,13 +131,13 @@ angular.module('users.admin').controller('UserListController', [
       });
     };
     // Phục hồi user sau khi bị xóa
-    vm.handleResetUser = user => {
+    vm.handleResetUser = function (user) {
       $scope.handleShowConfirm({
         message: user.displayName + 'を復元しますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: user._id });
         rsUser.status = 1;
-        rsUser.$update(() => {
+        rsUser.$update(function () {
           if (CommonService.isAdmin(user.roles)) {
             vm.admin.page = 1;
             handleLoadAdminUsers();
@@ -152,10 +152,10 @@ angular.module('users.admin').controller('UserListController', [
         vm.deleted.data = _.without(vm.deleted.data, user);
       });
     };
-    vm.handleDatabaseDeleteUser = user => {
+    vm.handleDatabaseDeleteUser = function (user) {
       $scope.handleShowConfirm({
         message: user.displayName + 'を完全削除しますか？'
-      }, () => {
+      }, function () {
         var rsUser = new AdminUserService({ _id: user._id });
         rsUser.$remove();
         if (user.status === 3) {
@@ -171,12 +171,12 @@ angular.module('users.admin').controller('UserListController', [
         }
       });
     };
-    vm.handleDatabaseClearAll = () => {
+    vm.handleDatabaseClearAll = function () {
       $scope.handleShowConfirm({
         message: '全ての削除されたアカウントを削除しますか？'
-      }, () => {
+      }, function () {
         AdminUserApi.clearDeletedUsers()
-          .success(() => { delete vm.deleted; });
+          .success(function () { delete vm.deleted; });
       });
     };
 

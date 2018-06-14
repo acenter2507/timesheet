@@ -92,7 +92,7 @@
       };
     }
     function prepareDepartments() {
-      DepartmentsService.query().$promise.then(data => {
+      DepartmentsService.query().$promise.then(function (data) {
         vm.departments = data;
       });
     }
@@ -106,7 +106,7 @@
     function prepareCalendarEvent() {
       vm.events = [];
       if (vm.workrests.length === 0) return;
-      vm.workrests.forEach(rest => {
+      vm.workrests.forEach(function (rest) {
         var color;
         var actions = [];
         switch (rest.status) {
@@ -144,7 +144,7 @@
         });
       });
     }
-    vm.handleStartSearch = () => {
+    vm.handleStartSearch = function () {
       vm.page = 1;
       handleSearch();
     };
@@ -152,7 +152,7 @@
       if (vm.busy) return;
       vm.busy = true;
       WorkrestsApi.getRestReview(vm.condition, vm.page)
-        .success(res => {
+        .success(function (res) {
           vm.workrests = res.docs;
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
@@ -160,89 +160,89 @@
           prepareCalendarEvent();
           vm.busy = false;
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
           vm.busy = false;
         });
     }
-    vm.handleClearCondition = () => {
+    vm.handleClearCondition = function () {
       prepareCondition();
     };
-    vm.handlePageChanged = page => {
+    vm.handlePageChanged = function (page) {
       vm.page = page;
       handleSearch();
     };
-    vm.handleCalendarEventClicked = () => {
+    vm.handleCalendarEventClicked = function () {
       return false;
     };
-    vm.handleCalendarRangeSelected = (start, end) => {
+    vm.handleCalendarRangeSelected = function (start, end) {
       return false;
     };
-    vm.handleCalendarClicked = date => {
+    vm.handleCalendarClicked = function (date) {
       return false;
     };
-    vm.handleRestClicked = calendarEvent => {
+    vm.handleRestClicked = function (calendarEvent) {
       $state.go('workrests.view', { workrestId: calendarEvent.id });
     };
     // Chấp nhận ngày nghỉ
-    vm.handleApproveRest = workrest => {
+    vm.handleApproveRest = function (workrest) {
       $scope.handleShowConfirm({
         message: 'この休暇を承認しますか？'
-      }, () => {
+      }, function () {
         WorkrestsApi.approve(workrest._id)
-          .success(data => {
+          .success(function (data) {
             _.extend(workrest, data);
             Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Không chấp nhận ngày nghỉ
-    vm.handleRejectRest = workrest => {
+    vm.handleRejectRest = function (workrest) {
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',
         scope: $scope
-      }).then(content => {
+      }).then(function (content) {
         delete $scope.content;
         $scope.handleShowConfirm({
           message: 'この休暇を拒否しますか？'
-        }, () => {
+        }, function () {
           WorkrestsApi.reject(workrest._id, { comment: content })
-            .success(data => {
+            .success(function (data) {
               _.extend(workrest, data);
               Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
             })
-            .error(err => {
+            .error(function (err) {
               $scope.handleShowToast(err.message, true);
             });
         });
-      }, () => {
+      }, function () {
         delete $scope.content;
       });
 
     };
     // Xóa ngày nghỉ theo thỉnh cầu
-    vm.handleDelete = workrest => {
+    vm.handleDelete = function (workrest) {
       $scope.handleShowConfirm({
         message: '削除しますか？'
-      }, () => {
+      }, function () {
         var rsRest = new WorkrestsService({ _id: workrest._id });
-        rsRest.$remove(() => {
+        rsRest.$remove(function () {
           vm.workrests = _.without(vm.workrests, workrest);
         });
       });
     };
-    vm.handleViewHistory = rest => {
+    vm.handleViewHistory = function (rest) {
       vm.isShowHistory = true;
       vm.historys = rest.historys;
     };
-    vm.handleCloseHistory = () => {
+    vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
     };
     // View user detail page
-    vm.handleViewDetailUser = user => {
+    vm.handleViewDetailUser = function (user) {
       if ($scope.isAdmin || $scope.isAccountant) {
         return $state.go('users.view', { userId: user._id });
       } else {

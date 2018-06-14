@@ -23,7 +23,7 @@
       // prepareWorkrests();
     }
     function prepareShowingData() {
-      vm.workmonth.workdates.forEach(workdate => {
+      vm.workmonth.workdates.forEach(function (workdate) {
         workdate.time = moment().year(workdate.year).month(workdate.month - 1).date(workdate.date);
       });
     }
@@ -32,81 +32,81 @@
     //   var end = vm.currentMonth.clone().date(20).format();
     //   var userId = vm.workmonth.user._id;
     //   WorkrestsApi.getRestOfCurrentUserInRange(start, end, userId)
-    //     .success(workrests => {
+    //     .success(function (workrests) {
     //       vm.workrests = workrests;
     //     });
     // }
-    vm.handleViewHistory = rest => {
+    vm.handleViewHistory = function (rest) {
       vm.isShowHistory = true;
     };
-    vm.handleCloseHistory = () => {
+    vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
     };
     // Chấp nhận timesheet hợp lệ
-    vm.handleApproveWorkmonth = () => {
+    vm.handleApproveWorkmonth = function () {
       $scope.handleShowConfirm({
         message: 'この勤務表を承認しますか？'
-      }, () => {
+      }, function () {
         WorkmonthsApi.approve(vm.workmonth._id)
-          .success(workmonth => {
+          .success(function (workmonth) {
             _.extend(vm.workmonth, workmonth);
             Socket.emit('month_approve', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Không chấp nhận timesheet
-    vm.handleRejectWorkmonth = () => {
+    vm.handleRejectWorkmonth = function () {
       $scope.handleShowConfirm({
         message: 'この勤務表を拒否しますか？'
-      }, () => {
+      }, function () {
         WorkmonthsApi.reject(vm.workmonth._id)
-          .success(workmonth => {
+          .success(function (workmonth) {
             _.extend(vm.workmonth, workmonth);
             Socket.emit('month_reject', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
     // Xóa bỏ Workmanth
-    vm.handleDeleteMonth = () => {
+    vm.handleDeleteMonth = function () {
       $scope.handleShowConfirm({
         message: 'この勤務表を完全削除しますか？'
-      }, () => {
-        vm.workmonth.$remove(() => {
+      }, function () {
+        vm.workmonth.$remove(function () {
           handlePreviousScreen();
         });
       });
     };
     // Xem các thông tin cần thiết của user
-    vm.handleViewUserInfo = user => {
+    vm.handleViewUserInfo = function (user) {
       console.log(user);
     };
     // Xem tất cả các comment
-    vm.handleViewMoreWorkdateComment = workdate => {
+    vm.handleViewMoreWorkdateComment = function (workdate) {
       $scope.tmp_time = moment().year(workdate.year).month(workdate.month - 1).date(workdate.date).format('LL');
       $scope.tmp_comments = workdate.comments;
       ngDialog.openConfirm({
         templateUrl: 'commentsTempalte.html',
         scope: $scope
-      }).then(content => {
+      }).then(function (content) {
         delete $scope.tmp_time;
         delete $scope.tmp_comments;
-      }, () => {
+      }, function () {
         delete $scope.tmp_time;
         delete $scope.tmp_comments;
       });
     };
     // Nhập mới 1 comment
-    vm.handleWriteWorkdateComment = workdate => {
+    vm.handleWriteWorkdateComment = function (workdate) {
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',
         scope: $scope
-      }).then(content => {
+      }).then(function (content) {
         if (!content || content === '') return;
         var comment = {
           content: content,
@@ -114,19 +114,19 @@
           time: moment().format('LLLL')
         };
         WorkdatesApi.addComment(workdate._id, comment)
-          .success(res => {
+          .success(function (res) {
             workdate.comments.push(comment);
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
-      }, () => {
+      }, function () {
         delete $scope.comment;
       });
     };
     // Kiểm tra các ngày trong tháng
-    vm.handleAutoCheckWorkmonth = () => {
-      vm.workmonth.workdates.forEach(workdate => {
+    vm.handleAutoCheckWorkmonth = function () {
+      vm.workmonth.workdates.forEach(function (workdate) {
         handleAutoCheckWorkdate(workdate);
       });
       if (!$scope.$$phase) $scope.$digest();

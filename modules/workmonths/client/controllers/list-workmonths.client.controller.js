@@ -30,10 +30,10 @@
     }
     function prepareMonths() {
       WorkmonthsApi.getWorkMonthsByYearAndUser(vm.currentYear.year(), $scope.user._id)
-        .success(res => {
+        .success(function (res) {
           prepareShowingData(res);
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
         });
     }
@@ -44,19 +44,19 @@
       }
     }
 
-    vm.handleNextYear = () => {
+    vm.handleNextYear = function () {
       var lastYear = vm.currentYear.clone().subtract(1, 'years');
       $state.go('workmonths.list', { year: lastYear.year() });
     };
-    vm.handlePreviousYear = () => {
+    vm.handlePreviousYear = function () {
       var nextYear = vm.currentYear.clone().add(1, 'years');
       $state.go('workmonths.list', { year: nextYear.year() });
     };
-    vm.handleCurrentYear = () => {
+    vm.handleCurrentYear = function () {
       var current = moment(new Date(), 'YYYY');
       $state.go('workmonths.list', { year: current.year() });
     };
-    vm.handleCreateWorkMonth = index => {
+    vm.handleCreateWorkMonth = function (index) {
       if (vm.createMonthBusy) return;
       vm.createMonthBusy = true;
 
@@ -64,62 +64,62 @@
         year: vm.currentYear.year(),
         month: index
       });
-      newMonth.$save(res => {
+      newMonth.$save(function (res) {
         vm.createMonthBusy = false;
         var oldMonth = _.findWhere(vm.workmonths, { index: index });
         _.extend(oldMonth, { workmonth: res });
-      }, err => {
+      }, function (err) {
         $scope.handleShowToast(err.data.message, true);
         vm.createMonthBusy = false;
       });
     };
-    vm.handleSendRequestWorkmonth = item => {
+    vm.handleSendRequestWorkmonth = function (item) {
       $scope.handleShowConfirm({
         message: item.workmonth.month + '月の勤務表を申請しますか？'
-      }, () => {
+      }, function () {
         WorkmonthsApi.request(item.workmonth._id)
-          .success(data => {
+          .success(function (data) {
             _.extend(item.workmonth, data);
             Socket.emit('month_request', { workmonthId: item.workmonth._id, userId: $scope.user._id });
           })
-          .error(err => {
+          .error(function (err) {
             $scope.handleShowToast(err.message, true);
           });
       });
     };
-    vm.handleDeleteWorkmonth = item => {
+    vm.handleDeleteWorkmonth = function (item) {
       if (!item.workmonth) return;
       $scope.handleShowConfirm({
         message: item.workmonth.month + '月の勤務表を削除しますか？'
-      }, () => {
+      }, function () {
         var rsMonth = new WorkmonthsService({ _id: item.workmonth._id });
-        rsMonth.$remove(() => {
+        rsMonth.$remove(function () {
           item.workmonth = undefined;
         });
       });
     };
-    vm.handleViewHistory = item => {
+    vm.handleViewHistory = function (item) {
       vm.isShowHistory = true;
       vm.historys = item.workmonth.historys;
     };
-    vm.handleCloseHistory = () => {
+    vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
     };
     // View user detail page
-    vm.handleViewDetailUser = user => {
+    vm.handleViewDetailUser = function (user) {
       if ($scope.isAdmin || $scope.isAccountant) {
         return $state.go('users.view', { userId: user._id });
       } else {
         return $state.go('profile.view', { userId: user._id });
       }
     };
-    vm.handleCreateAll = () => {
+    vm.handleCreateAll = function () {
       if (vm.createMonthBusy) return;
       $scope.handleShowConfirm({
         message: '今年月の勤務表を全て作成しますか？'
-      }, () => {
+      }, function () {
         var undefineds = [];
-        vm.workmonths.forEach(item => {
+        vm.workmonths.forEach(function (item) {
           if (!item.workmonth)
             return undefineds.push(item.index);
         });
@@ -135,7 +135,7 @@
           promises.push(newMonth.$save());
         }
         Promise.all(promises)
-          .then(res => {
+          .then(function (res) {
             for (let i = 0; i < undefineds.length; i++) {
               var index = undefineds[i];
               var newMonth = _.findWhere(res, { month: index });
@@ -146,7 +146,7 @@
             }
             vm.createMonthBusy = false;
           })
-          .catch(err => {
+          .catch(function (err) {
             $scope.handleShowToast(err.data.message, true);
             vm.createMonthBusy = false;
           });

@@ -66,24 +66,24 @@
         }
       };
     }
-    vm.handleCalendarEventClicked = () => {
+    vm.handleCalendarEventClicked = function () {
       return false;
     };
-    vm.handleCalendarRangeSelected = (start, end) => {
+    vm.handleCalendarRangeSelected = function (start, end) {
       vm.workrest.start = start;
       vm.workrest.end = end;
       prepareCalendar();
     };
-    vm.handleCalendarClicked = date => {
+    vm.handleCalendarClicked = function (date) {
       if (DateUtil.isWorkOffDate(date)) return;
       vm.workrest.start = date;
       vm.workrest.end = date;
       prepareCalendar();
     };
-    vm.handleRestRangeChanged = () => {
+    vm.handleRestRangeChanged = function () {
       prepareCalendar();
     };
-    vm.handleSaveRest = isValid => {
+    vm.handleSaveRest = function (isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.restForm');
         $scope.handleShowToast('休暇情報が間違います。再確認ください！', true);
@@ -113,7 +113,7 @@
         // Trường hợp loại ngày nghỉ là nửa ngày thì chuyển duration về nửa ngày
         vm.workrest.duration = holiday.unit;
       }
-      
+
       vm.workrest.isPaid = holiday.isPaid;
       vm.workrest.hours = holiday.hours;
 
@@ -137,7 +137,7 @@
         vm.busy = false;
       }
     };
-    vm.disableWeekend = (date, mode) => {
+    vm.disableWeekend = function (date, mode) {
       var holiday = JapaneseHolidays.isHoliday(new Date(date));
       return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6) || holiday);
     };

@@ -40,16 +40,16 @@
       vm.condition.user = ($stateParams.user) ? $stateParams.user : undefined;
     }
     function prepareDepartments() {
-      DepartmentsService.query().$promise.then(data => {
+      DepartmentsService.query().$promise.then(function (data) {
         vm.departments = data;
       });
     }
 
-    vm.handleClearCondition = () => {
+    vm.handleClearCondition = function () {
       prepareCondition();
     };
 
-    vm.handleStartSearch = () => {
+    vm.handleStartSearch = function () {
       vm.page = 1;
       handleSearch();
     };
@@ -57,13 +57,13 @@
       if (vm.busy) return;
       vm.busy = true;
       WorkmonthsApi.getWorkmonthsReview(vm.condition, vm.page)
-        .success(res => {
+        .success(function (res) {
           vm.workmonths = res.docs;
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
           vm.busy = false;
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
           vm.busy = false;
         });
@@ -75,7 +75,7 @@
     vm.isShowUserDropdown = false;
     vm.userSearchKey = '';
 
-    vm.handleUserSearchChanged = () => {
+    vm.handleUserSearchChanged = function () {
       if (vm.userSearchKey === '') return;
       if (vm.searchTimer) {
         $timeout.cancel(vm.searchTimer);
@@ -83,7 +83,7 @@
       }
       vm.searchTimer = $timeout(handleSearchUser, 500);
     };
-    vm.handleUserSelected = user => {
+    vm.handleUserSelected = function (user) {
       vm.userSearchKey = user.displayName;
       vm.condition.user = user._id;
     };
@@ -92,30 +92,30 @@
       vm.isUserSearching = true;
       vm.isShowUserDropdown = true;
       AdminUserApi.searchUsers({ key: vm.userSearchKey, department: false })
-        .success(users => {
+        .success(function (users) {
           vm.users = users;
           vm.isUserSearching = false;
           if (!$scope.$$phase) $scope.$digest();
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err.message, true);
           vm.isUserSearching = false;
           vm.isShowUserDropdown = false;
         });
     }
     // View user detail page
-    vm.handleViewDetailUser = user => {
+    vm.handleViewDetailUser = function (user) {
       if ($scope.isAdmin || $scope.isAccountant) {
         return $state.go('users.view', { userId: user._id });
       } else {
         return $state.go('profile.view', { userId: user._id });
       }
     };
-    vm.handleViewHistory = workmonth => {
+    vm.handleViewHistory = function (workmonth) {
       vm.isShowHistory = true;
       vm.historys = workmonth.historys;
     };
-    vm.handleCloseHistory = () => {
+    vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
     };
   }
