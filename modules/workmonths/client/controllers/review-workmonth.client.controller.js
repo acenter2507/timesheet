@@ -137,7 +137,7 @@
       // Kiểm tra duration của các đơn xin nghỉ
       var rest_duration = 0;
       var isPaid_duration = 0;
-      for (let i = 0; i < workdate.workrests.length; i++) {
+      for (var i = 0; i < workdate.workrests.length; i++) {
         const workrest = workdate.workrests[i];
         rest_duration += workrest.duration;
         if (workrest.holiday.isPaid) {

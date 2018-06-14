@@ -112,7 +112,7 @@ exports.list = function (req, res) {
 exports.workrests = function (req, res) {
   var workdate = req.workdate;
   var promises = [];
-  for (let index = 0; index < workdate.workrests.length; index++) {
+  for (var index = 0; index < workdate.workrests.length; index++) {
     const workrestID = workdate.workrests[index]._id || workdate.workrests[index];
     promises.push(Workrest.findById(workrestID).populate('holiday').exec());
   }
@@ -237,7 +237,7 @@ exports.addWorkrestToWorkdates = function (workrest) {
     var end = _m(workrest.end);
     var duration = end.diff(start, 'days');
     var promises = [];
-    for (let index = 0; index <= duration; index++) {
+    for (var index = 0; index <= duration; index++) {
       var current = start.clone().add(index, 'days');
       promises.push(Workdate.addWorkrest(workrest._id, current.year(), current.month() + 1, current.date()));
     }
@@ -251,7 +251,7 @@ exports.removeWorkrestToWorkdates = function (workrest) {
     var end = _m(workrest.end);
     var duration = end.diff(start, 'days');
     var promises = [];
-    for (let index = 0; index <= duration; index++) {
+    for (var index = 0; index <= duration; index++) {
       var current = start.clone().add(index, 'days');
       promises.push(Workdate.removeWorkrest(workrest._id, current.year(), current.month() + 1, current.date()));
     }

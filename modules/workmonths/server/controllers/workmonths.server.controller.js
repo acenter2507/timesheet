@@ -29,7 +29,7 @@ exports.create = function (req, res) {
   var duration = endDate.diff(startDate, 'days');
 
   var promises = [];
-  for (let index = 0; index <= duration; index++) {
+  for (var index = 0; index <= duration; index++) {
     var date = startDate.clone().add(index, 'days');
     var workdate = new Workdate({
       workmonth: workmonth._id,
@@ -49,10 +49,10 @@ exports.create = function (req, res) {
   Promise.all(promises)
     .then(arr => {
       var _promises = [];
-      for (let index = 0; index < workdates.length; index++) {
+      for (var index = 0; index < workdates.length; index++) {
         const workdate = workdates[index];
         const workrests = arr[index];
-        let workrestIds = _.pluck(workrests, '_id');
+        var workrestIds = _.pluck(workrests, '_id');
         workdate.workrests = workrestIds;
         _promises.push(workdate.save());
       }

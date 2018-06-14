@@ -465,7 +465,7 @@ function isConflictRest(workrest) {
 
     Workrest.find(condition).exec((err, workrests) => {
       if (workrests.length === 0) return resolve(true);
-      for (let index = 0; index < workrests.length; index++) {
+      for (var index = 0; index < workrests.length; index++) {
         const element = workrests[index];
         if (_moment(workrest.start).isBetween(element.start, element.end, null, '[]') || _moment(workrest.end).isBetween(element.start, element.end, null, '[]') || _moment(element.start).isBetween(workrest.start, workrest.end, null, '[]') || _moment(element.end).isBetween(workrest.start, workrest.end, null, '[]')) {
           return resolve(false);

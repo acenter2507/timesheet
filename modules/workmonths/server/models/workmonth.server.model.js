@@ -54,7 +54,7 @@ WorkmonthSchema.statics.calculatorWorkdates = function (workmonthId) {
       if (err || !workmonth) return;
       if (workmonth.workdates.length === 0) return;
       var numWorkDate = 0, overtime = 0, overnight = 0, middleRest = 0;
-      for (let index = 0; index < workmonth.workdates.length; index++) {
+      for (var index = 0; index < workmonth.workdates.length; index++) {
         const workdate = workmonth.workdates[index];
         // Cộng ngày làm việc
         if (workdate.start && workdate.start !== '') {
@@ -81,12 +81,12 @@ WorkmonthSchema.statics.updateStatusTransfers = function (workmonthId) {
       if (workmonth.workdates.length === 0) return;
       var transfers = [];
 
-      for (let i = 0; i < workmonth.workdates.length; i++) {
+      for (var i = 0; i < workmonth.workdates.length; i++) {
         const workdate = workmonth.workdates[i];
         if (workdate.transfers.length === 0) {
           continue;
         }
-        for (let y = 0; y < workdate.transfers.length; y++) {
+        for (var y = 0; y < workdate.transfers.length; y++) {
           const element = workdate.transfers[y].toString();
           if (!_.contains(transfers, element)) {
             transfers.push(element);
@@ -94,7 +94,7 @@ WorkmonthSchema.statics.updateStatusTransfers = function (workmonthId) {
 
         }
       }
-      for (let z = 0; z < workmonth.workdates.length; z++) {
+      for (var z = 0; z < workmonth.workdates.length; z++) {
         const workdate = workmonth.workdates[z];
         const workdateId = workdate._id.toString();
         if (_.contains(transfers, workdateId) && workdate.isHoliday) {

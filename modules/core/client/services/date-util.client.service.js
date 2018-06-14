@@ -18,7 +18,7 @@ function DateUtil() {
     }
     var cnt = 1;
     var temp;
-    for (let index = 1; index <= duration; index++) {
+    for (var index = 1; index <= duration; index++) {
       temp = start.clone().add(index, 'days');
       if (this.isWorkDate(temp)) {
         cnt += 1;
