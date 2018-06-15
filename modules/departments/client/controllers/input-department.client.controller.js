@@ -104,7 +104,7 @@
       mDialog.closePromise.then(function (res) {
         if (!res.value || res.value === '$document') {
           vm.uploader.clearQueue();
-          vm.avatarImageUrl = vm.department.image;
+          vm.avatarImageUrl = vm.department.avatar;
           delete $scope.sourceImageUrl;
           return;
         }
