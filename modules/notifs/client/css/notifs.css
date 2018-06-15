@@ -3,7 +3,7 @@
   height: 40px;
   padding: 5px;
   display: flex;
-  flex-direction: row; }
+  flex-direction: column; }
   .notif-item .notif-item-content {
     flex-grow: 1; }
   .notif-item .notif-item-from {
