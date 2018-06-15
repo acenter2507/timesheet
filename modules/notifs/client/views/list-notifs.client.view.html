@@ -11,7 +11,7 @@
     <div class="col-xs-12">
       <ul class="list-group notifs">
         <li class="list-group-item notif-item" ng-repeat="notif in vm.notifs">
-          <span>{{notif.message}}</span>
+          <a class="notif-item-link list-group-item-link">{{notif.message}}</a>
         </li>
       </ul>
       <!-- <div class="table-responsive">
