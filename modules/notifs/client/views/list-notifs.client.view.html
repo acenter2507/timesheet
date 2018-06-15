@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="table-responsive">
-        <table class="table">
+        <table class="table table-bordered">
           <tr ng-repeat="notif in vm.notifs">
             <td>
               <div class="notif-item">
@@ -21,7 +21,7 @@
                   <img class="user-common-avatar-small" src="{{ notif.from.profileImageURL }}">
                 </div>
                 <div class="notif-item-time">
-                  <small ng-bind="notif.created | LLLL"></small>
+                  <small am-time-ago="notif.created"></small>
                 </div>
                 <div class="notif-item-action"></div>
               </div>
