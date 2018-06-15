@@ -27,11 +27,5 @@
       title: '登録',
       state: 'workrests.create'
     });
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'workrests', {
-      title: '確認',
-      state: 'workrests.review',
-      roles: ['admin', 'manager', 'accountant']
-    });
   }
 }());
