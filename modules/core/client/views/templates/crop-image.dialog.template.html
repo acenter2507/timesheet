@@ -1,5 +1,7 @@
 <h3>画像サイズを調整する</h3>
-<img-crop class="w100p h300" image="sourceImageUrl" result-image="desImageUrl" area-type="square"></img-crop>
+<div class="form-group text-center">
+  <img-crop class="w100p h300" image="sourceImageUrl" result-image="desImageUrl" area-type="square" result-image-quality="1.0"></img-crop>
+</div>
 <div class="form-group mg12t mgnb">
   <button class="btn btn-default btn-sm pull-right" ng-click="closeThisDialog(false)">キャンセル</button>
   <button class="btn btn-primary btn-sm pull-right mg10r" ng-click="closeThisDialog(desImageUrl)">適用</button>
