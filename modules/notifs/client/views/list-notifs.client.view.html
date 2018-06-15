@@ -11,13 +11,22 @@
     <div class="col-xs-12">
       <div class="table-responsive">
         <table class="table">
-          <tr>
-            <th>
-              <div class="h20 bg-primary"></div>
-            </th>
-          </tr>
           <tr ng-repeat="notif in vm.notifs">
-            <div class="h20 bg-primary"></div>
+            <td>
+              <div class="notif-item">
+                <div class="notif-item-content">
+                  <p>{{notif.message}}</p>
+                </div>
+                <div class="notif-item-from">
+                  <img class="user-common-avatar-small" src="{{ notif.from.profileImageURL }}">
+                </div>
+                <div class="notif-item-time">
+                  <small ng-bind="notif.created | LLLL"></small>
+                </div>
+                <div class="notif-item-action"></div>
+              </div>
+            </td>
+
           </tr>
         </table>
       </div>

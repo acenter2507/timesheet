@@ -1,0 +1,14 @@
+.notif-item {
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row; }
+  .notif-item .notif-item-content {
+    flex-grow: 1; }
+  .notif-item .notif-item-from {
+    width: 50px; }
+  .notif-item .notif-item-time {
+    width: 100px; }
+  .notif-item .notif-item-action {
+    width: 100px; }
