@@ -9,12 +9,28 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <div class="list-group">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="bg-primary">
+            <tr>
+              <th>
+                <div class="h50 bg-primary"></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="notif in vm.notifs">
+              <div class="h50 bg-primary"></div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="list-group">
         <a ng-repeat="notif in vm.notifs" ng-click="vm.handleViewDetailNotification(notif)" class="list-group-item">
           <small ng-bind="notif.created | LLLL"></small>
           <h4 class="list-group-item-heading">{{notif.message}}</h4>
         </a>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
