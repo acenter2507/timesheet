@@ -3,12 +3,16 @@
   height: 40px;
   padding: 5px;
   display: flex;
-  flex-direction: column; }
+  flex-direction: row; }
   .notif-item .notif-item-content {
+    height: 100%;
     flex-grow: 1; }
   .notif-item .notif-item-from {
+    height: 100%;
     width: 50px; }
   .notif-item .notif-item-time {
+    height: 100%;
     width: 100px; }
   .notif-item .notif-item-action {
+    height: 100%;
     width: 100px; }
