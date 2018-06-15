@@ -1,9 +1,10 @@
 .notif-item {
   width: 100%;
-  height: 40px;
-  padding: 5px;
+  height: 30px;
   display: flex;
   flex-direction: row; }
+  .notif-item:hover {
+    background-color: lightgray; }
   .notif-item .notif-item-content {
     height: 100%;
     flex-grow: 1; }
