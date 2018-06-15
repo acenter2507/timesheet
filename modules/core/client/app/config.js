@@ -15,7 +15,6 @@ var ApplicationConfiguration = (function () {
     'angular-loading-bar',
     'angularMoment',
     'toastr',
-    'duScroll',
     'ngImgCrop',
     'monospaced.elastic',
     'ngDialog',
