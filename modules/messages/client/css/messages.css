@@ -25,6 +25,7 @@
     padding: 8px 0; }
     .messages .message-item .message-item-action a {
       line-height: 1;
+      margin-left: 5px;
       color: #ccc; }
     .messages .message-item .message-item-action a:hover {
       color: #337ab7; }

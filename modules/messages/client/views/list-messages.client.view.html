@@ -1,33 +1,31 @@
 <div class="container animated fadeIn">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="form-group text-right">
-          <button class="btn btn-danger" ng-click="vm.handleClearAllMessages()">クリア</button>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
-        <ul class="list-group messages">
-          <li class="list-group-item" ng-if="vm.messages.length === 0">
-            <span>メッセージがありません！</span>
-          </li>
-          <li class="list-group-item message-item" ng-repeat="message in vm.messages">
-            <div class="message-item-image">
-              <img src="{{ message.from.profileImageURL }}" tooltip="{{message.from.displayName}}">
-            </div>
-            <div class="message-item-content">
-              <a ui-sref="messages.view({ messageId: message._id })">{{ message.content }}</a>
-              <span am-time-ago="message.created"></span>
-            </div>
-            <div class="message-item-action">
-              <a ng-click="vm.handleRemoveMessage(message)">
-                <i class="fa fa-check"></i>
-              </a>
-              <i class="fa" ng-class="{ 'fa-envelope-o': message.status === 1, 'fa-envelope-open-o': message.status === 2 }"></i>
-            </div>
-          </li>
-        </ul>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group text-right">
+        <button class="btn btn-danger" ng-click="vm.handleClearAllMessages()">クリア</button>
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul class="list-group messages">
+        <li class="list-group-item" ng-if="vm.messages.length === 0">
+          <span>メッセージがありません！</span>
+        </li>
+        <li class="list-group-item message-item" ng-repeat="message in vm.messages">
+          <div class="message-item-image">
+            <img src="{{ message.from.profileImageURL }}" tooltip="{{message.from.displayName}}">
+          </div>
+          <div class="message-item-content">
+            <a ui-sref="messages.view({ messageId: message._id })">{{ message.content }}</a>
+            <span am-time-ago="message.created"></span>
+          </div>
+          <div class="message-item-action">
+            <i class="fa" ng-class="{ 'fa-envelope-o': message.status === 1, 'fa-envelope-open-o': message.status === 2 }"></i>
+            <a ng-click="vm.handleRemoveMessage(message)"><i class="fa fa-check"></i></a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
