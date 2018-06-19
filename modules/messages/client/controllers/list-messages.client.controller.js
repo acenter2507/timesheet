@@ -25,7 +25,7 @@
       }, function () {
         Messages.clear().then(function () {
           vm.messages = [];
-          console.log('Deleted');
+          if (!$scope.$$phase) $scope.$digest();
         });
       });
     };
