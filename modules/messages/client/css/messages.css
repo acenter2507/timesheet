@@ -1,9 +1,14 @@
 .messages .message-item {
-  display: flex;
-  flex-direction: row; }
+  display: flex; }
 .messages .message-item:hover {
   background-color: #f1f8ff; }
-  .messages .message-item .message-item-status {
+  .messages .message-item-col {
+    background-color: red;
+    width: 50px; }
+  .messages .message-item-col.message-content {
+    flex-grow: 1; }
+  
+  /* .messages .message-item .message-item-status {
     width: 36px;
     margin-right: 5px; }
   .messages .message-item .message-item-image {
@@ -31,4 +36,4 @@
       margin-left: 5px;
       color: #ccc; }
     .messages .message-item .message-item-action a:hover {
-      color: #337ab7; }
+      color: #337ab7; } */
