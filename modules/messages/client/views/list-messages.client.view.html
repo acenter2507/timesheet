@@ -13,6 +13,9 @@
           <span>メッセージがありません！</span>
         </li>
         <li class="list-group-item message-item" ng-repeat="message in vm.messages">
+          <div class="message-item-status">
+            <i class="fa" ng-class="{ 'fa-envelope-o': message.status === 1, 'fa-envelope-open-o': message.status === 2 }"></i>
+          </div>
           <div class="message-item-image">
             <img src="{{ message.from.profileImageURL }}" tooltip="{{message.from.displayName}}">
           </div>
@@ -21,8 +24,9 @@
             <span am-time-ago="message.created"></span>
           </div>
           <div class="message-item-action">
-            <i class="fa" ng-class="{ 'fa-envelope-o': message.status === 1, 'fa-envelope-open-o': message.status === 2 }"></i>
-            <a ng-click="vm.handleRemoveMessage(message)"><i class="fa fa-times"></i></a>
+            <a ng-click="vm.handleRemoveMessage(message)">
+              <i class="fa fa-times"></i>
+            </a>
           </div>
         </li>
       </ul>

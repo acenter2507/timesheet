@@ -3,10 +3,13 @@
   flex-direction: row; }
 .messages .message-item:hover {
   background-color: #f1f8ff; }
+  .messages .message-item .message-item-status {
+    width: 36px;
+    margin-right: 5px; }
   .messages .message-item .message-item-image {
     height: 36px;
     width: 36px;
-    margin-right: 5px; }
+    margin-right: 10px; }
     .messages .message-item .message-item-image img {
       height: 36px;
       width: 36px;
