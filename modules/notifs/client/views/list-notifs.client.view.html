@@ -4,21 +4,19 @@
       <ul class="list-group notifications">
         <li class="list-group-item notification-item" ng-repeat="notif in vm.notifs">
           <div class="notification-item-image">
+            <img src="{{ notif.from.profileImageURL }}" tooltip="{{notif.from.displayName}}">
+          </div>
+          <div class="notification-item-content">
 
           </div>
           <div class="notification-item-content">
-            
+            <div class="notification-item-content-title">
+              <a href="#">{{ notif.message }}</a>
+            </div>
+            <div class="notification-item-content-time">
+
+            </div>
           </div>
-          <div class="notification-item-content">
-              <div class="notification-item-content-title">
-                
-              </div>
-              <div class="notification-item-content-time">
-                
-              </div>
-          </div>
-          <img class="notification-item-image" src="{{ notif.from.profileImageURL }}" tooltip="{{notif.from.displayName}}">
-          <a href="#">{{ notif.message }}</a>
         </li>
       </ul>
     </div>
