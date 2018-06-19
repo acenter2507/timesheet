@@ -13,6 +13,19 @@
   </div>-->
   <nav class="aside-nav">
     <ul class="nav">
+      <li class="nav-title" ng-show="isLogged">コミュニケーション</li>
+      <li class="nav-item" ng-show="isLogged">
+        <a class="nav-link" ui-sref="notifs.list">
+          <i class="fa fa-bell-o"></i> お知らせ
+          <span class="badge" ng-class="{'badge-danger': Notifications.cnt > 0}">{{ Notifications.cnt }}</span>
+        </a>
+      </li>
+      <li class="nav-item" ng-show="isLogged">
+        <a class="nav-link" ui-sref="messages.list">
+          <i class="fa fa-envelope-o"></i> メッセージ
+          <span class="badge" ng-class="{'badge-success': Messages.cnt > 0}">{{ Messages.cnt }}</span>
+        </a>
+      </li>
       <!--<li class="nav-title" ng-show="isLogged">{{ 'LANGUAGE' | translate }}</li>
       <li class="nav-item">
         <a class="nav-link" ng-click="handleChangeLanguage()">
@@ -32,20 +45,25 @@
       </li>
       <li class="nav-title">{{ 'LB_NAVIGATION' | translate }}</li>-->
       <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="home"><i class="fa fa-newspaper-o"></i> ホーム</a>
+        <a class="nav-link" ui-sref-active="active" ui-sref="home">
+          <i class="fa fa-newspaper-o"></i> ホーム</a>
       </li>
       <li class="nav-title">ナビゲーション</li>
       <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="users.list" ng-if="isLeader"<i class="fa fa-users"></i> 社員</a>
+        <a class="nav-link" ui-sref-active="active" ui-sref="users.list" ng-if="isLeader" <i class="fa fa-users">
+          </i> 社員</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="departments.list"><i class="fa fa-sitemap"></i> 部署</a>
+        <a class="nav-link" ui-sref-active="active" ui-sref="departments.list">
+          <i class="fa fa-sitemap"></i> 部署</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="workmonths.list"><i class="fa fa-calendar"></i> 勤務表</a>
+        <a class="nav-link" ui-sref-active="active" ui-sref="workmonths.list">
+          <i class="fa fa-calendar"></i> 勤務表</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="workrests.list"><i class="fa fa-calendar-times-o"></i> 休暇</a>
+        <a class="nav-link" ui-sref-active="active" ui-sref="workrests.list">
+          <i class="fa fa-calendar-times-o"></i> 休暇</a>
       </li>
       <!--<li class="nav-title">{{ 'LB_OTHER' | translate }}</li>
       <li class="nav-item">
