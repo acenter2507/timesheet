@@ -20,11 +20,15 @@
             <!-- <img src="{{ message.from.profileImageURL }}" tooltip="{{message.from.displayName}}"> -->
           </div>
           <div class="message-item-col message-content">
-            <!-- <a ui-sref="messages.view({ messageId: message._id })">{{ message.title }}</a>
-            <span am-time-ago="message.created"></span> -->
+            <div class="message-content-title">
+              <!-- <a ui-sref="messages.view({ messageId: message._id })">{{ message.title }}</a> -->
+            </div>
+            <div class="message-content-time">
+              <!-- <span am-time-ago="message.created"></span> -->
+            </div>
           </div>
           <div class="message-item-col message-action">
-            <!-- <a ng-click="vm.handleRemoveMessage(message)"><i class="fa fa-times"></i></a> -->
+            <a ng-click="vm.handleRemoveMessage(message)"><i class="fa fa-times"></i></a>
           </div>
         </li>
       </ul>
