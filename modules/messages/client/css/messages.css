@@ -1,4 +1,5 @@
 .messages .message-item {
+  padding: 5px;
   display: flex; }
 .messages .message-item:hover {
   background-color: #f1f8ff; }
