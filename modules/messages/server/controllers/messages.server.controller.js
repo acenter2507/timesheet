@@ -30,7 +30,6 @@ exports.create = function (req, res) {
       res.end();
     })
     .catch(err => {
-      console.log(err);
       res.status(400).send({ message: errorHandler.getErrorMessage(err) });
     });
 
@@ -55,6 +54,7 @@ exports.create = function (req, res) {
   function createPromiseMessages(users, data) {
     var promises = [];
     users.forEach(user => {
+      if (user._id === req.user._id) return;
       var message = new Message(data);
       message.to = user._id || user;
       promises.push(message.save());
