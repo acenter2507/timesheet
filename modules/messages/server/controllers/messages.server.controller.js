@@ -167,6 +167,6 @@ exports.count = function (req, res) {
 };
 exports.clear = function (req, res) {
   Message.remove({ to: req.user._id }, () => {
-    res.end();
+    return res.end();
   });
 };
