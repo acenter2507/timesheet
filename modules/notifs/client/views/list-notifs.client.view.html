@@ -11,11 +11,11 @@
               <a href="#">{{ notif.message }}</a>
             </div>
             <div class="notification-item-content-time">
-
+              <small am-time-ago="notif.created"></small>
             </div>
           </div>
           <div class="notification-item-action">
-            <button class="btn btn-xs btn-default"> <i class="fa fa-check"></i> </button>
+            <button class="btn btn-sm btn-default"> <i class="fa fa-check"></i> </button>
           </div>
         </li>
       </ul>
