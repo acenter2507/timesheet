@@ -1,16 +1,15 @@
 .notifications .notification-item {
-  padding: 5px 8px;
   display: flex;
   flex-direction: row; }
 .notifications .notification-item:hover {
   background-color: #f1f8ff; }
   .notifications .notification-item .notification-item-image {
-    height: 28px;
-    width: 28px;
+    height: 34px;
+    width: 34px;
     margin-right: 5px; }
     .notifications .notification-item .notification-item-image img {
-      height: 28px;
-      width: 28px;
+      height: 34px;
+      width: 34px;
       border-radius: 3px; }
   .notifications .notification-item .notification-item-content {
     flex-grow: 1 }
@@ -18,7 +17,7 @@
       height: 20px;
       background-color: red; }
       .notifications .notification-item .notification-item-content .notification-item-content-time {
-        height: 8px;
+        height: 14px;
         background-color: yellow; }
 /* .notification-item {
   width: 100%;
