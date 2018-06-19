@@ -28,6 +28,7 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     $scope.$on('$destroy', function () {
       $timeout.cancel($scope.currentTimer);
       Socket.removeListener('notifications');
+      Socket.removeListener('messages');
     });
   }
   // Init socket
@@ -59,6 +60,7 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     if ($scope.isLogged) {
       prepareSocketListener();
       Notifications.count();
+      Messages.count();
     }
   }
   function prepareDeviceChecking() {

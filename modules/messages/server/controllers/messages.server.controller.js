@@ -108,7 +108,10 @@ exports.delete = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(message);
+      Message.find({ to: req.user._id }).count(function (err, count) {
+        if (err) return res.end();
+        return res.jsonp(count);
+      });
     }
   });
 };
@@ -153,11 +156,13 @@ exports.messageByID = function (req, res, next, id) {
 };
 
 exports.count = function (req, res) {
-  res.end();
+  Message.find({ to: req.user._id }).count(function (err, count) {
+    if (err) return res.end();
+    return res.jsonp(count);
+  });
 };
 exports.clear = function (req, res) {
-  res.end();
-};
-exports.remove = function (req, res) {
-  res.end();
+  Message.remove({ to: req.user._id }, () => {
+    res.end();
+  });
 };
