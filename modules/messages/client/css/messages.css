@@ -1,0 +1,30 @@
+.messages .message-item {
+  display: flex;
+  flex-direction: row; }
+.messages .message-item:hover {
+  background-color: #f1f8ff; }
+  .messages .message-item .message-item-image {
+    height: 36px;
+    width: 36px;
+    margin-right: 5px; }
+    .messages .message-item .message-item-image img {
+      height: 36px;
+      width: 36px;
+      border-radius: 3px; }
+  .messages .message-item .message-item-content {
+    flex-grow: 1 }
+    .messages .message-item .message-item-content a {
+      display: block;
+      line-height: 1.2; }
+    .messages .message-item .message-item-content span {
+      font-size: 10px;
+      color: #999; }
+  .messages .message-item .message-item-action {
+    width: 50px;
+    text-align: right;
+    padding: 8px 0; }
+    .messages .message-item .message-item-action a {
+      line-height: 1;
+      color: #ccc; }
+    .messages .message-item .message-item-action a:hover {
+      color: #337ab7; }
