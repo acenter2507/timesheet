@@ -17,7 +17,6 @@
     function prepareNotifications() {
       NotifsService.query().$promise.then(function (notifs) {
         vm.notifs = notifs;
-        console.log(vm.notifs);
       });
     }
 
@@ -30,8 +29,12 @@
         });
       });
     };
-    vm.handleViewDetailNotification = function (notif) {
+    vm.handleViewNotif = function (notif) {
       $state.go(notif.state, { notif: notif._id });
+    };
+    vm.handleRemoveNotif = function (notif) {
+      notif.$remove();
+      vm.notifs = _.without(vm.notifs, notif);
     };
   }
 }());

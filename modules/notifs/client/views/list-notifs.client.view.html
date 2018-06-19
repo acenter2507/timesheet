@@ -1,17 +1,24 @@
 <div class="container animated fadeIn">
   <div class="row">
     <div class="col-xs-12">
+      <div class="form-group text-right">
+        <button class="btn btn-danger" ng-click="vm.handleClearAllNotifications()">クリア</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
       <ul class="list-group notifications">
         <li class="list-group-item notification-item" ng-repeat="notif in vm.notifs">
           <div class="notification-item-image">
             <img src="{{ notif.from.profileImageURL }}" tooltip="{{notif.from.displayName}}">
           </div>
           <div class="notification-item-content">
-            <a href="#">{{ notif.message }}</a>
+            <a ng-click="vm.handleViewNotif(notif)">{{ notif.message }}</a>
             <span am-time-ago="notif.created"></span>
           </div>
           <div class="notification-item-action">
-            <a href="#">
+            <a ng-click="vm.handleRemoveNotif(notif)">
               <i class="fa fa-check"></i>
             </a>
           </div>
@@ -19,12 +26,4 @@
       </ul>
     </div>
   </div>
-  <!-- <div class="row">
-    <div class="col-xs-12">
-      <div class="form-group">
-        <button class="btn btn-danger pull-right" ng-click="vm.handleClearAllNotifications()">クリア</button>
-        <div class="clearfix"></div>
-      </div>
-    </div>
-  </div> -->
 </div>
