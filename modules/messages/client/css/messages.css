@@ -4,6 +4,7 @@
   background-color: #f1f8ff; }
   .messages .message-item-col {
     min-height: 40px;
+    margin: 5px;
     background-color: red;
     width: 50px; }
   .messages .message-item-col.message-content {
