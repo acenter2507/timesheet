@@ -11,6 +11,7 @@
     var vm = this;
 
     vm.notifs = NotifsService.query();
+    console.log(vm.notifs);
 
     vm.handleClearAllNotifications = function () {
       $scope.handleShowConfirm({
