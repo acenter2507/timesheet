@@ -15,11 +15,9 @@
     flex-grow: 1 }
     .notifications .notification-item .notification-item-content a {
       display: block;
-      line-height: 1.2;
-      background-color: red; }
+      line-height: 1.2; }
     .notifications .notification-item .notification-item-content span {
       font-size: 10px;
-      background-color: blue;
       color: #999; }
   .notifications .notification-item .notification-item-action {
     width: 50px;
