@@ -51,20 +51,16 @@
         $scope.handleShowToast('お知らせの内容を入力してください！', true);
         return;
       }
-      if (vm.message.destination === 2 && vm.message.deparments.length === 0) {
+      if (vm.message.destination === '2' && vm.message.deparments.length === 0) {
         $scope.handleShowToast('宛先を追加してください！', true);
         return;
       }
-      if (vm.message.destination === 3 && vm.message.users.length === 0) {
+      if (vm.message.destination === '3' && vm.message.users.length === 0) {
         $scope.handleShowToast('宛先を追加してください！', true);
         return;
       }
       if (CommonService.isStringEmpty(vm.message.title)) {
         $scope.handleShowToast('メッセージのタイトルを入力してください！', true);
-        return;
-      }
-      if (CommonService.isStringEmpty(vm.message.content)) {
-        $scope.handleShowToast('メッセージの内容を入力してください！', true);
         return;
       }
       
