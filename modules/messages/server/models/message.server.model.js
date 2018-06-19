@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
 var MessageSchema = new Schema({
   from: { type: Schema.ObjectId, ref: 'User' },
   to: { type: Schema.ObjectId, ref: 'User' },
+  title: { type: String },
   content: { type: String },
   links: [{ type: String }],
   // 1: Normal - 2: Hight - 3: Urgent

@@ -59,6 +59,15 @@
         $scope.handleShowToast('宛先を追加してください！', true);
         return;
       }
+      if (CommonService.isStringEmpty(vm.message.title)) {
+        $scope.handleShowToast('メッセージのタイトルを入力してください！', true);
+        return;
+      }
+      if (CommonService.isStringEmpty(vm.message.content)) {
+        $scope.handleShowToast('メッセージの内容を入力してください！', true);
+        return;
+      }
+      
 
       if (vm.message._id) {
         vm.message.$update(successCallback, errorCallback);
