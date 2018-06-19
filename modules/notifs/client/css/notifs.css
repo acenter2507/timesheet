@@ -14,7 +14,7 @@
   .notifications .notification-item .notification-item-content {
     flex-grow: 1 }
     .notifications .notification-item .notification-item-content a {
-      display: inline-block;
+      display: block;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
