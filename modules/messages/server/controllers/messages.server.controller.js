@@ -17,7 +17,7 @@ var path = require('path'),
 exports.create = function (req, res) {
   getUsers(req.body)
     .then(users => {
-      var promises = createPromiseMessages(users, { content: req.body.content });
+      var promises = createPromiseMessages(users, { content: req.body.content, title:  req.body.title });
       return Promise.all(promises);
     })
     .then(messages => {
