@@ -33,7 +33,7 @@
       $state.go(notif.state, { notif: notif._id });
     };
     vm.handleRemoveNotif = function (notif) {
-      notif.$remove();
+      Notifications.remove(notif._id);
       vm.notifs = _.without(vm.notifs, notif);
     };
   }
