@@ -15,13 +15,12 @@
     flex-grow: 1 }
     .notifications .notification-item .notification-item-content a {
       display: block;
-      overflow: hidden;
+      /* overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      margin-bottom: 0;
+      margin-bottom: 0; */
       line-height: 1.2;
-      background-color: red;
-      max-width: 100%; }
+      background-color: red; }
     .notifications .notification-item .notification-item-content span {
       font-size: 10px;
       line-height: 1;
