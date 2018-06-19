@@ -31,7 +31,10 @@
     .messages .message-item-col.message-content .message-content-title {
       width: 100%;
       height: 25px;
-      background-color: green; }
+      background-color: green;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
     .messages .message-item-col.message-content .message-content-time {
       width: 100%;
       height: 15px;
