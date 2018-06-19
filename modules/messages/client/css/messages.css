@@ -4,7 +4,8 @@
   background-color: #f1f8ff; }
   .messages .message-item-col {
     min-height: 40px;
-    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
     background-color: red;
     width: 50px; }
   .messages .message-item-col.message-content {
