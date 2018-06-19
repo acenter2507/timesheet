@@ -4,27 +4,21 @@
 .notifications .notification-item:hover {
   background-color: #f1f8ff; }
   .notifications .notification-item .notification-item-image {
-    height: 34px;
-    width: 34px;
+    height: 36px;
+    width: 36px;
     margin-right: 5px; }
     .notifications .notification-item .notification-item-image img {
-      height: 34px;
-      width: 34px;
+      height: 36px;
+      width: 36px;
       border-radius: 3px; }
   .notifications .notification-item .notification-item-content {
     flex-grow: 1 }
     .notifications .notification-item .notification-item-content a {
       display: block;
-      /* overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      margin-bottom: 0; */
       line-height: 1.2;
       background-color: red; }
     .notifications .notification-item .notification-item-content span {
       font-size: 10px;
-      line-height: 1;
-      margin: 0;
       background-color: blue;
       color: #999; }
   .notifications .notification-item .notification-item-action {
