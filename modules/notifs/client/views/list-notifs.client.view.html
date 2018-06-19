@@ -9,6 +9,9 @@
   <div class="row">
     <div class="col-xs-12">
       <ul class="list-group notifications">
+        <li class="list-group-item" ng-if="vm.notifs.length === 0">
+          <span>お知らせがありません！</span>
+        </li>
         <li class="list-group-item notification-item" ng-repeat="notif in vm.notifs">
           <div class="notification-item-image">
             <img src="{{ notif.from.profileImageURL }}" tooltip="{{notif.from.displayName}}">
