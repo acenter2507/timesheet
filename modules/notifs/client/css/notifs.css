@@ -20,10 +20,12 @@
       white-space: nowrap;
       margin-bottom: 0;
       line-height: 1.2;
+      background-color: red;
       max-width: 100%; }
     .notifications .notification-item .notification-item-content span {
       font-size: 10px;
       line-height: 1;
+      background-color: yellow;
       color: #999; }
   .notifications .notification-item .notification-item-action {
     width: 50px;
