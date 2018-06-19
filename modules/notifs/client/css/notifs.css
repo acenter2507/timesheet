@@ -13,12 +13,12 @@
       border-radius: 3px; }
   .notifications .notification-item .notification-item-content {
     flex-grow: 1 }
-    .notifications .notification-item .notification-item-content a {
-      display: block;
+    .notifications .notification-item .notification-item-content p {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      vertical-align: top; }
+      margin-bottom: 0;
+      line-height: 1.5; }
     .notifications .notification-item .notification-item-content span {
       font-size: 10px;
       color: #999; }
