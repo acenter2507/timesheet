@@ -1,9 +1,10 @@
 <div class="container animated fadeIn">
   <div class="row">
     <div class="col-xs-12">
-      <ul class="list-group">
-        <li class="list-group-item" ng-repeat="notif in vm.notifs">
+      <ul class="list-group notifications">
+        <li class="list-group-item notification-item" ng-repeat="notif in vm.notifs">
           <a href="#">{{ notif.message }}</a>
+          
         </li>
       </ul>
     </div>
