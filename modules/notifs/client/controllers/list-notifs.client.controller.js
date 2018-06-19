@@ -17,6 +17,7 @@
     function prepareNotifications() {
       NotifsService.query().$promise.then(function (notifs) {
         vm.notifs = notifs;
+        console.log(vm.notifs);
       });
     }
 
