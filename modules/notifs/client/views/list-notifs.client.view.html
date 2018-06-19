@@ -1,4 +1,29 @@
-<div class="container-fluid animated fadeIn">
+<div class="container animated fadeIn">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tr>
+            <h3>通知一覧</h3>
+          </tr>
+          <tr ng-repeat="notif in vm.notifs">
+            <div class="notif-item">
+              <div class="notif-item-content">
+                <p>{{notif.message}}</p>
+              </div>
+              <div class="notif-item-from">
+                <img class="user-common-avatar-small" src="{{ notif.from.profileImageURL }}">
+              </div>
+              <div class="notif-item-time">
+                <small am-time-ago="notif.created"></small>
+              </div>
+              <div class="notif-item-action"></div>
+            </div>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-xs-12">
       <div class="form-group">
