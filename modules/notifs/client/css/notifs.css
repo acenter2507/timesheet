@@ -19,6 +19,8 @@
       .notifications .notification-item .notification-item-content .notification-item-content-time {
         height: 14px;
         background-color: yellow; }
+  .notifications .notification-item .notification-item-action {
+    width: 50px; }
 /* .notification-item {
   width: 100%;
   height: 30px;
