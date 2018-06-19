@@ -56,6 +56,7 @@ exports.create = function (req, res) {
     users.forEach(user => {
       if (user._id === req.user._id) return;
       var message = new Message(data);
+      message.from = req.user._id;
       message.to = user._id || user;
       promises.push(message.save());
     });
