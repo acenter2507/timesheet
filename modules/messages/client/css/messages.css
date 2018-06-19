@@ -11,11 +11,11 @@
     width: 50px; }
 
   .messages .message-item-col.message-status {
-    text-align: left;
+    text-align: center;
     width: 30px; }
 
   .messages .message-item-col.message-image {
-    text-align: left;
+    text-align: center;
     width: 36px; }
     .messages .message-item-col.message-image img {
       height: 36px;
@@ -24,7 +24,7 @@
 
   .messages .message-item-col.message-action {
     width: 30px; 
-    text-align: right; }
+    text-align: center; }
 
   .messages .message-item-col.message-content {
     flex-grow: 1; }
