@@ -1,9 +1,25 @@
+.notifications .notification-item {
+  padding: 5px 8px;
+  display: flex;
+  flex-direction: row; }
 .notifications .notification-item:hover {
   background-color: #f1f8ff; }
   .notifications .notification-item .notification-item-image {
-    height: 34px;
-    width: 34px;
-    margin-right: 10px; }
+    height: 28px;
+    width: 28px;
+    margin-right: 5px; }
+    .notifications .notification-item .notification-item-image img {
+      height: 28px;
+      width: 28px;
+      border-radius: 3px; }
+  .notifications .notification-item .notification-item-content {
+    flex-grow: 1 }
+    .notifications .notification-item .notification-item-content .notification-item-content-title {
+      height: 20px;
+      background-color: red; }
+      .notifications .notification-item .notification-item-content .notification-item-content-time {
+        height: 20px;
+        background-color: yellow; }
 /* .notification-item {
   width: 100%;
   height: 30px;
