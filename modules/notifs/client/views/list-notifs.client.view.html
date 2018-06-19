@@ -7,15 +7,13 @@
             <img src="{{ notif.from.profileImageURL }}" tooltip="{{notif.from.displayName}}">
           </div>
           <div class="notification-item-content">
-            <div class="notification-item-content-title">
+            <p>
               <a href="#">{{ notif.message }}</a>
-            </div>
-            <div class="notification-item-content-time">
-              <small am-time-ago="notif.created"></small>
-            </div>
+            </p>
+            <small am-time-ago="notif.created"></small>
           </div>
           <div class="notification-item-action">
-            <button class="btn btn-sm btn-default"> <i class="fa fa-check"></i> </button>
+            <a href="#"><i class="fa fa-check"></i></a>
           </div>
         </li>
       </ul>
