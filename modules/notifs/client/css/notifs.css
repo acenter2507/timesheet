@@ -1,5 +1,9 @@
 .notifications .notification-item:hover {
   background-color: #f1f8ff; }
+  .notifications .notification-item .notification-item-image {
+    height: 34px;
+    width: 34px;
+    margin-right: 10px; }
 /* .notification-item {
   width: 100%;
   height: 30px;
