@@ -16,7 +16,7 @@
             <div class="message-item-image">
               <img src="{{ message.from.profileImageURL }}" tooltip="{{message.from.displayName}}">
             </div>
-            <div class="notification-item-content">
+            <div class="message-item-content">
               <a ui-sref="messages.view({ messageId: message._id })">{{ message.content }}</a>
               <span am-time-ago="message.created"></span>
             </div>
