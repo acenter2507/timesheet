@@ -15,7 +15,7 @@
     flex-grow: 1 }
     .notifications .notification-item .notification-item-content p {
       margin-bottom: 0; }
-    .notifications .notification-item .notification-item-content p {
+    .notifications .notification-item .notification-item-content span {
       font-size: 8px;
       color: #ccc; }
   .notifications .notification-item .notification-item-action {
