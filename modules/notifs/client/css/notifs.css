@@ -24,7 +24,8 @@
     .notifications .notification-item .notification-item-content span {
       font-size: 10px;
       line-height: 1;
-      background-color: yellow;
+      margin: 0;
+      background-color: blue;
       color: #999; }
   .notifications .notification-item .notification-item-action {
     width: 50px;
