@@ -9,11 +9,23 @@
     margin-left: 2px;
     margin-right: 2px;
     width: 50px; }
-  .messages .message-item-col.message-status,
+
+  .messages .message-item-col.message-status {
+    text-align: left;
+    width: 30px; }
+
   .messages .message-item-col.message-image {
-    text-align: left; }
-  .messages .message-item-col.message-action, {
+    text-align: left;
+    width: 36px; }
+    .messages .message-item-col.message-image img {
+      height: 36px;
+      width: 36px;
+      border-radius: 3px; }
+
+  .messages .message-item-col.message-action {
+    width: 30px; 
     text-align: right; }
+
   .messages .message-item-col.message-content {
     flex-grow: 1; }
     .messages .message-item-col.message-content .message-content-title {
@@ -24,10 +36,6 @@
       width: 100%;
       height: 15px;
       background-color: blue; }
-    .messages .message-item-col.message-image img {
-      height: 36px;
-      width: 36px;
-      border-radius: 3px; }
   
   /* .messages .message-item .message-item-status {
     width: 36px;
