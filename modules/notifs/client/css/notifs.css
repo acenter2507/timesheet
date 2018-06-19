@@ -18,7 +18,7 @@
       height: 20px;
       background-color: red; }
       .notifications .notification-item .notification-item-content .notification-item-content-time {
-        height: 20px;
+        height: 8px;
         background-color: yellow; }
 /* .notification-item {
   width: 100%;
