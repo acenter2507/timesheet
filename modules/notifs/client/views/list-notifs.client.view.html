@@ -32,40 +32,4 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <ul class="list-group notifs">
-        <li class="list-group-item notif-item" ng-repeat="notif in vm.notifs">
-          <a class="notif-item-link list-group-item-link">{{notif.message}}</a>
-        </li>
-      </ul>
-      <!-- <div class="table-responsive">
-        <table class="table table-bordered">
-          <tr ng-repeat="notif in vm.notifs">
-            <td>
-              <div class="notif-item">
-                <div class="notif-item-content">
-                  <p>{{notif.message}}</p>
-                </div>
-                <div class="notif-item-from">
-                  <img class="user-common-avatar-small" src="{{ notif.from.profileImageURL }}">
-                </div>
-                <div class="notif-item-time">
-                  <small am-time-ago="notif.created"></small>
-                </div>
-                <div class="notif-item-action"></div>
-              </div>
-            </td>
-
-          </tr>
-        </table>
-      </div> -->
-      <!-- <div class="list-group">
-        <a ng-repeat="notif in vm.notifs" ng-click="vm.handleViewDetailNotification(notif)" class="list-group-item">
-          <small ng-bind="notif.created | LLLL"></small>
-          <h4 class="list-group-item-heading">{{notif.message}}</h4>
-        </a>
-      </div> -->
-    </div>
-  </div>
 </div>

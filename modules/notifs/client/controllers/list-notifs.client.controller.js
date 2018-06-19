@@ -10,8 +10,15 @@
   function NotifsListController(NotifsService, Notifications, $state, $scope) {
     var vm = this;
 
-    vm.notifs = NotifsService.query();
-    console.log(vm.notifs);
+    onCreate();
+    function onCreate() {
+      prepareNotifications();
+    }
+    function prepareNotifications() {
+      NotifsService.query().$promise.then(function (notifs) {
+        vm.notifs = notifs;
+      });
+    }
 
     vm.handleClearAllNotifications = function () {
       $scope.handleShowConfirm({
