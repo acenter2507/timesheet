@@ -27,7 +27,8 @@
     text-align: center; }
 
   .messages .message-item-col.message-content {
-    flex-grow: 1; }
+    flex-grow: 1;
+    margin-left: 5px; }
     .messages .message-item-col.message-content .message-content-title {
       width: 100%;
       height: 25px;
