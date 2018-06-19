@@ -26,4 +26,9 @@
       color: #999; }
   .notifications .notification-item .notification-item-action {
     width: 50px;
-    text-align: right;}
+    text-align: right;
+    vertical-align: middle}
+    .notifications .notification-item .notification-item-action a {
+      color: #ccc; }
+    .notifications .notification-item .notification-item-action a:hover {
+      color: #337ab7; }
