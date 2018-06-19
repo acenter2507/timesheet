@@ -27,7 +27,7 @@
   .notifications .notification-item .notification-item-action {
     width: 50px;
     text-align: right;
-    padding: 8px 0px; }
+    padding: 6px 0px; }
     .notifications .notification-item .notification-item-action a {
       color: #ccc; }
     .notifications .notification-item .notification-item-action a:hover {
