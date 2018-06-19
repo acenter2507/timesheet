@@ -5,9 +5,9 @@
     .module('messages')
     .controller('MessagesListController', MessagesListController);
 
-  MessagesListController.$inject = ['$state', '$scope', 'MessagesService', 'Messages'];
+  MessagesListController.$inject = ['$scope', 'MessagesService', 'Messages'];
 
-  function MessagesListController($state, $scope, MessagesService, Messages) {
+  function MessagesListController($scope, MessagesService, Messages) {
     var vm = this;
 
     onCreate();
@@ -25,6 +25,7 @@
       }, function () {
         Messages.clear().then(function () {
           vm.messages = [];
+          console.log('Deleted');
         });
       });
     };
