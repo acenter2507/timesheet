@@ -14,10 +14,10 @@
         </li>
         <li class="list-group-item message-item" ng-repeat="message in vm.messages">
           <div class="message-item-col message-status">
-            <!-- <i class="fa" ng-class="{ 'fa-envelope-o': message.status === 1, 'fa-envelope-open-o': message.status === 2 }"></i> -->
+            <i class="fa" ng-class="{ 'fa-envelope-o': message.status === 1, 'fa-envelope-open-o': message.status === 2 }"></i>
           </div>
           <div class="message-item-col message-image">
-            <!-- <img src="{{ message.from.profileImageURL }}" tooltip="{{message.from.displayName}}"> -->
+            <img src="{{ message.from.profileImageURL }}" tooltip="{{message.from.displayName}}">
           </div>
           <div class="message-item-col message-content">
             <div class="message-content-title">

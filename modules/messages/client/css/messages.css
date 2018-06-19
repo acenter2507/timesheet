@@ -4,11 +4,17 @@
 .messages .message-item:hover {
   background-color: #f1f8ff; }
   .messages .message-item-col {
-    min-height: 40px;
+    height: 40px;
+    line-height: 40px;
     margin-left: 2px;
     margin-right: 2px;
     background-color: red;
     width: 50px; }
+  .messages .message-item-col.message-status,
+  .messages .message-item-col.message-image {
+    text-align: left; }
+  .messages .message-item-col.message-action, {
+    text-align: right; }
   .messages .message-item-col.message-content {
     flex-grow: 1; }
     .messages .message-item-col.message-content .message-content-title {
