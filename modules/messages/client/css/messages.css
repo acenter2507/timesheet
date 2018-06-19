@@ -25,6 +25,10 @@
   .messages .message-item-col.message-action {
     width: 30px; 
     text-align: center; }
+    .messages .message-item-col.message-action a {
+      color: #ccc; }
+    .messages .message-item .message-item-action a:hover {
+      color: #337ab7; }
 
   .messages .message-item-col.message-content {
     flex-grow: 1;
