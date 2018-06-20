@@ -47,7 +47,9 @@ exports.create = function (req, res) {
         //   return resolve(users);
         // });
       } else {
-        return resolve(data.users);
+        console.log(data.users);
+        return resolve([]);
+        // return resolve(data.users);
       }
     });
   }
