@@ -10,7 +10,7 @@
         <label class="mg5l">
           <input type="radio" ng-model="vm.message.destination" value=3 ng-change="vm.handleDestinationChanged()">社員</label>
         <div ng-show="vm.message.destination === '2'" class="form-group">
-          <tags-input class="my-tags" ng-model="vm.message.deparments" key-property="_id" template="deparments_tags.html" display-property="name"
+          <tags-input class="my-tags" ng-model="vm.message.departments" key-property="_id" template="departments_tags.html" display-property="name"
             placeholder="部門検索" replace-spaces-with-dashes="false">
             <auto-complete source="vm.handleSearchDepartments($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
               template="autocomplete.html"></auto-complete>
@@ -45,8 +45,8 @@
   <div class="clearfix"></div>
 </div>
 
-<script type="text/ng-template" id="deparments_tags.html">
-  <a ui-sref="deparments.view({ deparmentId: data._id })">{{ data.name }}</a>
+<script type="text/ng-template" id="departments_tags.html">
+  <a ui-sref="departments.view({ deparmentId: data._id })">{{ data.name }}</a>
   <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
 </script>
 
