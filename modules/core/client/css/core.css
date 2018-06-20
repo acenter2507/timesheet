@@ -50,9 +50,7 @@ body {
     background-clip: content-box; }
     .aside-menu::-webkit-scrollbar-thumb {
     background: transparent; }
-    
-  .aside-menu .aside-profile {
-    border-bottom: 1px solid #ddd;}
+
   .aside-menu .aside-profile,
   .aside-menu .aside-search {
     padding: 1rem;
