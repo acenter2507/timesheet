@@ -2,9 +2,9 @@
 
 angular.module('core').controller('AppController', AppController);
 
-AppController.$inject = ['$scope', '$state', 'Authentication', 'toastr', 'ngDialog', '$timeout', 'Notifications', 'Socket', 'Messages'];
+AppController.$inject = ['$scope', '$state', '$stateParams', 'Authentication', 'toastr', 'ngDialog', '$timeout', 'Notifications', 'Socket', 'Messages'];
 
-function AppController($scope, $state, Authentication, toastr, ngDialog, $timeout, Notifications, Socket, Messages) {
+function AppController($scope, $state, $stateParams, Authentication, toastr, ngDialog, $timeout, Notifications, Socket, Messages) {
   $scope.Authentication = Authentication;
   $scope.Notifications = Notifications;
   $scope.Messages = Messages;
