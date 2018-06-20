@@ -1,7 +1,9 @@
 <div class="container animated fadeIn">
   <div class="row" ng-show="vm.new">
     <div class="col-xs-12">
-      <alert type="info" close="closeAlert($index)">新しいメッセージがあります。<a ng-click="vm.handleReloadMessages()">再ロードする</a></alert>
+      <alert type="info" close="closeAlert($index)">新しいメッセージがあります。
+        <a ng-click="vm.handleReloadMessages()">再ロードする</a>
+      </alert>
     </div>
   </div>
   <div class="row" ng-if="vm.messages.length > 0">
@@ -34,7 +36,7 @@
           </div>
           <div class="message-item-col message-action">
             <a ng-click="vm.handleRemoveMessage(message)">
-              <i class="fa fa-times"></i>
+              <span aria-hidden="true">×</span>
             </a>
           </div>
         </li>
