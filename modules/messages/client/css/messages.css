@@ -54,6 +54,7 @@
 .message-detail {
   display: flex;
   flex-direction: column; }
-  .message-detail-row {
+  .message-detail .message-detail-row {
+    height: 50px;
     background-color: blue;
     margin-bottom: 5px; }
