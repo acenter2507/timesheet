@@ -8,9 +8,9 @@
               <img src="{{ vm.message.from.profileImageURL }}">
             </div>
             <div class="message-subject">
-              <p class="message-subject-time"></p>
-              <p class="message-from-name"></p>
-              <p class="message-subject-title"></p>
+              <p class="message-subject-time">{{ vm.message.created | LLLL }}</p>
+              <p class="message-from-name">{{ vm.message.from.displayName }}</p>
+              <p class="message-subject-title">{{ vm.message.title }}</p>
             </div>
           </div>
           <div class="message-detail-row message-content">

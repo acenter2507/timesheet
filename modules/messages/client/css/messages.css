@@ -69,3 +69,10 @@
         width: 80px; }
     .message-detail .message-detail-row.message-title .message-subject {
       flex-grow: 1; }
+      .message-detail .message-detail-row.message-title .message-subject .message-subject-time {
+        color: #999; }
+      .message-detail .message-detail-row.message-title .message-subject .message-from-name {
+        color: #999;
+        font-size: 16px; }
+      .message-detail .message-detail-row.message-title .message-subject .message-subject-title {
+        font-size: 18px; }
