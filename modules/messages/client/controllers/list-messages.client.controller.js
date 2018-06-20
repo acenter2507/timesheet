@@ -67,9 +67,13 @@
       });
     };
     vm.handleRemoveMessage = function (message) {
-      Messages.remove(message._id);
-      vm.messages = _.without(vm.messages, message);
-      if (!$scope.$$phase) $scope.$digest();
+      $scope.handleShowConfirm({
+        message: 'メッセージを削除しますか？'
+      }, function () {
+        Messages.remove(message._id);
+        vm.messages = _.without(vm.messages, message);
+        if (!$scope.$$phase) $scope.$digest();
+      });
     };
   }
 }());
