@@ -144,22 +144,20 @@ exports.load = function (req, res) {
   var page = req.body.page || 1;
   var userId = req.user ? req.user._id : undefined;
 
-  Message.paginate({
-    to: userId
-  }, {
-      page: page,
-      limit: 20,
-      sort: '-created',
-      populate: [
-        { path: 'from', select: 'displayName profileImageURL' },
-      ]
-    }).then(result => {
-      return res.jsonp(result.docs);
-    }).catch(err => {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+  Message.paginate({ to: userId }, {
+    page: page,
+    limit: 20,
+    sort: '-created',
+    populate: [
+      { path: 'from', select: 'displayName profileImageURL' },
+    ]
+  }).then(result => {
+    return res.jsonp(result.docs);
+  }).catch(err => {
+    return res.status(400).send({
+      message: errorHandler.getErrorMessage(err)
     });
+  });
 };
 exports.messageByID = function (req, res, next, id) {
 
