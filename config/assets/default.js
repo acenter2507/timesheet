@@ -40,7 +40,8 @@ module.exports = {
         'public/lib/ua-parser-js/dist/ua-parser.min.js',
         'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
         'public/lib/angular-socket-io/socket.js',
-        'public/lib/ng-tags-input/ng-tags-input.js'
+        'public/lib/ng-tags-input/ng-tags-input.js',
+        'public/lib/ngInfiniteScroll/build/ng-infinite-scroll.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
