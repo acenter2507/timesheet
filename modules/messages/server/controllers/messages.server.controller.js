@@ -27,7 +27,6 @@ exports.create = function (req, res) {
       res.end();
     })
     .catch(err => {
-      console.log(err);
       res.status(400).send({ message: errorHandler.getErrorMessage(err) });
     });
 
@@ -40,16 +39,13 @@ exports.create = function (req, res) {
           return resolve(users);
         });
       } else if (destination === 2) {
-        console.log(data.departments);
-        return resolve([]);
-        // User.find({ status: 1, roles: { $ne: 'admin' }, department: { $in: data.departments } }).exec(function (err, users) {
-        //   if (err) return reject(err);
-        //   return resolve(users);
-        // });
+        var departments = _.pluck(data.departments, '_id');
+        User.find({ status: 1, roles: { $ne: 'admin' }, department: { $in: departments } }).exec(function (err, users) {
+          if (err) return reject(err);
+          return resolve(users);
+        });
       } else {
-        console.log(data.users);
-        return resolve([]);
-        // return resolve(data.users);
+        return resolve(data.users);
       }
     });
   }

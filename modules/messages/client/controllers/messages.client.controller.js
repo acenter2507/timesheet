@@ -63,7 +63,6 @@
         $scope.handleShowToast('メッセージのタイトルを入力してください！', true);
         return;
       }
-      vm.message.departments = (vm.message.departments) ? _.pluck(vm.message.departments, '_id') : undefined;
 
       if (vm.message._id) {
         vm.message.$update(successCallback, errorCallback);
