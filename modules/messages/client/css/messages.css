@@ -65,5 +65,8 @@
       width: 80px;
       background-color: green;
       margin-right: 10px; }
+      .message-detail .message-detail-row.message-title .message-from-image img {
+        height: 80px;
+        width: 80px; }
     .message-detail .message-detail-row.message-title .message-subject {
       flex-grow: 1; }
