@@ -55,7 +55,6 @@
   display: flex;
   flex-direction: column; }
   .message-detail .message-detail-row {
-    background-color: blue;
     margin-bottom: 5px; }
   .message-detail .message-detail-row.message-title {
     display: flex; }
@@ -70,9 +69,12 @@
     .message-detail .message-detail-row.message-title .message-subject {
       flex-grow: 1; }
       .message-detail .message-detail-row.message-title .message-subject .message-subject-time {
-        color: #999; }
+        color: #999;
+        line-height: 12px;
+        font-size: 12px; }
       .message-detail .message-detail-row.message-title .message-subject .message-from-name {
         color: #999;
+        line-height: 16px;
         font-size: 16px; }
       .message-detail .message-detail-row.message-title .message-subject .message-subject-title {
         font-size: 18px; }
