@@ -63,7 +63,7 @@
         $scope.handleShowToast('メッセージのタイトルを入力してください！', true);
         return;
       }
-      
+      console.log(vm.message);
 
       if (vm.message._id) {
         vm.message.$update(successCallback, errorCallback);
