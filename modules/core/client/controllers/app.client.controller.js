@@ -40,17 +40,27 @@ function AppController($scope, $state, Authentication, toastr, ngDialog, $timeou
     Socket.emit('init', { user: $scope.Authentication.user._id });
     // サーバーからお知らせが来る
     Socket.on('notifications', function () {
-      console.log('Has inform Notifications');
       Notifications.count();
-      var currentState = $state.current;
-      console.log(currentState);
+      // お知らせ一覧ページの場合は再ロード
+      if ($state.current.name === 'notifs.list') {
+        $state.transitionTo($state.current, $stateParams, {
+          reload: true,
+          inherit: false,
+          notify: true
+        });
+      }
     });
     // サーバーからメッセージが来る
     Socket.on('messages', function () {
-      console.log('Has inform messages');
       Messages.count();
-      var currentState = $state.current;
-      console.log(currentState);
+      // メッセージ一覧ページの場合は再ロード
+      if ($state.current.name === 'messages.list') {
+        $state.transitionTo($state.current, $stateParams, {
+          reload: true,
+          inherit: false,
+          notify: true
+        });
+      }
     });
   }
   function onCreate() {
