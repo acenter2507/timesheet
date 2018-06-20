@@ -1,4 +1,9 @@
 <div class="container animated fadeIn">
+  <div class="row" ng-show="vm.new">
+    <div class="col-xs-12">
+      <alert type="info" close="closeAlert($index)">新しいメッセージがあります。<a ng-click="vm.handleReloadMessages()">再ロードする</a></alert>
+    </div>
+  </div>
   <div class="row" ng-if="vm.messages.length > 0">
     <div class="col-xs-12">
       <div class="form-group text-right">

@@ -43,11 +43,7 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
       Notifications.count();
       // お知らせ一覧ページの場合は再ロード
       if ($state.current.name === 'notifs.list') {
-        $state.transitionTo($state.current, $stateParams, {
-          reload: true,
-          inherit: false,
-          notify: true
-        });
+        $scope.$broadcast('notifications');
       }
     });
     // サーバーからメッセージが来る
@@ -55,11 +51,7 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
       Messages.count();
       // メッセージ一覧ページの場合は再ロード
       if ($state.current.name === 'messages.list') {
-        $state.transitionTo($state.current, $stateParams, {
-          reload: true,
-          inherit: false,
-          notify: true
-        });
+        $scope.$broadcast('messages');
       }
     });
   }
@@ -91,6 +83,13 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
   /**
    * HANDLES
    */
+  $scope.handleReloadState = function () {
+    $state.transitionTo($state.current, $stateParams, {
+      reload: true,
+      inherit: false,
+      notify: true
+    });
+  };
   // Hiển thị thông báo bình thường
   $scope.handleShowToast = function (msg, error) {
     if (error)
