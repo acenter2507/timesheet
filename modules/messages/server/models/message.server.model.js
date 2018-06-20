@@ -21,5 +21,6 @@ var MessageSchema = new Schema({
   status: { type: Number, default: 1 },
   created: { type: Date, default: Date.now }
 });
+MessageSchema.plugin(paginate);
 
 mongoose.model('Message', MessageSchema);

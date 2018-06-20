@@ -30,6 +30,14 @@
           sv.cnt = res;
         });
     };
+    // メッセージを見た時
+    sv.open = function (messageId) {
+      return $http.get('/api/messages/' + messageId + '/open', { ignoreLoadingBar: true });
+    };
+    // メッセージをもっと見る機能
+    sv.load = function (page) {
+      return $http.post('/api/messages/load', { page: page }, { ignoreLoadingBar: true });
+    };
     return sv;
   }
 }());

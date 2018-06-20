@@ -17,7 +17,7 @@ var path = require('path'),
 exports.create = function (req, res) {
   getUsers(req.body)
     .then(users => {
-      var promises = createPromiseMessages(users, { content: req.body.content, title:  req.body.title });
+      var promises = createPromiseMessages(users, { content: req.body.content, title: req.body.title });
       return Promise.all(promises);
     })
     .then(messages => {
@@ -160,7 +160,7 @@ exports.messageByID = function (req, res, next, id) {
 };
 
 exports.count = function (req, res) {
-  Message.find({ to: req.user._id, status: 2 }).count(function (err, count) {
+  Message.find({ to: req.user._id, status: 1 }).count(function (err, count) {
     if (err) return res.end();
     return res.jsonp(count);
   });
@@ -169,4 +169,39 @@ exports.clear = function (req, res) {
   Message.remove({ to: req.user._id }, () => {
     return res.end();
   });
+};
+exports.open = function (req, res) {
+  var message = req.message;
+  message.status = 2;
+
+  message.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(message);
+    }
+  });
+};
+exports.load = function (req, res) {
+  var page = req.body.page || 1;
+  var userId = req.user ? req.user._id : undefined;
+
+  Poll.paginate({
+    to: userId
+  }, {
+      page: page,
+      limit: 20,
+      sort: '-created',
+      populate: [
+        { path: 'from', select: 'displayName profileImageURL' },
+      ]
+    }).then(result => {
+      return res.jsonp(result.docs);
+    }).catch(err => {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    });
 };

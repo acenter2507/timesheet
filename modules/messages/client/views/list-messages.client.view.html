@@ -28,10 +28,20 @@
             </div>
           </div>
           <div class="message-item-col message-action">
-            <a ng-click="vm.handleRemoveMessage(message)"><i class="fa fa-times fa-lg"></i></a>
+            <a ng-click="vm.handleRemoveMessage(message)">
+              <i class="fa fa-times fa-lg"></i>
+            </a>
           </div>
         </li>
       </ul>
+    </div>
+  </div>
+  <div class="row" ng-show="!vm.stopped">
+    <div class="col-xs-12">
+      <div class="form-group text-right">
+        <a ng-click="vm.handleLoadMessages()">もっと見る</a>
+        <i class="mg5r" class="fa fa-spinner fa-pulse fa-lg fa-fw" ng-show="vm.busy"></i>
+      </div>
     </div>
   </div>
 </div>
