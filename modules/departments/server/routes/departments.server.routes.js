@@ -12,7 +12,7 @@ module.exports = function(app) {
   app.route('/api/departments').all(departmentsPolicy.isAllowed)
     .get(departments.list)
     .post(departments.create);
-  // Update avatar of deparment
+  // Update avatar of 
   app.route('/api/departments/avatar').post(departmentsPolicy.isAllowed, departments.avatar);
 
   app.route('/api/departments/:departmentId').all(departmentsPolicy.isAllowed)

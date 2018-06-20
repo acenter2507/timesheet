@@ -140,7 +140,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       });
     };
     // Thay đổi bộ phận của user
-    vm.handleChangeDeparment = function () {
+    vm.handleChangeDepartment = function () {
       if (vm.department_busy) return;
       vm.department_busy = true;
       $scope.dialog = {
@@ -181,7 +181,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       return true;
     };
     // Thay đổi department
-    vm.handleChangeDepartment = function () {
+    vm.handleChangedDepartment = function () {
       if (!vm.isUserRole() || !vm.user.department) return;
       var dpt = _.findWhere(vm.departments, { _id: vm.user.department });
       vm.user.leaders = dpt.leaders;

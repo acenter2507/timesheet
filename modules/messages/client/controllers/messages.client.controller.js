@@ -18,7 +18,7 @@
     vm.handleDestinationChanged = function () {
       // console.log(vm.message.destination);
       vm.message.users = [];
-      vm.message.deparments = [];
+      vm.message.departments = [];
     };
     vm.handleSearchUsers = function ($query) {
       if (CommonService.isStringEmpty($query)) {
@@ -51,7 +51,7 @@
         $scope.handleShowToast('お知らせの内容を入力してください！', true);
         return;
       }
-      if (vm.message.destination === '2' && vm.message.deparments.length === 0) {
+      if (vm.message.destination === '2' && vm.message.departments.length === 0) {
         $scope.handleShowToast('宛先を追加してください！', true);
         return;
       }
