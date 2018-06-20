@@ -26,6 +26,7 @@
     width: 30px;
     text-align: center; }
     .messages .message-item-col.message-action a {
+      font-size: 21px;
       color: #ccc; }
     .messages .message-item-col.message-action a:hover {
       color: #337ab7; }
