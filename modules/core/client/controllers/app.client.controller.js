@@ -101,7 +101,8 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
     $scope.dialog = content;
     ngDialog.openConfirm({
       templateUrl: 'confirmTemplate.html',
-      scope: $scope
+      scope: $scope,
+      showClose: false
     }).then(function (res) {
       delete $scope.dialog;
       if (resolve) {
