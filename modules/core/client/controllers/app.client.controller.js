@@ -122,7 +122,8 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
   $scope.handleShowDashboardMenu = function () {
     var mDialog = ngDialog.open({
       template: 'modules/core/client/views/templates/dashboard.dialog.template.html',
-      scope: $scope
+      scope: $scope,
+      showClose: false
     });
   };
 }
