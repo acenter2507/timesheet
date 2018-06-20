@@ -78,7 +78,7 @@
         message: 'この勤務表を完全削除しますか？'
       }, function () {
         vm.workmonth.$remove(function () {
-          handlePreviousScreen();
+          $scope.handleBackScreen('workmonths.list');
         });
       });
     };
@@ -169,8 +169,5 @@
 
     }
 
-    function handlePreviousScreen() {
-      $state.go($state.previous.state.name || 'workmonths.list', $state.previous.params);
-    }
   }
 }());

@@ -181,7 +181,7 @@
       $scope.handleShowConfirm({
         message: '操作を止めますか？'
       }, function () {
-        handlePreviousScreen();
+        $scope.handleBackScreen('users.list');
       });
     };
     // Change image from URI to blob
@@ -193,10 +193,6 @@
         array.push(binary.charCodeAt(i));
       }
       return new Blob([new Uint8Array(array)], { type: mimeString });
-    }
-    // Trở về màn hình trước
-    function handlePreviousScreen() {
-      $state.go($state.previous.state.name || 'users.list', $state.previous.params);
     }
   }
 }());

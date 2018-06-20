@@ -28,7 +28,7 @@
     function onCreate() {
       if (!vm.department._id) {
         $scope.handleShowToast('部署が存在しません。', true);
-        handlePreviousScreen();
+        $scope.handleBackScreen('departments.list');
         return;
       }
       vm.isSearching = false;
@@ -175,10 +175,6 @@
           $scope.handleShowToast(err.message, true);
           vm.isSearching = false;
         });
-    }
-    // Trở về màn hình trước
-    function handlePreviousScreen() {
-      $state.go($state.previous.state.name || 'departments.list', $state.previous.params);
     }
   }
 }());

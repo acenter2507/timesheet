@@ -24,24 +24,24 @@
       // 他人の休暇で自分がリーダじゃない場合
       if (!vm.workrest.isCurrentUserOwner && !$scope.isLeader) {
         $scope.handleShowToast('権限が必要です。', true);
-        return handlePreviousScreen();
+        return $scope.handleBackScreen('home');
       }
       // 休暇の本人のリーダじゃない場合
       if (CommonService.isMember(vm.workrest.user.roles) && $scope.isManager) {
         if (!_.contains(vm.rest.user.leaders, $scope.user._id.toString())) {
           $scope.handleShowToast('この休暇をみる権限がありません。', true);
-          return handlePreviousScreen();
+          return $scope.handleBackScreen('home');
         }
       }
       // 本人はマネジャーで現在のユーザーは経理じゃない場合
       if (CommonService.isManager(vm.workrest.user.roles) && ($scope.isManager || $scope.isUser)) {
         $scope.handleShowToast('この休暇をみる権限がありません。', true);
-        return handlePreviousScreen();
+        return $scope.handleBackScreen('home');
       }
       // 本人は経理で現在のユーザーは経理じゃない場合
       if (CommonService.isAccountant(vm.workrest.user.roles) && !($scope.isAccountant || $scope.isAdmin)) {
         $scope.handleShowToast('この休暇をみる権限がありません。', true);
-        return handlePreviousScreen();
+        return $scope.handleBackScreen('home');
       }
     }
     function prepareNotification() {
@@ -89,7 +89,9 @@
       $scope.handleShowConfirm({
         message: '休暇登録を削除しますか？'
       }, function () {
-        vm.workrest.$remove(handlePreviousScreen());
+        vm.workrest.$remove(function () {
+          return $scope.handleBackScreen('home');
+        });
       });
     };
     // Gửi thỉnh cầu cho leader
@@ -183,9 +185,5 @@
         return $state.go('profile.view', { userId: user._id });
       }
     };
-    // Trở về màn hình trước
-    function handlePreviousScreen() {
-      $state.go($state.previous.state.name || 'home', $state.previous.params);
-    }
   }
 }());

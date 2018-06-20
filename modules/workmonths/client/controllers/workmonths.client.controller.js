@@ -65,7 +65,9 @@
       $scope.handleShowConfirm({
         message: 'この勤務表を完全削除しますか？'
       }, function () {
-        vm.workmonth.$remove(handlePreviousScreen());
+        vm.workmonth.$remove(function () {
+          $scope.handleBackScreen('workmonths.list');
+        });
       });
     };
     vm.handleViewHistory = function () {
@@ -74,10 +76,6 @@
     vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
     };
-    vm.handlePreviousScreen = handlePreviousScreen;
-    function handlePreviousScreen() {
-      $state.go($state.previous.state.name || 'workmonths.list', $state.previous.params);
-    }
     // Chức năng copy workdate
     vm.isCopying = false;
     vm.isSaving = false;

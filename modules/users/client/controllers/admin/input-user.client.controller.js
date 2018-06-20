@@ -64,7 +64,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       $scope.handleShowConfirm({
         message: '操作を止めますか？'
       }, function () {
-        handlePreviousScreen();
+        $scope.handleBackScreen('users.list');
       });
     };
     // Xóa user level logic
@@ -75,7 +75,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         vm.user.status = 3;
         vm.user.$update(function () {
           if (!$scope.isAdmin) {
-            handlePreviousScreen();
+            $scope.handleBackScreen('users.list');
           }
         });
       });
@@ -86,7 +86,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         message: vm.user.displayName + 'を完全削除しますか？'
       }, function () {
         vm.user.$remove(function () {
-          handlePreviousScreen();
+          $scope.handleBackScreen('users.list');
         });
       });
     };
@@ -186,10 +186,6 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       var dpt = _.findWhere(vm.departments, { _id: vm.user.department });
       vm.user.leaders = dpt.leaders;
     };
-    // Trở về màn hình trước
-    function handlePreviousScreen() {
-      $state.go($state.previous.state.name || 'users.list', $state.previous.params);
-    }
     // Lấy role chính
     function getMainRole(roles) {
       if (_.contains(roles, 'admin')) return 'admin';

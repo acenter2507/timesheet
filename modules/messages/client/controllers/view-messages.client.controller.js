@@ -18,6 +18,13 @@
         Messages.open(vm.message._id);
       }
     }
-
+    vm.handleRemoveMessage = function () {
+      $scope.handleShowConfirm({
+        message: 'メッセージを削除しますか？'
+      }, function () {
+        Messages.remove(message._id);
+        $scope.handleBackScreen('home');
+      });
+    };
   }
 }());

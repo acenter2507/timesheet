@@ -19,17 +19,13 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     }
     function prepareSecurityCheck() {
       if (!$scope.isAdmin && !$scope.isAccountant) {
-        handlePreviousScreen();
+        $scope.handleBackScreen('home');
         return $scope.handleShowToast('このページを表示する権限がありません。', true);
       }
       if (vm.user.status === 3 && !$scope.isAdmin) {
-        handlePreviousScreen();
+        $scope.handleBackScreen('home');
         return $scope.handleShowToast('このユーザーが削除されました。', true);
       }
-    }
-    // Trở về màn hình trước
-    function handlePreviousScreen() {
-      $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
     vm.handleSendMessage = function () {
@@ -131,7 +127,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
         if (vm.user.department) {
           DepartmentsApi.removeUser(vm.user.department._id, vm.user._id);
         }
-        handlePreviousScreen();
+        $scope.handleBackScreen('home');
       });
     };
     // Restore account
@@ -152,7 +148,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       }, function () {
         var rsUser = new AdminUserService({ _id: vm.user._id });
         rsUser.$remove();
-        handlePreviousScreen();
+        $scope.handleBackScreen('home');
       });
     };
 
