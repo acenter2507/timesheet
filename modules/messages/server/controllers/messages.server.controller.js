@@ -34,18 +34,20 @@ exports.create = function (req, res) {
     return new Promise((resolve, reject) => {
       var destination = parseInt(data.destination) || 1;
       if (destination === 1) {
-        User.find({ status: 1, roles: { $ne: 'admin' }, _id: { $ne: req.user._id } }).exec(function (err, users) {
-          if (err) return reject(err);
-          return resolve(users);
-        });
+        User.find({ status: 1, roles: { $ne: 'admin' }, _id: { $ne: req.user._id } })
+          .exec(function (err, users) {
+            if (err) return reject(err);
+            return resolve(users);
+          });
       } else if (destination === 2) {
         var departments = _.pluck(data.departments, '_id');
         console.log(departments);
-        User.find({ status: 1, roles: { $ne: 'admin' }, department: { $in: departments } }).exec(function (err, users) {
-          if (err) return reject(err);
-          console.log(users);
-          return resolve(users);
-        });
+        User.find({ status: 1, roles: { $ne: 'admin' }, department: { $in: departments } })
+          .exec(function (err, users) {
+            if (err) return reject(err);
+            console.log(users);
+            return resolve(users);
+          });
       } else {
         return resolve(data.users);
       }
