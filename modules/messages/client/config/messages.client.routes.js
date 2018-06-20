@@ -20,6 +20,7 @@
         templateUrl: 'modules/messages/client/views/list-messages.client.view.html',
         controller: 'MessagesListController',
         controllerAs: 'vm',
+        data: { roles: ['user'] },
         ncyBreadcrumb: { label: '一覧' }
       })
       .state('messages.create', {

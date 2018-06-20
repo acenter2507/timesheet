@@ -20,6 +20,7 @@
         templateUrl: 'modules/notifs/client/views/list-notifs.client.view.html',
         controller: 'NotifsListController',
         controllerAs: 'vm',
+        data: { roles: ['user'] },
         ncyBreadcrumb: { label: '一覧' }
       });
   }
