@@ -64,6 +64,8 @@
         return;
       }
       console.log(vm.message);
+      vm.message.departments = (vm.message.departments) ? _.pluck(vm.message.departments, '_id') : undefined;
+      vm.message.users = (vm.message.users) ? _.pluck(vm.message.users, '_id') : undefined;
 
       if (vm.message._id) {
         vm.message.$update(successCallback, errorCallback);
