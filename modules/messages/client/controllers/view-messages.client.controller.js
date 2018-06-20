@@ -16,7 +16,6 @@
     function onCreate() {
       if (vm.message.status === 1) {
         Messages.open(vm.message._id);
-        Messages.count();
       }
     }
     vm.handleRemoveMessage = function () {
