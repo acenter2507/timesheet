@@ -11,9 +11,6 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore');
 
-/**
- * Create a Message
- */
 exports.create = function (req, res) {
   getUsers(req.body)
     .then(users => {
@@ -63,10 +60,6 @@ exports.create = function (req, res) {
     return promises;
   }
 };
-
-/**
- * Show the current Message
- */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var message = req.message ? req.message.toJSON() : {};
@@ -77,10 +70,6 @@ exports.read = function (req, res) {
 
   res.jsonp(message);
 };
-
-/**
- * Update a Message
- */
 exports.update = function (req, res) {
   var message = req.message;
 
@@ -96,10 +85,6 @@ exports.update = function (req, res) {
     }
   });
 };
-
-/**
- * Delete an Message
- */
 exports.delete = function (req, res) {
   var message = req.message;
 
@@ -116,10 +101,6 @@ exports.delete = function (req, res) {
     }
   });
 };
-
-/**
- * List of Messages
- */
 exports.list = function (req, res) {
   Message.find({ to: req.user._id })
     .sort('-created')
@@ -134,31 +115,6 @@ exports.list = function (req, res) {
       }
     });
 };
-
-/**
- * Message middleware
- */
-exports.messageByID = function (req, res, next, id) {
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Message is invalid'
-    });
-  }
-
-  Message.findById(id).populate('user', 'displayName').exec(function (err, message) {
-    if (err) {
-      return next(err);
-    } else if (!message) {
-      return res.status(404).send({
-        message: 'No Message with that identifier has been found'
-      });
-    }
-    req.message = message;
-    next();
-  });
-};
-
 exports.count = function (req, res) {
   Message.find({ to: req.user._id, status: 1 }).count(function (err, count) {
     if (err) return res.end();
@@ -188,7 +144,7 @@ exports.load = function (req, res) {
   var page = req.body.page || 1;
   var userId = req.user ? req.user._id : undefined;
 
-  Poll.paginate({
+  Message.paginate({
     to: userId
   }, {
       page: page,
@@ -204,4 +160,24 @@ exports.load = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     });
+};
+exports.messageByID = function (req, res, next, id) {
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'Message is invalid'
+    });
+  }
+
+  Message.findById(id).populate('user', 'displayName').exec(function (err, message) {
+    if (err) {
+      return next(err);
+    } else if (!message) {
+      return res.status(404).send({
+        message: 'No Message with that identifier has been found'
+      });
+    }
+    req.message = message;
+    next();
+  });
 };
