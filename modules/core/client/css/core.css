@@ -52,7 +52,7 @@ body {
     background: transparent; }
     
   .aside-menu .aside-profile {
-    border-bottom: 1px solid #ddd;}
+    border-bottom: 1px solid #5197dd;}
   .aside-menu .aside-profile,
   .aside-menu .aside-search {
     padding: 1rem;
@@ -81,7 +81,7 @@ body {
       position: relative;
       margin: 0;
       transition: background .3s ease-in-out;
-      border-top: 1px solid #5197dd; }
+      border-top: 1px solid #ddd; }
       .aside-menu .nav .nav-item ul {
         max-height: 0;
         padding: 0;
