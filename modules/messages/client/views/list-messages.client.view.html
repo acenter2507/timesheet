@@ -1,5 +1,5 @@
 <div class="container animated fadeIn">
-  <div class="row">
+  <div class="row" ng-if="vm.messages.length > 0">
     <div class="col-xs-12">
       <div class="form-group text-right">
         <button class="btn btn-danger" ng-click="vm.handleClearAllMessages()">クリア</button>

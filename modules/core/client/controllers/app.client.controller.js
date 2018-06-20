@@ -2,9 +2,9 @@
 
 angular.module('core').controller('AppController', AppController);
 
-AppController.$inject = ['$scope', 'Authentication', 'toastr', 'ngDialog', '$timeout', 'Notifications', 'Socket', 'Messages'];
+AppController.$inject = ['$scope', '$state', 'Authentication', 'toastr', 'ngDialog', '$timeout', 'Notifications', 'Socket', 'Messages'];
 
-function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notifications, Socket, Messages) {
+function AppController($scope, $state, Authentication, toastr, ngDialog, $timeout, Notifications, Socket, Messages) {
   $scope.Authentication = Authentication;
   $scope.Notifications = Notifications;
   $scope.Messages = Messages;
@@ -16,7 +16,7 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
 
   function prepareScopeListener() {
     // Watch user info
-    $scope.$watch('Authentication.user', function() {
+    $scope.$watch('Authentication.user', function () {
       onCreate();
     });
     // Listen webapp state change
@@ -36,16 +36,22 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     if (!Socket.socket) {
       Socket.connect();
     }
+    // ソケット初期化
     Socket.emit('init', { user: $scope.Authentication.user._id });
-    Socket.on('notifications', function() {
+    // サーバーからお知らせが来る
+    Socket.on('notifications', function () {
       console.log('Has inform Notifications');
       Notifications.count();
+      var currentState = $state.current;
+      console.log(currentState);
     });
-    Socket.on('messages', function() {
+    // サーバーからメッセージが来る
+    Socket.on('messages', function () {
       console.log('Has inform messages');
       Messages.count();
+      var currentState = $state.current;
+      console.log(currentState);
     });
-    
   }
   function onCreate() {
     $scope.user = Authentication.user;
@@ -87,12 +93,12 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     ngDialog.openConfirm({
       templateUrl: 'confirmTemplate.html',
       scope: $scope
-    }).then(function(res) {
+    }).then(function (res) {
       delete $scope.dialog;
       if (resolve) {
         resolve(res);
       }
-    }, function(res) {
+    }, function (res) {
       delete $scope.dialog;
       if (reject) {
         reject(res);
@@ -100,7 +106,7 @@ function AppController($scope, Authentication, toastr, ngDialog, $timeout, Notif
     });
   };
   // Hiển thị Dashboard
-  $scope.handleShowDashboardMenu = function() {
+  $scope.handleShowDashboardMenu = function () {
     var mDialog = ngDialog.open({
       template: 'modules/core/client/views/templates/dashboard.dialog.template.html',
       scope: $scope
