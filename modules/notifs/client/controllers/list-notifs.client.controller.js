@@ -19,7 +19,6 @@
         vm.notifs = notifs;
       });
     }
-
     vm.handleClearAllNotifications = function () {
       $scope.handleShowConfirm({
         message: '全ての通知を削除しますか？'

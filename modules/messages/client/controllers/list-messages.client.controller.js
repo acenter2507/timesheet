@@ -28,28 +28,6 @@
         if (!$scope.$$phase) $scope.$digest();
       });
     }
-    vm.handleLoadMessages = handleLoadMessages;
-    function handleLoadMessages() {
-      if (vm.stopped || vm.busy) return;
-      vm.busy = true;
-
-      Messages.load(vm.page)
-        .success(_messages => {
-          if (!_messages.length || _messages.length === 0) {
-            vm.stopped = true;
-            vm.busy = false;
-          } else {
-            vm.messages = _.union(vm.messages, _messages);
-            vm.page += 1;
-            vm.busy = false;
-            if (_messages.length < 20) vm.stopped = true;
-          }
-          if (!$scope.$$phase) $scope.$digest();
-        })
-        .error(err => {
-          $scope.handleShowToast(err, true);
-        });
-    }
     vm.handleReloadMessages = function () {
       $scope.handleReloadState();
     };
@@ -59,6 +37,7 @@
       }, function () {
         Messages.clear();
         vm.messages = [];
+        vm.stopped = true;
         vm.page = 1;
         if (!$scope.$$phase) $scope.$digest();
       });

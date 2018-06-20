@@ -32,9 +32,10 @@
     };
     // メッセージを見た時
     sv.open = function (messageId) {
-      $http.get('/api/messages/' + messageId + '/open', { ignoreLoadingBar: true }).success(function () {
-        sv.count();
-      });
+      $http.get('/api/messages/' + messageId + '/open', { ignoreLoadingBar: true })
+        .success(function () {
+          sv.count();
+        });
     };
     // メッセージをもっと見る機能
     sv.load = function (page) {

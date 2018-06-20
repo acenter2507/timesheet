@@ -1,11 +1,20 @@
 <div class="container animated fadeIn">
-  <div class="row">
+  <div class="row" ng-show="vm.new">
+    <div class="col-xs-12">
+      <alert type="info" close="closeAlert($index)">新しいお知らせがあります。
+        <a ng-click="handleReloadState()">再ロードする</a>
+      </alert>
+    </div>
+  </div>
+
+  <div class="row" ng-if="vm.notifs.length > 0">
     <div class="col-xs-12">
       <div class="form-group text-right">
         <button class="btn btn-danger" ng-click="vm.handleClearAllNotifications()">クリア</button>
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-xs-12">
       <ul class="list-group notifications">
@@ -13,16 +22,20 @@
           <span>お知らせがありません！</span>
         </li>
         <li class="list-group-item notification-item" ng-repeat="notif in vm.notifs">
-          <div class="notification-item-image">
-            <img src="{{ notif.from.profileImageURL }}" tooltip="{{notif.from.displayName}}">
+          <div class="notification-item-col notification-image">
+            <img src="{{ notif.from.profileImageURL }}" tooltip="{{ notif.from.displayName }}">
           </div>
-          <div class="notification-item-content">
-            <a ng-click="vm.handleViewNotif(notif)">{{ notif.message }}</a>
-            <span am-time-ago="notif.created"></span>
+          <div class="notification-item-col notification-content">
+            <div class="notification-content-title">
+              <a ng-click="vm.handleViewNotif(notif)">{{ notif.title }}</a>
+            </div>
+            <div class="notification-content-time">
+              <span am-time-ago="notif.created"></span>
+            </div>
           </div>
-          <div class="notification-item-action">
+          <div class="notification-item-col notification-action">
             <a ng-click="vm.handleRemoveNotif(notif)">
-              <i class="fa fa-check"></i>
+              <span aria-hidden="true">×</span>
             </a>
           </div>
         </li>

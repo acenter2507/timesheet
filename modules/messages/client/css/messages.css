@@ -3,51 +3,51 @@
   display: flex; }
 .messages .message-item:hover {
   background-color: #f1f8ff; }
-  .messages .message-item-col {
+  .messages .message-item .message-item-col {
     height: 40px;
     line-height: 40px;
     margin-left: 2px;
     margin-right: 2px;
     width: 50px; }
 
-  .messages .message-item-col.message-status {
+  .messages .message-item .message-item-col.message-status {
     text-align: center;
     width: 30px; }
 
-  .messages .message-item-col.message-image {
+  .messages .message-item .message-item-col.message-image {
     text-align: center;
     width: 36px; }
-    .messages .message-item-col.message-image img {
+    .messages .message-item .message-item-col.message-image img {
       height: 36px;
       width: 36px;
       border-radius: 3px; }
 
-  .messages .message-item-col.message-action {
+  .messages .message-item .message-item-col.message-action {
     width: 30px;
     text-align: center; }
-    .messages .message-item-col.message-action a {
+    .messages .message-item .message-item-col.message-action a {
       font-size: 21px;
       color: #ccc; }
-    .messages .message-item-col.message-action a:hover {
+    .messages .message-item .message-item-col.message-action a:hover {
       color: #337ab7; }
 
-  .messages .message-item-col.message-content {
+  .messages .message-item .message-item-col.message-content {
     flex-grow: 1;
     margin-left: 5px; }
-    .messages .message-item-col.message-content .message-content-title {
+    .messages .message-item .message-item-col.message-content .message-content-title {
       width: 100%;
       height: 25px;
       line-height: 25px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis; }
-      .messages .message-item-col.message-content .message-content-title a {
+      .messages .message-item .message-item-col.message-content .message-content-title a {
         vertical-align: top; }
-    .messages .message-item-col.message-content .message-content-time {
+    .messages .message-item .message-item-col.message-content .message-content-time {
       width: 100%;
       height: 15px;
       line-height: 15px; }
-      .messages .message-item-col.message-content .message-content-time span {
+      .messages .message-item .message-item-col.message-content .message-content-time span {
         vertical-align: bottom;
         font-size: 12px;
         color: #999; }
