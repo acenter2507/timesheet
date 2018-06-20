@@ -40,7 +40,7 @@ exports.create = function (req, res) {
           return resolve(users);
         });
       } else if (destination === 2) {
-        User.find({ status: 1, roles: { $ne: 'admin', department: { $in: data.departments } } }).exec(function (err, users) {
+        User.find({ status: 1, roles: { $ne: 'admin' }, department: { $in: data.departments } }).exec(function (err, users) {
           if (err) return reject(err);
           return resolve(users);
         });
