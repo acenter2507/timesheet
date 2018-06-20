@@ -34,8 +34,8 @@ body {
   height: 100%;
   padding-top: 50px;
   width: 250px;
-  color: #ddd;
-  background: #222;
+  color: #555;
+  background: #fff;
   transition-duration: .25s,.25s;
   transition-property: left, right;
   overflow-x: hidden;
