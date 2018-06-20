@@ -20,7 +20,7 @@
     function onCreate() {
       handleLoadMessages();
     }
-    
+
     vm.handleLoadMessages = handleLoadMessages;
     function handleLoadMessages() {
       if (vm.stopped || vm.busy) return;
@@ -35,7 +35,7 @@
           vm.messages = _.union(vm.messages, _messages);
           vm.page += 1;
           vm.busy = false;
-          if (_messages < 10) vm.stopped = true;
+          if (_messages.length < 10) vm.stopped = true;
         }
         if (!$scope.$$phase) $scope.$digest();
       })
