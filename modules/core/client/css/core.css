@@ -74,7 +74,8 @@ body {
       font-weight: 700;
       color: #444;
       text-transform: uppercase;
-      text-align: right; }
+      text-align: right;
+      border-top: 2px solid #ddd; }
     .aside-menu .nav .divider {
       height: 10px; }
     .aside-menu .nav .nav-item {
