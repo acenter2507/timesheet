@@ -949,3 +949,18 @@
   height: 44px;
   font-size: 1.2em !important;
   padding: 10px 12px !important; }
+
+.h4-text {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-bottom: 5px;
+  font-size: 20px; }
+  .h3-text {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+    margin-bottom: 5px;
+    font-size: 24px; }
