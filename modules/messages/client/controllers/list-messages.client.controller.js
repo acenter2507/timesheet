@@ -22,14 +22,12 @@
       prepareScopeListener();
       handleLoadMessages();
     }
-
     function prepareScopeListener() {
       $scope.$on('messages', function (event, args) {
         vm.new = true;
         if (!$scope.$$phase) $scope.$digest();
       });
     }
-
     vm.handleLoadMessages = handleLoadMessages;
     function handleLoadMessages() {
       if (vm.stopped || vm.busy) return;
@@ -52,7 +50,6 @@
           $scope.handleShowToast(err, true);
         });
     }
-
     vm.handleReloadMessages = function () {
       $scope.handleReloadState();
     };

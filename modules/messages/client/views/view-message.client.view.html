@@ -1,26 +1,23 @@
-<section>
-  <div class="page-header">
-    <h1 ng-bind="vm.message.name"></h1>
+<div class="container animated fadeIn">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="well">
+        <div class="message-detail">
+          <div class="message-detail-row message-title">
+            <div class="message-from-image"></div>
+            <div class="message-subject">
+              <p class="message-subject-time"></p>
+              <p class="message-from-name"></p>
+              <p class="message-subject-title"></p>
+            </div>
+          </div>
+          <div class="message-detail-row message-content">
+
+          </div>
+        </div>
+        <h3>{{ vm.message.title }}</h3>
+        <span class="text-muted"></span>
+      </div>
+    </div>
   </div>
-  <div class="pull-right"
-       ng-show="vm.message.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="messages.edit({ messageId: vm.message._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.message.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.message.user"
-            ng-bind="vm.message.user.displayName"></span>
-      <span ng-if="!vm.message.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.message.content"></p>
-</section>
+</div>

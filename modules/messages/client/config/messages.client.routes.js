@@ -32,22 +32,12 @@
         data: { roles: ['admin', 'accountant'] },
         ncyBreadcrumb: { label: '作成' }
       })
-      .state('messages.edit', {
-        url: '/:messageId/edit',
-        templateUrl: 'modules/messages/client/views/form-message.client.view.html',
-        controller: 'MessagesController',
-        controllerAs: 'vm',
-        resolve: {
-          messageResolve: getMessage
-        },
-        data: { roles: ['user'] },
-        ncyBreadcrumb: { label: '一覧' }
-      })
       .state('messages.view', {
         url: '/:messageId',
         templateUrl: 'modules/messages/client/views/view-message.client.view.html',
-        controller: 'MessagesController',
+        controller: 'ViewMessageController',
         controllerAs: 'vm',
+        data: { roles: ['user'] },
         resolve: { messageResolve: getMessage },
         ncyBreadcrumb: { label: '詳細' }
       });
