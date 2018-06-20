@@ -101,7 +101,7 @@
         sort: '-created',
         limit: 20
       };
-      vm.condition.status = ($stateParams.status) ? $stateParams.status : 2;
+      vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
     }
     function prepareCalendarEvent() {
       vm.events = [];
