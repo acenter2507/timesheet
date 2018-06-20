@@ -344,4 +344,6 @@ module.exports = function (grunt) {
   grunt.registerTask('debug', ['env:dev', 'lint', 'mkdir:lib', 'mkdir:upload', 'copy:localConfig', 'concurrent:debug']);
   // Run the project in production mode
   grunt.registerTask('prod', ['build', 'env:prod', 'mkdir:lib', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);
+  // Run the project in production mode
+  grunt.registerTask('seed_prod', ['build', 'env:seed_prod', 'mkdir:lib', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);
 };
