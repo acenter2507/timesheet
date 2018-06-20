@@ -31,9 +31,9 @@
           <i class="fa fa-newspaper-o"></i> ホーム</a>
       </li>
       <li class="nav-title">ナビゲーション</li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="users.list" ng-if="isLeader" <i class="fa fa-users">
-          </i> 社員</a>
+      <li class="nav-item" ng-if="isLeader">
+        <a class="nav-link" ui-sref-active="active" ui-sref="users.list">
+          <i class="fa fa-users"></i> 社員</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" ui-sref-active="active" ui-sref="departments.list">
