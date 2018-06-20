@@ -11,21 +11,21 @@
     var sv = {};
     sv.cnt = 0;
     sv.messages = [];
+    // サーバーに存在しているメッセージを数える
     sv.count = function () {
       $http.get('/api/messages/count', { ignoreLoadingBar: true })
         .success(function (res) { sv.cnt = res; });
     };
+    // サーバーに存在しているメッセージを消す
     sv.clear = function () {
-      return new Promise(function (resolve, reject) {
-        $http.get('/api/messages/clear', { ignoreLoadingBar: true })
-          .success(function () {
-            sv.cnt = 0;
-            return resolve();
-          });
-      });
+      $http.get('/api/messages/clear', { ignoreLoadingBar: true })
+        .success(function () {
+          sv.cnt = 0;
+        });
     };
+    // Idでメッセージを消す
     sv.remove = function (messageId) {
-      return $http.get('/api/messages/' + messageId + '/remove', { ignoreLoadingBar: true })
+      $http.get('/api/messages/' + messageId + '/remove', { ignoreLoadingBar: true })
         .success(function (res) {
           sv.cnt = res;
         });

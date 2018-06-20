@@ -160,7 +160,7 @@ exports.messageByID = function (req, res, next, id) {
 };
 
 exports.count = function (req, res) {
-  Message.find({ to: req.user._id }).count(function (err, count) {
+  Message.find({ to: req.user._id, status: 2 }).count(function (err, count) {
     if (err) return res.end();
     return res.jsonp(count);
   });

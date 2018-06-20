@@ -21,7 +21,8 @@ var ApplicationConfiguration = (function () {
     'ncy-angular-breadcrumb',
     'mwl.calendar',
     'btford.socket-io',
-    'ngTagsInput'
+    'ngTagsInput',
+    'infinite-scroll'
   ];
 
   // Add a new vertical module
