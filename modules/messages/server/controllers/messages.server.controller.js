@@ -40,8 +40,10 @@ exports.create = function (req, res) {
         });
       } else if (destination === 2) {
         var departments = _.pluck(data.departments, '_id');
+        console.log(departments);
         User.find({ status: 1, roles: { $ne: 'admin' }, department: { $in: departments } }).exec(function (err, users) {
           if (err) return reject(err);
+          console.log(users);
           return resolve(users);
         });
       } else {
