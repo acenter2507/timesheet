@@ -28,6 +28,11 @@ module.exports = function (grunt) {
       },
       prod: {
         NODE_ENV: 'production'
+      },
+      seed_prod: {
+        NODE_ENV: 'production',
+        MONGO_SEED: 'true',
+        MONGO_SEED_LOG_RESULTS: 'true'
       }
     },
     watch: {
