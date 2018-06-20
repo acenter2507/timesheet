@@ -1,4 +1,6 @@
-html,
+html {
+  height: 100%;
+  font-size: 14px; }
 body {
   font-size: 14px;
   margin: 0;
