@@ -14,7 +14,7 @@
             </div>
           </div>
           <div class="message-detail-row message-content">
-            <p ng-bind-html="vm.message.content | br2nl"></p>
+            <p ng-bind-html="vm.message.content | nl2br"></p>
           </div>
           <div class="message-detail-row message-action text-right">
             <button class="btn btn-danger btn-sm" ng-click="vm.handleRemoveMessage()">削除</button>
