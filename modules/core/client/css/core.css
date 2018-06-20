@@ -70,8 +70,8 @@ body {
     flex-direction: column !important; }
     .aside-menu .nav .nav-title {
       padding: 0.75rem 1rem;
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
       color: #555;
       text-transform: uppercase; }
     .aside-menu .nav .divider {

@@ -26,24 +26,7 @@
           <span class="badge" ng-class="{'badge-success': Messages.cnt > 0}">{{ Messages.cnt }}</span>
         </a>
       </li>
-      <!--<li class="nav-title" ng-show="isLogged">{{ 'LANGUAGE' | translate }}</li>
-      <li class="nav-item">
-        <a class="nav-link" ng-click="handleChangeLanguage()">
-          <img style="width: 18px; height: 18px;" ng-src="{{'modules/core/client/img/flags/' + language + '.png'}}">
-          {{ language | translate }}
-        </a>
-      </li>-->
 
-      <!--<li class="nav-title" ng-show="isLogged">{{ 'LB_NOFT' | translate }}</li>
-      <li class="nav-item" ng-show="isLogged">
-        <a class="nav-link" ui-sref="notifs.list"><i class="fa fa-bell-o"></i> {{ 'LB_NOFT_VIEWALL' | translate }}
-          <span class="badge badge-pill badge-danger" ng-bind="Notifications.notifCnt | shortNumber" ng-show="Notifications.notifCnt > 0"></span>
-        </a>
-      </li>
-      <li class="nav-item" ng-show="isLogged && Notifications.notifCnt > 0">
-        <a class="nav-link" ng-click="handleMarkAllNotifRead()"><i class="fa fa-check-square-o"></i> {{ 'LB_NOFT_MARKALL' | translate }}</a>
-      </li>
-      <li class="nav-title">{{ 'LB_NAVIGATION' | translate }}</li>-->
       <li class="nav-item">
         <a class="nav-link" ui-sref-active="active" ui-sref="home">
           <i class="fa fa-newspaper-o"></i> ホーム</a>
@@ -65,22 +48,6 @@
         <a class="nav-link" ui-sref-active="active" ui-sref="workrests.list">
           <i class="fa fa-calendar-times-o"></i> 休暇</a>
       </li>
-      <!--<li class="nav-title">{{ 'LB_OTHER' | translate }}</li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="about-us">{{ 'LB_ABOUT' | translate }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="guide.poll">{{ 'LB_GUIDELINE' | translate }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="tickets.create">{{ 'LB_SUPPORT' | translate }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="policy">{{ 'LB_POLICY' | translate }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="term">{{ 'LB_TERM' | translate }}</a>
-      </li>-->
       <li class="nav-title">プロファイル</li>
       <li class="nav-item">
         <a class="nav-link" ui-sref-active="active" ui-sref="settings.profile">プロファイル変更</a>
