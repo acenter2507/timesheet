@@ -9,9 +9,6 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore');
 
-/**
- * Create a Notif
- */
 exports.create = function (req, res) {
   var notif = new Notif(req.body);
   notif.user = req.user;
@@ -26,10 +23,6 @@ exports.create = function (req, res) {
     }
   });
 };
-
-/**
- * Show the current Notif
- */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var notif = req.notif ? req.notif.toJSON() : {};
@@ -40,10 +33,6 @@ exports.read = function (req, res) {
 
   res.jsonp(notif);
 };
-
-/**
- * Update a Notif
- */
 exports.update = function (req, res) {
   var notif = req.notif;
 
@@ -59,10 +48,6 @@ exports.update = function (req, res) {
     }
   });
 };
-
-/**
- * Delete an Notif
- */
 exports.delete = function (req, res) {
   var notif = req.notif;
 
@@ -79,10 +64,6 @@ exports.delete = function (req, res) {
     }
   });
 };
-
-/**
- * List of Notifs
- */
 exports.list = function (req, res) {
   Notif.find({ to: req.user._id })
     .sort('-created')
@@ -97,10 +78,6 @@ exports.list = function (req, res) {
       }
     });
 };
-
-/**
- * Notif middleware
- */
 exports.notifByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -121,26 +98,17 @@ exports.notifByID = function (req, res, next, id) {
     next();
   });
 };
-
-/**
- * Count of Notifs
- */
 exports.count = function (req, res) {
   Notif.find({ to: req.user._id }).count(function (err, count) {
     if (err) return res.end();
     return res.jsonp(count);
   });
 };
-
-/**
- * Clear all Notifs of user
- */
 exports.clear = function (req, res) {
   Notif.remove({ to: req.user._id }, () => {
     res.end();
   });
 };
-
 exports.notifSocket = (io, socket) => {
   return {
     // User send a rest

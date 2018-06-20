@@ -23,9 +23,9 @@
       $scope.handleShowConfirm({
         message: '全ての通知を削除しますか？'
       }, function () {
-        Notifications.clear().then(function () {
-          vm.notifs = [];
-        });
+        Notifications.clear();
+        vm.notifs = [];
+        if (!$scope.$$phase) $scope.$digest();
       });
     };
     vm.handleViewNotif = function (notif) {
