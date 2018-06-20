@@ -34,7 +34,7 @@
       vm.busy = true;
 
       Messages.load(vm.page)
-        .success(_messages => {
+        .success(function (_messages) {
           if (!_messages.length || _messages.length === 0) {
             vm.stopped = true;
             vm.busy = false;
@@ -46,7 +46,7 @@
           }
           if (!$scope.$$phase) $scope.$digest();
         })
-        .error(err => {
+        .error(function (err) {
           $scope.handleShowToast(err, true);
         });
     }
