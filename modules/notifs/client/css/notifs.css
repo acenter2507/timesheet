@@ -1,4 +1,5 @@
 .notifications .notification-item {
+  padding: 5px;
   display: flex; }
 .notifications .notification-item:hover {
   background-color: #f1f8ff; }
