@@ -76,8 +76,8 @@
         Socket.emit('message_send', { destination: vm.message.destination });
       }
 
-      function errorCallback(res) {
-        $scope.handleShowToast('お知らせを送信できません！', false);
+      function errorCallback(err) {
+        $scope.handleShowToast('お知らせを送信できません！', true);
       }
     };
     vm.handleCancelMessage = function () {
