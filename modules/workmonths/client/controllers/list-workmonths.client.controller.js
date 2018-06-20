@@ -113,44 +113,5 @@
         return $state.go('profile.view', { userId: user._id });
       }
     };
-    vm.handleCreateAll = function () {
-      if (vm.createMonthBusy) return;
-      $scope.handleShowConfirm({
-        message: '今年月の勤務表を全て作成しますか？'
-      }, function () {
-        var undefineds = [];
-        vm.workmonths.forEach(function (item) {
-          if (!item.workmonth)
-            return undefineds.push(item.index);
-        });
-        if (undefineds.length === 0) return $scope.handleShowToast('今年の勤務表は全部作成されました。', true);
-        vm.createMonthBusy = true;
-        var promises = [];
-        for (var i = 0; i < undefineds.length; i++) {
-          var index = undefineds[i];
-          var newMonth = new WorkmonthsService({
-            year: vm.currentYear.year(),
-            month: index
-          });
-          promises.push(newMonth.$save());
-        }
-        Promise.all(promises)
-          .then(function (res) {
-            for (var i = 0; i < undefineds.length; i++) {
-              var index = undefineds[i];
-              var newMonth = _.findWhere(res, { month: index });
-              var oldItem = _.findWhere(vm.workmonths, { index: index });
-              if (newMonth && oldItem) {
-                _.extend(oldItem, { workmonth: newMonth });
-              }
-            }
-            vm.createMonthBusy = false;
-          })
-          .catch(function (err) {
-            $scope.handleShowToast(err.data.message, true);
-            vm.createMonthBusy = false;
-          });
-      });
-    };
   }
 }());
