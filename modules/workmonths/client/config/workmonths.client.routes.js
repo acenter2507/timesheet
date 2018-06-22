@@ -20,7 +20,7 @@
         templateUrl: 'modules/workmonths/client/views/list-workmonths.client.view.html',
         controller: 'WorkmonthsListController',
         controllerAs: 'vm',
-        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
+        data: { roles: ['user'] },
         ncyBreadcrumb: { label: '一覧' }
       })
       .state('workmonths.reviews', {
