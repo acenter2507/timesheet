@@ -161,7 +161,7 @@ exports.request = function (req, res) {
   }
   // Kiểm tra trạng thái của timesheet
   if (workmonth.status !== 1 && workmonth.status !== 4) {
-    return res.status(400).send({ message: '現在の勤務表の状態で申請できません！' });
+    return res.status(400).send({ message: '勤務表の状態で申請できません！' });
   }
   workmonth.status = 2;
   workmonth.historys.push({ action: 3, timing: new Date(), user: workmonth.user });
@@ -183,7 +183,7 @@ exports.cancel = function (req, res) {
   }
   // Kiểm tra trạng thái của timesheet
   if (workmonth.status !== 2) {
-    return res.status(400).send({ message: '現在の勤務表の状態でキャンセルできません！' });
+    return res.status(400).send({ message: '勤務表の状態でキャンセルできません！' });
   }
 
   workmonth.status = 1;
@@ -206,7 +206,7 @@ exports.approve = function (req, res) {
   }
   // Kiểm tra trạng thái của timesheet
   if (workmonth.status !== 2) {
-    return res.status(400).send({ message: '現在の勤務表の状態で確認できません！' });
+    return res.status(400).send({ message: '勤務表の状態で確認できません！' });
   }
 
   workmonth.status = 3;
@@ -229,7 +229,7 @@ exports.reject = function (req, res) {
   }
   // Kiểm tra trạng thái của timesheet
   if (workmonth.status !== 2) {
-    return res.status(400).send({ message: '現在の勤務表の状態で拒否できません！' });
+    return res.status(400).send({ message: '勤務表の状態で拒否できません！' });
   }
 
   workmonth.status = 4;

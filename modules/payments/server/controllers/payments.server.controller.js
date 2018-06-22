@@ -7,16 +7,13 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Payment = mongoose.model('Payment'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('underscore');
 
-/**
- * Create a Payment
- */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var payment = new Payment(req.body);
   payment.user = req.user;
 
-  payment.save(function(err) {
+  payment.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -26,11 +23,7 @@ exports.create = function(req, res) {
     }
   });
 };
-
-/**
- * Show the current Payment
- */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var payment = req.payment ? req.payment.toJSON() : {};
 
@@ -40,16 +33,12 @@ exports.read = function(req, res) {
 
   res.jsonp(payment);
 };
-
-/**
- * Update a Payment
- */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var payment = req.payment;
 
   payment = _.extend(payment, req.body);
 
-  payment.save(function(err) {
+  payment.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -59,14 +48,10 @@ exports.update = function(req, res) {
     }
   });
 };
-
-/**
- * Delete an Payment
- */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var payment = req.payment;
 
-  payment.remove(function(err) {
+  payment.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -76,12 +61,8 @@ exports.delete = function(req, res) {
     }
   });
 };
-
-/**
- * List of Payments
- */
-exports.list = function(req, res) {
-  Payment.find().sort('-created').populate('user', 'displayName').exec(function(err, payments) {
+exports.list = function (req, res) {
+  Payment.find().sort('-created').populate('user', 'displayName').exec(function (err, payments) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -91,27 +72,69 @@ exports.list = function(req, res) {
     }
   });
 };
+exports.paymentsByYear = function (req, res) {
+  var year = req.body.year;
+  if (!year || year === '') return res.status(400).send({ message: 'リクエスト情報が間違います。' });
 
-/**
- * Payment middleware
- */
-exports.paymentByID = function(req, res, next, id) {
-
+  Payment.find({ user: req.user._id, year: year })
+    .populate({
+      path: 'historys',
+      populate: {
+        path: 'user',
+        select: 'displayName profileImageURL',
+        model: 'User'
+      }
+    })
+    .exec(function (err, payments) {
+      if (err)
+        return res.status(400).send({ message: 'データを取得できません。' });
+      return res.jsonp(payments);
+    });
+};
+exports.request = function (req, res) {
+  var payment = req.payment;
+  // Kiểm tra người gửi request chính chủ
+  if (req.user._id.toString() !== payment.user._id.toString()) {
+    return res.status(400).send({ message: '清算表の申請は本人が必要になります！' });
+  }
+  // Kiểm tra trạng thái của timesheet
+  if (payment.status !== 1 && payment.status !== 4) {
+    return res.status(400).send({ message: '清算表の状態で申請できません！' });
+  }
+  payment.status = 2;
+  payment.historys.push({ action: 3, timing: new Date(), user: req.user._id });
+  payment.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+    return res.jsonp(payment);
+  });
+};
+exports.cancel = function (req, res) {
+  res.end();
+};
+exports.approve = function (req, res) {
+  res.end();
+};
+exports.reject = function (req, res) {
+  res.end();
+};
+exports.paymentByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Payment is invalid'
+      message: 'リクエストのデータが存在しません！'
     });
   }
-
-  Payment.findById(id).populate('user', 'displayName').exec(function (err, payment) {
-    if (err) {
-      return next(err);
-    } else if (!payment) {
-      return res.status(404).send({
-        message: 'No Payment with that identifier has been found'
-      });
-    }
-    req.payment = payment;
-    next();
-  });
+  Payment.findById(id)
+    .populate('user', 'displayName profileImageURL')
+    .exec(function (err, payment) {
+      if (err) {
+        return next(err);
+      } else if (!payment) {
+        return res.status(404).send({
+          message: '清算表の情報が見つかりません！'
+        });
+      }
+      req.payment = payment;
+      next();
+    });
 };

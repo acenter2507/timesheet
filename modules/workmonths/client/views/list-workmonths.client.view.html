@@ -1,83 +1,83 @@
 <div class="container-fluid animated fadeIn mg100b">
-    <div class="row">
-      <div class="col-xs-12">
-        <h3 class="text-center mg5y">{{ vm.currentYear.year() + '年'}}</h3>
-      </div>
-      <div class="col-xs-12 text-center">
-        <div class="btn-group">
-          <button class="btn btn-primary btn-sm" ng-click="vm.handleNextYear()">
-            <i class="fa fa-angle-double-left"></i> 去年</button>
-          <button class="btn btn-default btn-sm" ng-click="vm.handleCurrentYear()">今年</button>
-          <button class="btn btn-primary btn-sm" ng-click="vm.handlePreviousYear()">来年
-            <i class="fa fa-angle-double-right"></i>
-          </button>
-        </div>
-      </div>
-      <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3 class="text-center mg5y">{{ vm.currentYear.year() + '年'}}</h3>
     </div>
-    <div class="row mg10t">
-      <div class="col-xs-12">
-        <div class="table-responsive" id="months-list-months" >
-          <table class="table table-bordered">
-            <thead class="thead-default">
-              <tr>
-                <th class="text-center">月</th>
-                <th class="text-center">状態</th>
-                <th class="d-sm-down-none">出勤日数</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="item in vm.workmonths">
-                <td class="text-center">{{ item.index + '月'}}</td>
-                <td class="text-center">
-                  <span class="label label-default" ng-if="!item.workmonth">未作成</span>
-                  <span class="label label-primary" ng-if="item.workmonth.status === 1">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
-                  <span class="label badge-warning" ng-if="item.workmonth.status === 2">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
-                  <span class="label badge-success" ng-if="item.workmonth.status === 3">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
-                  <span class="label badge-danger" ng-if="item.workmonth.status === 4">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
-                </td>
-                <td class="d-sm-down-none">{{item.workmonth.numWorkDate}}</td>
-                <td>
-                  <a ng-if="!item.workmonth" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkMonth(item.index)">
-                    <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createMonthBusy"></i> 作成</a>
-                  <a ng-if="item.workmonth.status === 1" class="btn btn-primary btn-xs" ng-click="vm.handleSendRequestWorkmonth(item)">申請</a>
-                  <a ng-if="item.workmonth.status === 1 || item.workmonth.status === 4" class="btn btn-success btn-xs" ui-sref="workmonths.view({ workmonthId: item.workmonth._id })">編集</a>
-                  <a ng-if="item.workmonth.status === 1 || item.workmonth.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleDeleteWorkmonth(item)">削除</a>
-                  <a ng-if="item.workmonth" class="btn btn-info btn-xs" ng-click="vm.handleViewHistory(item)">歴史</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <div class="col-xs-12 text-center">
+      <div class="btn-group">
+        <button class="btn btn-primary btn-sm" ng-click="vm.handleNextYear()">
+          <i class="fa fa-angle-double-left"></i> 去年</button>
+        <button class="btn btn-default btn-sm" ng-click="vm.handleCurrentYear()">今年</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.handlePreviousYear()">来年
+          <i class="fa fa-angle-double-right"></i>
+        </button>
       </div>
     </div>
-    <div class="row mg10t">
-      <div class="col-xs-12">
-        <div class="form-group">
-          <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
-          <div class="clearfix"></div>
-        </div>
-        <div class="table-responsive" id="months-list-historys" ng-show="vm.isShowHistory">
-          <table class="table table-bordered">
-            <thead class="thead-default">
-              <tr>
-                <th>日付</th>
-                <th>操作</th>
-                <th>操作者</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="history in vm.historys">
-                <td>{{history.timing | LLLL}}</td>
-                <td>{{history.action | RestActionFilter}}</td>
-                <td>
-                  <a ng-click="vm.handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="row mg10t">
+    <div class="col-xs-12">
+      <div class="table-responsive" id="months-list-months">
+        <table class="table table-bordered">
+          <thead class="thead-default">
+            <tr>
+              <th class="text-center">月</th>
+              <th class="text-center">状態</th>
+              <th class="d-sm-down-none">出勤日数</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in vm.workmonths">
+              <td class="text-center">{{ item.index + '月'}}</td>
+              <td class="text-center">
+                <span class="label label-default" ng-if="!item.workmonth">未作成</span>
+                <span class="label label-primary" ng-if="item.workmonth.status === 1">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
+                <span class="label badge-warning" ng-if="item.workmonth.status === 2">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
+                <span class="label badge-success" ng-if="item.workmonth.status === 3">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
+                <span class="label badge-danger" ng-if="item.workmonth.status === 4">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
+              </td>
+              <td class="d-sm-down-none">{{item.workmonth.numWorkDate}}</td>
+              <td>
+                <a ng-if="!item.workmonth" class="btn btn-default btn-xs" ng-click="vm.handleCreateWorkMonth(item.index)">
+                  <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createMonthBusy"></i> 作成</a>
+                <a ng-if="item.workmonth.status === 1" class="btn btn-primary btn-xs" ng-click="vm.handleSendRequestWorkmonth(item)">申請</a>
+                <a ng-if="item.workmonth.status === 1 || item.workmonth.status === 4" class="btn btn-success btn-xs" ui-sref="workmonths.view({ workmonthId: item.workmonth._id })">編集</a>
+                <a ng-if="item.workmonth.status === 1 || item.workmonth.status === 2" class="btn btn-danger btn-xs" ng-click="vm.handleDeleteWorkmonth(item)">削除</a>
+                <a ng-if="item.workmonth" class="btn btn-info btn-xs" ng-click="vm.handleViewHistory(item)">歴史</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+  <div class="row mg10t">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="table-responsive" id="months-list-historys" ng-show="vm.isShowHistory">
+        <table class="table table-bordered">
+          <thead class="thead-default">
+            <tr>
+              <th>日付</th>
+              <th>操作</th>
+              <th>操作者</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="history in vm.historys">
+              <td>{{history.timing | LLLL}}</td>
+              <td>{{history.action | RestActionFilter}}</td>
+              <td>
+                <a ng-click="vm.handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,28 +5,27 @@
     .module('payments')
     .run(menuConfig);
 
-  menuConfig.$inject = ['menuService'];
+  menuConfig.$inject = ['Menus'];
 
   function menuConfig(menuService) {
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
-      title: 'Payments',
+      title: '費用清算管理',
       state: 'payments',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['user']
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'payments', {
-      title: 'List Payments',
+      title: '費用清算一覧',
       state: 'payments.list'
     });
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'payments', {
-      title: 'Create Payment',
-      state: 'payments.create',
-      roles: ['user']
+      title: '費用清算作成',
+      state: 'payments.create'
     });
   }
 }());

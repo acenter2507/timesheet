@@ -39,15 +39,6 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/workdates/:workdateId',
       permissions: ['get']
     }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/workdates',
-      permissions: ['get']
-    }, {
-      resources: '/api/workdates/:workdateId',
-      permissions: ['get']
-    }]
   }]);
 };
 
