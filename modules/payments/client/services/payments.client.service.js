@@ -22,7 +22,7 @@
     this.getPaymentsByYear = function (year) {
       return $http.post('/api/payments/paymentsByYear', { year: year }, { ignoreLoadingBar: true });
     };
-    this.request = function (year) {
+    this.request = function (paymentId) {
       return $http.post('/api/payments/' + paymentId + '/request', null, { ignoreLoadingBar: true });
     };
     return this;
