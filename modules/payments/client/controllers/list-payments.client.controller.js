@@ -14,6 +14,8 @@
     vm.createPaymentBusy = false;
     vm.isShowHistory = false;
 
+    onCreate();
+
     function onCreate() {
       prepareParams();
       preparePayments();
