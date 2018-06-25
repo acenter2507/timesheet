@@ -1,84 +1,96 @@
-<div class="row">
-  <div class="col-xs-12">
-    <div class="form-group">
-      <label>日付</label>
-      <div class="input-group">
-        <input type="text" class="form-control input-sm" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
-          close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
-          show-weeks="false" readonly="true" />
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default btn-sm" ng-click="transport.is_open_picker = true;">
-            <i class="fa fa-calendar"></i>
-          </button>
-        </span>
+<div class="transport">
+  <div class="row" nv-file-drop="" uploader="uploader">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <label>日付</label>
+        <div class="input-group">
+          <input type="text" class="form-control input-sm" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
+            close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
+            show-weeks="false" readonly="true" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default btn-sm" ng-click="transport.is_open_picker = true;">
+              <i class="fa fa-calendar"></i>
+            </button>
+          </span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>顧客名/事業内容</label>
-      <input class="form-control input-sm" ng-model="transport.content" type="text">
-    </div>
+      <div class="form-group">
+        <label>顧客名/事業内容</label>
+        <input class="form-control input-sm" ng-model="transport.content" type="text">
+      </div>
 
-    <div class="form-group">
-      <div class="col-md-6 pdnx">
-        <label>起点</label>
-        <input class="form-control input-sm" ng-model="transport.start" type="text">
+      <div class="form-group">
+        <div class="col-md-6 pdnx">
+          <label>起点</label>
+          <input class="form-control input-sm" ng-model="transport.start" type="text">
+        </div>
+        <div class="col-md-6 pdnx">
+          <label>終点</label>
+          <input class="form-control input-sm" ng-model="transport.end" type="text">
+        </div>
+        <div class="clearfix"></div>
       </div>
-      <div class="col-md-6 pdnx">
-        <label>終点</label>
-        <input class="form-control input-sm" ng-model="transport.end" type="text">
-      </div>
-      <div class="clearfix"></div>
-    </div>
 
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="transport.round">往復</label>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="transport.round">往復</label>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <div class="col-md-6 pdnx">
-        <label>手段</label>
-        <select class="form-control input-sm" ng-model="transport.method" convert-to-number>
-          <option value="1">JR</option>
-          <option value="2">私鉄</option>
-          <option value="3">地下鉄</option>
-          <option value="4">バス</option>
-          <option value="5">TAXI</option>
-          <option value="6">駐車代</option>
-          <option value="0">自筆記入</option>
-        </select>
+      <div class="form-group">
+        <div class="col-md-6 pdnx">
+          <label>手段</label>
+          <select class="form-control input-sm" ng-model="transport.method" convert-to-number>
+            <option value="1">JR</option>
+            <option value="2">私鉄</option>
+            <option value="3">地下鉄</option>
+            <option value="4">バス</option>
+            <option value="5">TAXI</option>
+            <option value="6">駐車代</option>
+            <option value="0">自筆記入</option>
+          </select>
+        </div>
+        <div class="col-md-6 pdnx">
+          <label>自筆記入</label>
+          <input class="form-control input-sm" ng-model="transport.method_other" type="text">
+        </div>
+        <div class="clearfix"></div>
       </div>
-      <div class="col-md-6 pdnx">
-        <label>自筆記入</label>
-        <input class="form-control input-sm" ng-model="transport.method_other" type="text">
-      </div>
-      <div class="clearfix"></div>
-    </div>
 
-    <div class="form-group">
-      <div class="col-md-6 pdnx">
-        <label>TAXI以外</label>
-        <input class="form-control input-sm" ng-model="transport.fee" type="number">
+      <div class="form-group">
+        <div class="col-md-6 pdnx">
+          <label>TAXI以外</label>
+          <input class="form-control input-sm" ng-model="transport.fee" type="number">
+        </div>
+        <div class="col-md-6 pdnx">
+          <label>TAXI</label>
+          <input class="form-control input-sm" ng-model="transport.taxi_fee" type="number">
+        </div>
+        <div class="clearfix"></div>
       </div>
-      <div class="col-md-6 pdnx">
-        <label>TAXI</label>
-        <input class="form-control input-sm" ng-model="transport.taxi_fee" type="number">
+
+      <div class="form-group">
+        <label>領収書</label>
+        <div ng-show="transport.receipts.length > 0">
+          <img ng-repeat="receipt in receipts" src="{{ receipt }}" class="payment-receipt-img">
+        </div>
+        <div ng-show="transport.receipts.length > 0">
+          <img ng-repeat="receipt in receipts" src="{{ receipt }}" class="payment-receipt-img">
+        </div>
+        <div class="d-sm-down-none" ng-if="uploader.isHTML5">
+          <div class="well drop-image-box" nv-file-over="" uploader="uploader">IMAGE DROP</div>
+        </div>
+        <a ng-class="vm.handleAddTransportReceipt()">アップロード
+          <input type="file" nv-file-select uploader="uploader" style="display: hidden;" accept="image/jpg,image/gif,image/jpeg,image/png,image/bmp" multiple>
+        </a>
       </div>
-      <div class="clearfix"></div>
-    </div>
 
-    <div class="form-group">
-      <label>領収書</label>
-      <img ng-repeat="receipt in receipts" src="{{ receipt }}" class="payment-receipt-img">
-      <a ng-class="vm.handleAddTransportReceipt()">アップロード</a>
-    </div>
-
-    <div class="form-group text-right">
-      <button class="btn btn-default" ng-click="closeThisDialog()">キャンセル</button>
-      <button class="btn btn-primary" ng-click="closeThisDialog(transport)">完了</button>
+      <div class="form-group text-right">
+        <button class="btn btn-default" ng-click="closeThisDialog()">キャンセル</button>
+        <button class="btn btn-primary" ng-click="closeThisDialog(transport)">完了</button>
+      </div>
     </div>
   </div>
 </div>
