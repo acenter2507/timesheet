@@ -4,11 +4,12 @@
   display: inline-block;
   max-width: 100%;
   margin-bottom: 3px;
-  font-weight: 500; }
+  font-weight: 600; }
 .transport .drop-image-box {
   height: 80px;
   width: 100%;
-  border: 2px dashed lightgray; }
+  border: 2px dashed lightgray;
+  background-color: #fff }
   .transport .drop-image-box.nv-file-over {
     border: 2px dashed #3399ff; }
 .transport .receipt-img {
