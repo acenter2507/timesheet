@@ -28,12 +28,16 @@
             </tr>
             <tr ng-repeat="transport in vm.payment.transports track by $index ">
               <td>
-                <span>{{ transport.date | LL }}</span>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="transport.is_open_picker = true;">
-                    <i class="fa fa-calendar"></i>
-                  </button>
-                </span>
+                <div class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
+                    close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
+                    show-weeks="false" readonly="true" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="transport.is_open_picker = true;">
+                      <i class="fa fa-calendar"></i>
+                    </button>
+                  </span>
+                </div>
               </td>
               <td colspan="8">
                 <span>Creating</span>
