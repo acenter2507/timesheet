@@ -82,9 +82,13 @@
         <div class="d-sm-down-none" ng-if="uploader.isHTML5">
           <div class="well drop-image-box" nv-file-over="" uploader="uploader">IMAGE DROP</div>
         </div>
-        <a ng-class="vm.handleAddTransportReceipt()">アップロード
+        <!-- <a ng-class="vm.handleAddTransportReceipt()">アップロード
           <input type="file" nv-file-select uploader="uploader" style="display: hidden;" accept="image/jpg,image/gif,image/jpeg,image/png,image/bmp" multiple>
-        </a>
+        </a> -->
+        <button class="btn btn-primary btn-sm btn-upload-file">
+          <i class="fa fa-cloud-upload"></i> アップロード
+          <input type="file" nv-file-select uploader="uploader" style="display: hidden;">
+        </button>
       </div>
 
       <div class="form-group text-right">
