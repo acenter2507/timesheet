@@ -16,3 +16,6 @@
   margin-right: 5px;
   width: 50px;
   height: auto; }
+  .transport .receipt-img canvas {
+    width: 50px;
+    height: auto; }
