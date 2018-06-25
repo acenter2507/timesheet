@@ -7,7 +7,8 @@ angular
   .directive('focusMe', focusMeDirective)
   .directive('a', blockExpandDirective)
   .directive('a', selectInListDirective)
-  .directive('button', toggleLeftSideDirective);
+  .directive('button', toggleLeftSideDirective)
+  .directive('convertToNumber', convertToNumber);
 
 // Hủy tác dụng của link rỗng
 function preventClickDirective() {
@@ -133,4 +134,19 @@ function toggleLeftSideDirective() {
       }
     });
   }
+}
+
+// Thiết lập event toggle menu trái
+function convertToNumber() {
+  return {
+    require: 'ngModel',
+    link: function (scope, element, attrs, ngModel) {
+      ngModel.$parsers.push(function (val) {
+        return val != null ? parseInt(val, 10) : null;
+      });
+      ngModel.$formatters.push(function (val) {
+        return val != null ? '' + val : null;
+      });
+    }
+  };
 }

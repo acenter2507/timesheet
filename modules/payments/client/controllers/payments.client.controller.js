@@ -59,7 +59,7 @@
     vm.handleAddTransport = function () {
       var transport = {
         id: new Date().getTime(),
-        method: '0'
+        method: 0
       };
       _.extend(transport, ui_config.transport);
       $scope.transport = transport;
