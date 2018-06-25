@@ -27,6 +27,9 @@
               <td colspan="10">交通費が登録されません！</td>
             </tr>
             <tr ng-repeat="transport in vm.payment.transports track by $index ">
+              <td colspan="10">
+                <pre>{{transport}}</pre>
+              </td>
               <!-- <td>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;">
