@@ -8,7 +8,7 @@
 
   PaymentsReviewsController.$inject = ['$scope'];
 
-  function PaymentsController($scope) {
+  function PaymentsReviewsController($scope) {
     var vm = this;
   }
 }());
