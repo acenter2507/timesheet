@@ -57,7 +57,8 @@
       });
     };
     vm.handleAddTransport = function () {
-      var new_transport = ui_config.transport;
+      var new_transport = { id: new Date().getTime() };
+      _.merge(new_transport, ui_config.transport);
       vm.payment.transports.push(new_transport);
     };
 
