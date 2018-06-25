@@ -112,7 +112,7 @@
       <div class="col-md-6 pdnx">
         <label>終点</label>
         <input class="form-control input-sm" ng-model="transport.end" type="text">
-      </div>s
+      </div>
     </div>
     <div class="form-group">
       <div class="checkbox">
@@ -123,13 +123,13 @@
     <div class="form-group">
       <label>手段</label>
       <select class="form-control input-sm" ng-model="transport.method">
-        <option value="1">JR</option>
-        <option value="2">私鉄</option>
-        <option value="3">地下鉄</option>
-        <option value="4">バス</option>
-        <option value="5">TAXI</option>
-        <option value="6">駐車代</option>
-        <option value="7">自筆記入</option>
+        <option value=1>JR</option>
+        <option value=2>私鉄</option>
+        <option value=3>地下鉄</option>
+        <option value=4>バス</option>
+        <option value=5>TAXI</option>
+        <option value=6>駐車代</option>
+        <option value=7>自筆記入</option>
       </select>
       <input ng-show="transport.method === 0" class="form-control" ng-model="transport.method_other" type="text">
     </div>
