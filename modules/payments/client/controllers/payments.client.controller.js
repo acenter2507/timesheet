@@ -37,7 +37,7 @@
       if (vm.payment.transports.length === 0) return;
       for (var index = 0; index < vm.payment.transports.length; index++) {
         var transport = vm.payment.transports[index];
-        _.merge(transport, ui_config.transport);
+        _.extend(transport, ui_config.transport);
       }
     }
 
@@ -58,7 +58,7 @@
     };
     vm.handleAddTransport = function () {
       var new_transport = { id: new Date().getTime() };
-      _.merge(new_transport, ui_config.transport);
+      _.extend(new_transport, ui_config.transport);
       vm.payment.transports.push(new_transport);
     };
 
