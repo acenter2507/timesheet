@@ -1,6 +1,16 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
     <div class="col-xs-12">
+      <div class="input-group" ng-init="startDatePickerOpen = false;">
+        <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="a" is-open="startDatePickerOpen"
+          close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
+          show-weeks="false" readonly="true" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;">
+            <i class="fa fa-calendar"></i>
+          </button>
+        </span>
+      </div>
       <h3>交通費</h3>
       <div class="table-responsive">
         <table class="table table-bordered">
