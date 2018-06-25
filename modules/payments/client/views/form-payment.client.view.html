@@ -84,7 +84,7 @@
   </div>
 </div>
 
-<!-- <script type="text/ng-template" id="form-transport.html"> -->
+<script type="text/ng-template" id="form-transport.html">
 <div class="row">
   <div class="col-xs-12">
     <div class="form-group">
@@ -105,19 +105,19 @@
       <input class="form-control input-sm" ng-model="transport.content" type="text">
     </div>
     <div class="form-group">
-      <div class="col-md-6">
+      <div class="col-md-6 pdnx">
         <label>起点</label>
         <input class="form-control input-sm" ng-model="transport.start" type="text">
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 pdnx">
         <label>終点</label>
         <input class="form-control input-sm" ng-model="transport.end" type="text">
-      </div>
+      </div>s
     </div>
     <div class="form-group">
       <div class="checkbox">
         <label>
-          <input type="checkbox" value="transport.round"> 往復</label>
+          <input type="checkbox" value="transport.round">往復</label>
       </div>
     </div>
     <div class="form-group">
@@ -133,8 +133,10 @@
       </select>
       <input ng-show="transport.method === 0" class="form-control" ng-model="transport.method_other" type="text">
     </div>
-    <button class="btn btn-default" ng-click="closeThisDialog()">キャンセル</button>
-    <button class="btn btn-primary" ng-click="closeThisDialog(transport)">完了</button>
+    <div class="form-group">
+      <button class="btn btn-default" ng-click="closeThisDialog()">キャンセル</button>
+      <button class="btn btn-primary" ng-click="closeThisDialog(transport)">完了</button>
+    </div>
   </div>
 </div>
-<!-- </script> -->
+</script>
