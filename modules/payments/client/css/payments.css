@@ -14,7 +14,7 @@
   .transport .drop-image-box.nv-file-over {
     border: 2px dashed #3399ff; }
   .transport .drop-image-box .btn-upload-file {
-    position: fixed;
+    position: absolute;
     right: 10px;
     bottom: 10px; }
 .transport .receipt-img {
