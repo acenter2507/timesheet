@@ -16,8 +16,7 @@
       <!-- Calendar -->
       <!-- # MOBILE # -->
       <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
-        <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">
-          <i class="fa fa-calendar"></i> {{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
+        <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar"><i class="fa fa-calendar"></i> {{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
         <div collapse="isCloseCalendar">
           <div class="row text-center mg5t">
             <div class="btn-group">
@@ -65,9 +64,13 @@
         <div class="form-group" ng-init="startDatePickerOpen = false;">
           <label class="w100p" for="start">開始</label>
           <div class="input-group">
-            <span>{{ transport.date | LL }}</span>
+            <input name="start" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.start" is-open="startDatePickerOpen"
+              min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇開始"
+              ng-change="vm.handleRestRangeChanged()" date-disabled="vm.disableWeekend(date, mode)" show-weeks="false" readonly="true"/>
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;"><i class="fa fa-calendar"></i></button>
+              <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;">
+                <i class="fa fa-calendar"></i>
+              </button>
             </span>
           </div>
         </div>
@@ -77,8 +80,7 @@
           <div class="input-group">
             <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.end" is-open="endDatePickerOpen"
               min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇終了"
-              ng-change="vm.handleRestRangeChanged()" date-disabled="vm.disableWeekend(date, mode)" show-weeks="false" readonly="true"
-            />
+              ng-change="vm.handleRestRangeChanged()" date-disabled="vm.disableWeekend(date, mode)" show-weeks="false" readonly="true"/>
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="endDatePickerOpen = true;">
                 <i class="fa fa-calendar"></i>
