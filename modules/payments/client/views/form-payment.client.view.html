@@ -100,10 +100,12 @@
         </span>
       </div>
     </div>
+
     <div class="form-group">
       <label>顧客名/事業内容</label>
       <input class="form-control input-sm" ng-model="transport.content" type="text">
     </div>
+
     <div class="form-group">
       <div class="col-md-6 pdnx">
         <label>起点</label>
@@ -115,12 +117,14 @@
       </div>
       <div class="clearfix"></div>
     </div>
+
     <div class="form-group">
       <div class="checkbox">
         <label>
           <input type="checkbox" value="transport.round">往復</label>
       </div>
     </div>
+
     <div class="form-group">
       <div class="col-md-6 pdnx">
         <label>手段</label>
@@ -136,13 +140,27 @@
       </div>
       <div class="col-md-6 pdnx">
         <label>自筆記入</label>
-        <input disable="{{transport.method !== 0}}" class="form-control input-sm" ng-model="transport.method_other" type="text">
+        <input class="form-control input-sm" ng-model="transport.method_other" type="text">
       </div>
       <div class="clearfix"></div>
-      <div class="form-group">
-        <button class="btn btn-default" ng-click="closeThisDialog()">キャンセル</button>
-        <button class="btn btn-primary" ng-click="closeThisDialog(transport)">完了</button>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-6 pdnx">
+        <label>TAXI以外</label>
+        <input class="form-control input-sm" ng-model="transport.fee" type="number">
       </div>
+      <div class="col-md-6 pdnx">
+        <label>TAXI</label>
+        <input class="form-control input-sm" ng-model="transport.taxi_fee" type="number">
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-default" ng-click="closeThisDialog()">キャンセル</button>
+      <button class="btn btn-primary" ng-click="closeThisDialog(transport)">完了</button>
     </div>
   </div>
-  </script>
+</div>
+</script>

@@ -40,7 +40,9 @@ var PaymentSchema = new Schema({
     // 手段Other
     method_other: { type: String },
     // 金額
-    fee: { type: Number },
+    fee: { type: Number, default: 0 },
+    // 金額
+    taxi_fee: { type: Number, default: 0  },
     // 領収書
     receipts: [{ type: String }]
   }],
