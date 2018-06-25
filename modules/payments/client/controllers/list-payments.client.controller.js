@@ -103,7 +103,6 @@
     vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
     };
-    // View user detail page
     vm.handleViewDetailUser = function (user) {
       if ($scope.isAdmin || $scope.isAccountant) {
         return $state.go('users.view', { userId: user._id });
