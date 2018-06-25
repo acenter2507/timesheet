@@ -21,11 +21,5 @@
       title: '費用清算一覧',
       state: 'payments.list'
     });
-
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'payments', {
-      title: '費用清算作成',
-      state: 'payments.create'
-    });
   }
 }());

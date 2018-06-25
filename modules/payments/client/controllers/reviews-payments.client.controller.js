@@ -10,5 +10,7 @@
 
   function PaymentsReviewsController($scope) {
     var vm = this;
+
+    
   }
 }());

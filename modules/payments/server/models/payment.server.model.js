@@ -37,6 +37,8 @@ var PaymentSchema = new Schema({
     round: { type: Boolean },
     // 手段
     method: { type: String },
+    // 手段Other
+    method_other: { type: String },
     // 金額
     fee: { type: Number },
     // 領収書
