@@ -61,6 +61,13 @@
       _.extend(new_transport, ui_config.transport);
       vm.payment.transports.push(new_transport);
     };
+    vm.handleRemoveTransport = function (transport) {
+      $scope.handleShowConfirm({
+        message: '交通費を削除しますか？'
+      }, function () {
+        vm.payment.transports = _.without(vm.payment.transports, transport)
+      });
+    };
 
 
     // Remove existing Payment

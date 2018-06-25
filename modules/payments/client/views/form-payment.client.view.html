@@ -27,8 +27,13 @@
               <td colspan="10">交通費が登録されません！</td>
             </tr>
             <tr ng-repeat="transport in vm.payment.transports track by $index ">
-              <td colspan="10">
+              <td colspan="9">
                 <pre>{{transport}}</pre>
+              </td>
+              <td>
+                <a ng-click="vm.handleRemoveTransport(transport)" class="text-danger">
+                  <i class="fa fa-times"></i>
+                </a>
               </td>
               <!-- <td>
                 <span class="input-group-btn">
