@@ -6,10 +6,8 @@
   margin-bottom: 3px;
   font-weight: 500; }
 .transport .drop-image-box {
-  min-height: 100px;
-  min-width: 100px;
-  max-width: 250px;
-  max-height: 250px;
+  height: 80px;
+  width: 100%;
   border: 2px dashed lightgray; }
   .transport .drop-image-box.nv-file-over {
     border: 2px dashed #3399ff; }

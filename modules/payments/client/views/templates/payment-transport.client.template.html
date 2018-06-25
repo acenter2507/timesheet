@@ -74,10 +74,10 @@
       <div class="form-group">
         <label>領収書</label>
         <div ng-show="transport.receipts.length > 0">
-          <img ng-repeat="receipt in receipts" src="{{ receipt }}" class="payment-receipt-img">
+          <img ng-repeat="receipt in transport.receipts" src="{{ receipt }}" class="payment-receipt-img">
         </div>
-        <div ng-show="transport.receipts.length > 0">
-          <img ng-repeat="receipt in receipts" src="{{ receipt }}" class="payment-receipt-img">
+        <div ng-show="uploader.queue.length > 0">
+          <div ng-repeat="item in uploader.queue" image-preview="{ file: item._file, height: 50 }"></div>
         </div>
         <div class="d-sm-down-none" ng-if="uploader.isHTML5">
           <div class="well drop-image-box" nv-file-over="" uploader="uploader">IMAGE DROP</div>

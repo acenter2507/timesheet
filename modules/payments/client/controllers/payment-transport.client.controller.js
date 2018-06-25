@@ -36,5 +36,9 @@
         $scope.closeThisDialog($scope.results);
       };
     }
+
+    $scope.handleUploadClick = function() {
+      
+    };
   }
 })();
