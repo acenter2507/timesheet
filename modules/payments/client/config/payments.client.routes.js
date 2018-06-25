@@ -16,7 +16,7 @@
         ncyBreadcrumb: { label: '費用清算管理' }
       })
       .state('payments.list', {
-        url: '',
+        url: '?year',
         templateUrl: 'modules/payments/client/views/list-payments.client.view.html',
         controller: 'PaymentsListController',
         controllerAs: 'vm',
