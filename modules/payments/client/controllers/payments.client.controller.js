@@ -65,7 +65,7 @@
       $scope.handleShowConfirm({
         message: '交通費を削除しますか？'
       }, function () {
-        vm.payment.transports = _.without(vm.payment.transports, transport)
+        vm.payment.transports = _.without(vm.payment.transports, transport);
       });
     };
 

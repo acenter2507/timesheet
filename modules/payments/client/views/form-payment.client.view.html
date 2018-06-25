@@ -27,8 +27,16 @@
               <td colspan="10">交通費が登録されません！</td>
             </tr>
             <tr ng-repeat="transport in vm.payment.transports track by $index ">
-              <td colspan="9">
-                <pre>{{transport}}</pre>
+              <td>
+                <span>{{ transport.date | LL }}</span>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="transport.is_open_picker = true;">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </span>
+              </td>
+              <td colspan="8">
+                <span>Creating</span>
               </td>
               <td>
                 <a ng-click="vm.handleRemoveTransport(transport)" class="text-danger">
