@@ -66,7 +66,8 @@
       _.extend(transport, ui_config.transport);
       $scope.transport = transport;
       var mDialog = ngDialog.open({
-        templateUrl: 'form-transport.html',
+        template: 'modules/payments/client/views/templates/payment-transport.client.template.html',
+        controller: 'PaymentTransportController',
         scope: $scope,
         showClose: false,
         closeByDocument: false
@@ -76,7 +77,6 @@
           return;
         }
         console.log(res.value);
-
       });
     };
     vm.handleRemoveTransport = function (transport) {
