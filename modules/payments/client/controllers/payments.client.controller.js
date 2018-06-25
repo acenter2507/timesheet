@@ -57,9 +57,9 @@
       });
     };
     vm.handleAddTransport = function () {
-      var new_transport = { id: new Date().getTime() };
-      _.extend(new_transport, ui_config.transport);
-      $scope.new_transport = new_transport;
+      var transport = { id: new Date().getTime() };
+      _.extend(transport, ui_config.transport);
+      $scope.transport = transport;
       var mDialog = ngDialog.open({
         templateUrl: 'form-transport.html',
         scope: $scope,

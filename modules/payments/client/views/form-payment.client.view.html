@@ -37,16 +37,6 @@
           </tr>
           <tr ng-repeat="transport in vm.payment.transports track by $index ">
             <td>
-              <div class="input-group">
-                <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
-                  close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
-                  show-weeks="false" readonly="true" />
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="transport.is_open_picker = true;">
-                    <i class="fa fa-calendar"></i>
-                  </button>
-                </span>
-              </div>
             </td>
             <td colspan="8">
               <span>Creating</span>
@@ -97,10 +87,20 @@
 <script type="text/ng-template" id="form-transport.html">
   <div class="row">
     <div class="col-xs-12">
-      <h3>Title</h3>
-      <div class="form-group text-right">
-        <button class="btn btn-primary" ng-click="closeThisDialog(new_transport)">完了</button>
+      <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
+              close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
+              show-weeks="false" readonly="true" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="transport.is_open_picker = true;">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </span>
+          </div>
+      </div>
         <button class="btn btn-default" ng-click="closeThisDialog()">キャンセル</button>
+        <button class="btn btn-primary" ng-click="closeThisDialog(transport)">完了</button>
       </div>
     </div>
   </div>
