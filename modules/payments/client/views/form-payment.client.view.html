@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="input-group" ng-init="startDatePickerOpen = false;">
-        <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="a" is-open="startDatePickerOpen"
-          close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
+        <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="a" is-open="startDatePickerOpen" close-text="閉じる"
+          current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
           show-weeks="false" readonly="true" />
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;">
@@ -12,52 +12,51 @@
         </span>
       </div>
       <h3>交通費</h3>
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th rowspan="2">日付</th>
-              <th rowspan="2">顧客名・事業内容</th>
-              <th colspan="2">経路</th>
-              <th rowspan="2">往復</th>
-              <th rowspan="2">手段</th>
-              <th colspan="2">交通費</th>
-              <th rowspan="2">領収書</th>
-              <th rowspan="2"></th>
-            </tr>
-            <tr>
-              <th>起点</th>
-              <th>終点</th>
-              <th>ＴＡＸＩ以外</th>
-              <th>ＴＡＸＩ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-if="vm.payment.transports.length === 0">
-              <td colspan="10">交通費が登録されません！</td>
-            </tr>
-            <tr ng-repeat="transport in vm.payment.transports track by $index ">
-              <td>
-                <div class="input-group">
-                  <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
-                    close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
-                    show-weeks="false" readonly="true" />
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="transport.is_open_picker = true;">
-                      <i class="fa fa-calendar"></i>
-                    </button>
-                  </span>
-                </div>
-              </td>
-              <td colspan="8">
-                <span>Creating</span>
-              </td>
-              <td>
-                <a ng-click="vm.handleRemoveTransport(transport)" class="text-danger">
-                  <i class="fa fa-times"></i>
-                </a>
-              </td>
-              <!-- <td>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th rowspan="2">日付</th>
+            <th rowspan="2">顧客名・事業内容</th>
+            <th colspan="2">経路</th>
+            <th rowspan="2">往復</th>
+            <th rowspan="2">手段</th>
+            <th colspan="2">交通費</th>
+            <th rowspan="2">領収書</th>
+            <th rowspan="2"></th>
+          </tr>
+          <tr>
+            <th>起点</th>
+            <th>終点</th>
+            <th>ＴＡＸＩ以外</th>
+            <th>ＴＡＸＩ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="vm.payment.transports.length === 0">
+            <td colspan="10">交通費が登録されません！</td>
+          </tr>
+          <tr ng-repeat="transport in vm.payment.transports track by $index ">
+            <td>
+              <div class="input-group">
+                <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
+                  close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
+                  show-weeks="false" readonly="true" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="transport.is_open_picker = true;">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </span>
+              </div>
+            </td>
+            <td colspan="8">
+              <span>Creating</span>
+            </td>
+            <td>
+              <a ng-click="vm.handleRemoveTransport(transport)" class="text-danger">
+                <i class="fa fa-times"></i>
+              </a>
+            </td>
+            <!-- <td>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;">
                     <i class="fa fa-calendar"></i>
@@ -72,10 +71,9 @@
               <td></td>
               <td></td>
               <td></td> -->
-            </tr>
-          </tbody>
-        </table>
-      </div>
+          </tr>
+        </tbody>
+      </table>
       <div class="form-group text-right">
         <button class="btn btn-primaty" ng-click="vm.handleAddTransport()">追加</button>
       </div>
