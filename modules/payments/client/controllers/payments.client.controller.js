@@ -6,9 +6,9 @@
     .module('payments')
     .controller('PaymentsController', PaymentsController);
 
-  PaymentsController.$inject = ['$scope', '$state', 'paymentResolve'];
+  PaymentsController.$inject = ['$scope', '$state', 'paymentResolve', 'ngDialog'];
 
-  function PaymentsController($scope, $state, payment) {
+  function PaymentsController($scope, $state, payment, ngDialog) {
     var vm = this;
 
     vm.payment = payment;
@@ -59,7 +59,20 @@
     vm.handleAddTransport = function () {
       var new_transport = { id: new Date().getTime() };
       _.extend(new_transport, ui_config.transport);
-      vm.payment.transports.push(new_transport);
+      $scope.new_transport = new_transport;
+      var mDialog = ngDialog.open({
+        templateUrl: 'form-transport.html',
+        scope: $scope,
+        showClose: false,
+        closeByDocument: false
+      });
+      mDialog.closePromise.then(function (res) {
+        if (!res.value || res.value === '$document') {
+          return;
+        }
+        console.log(res.value);
+
+      });
     };
     vm.handleRemoveTransport = function (transport) {
       $scope.handleShowConfirm({
