@@ -6,11 +6,12 @@
 
   PaymentTransportController.$inject = [
     '$scope',
-    'FileUploader'
+    'FileUploader',
+    'CommonService'
   ];
 
 
-  function PaymentTransportController($scope, FileUploader) {
+  function PaymentTransportController($scope, FileUploader, CommonService) {
 
     $scope.receipts = [];
     prepareUpload();
@@ -42,6 +43,7 @@
     }
 
     $scope.handleSaveTransport = function () {
+      if (!validateTransport()) return;
       $scope.handleShowConfirm({
         message: '交通費を保存しますか？'
       }, function () {
@@ -52,5 +54,46 @@
         }
       });
     };
+
+    function validateTransport() {
+      var error = false;
+      if (!$scope.transport.date || !moment($scope.transport.date).isValid()) {
+        $scope.transport.date_error = true;
+        error = true;
+      } else {
+        $scope.transport.date_error = false;
+      }
+      if (CommonService.isStringEmpty($scope.transport.content)) {
+        $scope.transport.content_error = true;
+        error = true;
+      } else {
+        $scope.transport.content_error = false;
+      }
+      if (CommonService.isStringEmpty($scope.transport.start)) {
+        $scope.transport.start_error = true;
+        error = true;
+      } else {
+        $scope.transport.start_error = false;
+      }
+      if (CommonService.isStringEmpty($scope.transport.end)) {
+        $scope.transport.end_error = true;
+        error = true;
+      } else {
+        $scope.transport.end_error = false;
+      }
+      if ($scope.transport.method === 0 && CommonService.isStringEmpty($scope.transport.method_other)) {
+        $scope.transport.method_error = true;
+        error = true;
+      } else {
+        $scope.transport.method_error = false;
+      }
+      if ($scope.transport.fee === 0 && $scope.transport.taxi_fee === 0) {
+        $scope.transport.fee_error = true;
+        error = true;
+      } else {
+        $scope.transport.fee_error = false;
+      }
+      return error;
+    }
   }
 })();

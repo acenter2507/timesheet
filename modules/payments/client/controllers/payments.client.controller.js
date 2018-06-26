@@ -22,8 +22,7 @@
         start_error: false,
         end_error: false,
         method_error: false,
-        fee_error: false,
-        receipt_error: false
+        fee_error: false
       }
     };
 

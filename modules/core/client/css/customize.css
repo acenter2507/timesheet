@@ -72,3 +72,14 @@
 .ngdialog-custom {
   padding-top: 50px !important;
   padding-bottom: 0 !important;}
+
+.progress {
+  border-radius: 0 !important; }
+  .progress-xs {
+    height: 4px !important; }
+  .progress-sm {
+    height: 8px !important; }
+  .progress-lg {
+    height: 24px !important; }
+  .progress .progress-bar {
+    box-shadow: none !important; }
