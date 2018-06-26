@@ -44,7 +44,7 @@
       };
     }
 
-    $scope.handleUploadClick = function() {
+    $scope.handleSaveTransport = function() {
       console.log($scope.uploader.queue);
     };
   }
