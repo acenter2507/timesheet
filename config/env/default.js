@@ -43,7 +43,7 @@ module.exports = {
       }
     },
     paymentReceipts: {
-      dest: './modules/payments/client/img/receipts',
+      dest: './modules/payments/client/img/receipts/',
       limits: {
         fileSize: 5*1024*1024 // Max file size in bytes (5 MB)
       }
