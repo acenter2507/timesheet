@@ -44,18 +44,21 @@
 
     $scope.handleSaveTransport = function () {
       if (!validateTransport()) return;
+
       $scope.handleShowConfirm({
         message: '交通費を保存しますか？'
       }, function () {
-        if ($scope.uploader.queue.length > 0) {
-          $scope.uploader.uploadAll();
-        } else {
-          $scope.closeThisDialog($scope.transport);
-        }
+        console.log($scope.transport);
+        // if ($scope.uploader.queue.length > 0) {
+        //   $scope.uploader.uploadAll();
+        // } else {
+        //   $scope.closeThisDialog($scope.transport);
+        // }
       });
     };
 
     function validateTransport() {
+      console.log($scope.transport);
       var error = false;
       if (!$scope.transport.date || !moment($scope.transport.date).isValid()) {
         $scope.transport.date_error = true;
