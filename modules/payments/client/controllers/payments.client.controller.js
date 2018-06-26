@@ -61,6 +61,7 @@
         id: new Date().getTime(),
         method: 0,
         fee: 0,
+        receipts: [],
         taxi_fee: 0
       };
       _.extend(transport, ui_config.transport);
