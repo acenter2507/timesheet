@@ -12,7 +12,7 @@
 
   function PaymentTransportController($scope, FileUploader) {
 
-    $scope.results = [];
+    $scope.receipts = [];
     prepareUpload();
 
     function prepareUpload() {
@@ -37,15 +37,24 @@
         console.info('onCompleteItem fileItem', fileItem);
         console.info('onCompleteItem response', response);
         console.info('onCompleteItem status', status);
-        $scope.results.push(response);
+        $scope.transport.receipts.push(response);
       };
       $scope.uploader.onCompleteAll = function () {
-        // $scope.closeThisDialog($scope.results);
+        console.info('onCompleteAll');
+        //$scope.closeThisDialog($scope.transport);
       };
     }
 
-    $scope.handleSaveTransport = function() {
-      console.log($scope.uploader.queue);
+    $scope.handleSaveTransport = function () {
+      $scope.handleShowConfirm({
+        message: '交通費を保存しますか？'
+      }, function () {
+        if ($scope.uploader.queue.length > 0) {
+          $scope.uploader.uploadAll();
+        } else {
+          $scope.closeThisDialog($scope.transport);
+        }
+      });
     };
   }
 })();
