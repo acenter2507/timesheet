@@ -68,6 +68,7 @@
       var mDialog = ngDialog.open({
         template: 'modules/payments/client/views/templates/payment-transport.client.template.html',
         controller: 'PaymentTransportController',
+        appendClassName: 'ngdialog-custom',
         scope: $scope,
         showClose: false,
         closeByDocument: false

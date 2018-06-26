@@ -68,3 +68,7 @@
   font-size: 14px;
   font-style: italic;
 }
+
+.ngdialog-custom {
+  padding-top: 50px !important;
+  padding-bottom: 0 !important;}
