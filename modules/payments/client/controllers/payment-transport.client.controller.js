@@ -31,17 +31,13 @@
         $scope.uploadingFileName = item._file.name;
       };
       $scope.uploader.onAfterAddingAll = function (addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
       };
       $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-        console.info('onCompleteItem fileItem', fileItem);
-        console.info('onCompleteItem response', response);
-        console.info('onCompleteItem status', status);
         $scope.transport.receipts.push(response);
       };
       $scope.uploader.onCompleteAll = function () {
-        console.info('onCompleteAll');
-        //$scope.closeThisDialog($scope.transport);
+        $scope.uploader.clearQueue();
+        $scope.closeThisDialog($scope.transport);
       };
     }
 
