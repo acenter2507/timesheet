@@ -21,58 +21,55 @@
       </div>
 
       <div class="form-group">
-        <div class="col-md-6 pdnx">
-          <label>起点</label>
-          <input class="form-control input-sm" ng-model="transport.start" type="text">
-        </div>
-        <div class="col-md-6 pdnx">
-          <label>終点</label>
-          <input class="form-control input-sm" ng-model="transport.end" type="text">
-        </div>
-        <div class="clearfix"></div>
+        <label>起点</label>
+        <input class="form-control input-sm" ng-model="transport.start" type="text">
       </div>
 
       <div class="form-group">
-        <div class="checkbox">
+        <label>終点</label>
+        <input class="form-control input-sm" ng-model="transport.end" type="text">
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox mg5t">
           <label>
             <input type="checkbox" value="transport.round">往復</label>
         </div>
       </div>
 
       <div class="form-group">
-        <div class="col-md-6 pdnx">
-          <label>手段</label>
-          <select class="form-control input-sm" ng-model="transport.method" convert-to-number>
-            <option value="1">JR</option>
-            <option value="2">私鉄</option>
-            <option value="3">地下鉄</option>
-            <option value="4">バス</option>
-            <option value="5">TAXI</option>
-            <option value="6">駐車代</option>
-            <option value="0">自筆記入</option>
-          </select>
-        </div>
-        <div class="col-md-6 pdnx">
-          <label>自筆記入</label>
-          <input class="form-control input-sm" ng-model="transport.method_other" type="text">
-        </div>
-        <div class="clearfix"></div>
+        <label>手段</label>
+        <select class="form-control input-sm" ng-model="transport.method" convert-to-number>
+          <option value="1">JR</option>
+          <option value="2">私鉄</option>
+          <option value="3">地下鉄</option>
+          <option value="4">バス</option>
+          <option value="5">TAXI</option>
+          <option value="6">駐車代</option>
+          <option value="0">自筆記入</option>
+        </select>
       </div>
 
       <div class="form-group">
-        <div class="col-md-6 pdnx">
-          <label>TAXI以外</label>
-          <input class="form-control input-sm" ng-model="transport.fee" type="number">
-        </div>
-        <div class="col-md-6 pdnx">
-          <label>TAXI</label>
-          <input class="form-control input-sm" ng-model="transport.taxi_fee" type="number">
-        </div>
-        <div class="clearfix"></div>
+        <label>手段の自筆記入</label>
+        <input class="form-control input-sm" ng-model="transport.method_other" type="text" ng-disabled="transport.method !== 0">
+      </div>
+
+      <div class="form-group">
+        <label>TAXI以外</label>
+        <input class="form-control input-sm" ng-model="transport.fee" type="number">s
+      </div>
+
+      <div class="form-group">
+        <label>TAXI</label>
+        <input class="form-control input-sm" ng-model="transport.taxi_fee" type="number">
       </div>
 
       <div class="form-group">
         <label>領収書</label>
+        <button class="btn btn-success btn-xs btn-upload-file">アップロード
+          <input type="file" nv-file-select uploader="uploader" style="display: hidden;" multiple>
+        </button>
         <div ng-show="transport.receipts.length > 0">
           <img ng-repeat="receipt in transport.receipts" src="{{ receipt }}" class="receipt-img">
         </div>
@@ -82,21 +79,8 @@
         <div class="d-sm-down-none" ng-if="uploader.isHTML5">
           <div class="drop-image-box" nv-file-over="" uploader="uploader">
             IMAGE DROP
-            <button class="btn btn-primary btn-sm btn-upload-file">
-              <i class="fa fa-cloud-upload"></i> アップロード
-              <input type="file" nv-file-select uploader="uploader" style="display: hidden;" multiple>
-            </button>
           </div>
         </div>
-        <div class="d-sm-block">
-          <button class="btn btn-primary btn-sm btn-upload-file">
-            <i class="fa fa-cloud-upload"></i> アップロード
-            <input type="file" nv-file-select uploader="uploader" style="display: hidden;" multiple>
-          </button>
-        </div>
-        <!-- <a ng-class="vm.handleAddTransportReceipt()">アップロード
-          <input type="file" nv-file-select uploader="uploader" style="display: hidden;" accept="image/jpg,image/gif,image/jpeg,image/png,image/bmp" multiple>
-        </a> -->
       </div>
 
       <div class="form-group text-right">

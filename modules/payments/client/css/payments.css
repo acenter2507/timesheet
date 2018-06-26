@@ -3,8 +3,7 @@
 .transport label {
   display: inline-block;
   max-width: 100%;
-  margin-bottom: 3px;
-  font-weight: 600; }
+  font-weight: 500; }
 .transport .drop-image-box {
   position: relative;
   height: 80px;
