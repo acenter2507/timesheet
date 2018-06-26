@@ -7,6 +7,8 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Payment = mongoose.model('Payment'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  config = require(path.resolve('./config/config')),
+  multer = require('multer'),
   _ = require('underscore');
 
 exports.create = function (req, res) {
