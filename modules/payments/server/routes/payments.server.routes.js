@@ -10,6 +10,7 @@ module.exports = function (app) {
 
   // Get all month in year of 1 user
   app.route('/api/payments/paymentsByYear').post(payments.paymentsByYear);
+  app.route('/api/payments/receipts').all(paymentsPolicy.isAllowed).post(payments.receipts);
   // Payments Routes
   app.route('/api/payments').all(paymentsPolicy.isAllowed)
     .get(payments.list)

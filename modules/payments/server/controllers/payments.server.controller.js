@@ -118,6 +118,17 @@ exports.approve = function (req, res) {
 exports.reject = function (req, res) {
   res.end();
 };
+exports.receipts = function (req, res) {
+  var upload = multer(config.uploads.paymentReceipts).single('paymentReceipts');
+  var filter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
+  upload.fileFilter = filter;
+  upload(req, res, function (uploadError) {
+    if (uploadError) return res.status(400).send({ message: '画像をアップロードできません。' });
+    var imageUrl = config.uploads.paymentReceipts.dest + req.file.filename;
+    return res.jsonp(imageUrl);
+  });
+};
+
 exports.paymentByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

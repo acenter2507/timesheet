@@ -17,6 +17,9 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/payments',
       permissions: ['get', 'post']
+    }, {
+      resources: '/api/payments/receipts',
+      permissions: ['post']
     }]
   }]);
 };
