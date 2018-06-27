@@ -18,12 +18,12 @@
     width: 100%;
     display: flex; }
     .chats .chat-content .chat-lefside {
-      width: 200px; }
+      width: 250px; }
     .chats .chat-content .chat-center {
       flex-grow: 1;
       padding: 8px; 
       border-left: 1px solid #ccc; 
       border-right: 1px solid #ccc; }
     .chats .chat-content .chat-rightside {
-      width: 200px;
+      width: 250px;
       padding: 8px; }
