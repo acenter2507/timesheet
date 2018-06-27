@@ -85,6 +85,7 @@
     .nav-tabs > li > a {
       padding: 0.5rem 0;
       border: none !important;
+      font-size: 13px;
       color: #666; }
         .nav-tabs > li.active > a,
         .nav-tabs > li > a:hover {
