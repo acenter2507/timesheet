@@ -7,45 +7,45 @@
           <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
         </div>
       </div>
-      <div class="form-group" ng-class="{ 'has-error': transport.date_error }">
+      <div class="form-group" ng-class="{ 'has-error': trip.date_error }">
         <label>日付</label>
         <div class="input-group">
-          <input type="text" class="form-control input-sm" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
-            close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
+          <input type="text" class="form-control input-sm" datepicker-popup="yyyy/MM/dd" ng-model="trip.date" is-open="trip.is_open_picker"
+            close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(trip)"
             show-weeks="false" readonly="true" />
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default btn-sm" ng-click="transport.is_open_picker = true;">
+            <button type="button" class="btn btn-default btn-sm" ng-click="trip.is_open_picker = true;">
               <i class="fa fa-calendar"></i>
             </button>
           </span>
         </div>
       </div>
 
-      <div class="form-group" ng-class="{ 'has-error': transport.content_error }">
+      <div class="form-group" ng-class="{ 'has-error': trip.content_error }">
         <label>顧客名/事業内容</label>
-        <input class="form-control input-sm" ng-model="transport.content" type="text" />
+        <input class="form-control input-sm" ng-model="trip.content" type="text" />
       </div>
 
-      <div class="form-group" ng-class="{ 'has-error': transport.start_error }">
+      <div class="form-group" ng-class="{ 'has-error': trip.start_error }">
         <label>起点</label>
-        <input class="form-control input-sm" ng-model="transport.start" type="text" />
+        <input class="form-control input-sm" ng-model="trip.start" type="text" />
       </div>
 
-      <div class="form-group" ng-class="{ 'has-error': transport.end_error }">
+      <div class="form-group" ng-class="{ 'has-error': trip.end_error }">
         <label>終点</label>
-        <input class="form-control input-sm" ng-model="transport.end" type="text" />
+        <input class="form-control input-sm" ng-model="trip.end" type="text" />
       </div>
 
       <div class="form-group">
         <div class="checkbox mg5t">
           <label>
-            <input type="checkbox" value="transport.round">往復</label>
+            <input type="checkbox" value="trip.round">往復</label>
         </div>
       </div>
 
       <div class="form-group">
         <label>摘要</label>
-        <select class="form-control input-sm" ng-model="transport.method" convert-to-number>
+        <select class="form-control input-sm" ng-model="trip.method" convert-to-number>
           <option value="1">日当</option>
           <option value="2">特急券</option>
           <option value="3">指定券</option>
@@ -53,19 +53,19 @@
         </select>
       </div>
 
-      <div class="form-group" ng-class="{ 'has-error': transport.method_error }">
+      <div class="form-group" ng-class="{ 'has-error': trip.method_error }">
         <label>摘要の自筆記入</label>
-        <input class="form-control input-sm" ng-model="transport.method_other" type="text" ng-disabled="transport.method !== 0" />
+        <input class="form-control input-sm" ng-model="trip.method_other" type="text" ng-disabled="trip.method !== 0" />
       </div>
 
       <div class="form-group">
         <label>金額</label>
-        <input class="form-control input-sm" ng-model="transport.fee" type="number" />
+        <input class="form-control input-sm" ng-model="trip.fee" type="number" />
       </div>
 
       <div class="form-group">
         <label>宿泊費</label>
-        <input class="form-control input-sm" ng-model="transport.stay_fee" type="number" />
+        <input class="form-control input-sm" ng-model="trip.stay_fee" type="number" />
       </div>
 
       <div class="form-group">
@@ -73,8 +73,8 @@
         <button class="btn btn-success btn-xs btn-upload-file">アップロード
           <input type="file" nv-file-select uploader="uploader" style="display: hidden;" multiple>
         </button>
-        <div class="mg5t" ng-show="transport.receipts.length > 0">
-          <img ng-repeat="receipt in transport.receipts" src="{{ receipt }}" class="receipt-img">
+        <div class="mg5t" ng-show="trip.receipts.length > 0">
+          <img ng-repeat="receipt in trip.receipts" src="{{ receipt }}" class="receipt-img">
         </div>
         <div class="mg5t" ng-show="uploader.queue.length > 0">
           <div ng-repeat="item in uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
