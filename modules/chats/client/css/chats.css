@@ -59,12 +59,12 @@
         border: 1px solid #ccc;
         border-radius: 3px; }
         .chats .chat-content .chat-center .chat-input .input-block .input-toolbar {
-          height: 30px;
+          height: 40px;
           width: 100%;
           border-bottom: 1px solid #ccc;}
         .chats .chat-content .chat-center .chat-input .input-block .input-type {
           position: relative;
-          min-height: 120px;
+          min-height: 110px;
           width: 100%;}
 
 .chats .list-group.chat-list .list-group-item {
