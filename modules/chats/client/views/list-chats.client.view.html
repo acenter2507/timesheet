@@ -5,13 +5,13 @@
   <div class="chat-content">
     <div class="chat-lefside">
       <tabset justified="true">
-        <tab>
+        <tab select="vm.handleChatSelected()">
           <tab-heading>チャット
             <!-- <i class="glyphicon glyphicon-bell"></i> -->
           </tab-heading>
           1
         </tab>
-        <tab select="">
+        <tab select="vm.handleOnlineSelected()">
           <tab-heading>オンライン中
             <!-- <i class="glyphicon glyphicon-bell"></i> -->
           </tab-heading>

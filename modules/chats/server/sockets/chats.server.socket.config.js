@@ -10,7 +10,26 @@ var path = require('path'),
 
 // Create the chat configuration
 module.exports = function (io, socket) {
-  socket.on('get_user_online', req => {
+  socket.on('chat', req => {
   });
-  socket.on('rest_review', req => { });
+  socket.on('rooms', req => {
+    if (!req.user) return;
+    Room.find({ users: req.user }).exec((err, rooms) => {
+      if (err) {
+        io.sockets.connected[socket.id].emit('rooms', { error: true, message: 'チャットグループを取得できません！' });
+      }
+      io.sockets.connected[socket.id].emit('rooms', { error: false, rooms: rooms });
+    });
+  });
+  socket.on('onlines', req => {
+    var users = _.pluck(global.onlineUsers, 'user');
+    User.find({ _id: { $in: users } })
+      .select('displayName profileImageURL')
+      .exec((err, users) => {
+        if (err) {
+          io.sockets.connected[socket.id].emit('onlines', { error: true, message: 'オンライン中のデータを取得できません！' });
+        }
+        io.sockets.connected[socket.id].emit('onlines', { error: false, onlines: users });
+      });
+  });
 };
