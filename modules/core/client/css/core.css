@@ -264,8 +264,6 @@ a:hover .header-profile-image {
   margin-left: -160px; }
 
 /* body.ngdialog-open { overflow: initial !important; } */
-.ngdialog {
-  height: auto !important; }
 
 .modified-tab .nav-tabs {
   border-bottom: 2px solid #DDD !important; }

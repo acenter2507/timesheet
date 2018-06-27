@@ -44,8 +44,9 @@
 
     $scope.handleSaveTransport = function () {
       if (!validateTransport()) {
+        console.log('Error');
         if (!$scope.$$phase) $scope.$digest();
-        return;
+        return false;
       }
 
       $scope.handleShowConfirm({
