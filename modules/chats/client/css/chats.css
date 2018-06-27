@@ -21,7 +21,6 @@
       width: 300px; }
     .chats .chat-content .chat-center {
       flex-grow: 1;
-      padding: 8px; 
       border-left: 1px solid #ccc; 
       border-right: 1px solid #ccc;
       display: flex;
@@ -53,8 +52,12 @@
     .chats .chat-content .chat-center .chat-messages {
       flex-grow: 1; }
     .chats .chat-content .chat-center .chat-input {
-      height: 200px;
-      border-top: 1px solid #ccc; }
+      height: 100px; }
+      .chats .chat-content .chat-center .chat-input .input-block {
+        position: relative;
+        margin: 0 16px;
+        padding: 0 0 7px;
+        border: 1px solid #ccc; }
 
 .chats .list-group.chat-list .list-group-item {
   padding: 8px;
