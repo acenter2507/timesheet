@@ -44,21 +44,17 @@
 
     $scope.handleSaveTransport = function () {
       if (!validateTransport()) {
-        if (!$scope.$$phase) $scope.$digest();
-        return;
+        return $scope.handleShowToast('データが不足です！', true);
       }
 
       $scope.handleShowConfirm({
         message: '交通費を保存しますか？'
       }, function () {
-        console.log($scope.transport);
-        if (!$scope.$$phase) $scope.$digest();
-        return;
-        // if ($scope.uploader.queue.length > 0) {
-        //   $scope.uploader.uploadAll();
-        // } else {
-        //   $scope.closeThisDialog($scope.transport);
-        // }
+        if ($scope.uploader.queue.length > 0) {
+          $scope.uploader.uploadAll();
+        } else {
+          $scope.closeThisDialog($scope.transport);
+        }
       });
     };
 
