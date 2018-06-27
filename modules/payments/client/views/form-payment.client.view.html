@@ -1,5 +1,6 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
+
     <div class="col-xs-12">
       <h3>交通費</h3>
       <table class="table table-bordered">
@@ -56,6 +57,7 @@
         <button class="btn btn-primaty" ng-click="vm.handleAddTransport()">追加</button>
       </div>
     </div>
+
     <div class="col-xs-12">
       <h3>出張旅費</h3>
       <table class="table table-bordered">
@@ -101,7 +103,7 @@
               </a>
             </td>
             <td>
-              <a ng-click="vm.handleRemoveTransport(trip)" class="text-danger">
+              <a ng-click="vm.handleRemoveTrip(trip)" class="text-danger">
                 <i class="fa fa-times"></i>
               </a>
             </td>
@@ -111,14 +113,52 @@
       <div class="form-group text-right">
         <button class="btn btn-primaty" ng-click="vm.handleAddTrip()">追加</button>
       </div>
-
     </div>
+
+    <div class="col-xs-12">
+      <h3>車両燃料費</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>摘要</th>
+            <th>目的</th>
+            <th>金額</th>
+            <th>領収書</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="vm.payment.vehicles.length === 0">
+            <td colspan="10">出張旅費が登録されません！</td>
+          </tr>
+          <tr ng-repeat="vehicle in vm.payment.vehicles track by $index">
+            <td>{{ vehicle.date | LL }} {{ vehicle.date | dddd }}</td>
+            <td>{{ vehicle.content }}</td>
+            <td>{{ vehicle.purpose }}</td>
+            <td>{{ vehicle.fee }}</td>
+            <td>
+              <a ng-repeat="receipt in vehicle.receipts" ng-click="handleShowImage(receipt)">
+                <img class="w50 img-thumbnail" src="{{ receipt }}">
+              </a>
+            </td>
+            <td>
+              <a ng-click="vm.handleRemoveVehicle(vehicle)" class="text-danger">
+                <i class="fa fa-times"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="form-group text-right">
+        <button class="btn btn-primaty" ng-click="vm.handleAddVehicle()">追加</button>
+      </div>
+    </div>
+
     <div class="col-xs-12">
       <h3>その他の費用（備品等）</h3>
     </div>
-    <div class="col-xs-12">
-      <h3>車両燃料費</h3>
-    </div>
+
     <div class="col-xs-12">
       <h3>会議費 ･接待交際費報告書</h3>
     </div>

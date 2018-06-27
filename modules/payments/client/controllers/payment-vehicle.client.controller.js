@@ -2,16 +2,16 @@
   'use strict';
   // Polls controller
   angular.module('payments')
-    .controller('PaymentTripController', PaymentTripController);
+    .controller('PaymentVehicleController', PaymentVehicleController);
 
-  PaymentTripController.$inject = [
+  PaymentVehicleController.$inject = [
     '$scope',
     'FileUploader',
     'CommonService'
   ];
 
 
-  function PaymentTripController($scope, FileUploader, CommonService) {
+  function PaymentVehicleController($scope, FileUploader, CommonService) {
 
     $scope.receipts = [];
     prepareUpload();
@@ -34,16 +34,16 @@
       $scope.uploader.onAfterAddingAll = function (addedFileItems) {
       };
       $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-        $scope.trip.receipts.push(response);
+        $scope.vehicle.receipts.push(response);
       };
       $scope.uploader.onCompleteAll = function () {
         $scope.uploader.clearQueue();
-        $scope.closeThisDialog($scope.trip);
+        $scope.closeThisDialog($scope.vehicle);
       };
     }
 
-    $scope.handleSaveTrip = function () {
-      if (!validateTrip()) {
+    $scope.handleSaveVehicle = function () {
+      if (!validateVehicle()) {
         return $scope.handleShowToast('データが不足です！', true);
       }
 
@@ -53,42 +53,30 @@
         if ($scope.uploader.queue.length > 0) {
           $scope.uploader.uploadAll();
         } else {
-          $scope.closeThisDialog($scope.trip);
+          $scope.closeThisDialog($scope.vehicle);
         }
       });
     };
 
-    function validateTrip() {
+    function validateVehicle() {
       var error = true;
-      if (!$scope.trip.date || !moment($scope.trip.date).isValid()) {
-        $scope.trip.date_error = true;
+      if (!$scope.vehicle.date || !moment($scope.vehicle.date).isValid()) {
+        $scope.vehicle.date_error = true;
         error = false;
       } else {
-        $scope.trip.date_error = false;
+        $scope.vehicle.date_error = false;
       }
-      if (CommonService.isStringEmpty($scope.trip.content)) {
-        $scope.trip.content_error = true;
+      if (CommonService.isStringEmpty($scope.vehicle.content)) {
+        $scope.vehicle.content_error = true;
         error = false;
       } else {
-        $scope.trip.content_error = false;
+        $scope.vehicle.content_error = false;
       }
-      if (CommonService.isStringEmpty($scope.trip.start)) {
-        $scope.trip.start_error = true;
+      if (CommonService.isStringEmpty($scope.vehicle.purpose)) {
+        $scope.vehicle.purpose_error = true;
         error = false;
       } else {
-        $scope.trip.start_error = false;
-      }
-      if (CommonService.isStringEmpty($scope.trip.end)) {
-        $scope.trip.end_error = true;
-        error = false;
-      } else {
-        $scope.trip.end_error = false;
-      }
-      if ($scope.trip.method === 0 && CommonService.isStringEmpty($scope.trip.method_other)) {
-        $scope.trip.method_error = true;
-        error = false;
-      } else {
-        $scope.trip.method_error = false;
+        $scope.vehicle.purpose_error = false;
       }
       return error;
     }
