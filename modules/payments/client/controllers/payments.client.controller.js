@@ -77,7 +77,7 @@
         if (!res.value || res.value === '$document') {
           return;
         }
-        console.log(res.value);
+        vm.payment.transports.push(res.value);
       });
     };
     vm.handleRemoveTransport = function (transport) {

@@ -25,11 +25,19 @@
           <tr ng-if="vm.payment.transports.length === 0">
             <td colspan="10">交通費が登録されません！</td>
           </tr>
-          <tr ng-repeat="transport in vm.payment.transports track by $index ">
+          <tr ng-repeat="transport in vm.payment.transports track by $index">
+            <td>{{ transport.date | LL }}</td>
+            <td>{{ transport.content }}</td>
+            <td>{{ transport.start }}</td>
+            <td>{{ transport.end }}</td>
             <td>
+              <input type="checkbox" value="{{ transport.round }}">
             </td>
-            <td colspan="8">
-              <span>Creating</span>
+            <td>{{ transport.method | TransportMethod }}</td>
+            <td>{{ transport.fee }}</td>
+            <td>{{ transport.taxi_fee }}</td>
+            <td>
+              <img ng-repeat="receipt in transport.receipts" src="{{ receipt }}" class="w50 img-thumbnail">
             </td>
             <td>
               <a ng-click="vm.handleRemoveTransport(transport)" class="text-danger">
