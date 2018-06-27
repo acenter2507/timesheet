@@ -4,7 +4,7 @@
  * Module dependencies
  */
 var chatsPolicy = require('../policies/chats.server.policy'),
-  chats = require('../controllers/chats.server.controller');
+  chats = require('../controllers/chats.server.controller'),
   rooms = require('../controllers/rooms.server.controller');
 
 module.exports = function (app) {
