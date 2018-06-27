@@ -32,12 +32,12 @@
       display: flex;
       flex: 1;
       min-height: 0px; }
-      .chats .chat-content .chat-lefside .chat-lefside-wrapper {
-        display: flex;
+      .chats .chat-content .chat-lefside .chat-lefside-wrapper .chat-lefside-container {
         flex: 1;
-        min-height: 0px; }
-      overflow-y: auto;
-      -ms-overflow-style: -ms-autohiding-scrollbar; }
+        overflow-y: auto;
+        -ms-overflow-style: -ms-autohiding-scrollbar; }
+        .chats .chat-content .chat-lefside .chat-lefside-wrapper .chat-lefside-container .chat-lefside-overflow{
+          height: 3000px; }
       /* .chats .chat-content .chat-lefside::-webkit-scrollbar,
       .chats .chat-content .chat-rightside::-webkit-scrollbar {
         position: absolute;
