@@ -128,10 +128,7 @@
       }
 
       function handleStartChatRoom(room) {
-
-      }
-      function handleStartChatRoom(room) {
-
+        console.log(room);
       }
     };
   }
