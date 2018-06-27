@@ -13,7 +13,7 @@
         abstract: true,
         url: '/chats',
         template: '<ui-view/>',
-        ncyBreadcrumb: { label: 'Chat' }
+        ncyBreadcrumb: { label: 'チャット' }
       })
       .state('chats.list', {
         url: '',
@@ -23,7 +23,7 @@
         data: {
           pageTitle: 'Chats List'
         },
-        ncyBreadcrumb: { label: '一覧' }
+        ncyBreadcrumb: { label: 'ホーム' }
       })
       .state('chats.create', {
         url: '/create',
