@@ -30,5 +30,5 @@ module.exports = function (app) {
   // Finish by binding the Chat middleware
   app.param('chatId', chats.chatByID);
   // Finish by binding the Chat middleware
-  app.param('roomId', charoomsts.roomByID);
+  app.param('roomId', rooms.roomByID);
 };

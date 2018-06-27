@@ -49,6 +49,6 @@ module.exports = function (io, socket) {
         } else {
           io.sockets.connected[socket.id].emit('verify_private_room', { room: room });
         }
-      })
+      });
   });
 };
