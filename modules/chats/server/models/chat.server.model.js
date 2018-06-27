@@ -8,16 +8,23 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Room Schema
+ * Chat Schema
  */
-var RoomSchema = new Schema({
-  // Các member trong user
-  users: [{ type: Schema.ObjectId, ref: 'User' }],
-  name: { type: String },
+var ChatSchema = new Schema({
+  // Id room chả
+  room: { type: Schema.ObjectId, ref: 'Room' },
+  // Nội dung của tin nhắn
+  content: { type: String, default: '' },
+  // User đã xem tin nhắn này hay chưa 1: chưa xem - 2: xem rồi
+  status: { type: Number, default: 1 },
+  historys: [{
+    date: { type: Date },
+    content: { type: String }
+  }],
   created: { type: Date, default: Date.now },
-  //  Người đã tạo ra room
+  to: { type: Schema.ObjectId, ref: 'User' },
   user: { type: Schema.ObjectId, ref: 'User' }
 });
-RoomSchema.plugin(paginate);
+ChatSchema.plugin(paginate);
 
-mongoose.model('Room', RoomSchema);
+mongoose.model('Chat', ChatSchema);

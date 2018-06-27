@@ -3,9 +3,9 @@
     <h4>Toolbar</h4>
   </div>
   <div class="chat-content">
-    <div class="chat-lefside">
+    <div class="chat-lefside" infinite-scroll="vm.handleLoadDatas()" infinite-scroll-distance='1'>
       <tabset justified="true">
-        <tab select="vm.handleChatSelected()">
+        <tab select="vm.handleTabChanged(1)">
           <tab-heading>チャット
             <!-- <i class="glyphicon glyphicon-bell"></i> -->
           </tab-heading>
@@ -16,7 +16,7 @@
             <a href="#" class="list-group-item">Third item</a>
           </div>
         </tab>
-        <tab select="vm.handleOnlineSelected()">
+        <tab select="vm.handleTabChanged(2)">
           <tab-heading>オンライン中
             <!-- <i class="glyphicon glyphicon-bell"></i> -->
           </tab-heading>
@@ -156,7 +156,7 @@
             </a>
           </div>
         </tab>
-        <tab select="">
+        <tab select="vm.handleTabChanged(3)">
           <tab-heading>検索
             <!-- <i class="glyphicon glyphicon-bell"></i> -->
           </tab-heading>
