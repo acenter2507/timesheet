@@ -15,8 +15,8 @@ module.exports = function (io, socket) {
   socket.on('rooms', req => {
     if (!req.user) return;
     Room.paginate({ users: req.user }, {
-      page: res.paginate.page,
-      limit: res.paginate.limit,
+      page: req.paginate.page,
+      limit: req.paginate.limit,
       sort: '-updated',
       select: 'name avatar'
     }).then(result => {
@@ -28,8 +28,8 @@ module.exports = function (io, socket) {
   socket.on('onlines', req => {
     var users = _.pluck(global.onlineUsers, 'user');
     User.paginate({ _id: { $in: users } }, {
-      page: res.paginate.page,
-      limit: res.paginate.limit,
+      page: req.paginate.page,
+      limit: req.paginate.limit,
       sort: '-updated',
       select: 'displayName profileImageURL'
     }).then(result => {
