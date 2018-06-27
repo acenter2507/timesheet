@@ -31,7 +31,7 @@
     .chats .chat-content .chat-rightside:hover {
       overflow-y: auto;
       -ms-overflow-style: -ms-autohiding-scrollbar; }
-      .chats .chat-content .chat-lefside::-webkit-scrollbar,
+      /* .chats .chat-content .chat-lefside::-webkit-scrollbar,
       .chats .chat-content .chat-rightside::-webkit-scrollbar {
         position: absolute;
         width: 10px;
@@ -47,7 +47,7 @@
         background-clip: content-box;
         border-color: transparent;
         border-style: solid;
-        border-width: 1px 2px; }
+        border-width: 1px 2px; } */
 
 .chats .list-group.chat-list .list-group-item {
   padding: 8px;
