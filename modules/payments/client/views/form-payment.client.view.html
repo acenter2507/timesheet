@@ -78,30 +78,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-if="vm.payment.transports.length === 0">
+          <tr ng-if="vm.payment.trips.length === 0">
             <td colspan="10">出張旅費が登録されません！</td>
           </tr>
-          <tr ng-repeat="business in vm.payment.transports track by $index">
-            <td>{{ transport.date | LL }} {{ transport.date | dddd }}</td>
-            <td>{{ transport.content }}</td>
-            <td>{{ transport.start }}</td>
-            <td>{{ transport.end }}</td>
+          <tr ng-repeat="trip in vm.payment.trips track by $index">
+            <td>{{ trip.date | LL }} {{ trip.date | dddd }}</td>
+            <td>{{ trip.content }}</td>
+            <td>{{ trip.start }}</td>
+            <td>{{ trip.end }}</td>
             <td>
-              <input type="checkbox" value="{{ transport.round }}">
+              <input type="checkbox" value="{{ trip.round }}">
             </td>
             <td>
-              <p class="mgn">{{ transport.method | TransportMethod }}</p>
-              <p class="mgn" ng-show="transport.method === 0">{{ transport.other_method }}</p>
+              <p class="mgn">{{ trip.method | TripMethod }}</p>
+              <p class="mgn" ng-show="transport.method === 0">{{ trip.other_method }}</p>
             </td>
-            <td>{{ transport.fee }}</td>
-            <td>{{ transport.taxi_fee }}</td>
+            <td>{{ trip.fee }}</td>
+            <td>{{ trip.stay_fee }}</td>
             <td>
-              <a ng-repeat="receipt in transport.receipts" ng-click="handleShowImage(receipt)">
+              <a ng-repeat="receipt in trip.receipts" ng-click="handleShowImage(receipt)">
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
             <td>
-              <a ng-click="vm.handleRemoveTransport(transport)" class="text-danger">
+              <a ng-click="vm.handleRemoveTransport(trip)" class="text-danger">
                 <i class="fa fa-times"></i>
               </a>
             </td>
