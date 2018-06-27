@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
 var RoomSchema = new Schema({
   // Các member trong user
   users: [{ type: Schema.ObjectId, ref: 'User' }],
-  avatar: { type: String, default: './modules/code/client/img/brand/logo.png' },
+  avatar: { type: String },
   name: { type: String },
   updated: { type: Date },
   created: { type: Date, default: Date.now },

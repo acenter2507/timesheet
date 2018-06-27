@@ -5,9 +5,9 @@
     .module('chats')
     .controller('ChatsListController', ChatsListController);
 
-  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService', 'RoomsService'];
+  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService', 'RoomsService', 'RoomsApi'];
 
-  function ChatsListController($scope, Socket, ChatsService, RoomsService) {
+  function ChatsListController($scope, Socket, ChatsService, RoomsService, RoomsApi) {
     var vm = this;
 
     vm.onlines = [];
@@ -52,7 +52,27 @@
       });
     }
     function handleLoadRooms() {
-      Socket.emit('rooms', { user: $scope.user._id, paginate: vm.roomPaginate });
+      if (vm.roomPaginate.busy || vm.roomPaginate.stopped) return;
+      vm.roomPaginate.busy = true;
+      RoomsApi.load({ user: $scope.user._id, paginate: vm.roomPaginate })
+        .success(function (_rooms) {
+          if (!_rooms || _rooms.length === 0) {
+            vm.roomPaginate.stopped = true;
+            vm.roomPaginate.busy = false;
+          } else {
+            for (var index = 0; index < _rooms.length; index++) {
+              detectPrivateRoom(_rooms[0]);
+            }
+            vm.rooms = _.union(vm.rooms, _rooms);
+            vm.roomPaginate.page += 1;
+            vm.roomPaginate.busy = false;
+            if (_rooms.length < vm.roomPaginate.limit) vm.roomPaginate.stopped = true;
+          }
+          if (!$scope.$$phase) $scope.$digest();
+        })
+        .error(function (err) {
+          return $scope.handleShowToast(err.message, true);
+        });
     }
     function handleLoadOnlines() {
       Socket.emit('onlines', { user: $scope.user._id, paginate: vm.onlinePaginate });
@@ -63,17 +83,6 @@
       console.log(res);
     }
     function handleReceivedRooms(res) {
-      if (res.error) return $scope.handleShowToast(res.message, true);
-      if (!res.rooms || res.rooms.length === 0) {
-        vm.roomPaginate.stopped = true;
-        vm.roomPaginate.busy = false;
-      } else {
-        vm.rooms = _.union(vm.rooms, res.rooms);
-        vm.roomPaginate.page += 1;
-        vm.roomPaginate.busy = false;
-        if (res.rooms.length < vm.roomPaginate.limit) vm.roomPaginate.stopped = true;
-      }
-      if (!$scope.$$phase) $scope.$digest();
     }
     function handleReceivedOnlines(res) {
       if (res.error) return $scope.handleShowToast(res.message, true);
@@ -93,7 +102,7 @@
         case 1:
           return handleLoadRooms();
         case 2:
-          return handleLoadOnlines();
+          return;
         case 3:
           return;
       }
@@ -116,7 +125,7 @@
               user: $scope.user._id
             });
             newRoom.$save(function (res) {
-              console.log(res);
+              handleStartChatRoom(res.room);
             });
           } else {
             handleStartChatRoom(res.room);
@@ -131,5 +140,17 @@
         console.log(room);
       }
     };
+
+    function detectPrivateRoom(room) {
+      if (room.kind === 1) {
+        for (var index = 0; index < room.users.length; index++) {
+          var user = room.users[index];
+          if (user._id !== $scope.user._id) {
+            room.name = user.displayName;
+            room.avatar = user.profileImageURL;
+          }
+        }
+      }
+    }
   }
 }());

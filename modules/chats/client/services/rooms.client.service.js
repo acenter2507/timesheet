@@ -4,7 +4,8 @@
 
   angular
     .module('chats')
-    .factory('RoomsService', RoomsService);
+    .factory('RoomsService', RoomsService)
+    .factory('RoomsApi', RoomsApi);
 
   RoomsService.$inject = ['$resource'];
 
@@ -14,5 +15,13 @@
         method: 'PUT'
       }
     });
+  }
+
+  RoomsApi.$inject = ['$http'];
+  function RoomsApi($http) {
+    this.load = function (condition) {
+      return $http.post('/api/rooms/load', { condition: condition }, { ignoreLoadingBar: true });
+    };
+    return this;
   }
 }());

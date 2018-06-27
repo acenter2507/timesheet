@@ -12,9 +12,9 @@ var path = require('path'),
 /**
  * Create a Room
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var room = new Room(req.body);
-  room.save(function(err) {
+  room.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -28,7 +28,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Room
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var room = req.room ? req.room.toJSON() : {};
 
@@ -42,12 +42,12 @@ exports.read = function(req, res) {
 /**
  * Update a Room
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var room = req.room;
 
   room = _.extend(room, req.body);
 
-  room.save(function(err) {
+  room.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -61,10 +61,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Room
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var room = req.room;
 
-  room.remove(function(err) {
+  room.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -75,11 +75,8 @@ exports.delete = function(req, res) {
   });
 };
 
-/**
- * List of Rooms
- */
-exports.list = function(req, res) {
-  Room.find().sort('-created').populate('user', 'displayName').exec(function(err, rooms) {
+exports.list = function (req, res) {
+  Room.find().sort('-created').populate('user', 'displayName').exec(function (err, rooms) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -90,10 +87,7 @@ exports.list = function(req, res) {
   });
 };
 
-/**
- * Room middleware
- */
-exports.roomByID = function(req, res, next, id) {
+exports.roomByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -111,5 +105,19 @@ exports.roomByID = function(req, res, next, id) {
     }
     req.room = room;
     next();
+  });
+};
+
+exports.load = function (req, res) {
+  var condition = req.bodycondition;
+  Room.paginate({ users: condition.user }, {
+    page: condition.paginate.page,
+    limit: condition.paginate.limit,
+    sort: '-updated',
+    populate: [{ path: 'users', select: 'displayName profileImageURL' }],
+  }).then(result => {
+    return res.jsonp(result.docs);
+  }).catch(err => {
+    return res.status(400).send({ message: 'チャットグループを取得できません！' });
   });
 };

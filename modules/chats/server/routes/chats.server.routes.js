@@ -18,6 +18,8 @@ module.exports = function (app) {
     .put(chats.update)
     .delete(chats.delete);
 
+  app.route('/api/rooms/load').all(chatsPolicy.isAllowed).post(rooms.load);
+
   app.route('/api/rooms').all(chatsPolicy.isAllowed)
     .get(rooms.list)
     .post(rooms.create);
