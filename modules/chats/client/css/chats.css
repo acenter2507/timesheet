@@ -27,8 +27,8 @@
     .chats .chat-content .chat-rightside {
       width: 250px;
       padding: 8px; }
-    .chats .chat-content .chat-lefside,
-    .chats .chat-content .chat-rightside {
+    .chats .chat-content .chat-lefside:hover,
+    .chats .chat-content .chat-rightside:hover {
       overflow-y: auto;
       -ms-overflow-style: -ms-autohiding-scrollbar; }
       /* .chats .chat-content .chat-lefside::-webkit-scrollbar,
