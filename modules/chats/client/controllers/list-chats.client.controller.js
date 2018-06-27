@@ -55,7 +55,7 @@
       Socket.emit('rooms', { user: $scope.user._id, paginate: vm.roomPaginate });
     }
     function handleLoadOnlines() {
-      Socket.emit('onlines', { user: $scope.user._id, paginate: vm.onlinePaginate  });
+      Socket.emit('onlines', { user: $scope.user._id, paginate: vm.onlinePaginate });
     }
 
     function handleReceivedChat(res) {
@@ -88,17 +88,17 @@
       }
       if (!$scope.$$phase) $scope.$digest();
     }
-    vm.handleLoadDatas = function() {
+    vm.handleLoadDatas = function () {
       switch (vm.activeTab) {
         case 1:
           return handleLoadRooms();
-        case 2: 
+        case 2:
           return handleLoadOnlines();
         case 3:
           return;
       }
     };
-    vm.handleTabChanged = function(tab) {
+    vm.handleTabChanged = function (tab) {
       vm.activeTab = tab;
     };
     vm.handleUserSelected = function (user) {
