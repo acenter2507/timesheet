@@ -35,13 +35,11 @@
       .chats .chat-content .chat-rightside::-webkit-scrollbar {
         position: absolute;
         width: 10px;
-        margin-left: -10px;
-        -webkit-appearance: none; }
+        margin-left: -10px;}
       .chats .chat-content .chat-lefside::-webkit-scrollbar-track,
       .chats .chat-content .chat-rightside::-webkit-scrollbar-track {
-        background-color: #304047;
-        border-right: 1px solid #fff;
-        border-left: 1px solid #fff; }
+        background-color: #eee;
+        border: none;}
       .chats .chat-content .chat-lefside::-webkit-scrollbar-thumb,
       .chats .chat-content .chat-rightside::-webkit-scrollbar-thumb {
         height: 50px;
