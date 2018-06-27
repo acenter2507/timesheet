@@ -10,7 +10,7 @@
             <!-- <i class="glyphicon glyphicon-bell"></i> -->
           </tab-heading>
 
-          <div class="list-group chat-onlines">
+          <div class="list-group chat-list">
             <a ng-repeat="room in vm.rooms" ng-click="vm.handleRoomSelected(room)" class="list-group-item">
               <div class="chat-room">
                 <img src="{{ room.avatar }}" class="img-round">
@@ -24,8 +24,8 @@
             <!-- <i class="glyphicon glyphicon-bell"></i> -->
           </tab-heading>
 
-          <div class="list-group chat-onlines">
-            <a ng-repeat="user in vm.onlines" ng-click="vm.handleUserSelected(user)" class="list-group-item">
+          <div class="list-group chat-list">
+            <a ng-repeat="user in vm.users" ng-click="vm.handleUserSelected(user)" class="list-group-item">
               <div class="chat-user">
                 <img src="{{ user.profileImageURL }}" class="img-round">
                 <span>{{ user.displayName }}</span>

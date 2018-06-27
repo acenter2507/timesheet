@@ -6,17 +6,15 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Chat = mongoose.model('Chat'),
+  User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore');
 
-/**
- * Create a Chat
- */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var chat = new Chat(req.body);
   chat.user = req.user;
 
-  chat.save(function(err) {
+  chat.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -27,10 +25,7 @@ exports.create = function(req, res) {
   });
 };
 
-/**
- * Show the current Chat
- */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var chat = req.chat ? req.chat.toJSON() : {};
 
@@ -41,15 +36,12 @@ exports.read = function(req, res) {
   res.jsonp(chat);
 };
 
-/**
- * Update a Chat
- */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var chat = req.chat;
 
   chat = _.extend(chat, req.body);
 
-  chat.save(function(err) {
+  chat.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -60,13 +52,10 @@ exports.update = function(req, res) {
   });
 };
 
-/**
- * Delete an Chat
- */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var chat = req.chat;
 
-  chat.remove(function(err) {
+  chat.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -77,11 +66,8 @@ exports.delete = function(req, res) {
   });
 };
 
-/**
- * List of Chats
- */
-exports.list = function(req, res) {
-  Chat.find().sort('-created').populate('user', 'displayName').exec(function(err, chats) {
+exports.list = function (req, res) {
+  Chat.find().sort('-created').populate('user', 'displayName').exec(function (err, chats) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -92,10 +78,7 @@ exports.list = function(req, res) {
   });
 };
 
-/**
- * Chat middleware
- */
-exports.chatByID = function(req, res, next, id) {
+exports.chatByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -113,5 +96,18 @@ exports.chatByID = function(req, res, next, id) {
     }
     req.chat = chat;
     next();
+  });
+};
+
+exports.users = function (req, res) {
+  var paginate = req.body.paginate;
+  User.paginate({ roles: { $ne: 'admin' }, status: 1 }, {
+    page: paginate.page,
+    limit: paginate.limit,
+    select: ('displayName profileImageURL'),
+  }).then(result => {
+    return res.jsonp(result.docs);
+  }).catch(err => {
+    return res.status(400).send({ message: 'ユーザー情報を取得できません！' });
   });
 };

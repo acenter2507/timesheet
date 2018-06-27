@@ -49,13 +49,13 @@
         border-style: solid;
         border-width: 1px 2px; }
 
-.chats .list-group.chat-onlines .list-group-item {
+.chats .list-group.chat-list .list-group-item {
   padding: 8px;
   border: none;
   border-radius: 0 !important; }
-  .chats .list-group.chat-onlines .list-group-item.active,
-  .chats .list-group.chat-onlines .list-group-item.active:hover,
-  .chats .list-group.chat-onlines .list-group-item.active:focus {
+  .chats .list-group.chat-list .list-group-item.active,
+  .chats .list-group.chat-list .list-group-item.active:hover,
+  .chats .list-group.chat-list .list-group-item.active:focus {
     color: #555;
     background-color: #f4f4f4; }
 

@@ -8,6 +8,7 @@ var chatsPolicy = require('../policies/chats.server.policy'),
   rooms = require('../controllers/rooms.server.controller');
 
 module.exports = function (app) {
+  app.route('/api/chats/users').all(chatsPolicy.isAllowed).post(chats.users);
   // Chats Routes
   app.route('/api/chats').all(chatsPolicy.isAllowed)
     .get(chats.list)

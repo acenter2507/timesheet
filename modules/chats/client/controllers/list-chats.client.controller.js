@@ -5,13 +5,13 @@
     .module('chats')
     .controller('ChatsListController', ChatsListController);
 
-  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService', 'RoomsService', 'RoomsApi'];
+  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService', 'RoomsService', 'RoomsApi', 'ChatsApi'];
 
-  function ChatsListController($scope, Socket, ChatsService, RoomsService, RoomsApi) {
+  function ChatsListController($scope, Socket, ChatsService, RoomsService, RoomsApi, ChatsApi) {
     var vm = this;
 
-    vm.onlines = [];
-    vm.onlinePaginate = {
+    vm.users = [];
+    vm.userPaginate = {
       page: 1,
       limit: 50,
       busy: false,
@@ -31,7 +31,7 @@
     function onCreate() {
       prepareSocketListenner();
       handleLoadRooms();
-      handleLoadOnlines();
+      handleLoadUsers();
     }
 
     function prepareSocketListenner() {
@@ -74,8 +74,26 @@
           return $scope.handleShowToast(err.message, true);
         });
     }
-    function handleLoadOnlines() {
-      Socket.emit('onlines', { user: $scope.user._id, paginate: vm.onlinePaginate });
+    function handleLoadUsers() {
+      // Socket.emit('onlines', { user: $scope.user._id, paginate: vm.onlinePaginate });
+      if (vm.userPaginate.busy || vm.userPaginate.stopped) return;
+      vm.userPaginate.busy = true;
+      ChatsApi.load(vm.userPaginate)
+        .success(function (_users) {
+          if (!_users || _users.length === 0) {
+            vm.userPaginate.stopped = true;
+            vm.userPaginate.busy = false;
+          } else {
+            vm.users = _.union(vm.users, _users);
+            vm.userPaginate.page += 1;
+            vm.userPaginate.busy = false;
+            if (_users.length < vm.userPaginate.limit) vm.userPaginate.stopped = true;
+          }
+          if (!$scope.$$phase) $scope.$digest();
+        })
+        .error(function (err) {
+          return $scope.handleShowToast(err.message, true);
+        });
     }
 
     function handleReceivedChat(res) {
@@ -84,7 +102,7 @@
     }
     function handleReceivedRooms(res) {
     }
-    function handleReceivedOnlines(res) {
+    function handleReceivedUserss(res) {
       if (res.error) return $scope.handleShowToast(res.message, true);
       if (!res.onlines || res.onlines.length === 0) {
         vm.onlinePaginate.stopped = true;
