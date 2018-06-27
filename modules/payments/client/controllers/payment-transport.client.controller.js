@@ -43,7 +43,7 @@
     }
 
     $scope.handleSaveTransport = function () {
-      if (validateTransport()) {
+      if (!validateTransport()) {
         if (!$scope.$$phase) $scope.$digest();
         return;
       }
