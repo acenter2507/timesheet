@@ -109,7 +109,7 @@ exports.roomByID = function (req, res, next, id) {
 };
 
 exports.load = function (req, res) {
-  var condition = req.bodycondition;
+  var condition = req.body.condition;
   Room.paginate({ users: condition.user }, {
     page: condition.paginate.page,
     limit: condition.paginate.limit,
