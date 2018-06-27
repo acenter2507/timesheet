@@ -38,12 +38,12 @@
         margin-left: -10px;}
       .chats .chat-content .chat-lefside::-webkit-scrollbar-track,
       .chats .chat-content .chat-rightside::-webkit-scrollbar-track {
-        background-color: #eee;
+        background-color: #fff;
         border: none;}
       .chats .chat-content .chat-lefside::-webkit-scrollbar-thumb,
       .chats .chat-content .chat-rightside::-webkit-scrollbar-thumb {
         height: 50px;
-        background-color: #fff;
+        background-color: #eee;
         background-clip: content-box;
         border-color: transparent;
         border-style: solid;
