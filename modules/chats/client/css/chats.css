@@ -23,7 +23,9 @@
       flex-grow: 1;
       padding: 8px; 
       border-left: 1px solid #ccc; 
-      border-right: 1px solid #ccc; }
+      border-right: 1px solid #ccc;
+      display: flex;
+      flex-direction: row; }
     .chats .chat-content .chat-rightside {
       width: 250px;
       padding: 8px; }
@@ -48,6 +50,11 @@
         border-color: transparent;
         border-style: solid;
         border-width: 1px 2px; }
+    .chats .chat-content .chat-center .chat-messages {
+      flex-grow: 1; }
+    .chats .chat-content .chat-center .chat-input {
+      height: 200px;
+      border: 1px solid #ccc; }
 
 .chats .list-group.chat-list .list-group-item {
   padding: 8px;
