@@ -52,10 +52,10 @@
     .chats .chat-content .chat-center .chat-messages {
       flex-grow: 1; }
     .chats .chat-content .chat-center .chat-input {
-      height: 100px; }
+      min-height: 120px; }
       .chats .chat-content .chat-center .chat-input .input-block {
         position: relative;
-        margin: 0 16px;
+        margin: 8px;
         border: 1px solid #ccc;
         border-radius: 3px; }
         .chats .chat-content .chat-center .chat-input .input-block .input-toolbar {
@@ -63,6 +63,7 @@
           width: 100%;
           border-bottom: 1px solid #ccc;}
         .chats .chat-content .chat-center .chat-input .input-block .input-type {
+          position: relative;
           min-height: 50px;
           width: 100%;}
 
