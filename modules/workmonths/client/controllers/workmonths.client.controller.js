@@ -128,7 +128,8 @@
       $scope.tmp_comments = workdate.comments;
       ngDialog.openConfirm({
         templateUrl: 'commentsTempalte.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       }).then(function (content) {
         delete $scope.tmp_time;
         delete $scope.tmp_comments;
@@ -141,7 +142,8 @@
     vm.handleWriteWorkdateComment = function (workdate) {
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       }).then(function (content) {
         if (!content || content === '') return;
         var comment = {

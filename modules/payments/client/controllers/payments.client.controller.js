@@ -23,6 +23,14 @@
         end_error: false,
         method_error: false,
         fee_error: false
+      },
+      trip: {
+        is_open_picker: false,
+        date_error: false,
+        content_error: false,
+        start_error: false,
+        end_error: false,
+        method_error: false
       }
     };
 
@@ -32,17 +40,8 @@
       prepareTranspot();
     }
 
-    function prepareTranspot() {
-      if (vm.payment.transports.length === 0) return;
-      for (var index = 0; index < vm.payment.transports.length; index++) {
-        var transport = vm.payment.transports[index];
-        _.extend(transport, ui_config.transport);
-      }
-    }
-
     vm.handleSavePayments = function () {
       // Verify Payments
-
       $scope.handleShowConfirm({
         message: '清算表を保存しますか？'
       }, function () {
@@ -55,6 +54,20 @@
         //   });
       });
     };
+    vm.handleCalculatePayment = function() {
+
+    };
+    vm.handleValidatePayment = function() {
+
+    };
+    // TRANSPORT
+    function prepareTranspot() {
+      if (vm.payment.transports.length === 0) return;
+      for (var index = 0; index < vm.payment.transports.length; index++) {
+        var transport = vm.payment.transports[index];
+        _.extend(transport, ui_config.transport);
+      }
+    }
     vm.handleAddTransport = function () {
       var transport = {
         id: new Date().getTime(),
@@ -75,9 +88,12 @@
       });
       mDialog.closePromise.then(function (res) {
         if (!res.value || res.value === '$document') {
+          delete $scope.transport;
           return;
         }
         vm.payment.transports.push(res.value);
+        vm.handleCalculatePayment();
+        delete $scope.transport;
       });
     };
     vm.handleRemoveTransport = function (transport) {
@@ -85,8 +101,58 @@
         message: '交通費を削除しますか？'
       }, function () {
         vm.payment.transports = _.without(vm.payment.transports, transport);
+        vm.handleCalculatePayment();
       });
     };
+    // TRIPS
+    function prepareTrips() {
+      if (vm.payment.trips.length === 0) return;
+      for (var index = 0; index < vm.payment.trips.length; index++) {
+        var trip = vm.payment.trips[index];
+        _.extend(trip, ui_config.trip);
+      }
+    }
+    vm.handleAddTrip = function () {
+      var trip = {
+        id: new Date().getTime(),
+        method: 0,
+        fee: 0,
+        receipts: [],
+        stay_fee: 0
+      };
+      _.extend(trip, ui_config.trip);
+      $scope.trip = trip;
+      var mDialog = ngDialog.open({
+        template: 'modules/payments/client/views/templates/payment-trip.client.template.html',
+        controller: 'PaymentTripController',
+        appendClassName: 'ngdialog-custom',
+        scope: $scope,
+        showClose: false,
+        closeByDocument: false
+      });
+      mDialog.closePromise.then(function (res) {
+        if (!res.value || res.value === '$document') {
+          delete $scope.trip;
+          return;
+        }
+        vm.payment.trips.push(res.value);
+        vm.handleCalculatePayment();
+        delete $scope.trip;
+      });
+    };
+    vm.handleRemoveTrips = function (trip) {
+      $scope.handleShowConfirm({
+        message: '出張旅費を削除しますか？'
+      }, function () {
+        vm.payment.trips = _.without(vm.payment.trips, trip);
+        vm.handleCalculatePayment();
+      });
+    };
+
+
+
+
+    
 
 
     // Remove existing Payment

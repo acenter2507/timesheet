@@ -49,21 +49,6 @@
                 <i class="fa fa-times"></i>
               </a>
             </td>
-            <!-- <td>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="startDatePickerOpen = true;">
-                    <i class="fa fa-calendar"></i>
-                  </button>
-                </span>
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td> -->
           </tr>
         </tbody>
       </table>
@@ -73,6 +58,59 @@
     </div>
     <div class="col-xs-12">
       <h3>出張旅費</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th rowspan="2">日付</th>
+            <th rowspan="2">顧客名・事業内容</th>
+            <th colspan="2">経路</th>
+            <th rowspan="2">往復</th>
+            <th rowspan="2">出張旅費</th>
+            <th colspan="2">宿泊費</th>
+            <th rowspan="2">領収書</th>
+            <th rowspan="2"></th>
+          </tr>
+          <tr>
+            <th>起点</th>
+            <th>終点</th>
+            <th>摘要</th>
+            <th>金額</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="vm.payment.transports.length === 0">
+            <td colspan="10">出張旅費が登録されません！</td>
+          </tr>
+          <tr ng-repeat="business in vm.payment.transports track by $index">
+            <td>{{ transport.date | LL }} {{ transport.date | dddd }}</td>
+            <td>{{ transport.content }}</td>
+            <td>{{ transport.start }}</td>
+            <td>{{ transport.end }}</td>
+            <td>
+              <input type="checkbox" value="{{ transport.round }}">
+            </td>
+            <td>
+              <p class="mgn">{{ transport.method | TransportMethod }}</p>
+              <p class="mgn" ng-show="transport.method === 0">{{ transport.other_method }}</p>
+            </td>
+            <td>{{ transport.fee }}</td>
+            <td>{{ transport.taxi_fee }}</td>
+            <td>
+              <a ng-repeat="receipt in transport.receipts" ng-click="handleShowImage(receipt)">
+                <img class="w50 img-thumbnail" src="{{ receipt }}">
+              </a>
+            </td>
+            <td>
+              <a ng-click="vm.handleRemoveTransport(transport)" class="text-danger">
+                <i class="fa fa-times"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="form-group text-right">
+        <button class="btn btn-primaty" ng-click="vm.handleAddTrip()">追加</button>
+      </div>
 
     </div>
     <div class="col-xs-12">

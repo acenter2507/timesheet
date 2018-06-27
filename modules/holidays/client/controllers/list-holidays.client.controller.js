@@ -23,7 +23,8 @@
       // Open dialog
       $scope.mDialog = ngDialog.open({
         templateUrl: 'formHoliday.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       });
       $scope.mDialog.closePromise.then(function (res) {
         if (_.isUndefined(res.value)) return;
@@ -37,7 +38,8 @@
       // Open dialog
       $scope.mDialog = ngDialog.open({
         templateUrl: 'formHoliday.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       });
       $scope.mDialog.closePromise.then(function (res) {
         delete $scope.holiday;

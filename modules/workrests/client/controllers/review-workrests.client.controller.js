@@ -203,7 +203,8 @@
     vm.handleRejectRest = function (workrest) {
       ngDialog.openConfirm({
         templateUrl: 'commentTemplate.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       }).then(function (content) {
         delete $scope.content;
         $scope.handleShowConfirm({

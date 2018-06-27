@@ -99,7 +99,8 @@
       $scope.desImageUrl = {};
       var mDialog = ngDialog.open({
         template: 'modules/core/client/views/templates/crop-image.dialog.template.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       });
       mDialog.closePromise.then(function (res) {
         if (!res.value || res.value === '$document') {

@@ -35,7 +35,8 @@
       $scope.workrests = vm.workdate.workrests;
       var mDialog = ngDialog.open({
         template: 'workrests_list.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       });
       mDialog.closePromise.then(function (res) {
         delete $scope.workrests;
@@ -289,7 +290,8 @@
             });
             ngDialog.openConfirm({
               templateUrl: 'workdates_list.html',
-              scope: $scope
+              scope: $scope,
+              showClose: false
             }).then(function () {
               var selecteds = _.filter($scope.workdates, { selected: true });
               vm.workdate.transfers = selecteds;

@@ -57,7 +57,8 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     vm.handleChangePassword = function () {
       ngDialog.openConfirm({
         templateUrl: 'changePassTemplate.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       }).then(function (password) {
         AdminUserApi.changeUserPassword(vm.user._id, password)
           .success(function () {
@@ -73,7 +74,8 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       $scope.roles = getMainRole(vm.user.roles);
       ngDialog.openConfirm({
         templateUrl: 'selectRolesTemplate.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       }).then(function (result) {
         delete $scope.roles;
         var roles = (result !== 'user') ? ['user', result] : [result];
@@ -99,7 +101,8 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       };
       ngDialog.openConfirm({
         templateUrl: 'selectDepartmentTemplate.html',
-        scope: $scope
+        scope: $scope,
+        showClose: false
       }).then(function (newDepartment) {
         delete $scope.dialog;
         if (currentDepartment && newDepartment && newDepartment.toString() === currentDepartment.toString()) return;

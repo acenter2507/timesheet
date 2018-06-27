@@ -47,7 +47,7 @@ var PaymentSchema = new Schema({
     receipts: [{ type: String }]
   }],
   // 出張旅費
-  business: [{
+  trips: [{
     // 日付
     date: { type: Date },
     // 顧客名/事業内容
@@ -60,6 +60,8 @@ var PaymentSchema = new Schema({
     round: { type: Boolean },
     // 摘要
     method: { type: String },
+    // 手段Other
+    method_other: { type: String },
     // 金額
     fee: { type: Number },
     // 宿泊費
