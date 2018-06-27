@@ -7,10 +7,28 @@
   display: flex;
   flex-direction: column; }
   .chats .chat-toolbar {
-    background-color: green;
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 8px;
     height: 50px;
     width: 100%; }
   .chats .chat-content {
     flex-grow: 1;
-    background-color: beige;
-    width: 100%; }
+    width: 100%;
+    display: flex;
+    flex-direction: row; }
+    .chats .chat-content .chat-lefside {
+      width: 200px;
+      height: 100%;
+      padding: 8px;
+      background-color: beige; }
+    .chats .chat-content .chat-center {
+      background-color: #fff;
+      flex-grow: 1;
+      height: 100%;
+      padding: 8px; }
+      .chats .chat-content .chat-rightside {
+        width: 200px;
+        height: 100%;
+        padding: 8px;
+        background-color: #eee; }
