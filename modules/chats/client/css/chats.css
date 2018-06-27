@@ -27,6 +27,29 @@
     .chats .chat-content .chat-rightside {
       width: 250px;
       padding: 8px; }
+    .chats .chat-content .chat-lefside,
+    .chats .chat-content .chat-rightside {
+      overflow-y: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar; }
+      .chats .chat-content .chat-lefside::-webkit-scrollbar,
+      .chats .chat-content .chat-rightside::-webkit-scrollbar {
+        position: absolute;
+        width: 10px;
+        margin-left: -10px;
+        -webkit-appearance: none; }
+      .chats .chat-content .chat-lefside::-webkit-scrollbar-track,
+      .chats .chat-content .chat-rightside::-webkit-scrollbar-track {
+        background-color: #304047;
+        border-right: 1px solid #1c2429;
+        border-left: 1px solid #1c2429; }
+      .chats .chat-content .chat-lefside::-webkit-scrollbar-thumb,
+      .chats .chat-content .chat-rightside::-webkit-scrollbar-thumb {
+        height: 50px;
+        background-color: #11171a;
+        background-clip: content-box;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 1px 2px; }
 
 .chats .list-group.chat-onlines .list-group-item {
   padding: 8px;
