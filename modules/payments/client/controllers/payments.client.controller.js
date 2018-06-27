@@ -37,6 +37,12 @@
         date_error: false,
         content_error: false,
         purpose_error: false
+      },
+      other: {
+        is_open_picker: false,
+        date_error: false,
+        content_error: false,
+        kind_error: false
       }
     };
 
@@ -197,6 +203,50 @@
         vm.handleCalculatePayment();
       });
     };
+    // OTHERS
+    // function prepareOthers() {
+    //   if (vm.payment.vehicles.length === 0) return;
+    //   for (var index = 0; index < vm.payment.vehicles.length; index++) {
+    //     var vehicle = vm.payment.vehicles[index];
+    //     _.extend(vehicle, ui_config.vehicle);
+    //   }
+    // }
+    // vm.handleAddOther = function () {
+    //   var vehicle = {
+    //     id: new Date().getTime(),
+    //     method: 0,
+    //     fee: 0,
+    //     receipts: []
+    //   };
+    //   _.extend(vehicle, ui_config.vehicle);
+    //   $scope.vehicle = vehicle;
+    //   var mDialog = ngDialog.open({
+    //     template: 'modules/payments/client/views/templates/payment-vehicle.client.template.html',
+    //     controller: 'PaymentVehicleController',
+    //     appendClassName: 'ngdialog-custom',
+    //     scope: $scope,
+    //     showClose: false,
+    //     closeByDocument: false
+    //   });
+    //   mDialog.closePromise.then(function (res) {
+    //     if (!res.value || res.value === '$document') {
+    //       delete $scope.vehicle;
+    //       return;
+    //     }
+    //     vm.payment.vehicles.push(res.value);
+    //     vm.handleCalculatePayment();
+    //     delete $scope.vehicle;
+    //   });
+    // };
+    // vm.handleRemoveOther = function (other) {
+    //   $scope.handleShowConfirm({
+    //     message: '出張旅費を削除しますか？'
+    //   }, function () {
+    //     vm.payment.trips = _.without(vm.payment.trips, trip);
+    //     vm.handleCalculatePayment();
+    //   });
+    // };
+
 
 
 

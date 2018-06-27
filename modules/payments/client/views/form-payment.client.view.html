@@ -157,6 +157,42 @@
 
     <div class="col-xs-12">
       <h3>その他の費用（備品等）</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>摘要</th>
+            <th>勘定科目</th>
+            <th>金額</th>
+            <th>領収書</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="vm.payment.others.length === 0">
+            <td colspan="10">その他の費用が登録されません！</td>
+          </tr>
+          <tr ng-repeat="other in vm.payment.others track by $index">
+            <td>{{ other.date | LL }} {{ other.date | dddd }}</td>
+            <td>{{ other.content }}</td>
+            <td>{{ other.kind | OtherKind }}</td>
+            <td>{{ other.fee }}</td>
+            <td>
+              <a ng-repeat="receipt in other.receipts" ng-click="handleShowImage(receipt)">
+                <img class="w50 img-thumbnail" src="{{ receipt }}">
+              </a>
+            </td>
+            <td>
+              <a ng-click="vm.handleRemoveOther(other)" class="text-danger">
+                <i class="fa fa-times"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="form-group text-right">
+        <button class="btn btn-primaty" ng-click="vm.handleAddOther()">追加</button>s
+      </div>
     </div>
 
     <div class="col-xs-12">
