@@ -121,3 +121,21 @@ exports.load = function (req, res) {
     return res.status(400).send({ message: 'チャットグループを取得できません！' });
   });
 };
+exports.privateRoom = function (req, res) {
+  var user = req.body.user;
+  Room.findOne({ kind: 1, users: user })
+    .exec((err, room) => {
+      if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
+      if (room) return res.jsonp(room);
+      var _room = new Room({
+        users: [req.user._id, user],
+        kind: 1,
+        user: req.user._id
+      });
+      _room.save(function (err) {
+        if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
+        return res.jsonp(room);
+      });
+
+    });
+};

@@ -22,6 +22,9 @@
     this.load = function (condition) {
       return $http.post('/api/rooms/load', { condition: condition }, { ignoreLoadingBar: true });
     };
+    this.privateRoom = function (user) {
+      return $http.post('/api/rooms/privateRoom', { user: user }, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());

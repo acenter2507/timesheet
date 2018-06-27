@@ -119,34 +119,18 @@
     };
     vm.handleUserSelected = function (user) {
       // Kiểm tra đã có tin nhắn private với user đã chọn chưa
-      var users = [user._id, $scope.user._id];
-      var room = _.findWhere(vm.rooms, { kind: 1, users: users });
-
-      if (!room) {
-        Socket.on('verify_private_room', function (res) {
-          Socket.removeListener('verify_private_room');
-          if (!res.room) {
-            var newRoom = new RoomsService({
-              users: users,
-              kind: 1,
-              user: $scope.user._id
-            });
-            newRoom.$save(function (res) {
-              handleStartChatRoom(res.room);
-            });
-          } else {
-            handleStartChatRoom(res.room);
-          }
+      RoomsApi.privateRoom(user._id)
+        .success(function (room) {
+          handleStartChatRoom(room);
+        })
+        .error(function (err) {
+          return $scope.handleShowToast(err.message, true);
         });
-        Socket.emit('verify_private_room', { users: users });
-      } else {
-        handleStartChatRoom(room);
-      }
-
-      function handleStartChatRoom(room) {
-        console.log(room);
-      }
     };
+
+    function handleStartChatRoom(room) {
+      console.log(room);
+    }
 
     function detectPrivateRoom(room) {
       if (room.kind === 1) {

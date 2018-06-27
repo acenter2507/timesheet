@@ -20,6 +20,7 @@ module.exports = function (app) {
     .delete(chats.delete);
 
   app.route('/api/rooms/load').all(chatsPolicy.isAllowed).post(rooms.load);
+  app.route('/api/rooms/privateRoom').all(chatsPolicy.isAllowed).post(rooms.privateRoom);
 
   app.route('/api/rooms').all(chatsPolicy.isAllowed)
     .get(rooms.list)
