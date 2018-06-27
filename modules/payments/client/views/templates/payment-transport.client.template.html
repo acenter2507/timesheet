@@ -9,10 +9,10 @@
       </div>
       <div class="form-group">
         <label>日付</label>
-        <div class="input-group">
+        <div class="input-group" ng-class="{ 'has-error': transport.date_error }">
           <input type="text" class="form-control input-sm" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
             close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
-            show-weeks="false" readonly="true" ng-class="{ 'has-error': transport.date_error }"/>
+            show-weeks="false" readonly="true"/>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default btn-sm" ng-click="transport.is_open_picker = true;">
               <i class="fa fa-calendar"></i>
@@ -21,19 +21,19 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': transport.content_error }">
         <label>顧客名/事業内容</label>
-        <input class="form-control input-sm" ng-model="transport.content" type="text" ng-class="{ 'has-error': transport.content_error }" />
+        <input class="form-control input-sm" ng-model="transport.content" type="text" />
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': transport.start_error }">
         <label>起点</label>
-        <input class="form-control input-sm" ng-model="transport.start" type="text" ng-class="{ 'has-error': transport.start_error }" />
+        <input class="form-control input-sm" ng-model="transport.start" type="text" />
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': transport.end_error }">
         <label>終点</label>
-        <input class="form-control input-sm" ng-model="transport.end" type="text" ng-class="{ 'has-error': transport.end_error }">
+        <input class="form-control input-sm" ng-model="transport.end" type="text" />
       </div>
 
       <div class="form-group">
@@ -56,19 +56,19 @@
         </select>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': transport.method_error }">
         <label>手段の自筆記入</label>
-        <input class="form-control input-sm" ng-model="transport.method_other" type="text" ng-disabled="transport.method !== 0" ng-class="{ 'has-error': transport.method_error }" />
+        <input class="form-control input-sm" ng-model="transport.method_other" type="text" ng-disabled="transport.method !== 0" />
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': transport.fee_error }">
         <label>TAXI以外</label>
-        <input class="form-control input-sm" ng-model="transport.fee" type="number" ng-class="{ 'has-error': transport.fee_error }">
+        <input class="form-control input-sm" ng-model="transport.fee" type="number" />
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': transport.fee_error }">
         <label>TAXI</label>
-        <input class="form-control input-sm" ng-model="transport.taxi_fee" type="number" ng-class="{ 'has-error': transport.fee_error }">
+        <input class="form-control input-sm" ng-model="transport.taxi_fee" type="number" />
       </div>
 
       <div class="form-group">
