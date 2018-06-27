@@ -40,10 +40,10 @@
       }
       // Nhận tin nhắn đến
       Socket.on('chat', handleReceivedChat);
-      // Nhận rooms
-      Socket.on('rooms', handleReceivedRooms);
-      // Nhận onlines
-      Socket.on('onlines', handleReceivedOnlines);
+      // // Nhận rooms
+      // Socket.on('rooms', handleReceivedRooms);
+      // // Nhận onlines
+      // Socket.on('onlines', handleReceivedOnlines);
 
       $scope.$on('$destroy', function () {
         Socket.removeListener('chat');
@@ -103,17 +103,6 @@
     function handleReceivedRooms(res) {
     }
     function handleReceivedUserss(res) {
-      if (res.error) return $scope.handleShowToast(res.message, true);
-      if (!res.onlines || res.onlines.length === 0) {
-        vm.onlinePaginate.stopped = true;
-        vm.onlinePaginate.busy = false;
-      } else {
-        vm.onlines = _.union(vm.onlines, res.onlines);
-        vm.onlinePaginate.page += 1;
-        vm.onlinePaginate.busy = false;
-        if (res.onlines.length < vm.onlinePaginate.limit) vm.onlinePaginate.stopped = true;
-      }
-      if (!$scope.$$phase) $scope.$digest();
     }
     vm.handleLoadDatas = function () {
       switch (vm.activeTab) {
