@@ -5,9 +5,9 @@
     .module('chats')
     .controller('ChatsListController', ChatsListController);
 
-  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService'];
+  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService', 'RoomsService'];
 
-  function ChatsListController($scope, Socket, ChatsService) {
+  function ChatsListController($scope, Socket, ChatsService, RoomsService) {
     var vm = this;
 
     vm.onlines = [];
@@ -103,8 +103,36 @@
     };
     vm.handleUserSelected = function (user) {
       // Kiểm tra đã có tin nhắn private với user đã chọn chưa
-      console.log(user);
-    };
+      var users = [user._id, $scope.user._id];
+      var room = _.findWhere(vm.rooms, { kind: 1, users: users });
 
+      if (!room) {
+        Socket.on('verify_private_room', function (res) {
+          Socket.removeListener('verify_private_room');
+          if (!res.room) {
+            var newRoom = new RoomsService({
+              users: users,
+              kind: 1,
+              user: $scope.user._id
+            });
+            newRoom.$save(function (res) {
+              console.log(res);
+            });
+          } else {
+            handleStartChatRoom(res.room);
+          }
+        });
+        Socket.emit('verify_private_room', { users: users });
+      } else {
+        handleStartChatRoom(room);
+      }
+
+      function handleStartChatRoom(room) {
+
+      }
+      function handleStartChatRoom(room) {
+
+      }
+    };
   }
 }());

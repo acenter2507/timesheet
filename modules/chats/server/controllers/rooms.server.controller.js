@@ -5,113 +5,111 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Chat = mongoose.model('Chat'),
+  Room = mongoose.model('Room'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore');
 
 /**
- * Create a Chat
+ * Create a Room
  */
 exports.create = function(req, res) {
-  var chat = new Chat(req.body);
-  chat.user = req.user;
-
-  chat.save(function(err) {
+  var room = new Room(req.body);
+  room.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(chat);
+      res.jsonp(room);
     }
   });
 };
 
 /**
- * Show the current Chat
+ * Show the current Room
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var chat = req.chat ? req.chat.toJSON() : {};
+  var room = req.room ? req.room.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  chat.isCurrentUserOwner = req.user && chat.user && chat.user._id.toString() === req.user._id.toString();
+  room.isCurrentUserOwner = req.user && room.user && room.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(chat);
+  res.jsonp(room);
 };
 
 /**
- * Update a Chat
+ * Update a Room
  */
 exports.update = function(req, res) {
-  var chat = req.chat;
+  var room = req.room;
 
-  chat = _.extend(chat, req.body);
+  room = _.extend(room, req.body);
 
-  chat.save(function(err) {
+  room.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(chat);
+      res.jsonp(room);
     }
   });
 };
 
 /**
- * Delete an Chat
+ * Delete an Room
  */
 exports.delete = function(req, res) {
-  var chat = req.chat;
+  var room = req.room;
 
-  chat.remove(function(err) {
+  room.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(chat);
+      res.jsonp(room);
     }
   });
 };
 
 /**
- * List of Chats
+ * List of Rooms
  */
 exports.list = function(req, res) {
-  Chat.find().sort('-created').populate('user', 'displayName').exec(function(err, chats) {
+  Room.find().sort('-created').populate('user', 'displayName').exec(function(err, rooms) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(chats);
+      res.jsonp(rooms);
     }
   });
 };
 
 /**
- * Chat middleware
+ * Room middleware
  */
-exports.chatByID = function(req, res, next, id) {
+exports.roomByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Chat is invalid'
+      message: 'Room is invalid'
     });
   }
 
-  Chat.findById(id).populate('user', 'displayName').exec(function (err, chat) {
+  Room.findById(id).populate('user', 'displayName').exec(function (err, room) {
     if (err) {
       return next(err);
-    } else if (!chat) {
+    } else if (!room) {
       return res.status(404).send({
-        message: 'No Chat with that identifier has been found'
+        message: 'No Room with that identifier has been found'
       });
     }
-    req.chat = chat;
+    req.room = room;
     next();
   });
 };

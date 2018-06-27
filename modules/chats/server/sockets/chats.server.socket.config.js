@@ -38,4 +38,17 @@ module.exports = function (io, socket) {
       io.sockets.connected[socket.id].emit('onlines', { error: true, message: 'オンライン中のデータを取得できません！' });
     });
   });
+  socket.on('verify_private_room', req => {
+    var users = req.users;
+
+    Room.findOne({ kind: 1, users: users })
+      .select('name avatar')
+      .exec((err, room) => {
+        if (err) {
+          io.sockets.connected[socket.id].emit('verify_private_room');
+        } else {
+          io.sockets.connected[socket.id].emit('verify_private_room', { room: room });
+        }
+      })
+  });
 };
