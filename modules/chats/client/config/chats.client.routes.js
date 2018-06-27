@@ -12,7 +12,8 @@
       .state('chats', {
         abstract: true,
         url: '/chats',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        ncyBreadcrumb: { label: 'Chat' }
       })
       .state('chats.list', {
         url: '',
@@ -21,7 +22,8 @@
         controllerAs: 'vm',
         data: {
           pageTitle: 'Chats List'
-        }
+        },
+        ncyBreadcrumb: { label: '一覧' }
       })
       .state('chats.create', {
         url: '/create',
@@ -34,7 +36,8 @@
         data: {
           roles: ['user', 'admin'],
           pageTitle: 'Chats Create'
-        }
+        },
+        ncyBreadcrumb: { label: '追加' }
       })
       .state('chats.edit', {
         url: '/:chatId/edit',
@@ -47,7 +50,8 @@
         data: {
           roles: ['user', 'admin'],
           pageTitle: 'Edit Chat {{ chatResolve.name }}'
-        }
+        },
+        ncyBreadcrumb: { label: '編集 {{ chatResolve.name }}' }
       })
       .state('chats.view', {
         url: '/:chatId',
@@ -59,7 +63,8 @@
         },
         data: {
           pageTitle: 'Chat {{ chatResolve.name }}'
-        }
+        },
+        ncyBreadcrumb: { label: '詳細 {{chatResolve.name}}' }
       });
   }
 
