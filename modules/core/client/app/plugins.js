@@ -35,7 +35,7 @@
       autoDismiss: true,
       closeButton: true,
       // containerId: 'toast-container',
-      maxOpened: 5,
+      maxOpened: 8,
       newestOnTop: false,
       positionClass: 'toast-bottom-right',
       preventDuplicates: false,
