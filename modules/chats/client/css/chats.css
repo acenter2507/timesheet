@@ -13,20 +13,18 @@
     height: 50px;
     width: 100%;}
   .chats .chat-content {
+    background-color: #fff;
     flex-grow: 1;
     width: 100%;
     display: flex; }
     .chats .chat-content .chat-lefside {
       width: 200px;
-      padding: 8px;
-      background-color: beige; }
+      padding: 8px; }
     .chats .chat-content .chat-center {
-      background-color: #fff;
       flex-grow: 1;
       padding: 8px; 
       border-left: 1px solid #ccc; 
       border-right: 1px solid #ccc; }
     .chats .chat-content .chat-rightside {
       width: 200px;
-      padding: 8px;
-      background-color: #eee; }
+      padding: 8px; }
