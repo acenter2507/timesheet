@@ -33,7 +33,10 @@
             <td>
               <input type="checkbox" value="{{ transport.round }}">
             </td>
-            <td>{{ transport.method | TransportMethod }}</td>
+            <td>
+              <p class="mgn">{{ transport.method | TransportMethod }}</p>
+              <p class="mgn" ng-show="transport.method === 0">{{ transport.other_method }}</p>
+            </td>
             <td>{{ transport.fee }}</td>
             <td>{{ transport.taxi_fee }}</td>
             <td>
