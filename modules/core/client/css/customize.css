@@ -62,3 +62,14 @@
     height: 24px !important; }
   .progress .progress-bar {
     box-shadow: none !important; }
+
+.image-view {
+  max-width: 100%; }
+  .image-view img {
+    display:block;
+    width: 100%;
+    height: auto;
+    margin:auto; }
+
+.ng-hide.ng-hide-animate {
+  display: none !important; }

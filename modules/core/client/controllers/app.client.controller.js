@@ -126,4 +126,19 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
       showClose: false
     });
   };
+  // Hiển thị hình ảnh khi click vào image
+  $scope.handleShowImage = function (url) {
+    $scope.url = url;
+    ngDialog.openConfirm({
+      templateUrl: 'imageTemplate.html',
+      scope: $scope,
+      appendClassName: 'ngdialog-custom',
+      showClose: false,
+      width: 800
+    }).then(function(res) {
+      delete $scope.url;
+    }, function(res) {
+      delete $scope.url;
+    });
+  };
 }
