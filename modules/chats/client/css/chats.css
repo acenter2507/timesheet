@@ -1,9 +1,9 @@
 .chats {
   position: fixed;
   top: 50px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
   display: flex;
   flex-direction: column; }
   .chats .chat-toolbar {

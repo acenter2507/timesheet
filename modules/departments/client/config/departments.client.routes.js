@@ -13,9 +13,7 @@
         abstract: true,
         url: '/departments',
         template: '<ui-view/>',
-        data: {
-          pageTitle: 'Departments List'
-        },
+        data: { roles: ['user'] },
         ncyBreadcrumb: { label: '部署' }
       })
       .state('departments.list', {

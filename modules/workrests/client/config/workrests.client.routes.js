@@ -13,6 +13,7 @@
         abstract: true,
         url: '/workrests',
         template: '<ui-view/>',
+        data: { roles: ['user'] },
         ncyBreadcrumb: { label: '休暇' }
       })
       .state('workrests.list', {
