@@ -46,13 +46,16 @@
     }
 
     function handleReceivedChat(res) {
+      if (res.error) return $scope.handleShowToast(res.message, true);
       console.log(res);
     }
     function handleReceivedRooms(res) {
-      console.log(res);
+      if (res.error) return $scope.handleShowToast(res.message, true);
+      vm.rooms = res.rooms;
     }
     function handleReceivedOnlines(res) {
-      console.log(res);
+      if (res.error) return $scope.handleShowToast(res.message, true);
+      vm.onlines = res.onlines;
     }
 
     vm.handleChatSelected = function () {
