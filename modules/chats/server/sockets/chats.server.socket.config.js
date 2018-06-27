@@ -10,7 +10,7 @@ var path = require('path'),
 
 // Create the chat configuration
 module.exports = function (io, socket) {
-  socket.on('rest_request', req => {
+  socket.on('get_user_online', req => {
   });
   socket.on('rest_review', req => { });
 };
