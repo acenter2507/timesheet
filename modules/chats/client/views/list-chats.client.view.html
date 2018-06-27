@@ -10,12 +10,14 @@
             <!-- <i class="glyphicon glyphicon-bell"></i> -->
           </tab-heading>
 
-          <a ng-repeat="room in vm.rooms" ng-click="vm.handleRoomSelected(room)" class="list-group-item">
-            <div class="chat-room">
-              <img src="{{ room.avatar }}" class="img-round">
-              <span>{{ room.name }}</span>
-            </div>
-          </a>
+          <div class="list-group chat-onlines">
+            <a ng-repeat="room in vm.rooms" ng-click="vm.handleRoomSelected(room)" class="list-group-item">
+              <div class="chat-room">
+                <img src="{{ room.avatar }}" class="img-round">
+                <span>{{ room.name }}</span>
+              </div>
+            </a>
+          </div>
         </tab>
         <tab select="vm.handleTabChanged(2)">
           <tab-heading>オンライン中

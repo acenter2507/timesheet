@@ -110,7 +110,7 @@ exports.roomByID = function (req, res, next, id) {
 
 exports.load = function (req, res) {
   var condition = req.body.condition;
-  Room.paginate({ users: condition.user }, {
+  Room.paginate({ users: condition.user, started: 2 }, {
     page: condition.paginate.page,
     limit: condition.paginate.limit,
     sort: '-updated',

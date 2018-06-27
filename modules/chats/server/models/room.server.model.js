@@ -17,6 +17,7 @@ var RoomSchema = new Schema({
   name: { type: String },
   updated: { type: Date },
   created: { type: Date, default: Date.now },
+  started: { type: Number, default: 1 },
   //  Người đã tạo ra room
   user: { type: Schema.ObjectId, ref: 'User' },
   // Loại room chat (1: Private, 2: Group)
