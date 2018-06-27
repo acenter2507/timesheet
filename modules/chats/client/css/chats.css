@@ -66,6 +66,19 @@
           position: relative;
           min-height: 110px;
           width: 100%;}
+          .chats .chat-content .chat-center .chat-input .input-block .input-type textarea.input-type-area{
+            border-radius: 0;
+            box-shadow: none;
+            box-sizing: border-box;
+            width: 100%;
+            outline: 0;
+            margin: 0;
+            padding: 5px;
+            border: none;
+            background: transparent;
+            overflow-y: hidden;
+            min-height: 50px;
+            font-size: 14px; }
 
 .chats .list-group.chat-list .list-group-item {
   padding: 8px;
