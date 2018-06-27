@@ -31,10 +31,10 @@
 .chats .list-group.chat-onlines .list-group-item {
   padding: 8px;
   border: none;
-  border-bottom: 1px solid #ddd;
   border-radius: 0 !important; }
   
   .chats .list-group.chat-onlines .list-group-item.active,
   .chats .list-group.chat-onlines .list-group-item.active:hover,
   .chats .list-group.chat-onlines .list-group-item.active:focus {
+    color: #555;
     background-color: #f4f4f4; }
