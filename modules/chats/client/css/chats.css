@@ -25,7 +25,7 @@
       border-left: 1px solid #ccc; 
       border-right: 1px solid #ccc;
       display: flex;
-      flex-direction: row; }
+      flex-direction: column; }
     .chats .chat-content .chat-rightside {
       width: 250px;
       padding: 8px; }
