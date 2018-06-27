@@ -43,10 +43,9 @@
     }
 
     $scope.handleSaveTransport = function () {
-      if (!validateTransport()) {
-        console.log('Error');
+      if (validateTransport()) {
         if (!$scope.$$phase) $scope.$digest();
-        return false;
+        return;
       }
 
       $scope.handleShowConfirm({
@@ -64,40 +63,40 @@
     };
 
     function validateTransport() {
-      var error = false;
+      var error = true;
       if (!$scope.transport.date || !moment($scope.transport.date).isValid()) {
         $scope.transport.date_error = true;
-        error = true;
+        error = false;
       } else {
         $scope.transport.date_error = false;
       }
       if (CommonService.isStringEmpty($scope.transport.content)) {
         $scope.transport.content_error = true;
-        error = true;
+        error = false;
       } else {
         $scope.transport.content_error = false;
       }
       if (CommonService.isStringEmpty($scope.transport.start)) {
         $scope.transport.start_error = true;
-        error = true;
+        error = false;
       } else {
         $scope.transport.start_error = false;
       }
       if (CommonService.isStringEmpty($scope.transport.end)) {
         $scope.transport.end_error = true;
-        error = true;
+        error = false;
       } else {
         $scope.transport.end_error = false;
       }
       if ($scope.transport.method === 0 && CommonService.isStringEmpty($scope.transport.method_other)) {
         $scope.transport.method_error = true;
-        error = true;
+        error = false;
       } else {
         $scope.transport.method_error = false;
       }
       if ($scope.transport.fee === 0 && $scope.transport.taxi_fee === 0) {
         $scope.transport.fee_error = true;
-        error = true;
+        error = false;
       } else {
         $scope.transport.fee_error = false;
       }
