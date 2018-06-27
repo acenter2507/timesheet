@@ -56,8 +56,15 @@
       .chats .chat-content .chat-center .chat-input .input-block {
         position: relative;
         margin: 0 16px;
-        padding: 0 0 7px;
-        border: 1px solid #ccc; }
+        border: 1px solid #ccc;
+        border-radius: 3px; }
+        .chats .chat-content .chat-center .chat-input .input-block .input-toolbar {
+          height: 50px;
+          width: 100%;
+          border-bottom: 1px solid #ccc;}
+        .chats .chat-content .chat-center .chat-input .input-block .input-type {
+          min-height: 50px;
+          width: 100%;}
 
 .chats .list-group.chat-list .list-group-item {
   padding: 8px;
