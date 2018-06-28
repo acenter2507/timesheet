@@ -12,15 +12,13 @@ var path = require('path'),
 
 exports.create = function (req, res) {
   var chat = new Chat(req.body);
-  chat.user = req.user;
-
   chat.save(function (err) {
     if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      return res.status(400).send({ message: 'チャットのメッセージを送信できません！' });
     } else {
-      res.jsonp(chat);
+      Chat.populate(chat, { path: 'user', select: 'displayName profileImageURL' }, (err, char) => {
+        return res.jsonp(chat);
+      });
     }
   });
 };

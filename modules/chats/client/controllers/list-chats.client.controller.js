@@ -5,9 +5,9 @@
     .module('chats')
     .controller('ChatsListController', ChatsListController);
 
-  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService', 'RoomsService', 'RoomsApi', 'ChatsApi'];
+  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService', 'RoomsService', 'RoomsApi', 'ChatsApi', 'CommonService'];
 
-  function ChatsListController($scope, Socket, ChatsService, RoomsService, RoomsApi, ChatsApi) {
+  function ChatsListController($scope, Socket, ChatsService, RoomsService, RoomsApi, ChatsApi, CommonService) {
     var vm = this;
 
     vm.users = [];
@@ -27,6 +27,7 @@
     vm.activeTab = 1;
 
     vm.room = {};
+    vm.message = '';
     vm.messages = [];
     vm.messagePaginate = {
       page: 1,
@@ -69,7 +70,7 @@
             vm.roomPaginate.busy = false;
           } else {
             for (var index = 0; index < _rooms.length; index++) {
-              detectPrivateRoom(_rooms[0]);
+              handlePrepareForShowRoom(_rooms[0]);
             }
             vm.rooms = _.union(vm.rooms, _rooms);
             vm.roomPaginate.page += 1;
@@ -150,7 +151,7 @@
       // Kiểm tra đã có tin nhắn private với user đã chọn chưa
       RoomsApi.privateRoom(user._id)
         .success(function (room) {
-          room = detectPrivateRoom(room);
+          room = handlePrepareForShowRoom(room);
           handleStartChatRoom(room);
         })
         .error(function (err) {
@@ -160,7 +161,7 @@
 
     function handleStartChatRoom(room) {
       RoomsService.get({ roomId: room._id }).$promise.then(function (room) {
-        room = detectPrivateRoom(room);
+        room = handlePrepareForShowRoom(room);
         vm.room = room;
         vm.messagePaginate = {
           page: 1,
@@ -172,7 +173,7 @@
       });
     }
 
-    function detectPrivateRoom(room) {
+    function handlePrepareForShowRoom(room) {
       if (room.kind === 1) {
         for (var index = 0; index < room.users.length; index++) {
           var user = room.users[index];
@@ -184,5 +185,34 @@
       }
       return room;
     }
+    function handlePrepareForShowMessage(message) {
+      if (message.user._id === $scope.user._id) {
+        message.self = true;
+      } else {
+        message.self = false;
+      }
+      vm.messages.push(message);
+    }
+
+    vm.handleSendMessage = function() {
+      if (!vm.room || !vm.room._id || CommonService.isStringEmpty(vm.message)) {
+        return;
+      }
+      // TODO
+      // Chỉ đang code cho trường hợp tạo mới message
+      var message = new Chat({
+        content: vm.message,
+        user: $scope.user._id,
+        room: vm.room._id
+      });
+      message.$save(successCallback, errorCallback);
+      function successCallback(message) {
+        handlePrepareForShowMessage(message);
+        vm.messages.push(message);
+      }
+      function errorCallback(err) {
+        $scope.handleShowToast(err.message);
+      }      
+    };
   }
 }());

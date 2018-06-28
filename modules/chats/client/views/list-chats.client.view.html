@@ -258,7 +258,22 @@
       <div class="center-container">
         <div class="center-content">
           <ul class="messages">
-            <li class="left clearfix">
+            <li ng-repeat="message in vm.messages" class="clearfix" ng-class="{'left': !message.self, 'right': message.self}">
+              <span class="chat-img pull-left">
+                <img src="{{ message.user.profileImageURL }}" alt="{{ message.user.displayName }}" class="img-circle" />
+              </span>
+              <div class="chat-body clearfix">
+                <div class="header">
+                  <strong class="primary-font">{{ message.user.displayName }}</strong>
+                  <small class="pull-right text-muted">
+                    <span class="glyphicon glyphicon-time"></span>
+                    <span am-time-ago="message.created"></span>
+                  </small>
+                </div>
+                <p ng-bind-html="message.content | nl2br"></p>
+              </div>
+            </li>
+            <!-- <li class="left clearfix">
               <span class="chat-img pull-left">
                 <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
               </span>
@@ -437,16 +452,18 @@
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
                 </p>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
     </div>
     <div class="center-input">
       <div class="input-block">
-        <div class="input-toolbar"></div>
+        <div class="input-toolbar">
+          <button class="btn btn-xs btn-primary" ng-click="vm.handleSendMessage()"></button>
+        </div>
         <div class="input-type">
-          <textarea focus-me="true" class="input-type-area" placeholder="ここにメッセージ内容を入力(Shift + Enterキーで送信)"></textarea>
+          <textarea focus-me="true" class="input-type-area" placeholder="ここにメッセージ内容を入力(Shift + Enterキーで送信)" ng-model="vm.message"></textarea>
         </div>
       </div>
     </div>
