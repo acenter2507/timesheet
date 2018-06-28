@@ -259,18 +259,18 @@
         <div class="center-content">
           <ul class="messages">
             <li ng-repeat="message in vm.messages track by $index | orderBy: '-created'" class="clearfix" ng-class="{'left': !message.self, 'right': message.self }">
-              <span class="chat-img" ng-class="{'pull-left': !message.self, 'pull-right': message.self}">
+              <span class="chat-img">
                 <img src="{{ message.user.profileImageURL }}" alt="{{ message.user.displayName }}" />
               </span>
               <div class="chat-body clearfix">
                 <div class="header">
-                  <strong class="primary-font">{{ message.user.displayName }}</strong>
-                  <small class="text-muted" ng-class="{'pull-right': !message.self, 'pull-left': message.self}">
+                  <strong class="primary-font message-owner">{{ message.user.displayName }}</strong>
+                  <small class="text-muted message-time">
                     <span class="glyphicon glyphicon-time"></span>
                     <span am-time-ago="message.created"></span>
                   </small>
                 </div>
-                <p ng-bind-html="message.content | nl2br"></p>
+                <p class="message-content" ng-bind-html="message.content | nl2br"></p>
               </div>
             </li>
             <li class="left clearfix">
@@ -283,7 +283,7 @@
                   <small class="pull-right text-muted">
                     <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
                 </div>
-                <p>
+                <p >
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
                 </p>
               </div>

@@ -137,15 +137,29 @@
                 width: 38px;
                 height: 38px;
                 border-radius: 50%; }
+              .chat-screen .chat-center .center-container .messages li.left .chat-img {
+                float: left !important; }
+              .chat-screen .chat-center .center-container .messages li.right .chat-img {
+                float: right !important; }
               .chat-screen .chat-center .center-container .messages li.left .chat-body {
                 margin-left: 44px; }
-                .chat-screen .chat-center .center-container .messages li.right .chat-body p {
-                  text-align: right; }
+              .chat-screen .chat-center .center-container .messages li.left .chat-body {
+                margin-left: 44px; }
               .chat-screen .chat-center .center-container .messages li.right .chat-body {
                 margin-right: 44px; }
-              .chat-screen .chat-center .center-container .messages li .chat-body p {
-                margin: 0;
-                color: #555; }
+                .chat-screen .chat-center .center-container .messages li.left .chat-body .message-owner {
+                  float: left !important; }
+                .chat-screen .chat-center .center-container .messages li.right .chat-body .message-owner{
+                  float: right !important; }
+                .chat-screen .chat-center .center-container .messages li.left .chat-body .message-time {
+                  float: right !important; }
+                .chat-screen .chat-center .center-container .messages li.right .chat-body .message-time{
+                  float: left !important; }
+                .chat-screen .chat-center .center-container .messages li .chat-body .message-content {
+                  margin: 0;
+                  color: #555; }
+                .chat-screen .chat-center .center-container .messages li.right .chat-body .message-content {
+                  text-align: right; }
 
     .chat-screen .chat-center .chat-messages {
       flex-grow: 1;
