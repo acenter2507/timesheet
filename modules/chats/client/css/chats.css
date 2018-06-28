@@ -9,8 +9,7 @@
   .chats .chat-toolbar {
     background-color: #1a1a1a;
     color: #fff;
-    height: 50px;
-    display: flex; }
+    height: 50px; }
   .chats .chat-content {
     background-color: #fff;
     flex-grow: 1;
