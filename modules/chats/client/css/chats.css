@@ -14,7 +14,7 @@
     background-color: #fff;
     flex-grow: 1;
     overflow-y: hidden; }
-    /* .chats .chat-content .chat-lefside {
+    .chats .chat-content .chat-lefside {
       width: 300px; }
     .chats .chat-content .chat-center {
       flex-grow: 1;
@@ -58,7 +58,7 @@
             background: transparent;
             overflow-y: hidden;
             min-height: 110px;
-            font-size: 14px; } */
+            font-size: 14px; }
 
 .chats .list-group.chat-list .list-group-item {
   padding: 8px;
