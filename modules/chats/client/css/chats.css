@@ -127,14 +127,12 @@
             margin: 0;
             padding: 0; }
             .chat-screen .chat-center .center-container .messages li {
-              margin-bottom: 10px;
-              padding: 5px;
+              padding: 10px 5px;
               border-bottom: 1px dotted #B3A9A9; }
               .chat-screen .chat-center .center-container .messages li:last-child {
                 border: none; }
               .chat-screen .chat-center .center-container .messages li.left {
-                background-color: #EAF2F7;
-              }
+                background-color: #EAF2F7; }
               .chat-screen .chat-center .center-container .messages li .chat-img,
               .chat-screen .chat-center .center-container .messages li .chat-img img {
                 width: 38px;
