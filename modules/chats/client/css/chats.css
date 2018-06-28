@@ -10,12 +10,10 @@
     background-color: #1a1a1a;
     color: #fff;
     height: 50px;
-    width: 100%;
     display: flex; }
   .chats .chat-content {
     background-color: #fff;
     flex-grow: 1;
-    width: 100%;
     display: flex; }
     .chats .chat-content .chat-lefside {
       width: 300px; }
