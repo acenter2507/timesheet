@@ -111,3 +111,17 @@ exports.users = function (req, res) {
     return res.status(400).send({ message: 'ユーザー情報を取得できません！' });
   });
 };
+exports.load = function (req, res) {
+  var room = req.body.room;
+  var paginate = req.body.paginate;
+  Chat.paginate({ room: room }, {
+    page: paginate.page,
+    limit: paginate.limit,
+    sort: '-created',
+    populate: [{ path: 'user', select: 'displayName profileImageURL' }],
+  }).then(result => {
+    return res.jsonp(result.docs);
+  }).catch(err => {
+    return res.status(400).send({ message: 'メッセージの情報を取得できません！' });
+  });
+};

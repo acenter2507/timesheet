@@ -29,14 +29,13 @@ exports.create = function (req, res) {
  * Show the current Room
  */
 exports.read = function (req, res) {
-  // convert mongoose document to JSON
-  var room = req.room ? req.room.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  room.isCurrentUserOwner = req.user && room.user && room.user._id.toString() === req.user._id.toString();
-
-  res.jsonp(room);
+  Room.findById(req.room._id)
+    .populate('users', 'displayName profileImageURL')
+    .exec((err, room) => {
+      if (err)
+        return res.status(400).send({ message: 'チャットのルームが見つかりません！' });
+      return res.jsonp(room);
+    });
 };
 
 /**
@@ -90,24 +89,20 @@ exports.list = function (req, res) {
 exports.roomByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Room is invalid'
-    });
+    return res.status(400).send({ message: 'リクエストの情報が見つかりません！' });
   }
 
-  Room.findById(id).populate('user', 'displayName').exec(function (err, room) {
-    if (err) {
-      return next(err);
-    } else if (!room) {
-      return res.status(404).send({
-        message: 'No Room with that identifier has been found'
-      });
-    }
-    req.room = room;
-    next();
-  });
+  Room.findById(id)
+    .exec(function (err, room) {
+      if (err) {
+        return next(err);
+      } else if (!room) {
+        return res.status(404).send({ message: 'チャットルームが見つかりません！' });
+      }
+      req.room = room;
+      next();
+    });
 };
-
 exports.load = function (req, res) {
   var condition = req.body.condition;
   Room.paginate({ users: condition.user, started: 2 }, {
@@ -124,7 +119,6 @@ exports.load = function (req, res) {
 exports.privateRoom = function (req, res) {
   var user = req.body.user;
   Room.findOne({ kind: 1, users: user })
-    .populate('users', 'displayName profileImageURL')
     .exec((err, room) => {
       if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
       if (room) return res.jsonp(room);
@@ -136,9 +130,7 @@ exports.privateRoom = function (req, res) {
       });
       _room.save(function (err) {
         if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
-        Room.populate(_room, { path: 'users', select: 'displayName profileImageURL' }, function (err, room) {
-          return res.jsonp(room);
-        });
+        return res.jsonp(_room);
       });
 
     });

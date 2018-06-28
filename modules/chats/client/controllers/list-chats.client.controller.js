@@ -24,8 +24,16 @@
       busy: false,
       stopped: false
     };
-    vm.room = {};
     vm.activeTab = 1;
+
+    vm.room = {};
+    vm.messages = [];
+    vm.messagePaginate = {
+      page: 1,
+      busy: false,
+      stopped: false,
+      limit: 30
+    };
 
     onCreate();
     function onCreate() {
@@ -78,7 +86,7 @@
       // Socket.emit('onlines', { user: $scope.user._id, paginate: vm.onlinePaginate });
       if (vm.userPaginate.busy || vm.userPaginate.stopped) return;
       vm.userPaginate.busy = true;
-      ChatsApi.load(vm.userPaginate)
+      ChatsApi.users(vm.userPaginate)
         .success(function (_users) {
           if (!_users || _users.length === 0) {
             vm.userPaginate.stopped = true;
@@ -95,6 +103,26 @@
           return $scope.handleShowToast(err.message, true);
         });
     }
+    function handleLoadMessages() {
+      if (vm.messagePaginate.busy || vm.messagePaginate.stopped) return;
+      vm.messagePaginate.busy = true;
+      ChatsApi.load({ room: vm.room._id, paginate: vm.messagePaginate })
+        .success(function (messages) {
+          if (!messages || messages.length === 0) {
+            vm.messagePaginate.stopped = true;
+            vm.messagePaginate.busy = false;
+          } else {
+            vm.messages = _.union(vm.messages, messages);
+            vm.messagePaginate.page += 1;
+            vm.messagePaginate.busy = false;
+            if (messages.length < vm.messagePaginate.limit) vm.messagePaginate.stopped = true;
+          }
+          if (!$scope.$$phase) $scope.$digest();
+        })
+        .error(function (err) {
+          return $scope.handleShowToast(err.message, true);
+        });
+    }
 
     function handleReceivedChat(res) {
       if (res.error) return $scope.handleShowToast(res.message, true);
@@ -104,7 +132,8 @@
     }
     function handleReceivedUserss(res) {
     }
-    vm.handleLoadDatas = function () {
+    
+    vm.handleScrollLefiside = function () {
       switch (vm.activeTab) {
         case 1:
           return handleLoadRooms();
@@ -130,9 +159,17 @@
     };
 
     function handleStartChatRoom(room) {
-      console.log(room);
-      vm.room = room;
-      if (!$scope.$$phase) $scope.$digest();
+      RoomsService.get({ roomId: vm.room._id }).$promise.then(function (room) {
+        room = detectPrivateRoom(room);
+        vm.room = room;
+        vm.message = {
+          page: 1,
+          busy: false,
+          stopped: false,
+          limit: 30
+        };
+        handleLoadMessages();
+      });
     }
 
     function detectPrivateRoom(room) {

@@ -7,7 +7,7 @@
     <div class="toolbar-rightside"></div>
   </div>
   <div class="chat-content">
-    <div class="chat-lefside" infinite-scroll="vm.handleLoadDatas()" infinite-scroll-distance='1'>
+    <div class="chat-lefside" infinite-scroll="vm.handleScrollLefiside()" infinite-scroll-distance='1'>
       <tabset justified="true">
         <tab select="vm.handleTabChanged(1)" heading="チャット">
           <div class="list-group chat-list">
@@ -33,7 +33,9 @@
       </tabset>
     </div>
     <div class="chat-center">
-      <div class="chat-messages"></div>
+      <div class="chat-messages">
+        
+      </div>
       <div class="chat-input">
         <div class="input-block">
           <div class="input-toolbar"></div>
