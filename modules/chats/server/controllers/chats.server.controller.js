@@ -25,6 +25,13 @@ exports.create = function (req, res) {
 };
 
 exports.read = function (req, res) {
+  Room.findById(req.chat._id)
+    .populate('user', 'displayName profileImageURL')
+    .exec((err, chat) => {
+      if (err)
+        return res.status(400).send({ message: 'チャットのメッセージが見つかりません！' });
+      return res.jsonp(chat);
+    });
   // convert mongoose document to JSON
   var chat = req.chat ? req.chat.toJSON() : {};
 
