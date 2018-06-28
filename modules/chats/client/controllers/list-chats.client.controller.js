@@ -159,7 +159,7 @@
     };
 
     function handleStartChatRoom(room) {
-      RoomsService.get({ roomId: vm.room._id }).$promise.then(function (room) {
+      RoomsService.get({ roomId: room._id }).$promise.then(function (room) {
         room = detectPrivateRoom(room);
         vm.room = room;
         vm.message = {
