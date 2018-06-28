@@ -132,6 +132,9 @@
               border-bottom: 1px dotted #B3A9A9; }
               .chat-screen .chat-center .center-container .messages li:last-child {
                 border: none; }
+              .chat-screen .chat-center .center-container .messages li.left {
+                background-color: #EAF2F7;
+              }
               .chat-screen .chat-center .center-container .messages li .chat-img,
               .chat-screen .chat-center .center-container .messages li .chat-img img {
                 width: 38px;
