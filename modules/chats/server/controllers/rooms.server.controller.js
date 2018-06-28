@@ -120,7 +120,7 @@ exports.privateRoom = function (req, res) {
       if (room) return res.jsonp(room);
 
       var _room = new Room({
-        users: [req.user._id, user],
+        users: users,
         kind: 1,
         user: req.user._id
       });
