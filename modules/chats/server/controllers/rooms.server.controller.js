@@ -132,9 +132,9 @@ exports.privateRoom = function (req, res) {
         kind: 1,
         user: req.user._id
       });
-      _room.save(function (err, room) {
+      _room.save(function (err) {
         if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
-        Room.populate(room, { path: 'users', select: 'displayName profileImageURL' }, function (err, room) {
+        Room.populate(_room, { path: 'users', select: 'displayName profileImageURL' }, function (err, room) {
           return res.jsonp(room);
         });
       });
