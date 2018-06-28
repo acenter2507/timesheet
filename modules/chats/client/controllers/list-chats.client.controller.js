@@ -35,6 +35,9 @@
       stopped: false,
       limit: 30
     };
+    vm.socketKeys = {
+      chat: 'chat'
+    };
 
     onCreate();
     function onCreate() {
@@ -48,7 +51,7 @@
         Socket.connect();
       }
       // Nhận tin nhắn đến
-      Socket.on('chat', handleReceivedChat);
+      Socket.on(vm.socketKeys.chat, handleReceivedChat);
       // // Nhận rooms
       // Socket.on('rooms', handleReceivedRooms);
       // // Nhận onlines
@@ -84,7 +87,6 @@
         });
     }
     function handleLoadUsers() {
-      // Socket.emit('onlines', { user: $scope.user._id, paginate: vm.onlinePaginate });
       if (vm.userPaginate.busy || vm.userPaginate.stopped) return;
       vm.userPaginate.busy = true;
       ChatsApi.users(vm.userPaginate)
@@ -117,7 +119,6 @@
               handlePrepareForShowMessage(messages[index]);
             }
             vm.messages = _.union(vm.messages, messages);
-            console.log(vm.messages);
             vm.messagePaginate.page += 1;
             vm.messagePaginate.busy = false;
             if (messages.length < vm.messagePaginate.limit) vm.messagePaginate.stopped = true;
@@ -131,7 +132,14 @@
 
     function handleReceivedChat(res) {
       if (res.error) return $scope.handleShowToast(res.message, true);
-      console.log(res);
+      if (res.user.toString() === $scope.user._id.toString()) return;
+      if (res.room.toString() !== vm.room._id.toString()) return;
+      ChatsService.get({ chatId: res.chat }).$promise.then(function (message) {
+        handlePrepareForShowMessage(message);
+        vm.messages.push(message);
+        vm.room.updated = new Date();
+        vm.room.$update();
+      });
     }
     function handleReceivedRooms(res) {
     }
@@ -213,7 +221,12 @@
       function successCallback(message) {
         handlePrepareForShowMessage(message);
         vm.messages.push(message);
-        console.log(vm.messages);
+        Socket.emit(vm.socketKeys.chat, {
+          room: vm.room._id,
+          time: new Date().getTime(),
+          chat: message._id,
+          user: $scope.user._id
+        });
         // Trường hợp room chưa được tạo trước đó
         vm.room.updated = new Date();
         if (vm.room.started === 1) {

@@ -11,6 +11,9 @@ var path = require('path'),
 // Create the chat configuration
 module.exports = function (io, socket) {
   socket.on('chat', req => {
+    // TODO
+    // Đang gửi cho toàn bộ user
+    io.sockets.emit('chat', req);
   });
   socket.on('rooms', req => {
     if (!req.user) return;
