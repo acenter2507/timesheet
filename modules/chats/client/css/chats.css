@@ -141,8 +141,10 @@
                 float: left !important; }
               .chat-screen .chat-center .center-container .messages li.right .chat-img {
                 float: right !important; }
-              .chat-screen .chat-center .center-container .messages li.left .chat-body {
-                margin-left: 44px; }
+              .chat-screen .chat-center .center-container .messages li .chat-body .header{
+                width: 100%;
+                height: 30px;
+                line-height: 30px; }
               .chat-screen .chat-center .center-container .messages li.left .chat-body {
                 margin-left: 44px; }
               .chat-screen .chat-center .center-container .messages li.right .chat-body {
