@@ -124,6 +124,7 @@ exports.load = function (req, res) {
 exports.privateRoom = function (req, res) {
   var user = req.body.user;
   Room.findOne({ kind: 1, users: user })
+    .populate('users', 'displayName profileImageURL')
     .exec((err, room) => {
       if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
       if (room) return res.jsonp(room);
@@ -134,10 +135,9 @@ exports.privateRoom = function (req, res) {
       });
       _room.save(function (err) {
         if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
-        Room.findById(_room._id).populate('users', 'displayName profileImageURL')
-          .exec(function (err, room) {
-            return res.jsonp(room);
-          });
+        Room.populate(_room, { path: 'users', select: 'displayName profileImageURL' }, function (err, room) {
+          return res.jsonp(room);
+        });
       });
 
     });
