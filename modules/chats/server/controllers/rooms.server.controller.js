@@ -128,6 +128,7 @@ exports.privateRoom = function (req, res) {
     .exec((err, room) => {
       if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
       if (room) return res.jsonp(room);
+
       var _room = new Room({
         users: [req.user._id, user],
         kind: 1,
