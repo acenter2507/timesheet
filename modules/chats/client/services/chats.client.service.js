@@ -11,9 +11,8 @@
 
   function ChatsService($resource) {
     return $resource('api/chats/:chatId', { chatId: '@_id' }, {
-      update: {
-        method: 'PUT'
-      }
+      update: { method: 'PUT' },
+      query: { ignoreLoadingBar: true }
     });
   }
   ChatsApi.$inject = ['$http'];

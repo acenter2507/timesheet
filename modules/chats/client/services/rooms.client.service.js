@@ -11,9 +11,8 @@
 
   function RoomsService($resource) {
     return $resource('api/rooms/:roomId', { roomId: '@_id' }, {
-      update: {
-        method: 'PUT'
-      }
+      update: { method: 'PUT' },
+      query: { ignoreLoadingBar: true }
     });
   }
 
