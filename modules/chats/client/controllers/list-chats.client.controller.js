@@ -121,7 +121,7 @@
       // Kiểm tra đã có tin nhắn private với user đã chọn chưa
       RoomsApi.privateRoom(user._id)
         .success(function (room) {
-          detectPrivateRoom(room);
+          room = detectPrivateRoom(room);
           handleStartChatRoom(room);
         })
         .error(function (err) {
@@ -145,6 +145,7 @@
           }
         }
       }
+      return room;
     }
   }
 }());

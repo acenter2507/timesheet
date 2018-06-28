@@ -132,9 +132,9 @@ exports.privateRoom = function (req, res) {
         kind: 1,
         user: req.user._id
       });
-      _room.save(function (err) {
+      _room.save(function (err, room) {
         if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
-        return res.jsonp(_room);
+        return res.jsonp(room);
       });
 
     });
