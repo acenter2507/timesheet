@@ -117,6 +117,7 @@
               handlePrepareForShowMessage(messages[index]);
             }
             vm.messages = _.union(vm.messages, messages);
+            console.log(vm.messages);
             vm.messagePaginate.page += 1;
             vm.messagePaginate.busy = false;
             if (messages.length < vm.messagePaginate.limit) vm.messagePaginate.stopped = true;
@@ -212,6 +213,7 @@
       function successCallback(message) {
         handlePrepareForShowMessage(message);
         vm.messages.push(message);
+        console.log(vm.messages);
         // Trường hợp room chưa được tạo trước đó
         vm.room.updated = new Date();
         if (vm.room.started === 1) {

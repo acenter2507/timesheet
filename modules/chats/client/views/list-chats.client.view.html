@@ -258,7 +258,7 @@
       <div class="center-container">
         <div class="center-content">
           <ul class="messages">
-            <li ng-repeat="message in vm.messages track by $index | orderBy: 'created'" class="clearfix" ng-class="{'left': !message.self, 'right': message.self}">
+            <li ng-repeat="message in vm.messages track by $index | orderBy: '-created'" class="clearfix" ng-class="{'left': !message.self, 'right': message.self}">
               <span class="chat-img pull-left">
                 <img src="{{ message.user.profileImageURL }}" alt="{{ message.user.displayName }}" />
               </span>
