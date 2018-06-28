@@ -27,7 +27,7 @@ module.exports = function (app) {
     .get(rooms.list)
     .post(rooms.create);
 
-  app.route('/api/rooms/:chatId').all(chatsPolicy.isAllowed)
+  app.route('/api/rooms/:roomId').all(chatsPolicy.isAllowed)
     .get(rooms.read)
     .put(rooms.update)
     .delete(rooms.delete);
