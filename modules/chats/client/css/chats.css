@@ -32,7 +32,8 @@
       overflow-y: auto;
       -ms-overflow-style: -ms-autohiding-scrollbar; }
     .chats .chat-content .chat-center .chat-messages {
-      flex-grow: 1; }
+      flex-grow: 1;
+      overflow-y: auto; }
     .chats .chat-content .chat-center .chat-input {
       min-height: 160px; }
       .chats .chat-content .chat-center .chat-input .input-block {
