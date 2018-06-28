@@ -234,6 +234,7 @@
           vm.rooms.push(vm.room);
         }
         vm.room.$update();
+        vm.message = '';
       }
       function errorCallback(err) {
         $scope.handleShowToast(err.message);
