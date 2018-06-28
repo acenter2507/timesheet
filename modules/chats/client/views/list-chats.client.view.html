@@ -1,29 +1,15 @@
 <div class="chats">
   <div class="chat-toolbar">
-    <h4>asdasd</h4>
-    <!-- <div class="toolbar-leftside"></div>
-    <div class="toolbar-center">
-      <span class="text-h4">{{ vm.room.name }}</span>
-    </div>
-    <div class="toolbar-rightside"></div> -->
   </div>
   <div class="chat-content">
     <div class="chat-lefside" infinite-scroll="vm.handleLoadDatas()" infinite-scroll-distance='1'>
       <tabset justified="true">
         <tab select="vm.handleTabChanged(1)" heading="チャット">
           <div class="list-group chat-list">
-            <a ng-repeat="room in vm.rooms" ng-click="vm.handleRoomSelected(room)" class="list-group-item" ng-class="{ 'active': vm.room._id === room._id">
+            <a ng-repeat="room in vm.rooms" ng-click="vm.handleRoomSelected(room)" class="list-group-item">
               <div class="chat-room">
                 <img src="{{ room.avatar }}" class="img-round">
                 <span>{{ room.name }}</span>
-              </div>
-            </a>
-          </div>
-          <div class="list-group chat-list">
-            <a ng-repeat="user in vm.users" ng-click="vm.handleUserSelected(user)" class="list-group-item">
-              <div class="chat-user">
-                <img src="{{ user.profileImageURL }}" class="img-round">
-                <span>{{ user.displayName }}</span>
               </div>
             </a>
           </div>
