@@ -114,7 +114,15 @@ exports.load = function (req, res) {
 };
 exports.privateRoom = function (req, res) {
   var users = [req.body.user, req.user._id];
-  Room.findOne({ kind: 1, users: users })
+
+  Room.findOne(
+    {
+      $and: [
+        { users: { $all: users } },
+        { users: { $size: 2 } },
+        { kind: 1 }
+      ]
+    })
     .exec((err, room) => {
       if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
       if (room) return res.jsonp(room);
