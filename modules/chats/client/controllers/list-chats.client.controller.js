@@ -200,7 +200,7 @@
       }
       // TODO
       // Chỉ đang code cho trường hợp tạo mới message
-      var message = new Chat({
+      var message = new ChatsService({
         content: vm.message,
         user: $scope.user._id,
         room: vm.room._id
