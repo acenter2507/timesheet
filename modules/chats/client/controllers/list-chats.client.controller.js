@@ -121,6 +121,7 @@
       // Kiểm tra đã có tin nhắn private với user đã chọn chưa
       RoomsApi.privateRoom(user._id)
         .success(function (room) {
+          detectPrivateRoom(room)
           handleStartChatRoom(room);
         })
         .error(function (err) {
@@ -129,6 +130,7 @@
     };
 
     function handleStartChatRoom(room) {
+      console.log(room);
       vm.room = room;
       if (!$scope.$$phase) $scope.$digest();
     }
