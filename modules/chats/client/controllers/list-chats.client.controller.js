@@ -113,6 +113,9 @@
             vm.messagePaginate.stopped = true;
             vm.messagePaginate.busy = false;
           } else {
+            for (var index = 0; index < messages.length; index++) {
+              handlePrepareForShowMessage(messages[index]);
+            }
             vm.messages = _.union(vm.messages, messages);
             vm.messagePaginate.page += 1;
             vm.messagePaginate.busy = false;
@@ -151,7 +154,7 @@
       // Kiểm tra đã có tin nhắn private với user đã chọn chưa
       RoomsApi.privateRoom(user._id)
         .success(function (room) {
-          room = handlePrepareForShowRoom(room);
+          handlePrepareForShowRoom(room);
           handleStartChatRoom(room);
         })
         .error(function (err) {
@@ -161,7 +164,7 @@
 
     function handleStartChatRoom(room) {
       RoomsService.get({ roomId: room._id }).$promise.then(function (room) {
-        room = handlePrepareForShowRoom(room);
+        handlePrepareForShowRoom(room);
         vm.room = room;
         vm.messages = [];
         vm.messagePaginate = {
@@ -192,7 +195,6 @@
       } else {
         message.self = false;
       }
-      vm.messages.push(message);
     }
 
     vm.handleSendMessage = function() {
@@ -209,6 +211,7 @@
       message.$save(successCallback, errorCallback);
       function successCallback(message) {
         handlePrepareForShowMessage(message);
+        vm.messages.push(message);
         // Trường hợp room chưa được tạo trước đó
         vm.room.updated = new Date();
         if (vm.room.started === 1) {
