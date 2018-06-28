@@ -238,10 +238,10 @@
       <div class="leftside-container">
         <div class="leftside-content">
           <div class="list-group chat-list">
-            <a ng-repeat="user in vm.users" ng-click="vm.handleUserSelected(user)" class="list-group-item">
+            <a ng-repeat="room in vm.rooms" ng-click="vm.handleRoomSelected(room)" class="list-group-item">
               <div class="item-content">
-                <img src="{{ user.profileImageURL }}" class="img-round">
-                <span>{{ user.displayName }}</span>
+                <img src="{{ room.avatar }}" class="img-round">
+                <span>{{ room.name }}</span>
               </div>
             </a>
           </div>
@@ -272,6 +272,7 @@
       <tab select="vm.handleTabChanged(3)" heading="検索"></tab>
     </tabset> -->
   </div>
+
   <div class="chat-center">
     <div class="center-toolbar"></div>
     <div class="center-wrapper">
@@ -664,5 +665,21 @@
       </div>
     </div> -->
   </div>
-  <div class="chat-rightside"></div>
+  <div class="chat-rightside">
+    <div class="rightside-toolbar"></div>
+    <div class="rightside-wrapper">
+      <div class="rightside-container">
+        <div class="rightside-content">
+          <div class="list-group chat-list">
+            <a ng-repeat="user in vm.users" ng-click="vm.handleUserSelected(user)" class="list-group-item">
+              <div class="item-content">
+                <img src="{{ user.profileImageURL }}" class="img-round">
+                <span>{{ user.displayName }}</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

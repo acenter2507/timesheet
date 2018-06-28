@@ -6,9 +6,10 @@
   right: 0;
   display: flex;
   background-color: #fff; }
-  .chat-screen .chat-lefside {
+  .chat-screen .chat-lefside,
+  .chat-screen .chat-rightside {
     min-width: 200px;
-    width: 300px;
+    width: 250px;
     display: flex;
     flex-direction: column; }
   .chat-screen .chat-center {
@@ -19,12 +20,8 @@
     border-right: 1px solid #ccc;
     display: flex;
     flex-direction: column; }
-  .chat-screen .chat-rightside {
-    min-width: 150px;
-    width: 250px;
-    overflow-y: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar; }
-    .chat-screen .chat-lefside .leftside-toolbar {
+    .chat-screen .chat-lefside .leftside-toolbar,
+    .chat-screen .chat-rightside .leftside-rightside {
       display: flex;
       align-items: center;
       box-sizing: border-box;
@@ -32,35 +29,45 @@
       height: 41px;
       background-color: #f2f2f2;
       border-bottom: 1px solid #cccccc; }
-    .chat-screen .chat-lefside .leftside-wrapper {
+    .chat-screen .chat-lefside .leftside-wrapper,
+    .chat-screen .chat-rightside .rightside-wrapper {
       display: flex;
       flex: 1;
       min-height: 0; }
-      .chat-screen .chat-lefside .leftside-container {
+      .chat-screen .chat-lefside .leftside-container,
+      .chat-screen .chat-rightside .rightside-container {
         flex: 1;
         overflow: auto;
         -ms-overflow-style: -ms-autohiding-scrollbar; }
-        .chat-screen .chat-lefside .leftside-container {
+        .chat-screen .chat-lefside .leftside-container,
+        .chat-screen .chat-rightside .rightside-container {
           flex: 1;
           overflow: auto;
           -ms-overflow-style: -ms-autohiding-scrollbar; }
-          .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item {
+          .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item,
+          .chat-screen .chat-rightside .rightside-container .rightside-content .list-group.chat-list .list-group-item  {
             padding: 8px;
             border: none;
             border-radius: 0 !important; }
           .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active,
           .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active:hover,
-          .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active:focus {
+          .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active:focus,
+          .chat-screen .chat-rightside .rightside-container .rightside-content .list-group.chat-list .list-group-item.active,
+          .chat-screen .chat-rightside .rightside-container .rightside-content .list-group.chat-list .list-group-item.active:hover,
+          .chat-screen .chat-rightside .rightside-container .rightside-content .list-group.chat-list .list-group-item.active:focus  {
             color: #555;
             background-color: #f4f4f4; }
-            .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item .item-content {
+            .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item .item-content,
+            .chat-screen .chat-rightside .rightside-container .rightside-content .list-group.chat-list .list-group-item .item-content {
               position: relative;
               width: 100%;
               height: 40px; }
-              .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item .item-content img { 
+              .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item .item-content img,
+              .chat-screen .chat-rightside .rightside-container .rightside-content .list-group.chat-list .list-group-item .item-content img { 
                 width: 40px;
                 height: 40px;
                 border-radius: 50%; }
+
     .chat-screen .chat-center .center-toolbar {
       display: flex;
       align-items: center;
@@ -98,6 +105,7 @@
             overflow-y: hidden;
             min-height: 110px;
             font-size: 14px; }
+
     .chat-screen .chat-center .center-wrapper {
       display: flex;
       flex: 1;
