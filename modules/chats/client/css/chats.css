@@ -281,6 +281,8 @@
     border: none; }
     .messages li.left .chat-body {
       margin-left: 60px; }
+      .messages li.right .chat-body p {
+        text-align: right; }
     .messages li.right .chat-body {
       margin-right: 60px; }
     .messages li .chat-body p {
