@@ -469,7 +469,7 @@ ul.user-menu {
   .badge-danger[href]:focus, .badge-danger[href]:hover {
     background-color: #f63c3a; }
 
-/* ::-webkit-scrollbar,
+::-webkit-scrollbar,
 ::-webkit-scrollbar {
   position: absolute;
   width: 10px;
@@ -485,4 +485,4 @@ ul.user-menu {
   background-clip: content-box;
   border-color: transparent;
   border-style: solid;
-  border-width: 1px 2px; } */
+  border-width: 1px 2px; }
