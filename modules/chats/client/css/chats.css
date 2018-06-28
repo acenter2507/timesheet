@@ -13,7 +13,8 @@
   .chats .chat-content {
     background-color: #fff;
     flex-grow: 1;
-    overflow-y: hidden; }
+    overflow-y: hidden;
+    display: flex; }
     .chats .chat-content .chat-lefside {
       width: 300px; }
     .chats .chat-content .chat-center {
