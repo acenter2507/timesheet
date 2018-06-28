@@ -109,6 +109,8 @@
     margin-bottom: 10px;
     padding: 5px;
     border-bottom: 1px dotted #B3A9A9; }
+  .messages li:last-child {
+    border: none; }
     .messages li.left .chat-body {
       margin-left: 60px; }
     .messages li.right .chat-body {
@@ -116,3 +118,4 @@
     .messages li .chat-body p {
       margin: 0;
       color: #555; }
+  .messages li {
