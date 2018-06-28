@@ -132,9 +132,14 @@
               border-bottom: 1px dotted #B3A9A9; }
               .chat-screen .chat-center .center-container .messages li:last-child {
                 border: none; }
+              .chat-screen .chat-center .center-container .messages li .chat-img,
+              .chat-screen .chat-center .center-container .messages li .chat-img {
+                width: 38px;
+                height: 38px;
+                border-radius: 50%; }
               .chat-screen .chat-center .center-container .messages li.left .chat-body {
                 margin-left: 60px; }
-                .messages li.right .chat-body p {
+                .chat-screen .chat-center .center-container .messages li.right .chat-body p {
                   text-align: right; }
               .chat-screen .chat-center .center-container .messages li.right .chat-body {
                 margin-right: 60px; }
