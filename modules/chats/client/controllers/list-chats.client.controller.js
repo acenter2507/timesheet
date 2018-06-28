@@ -163,6 +163,7 @@
       RoomsService.get({ roomId: room._id }).$promise.then(function (room) {
         room = handlePrepareForShowRoom(room);
         vm.room = room;
+        vm.messages = [];
         vm.messagePaginate = {
           page: 1,
           busy: false,
