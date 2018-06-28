@@ -25,21 +25,13 @@ exports.create = function (req, res) {
 };
 
 exports.read = function (req, res) {
-  Room.findById(req.chat._id)
+  Chat.findById(req.chat._id)
     .populate('user', 'displayName profileImageURL')
     .exec((err, chat) => {
       if (err)
         return res.status(400).send({ message: 'チャットのメッセージが見つかりません！' });
       return res.jsonp(chat);
     });
-  // convert mongoose document to JSON
-  var chat = req.chat ? req.chat.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  chat.isCurrentUserOwner = req.user && chat.user && chat.user._id.toString() === req.user._id.toString();
-
-  res.jsonp(chat);
 };
 
 exports.update = function (req, res) {
