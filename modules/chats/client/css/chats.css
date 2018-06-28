@@ -138,11 +138,11 @@
                 height: 38px;
                 border-radius: 50%; }
               .chat-screen .chat-center .center-container .messages li.left .chat-body {
-                margin-left: 60px; }
+                margin-left: 44px; }
                 .chat-screen .chat-center .center-container .messages li.right .chat-body p {
                   text-align: right; }
               .chat-screen .chat-center .center-container .messages li.right .chat-body {
-                margin-right: 60px; }
+                margin-right: 44px; }
               .chat-screen .chat-center .center-container .messages li .chat-body p {
                 margin: 0;
                 color: #555; }
