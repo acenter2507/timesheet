@@ -106,7 +106,7 @@
     function handleLoadMessages() {
       if (vm.messagePaginate.busy || vm.messagePaginate.stopped) return;
       vm.messagePaginate.busy = true;
-      ChatsApi.load({ room: vm.room._id, paginate: vm.messagePaginate })
+      ChatsApi.load(vm.room._id, vm.messagePaginate)
         .success(function (messages) {
           if (!messages || messages.length === 0) {
             vm.messagePaginate.stopped = true;
@@ -132,7 +132,7 @@
     }
     function handleReceivedUserss(res) {
     }
-    
+
     vm.handleScrollLefiside = function () {
       switch (vm.activeTab) {
         case 1:
@@ -162,7 +162,7 @@
       RoomsService.get({ roomId: room._id }).$promise.then(function (room) {
         room = detectPrivateRoom(room);
         vm.room = room;
-        vm.message = {
+        vm.messagePaginate = {
           page: 1,
           busy: false,
           stopped: false,
