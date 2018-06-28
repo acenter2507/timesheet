@@ -15,6 +15,7 @@
   .chats .chat-content {
     background-color: #fff;
     flex-grow: 1;
+    overflow: hidden;
     width: 100%;
     display: flex; }
     .chats .chat-content .chat-lefside {
