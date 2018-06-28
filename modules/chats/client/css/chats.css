@@ -122,7 +122,25 @@
           flex: 1;
           overflow: auto;
           -ms-overflow-style: -ms-autohiding-scrollbar; }
-
+          .chat-screen .chat-center .center-container .messages {
+            list-style: none;
+            margin: 0;
+            padding: 0; }
+            .chat-screen .chat-center .center-container .messages li {
+              margin-bottom: 10px;
+              padding: 5px;
+              border-bottom: 1px dotted #B3A9A9; }
+              .chat-screen .chat-center .center-container .messages li:last-child {
+                border: none; }
+              .chat-screen .chat-center .center-container .messages li.left .chat-body {
+                margin-left: 60px; }
+                .messages li.right .chat-body p {
+                  text-align: right; }
+              .chat-screen .chat-center .center-container .messages li.right .chat-body {
+                margin-right: 60px; }
+              .chat-screen .chat-center .center-container .messages li .chat-body p {
+                margin: 0;
+                color: #555; }
 
 
 
@@ -268,23 +286,3 @@
     background-color: #f4f4f4; }
 
 
-
-.messages {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-  .messages li {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-bottom: 1px dotted #B3A9A9; }
-  .messages li:last-child {
-    border: none; }
-    .messages li.left .chat-body {
-      margin-left: 60px; }
-      .messages li.right .chat-body p {
-        text-align: right; }
-    .messages li.right .chat-body {
-      margin-right: 60px; }
-    .messages li .chat-body p {
-      margin: 0;
-      color: #555; }
