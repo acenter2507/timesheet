@@ -1,5 +1,10 @@
 <div class="chats">
   <div class="chat-toolbar">
+    <div class="toolbar-leftside"></div>
+    <div class="toolbar-center">
+      <span class="text-h4">{{ vm.room.name }}</span>
+    </div>
+    <div class="toolbar-rightside"></div>
   </div>
   <div class="chat-content">
     <div class="chat-lefside" infinite-scroll="vm.handleLoadDatas()" infinite-scroll-distance='1'>
@@ -33,7 +38,8 @@
         <div class="input-block">
           <div class="input-toolbar"></div>
           <div class="input-type">
-            <textarea focus-me="true" class="input-type-area" placeholder="ここにメッセージ内容を入力(Shift + Enterキーで送信)"></textarea>
+            <textarea focus-me="true" class="input-type-area" placeholder="ここにメッセージ内容を入力
+            (Shift + Enterキーで送信)"></textarea>
           </div>
         </div>
       </div>

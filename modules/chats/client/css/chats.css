@@ -9,14 +9,14 @@
   .chats .chat-toolbar {
     background-color: #1a1a1a;
     color: #fff;
-    min-height: 50px; }
+    min-height: 50px;
+    display: flex; }
   .chats .chat-content {
     background-color: #fff;
     flex-grow: 1;
     overflow-y: hidden;
     display: flex; }
     .chats .chat-content .chat-lefside {
-      padding-right: 8px;
       width: 300px; }
     .chats .chat-content .chat-center {
       flex-grow: 1;
@@ -61,6 +61,15 @@
             overflow-y: hidden;
             min-height: 110px;
             font-size: 14px; }
+
+.chats .chat-toolbar .chat-lefside {
+  width: 300px; }
+.chats .chat-toolbar .chat-rightside {
+  width: 250px; }
+.chats .chat-toolbar .chat-center {
+  flex-grow: 1;
+  border-left: 1px solid #777;
+  border-right: 1px solid #777; }
 
 .chats .list-group.chat-list .list-group-item {
   padding: 8px;
