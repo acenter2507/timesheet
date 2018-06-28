@@ -10,7 +10,7 @@
   RoomsService.$inject = ['$resource'];
 
   function RoomsService($resource) {
-    return $resource('api/rooms/:chatId', { roomId: '@_id' }, {
+    return $resource('api/rooms/:roomId', { roomId: '@_id' }, {
       update: {
         method: 'PUT'
       }
