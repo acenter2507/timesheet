@@ -13,8 +13,8 @@
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar; }
   .chat-screen .chat-center {
-    min-width: 300px;
     flex-grow: 1;
+    min-width: 200px;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     display: flex;
