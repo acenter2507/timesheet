@@ -134,9 +134,10 @@ exports.privateRoom = function (req, res) {
       });
       _room.save(function (err) {
         if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
-        Room.populate(_room, { path: 'users', select: 'displayName profileImageURL' }, function (err, room) {
-          return res.jsonp(room);
-        });
+        Room.findById(_room._id).populate('users', 'displayName profileImageURL')
+          .exec(function (err, room) {
+            return res.jsonp(room);
+          });
       });
 
     });
