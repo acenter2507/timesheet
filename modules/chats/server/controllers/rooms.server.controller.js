@@ -134,7 +134,7 @@ exports.privateRoom = function (req, res) {
       });
       _room.save(function (err) {
         if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
-        return res.jsonp(room);
+        return res.jsonp(_room);
       });
 
     });
