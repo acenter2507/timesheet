@@ -232,8 +232,23 @@
 </div> -->
 
 <div class="chat-screen">
-  <div class="chat-lefside" infinite-scroll="vm.handleScrollLefiside()" infinite-scroll-distance='1'>
-    <tabset justified="true">
+  <div class="chat-lefside">
+    <div class="leftside-toolbar"></div>
+    <div class="leftside-wrapper">
+      <div class="leftside-container">
+        <div class="leftside-content">
+          <div class="list-group chat-list">
+            <a ng-repeat="user in vm.users" ng-click="vm.handleUserSelected(user)" class="list-group-item">
+              <div class="chat-user">
+                <img src="{{ user.profileImageURL }}" class="img-round">
+                <span>{{ user.displayName }}</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <tabset justified="true">
       <tab select="vm.handleTabChanged(1)" heading="チャット">
         <div class="list-group chat-list">
           <a ng-repeat="room in vm.rooms" ng-click="vm.handleRoomSelected(room)" class="list-group-item">
@@ -255,7 +270,7 @@
         </div>
       </tab>
       <tab select="vm.handleTabChanged(3)" heading="検索"></tab>
-    </tabset>
+    </tabset> -->
   </div>
   <div class="chat-center">
     <div class="chat-messages">

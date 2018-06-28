@@ -9,11 +9,11 @@
   .chat-screen .chat-lefside {
     min-width: 200px;
     max-width: 300px;
-    overflow-y: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar; }
+    display: flex;
+    flex-direction: column; }
   .chat-screen .chat-center {
     flex-grow: 1;
-    min-width: 200px;
+    min-width: 300px;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     display: flex;
@@ -23,6 +23,23 @@
     width: 250px;
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar; }
+    .chat-screen .chat-lefside .leftside-toolbar {
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 8px;
+      height: 41px;
+      background-color: #fff;
+      border-bottom: 1px solid #cccccc; }
+    .chat-screen .chat-lefside .leftside-wrapper {
+      display: flex;
+      flex: 1;
+      min-height: 0px; }
+      .chat-screen .chat-lefside .leftside-container {
+        flex: 1;
+        overflow: auto;
+        -ms-overflow-style: -ms-autohiding-scrollbar; }
+
     .chat-screen .chat-center .chat-messages {
       flex-grow: 1;
       overflow-y: auto;
