@@ -209,7 +209,13 @@
       message.$save(successCallback, errorCallback);
       function successCallback(message) {
         handlePrepareForShowMessage(message);
-        vm.messages.push(message);
+        // Trường hợp room chưa được tạo trước đó
+        vm.room.updated = new Date();
+        if (vm.room.started === 1) {
+          vm.room.started = 2;
+          vm.rooms.push(vm.room);
+        }
+        vm.room.$update();
       }
       function errorCallback(err) {
         $scope.handleShowToast(err.message);

@@ -238,7 +238,7 @@
       <div class="leftside-container">
         <div class="leftside-content">
           <div class="list-group chat-list">
-            <a ng-repeat="room in vm.rooms" ng-click="vm.handleRoomSelected(room)" class="list-group-item">
+            <a ng-repeat="room in vm.rooms | orderBy: '-update'" ng-click="vm.handleRoomSelected(room)" class="list-group-item">
               <div class="item-content">
                 <img src="{{ room.avatar }}" class="img-round">
                 <span>{{ room.name }}</span>

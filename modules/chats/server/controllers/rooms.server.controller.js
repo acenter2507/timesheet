@@ -43,14 +43,10 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var room = req.room;
-
   room = _.extend(room, req.body);
-
   room.save(function (err) {
     if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      return res.status(400).send({ message: 'ルーム情報を更新できません！' });
     } else {
       res.jsonp(room);
     }
