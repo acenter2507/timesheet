@@ -118,7 +118,8 @@ exports.privateRoom = function (req, res) {
   Room.findOne(
     {
       $and: [
-        { users: { $all: users } },
+        { users: req.body.user },
+        { users: req.user._id },
         { users: { $size: 2 } },
         { kind: 1 }
       ]
