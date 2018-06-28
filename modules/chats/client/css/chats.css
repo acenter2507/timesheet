@@ -43,15 +43,15 @@
           flex: 1;
           overflow: auto;
           -ms-overflow-style: -ms-autohiding-scrollbar; }
-          .chat-screen .list-group.chat-list .list-group-item {
+          .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item {
             padding: 8px;
             border: none;
             border-radius: 0 !important; }
-            .chat-screen .list-group.chat-list .list-group-item.active,
-            .chat-screen .list-group.chat-list .list-group-item.active:hover,
-            .chat-screen .list-group.chat-list .list-group-item.active:focus {
-              color: #555;
-              background-color: #f4f4f4; }
+          .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active,
+          .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active:hover,
+          .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active:focus {
+            color: #555;
+            background-color: #f4f4f4; }
 
     .chat-screen .chat-center .chat-messages {
       flex-grow: 1;
