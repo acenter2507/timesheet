@@ -52,6 +52,14 @@
           .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active:focus {
             color: #555;
             background-color: #f4f4f4; }
+            .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item .item-content {
+              position: relative;
+              width: 100%;
+              height: 40px; }
+              .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item .item-content img { 
+                width: 40px;
+                height: 40px;
+                border-radius: 50%; }
 
     .chat-screen .chat-center .chat-messages {
       flex-grow: 1;
@@ -188,22 +196,6 @@
     color: #555;
     background-color: #f4f4f4; }
 
-.chats .chat-user {
-  position: relative;
-  width: 100%;
-  height: 40px; }
-  .chats .chat-user img { 
-    width: 40px;
-    height: 40px;
-    border-radius: 50%; }
-.chats .chat-room {
-  position: relative;
-  width: 100%;
-  height: 40px; }
-  .chats .chat-room img { 
-    width: 40px;
-    height: 40px;
-    border-radius: 50%; }
 
 
 .messages {
