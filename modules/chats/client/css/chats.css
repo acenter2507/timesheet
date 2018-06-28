@@ -12,8 +12,7 @@
     height: 50px; }
   .chats .chat-content {
     background-color: #fff;
-    flex-grow: 1;
-    display: flex; }
+    flex-grow: 1; }
     .chats .chat-content .chat-lefside {
       width: 300px; }
     .chats .chat-content .chat-center {
