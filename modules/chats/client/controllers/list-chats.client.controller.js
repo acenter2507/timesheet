@@ -129,7 +129,7 @@
     };
 
     function handleStartChatRoom(room) {
-      console.log(room);
+      vm.room = room;
     }
 
     function detectPrivateRoom(room) {

@@ -11,7 +11,8 @@
     color: #fff;
     padding: 8px;
     height: 50px;
-    width: 100%;}
+    width: 100%;
+    display: flex; }
   .chats .chat-content {
     background-color: #fff;
     flex-grow: 1;
@@ -32,23 +33,6 @@
     .chats .chat-content .chat-rightside:hover {
       overflow-y: auto;
       -ms-overflow-style: -ms-autohiding-scrollbar; }
-      .chats .chat-content .chat-lefside::-webkit-scrollbar,
-      .chats .chat-content .chat-rightside::-webkit-scrollbar {
-        position: absolute;
-        width: 10px;
-        margin-left: -10px;}
-      .chats .chat-content .chat-lefside::-webkit-scrollbar-track,
-      .chats .chat-content .chat-rightside::-webkit-scrollbar-track {
-        background-color: #fff;
-        border: none;}
-      .chats .chat-content .chat-lefside::-webkit-scrollbar-thumb,
-      .chats .chat-content .chat-rightside::-webkit-scrollbar-thumb {
-        height: 50px;
-        background-color: #eee;
-        background-clip: content-box;
-        border-color: transparent;
-        border-style: solid;
-        border-width: 1px 2px; }
     .chats .chat-content .chat-center .chat-messages {
       flex-grow: 1; }
     .chats .chat-content .chat-center .chat-input {
@@ -79,7 +63,14 @@
             overflow-y: hidden;
             min-height: 110px;
             font-size: 14px; }
-
+  .chats .chat-toolbar .toolbar-leftside {
+    width: 300px; }
+  .chats .chat-toolbar .toolbar-rightside {
+    width: 250px; }
+  .chats .chat-toolbar .toolbar-center {
+    flex-grow: 1;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc; }
 .chats .list-group.chat-list .list-group-item {
   padding: 8px;
   border: none;

@@ -50,7 +50,6 @@ body {
     background-clip: content-box; }
     .aside-menu::-webkit-scrollbar-thumb {
     background: transparent; }
-
   .aside-menu .aside-profile,
   .aside-menu .aside-search {
     padding: 1rem;
@@ -203,8 +202,8 @@ a {
 [x-ng-cloak],
 .ng-cloak,
 .x-ng-cloak {
-  display: none !important;
-}
+  display: none !important; }
+
 .header-profile-image {
   opacity: 0.8;
   height: 34px;
@@ -469,3 +468,21 @@ ul.user-menu {
   background-color: #f86c6b; }
   .badge-danger[href]:focus, .badge-danger[href]:hover {
     background-color: #f63c3a; }
+
+::-webkit-scrollbar,
+::-webkit-scrollbar {
+  position: absolute;
+  width: 10px;
+  margin-left: -10px;}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  background-color: #fff;
+  border: none;}
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  background-color: #eee;
+  background-clip: content-box;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px 2px; }
