@@ -16,6 +16,7 @@
     overflow-y: hidden;
     display: flex; }
     .chats .chat-content .chat-lefside {
+      padding-right: 8px;
       width: 300px; }
     .chats .chat-content .chat-center {
       flex-grow: 1;
