@@ -130,6 +130,7 @@
 
     function handleStartChatRoom(room) {
       vm.room = room;
+      if (!$scope.$$phase) $scope.$digest();
     }
 
     function detectPrivateRoom(room) {
