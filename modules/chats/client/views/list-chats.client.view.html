@@ -265,7 +265,7 @@
               <div class="chat-body clearfix">
                 <div class="header">
                   <strong class="primary-font">{{ message.user.displayName }}</strong>
-                  <small class="pull-right text-muted">
+                  <small class="text-muted" ng-class="{'pull-right': !message.self, 'pull-left': message.self}">
                     <span class="glyphicon glyphicon-time"></span>
                     <span am-time-ago="message.created"></span>
                   </small>
