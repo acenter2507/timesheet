@@ -5,7 +5,8 @@
   left: 0;
   right: 0;
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  background-color: #fff; }
   .chat-screen .chat-lefside {
     min-width: 200px;
     max-width: 300px;
