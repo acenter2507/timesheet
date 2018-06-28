@@ -263,7 +263,7 @@
                 <img src="{{ message.user.profileImageURL }}" alt="{{ message.user.displayName }}" />
               </span>
               <div class="chat-body clearfix">
-                <div class="header">
+                <div class="header clearfix">
                   <strong class="primary-font message-owner">{{ message.user.displayName }}</strong>
                   <small class="text-muted message-time">
                     <span class="glyphicon glyphicon-time"></span>
@@ -273,6 +273,7 @@
                 <p class="message-content" ng-bind-html="message.content | nl2br"></p>
               </div>
             </li>
+
             <li class="left clearfix">
               <span class="chat-img pull-left">
                 <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" />
