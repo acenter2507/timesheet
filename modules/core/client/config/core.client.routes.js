@@ -16,31 +16,26 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       .state('home', {
         url: '/',
         templateUrl: 'modules/core/client/views/home.client.view.html',
-        data: {
-          roles: ['user']
-        },
+        data: { roles: ['user'] },
         ncyBreadcrumb: { label: 'ホーム' }
       })
       .state('not-found', {
         url: '/not-found',
         templateUrl: 'modules/core/client/views/404.client.view.html',
-        data: {
-          ignoreState: true
-        }
+        data: { ignoreState: true },
+        ncyBreadcrumb: { label: 'エラー' }
       })
       .state('bad-request', {
         url: '/bad-request',
         templateUrl: 'modules/core/client/views/400.client.view.html',
-        data: {
-          ignoreState: true
-        }
+        data: { ignoreState: true },
+        ncyBreadcrumb: { label: 'エラー' }
       })
       .state('forbidden', {
         url: '/forbidden',
         templateUrl: 'modules/core/client/views/403.client.view.html',
-        data: {
-          ignoreState: true
-        }
+        data: { ignoreState: true },
+        ncyBreadcrumb: { label: 'エラー' }
       });
   }
 ]);
