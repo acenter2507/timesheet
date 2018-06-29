@@ -57,7 +57,10 @@ exports.load = function (req, res) {
     page: condition.paginate.page,
     limit: condition.paginate.limit,
     sort: '-updated',
-    populate: [{ path: 'users', select: 'displayName profileImageURL' }],
+    populate: [
+      { path: 'users', select: 'displayName profileImageURL' },
+      { path: 'user', select: 'displayName profileImageURL' }
+    ],
   }).then(result => {
     return res.jsonp(result.docs);
   }).catch(err => {
