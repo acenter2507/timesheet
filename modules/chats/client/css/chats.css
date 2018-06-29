@@ -40,10 +40,17 @@
         overflow: auto;
         -ms-overflow-style: -ms-autohiding-scrollbar; }
         .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item,
-        .chat-screen .chat-rightside .rightside-container .rightside-content .list-group.chat-list .list-group-item  {
+        .chat-screen .chat-rightside .rightside-container .rightside-content .list-group.chat-list .list-group-item {
           padding: 8px;
           border: none;
           border-radius: 0 !important; }
+        .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.item-button,
+        .chat-screen .chat-rightside .rightside-container .rightside-content .list-group.chat-list .list-group-item.item-button {
+          text-align: center;
+          height: 40px;
+          color: #0084ff;
+          line-height: 40px;
+          background-color: #f4f4f4; }
         .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active,
         .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active:hover,
         .chat-screen .chat-lefside .leftside-container .leftside-content .list-group.chat-list .list-group-item.active:focus,

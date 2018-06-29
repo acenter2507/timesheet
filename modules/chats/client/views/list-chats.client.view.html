@@ -68,8 +68,9 @@
                 <span>{{ user.displayName }}</span>
               </div>
             </a>
-            <a class="list-group-item" ng-show="!vm.userPaginate.busy && !vm.userPaginate.stopped" ng-click="vm.handleLoadUsers()">
-              <span>もっと見る</span>
+            <a class="list-group-item item-button" ng-show="!vm.userPaginate.stopped" ng-click="vm.handleLoadUsers()">
+              <span ng-show="!vm.userPaginate.busy">もっと見る</span>
+              <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.userPaginate.busy"></i>
             </a>
           </div>
         </div>
