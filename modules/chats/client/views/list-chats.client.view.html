@@ -1,6 +1,8 @@
 <div class="chat-screen">
   <div class="chat-lefside">
-    <div class="leftside-toolbar"></div>
+    <div class="leftside-toolbar">
+      <span>{{ vm.messagePaginate.newest }}</span>
+    </div>
     <div class="leftside-wrapper">
       <div class="leftside-container">
         <div class="leftside-content" infinite-scroll="vm.handleLoadRooms()" infinite-scroll-distance='1'>
