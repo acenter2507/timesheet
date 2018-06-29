@@ -83,7 +83,7 @@
           if (vm.roomPaginate.stopped === true && vm.rooms.length === 0) {
             RoomsApi.myRoom()
               .success(function (room) {
-                handleStartChatRoom(room);
+                handleStartChatRoom(room, true);
                 vm.rooms.push(room);
               }).error(function (err) {
                 $scope.handleShowToast(err.message, true);
@@ -91,7 +91,7 @@
           }
           // Trường hợp chưa có room nào đang active
           if ((!vm.room || !vm.room._id) && vm.rooms.length > 0) {
-            handleStartChatRoom(vm.rooms[0]);
+            handleStartChatRoom(vm.rooms[0], false);
           }
           vm.roomPaginate.busy = false;
           if (!$scope.$$phase) $scope.$digest();
@@ -174,7 +174,7 @@
         return RoomsApi.privateRoom(user._id).success(successCallback).error(errorCallback);
       }
       function successCallback(room) {
-        handleStartChatRoom(room);
+        handleStartChatRoom(room, false);
       }
       function errorCallback(err) {
         return $scope.handleShowToast(err.message, true);
@@ -182,14 +182,16 @@
     };
     vm.handleRoomSelected = function (room) {
       if (!room._id) return;
-      handleStartChatRoom(room);
+      handleStartChatRoom(room, false);
     };
 
-    function handleStartChatRoom(room) {
+    function handleStartChatRoom(room, isAdd) {
       RoomsService.get({ roomId: room._id }).$promise.then(function (room) {
-        console.log(room);
         handlePrepareForShowRoom(room);
         vm.room = room;
+        if (isAdd) {
+          vm.rooms.push(room);
+        }
         vm.messages = [];
         vm.messagePaginate = {
           page: 1,
