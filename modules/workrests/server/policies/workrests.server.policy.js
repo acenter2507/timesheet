@@ -76,7 +76,10 @@ exports.invokeRolesPolicies = function () {
  * Check If Workrests Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
-  var roles = (req.user) ? req.user.roles : ['guest'];
+  var roles = (req.user) ? req.user.roles : [''];
+
+  if (roles.length === 0)
+    return res.status(403).json({ message: 'アクセス権限がありません！' });
 
   // If an Workrest is being processed and the current user created it then allow any manipulation
   if (req.workrest && req.user && req.workrest.user && req.workrest.user.id === req.user.id) {

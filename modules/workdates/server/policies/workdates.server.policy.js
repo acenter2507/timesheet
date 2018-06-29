@@ -46,7 +46,10 @@ exports.invokeRolesPolicies = function () {
  * Check If Workdates Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
-  var roles = (req.user) ? req.user.roles : ['guest'];
+  var roles = (req.user) ? req.user.roles : [''];
+
+  if (roles.length === 0)
+    return res.status(403).json({ message: 'アクセス権限がありません！' });
 
   // If an Workdate is being processed and the current user created it then allow any manipulation
   if (req.workdate && req.user && req.workdate.user && req.workdate.user.id === req.user.id) {
