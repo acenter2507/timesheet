@@ -160,6 +160,7 @@
       vm.activeTab = tab;
     };
     vm.handleUserSelected = function (user) {
+      if (user._id === $scope.user._id) return;
       // Kiểm tra đã có tin nhắn private với user đã chọn chưa
       RoomsApi.privateRoom(user._id)
         .success(function (room) {
