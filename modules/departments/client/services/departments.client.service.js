@@ -10,7 +10,8 @@
   DepartmentsService.$inject = ['$resource'];
   function DepartmentsService($resource) {
     return $resource('api/departments/:departmentId', { departmentId: '@_id' }, {
-      get: { ignoreLoadingBar: true },
+      save: { method: 'POST', ignoreLoadingBar: true },
+      get: { method: 'GET', ignoreLoadingBar: true },
       update: { method: 'PUT', ignoreLoadingBar: true },
       query: { isArray: true, ignoreLoadingBar: true }
     });

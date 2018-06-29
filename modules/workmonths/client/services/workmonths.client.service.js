@@ -11,7 +11,8 @@
 
   function WorkmonthsService($resource) {
     return $resource('api/workmonths/:workmonthId', { workmonthId: '@_id' }, {
-      get: { ignoreLoadingBar: true },
+      save: { method: 'POST', ignoreLoadingBar: true },
+      get: { method: 'GET', ignoreLoadingBar: true },
       update: { method: 'PUT', ignoreLoadingBar: true },
       query: { isArray: true, ignoreLoadingBar: true }
     });
