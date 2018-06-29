@@ -13,7 +13,7 @@
     return $resource('api/workdates/:workdateId', { workdateId: '@_id' }, {
       get: { ignoreLoadingBar: true },
       update: { method: 'PUT', ignoreLoadingBar: true },
-      query: { ignoreLoadingBar: true }
+      query: { isArray: true, ignoreLoadingBar: true }
     });
   }
 

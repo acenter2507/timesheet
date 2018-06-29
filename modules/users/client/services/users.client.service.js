@@ -6,7 +6,7 @@ angular.module('users').factory('Users', ['$resource',
     return $resource('api/users', {}, {
       get: { ignoreLoadingBar: true },
       update: { method: 'PUT', ignoreLoadingBar: true },
-      query: { ignoreLoadingBar: true }
+      query: { isArray: true, ignoreLoadingBar: true }
     });
   }
 ]);
