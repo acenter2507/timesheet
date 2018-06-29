@@ -24,18 +24,4 @@
         ncyBreadcrumb: { label: 'ホーム' }
       });
   }
-
-  getChat.$inject = ['$stateParams', 'ChatsService'];
-
-  function getChat($stateParams, ChatsService) {
-    return ChatsService.get({
-      chatId: $stateParams.chatId
-    }).$promise;
-  }
-
-  newChat.$inject = ['ChatsService'];
-
-  function newChat(ChatsService) {
-    return new ChatsService();
-  }
 }());

@@ -170,6 +170,10 @@
           return $scope.handleShowToast(err.message, true);
         });
     };
+    vm.handleRoomSelected = function (room) {
+      if (!room._id) return;
+      handleStartChatRoom(room);
+    };
 
     function handleStartChatRoom(room) {
       RoomsService.get({ roomId: room._id }).$promise.then(function (room) {
