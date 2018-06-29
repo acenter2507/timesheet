@@ -183,6 +183,7 @@
     };
     vm.handleRoomSelected = function (room) {
       if (!room._id) return;
+      if (room._id === vm.room._id) return;
       handleStartChatRoom(room, false);
     };
 
