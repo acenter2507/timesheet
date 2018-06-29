@@ -193,7 +193,6 @@
         handleLoadMessages();
       });
     }
-
     function handlePrepareForShowRoom(room) {
       if (room.kind === 1) {
         for (var index = 0; index < room.users.length; index++) {
@@ -203,6 +202,9 @@
             room.avatar = user.profileImageURL;
           }
         }
+      } else if (room.kind === 3) {
+        room.name = 'マイチャット';
+        room.avatar = room.user.profileImageURL;
       }
       return room;
     }
@@ -227,16 +229,21 @@
       });
       message.$save(successCallback, errorCallback);
       function successCallback(message) {
+        // Xử lý trước khi show tin nhắn
         handlePrepareForShowMessage(message);
+        // Thêm tin nhắn vào màn hình
         vm.messages.push(message);
-        Socket.emit(vm.socketKeys.chat, {
-          room: vm.room._id,
-          time: new Date().getTime(),
-          chat: message._id,
-          user: $scope.user._id
-        });
-        // Trường hợp room chưa được tạo trước đó
+        // Nếu không phải là My Chat thì gửi Socket
+        if (vm.room.kind !== 3) {
+          Socket.emit(vm.socketKeys.chat, {
+            room: vm.room._id,
+            time: new Date().getTime(),
+            chat: message._id,
+            user: $scope.user._id
+          });
+        }
         vm.room.updated = new Date();
+        // Trường hợp room chưa được tạo trước đó
         if (vm.room.started === 1) {
           vm.room.started = 2;
           vm.rooms.push(vm.room);

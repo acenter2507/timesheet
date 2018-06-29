@@ -23,6 +23,7 @@ exports.create = function (req, res) {
 exports.read = function (req, res) {
   Room.findById(req.room._id)
     .populate('users', 'displayName profileImageURL')
+    .populate('user', 'displayName profileImageURL')
     .exec((err, room) => {
       if (err)
         return res.status(400).send({ message: 'チャットのルームが見つかりません！' });
