@@ -84,7 +84,6 @@
             RoomsApi.myRoom()
               .success(function (room) {
                 handleStartChatRoom(room, true);
-                vm.rooms.push(room);
               }).error(function (err) {
                 $scope.handleShowToast(err.message, true);
               });
