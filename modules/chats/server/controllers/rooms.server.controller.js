@@ -14,9 +14,14 @@ exports.create = function (req, res) {
   room.save(function (err) {
     if (err)
       return res.status(400).send({ message: 'チャットのルームを保存できません！' });
-    Room.populate(room, { path: 'users', select: 'displayName profileImageURL' }, (err, room) => {
-      return res.jsonp(room);
-    });
+    Room.findById(room._id)
+      .populate('users', 'displayName profileImageURL')
+      .populate('user', 'displayName profileImageURL')
+      .exec((err, room) => {
+        if (err)
+          return res.status(400).send({ message: 'チャットのルームが見つかりません！' });
+        return res.jsonp(room);
+      });
   });
 };
 
