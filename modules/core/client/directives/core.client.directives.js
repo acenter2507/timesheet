@@ -207,9 +207,15 @@ function scrollTopSpyDirective() {
   return directive;
 
   function link(scope, element, attrs) {
-    console.log('Ah hihi', scope.user);
-    element.on('scroll', function (e) {
-      console.log('scroll', element.scrollTop);
+    var container = angular.element(element);
+    container.bind("scroll", function (evt) {
+      if (container[0].scrollTop <= 0) {
+        console.log('Ah hihi', scope.user);
+        alert('On the top of the world I\'m singing I\'m dancing.');
+      }
+      if (container[0].offsetHeight + container[0].scrollTop >= container[0].scrollHeight) {
+        alert('On the bottom of the world I\'m waiting.');
+      }
     });
   }
 }
