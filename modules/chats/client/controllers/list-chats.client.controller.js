@@ -35,7 +35,7 @@
         busy: false,
         newest: true,
         stopped: false,
-        limit: 30
+        limit: 10
       };
     }
     function prepareRoomsPaging() {
