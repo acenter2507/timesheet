@@ -13,9 +13,9 @@ angular.module('core').controller('HomeController', ['$scope', 'WorkrestsApi',
         });
     }
     $scope.texts = [];
-    $scope.loadTexts = function() {
+    $scope.loadTexts = function () {
       for (var index = 0; index < 20; index++) {
-        $scope.texts.push(index);
+        $scope.texts.push({ time: new Date().getTime(), text: index });
       }
     };
   }
