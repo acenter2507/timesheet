@@ -14,13 +14,12 @@ var path = require('path'),
 exports.create = function (req, res) {
   var chat = new Chat(req.body);
   chat.save(function (err) {
-    if (err) {
+    if (err)
       return res.status(400).send({ message: 'チャットのメッセージを送信できません！' });
-    } else {
-      Chat.populate(chat, { path: 'user', select: 'displayName profileImageURL' }, (err, char) => {
-        return res.jsonp(chat);
-      });
-    }
+    // Trả về giá trị đầy đủ sau khi lưu
+    Chat.populate(chat, { path: 'user', select: 'displayName profileImageURL' }, (err, char) => {
+      return res.jsonp(chat);
+    });
   });
 };
 
@@ -36,17 +35,12 @@ exports.read = function (req, res) {
 
 exports.update = function (req, res) {
   var chat = req.chat;
-
   chat = _.extend(chat, req.body);
 
   chat.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(chat);
-    }
+    if (err)
+      return res.status(400).send({ message: 'チャットのメッセージを保存できません！' });
+    return res.jsonp(chat);
   });
 };
 
@@ -54,46 +48,24 @@ exports.delete = function (req, res) {
   var chat = req.chat;
 
   chat.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(chat);
-    }
+    if (err)
+      return res.status(400).send({ message: 'チャットのメッセージを削除できません！' });
+    return res.jsonp(chat);
   });
 };
 
-exports.list = function (req, res) {
-  Chat.find().sort('-created').populate('user', 'displayName').exec(function (err, chats) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(chats);
-    }
-  });
-};
-
-exports.chatByID = function (req, res, next, id) {
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Chat is invalid'
-    });
-  }
-
-  Chat.findById(id).populate('user', 'displayName').exec(function (err, chat) {
-    if (err) {
-      return next(err);
-    } else if (!chat) {
-      return res.status(404).send({
-        message: 'No Chat with that identifier has been found'
-      });
-    }
-    req.chat = chat;
-    next();
+exports.load = function (req, res) {
+  var room = req.body.room;
+  var paginate = req.body.paginate;
+  Chat.paginate({ room: room }, {
+    page: paginate.page,
+    limit: paginate.limit,
+    sort: '-created',
+    populate: [{ path: 'user', select: 'displayName profileImageURL' }],
+  }).then(result => {
+    return res.jsonp(result.docs);
+  }).catch(err => {
+    return res.status(400).send({ message: 'メッセージの情報を取得できません！' });
   });
 };
 
@@ -109,17 +81,18 @@ exports.users = function (req, res) {
     return res.status(400).send({ message: 'ユーザー情報を取得できません！' });
   });
 };
-exports.load = function (req, res) {
-  var room = req.body.room;
-  var paginate = req.body.paginate;
-  Chat.paginate({ room: room }, {
-    page: paginate.page,
-    limit: paginate.limit,
-    sort: '-created',
-    populate: [{ path: 'user', select: 'displayName profileImageURL' }],
-  }).then(result => {
-    return res.jsonp(result.docs);
-  }).catch(err => {
-    return res.status(400).send({ message: 'メッセージの情報を取得できません！' });
+
+exports.chatByID = function (req, res, next, id) {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(400).send({ message: 'メッセージが見つかりません！' });
+
+  Chat.findById(id).populate('user', 'displayName').exec(function (err, chat) {
+    if (err)
+      return next(err);
+    if (!chat)
+      return res.status(404).send({ message: 'メッセージが見つかりません！' });
+
+    req.chat = chat;
+    return next();
   });
 };

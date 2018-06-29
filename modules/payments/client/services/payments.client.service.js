@@ -11,9 +11,9 @@
 
   function PaymentsService($resource) {
     return $resource('api/payments/:paymentId', { paymentId: '@_id' }, {
-      update: {
-        method: 'PUT'
-      }
+      get: { ignoreLoadingBar: true },
+      update: { method: 'PUT', ignoreLoadingBar: true },
+      query: { ignoreLoadingBar: true }
     });
   }
 

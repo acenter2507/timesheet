@@ -9,25 +9,17 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore');
 
-/**
- * Create a Room
- */
 exports.create = function (req, res) {
   var room = new Room(req.body);
   room.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(room);
-    }
+    if (err)
+      return res.status(400).send({ message: 'チャットのルームを保存できません！' });
+    Room.populate(room, { path: 'users', select: 'displayName profileImageURL' }, (err, room) => {
+      return res.jsonp(room);
+    });
   });
 };
 
-/**
- * Show the current Room
- */
 exports.read = function (req, res) {
   Room.findById(req.room._id)
     .populate('users', 'displayName profileImageURL')
@@ -38,67 +30,26 @@ exports.read = function (req, res) {
     });
 };
 
-/**
- * Update a Room
- */
 exports.update = function (req, res) {
   var room = req.room;
   room = _.extend(room, req.body);
   room.save(function (err) {
-    if (err) {
-      return res.status(400).send({ message: 'ルーム情報を更新できません！' });
-    } else {
-      res.jsonp(room);
-    }
+    if (err)
+      return res.status(400).send({ message: 'チャットのルームを保存できません！' });
+    return res.jsonp(room);
   });
 };
 
-/**
- * Delete an Room
- */
 exports.delete = function (req, res) {
   var room = req.room;
 
   room.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(room);
-    }
+    if (err)
+      return res.status(400).send({ message: 'チャットのルームを削除できません！' });
+    return res.jsonp(room);
   });
 };
 
-exports.list = function (req, res) {
-  Room.find().sort('-created').populate('user', 'displayName').exec(function (err, rooms) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(rooms);
-    }
-  });
-};
-
-exports.roomByID = function (req, res, next, id) {
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({ message: 'リクエストの情報が見つかりません！' });
-  }
-
-  Room.findById(id)
-    .exec(function (err, room) {
-      if (err) {
-        return next(err);
-      } else if (!room) {
-        return res.status(404).send({ message: 'チャットルームが見つかりません！' });
-      }
-      req.room = room;
-      next();
-    });
-};
 exports.load = function (req, res) {
   var condition = req.body.condition;
   Room.paginate({ users: condition.user, started: 2 }, {
@@ -112,6 +63,7 @@ exports.load = function (req, res) {
     return res.status(400).send({ message: 'チャットグループを取得できません！' });
   });
 };
+
 exports.privateRoom = function (req, res) {
   var users = [req.body.user, req.user._id];
 
@@ -138,5 +90,19 @@ exports.privateRoom = function (req, res) {
         return res.jsonp(_room);
       });
 
+    });
+};
+
+exports.roomByID = function (req, res, next, id) {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(400).send({ message: 'リクエストの情報が見つかりません！' });
+
+  Room.findById(id)
+    .exec(function (err, room) {
+      if (err) return next(err);
+      if (!room)
+        return res.status(404).send({ message: 'チャットルームが見つかりません！' });
+      req.room = room;
+      return next();
     });
 };

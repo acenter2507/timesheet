@@ -8,12 +8,11 @@
     .factory('DepartmentsApi', DepartmentsApi);
 
   DepartmentsService.$inject = ['$resource'];
-
   function DepartmentsService($resource) {
     return $resource('api/departments/:departmentId', { departmentId: '@_id' }, {
-      update: {
-        method: 'PUT'
-      }
+      get: { ignoreLoadingBar: true },
+      update: { method: 'PUT', ignoreLoadingBar: true },
+      query: { ignoreLoadingBar: true }
     });
   }
 

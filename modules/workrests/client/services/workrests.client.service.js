@@ -11,9 +11,9 @@
 
   function WorkrestsService($resource) {
     return $resource('api/workrests/:workrestId', { workrestId: '@_id' }, {
-      update: {
-        method: 'PUT'
-      }
+      get: { ignoreLoadingBar: true },
+      update: { method: 'PUT', ignoreLoadingBar: true },
+      query: { ignoreLoadingBar: true }
     });
   }
   WorkrestsApi.$inject = ['$http'];

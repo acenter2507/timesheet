@@ -11,9 +11,9 @@
 
   function WorkmonthsService($resource) {
     return $resource('api/workmonths/:workmonthId', { workmonthId: '@_id' }, {
-      update: {
-        method: 'PUT'
-      }
+      get: { ignoreLoadingBar: true },
+      update: { method: 'PUT', ignoreLoadingBar: true },
+      query: { ignoreLoadingBar: true }
     });
   }
   WorkmonthsApi.$inject = ['$http'];

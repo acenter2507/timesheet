@@ -11,9 +11,9 @@
 
   function WorkdatesService($resource) {
     return $resource('api/workdates/:workdateId', { workdateId: '@_id' }, {
-      update: {
-        method: 'PUT'
-      }
+      get: { ignoreLoadingBar: true },
+      update: { method: 'PUT', ignoreLoadingBar: true },
+      query: { ignoreLoadingBar: true }
     });
   }
 

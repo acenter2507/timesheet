@@ -13,9 +13,6 @@ var path = require('path'),
   _m = require('moment'),
   jh = require('japanese-holidays');
 
-/**
- * Create a Workmonth
- */
 exports.create = function (req, res) {
   var workmonth = new Workmonth(req.body);
   workmonth.user = req.user;
@@ -80,9 +77,6 @@ exports.create = function (req, res) {
     });
 };
 
-/**
- * Show the current Workmonth
- */
 exports.read = function (req, res) {
   Workmonth.findById(req.workmonth._id)
     .populate({
@@ -104,16 +98,11 @@ exports.read = function (req, res) {
     })
     .exec(function (err, workmonth) {
       if (err)
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
+        return res.status(400).send({ message: '勤務表の情報が見つかりません！' });
       return res.jsonp(workmonth);
     });
 };
 
-/**
- * Update a Workmonth
- */
 exports.update = function (req, res) {
   var workmonth = req.workmonth;
 
@@ -131,9 +120,6 @@ exports.update = function (req, res) {
   });
 };
 
-/**
- * Delete an Workmonth
- */
 exports.delete = function (req, res) {
   var workmonth = req.workmonth;
 
@@ -150,9 +136,6 @@ exports.delete = function (req, res) {
   });
 };
 
-/**
- * Gửi thỉnh cầu
- */
 exports.request = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
@@ -172,9 +155,6 @@ exports.request = function (req, res) {
   });
 };
 
-/**
- * Hủy bỏ thỉnh cầu
- */
 exports.cancel = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
@@ -195,9 +175,6 @@ exports.cancel = function (req, res) {
   });
 };
 
-/**
- * Chấp nhận bản timesheet
- */
 exports.approve = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
@@ -218,9 +195,6 @@ exports.approve = function (req, res) {
   });
 };
 
-/**
- * Từ chối bản timesheet
- */
 exports.reject = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
@@ -242,24 +216,16 @@ exports.reject = function (req, res) {
   });
 };
 
-/**
- * List of Workmonths
- */
 exports.list = function (req, res) {
   Workmonth.find().sort('-created').populate('user', 'displayName').exec(function (err, workmonths) {
     if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      return res.status(400).send({ message: '勤務表データを取得できません！' });
     } else {
       res.jsonp(workmonths);
     }
   });
 };
 
-/**
- * Get all month in year of 1 user
- */
 exports.getMonthsOfYearByUser = function (req, res) {
   var year = req.body.year;
   var userId = req.body.userId;
@@ -281,9 +247,6 @@ exports.getMonthsOfYearByUser = function (req, res) {
     });
 };
 
-/**
- * Get all month in year of 1 user
- */
 exports.getHolidayWorking = function (req, res) {
   var workmonthId = req.body.workmonthId;
   if (!workmonthId) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
@@ -308,9 +271,6 @@ exports.getHolidayWorking = function (req, res) {
     });
 };
 
-/**
- * Workmonth middleware
- */
 exports.workmonthByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -360,7 +320,6 @@ function getWorkrestsForWorkdate(workdate) {
     });
   });
 }
-
 
 exports.getWorkmonthsReview = function (req, res) {
   var page = req.body.page || 1;

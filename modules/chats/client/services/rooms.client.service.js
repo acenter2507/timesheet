@@ -8,7 +8,6 @@
     .factory('RoomsApi', RoomsApi);
 
   RoomsService.$inject = ['$resource'];
-
   function RoomsService($resource) {
     return $resource('api/rooms/:roomId', { roomId: '@_id' }, {
       get: { ignoreLoadingBar: true },

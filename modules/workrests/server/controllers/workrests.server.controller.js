@@ -12,9 +12,6 @@ var path = require('path'),
   _ = require('underscore'),
   _moment = require('moment');
 
-/**
- * Tạo mới ngày nghỉ
- */
 exports.create = function (req, res) {
   var workrest = new Workrest(req.body);
   workrest.user = req.user;
@@ -45,9 +42,6 @@ exports.create = function (req, res) {
   });
 };
 
-/**
- * Gửi thỉnh cầu review
- */
 exports.request = function (req, res) {
   var workrest = req.workrest;
   // Kiểm tra status của Ngày nghỉ
@@ -69,9 +63,6 @@ exports.request = function (req, res) {
   });
 };
 
-/**
- * Hủy bỏ thỉnh cầu
- */
 exports.cancel = function (req, res) {
   var workrest = req.workrest;
   // Kiểm tra status của Ngày nghỉ
@@ -88,9 +79,6 @@ exports.cancel = function (req, res) {
   });
 };
 
-/**
- * Gửi thỉnh cầu xóa Ngày nghỉ đã được approve
- */
 exports.deleteRequest = function (req, res) {
   var workrest = req.workrest;
   // Kiểm tra status của Ngày nghỉ
@@ -107,9 +95,6 @@ exports.deleteRequest = function (req, res) {
   });
 };
 
-/**
- * Xem chi tiết thông tin ngày nghỉ
- */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var workrest = req.workrest ? req.workrest.toJSON() : {};
@@ -117,9 +102,6 @@ exports.read = function (req, res) {
   res.jsonp(workrest);
 };
 
-/**
- * Chỉnh sửa thông tin ngày nghỉ
- */
 exports.update = function (req, res) {
   var workrest = req.workrest;
   workrest = _.extend(workrest, req.body);
@@ -149,9 +131,6 @@ exports.update = function (req, res) {
   });
 };
 
-/**
- * Approve a Rest
- */
 exports.approve = function (req, res) {
   var workrest = req.workrest;
 
@@ -191,9 +170,6 @@ exports.approve = function (req, res) {
   });
 };
 
-/**
- * Approve a Rest
- */
 exports.reject = function (req, res) {
   var workrest = req.workrest;
   workrest.historys.push({ action: 5, comment: req.body.data.comment, timing: new Date(), user: req.user._id });
@@ -220,9 +196,6 @@ exports.reject = function (req, res) {
   });
 };
 
-/**
- * Delete an Workrest
- */
 exports.delete = function (req, res) {
   var workrest = req.workrest;
   workrest.remove(function (err) {
@@ -244,9 +217,6 @@ exports.delete = function (req, res) {
   });
 };
 
-/**
- * List of Workrests
- */
 exports.list = function (req, res) {
   Workrest.find({ user: req.user._id })
     .sort('-created')
@@ -262,15 +232,10 @@ exports.list = function (req, res) {
     });
 };
 
-/**
- * Workrest middleware
- */
 exports.workrestByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Workrest is invalid'
-    });
+    return res.status(400).send({ message: '休暇が見つかりません！' });
   }
 
   Workrest.findById(id)
@@ -279,12 +244,10 @@ exports.workrestByID = function (req, res, next, id) {
       if (err) {
         return next(err);
       } else if (!workrest) {
-        return res.status(404).send({
-          message: 'No Workrest with that identifier has been found'
-        });
+        return res.status(404).send({ message: '休暇が見つかりません！' });
       }
       req.workrest = workrest;
-      next();
+      return next();
     });
 };
 

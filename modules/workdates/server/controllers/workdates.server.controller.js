@@ -12,9 +12,6 @@ var path = require('path'),
   _ = require('underscore'),
   _m = require('moment');
 
-/**
- * Create a Workdate
- */
 exports.create = function (req, res) {
   var workdate = new Workdate(req.body);
   workdate.user = req.user;
@@ -30,9 +27,6 @@ exports.create = function (req, res) {
   });
 };
 
-/**
- * Show the current Workdate
- */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var workdate = req.workdate ? req.workdate.toJSON() : {};
@@ -41,9 +35,6 @@ exports.read = function (req, res) {
   res.jsonp(workdate);
 };
 
-/**
- * Update a Workdate
- */
 exports.update = function (req, res) {
   var workdate = req.workdate;
 
@@ -54,9 +45,7 @@ exports.update = function (req, res) {
 
   workdate.save(function (err) {
     if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      return res.status(400).send({ message: '勤務時間を保存できません！' });
     } else {
       var workmonthId = workdate.workmonth._id || workdate.workmonth;
       Workmonth.calculatorWorkdates(workmonthId)
@@ -74,41 +63,28 @@ exports.update = function (req, res) {
   });
 };
 
-/**
- * Delete an Workdate
- */
 exports.delete = function (req, res) {
   var workdate = req.workdate;
 
   workdate.remove(function (err) {
     if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      return res.status(400).send({ message: '勤務時間を削除できません！' });
     } else {
       res.jsonp(workdate);
     }
   });
 };
 
-/**
- * List of Workdates
- */
 exports.list = function (req, res) {
   Workdate.find().sort('-created').populate('user', 'displayName').exec(function (err, workdates) {
     if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      return res.status(400).send({ message: '勤務時間リストを取得できません！' });
     } else {
       res.jsonp(workdates);
     }
   });
 };
 
-/**
- * Lấy danh sách Workrest trong 1 Workdate
- */
 exports.workrests = function (req, res) {
   var workdate = req.workdate;
   var promises = [];
@@ -127,15 +103,10 @@ exports.workrests = function (req, res) {
     });
 };
 
-/**
- * Workdate middleware
- */
 exports.workdateByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Workdate is invalid'
-    });
+    return res.status(400).send({ message: '勤務時間データが見つかりません！' });
   }
 
   Workdate.findById(id)
@@ -150,9 +121,7 @@ exports.workdateByID = function (req, res, next, id) {
       if (err) {
         return next(err);
       } else if (!workdate) {
-        return res.status(404).send({
-          message: 'No Workdate with that identifier has been found'
-        });
+        return res.status(404).send({ message: '勤務時間データが見つかりません！' });
       }
       req.workdate = workdate;
       next();

@@ -9,12 +9,10 @@
   HolidaysService.$inject = ['$resource'];
 
   function HolidaysService($resource) {
-    return $resource('api/holidays/:holidayId', {
-      holidayId: '@_id'
-    }, {
-      update: {
-        method: 'PUT'
-      }
+    return $resource('api/holidays/:holidayId', { holidayId: '@_id' }, {
+      get: { ignoreLoadingBar: true },
+      update: { method: 'PUT', ignoreLoadingBar: true },
+      query: { ignoreLoadingBar: true }
     });
   }
 }());

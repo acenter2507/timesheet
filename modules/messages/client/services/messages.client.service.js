@@ -10,9 +10,9 @@
 
   function MessagesService($resource) {
     return $resource('api/messages/:messageId', { messageId: '@_id' }, {
-      update: {
-        method: 'PUT'
-      }
+      get: { ignoreLoadingBar: true },
+      update: { method: 'PUT', ignoreLoadingBar: true },
+      query: { ignoreLoadingBar: true }
     });
   }
 }());

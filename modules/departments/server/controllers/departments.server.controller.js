@@ -13,38 +13,25 @@ var path = require('path'),
   multer = require('multer'),
   _ = require('underscore');
 
-/**
- * Create a Department
- */
 exports.create = function (req, res) {
   var department = new Department(req.body);
   department.user = req.user;
 
   department.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(department);
-    }
+    if (err)
+      return res.status(400).send({ message: '部署を保存できません！' });
+    return res.jsonp(department);
   });
 };
 
-/**
- * Show the current Department
- */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var department = req.department ? req.department.toJSON() : {};
   department.isCurrentDepartmentLeader = _.contains(_.pluck(department.leaders, '_id'), req.user._id.toString());
   department.isCurrentDepartmentMember = _.contains(_.pluck(department.members, '_id'), req.user._id.toString());
-  res.jsonp(department);
+  return res.jsonp(department);
 };
 
-/**
- * Update a Department
- */
 exports.update = function (req, res) {
   var department = req.department;
   // Nếu thông tin update tồn tại avatar mới thì xóa file cũ đi
@@ -57,56 +44,34 @@ exports.update = function (req, res) {
   department = _.extend(department, req.body);
 
   department.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(department);
-    }
+    if (err) return res.status(400).send({ message: '部署の情報を削除できません！' });
+    return res.jsonp(department);
   });
 };
 
-/**
- * Delete an Department
- */
 exports.delete = function (req, res) {
   var department = req.department;
 
   department.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      User.removeDepartment(department._id);
-      res.jsonp(department);
-    }
+    if (err)
+      return res.status(400).send({ message: '部署を削除できません！' });
+    User.removeDepartment(department._id);
+    return res.jsonp(department);
   });
 };
 
-/**
- * List of Departments
- */
 exports.list = function (req, res) {
   Department.find()
     .sort('-created')
     .populate('members', 'displayName email profileImageURL')
     .populate('leaders', 'displayName email profileImageURL')
     .exec(function (err, departments) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(departments);
-      }
+      if (err)
+        return res.status(400).send({ message: '部署一覧のデータを取得できません！' });
+      return res.jsonp(departments);
     });
 };
 
-/**
- * Change department avatar
- */
 exports.avatar = function (req, res) {
   var user = req.user;
   var upload = multer(config.uploads.departmentAvatar).single('departmentAvatar');
@@ -120,37 +85,23 @@ exports.avatar = function (req, res) {
   });
 };
 
-
-/**
- * Department middleware
- */
 exports.departmentByID = function (req, res, next, id) {
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Department is invalid'
-    });
-  }
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(400).send({ message: '部署が見つかりません！' });
 
   Department.findById(id)
     .populate('members', 'displayName email profileImageURL')
     .populate('leaders', 'displayName email profileImageURL')
     .exec(function (err, department) {
-      if (err) {
-        return next(err);
-      } else if (!department) {
-        return res.status(404).send({
-          message: 'No Department with that identifier has been found'
-        });
-      }
+      if (err) return next(err);
+      if (!department)
+        return res.status(404).send({ message: '部署が見つかりません！' });
       req.department = department;
-      next();
+      return next();
     });
 };
 
-/**
- * Delete user from department
- */
 exports.removeUser = function (req, res) {
   var userId = req.body.userId;
   var department = req.department;
@@ -172,9 +123,6 @@ exports.removeUser = function (req, res) {
   });
 };
 
-/**
- * Delete user from department
- */
 exports.addUser = function (req, res) {
   var userId = req.body.userId;
   var department = req.department;
@@ -201,9 +149,6 @@ exports.addUser = function (req, res) {
   });
 };
 
-/**
- * Search department with key
- */
 exports.search = function (req, res) {
   var condition = req.body.condition || {};
   var query = {};

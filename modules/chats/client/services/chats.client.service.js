@@ -8,7 +8,6 @@
     .factory('ChatsApi', ChatsApi);
 
   ChatsService.$inject = ['$resource'];
-
   function ChatsService($resource) {
     return $resource('api/chats/:chatId', { chatId: '@_id' }, {
       get: { ignoreLoadingBar: true },
@@ -16,6 +15,7 @@
       query: { ignoreLoadingBar: true }
     });
   }
+
   ChatsApi.$inject = ['$http'];
   function ChatsApi($http) {
     this.users = function (paginate) {

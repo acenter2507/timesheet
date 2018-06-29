@@ -9,9 +9,9 @@
   NotifsService.$inject = ['$resource'];
   function NotifsService($resource) {
     return $resource('api/notifs/:notifId', { notifId: '@_id' }, {
-      update: {
-        method: 'PUT'
-      }
+      get: { ignoreLoadingBar: true },
+      update: { method: 'PUT', ignoreLoadingBar: true },
+      query: { ignoreLoadingBar: true }
     });
   }
 }());
