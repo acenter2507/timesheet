@@ -240,7 +240,7 @@ function scrollSmartDirective() {
 }
 function scrollSmartItemDirective() {
   return {
-    require: "^keepScroll",
+    require: "^scrollSmart",
     link: function (scope, el, att, scrCtrl) {
       scrCtrl.addItem(el[0]);
     }
