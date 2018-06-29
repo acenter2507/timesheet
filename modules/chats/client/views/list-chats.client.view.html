@@ -28,7 +28,7 @@
     </div>
     <div class="center-wrapper">
       <div class="center-container">
-        <div class="center-content">
+        <div class="center-content" scroll-glue="vm.messagePaginate.newest">
           <ul class="messages">
             <li ng-repeat="message in vm.messages | orderBy: 'created'" class="clearfix" ng-class="{'left': message.self, 'right': !message.self }">
               <span class="chat-img">

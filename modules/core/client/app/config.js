@@ -22,7 +22,8 @@ var ApplicationConfiguration = (function () {
     'mwl.calendar',
     'btford.socket-io',
     'ngTagsInput',
-    'infinite-scroll'
+    'infinite-scroll',
+    'luegg.directives'
   ];
 
   // Add a new vertical module

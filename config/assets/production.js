@@ -41,7 +41,8 @@ module.exports = {
         'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
         'public/lib/angular-socket-io/socket.min.js',
         'public/lib/ng-tags-input/ng-tags-input.min.js',
-        'public/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
+        'public/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
+        'public/lib/angular-scroll-glue/src/scrollglue.js'
       ]
     },
     css: 'public/dist/application.min.css',

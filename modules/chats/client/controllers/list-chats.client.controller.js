@@ -32,6 +32,7 @@
     vm.messagePaginate = {
       page: 1,
       busy: false,
+      newest: true,
       stopped: false,
       limit: 30
     };
