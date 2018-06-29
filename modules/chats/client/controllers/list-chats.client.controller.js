@@ -43,7 +43,7 @@
     function onCreate() {
       prepareSocketListenner();
       handleLoadRooms();
-      handleLoadUsers();
+      // handleLoadUsers();
     }
 
     function prepareSocketListenner() {
