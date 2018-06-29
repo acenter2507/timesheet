@@ -9,7 +9,8 @@ angular
   .directive('a', selectInListDirective)
   .directive('button', toggleLeftSideDirective)
   .directive('convertToNumber', convertToNumber)
-  .directive('imagePreview', imagePreviewDirective);
+  .directive('imagePreview', imagePreviewDirective)
+  .directive('scrollTopSpy', scrollTopSpyDirective);
 
 // Hủy tác dụng của link rỗng
 function preventClickDirective() {
@@ -195,5 +196,20 @@ function imagePreviewDirective($window) {
       };
       img.src = event.target.result;
     }
+  }
+}
+// Thiết lập event toggle menu trái
+function scrollTopSpyDirective() {
+  var directive = {
+    restrict: 'E',
+    link: link
+  };
+  return directive;
+
+  function link(scope, element, attrs) {
+    console.log('Ah hihi', scope.user);
+    element.on('scroll', function (e) {
+      console.log('scroll', element.scrollTop);
+    });
   }
 }
