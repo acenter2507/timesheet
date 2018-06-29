@@ -26,9 +26,9 @@
     <div class="center-toolbar">
       <h1 class="room-title">{{ vm.room.name }}</h1>
     </div>
-    <div class="center-wrapper">
+    <div class="center-wrapper" scroll-glue>
       <div class="center-container">
-        <div class="center-content" scroll-glue>
+        <div class="center-content">
           <ul class="messages">
             <li ng-repeat="message in vm.messages | orderBy: 'created'" class="clearfix" ng-class="{'left': message.self, 'right': !message.self }">
               <span class="chat-img">
