@@ -10,43 +10,52 @@
   function ChatsListController($scope, Socket, ChatsService, RoomsService, RoomsApi, ChatsApi, CommonService) {
     var vm = this;
 
-    vm.users = [];
-    vm.userPaginate = {
-      page: 1,
-      limit: 15,
-      busy: false,
-      stopped: false
-    };
-    vm.rooms = [];
-    vm.roomPaginate = {
-      page: 1,
-      limit: 15,
-      busy: false,
-      stopped: false
-    };
     vm.activeTab = 1;
 
     vm.room = {};
     vm.message = '';
-    vm.messages = [];
-    vm.messagePaginate = {
-      page: 1,
-      busy: false,
-      newest: true,
-      stopped: false,
-      limit: 30
-    };
     vm.socketKeys = {
       chat: 'chat'
     };
 
     onCreate();
     function onCreate() {
+      prepareMessagesPaging();
+      prepareRoomsPaging();
+      prepareUsersPaging();
       prepareSocketListenner();
       handleLoadRooms();
       handleLoadUsers();
     }
 
+    function prepareMessagesPaging() {
+      vm.messages = [];
+      vm.messagePaginate = {
+        page: 1,
+        busy: false,
+        newest: true,
+        stopped: false,
+        limit: 30
+      };
+    }
+    function prepareRoomsPaging() {
+      vm.rooms = [];
+      vm.roomPaginate = {
+        page: 1,
+        limit: 15,
+        busy: false,
+        stopped: false
+      };
+    }
+    function prepareUsersPaging() {
+      vm.users = [];
+      vm.userPaginate = {
+        page: 1,
+        limit: 15,
+        busy: false,
+        stopped: false
+      };
+    }
     function prepareSocketListenner() {
       if (!Socket.socket) {
         Socket.connect();
@@ -192,13 +201,7 @@
         if (isAdd) {
           vm.rooms.push(room);
         }
-        vm.messages = [];
-        vm.messagePaginate = {
-          page: 1,
-          busy: false,
-          stopped: false,
-          limit: 30
-        };
+        prepareMessagesPaging();
         handleLoadMessages();
       });
     }
