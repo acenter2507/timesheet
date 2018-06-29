@@ -71,17 +71,30 @@
         .success(function (_rooms) {
           if (!_rooms || _rooms.length === 0) {
             vm.roomPaginate.stopped = true;
-            vm.roomPaginate.busy = false;
           } else {
             for (var index = 0; index < _rooms.length; index++) {
               handlePrepareForShowRoom(_rooms[index]);
             }
             vm.rooms = _.union(vm.rooms, _rooms);
             vm.roomPaginate.page += 1;
-            vm.roomPaginate.busy = false;
             if (_rooms.length < vm.roomPaginate.limit) vm.roomPaginate.stopped = true;
           }
+          // Trường hợp không có room nào
+          if (vm.roomPaginate.stopped === true && vm.rooms.length === 0) {
+            RoomsApi.privateRoom(user._id)
+              .success(function (room) {
+                handleStartChatRoom(room);
+                vm.rooms.push(room);
+              }).error(function (err) {
+                $scope.handleShowToast(err.message, true);
+              });
+          }
+          // Trường hợp chưa có room nào đang active
+          if ((!vm.room || !vm.room._id) && vm.rooms.length > 0) {
+            handleStartChatRoom(vm.rooms[0]);
+          }
           if (!$scope.$$phase) $scope.$digest();
+          vm.roomPaginate.busy = false;
         })
         .error(function (err) {
           vm.roomPaginate.busy = false;
@@ -162,7 +175,6 @@
         return RoomsApi.privateRoom(user._id).success(successCallback).error(errorCallback);
       }
       function successCallback(room) {
-        handlePrepareForShowRoom(room);
         handleStartChatRoom(room);
       }
       function errorCallback(err) {
