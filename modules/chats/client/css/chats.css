@@ -129,14 +129,15 @@
             margin: 0;
             padding: 0; }
             .chat-screen .chat-center .center-container .messages li {
+              margin-left: 0;
               padding: 10px 5px;
               border-bottom: 1px dotted #B3A9A9; }
             .chat-screen .chat-center .center-container .messages li.ng-enter {
+              -webkit-transition: 1s;
+              transition: 1s;
               opacity: 0;
               margin-left: 100%; }
             .chat-screen .chat-center .center-container .messages li.ng-enter-active {
-              -webkit-transition: 1s;
-              transition: 1s;
               margin-left: 0; }
               .chat-screen .chat-center .center-container .messages li:last-child {
                 border: none; }
