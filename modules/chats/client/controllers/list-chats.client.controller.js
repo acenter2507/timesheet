@@ -213,7 +213,6 @@
         room.name = 'マイチャット';
         room.avatar = room.user.profileImageURL;
       }
-      return room;
     }
     function handlePrepareForShowMessage(message) {
       if (message.user._id === $scope.user._id) {
