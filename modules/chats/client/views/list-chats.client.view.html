@@ -58,10 +58,10 @@
 
   <div class="chat-rightside">
     <div class="rightside-toolbar"></div>
-    <div class="rightside-wrapper">
+    <div class="rightside-wrapper" infinite-scroll="vm.handleLoadUsers()" infinite-scroll-distance='1'>
       <div class="rightside-container">
         <div class="rightside-content">
-          <div class="list-group chat-list" infinite-scroll="vm.handleLoadUsers()" infinite-scroll-distance='3'>
+          <div class="list-group chat-list">
             <a ng-repeat="user in vm.users" ng-click="vm.handleUserSelected(user)" class="list-group-item">
               <div class="item-content">
                 <img src="{{ user.profileImageURL }}" class="img-round">
