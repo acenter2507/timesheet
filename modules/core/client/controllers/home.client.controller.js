@@ -13,6 +13,8 @@ angular.module('core').controller('HomeController', ['$scope', 'WorkrestsApi', '
           $scope.workrests = workrests;
         });
     }
+    vm.texts = [];
+    $scope.glued = true;
     function addItem() {
       vm.texts.push({ text: new Date().getTime() });
       $timeout(addItem, 1000);
