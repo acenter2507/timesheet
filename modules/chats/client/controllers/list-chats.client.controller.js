@@ -13,14 +13,14 @@
     vm.users = [];
     vm.userPaginate = {
       page: 1,
-      limit: 50,
+      limit: 15,
       busy: false,
       stopped: false
     };
     vm.rooms = [];
     vm.roomPaginate = {
       page: 1,
-      limit: 50,
+      limit: 15,
       busy: false,
       stopped: false
     };
@@ -63,6 +63,7 @@
         Socket.removeListener('onlines');
       });
     }
+    vm.handleLoadRooms = handleLoadRooms;
     function handleLoadRooms() {
       if (vm.roomPaginate.busy || vm.roomPaginate.stopped) return;
       vm.roomPaginate.busy = true;
@@ -86,6 +87,7 @@
           return $scope.handleShowToast(err.message, true);
         });
     }
+    vm.handleLoadUsers = handleLoadUsers;
     function handleLoadUsers() {
       if (vm.userPaginate.busy || vm.userPaginate.stopped) return;
       vm.userPaginate.busy = true;
@@ -146,16 +148,6 @@
     function handleReceivedUserss(res) {
     }
 
-    vm.handleScrollLefiside = function () {
-      switch (vm.activeTab) {
-        case 1:
-          return handleLoadRooms();
-        case 2:
-          return;
-        case 3:
-          return;
-      }
-    };
     vm.handleTabChanged = function (tab) {
       vm.activeTab = tab;
     };
