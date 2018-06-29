@@ -266,5 +266,8 @@
         $scope.handleShowToast(err.message);
       }
     };
+    vm.handleScroll = function() {
+      console.log('Called');
+    };
   }
 }());

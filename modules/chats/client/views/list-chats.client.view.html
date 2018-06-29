@@ -29,7 +29,7 @@
       <h1 class="room-title">{{ vm.room.name }}</h1>
     </div>
     <div class="center-wrapper">
-      <div class="center-container" scroll-glue="vm.messagePaginate.newest" scroll-top-spy>
+      <div class="center-container" scroll-glue="vm.messagePaginate.newest" scroll-top-spy="vm.handleScroll()">
         <div class="center-content">
           <ul class="messages">
             <li ng-repeat="message in vm.messages | orderBy: 'created'" class="clearfix" ng-class="{'left': message.self, 'right': !message.self }">

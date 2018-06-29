@@ -200,15 +200,22 @@ function imagePreviewDirective($window) {
 }
 // Thiết lập event toggle menu trái
 function scrollTopSpyDirective() {
-  return function (scope, element, attrs) {
+  var directive = {
+    scope: {
+      scrollTopSpy: '&'
+    },
+    link: link
+  };
+  return directive;
+
+  function link(scope, element, attrs) {
     var container = angular.element(element);
     container.bind("scroll", function (evt) {
       if (container[0].scrollTop <= 0) {
-        console.log('Ah hihi', scope.user);
-        console.log('On the top of the world I\'m singing I\'m dancing.');
+        scope.scrollTopSpy();
       }
       if (container[0].offsetHeight + container[0].scrollTop >= container[0].scrollHeight) {
-        console.log('On the bottom of the world I\'m waiting.');
+        scope.scrollTopSpy();
       }
     });
   }
