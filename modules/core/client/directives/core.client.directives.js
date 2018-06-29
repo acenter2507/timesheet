@@ -214,9 +214,9 @@ function scrollTopSpyDirective() {
       if (container[0].scrollTop <= 0) {
         scope.scrollTopSpy();
       }
-      if (container[0].offsetHeight + container[0].scrollTop >= container[0].scrollHeight) {
-        scope.scrollTopSpy();
-      }
+      // if (container[0].offsetHeight + container[0].scrollTop >= container[0].scrollHeight) {
+      //   scope.scrollTopSpy();
+      // }
     });
   }
 }

@@ -131,6 +131,7 @@
           return $scope.handleShowToast(err.message, true);
         });
     }
+    vm.handleLoadMessages = handleLoadMessages;
     function handleLoadMessages() {
       if (vm.messagePaginate.busy || vm.messagePaginate.stopped) return;
       vm.messagePaginate.busy = true;
@@ -138,16 +139,15 @@
         .success(function (messages) {
           if (!messages || messages.length === 0) {
             vm.messagePaginate.stopped = true;
-            vm.messagePaginate.busy = false;
           } else {
             for (var index = 0; index < messages.length; index++) {
               handlePrepareForShowMessage(messages[index]);
             }
             vm.messages = _.union(vm.messages, messages);
             vm.messagePaginate.page += 1;
-            vm.messagePaginate.busy = false;
             if (messages.length < vm.messagePaginate.limit) vm.messagePaginate.stopped = true;
           }
+          vm.messagePaginate.busy = false;
           if (!$scope.$$phase) $scope.$digest();
         })
         .error(function (err) {
