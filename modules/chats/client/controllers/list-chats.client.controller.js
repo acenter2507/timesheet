@@ -73,7 +73,7 @@
             vm.roomPaginate.busy = false;
           } else {
             for (var index = 0; index < _rooms.length; index++) {
-              handlePrepareForShowRoom(_rooms[0]);
+              handlePrepareForShowRoom(_rooms[index]);
             }
             vm.rooms = _.union(vm.rooms, _rooms);
             vm.roomPaginate.page += 1;
