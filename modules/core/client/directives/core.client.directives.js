@@ -229,8 +229,8 @@ function scrollSmartDirective() {
         element = el;
       };
       this.addItem = function (item) {
-        console.log("Adding item", item, item.clientHeight);
         var scroll = element.clientHeight / item.clientHeight;
+        console.log("Scroll", scroll, element.clientHeight, item.clientHeight);
         element.scrollTop = (scroll + 1); //1px for margin
       };
     },
