@@ -21,7 +21,7 @@
     <div class="center-toolbar">
       <h1 class="room-title">{{ vm.room.name }}</h1>
     </div>
-    <div class="center-wrapper" infinite-scroll="vm.handleLoadUsers()" infinite-scroll-distance='1'>
+    <div class="center-wrapper">
       <div class="center-container">
         <div class="center-content">
           <ul class="messages">
@@ -67,6 +67,9 @@
                 <img src="{{ user.profileImageURL }}" class="img-round">
                 <span>{{ user.displayName }}</span>
               </div>
+            </a>
+            <a class="list-group-item" ng-show="!vm.userPaginate.busy && !vm.userPaginate.stopped" ng-click="vm.handleLoadUsers()">
+              <span>もっと見る</span>
             </a>
           </div>
         </div>
