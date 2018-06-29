@@ -84,6 +84,7 @@
           if (!$scope.$$phase) $scope.$digest();
         })
         .error(function (err) {
+          vm.roomPaginate.busy = false;
           return $scope.handleShowToast(err.message, true);
         });
     }
@@ -105,6 +106,7 @@
           if (!$scope.$$phase) $scope.$digest();
         })
         .error(function (err) {
+          vm.userPaginate.busy = false;
           return $scope.handleShowToast(err.message, true);
         });
     }

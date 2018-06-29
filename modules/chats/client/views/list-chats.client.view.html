@@ -1,9 +1,9 @@
 <div class="chat-screen">
   <div class="chat-lefside">
     <div class="leftside-toolbar"></div>
-    <div class="leftside-wrapper" infinite-scroll="vm.handleLoadRooms()" infinite-scroll-distance='1'>
+    <div class="leftside-wrapper">
       <div class="leftside-container">
-        <div class="leftside-content">
+        <div class="leftside-content" infinite-scroll="vm.handleLoadRooms()" infinite-scroll-distance='1'>
           <div class="list-group chat-list">
             <a ng-repeat="room in vm.rooms | orderBy: '-updated'" ng-click="vm.handleRoomSelected(room)" class="list-group-item" ng-class="{ 'active': vm.room._id === room._id}">
               <div class="item-content">
