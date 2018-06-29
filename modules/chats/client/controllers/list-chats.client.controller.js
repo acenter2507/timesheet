@@ -90,6 +90,7 @@
     }
     vm.handleLoadUsers = handleLoadUsers;
     function handleLoadUsers() {
+      console.log('handleLoadUsers');
       if (vm.userPaginate.busy || vm.userPaginate.stopped) return;
       vm.userPaginate.busy = true;
       ChatsApi.users(vm.userPaginate)
