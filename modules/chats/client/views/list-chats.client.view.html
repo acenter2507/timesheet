@@ -11,6 +11,11 @@
                 <span>{{ room.name }}</span>
               </div>
             </a>
+            <!-- Load more -->
+            <a class="list-group-item item-button" ng-show="!vm.roomPaginate.stopped" ng-click="vm.handleLoadRooms()">
+              <span ng-show="!vm.roomPaginate.busy">もっと見る</span>
+              <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.roomPaginate.busy"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -68,6 +73,7 @@
                 <span>{{ user.displayName }}</span>
               </div>
             </a>
+            <!-- Load more -->
             <a class="list-group-item item-button" ng-show="!vm.userPaginate.stopped" ng-click="vm.handleLoadUsers()">
               <span ng-show="!vm.userPaginate.busy">もっと見る</span>
               <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.userPaginate.busy"></i>
