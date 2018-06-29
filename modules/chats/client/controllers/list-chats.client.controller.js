@@ -187,6 +187,7 @@
 
     function handleStartChatRoom(room) {
       RoomsService.get({ roomId: room._id }).$promise.then(function (room) {
+        console.log(room);
         handlePrepareForShowRoom(room);
         vm.room = room;
         vm.messages = [];
