@@ -93,8 +93,8 @@
           if ((!vm.room || !vm.room._id) && vm.rooms.length > 0) {
             handleStartChatRoom(vm.rooms[0]);
           }
-          if (!$scope.$$phase) $scope.$digest();
           vm.roomPaginate.busy = false;
+          if (!$scope.$$phase) $scope.$digest();
         })
         .error(function (err) {
           vm.roomPaginate.busy = false;
@@ -110,13 +110,12 @@
         .success(function (_users) {
           if (!_users || _users.length === 0) {
             vm.userPaginate.stopped = true;
-            vm.userPaginate.busy = false;
           } else {
             vm.users = _.union(vm.users, _users);
             vm.userPaginate.page += 1;
-            vm.userPaginate.busy = false;
             if (_users.length < vm.userPaginate.limit) vm.userPaginate.stopped = true;
           }
+          vm.userPaginate.busy = false;
           if (!$scope.$$phase) $scope.$digest();
         })
         .error(function (err) {
