@@ -307,7 +307,7 @@ describe('Payment CRUD tests', function () {
         .expect(403)
         .end(function (paymentDeleteErr, paymentDeleteRes) {
           // Set message assertion
-          (paymentDeleteRes.body.message).should.match('User is not authorized');
+          (paymentDeleteRes.body.message).should.match('アクセス権限がありません！');
 
           // Handle Payment error error
           done(paymentDeleteErr);

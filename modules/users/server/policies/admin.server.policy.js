@@ -7,8 +7,8 @@ exports.invokeRolesPolicies = function () {
  * Check If Admin Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
-  if (!req.user) return res.status(403).send(new Error('User is not authorized'));
+  if (!req.user) return res.status(403).send(new Error('アクセス権限がありません！'));
   var roles = (req.user) ? req.user.roles : ['guest'];
-  if (roles.length === 1) return res.status(403).send(new Error('User is not authorized'));
+  if (roles.length === 1) return res.status(403).send(new Error('アクセス権限がありません！'));
   return next();
 };

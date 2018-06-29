@@ -73,9 +73,11 @@ exports.invokeRolesPolicies = function () {
  * Check If Departments Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
-  var roles = (req.user) ? req.user.roles : ['guest'];
+  var roles = (req.user) ? req.user.roles : [''];
 
-  // If an Department is being processed and the current user created it then allow any manipulation
+  if (roles.length === 0)
+    return res.status(403).json({ message: 'アクセス権限がありません！' });
+
   if (req.department && req.user && req.department.user && req.department.user.id === req.user.id) {
     return next();
   }
@@ -84,15 +86,12 @@ exports.isAllowed = function (req, res, next) {
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
     if (err) {
       // An authorization error occurred
-      return res.status(500).send('Unexpected authorization error');
+      return res.status(500).send('サーバーに権限を確認できません！');
     } else {
       if (isAllowed) {
-        // Access granted! Invoke next middleware
         return next();
       } else {
-        return res.status(403).json({
-          message: 'User is not authorized'
-        });
+        return res.status(403).json({ message: 'アクセス権限がありません！' });
       }
     }
   });

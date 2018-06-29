@@ -307,7 +307,7 @@ describe('Chat CRUD tests', function () {
         .expect(403)
         .end(function (chatDeleteErr, chatDeleteRes) {
           // Set message assertion
-          (chatDeleteRes.body.message).should.match('User is not authorized');
+          (chatDeleteRes.body.message).should.match('アクセス権限がありません！');
 
           // Handle Chat error error
           done(chatDeleteErr);
