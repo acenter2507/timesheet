@@ -20,7 +20,7 @@ var RoomSchema = new Schema({
   started: { type: Number, default: 1 },
   //  Người đã tạo ra room
   user: { type: Schema.ObjectId, ref: 'User' },
-  // Loại room chat (1: Private, 2: Group)
+  // Loại room chat (1: Private, 2: Group, 3: My Chat)
   kind: { type: Number, default: 1 },
 });
 RoomSchema.plugin(paginate);

@@ -23,6 +23,7 @@ module.exports = function (app) {
   // ROOM
   app.route('/api/rooms/load').all(chatsPolicy.isAllowed).post(rooms.load);
   app.route('/api/rooms/privateRoom').all(chatsPolicy.isAllowed).post(rooms.privateRoom);
+  app.route('/api/rooms/myRoom').all(chatsPolicy.isAllowed).post(rooms.myRoom);
 
   app.route('/api/rooms').all(chatsPolicy.isAllowed).post(rooms.create);
 

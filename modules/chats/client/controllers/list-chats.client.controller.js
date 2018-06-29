@@ -160,16 +160,19 @@
       vm.activeTab = tab;
     };
     vm.handleUserSelected = function (user) {
-      if (user._id === $scope.user._id) return;
-      // Kiểm tra đã có tin nhắn private với user đã chọn chưa
-      RoomsApi.privateRoom(user._id)
-        .success(function (room) {
-          handlePrepareForShowRoom(room);
-          handleStartChatRoom(room);
-        })
-        .error(function (err) {
-          return $scope.handleShowToast(err.message, true);
-        });
+      // Nếu chọn chính mình thì gọi room Mychat
+      if (user._id === $scope.user._id) {
+        return RoomsApi.myRoom().success(successCallback).error(errorCallback);
+      } else {
+        return RoomsApi.privateRoom(user._id).success(successCallback).error(errorCallback);
+      }
+      function successCallback(room) {
+        handlePrepareForShowRoom(room);
+        handleStartChatRoom(room);
+      }
+      function errorCallback(err) {
+        return $scope.handleShowToast(err.message, true);
+      }
     };
     vm.handleRoomSelected = function (room) {
       if (!room._id) return;
@@ -211,7 +214,7 @@
       }
     }
 
-    vm.handleSendMessage = function() {
+    vm.handleSendMessage = function () {
       if (!vm.room || !vm.room._id || CommonService.isStringEmpty(vm.message)) {
         return;
       }
@@ -243,7 +246,7 @@
       }
       function errorCallback(err) {
         $scope.handleShowToast(err.message);
-      }      
+      }
     };
   }
 }());

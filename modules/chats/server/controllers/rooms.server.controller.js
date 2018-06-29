@@ -93,6 +93,32 @@ exports.privateRoom = function (req, res) {
     });
 };
 
+exports.myRoom = function (req, res) {
+  Room.findOne(
+    {
+      $and: [
+        { user: req.user._id },
+        { users: [req.user._id] },
+        { users: { $size: 1 } },
+        { kind: 3 }
+      ]
+    })
+    .exec((err, room) => {
+      if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
+      if (room) return res.jsonp(room);
+
+      var _room = new Room({
+        users: [req.user._id],
+        kind: 3,
+        user: req.user._id
+      });
+      _room.save(function (err) {
+        if (err) return res.status(400).send({ message: 'エラーが発生しました！' });
+        return res.jsonp(_room);
+      });
+    });
+};
+
 exports.roomByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(400).send({ message: 'リクエストの情報が見つかりません！' });

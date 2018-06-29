@@ -24,6 +24,9 @@
     this.privateRoom = function (user) {
       return $http.post('/api/rooms/privateRoom', { user: user }, { ignoreLoadingBar: true });
     };
+    this.myRoom = function () {
+      return $http.post('/api/rooms/myRoom', {}, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());
