@@ -1,7 +1,18 @@
+<style type="text/css">
+  [scroll-glue]{
+    height: 100px;
+    overflow-y: scroll;
+    border: 1px solid gray;
+  }
+</style>
 <div class="container-fluid animated fadeIn">
   <div class="row">
     <div class="col-md-9" scroll-glue="glued">
-      <div class="well h50" ng-repeat="text in vm.texts">{{ text.text }}</div>
+      <div scroll-glue>
+        <ul>
+          <li ng-repeat="text in vm.texts">{{text.text}}</li>
+        </ul>
+      </div>
     </div>
     <div class="col-md-3">
       <div class="well">
