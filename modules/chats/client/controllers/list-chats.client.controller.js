@@ -142,8 +142,9 @@
           } else {
             for (var index = 0; index < messages.length; index++) {
               handlePrepareForShowMessage(messages[index]);
+              vm.messages.concat(messages[index]);
             }
-            vm.messages = _.union(vm.messages, messages);
+            // vm.messages = _.union(vm.messages, messages);
             vm.messagePaginate.page += 1;
             if (messages.length < vm.messagePaginate.limit) vm.messagePaginate.stopped = true;
           }
