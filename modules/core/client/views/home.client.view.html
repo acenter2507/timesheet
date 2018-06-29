@@ -1,6 +1,7 @@
 <div class="container-fluid animated fadeIn">
-  <div class="row" ng-controller="HomeController">
+  <div class="row" ng-controller="HomeController" infinite-scroll="loadTexts" infinite-scroll-distance='1'>
     <div class="col-md-9">
+      <div class="well h50" ng-repeat="text in texts">{{ text }}</div>
     </div>
     <div class="col-md-3">
       <div class="well">

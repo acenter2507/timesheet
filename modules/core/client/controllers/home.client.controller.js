@@ -12,5 +12,11 @@ angular.module('core').controller('HomeController', ['$scope', 'WorkrestsApi',
           $scope.workrests = workrests;
         });
     }
+    $scope.texts = []
+    $scope.loadTexts = function() {
+      for (let index = 0; index < 20; index++) {
+        $scope.texts.push(index);
+      }
+    }
   }
 ]);
