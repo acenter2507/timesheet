@@ -10,7 +10,9 @@ angular
   .directive('button', toggleLeftSideDirective)
   .directive('convertToNumber', convertToNumber)
   .directive('imagePreview', imagePreviewDirective)
-  .directive('scrollTopSpy', scrollTopSpyDirective);
+  .directive('scrollTopSpy', scrollTopSpyDirective)
+  .directive('scrollSmart', scrollSmartDirective)
+  .directive('scrollSmartItem', scrollSmartItemDirective);
 
 // Hủy tác dụng của link rỗng
 function preventClickDirective() {
@@ -198,7 +200,6 @@ function imagePreviewDirective($window) {
     }
   }
 }
-// Thiết lập event toggle menu trái
 function scrollTopSpyDirective() {
   var directive = {
     scope: {
@@ -220,3 +221,29 @@ function scrollTopSpyDirective() {
     });
   }
 }
+function scrollSmartDirective() {
+  return {
+    controller: function ($scope) {
+      var element = 0;
+      this.setElement = function (el) {
+        element = el;
+      }
+      this.addItem = function (item) {
+        console.log("Adding item", item, item.clientHeight);
+        element.scrollTop = (element.scrollTop + item.clientHeight + 1); //1px for margin
+      };
+    },
+    link: function (scope, el, attr, ctrl) {
+      ctrl.setElement(el[0]);
+    }
+  };
+}
+function scrollSmartItemDirective() {
+  return {
+    require: "^keepScroll",
+    link: function (scope, el, att, scrCtrl) {
+      scrCtrl.addItem(el[0]);
+    }
+  };
+}
+

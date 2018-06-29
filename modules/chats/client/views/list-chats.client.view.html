@@ -29,10 +29,10 @@
       <h1 class="room-title">{{ vm.room.name }}</h1>
     </div>
     <div class="center-wrapper">
-      <div class="center-container" scroll-glue="vm.messagePaginate.newest" scroll-top-spy="vm.handleLoadMessages()">
+      <div class="center-container" scroll-glue="vm.messagePaginate.newest" scroll-top-spy="vm.handleLoadMessages()" scroll-smart>
         <div class="center-content">
           <ul class="messages">
-            <li ng-repeat="message in vm.messages | orderBy: 'created'" class="clearfix" ng-class="{'left': message.self, 'right': !message.self }">
+            <li ng-repeat="message in vm.messages | orderBy: 'created'" class="clearfix" ng-class="{'left': message.self, 'right': !message.self }" scroll-smart-item>
               <span class="chat-img">
                 <img src="{{ message.user.profileImageURL }}" alt="{{ message.user.displayName }}" />
               </span>
