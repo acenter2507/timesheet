@@ -200,13 +200,7 @@ function imagePreviewDirective($window) {
 }
 // Thiết lập event toggle menu trái
 function scrollTopSpyDirective() {
-  var directive = {
-    restrict: 'E',
-    link: link
-  };
-  return directive;
-
-  function link(scope, element, attrs) {
+  return function (scope, element, attrs) {
     var container = angular.element(element);
     container.bind("scroll", function (evt) {
       if (container[0].scrollTop <= 0) {
