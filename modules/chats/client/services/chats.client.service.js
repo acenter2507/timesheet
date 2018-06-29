@@ -10,8 +10,8 @@
   ChatsService.$inject = ['$resource'];
   function ChatsService($resource) {
     return $resource('api/chats/:chatId', { chatId: '@_id' }, {
-      post: { ignoreLoadingBar: true },
-      get: { ignoreLoadingBar: true },
+      save: { method: 'POST', ignoreLoadingBar: true },
+      get: { method: 'GET', ignoreLoadingBar: true },
       update: { method: 'PUT', ignoreLoadingBar: true },
       query: { isArray: true, ignoreLoadingBar: true }
     });
