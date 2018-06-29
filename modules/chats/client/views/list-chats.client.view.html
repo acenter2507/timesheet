@@ -21,7 +21,7 @@
     <div class="center-toolbar">
       <h1 class="room-title">{{ vm.room.name }}</h1>
     </div>
-    <div class="center-wrapper">
+    <div class="center-wrapper" infinite-scroll="vm.handleLoadUsers()" infinite-scroll-distance='1'>
       <div class="center-container">
         <div class="center-content">
           <ul class="messages">
@@ -58,7 +58,7 @@
 
   <div class="chat-rightside">
     <div class="rightside-toolbar"></div>
-    <div class="rightside-wrapper" infinite-scroll="vm.handleLoadUsers()" infinite-scroll-distance='1'>
+    <div class="rightside-wrapper">
       <div class="rightside-container">
         <div class="rightside-content">
           <div class="list-group chat-list">
