@@ -81,7 +81,7 @@
           }
           // Trường hợp không có room nào
           if (vm.roomPaginate.stopped === true && vm.rooms.length === 0) {
-            RoomsApi.privateRoom($scope.user._id)
+            RoomsApi.myRoom()
               .success(function (room) {
                 handleStartChatRoom(room);
                 vm.rooms.push(room);
