@@ -65,7 +65,9 @@
           fee_error: false
         };
       }
-      console.log(vm.transport);
+      if (vm.transport._id) {
+        vm.transport.date = moment(vm.transport.date).format('YYYY/MM/DD');
+      }
     }
     function prepareUpload() {
       vm.uploader = new FileUploader({
