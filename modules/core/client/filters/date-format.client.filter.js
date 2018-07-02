@@ -25,7 +25,7 @@
   }
   function dddd_format() {
     return function (time) {
-      return moment(time).format('dddd');
+      return '';//moment(time).format('dddd');
     };
   }
 }());
