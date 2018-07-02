@@ -29,6 +29,7 @@
     function preparePayment() {
       if (PaymentFactory.payment) {
         vm.payment = PaymentFactory.payment;
+        prepareTransport();
       } else {
         PaymentsService.get({
           paymentId: $stateParams.paymentId
