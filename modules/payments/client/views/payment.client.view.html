@@ -6,13 +6,13 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th rowspan="2">#</th>
+            <th rowspan="2" class="text-center">#</th>
             <th rowspan="2">日付</th>
             <th rowspan="2">顧客名・事業内容</th>
-            <th colspan="2">経路</th>
+            <th colspan="2" class="text-center">経路</th>
             <th rowspan="2" class="w50 text-center">往復</th>
             <th rowspan="2">手段</th>
-            <th colspan="2">交通費</th>
+            <th colspan="2" class="text-center">交通費</th>
             <th rowspan="2">領収書</th>
             <th rowspan="2" class="text-center w50">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTransport()">追加</button>
@@ -21,8 +21,8 @@
           <tr>
             <th>起点</th>
             <th>終点</th>
-            <th>ＴＡＸＩ以外</th>
-            <th>ＴＡＸＩ</th>
+            <th class="text-center">ＴＡＸＩ以外</th>
+            <th class="text-center">ＴＡＸＩ</th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
             <td colspan="11">交通費が登録されません！</td>
           </tr>
           <tr ng-repeat="transport in vm.payment.transports">
-            <td>{{ $index + 1 }}</td>
+            <td class="text-center">{{ $index + 1 }}</td>
             <td>{{ transport.date | LL }} {{ transport.date | dddd }}</td>
             <td>{{ transport.content }}</td>
             <td>{{ transport.start }}</td>
@@ -42,8 +42,8 @@
               <p class="mgn">{{ transport.method | TransportMethod }}</p>
               <p class="mgn" ng-show="transport.method === 0">{{ transport.other_method }}</p>
             </td>
-            <td>{{ transport.fee }}</td>
-            <td>{{ transport.taxi_fee }}</td>
+            <td class="text-center">{{ transport.fee }}</td>
+            <td class="text-center">{{ transport.taxi_fee }}</td>
             <td>
               <a ng-repeat="receipt in transport.receipts" ng-click="handleShowImage(receipt)">
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
