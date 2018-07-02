@@ -130,14 +130,19 @@
     };
 
     function handleSavePayment() {
-      console.log(vm.payment);
-      // vm.payment.$update(function (payment) {
-      //   PaymentFactory.update(vm.payment, payment);
-      //   PaymentFactory.deleteTransport();
-      //   $state.go('payments.edit', { paymentId: vm.payment._id });
-      // }, function (err) {
-      //   $scope.handleShowToast(err.message, true);
-      // });
+      if (vm.transport._id) {
+        var transport = _.findWhere(vm.payment.transports, { _id: vm.transport._id });
+        _.extend(transport, vm.transport);
+      } else {
+        vm.payment.transports.push(vm.transport);
+      }
+      vm.payment.$update(function (payment) {
+        PaymentFactory.update(vm.payment, payment);
+        PaymentFactory.deleteTransport();
+        $state.go('payments.edit', { paymentId: vm.payment._id });
+      }, function (err) {
+        $scope.handleShowToast(err.message, true);
+      });
     }
     function validateTransport() {
       var error = true;
