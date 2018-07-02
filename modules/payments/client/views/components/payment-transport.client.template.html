@@ -77,7 +77,7 @@
 
           <div class="form-group" ng-class="{ 'has-error': vm.transport.method_error }" ng-show="vm.transport.method === 0">
             <label>手段の自筆記入</label>
-            <input name="method_other" class="form-control" ng-model="vm.transport.method_other" type="text" />
+            <input name="method_other" class="form-control" ng-model="vm.transport.method_other" type="text" ng-change="vm.handleChangeMethod()" />
             <div ng-show="vm.transport.method_error" role="alert">
               <p class="help-block error-text font-sm">手段は必須です。</p>
             </div>
@@ -85,7 +85,7 @@
 
           <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }">
             <label>TAXI以外</label>
-            <input name="fee" class="form-control" ng-model="vm.transport.fee" type="number" />
+            <input name="fee" class="form-control" ng-model="vm.transport.fee" type="number" ng-change="vm.handleChangeFee()" />
             <div ng-show="vm.transport.fee_error" role="alert">
               <p class="help-block error-text font-sm">どれかの金額を入力してください！</p>
             </div>
@@ -93,7 +93,7 @@
 
           <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }">
             <label>TAXI</label>
-            <input name="taxi_fee" class="form-control" ng-model="vm.transport.taxi_fee" type="number" />
+            <input name="taxi_fee" class="form-control" ng-model="vm.transport.taxi_fee" type="number" ng-change="vm.handleChangeFee()" />
             <div ng-show="vm.transport.fee_error" role="alert">
               <p class="help-block error-text font-sm">どれかの金額を入力してください！</p>
             </div>

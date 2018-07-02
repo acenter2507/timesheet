@@ -66,7 +66,7 @@
       };
       vm.uploader.onCompleteAll = function () {
         vm.uploader.clearQueue();
-        
+
       };
     }
 
@@ -90,6 +90,20 @@
       //     // TODO
       //   }
       // });
+    };
+    vm.handleChangeMethod = function () {
+      if (vm.transport.method === 0 && CommonService.isStringEmpty(vm.transport.method_other)) {
+        vm.transport.method_error = true;
+      } else {
+        vm.transport.method_error = false;
+      }
+    };
+    vm.handleChangeFee = function () {
+      if (vm.transport.fee === 0 && vm.transport.taxi_fee === 0) {
+        vm.transport.fee_error = true;
+      } else {
+        vm.transport.fee_error = false;
+      }
     };
 
     function validateTransport() {
