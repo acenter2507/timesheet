@@ -13,7 +13,6 @@
 
   function PaymentMeetingController($scope, FileUploader, CommonService) {
 
-    $scope.receipts = [];
     prepareUpload();
 
     function prepareUpload() {
@@ -58,16 +57,16 @@
       });
     };
     $scope.handleAddPartner = function () {
-      meeting.partners.push('');
+      $scope.meeting.partners.push('');
     };
     $scope.handleAddEmployee = function () {
-      meeting.employees.push('');
+      $scope.meeting.employees.push('');
     };
     $scope.handleRemovePartner = function (partner) {
-      meeting.partner = _.without(meeting.partners, partner);
+      $scope.meeting.partner = _.without($scope.meeting.partners, partner);
     };
     $scope.handleRemoveEmployee = function (employee) {
-      meeting.employees = _.without(meeting.employees, employee);
+      $scope.meeting.employees = _.without($scope.meeting.employees, employee);
     };
 
     function validateMeeting() {
