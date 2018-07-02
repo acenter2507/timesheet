@@ -104,8 +104,6 @@
       }
       if (error) return false;
 
-      console.log(vm.transport.new_date);
-
       $scope.handleShowConfirm({
         message: '交通費を保存しますか？'
       }, function () {
@@ -141,6 +139,8 @@
       } else {
         vm.payment.transports.push(vm.transport);
       }
+
+      vm.transport.date = vm.transport.new_date;
       vm.payment.$update(function (payment) {
         PaymentFactory.update(vm.payment, payment);
         PaymentFactory.deleteTransport();

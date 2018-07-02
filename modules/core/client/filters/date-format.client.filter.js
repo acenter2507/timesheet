@@ -10,7 +10,7 @@
 
   function LL_format() {
     return function (time) {
-      return time;//moment(time).format('LL');
+      return moment(time).format('LL');
     };
   }
   function LLL_format() {
@@ -25,7 +25,7 @@
   }
   function dddd_format() {
     return function (time) {
-      return '';//moment(time).format('dddd');
+      return moment(time).format('dddd');
     };
   }
 }());
