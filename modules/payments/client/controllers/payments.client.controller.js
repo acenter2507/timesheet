@@ -57,7 +57,6 @@
       console.log(vm.payment);
       prepareTranspot();
     }
-
     vm.handleSavePayments = function () {
       // Verify Payments
       $scope.handleShowConfirm({
@@ -73,10 +72,8 @@
       });
     };
     vm.handleCalculatePayment = function () {
-
     };
     vm.handleValidatePayment = function () {
-
     };
     // TRANSPORT
     function prepareTranspot() {
@@ -89,7 +86,7 @@
     vm.handleAddTransport = function () {
       var transport = {
         id: new Date().getTime(),
-        method: 0,
+        method: 1,
         fee: 0,
         receipts: [],
         taxi_fee: 0
@@ -133,7 +130,7 @@
     vm.handleAddTrip = function () {
       var trip = {
         id: new Date().getTime(),
-        method: 0,
+        method: 1,
         fee: 0,
         receipts: [],
         stay_fee: 0
@@ -177,7 +174,7 @@
     vm.handleAddVehicle = function () {
       var vehicle = {
         id: new Date().getTime(),
-        method: 0,
+        method: 1,
         fee: 0,
         receipts: []
       };
@@ -262,8 +259,8 @@
     vm.handleAddMeeting = function () {
       var meeting = {
         id: new Date().getTime(),
-        account: 0,
-        kind: 0,
+        account: 1,
+        kind: 1,
         fee: 0,
         receipts: []
       };
