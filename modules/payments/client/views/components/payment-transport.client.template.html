@@ -40,7 +40,7 @@
             </div>
           </div>
 
-          <div class="form-group" show-errors>
+          <div class="form-group d-sm-down-none" show-errors>
             <div class="col-sm-12 col-md-6 pdnl">
               <label for="start">起点</label>
               <input name="start" class="form-control" ng-model="vm.transport.start" type="text" required/>
@@ -57,13 +57,20 @@
             </div>
           </div>
 
-          <!-- <div class="form-group" show-errors>
+          <div class="form-group d-md-none" show-errors>
+            <label for="start">起点</label>
+            <input name="start" class="form-control" ng-model="vm.transport.start" type="text" required/>
+            <div ng-messages="vm.form.transportForm.start.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">起点は必須です。</p>
+            </div>
+          </div>
+          <div class="form-group d-md-none" show-errors>
             <label for="end">終点</label>
             <input name="end" class="form-control" ng-model="vm.transport.end" type="text" required/>
             <div ng-messages="vm.form.transportForm.end.$error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">終点は必須です。</p>
             </div>
-          </div> -->
+          </div>
 
           <div class="form-group">
             <div class="checkbox mg5t">
@@ -94,12 +101,12 @@
             </div>
           </div>
 
-          <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }">
-            <div class="col-sm-12 col-md-6 pdn">
+          <div class="form-group d-sm-down-none" ng-class="{ 'has-error': vm.transport.fee_error }">
+            <div class="col-sm-12 col-md-6 pdnl">
               <label>TAXI以外</label>
               <input name="fee" class="form-control" ng-model="vm.transport.fee" type="number" ng-change="vm.handleChangeFee()" />
             </div>
-            <div class="col-sm-12 col-md-6 pdn">
+            <div class="col-sm-12 col-md-6 pdnr">
               <label>TAXI</label>
               <input name="taxi_fee" class="form-control" ng-model="vm.transport.taxi_fee" type="number" ng-change="vm.handleChangeFee()"
               />
@@ -110,14 +117,22 @@
             </div>
           </div>
 
-          <!-- <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }">
+          <div class="form-group d-md-none" ng-class="{ 'has-error': vm.transport.fee_error }">
+            <label>TAXI以外</label>
+            <input name="fee" class="form-control" ng-model="vm.transport.fee" type="number" ng-change="vm.handleChangeFee()" />
+            <div ng-show="vm.transport.fee_error" role="alert">
+              <p class="help-block error-text font-sm">どれかの金額を入力してください！</p>
+            </div>
+          </div>
+
+          <div class="form-group d-md-none" ng-class="{ 'has-error': vm.transport.fee_error }">
             <label>TAXI</label>
             <input name="taxi_fee" class="form-control" ng-model="vm.transport.taxi_fee" type="number" ng-change="vm.handleChangeFee()"
             />
             <div ng-show="vm.transport.fee_error" role="alert">
               <p class="help-block error-text font-sm">どれかの金額を入力してください！</p>
             </div>
-          </div> -->
+          </div>
 
           <div class="form-group">
             <label>領収書</label>
