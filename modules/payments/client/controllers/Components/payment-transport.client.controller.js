@@ -63,6 +63,9 @@
           fee_error: false
         };
       }
+      if (vm.transport._id) {
+        vm.transport.date = moment(vm.transport.date).format();
+      }
     }
     function prepareUpload() {
       vm.uploader = new FileUploader({
@@ -126,7 +129,6 @@
       }
     };
     vm.handleCancel = function () {
-      delete vm.form.transportForm;
       $state.go('payments.edit', { paymentId: vm.payment._id });
     };
 
