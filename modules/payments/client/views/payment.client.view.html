@@ -6,6 +6,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th rowspan="2">#</th>
             <th rowspan="2">日付</th>
             <th rowspan="2">顧客名・事業内容</th>
             <th colspan="2">経路</th>
@@ -26,9 +27,10 @@
         </thead>
         <tbody>
           <tr ng-if="vm.payment.transports.length === 0">
-            <td colspan="10">交通費が登録されません！</td>
+            <td colspan="11">交通費が登録されません！</td>
           </tr>
-          <tr ng-repeat="transport in vm.payment.transports track by $index">
+          <tr ng-repeat="transport in vm.payment.transports">
+            <td>{{ $index + 1 }}</td>
             <td>{{ transport.date | LL }} {{ transport.date | dddd }}</td>
             <td>{{ transport.content }}</td>
             <td>{{ transport.start }}</td>
