@@ -29,7 +29,7 @@
             <td colspan="10">交通費が登録されません！</td>
           </tr>
           <tr ng-repeat="transport in vm.payment.transports track by $index">
-            <td>{{ transport.date | LL }} {{ transport.date | dddd }}</td>
+            <!-- <td>{{ transport.date | LL }} {{ transport.date | dddd }}</td> -->
             <td>{{ transport.content }}</td>
             <td>{{ transport.start }}</td>
             <td>{{ transport.end }}</td>
