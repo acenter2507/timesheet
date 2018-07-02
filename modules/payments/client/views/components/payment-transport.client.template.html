@@ -75,7 +75,7 @@
             </select>
           </div>
 
-          <div class="form-group" ng-class="{ 'has-error': vm.transport.method_error }" ng-show="vm.transport.method === 0" show-errors>
+          <div class="form-group" ng-class="{ 'has-error': vm.transport.method_error }" ng-show="vm.transport.method === 0">
             <label>手段の自筆記入</label>
             <input name="method_other" class="form-control" ng-model="vm.transport.method_other" type="text" />
             <div ng-show="vm.transport.method_error" role="alert">
@@ -83,7 +83,7 @@
             </div>
           </div>
 
-          <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }" show-errors>
+          <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }">
             <label>TAXI以外</label>
             <input name="fee" class="form-control" ng-model="vm.transport.fee" type="number" />
             <div ng-show="vm.transport.fee_error" role="alert">
@@ -91,7 +91,7 @@
             </div>
           </div>
 
-          <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }" show-errors>
+          <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }">
             <label>TAXI</label>
             <input name="taxi_fee" class="form-control" ng-model="vm.transport.taxi_fee" type="number" />
             <div ng-show="vm.transport.fee_error" role="alert">
