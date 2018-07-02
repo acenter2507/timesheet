@@ -79,7 +79,7 @@
     // TRANSPORT
     vm.handleAddTransport = function () {
       PaymentFactory.set(vm.payment);
-      $state.go('payments.transport');
+      $state.go('payments.transport', { paymentId: vm.payment._id });
       // PaymentFactory.setTransport({
       //   id: new Date().getTime(),
       //   method: 1,
