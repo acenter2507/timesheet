@@ -252,26 +252,26 @@
       });
     };
     // MEETINGS
-    function prepareMettings() {
-      if (vm.payment.mettings.length === 0) return;
-      for (var index = 0; index < vm.payment.mettings.length; index++) {
-        var metting = vm.payment.mettings[index];
-        _.extend(metting, ui_config.metting);
+    function prepareMeetings() {
+      if (vm.payment.meetings.length === 0) return;
+      for (var index = 0; index < vm.payment.meetings.length; index++) {
+        var meeting = vm.payment.meetings[index];
+        _.extend(meeting, ui_config.meeting);
       }
     }
-    vm.handleAddMetting = function () {
-      var metting = {
+    vm.handleAddMeeting = function () {
+      var meeting = {
         id: new Date().getTime(),
         account: 0,
         kind: 0,
         fee: 0,
         receipts: []
       };
-      _.extend(metting, ui_config.metting);
-      $scope.metting = metting;
+      _.extend(meeting, ui_config.meeting);
+      $scope.meeting = meeting;
       var mDialog = ngDialog.open({
-        template: 'modules/payments/client/views/templates/payment-metting.client.template.html',
-        controller: 'PaymentMettingController',
+        template: 'modules/payments/client/views/templates/payment-meeting.client.template.html',
+        controller: 'PaymentMeetingController',
         appendClassName: 'ngdialog-custom',
         scope: $scope,
         showClose: false,
@@ -279,19 +279,19 @@
       });
       mDialog.closePromise.then(function (res) {
         if (!res.value || res.value === '$document') {
-          delete $scope.metting;
+          delete $scope.meeting;
           return;
         }
-        vm.payment.mettings.push(res.metting);
+        vm.payment.meetings.push(res.meeting);
         vm.handleCalculatePayment();
-        delete $scope.metting;
+        delete $scope.meeting;
       });
     };
-    vm.handleRemoveMetting = function (metting) {
+    vm.handleRemoveMeeting = function (meeting) {
       $scope.handleShowConfirm({
         message: '接待交際費を削除しますか？'
       }, function () {
-        vm.payment.mettings = _.without(vm.payment.mettings, metting);
+        vm.payment.meetings = _.without(vm.payment.meetings, meeting);
         vm.handleCalculatePayment();
       });
     };
