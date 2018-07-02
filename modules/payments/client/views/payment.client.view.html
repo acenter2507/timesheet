@@ -9,7 +9,7 @@
             <th rowspan="2">日付</th>
             <th rowspan="2">顧客名・事業内容</th>
             <th colspan="2">経路</th>
-            <th rowspan="2">往復</th>
+            <th rowspan="2" class="w50 text-center">往復</th>
             <th rowspan="2">手段</th>
             <th colspan="2">交通費</th>
             <th rowspan="2">領収書</th>
@@ -20,8 +20,8 @@
           <tr>
             <th>起点</th>
             <th>終点</th>
-            <th class="w50">ＴＡＸＩ以外</th>
-            <th class="w50">ＴＡＸＩ</th>
+            <th>ＴＡＸＩ以外</th>
+            <th>ＴＡＸＩ</th>
           </tr>
         </thead>
         <tbody>
@@ -33,15 +33,15 @@
             <td>{{ transport.content }}</td>
             <td>{{ transport.start }}</td>
             <td>{{ transport.end }}</td>
-            <td>
+            <td class="w50 text-center">
               <input type="checkbox" value="{{ transport.round }}">
             </td>
             <td>
               <p class="mgn">{{ transport.method | TransportMethod }}</p>
               <p class="mgn" ng-show="transport.method === 0">{{ transport.other_method }}</p>
             </td>
-            <td class="w50">{{ transport.fee }}</td>
-            <td class="w50">{{ transport.taxi_fee }}</td>
+            <td>{{ transport.fee }}</td>
+            <td>{{ transport.taxi_fee }}</td>
             <td>
               <a ng-repeat="receipt in transport.receipts" ng-click="handleShowImage(receipt)">
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
@@ -68,7 +68,7 @@
             <th colspan="2">経路</th>
             <th rowspan="2">往復</th>
             <th colspan="2">出張旅費</th>
-            <th rowspan="2" class="w50">宿泊費</th>
+            <th rowspan="2">宿泊費</th>
             <th rowspan="2">領収書</th>
             <th rowspan="2" class="text-center w50">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTrip()">追加</button>
@@ -98,7 +98,7 @@
               <p class="mgn" ng-show="transport.method === 0">{{ trip.other_method }}</p>
             </td>
             <td class="w50">{{ trip.fee }}</td>
-            <td class="w50">{{ trip.stay_fee }}</td>
+            <td>{{ trip.stay_fee }}</td>
             <td>
               <a ng-repeat="receipt in trip.receipts" ng-click="handleShowImage(receipt)">
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
