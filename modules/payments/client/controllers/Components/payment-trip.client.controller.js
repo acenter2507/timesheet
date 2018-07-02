@@ -6,84 +6,141 @@
 
   PaymentTripController.$inject = [
     '$scope',
+    '$state',
+    '$stateParams',
     'FileUploader',
-    'CommonService'
+    'CommonService',
+    'PaymentFactory',
+    'PaymentsService'
   ];
 
 
-  function PaymentTripController($scope, FileUploader, CommonService) {
+  function PaymentTripController($scope, $state, $stateParams, FileUploader, CommonService, PaymentFactory, PaymentsService) {
+    var vm = this;
+    vm.payment = {};
+    vm.trip = {};
+    vm.form = {};
 
-    $scope.receipts = [];
+    preparePayment();
     prepareUpload();
 
+    function preparePayment() {
+      if (PaymentFactory.payment) {
+        vm.payment = PaymentFactory.payment;
+        prepareTrip();
+      } else {
+        PaymentsService.get({
+          paymentId: $stateParams.paymentId
+        }).$promise.then(function (payment) {
+          vm.payment = payment;
+          prepareTrip();
+        });
+      }
+    }
+    function prepareTrip() {
+      if (PaymentFactory.trip) {
+        vm.trip = PaymentFactory.trip;
+        _.extend(vm.trip, {
+          is_open_picker: false,
+          method_error: false,
+          fee_error: false
+        });
+      } else if ($stateParams.trip) {
+        vm.trip = _.findWhere(vm.payment.trips, { _id: $stateParams.trip });
+        _.extend(vm.trip, {
+          is_open_picker: false,
+          method_error: false
+        });
+      } else {
+        vm.trip = {
+          method: 1,
+          fee: 0,
+          receipts: [],
+          stay_fee: 0,
+          is_open_picker: false,
+          method_error: false
+        };
+      }
+      if (vm.trip._id) {
+        vm.trip.new_date = moment(vm.trip.date).format('YYYY/MM/DD');
+      }
+    }
     function prepareUpload() {
-      $scope.uploader = new FileUploader({
+      vm.uploader = new FileUploader({
         url: 'api/payments/receipts',
         alias: 'paymentReceipts'
       });
-      $scope.uploader.filters.push({
+      vm.uploader.filters.push({
         name: 'imageFilter',
         fn: function (item, options) {
           var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
           return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
         }
       });
-      $scope.uploader.onBeforeUploadItem = function (item) {
-        $scope.uploadingFileName = item._file.name;
+      vm.uploader.onBeforeUploadItem = function (item) {
+        vm.uploadingFileName = item._file.name;
       };
-      $scope.uploader.onAfterAddingAll = function (addedFileItems) {
+      vm.uploader.onAfterAddingAll = function (addedFileItems) {
       };
-      $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-        $scope.trip.receipts.push(response);
+      vm.uploader.onCompleteItem = function (fileItem, response, status, headers) {
+        vm.trip.receipts.push(response);
       };
-      $scope.uploader.onCompleteAll = function () {
-        $scope.uploader.clearQueue();
-        $scope.closeThisDialog($scope.trip);
+      vm.uploader.onCompleteAll = function () {
+        vm.uploader.clearQueue();
+        handleSavePayment();
       };
     }
 
-    $scope.handleSaveTrip = function () {
-      if (!validateTrip()) {
-        return $scope.handleShowToast('データが不足です！', true);
+    vm.handleSaveTrip = function (isValid) {
+      var error = false;
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.tripForm');
+        error = true;
       }
+      if (!validateTrip()) {
+        error = true;
+      }
+      if (error) return false;
 
       $scope.handleShowConfirm({
-        message: '交通費を保存しますか？'
+        message: '出張旅費を保存しますか？'
       }, function () {
-        if ($scope.uploader.queue.length > 0) {
-          $scope.uploader.uploadAll();
+        if (vm.uploader.queue.length > 0) {
+          vm.uploader.uploadAll();
         } else {
-          $scope.closeThisDialog($scope.trip);
+          handleSavePayment();
         }
       });
     };
+    vm.handleChangeMethod = function () {
+      if (vm.trip.method === 0 && CommonService.isStringEmpty(vm.trip.method_other)) {
+        vm.trip.method_error = true;
+      } else {
+        vm.trip.method_error = false;
+      }
+    };
+    vm.handleCancel = function () {
+      $state.go('payments.edit', { paymentId: vm.payment._id });
+    };
+    function handleSavePayment() {
+      if (vm.trip._id) {
+        var trip = _.findWhere(vm.payment.trips, { _id: vm.trip._id });
+        _.extend(trip, vm.trip);
+      } else {
+        vm.payment.trips.push(vm.trip);
+      }
 
+      vm.trip.date = vm.trip.new_date;
+      vm.payment.$update(function (payment) {
+        PaymentFactory.update(vm.payment, payment);
+        PaymentFactory.deleteTrip();
+        $state.go('payments.edit', { paymentId: vm.payment._id });
+      }, function (err) {
+        $scope.handleShowToast(err.message, true);
+      });
+    }
     function validateTrip() {
       var error = true;
-      if (!$scope.trip.date || !moment($scope.trip.date).isValid()) {
-        $scope.trip.date_error = true;
-        error = false;
-      } else {
-        $scope.trip.date_error = false;
-      }
-      if (CommonService.isStringEmpty($scope.trip.content)) {
-        $scope.trip.content_error = true;
-        error = false;
-      } else {
-        $scope.trip.content_error = false;
-      }
-      if (CommonService.isStringEmpty($scope.trip.start)) {
-        $scope.trip.start_error = true;
-        error = false;
-      } else {
-        $scope.trip.start_error = false;
-      }
-      if (CommonService.isStringEmpty($scope.trip.end)) {
-        $scope.trip.end_error = true;
-        error = false;
-      } else {
-        $scope.trip.end_error = false;
-      }
       if ($scope.trip.method === 0 && CommonService.isStringEmpty($scope.trip.method_other)) {
         $scope.trip.method_error = true;
         error = false;
