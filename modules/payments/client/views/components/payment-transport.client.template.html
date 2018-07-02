@@ -40,7 +40,7 @@
             </div>
           </div>
 
-          <div class="form-group d-md-down-none" show-errors>
+          <div class="form-group d-sm-down-none" show-errors>
             <div class="col-sm-12 col-md-6 pdnl">
               <label for="start">起点</label>
               <input name="start" class="form-control" ng-model="vm.transport.start" type="text" required/>
@@ -101,7 +101,7 @@
             </div>
           </div>
 
-          <div class="form-group d-md-down-none" ng-class="{ 'has-error': vm.transport.fee_error }">
+          <div class="form-group d-sm-down-none" ng-class="{ 'has-error': vm.transport.fee_error }">
             <div class="col-sm-12 col-md-6 pdnl">
               <label>TAXI以外</label>
               <input name="fee" class="form-control" ng-model="vm.transport.fee" type="number" ng-change="vm.handleChangeFee()" />
