@@ -80,36 +80,11 @@
     vm.handleAddTransport = function () {
       PaymentFactory.set(vm.payment);
       $state.go('payments.transport', { paymentId: vm.payment._id });
-      // PaymentFactory.setTransport({
-      //   id: new Date().getTime(),
-      //   method: 1,
-      //   fee: 0,
-      //   receipts: [],
-      //   taxi_fee: 0
-      // });
-
-      // var transport = ;
-      // _.extend(transport, ui_config.transport);
-      // $scope.transport = transport;
-      // var mDialog = ngDialog.open({
-      //   template: 'modules/payments/client/views/templates/payment-transport.client.template.html',
-      //   controller: 'PaymentTransportController',
-      //   appendClassName: 'ngdialog-custom',
-      //   scope: $scope,
-      //   showClose: false,
-      //   closeByDocument: false
-      // });
-      // mDialog.closePromise.then(function (res) {
-      //   if (!res.value || res.value === '$document') {
-      //     delete $scope.transport;
-      //     return;
-      //   }
-      //   vm.payment.transports.push(res.value);
-      //   vm.handleCalculatePayment();
-      //   delete $scope.transport;
-      // });
     };
     vm.handleEditTransport = function (transport) {
+      PaymentFactory.set(vm.payment);
+      PaymentFactory.setTransport(transport);
+      $state.go('payments.transport', { paymentId: vm.payment._id, transport: transport._id });
     };
     vm.handleRemoveTransport = function (transport) {
       $scope.handleShowConfirm({

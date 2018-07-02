@@ -7,13 +7,14 @@
   PaymentTransportController.$inject = [
     '$scope',
     '$state',
+    '$stateParams',
     'FileUploader',
     'CommonService',
     'PaymentFactory'
   ];
 
 
-  function PaymentTransportController($scope, $state, FileUploader, CommonService, PaymentFactory) {
+  function PaymentTransportController($scope, $state, $stateParams, FileUploader, CommonService, PaymentFactory) {
     var vm = this;
     vm.payment = {};
     vm.transport = {};
@@ -22,11 +23,19 @@
     vm.isEdit = false;
 
     preparePayment();
-    prepareTransport();
     prepareUpload();
 
     function preparePayment() {
-      vm.payment = PaymentFactory.payment;
+      if (PaymentFactory.payment) {
+        vm.payment = PaymentFactory.payment;
+      } else {
+        PaymentsService.get({
+          paymentId: $stateParams.paymentId
+        }).$promise.then(function (payment) {
+          vm.payment = payment;
+          prepareTransport();
+        });
+      }
     }
     function prepareTransport() {
       if (PaymentFactory.transport) {
@@ -36,10 +45,15 @@
           method_error: false,
           fee_error: false
         });
-        vm.isEdit = true;
+      } else if ($stateParams.transport) {
+        vm.transport = _.findWhere(vm.payment.transports, { _id: $stateParams.transport });
+        _.extend(vm.transport, {
+          is_open_picker: false,
+          method_error: false,
+          fee_error: false
+        });
       } else {
         vm.transport = {
-          id: new Date().getTime(),
           method: 1,
           fee: 0,
           receipts: [],
@@ -115,10 +129,11 @@
     };
 
     function handleSavePayment() {
-      vm.payment.$update(function(payment) {
+      vm.payment.$update(function (payment) {
         PaymentFactory.update(vm.payment, payment);
+        PaymentFactory.deleteTransport();
         $state.go('payments.edit', { paymentId: vm.payment._id });
-      }, function(err) {
+      }, function (err) {
         $scope.handleShowToast(err.message, true);
       });
     }

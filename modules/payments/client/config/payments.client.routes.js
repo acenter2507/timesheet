@@ -72,7 +72,7 @@
         ncyBreadcrumb: { label: '清算表入力' }
       })
       .state('payments.transport', {
-        url: '/:paymentId/transport',
+        url: '/:paymentId/transport?transport',
         templateUrl: 'modules/payments/client/views/components/payment-transport.client.template.html',
         controller: 'PaymentTransportController',
         controllerAs: 'vm',
