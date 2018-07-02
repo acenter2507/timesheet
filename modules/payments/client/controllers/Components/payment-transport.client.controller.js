@@ -21,8 +21,6 @@
     vm.transport = {};
     vm.form = {};
 
-    vm.isEdit = false;
-
     preparePayment();
     prepareUpload();
 
@@ -128,7 +126,7 @@
       }
     };
     vm.handleCancel = function () {
-      delete vm.transport;
+      delete vm.form.transportForm;
       $state.go('payments.edit', { paymentId: vm.payment._id });
     };
 
