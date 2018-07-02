@@ -45,7 +45,6 @@
         controller: 'PaymentsController',
         controllerAs: 'vm',
         data: { roles: ['user'] },
-        resolve: { paymentResolve: getPayment },
         ncyBreadcrumb: { label: '清算表詳細' }
       });
   }
