@@ -65,10 +65,6 @@
           fee_error: false
         };
       }
-      if (vm.transport._id) {
-        console.log(vm.transport.date);
-        // vm.transport.date = moment(vm.transport.date).format('YYYY/MM/DD');
-      }
     }
     function prepareUpload() {
       vm.uploader = new FileUploader({
@@ -130,6 +126,9 @@
       } else {
         vm.transport.fee_error = false;
       }
+    };
+    vm.handleCancel = function () {
+      $state.go('payments.edit', { paymentId: vm.payment._id });
     };
 
     function handleSavePayment() {
