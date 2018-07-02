@@ -20,7 +20,7 @@
             <div class="input-group">
               <input name="date" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
                 close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
-                show-weeks="false" readonly="true" />
+                show-weeks="false" readonly="true" required/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="transport.is_open_picker = true;">
                   <i class="fa fa-calendar"></i>
@@ -34,7 +34,7 @@
 
           <div class="form-group" show-errors>
             <label for="content">顧客名・事業内容</label>
-            <input name="content" class="form-control" ng-model="transport.content" type="text" />
+            <input name="content" class="form-control" ng-model="transport.content" type="text" required/>
             <div ng-messages="vm.form.comboForm.content.$error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">顧客名・事業内容は必須です。</p>
             </div>
@@ -42,7 +42,7 @@
 
           <div class="form-group" show-errors>
             <label for="start">起点</label>
-            <input name="start" class="form-control" ng-model="transport.start" type="text" />
+            <input name="start" class="form-control" ng-model="transport.start" type="text" required/>
             <div ng-messages="vm.form.comboForm.start.$error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">起点は必須です。</p>
             </div>
@@ -50,7 +50,7 @@
 
           <div class="form-group" show-errors>
             <label for="end">終点</label>
-            <input name="end" class="form-control" ng-model="transport.end" type="text" />
+            <input name="end" class="form-control" ng-model="transport.end" type="text" required/>
             <div ng-messages="vm.form.comboForm.end.$error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">終点は必須です。</p>
             </div>
