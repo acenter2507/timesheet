@@ -131,7 +131,6 @@
     vm.handleCancel = function () {
       $state.go('payments.edit', { paymentId: vm.payment._id });
     };
-
     function handleSavePayment() {
       if (vm.transport._id) {
         var transport = _.findWhere(vm.payment.transports, { _id: vm.transport._id });

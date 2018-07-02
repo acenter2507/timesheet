@@ -68,6 +68,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th rowspan="2" class="text-center">#</th>
             <th rowspan="2">日付</th>
             <th rowspan="2">顧客名・事業内容</th>
             <th colspan="2">経路</th>
@@ -88,15 +89,16 @@
         </thead>
         <tbody>
           <tr ng-if="vm.payment.trips.length === 0">
-            <td colspan="10">出張旅費が登録されません！</td>
+            <td colspan="11">出張旅費が登録されません！</td>
           </tr>
           <tr ng-repeat="trip in vm.payment.trips track by $index">
+            <td>{{ $index }}</td>
             <td>{{ trip.date | LL }} {{ trip.date | dddd }}</td>
             <td>{{ trip.content }}</td>
             <td>{{ trip.start }}</td>
             <td>{{ trip.end }}</td>
             <td>
-              <input type="checkbox" value="{{ trip.round }}">
+              <input type="checkbox" ng-checked="{{ trip.round }}">
             </td>
             <td>
               <p class="mgn">{{ trip.method | TripMethod }}</p>

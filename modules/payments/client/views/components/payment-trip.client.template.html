@@ -1,95 +1,149 @@
-<div class="transport">
-  <div class="row" nv-file-drop="" uploader="uploader">
-    <div class="col-xs-12">
-      <div class="form-group" ng-show="uploader.isUploading">
-        <p class="text-muted" ng-bind="uploadingFileName"></p>
-        <div class="progress progress-xs">
-          <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+<div class="container-fluid animated fadeIn" nv-file-drop="" uploader="vm.uploader">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-md-offset-3">
+      <div class="transport">
+        <div class="form-group text-right">
+          <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
+          <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveTrip(vm.form.tripForm.$valid)">完了</button>
         </div>
-      </div>
-
-      <div class="form-group" ng-class="{ 'has-error': trip.date_error }">
-        <label>日付</label>
-        <div class="input-group">
-          <input type="text" class="form-control input-sm" datepicker-popup="yyyy/MM/dd" ng-model="trip.date" is-open="trip.is_open_picker"
-            close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(trip)"
-            show-weeks="false" readonly="true" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default btn-sm" ng-click="trip.is_open_picker = true;">
-              <i class="fa fa-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-
-      <div class="form-group" ng-class="{ 'has-error': trip.content_error }">
-        <label>顧客名/事業内容</label>
-        <input class="form-control input-sm" ng-model="trip.content" type="text" />
-      </div>
-
-      <div class="form-group" ng-class="{ 'has-error': trip.start_error }">
-        <label>起点</label>
-        <input class="form-control input-sm" ng-model="trip.start" type="text" />
-      </div>
-
-      <div class="form-group" ng-class="{ 'has-error': trip.end_error }">
-        <label>終点</label>
-        <input class="form-control input-sm" ng-model="trip.end" type="text" />
-      </div>
-
-      <div class="form-group">
-        <div class="checkbox mg5t">
-          <label>
-            <input type="checkbox" value="trip.round">往復</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>摘要</label>
-        <select class="form-control input-sm" ng-model="trip.method" convert-to-number>
-          <option value="1">日当</option>
-          <option value="2">特急券</option>
-          <option value="3">指定券</option>
-          <option value="0">自筆記入</option>
-        </select>
-      </div>
-
-      <div class="form-group" ng-class="{ 'has-error': trip.method_error }" ng-show="trip.method === 0">
-        <label>摘要の自筆記入</label>
-        <input class="form-control input-sm" ng-model="trip.method_other" type="text" />
-      </div>
-
-      <div class="form-group">
-        <label>金額</label>
-        <input class="form-control input-sm" ng-model="trip.fee" type="number" />
-      </div>
-
-      <div class="form-group">
-        <label>宿泊費</label>
-        <input class="form-control input-sm" ng-model="trip.stay_fee" type="number" />
-      </div>
-
-      <div class="form-group">
-        <label>領収書</label>
-        <button class="btn btn-success btn-xs btn-upload-file">アップロード
-          <input type="file" nv-file-select uploader="uploader" style="display: hidden;" multiple>
-        </button>
-        <div class="mg5t" ng-show="trip.receipts.length > 0">
-          <img ng-repeat="receipt in trip.receipts" src="{{ receipt }}" class="receipt-img">
-        </div>
-        <div class="mg5t" ng-show="uploader.queue.length > 0">
-          <div ng-repeat="item in uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
-        </div>
-        <div class="d-sm-down-none" ng-if="uploader.isHTML5">
-          <div class="drop-image-box" nv-file-over="" uploader="uploader">
-            写真ファイルをドラッグしてください！
+        
+        <form name="vm.form.tripForm" novalidate>
+          <div class="form-group" ng-show="vm.uploader.isUploading">
+            <p class="text-muted" ng-bind="vm.uploadingFileName"></p>
+            <div class="progress progress-xs">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': vm.uploader.progress + '%' }"></div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="form-group text-right mgnb mg5t">
-        <button class="btn btn-sm btn-default" ng-click="closeThisDialog()">キャンセル</button>
-        <button class="btn btn-sm btn-primary" ng-click="handleSaveTrip()">完了</button>
+          <div class="form-group" show-errors>
+            <label for="date">日付</label>
+            <div class="input-group">
+              <input name="date" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.trip.new_date" is-open="vm.trip.is_open_picker"
+                close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body show-weeks="false" readonly="true"
+                required/>
+              <span class="input-group-btn bdnl">
+                <button type="button" class="btn btn-default bdnl" ng-click="vm.trip.is_open_picker = true;">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </span>
+            </div>
+            <div ng-messages="vm.form.tripForm.date.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">日付は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="content">顧客名・事業内容</label>
+            <input name="content" class="form-control" ng-model="vm.trip.content" type="text" required/>
+            <div ng-messages="vm.form.tripForm.content.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">顧客名・事業内容は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group d-sm-down-none" show-errors>
+            <div class="col-xs-6 pdnl">
+              <label for="start">起点</label>
+              <input name="start" class="form-control" ng-model="vm.trip.start" type="text" required/>
+              <div ng-messages="vm.form.tripForm.start.$error" role="alert">
+                <p class="help-block error-text font-sm" ng-message="required">起点は必須です。</p>
+              </div>
+            </div>
+            <div class="col-xs-6 pdnr">
+              <label for="end">終点</label>
+              <input name="end" class="form-control" ng-model="vm.trip.end" type="text" required/>
+              <div ng-messages="vm.form.tripForm.end.$error" role="alert">
+                <p class="help-block error-text font-sm" ng-message="required">終点は必須です。</p>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="form-group d-md-none" show-errors>
+            <label for="start">起点</label>
+            <input name="start" class="form-control" ng-model="vm.trip.start" type="text" required/>
+            <div ng-messages="vm.form.tripForm.start.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">起点は必須です。</p>
+            </div>
+          </div>
+          <div class="form-group d-md-none" show-errors>
+            <label for="end">終点</label>
+            <input name="end" class="form-control" ng-model="vm.trip.end" type="text" required/>
+            <div ng-messages="vm.form.tripForm.end.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">終点は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox mg5t">
+              <label>
+                <input type="checkbox" ng-model="vm.trip.round">往復</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>摘要</label>
+            <select class="form-control input-sm" ng-model="vm.trip.method" convert-to-number>
+              <option value="1">日当</option>
+              <option value="2">特急券</option>
+              <option value="3">指定券</option>
+              <option value="0">自筆記入</option>
+            </select>
+          </div>
+
+          <div class="form-group" ng-class="{ 'has-error': vm.trip.method_error }" ng-show="vm.trip.method === 0">
+            <label>摘要の自筆記入</label>
+            <input name="method_other" class="form-control" ng-model="vm.trip.method_other" type="text" ng-change="vm.handleChangeMethod()"
+            />
+            <div ng-show="vm.trip.method_error" role="alert">
+              <p class="help-block error-text font-sm">摘要は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group d-sm-down-none">
+            <div class="col-xs-6 pdnl">
+              <label>金額</label>
+              <input name="fee" class="form-control" ng-model="vm.trip.fee" type="number" />
+            </div>
+            <div class="col-xs-6 pdnr">
+              <label>宿泊費</label>
+              <input name="stay_fee" class="form-control" ng-model="vm.trip.stay_fee" type="number" />
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="form-group d-md-none">
+            <label>金額</label>
+            <input name="fee" class="form-control input-sm" ng-model="vm.trip.fee" type="number" />
+          </div>
+
+          <div class="form-group d-md-none">
+            <label>宿泊費</label>
+            <input name="stay_fee" class="form-control input-sm" ng-model="vm.trip.stay_fee" type="number" />
+          </div>
+
+          <div class="form-group">
+            <label>領収書</label>
+            <button class="btn btn-success btn-xs btn-upload-file">アップロード
+              <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
+            </button>
+            <div class="mg5t" ng-show="vm.trip.receipts.length > 0">
+              <img ng-repeat="receipt in trip.receipts" src="{{ receipt }}" class="receipt-img">
+            </div>
+            <div class="mg5t" ng-show="vm.uploader.queue.length > 0">
+              <div ng-repeat="item in vm.uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
+            </div>
+            <div class="d-sm-down-none" ng-if="vm.uploader.isHTML5">
+              <div class="drop-image-box" nv-file-over="" uploader="vm.uploader">
+                写真ファイルをドラッグしてください！
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="form-group text-right mgnb mg5t">
+          <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
+          <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveTrip(vm.form.tripForm.$valid)">完了</button>
+        </div>
       </div>
     </div>
   </div>

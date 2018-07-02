@@ -91,43 +91,52 @@
         message: '交通費を削除しますか？'
       }, function () {
         vm.payment.transports = _.without(vm.payment.transports, transport);
+        // TODO (Lưu ngay khi xóa hay bấm button lưu)
         vm.handleCalculatePayment();
       });
     };
     // TRIPS
     vm.handleAddTrip = function () {
-      var trip = {
-        id: new Date().getTime(),
-        method: 1,
-        fee: 0,
-        receipts: [],
-        stay_fee: 0
-      };
-      _.extend(trip, ui_config.trip);
-      $scope.trip = trip;
-      var mDialog = ngDialog.open({
-        template: 'modules/payments/client/views/templates/payment-trip.client.template.html',
-        controller: 'PaymentTripController',
-        appendClassName: 'ngdialog-custom',
-        scope: $scope,
-        showClose: false,
-        closeByDocument: false
-      });
-      mDialog.closePromise.then(function (res) {
-        if (!res.value || res.value === '$document') {
-          delete $scope.trip;
-          return;
-        }
-        vm.payment.trips.push(res.value);
-        vm.handleCalculatePayment();
-        delete $scope.trip;
-      });
+      PaymentFactory.set(vm.payment);
+      $state.go('payments.trip', { paymentId: vm.payment._id });
+      // var trip = {
+      //   id: new Date().getTime(),
+      //   method: 1,
+      //   fee: 0,
+      //   receipts: [],
+      //   stay_fee: 0
+      // };
+      // _.extend(trip, ui_config.trip);
+      // $scope.trip = trip;
+      // var mDialog = ngDialog.open({
+      //   template: 'modules/payments/client/views/templates/payment-trip.client.template.html',
+      //   controller: 'PaymentTripController',
+      //   appendClassName: 'ngdialog-custom',
+      //   scope: $scope,
+      //   showClose: false,
+      //   closeByDocument: false
+      // });
+      // mDialog.closePromise.then(function (res) {
+      //   if (!res.value || res.value === '$document') {
+      //     delete $scope.trip;
+      //     return;
+      //   }
+      //   vm.payment.trips.push(res.value);
+      //   vm.handleCalculatePayment();
+      //   delete $scope.trip;
+      // });
+    };
+    vm.handleEditTrip = function (trip) {
+      PaymentFactory.set(vm.payment);
+      PaymentFactory.setTrip(trip);
+      $state.go('payments.trip', { paymentId: vm.payment._id, trip: trip._id });
     };
     vm.handleRemoveTrip = function (trip) {
       $scope.handleShowConfirm({
         message: '出張旅費を削除しますか？'
       }, function () {
         vm.payment.trips = _.without(vm.payment.trips, trip);
+        // TODO (Lưu ngay khi xóa hay bấm button lưu)
         vm.handleCalculatePayment();
       });
     };
