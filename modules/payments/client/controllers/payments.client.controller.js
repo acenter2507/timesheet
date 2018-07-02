@@ -262,6 +262,8 @@
         account: 1,
         kind: 1,
         fee: 0,
+        partners: [''],
+        employees: [''],
         receipts: []
       };
       _.extend(meeting, ui_config.meeting);
