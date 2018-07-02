@@ -52,7 +52,7 @@
     onCreate();
     function onCreate() {
       preparePayment();
-      prepareTranspot();
+      prepareTransport();
       prepareTrips();
       prepareVehicles();
       prepareOthers();
@@ -62,12 +62,14 @@
     function preparePayment() {
       if (PaymentFactory.payment) {
         vm.payment = PaymentFactory.payment;
+        console.log('1', vm.payment);
       } else {
         PaymentsService.get({
           paymentId: $stateParams.paymentId
         }).$promise.then(function (payment) {
           vm.payment = payment;
           PaymentFactory.set(payment);
+          console.log('2', vm.payment);
         });
       }
     }
@@ -91,7 +93,7 @@
     };
 
     // TRANSPORT
-    function prepareTranspot() {
+    function prepareTransport() {
       if (vm.payment.transports.length === 0) return;
       for (var index = 0; index < vm.payment.transports.length; index++) {
         var transport = vm.payment.transports[index];
