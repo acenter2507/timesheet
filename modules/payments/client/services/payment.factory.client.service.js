@@ -7,7 +7,6 @@
     .factory('PaymentFactory', PaymentFactory);
 
   function PaymentFactory() {
-    this.payment = {};
     this.addTransport = function (transport) {
       this.payment.transports.push(transport);
     };
