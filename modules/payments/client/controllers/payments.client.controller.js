@@ -12,14 +12,6 @@
     var vm = this;
 
     var ui_config = {
-      trip: {
-        is_open_picker: false,
-        date_error: false,
-        content_error: false,
-        start_error: false,
-        end_error: false,
-        method_error: false
-      },
       vehicle: {
         is_open_picker: false,
         date_error: false,
@@ -99,32 +91,6 @@
     vm.handleAddTrip = function () {
       PaymentFactory.set(vm.payment);
       $state.go('payments.trip', { paymentId: vm.payment._id });
-      // var trip = {
-      //   id: new Date().getTime(),
-      //   method: 1,
-      //   fee: 0,
-      //   receipts: [],
-      //   stay_fee: 0
-      // };
-      // _.extend(trip, ui_config.trip);
-      // $scope.trip = trip;
-      // var mDialog = ngDialog.open({
-      //   template: 'modules/payments/client/views/templates/payment-trip.client.template.html',
-      //   controller: 'PaymentTripController',
-      //   appendClassName: 'ngdialog-custom',
-      //   scope: $scope,
-      //   showClose: false,
-      //   closeByDocument: false
-      // });
-      // mDialog.closePromise.then(function (res) {
-      //   if (!res.value || res.value === '$document') {
-      //     delete $scope.trip;
-      //     return;
-      //   }
-      //   vm.payment.trips.push(res.value);
-      //   vm.handleCalculatePayment();
-      //   delete $scope.trip;
-      // });
     };
     vm.handleEditTrip = function (trip) {
       PaymentFactory.set(vm.payment);
