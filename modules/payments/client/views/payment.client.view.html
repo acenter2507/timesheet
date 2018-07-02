@@ -40,7 +40,7 @@
             </td>
             <td>
               <p class="mgn">{{ transport.method | TransportMethod }}</p>
-              <p class="mgn" ng-show="transport.method === 0">{{ transport.other_method }}</p>
+              <p class="mgn" ng-show="transport.method === 0">{{ transport.method_other }}</p>
             </td>
             <td class="text-center">{{ transport.fee }}</td>
             <td class="text-center">{{ transport.taxi_fee }}</td>
@@ -102,7 +102,7 @@
             </td>
             <td>
               <p class="mgn">{{ trip.method | TripMethod }}</p>
-              <p class="mgn" ng-show="trip.method === 0">{{ trip.other_method }}</p>
+              <p class="mgn" ng-show="trip.method === 0">{{ trip.method_other }}</p>
             </td>
             <td class="text-center w50">{{ trip.fee }}</td>
             <td class="text-center">{{ trip.stay_fee }}</td>
