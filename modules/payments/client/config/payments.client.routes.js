@@ -31,22 +31,6 @@
         data: { roles: ['accountant', 'admin'] },
         ncyBreadcrumb: { label: '清算表確認' }
       })
-      .state('payments.edit', {
-        url: '/:paymentId/edit',
-        templateUrl: 'modules/payments/client/views/payment.client.view.html',
-        controller: 'PaymentsController',
-        controllerAs: 'vm',
-        data: { roles: ['user'] },
-        ncyBreadcrumb: { label: '清算表入力' }
-      })
-      .state('payments.view', {
-        url: '/:paymentId',
-        templateUrl: 'modules/payments/client/views/view-payment.client.view.html',
-        controller: 'PaymentsController',
-        controllerAs: 'vm',
-        data: { roles: ['user'] },
-        ncyBreadcrumb: { label: '清算表詳細' }
-      })
       .state('payments.transport', {
         url: '/transport',
         templateUrl: 'modules/payments/client/views/components/payment-transport.client.template.html',
@@ -86,6 +70,22 @@
         controllerAs: 'vm',
         data: { roles: ['user'] },
         ncyBreadcrumb: { label: '会議費 ･接待交際費報告書' }
+      })
+      .state('payments.edit', {
+        url: '/:paymentId/edit',
+        templateUrl: 'modules/payments/client/views/payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '清算表入力' }
+      })
+      .state('payments.view', {
+        url: '/:paymentId',
+        templateUrl: 'modules/payments/client/views/view-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '清算表詳細' }
       });
   }
 }());
