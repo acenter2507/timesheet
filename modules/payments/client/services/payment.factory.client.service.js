@@ -19,6 +19,12 @@
     this.addTrip = function (trip) {
       this.payment.trips.push(trip);
     };
+    this.setTrip = function (trip) {
+      this.trip = trip;
+    };
+    this.deleteTrip = function () {
+      delete this.trip;
+    };
     this.addOther = function (other) {
       this.payment.others.push(other);
     };
@@ -30,9 +36,6 @@
     };
     this.set = function (payment) {
       this.payment = payment;
-    };
-    this.setTrip = function (trip) {
-      this.trip = trip;
     };
     this.setOther = function (other) {
       this.other = other;
