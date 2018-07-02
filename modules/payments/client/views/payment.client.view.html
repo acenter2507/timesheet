@@ -71,10 +71,10 @@
             <th rowspan="2" class="text-center">#</th>
             <th rowspan="2">日付</th>
             <th rowspan="2">顧客名・事業内容</th>
-            <th colspan="2">経路</th>
+            <th colspan="2" class="text-center">経路</th>
             <th rowspan="2">往復</th>
-            <th colspan="2">出張旅費</th>
-            <th rowspan="2">宿泊費</th>
+            <th colspan="2" class="text-center">出張旅費</th>
+            <th rowspan="2" class="text-center">宿泊費</th>
             <th rowspan="2">領収書</th>
             <th rowspan="2" class="text-center w50">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTrip()">追加</button>
@@ -92,20 +92,20 @@
             <td colspan="11">出張旅費が登録されません！</td>
           </tr>
           <tr ng-repeat="trip in vm.payment.trips track by $index">
-            <td>{{ $index }}</td>
+            <td class="text-center">{{ $index + 1 }}</td>
             <td>{{ trip.date | LL }} {{ trip.date | dddd }}</td>
             <td>{{ trip.content }}</td>
             <td>{{ trip.start }}</td>
             <td>{{ trip.end }}</td>
-            <td>
+            <td class="text-center">
               <input type="checkbox" ng-checked="{{ trip.round }}">
             </td>
             <td>
               <p class="mgn">{{ trip.method | TripMethod }}</p>
               <p class="mgn" ng-show="transport.method === 0">{{ trip.other_method }}</p>
             </td>
-            <td class="w50">{{ trip.fee }}</td>
-            <td>{{ trip.stay_fee }}</td>
+            <td class="text-center w50">{{ trip.fee }}</td>
+            <td class="text-center">{{ trip.stay_fee }}</td>
             <td>
               <a ng-repeat="receipt in trip.receipts" ng-click="handleShowImage(receipt)">
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
