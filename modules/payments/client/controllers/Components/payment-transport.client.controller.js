@@ -88,7 +88,7 @@
       }
       if (error) return false;
 
-      vm.handleShowConfirm({
+      $scope.handleShowConfirm({
         message: '交通費を保存しますか？'
       }, function () {
         if (vm.uploader.queue.length > 0) {
