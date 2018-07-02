@@ -6,13 +6,10 @@
     .module('payments')
     .controller('PaymentsController', PaymentsController);
 
-  PaymentsController.$inject = ['$scope', '$state', 'paymentResolve', 'ngDialog'];
+  PaymentsController.$inject = ['$scope', '$state', 'ngDialog', '$stateParams', 'PaymentsService', 'PaymentFactory'];
 
-  function PaymentsController($scope, $state, payment, ngDialog) {
+  function PaymentsController($scope, $state, ngDialog, $stateParams, PaymentsService, PaymentFactory) {
     var vm = this;
-
-    vm.payment = payment;
-    vm.form = {};
 
     var ui_config = {
       transport: {
@@ -54,8 +51,25 @@
 
     onCreate();
     function onCreate() {
-      console.log(vm.payment);
+      preparePayment();
       prepareTranspot();
+      prepareTrips();
+      prepareVehicles();
+      prepareOthers();
+      prepareMeetings();
+    }
+
+    function preparePayment() {
+      if (PaymentFactory.payment) {
+        vm.payment = PaymentFactory.payment;
+      } else {
+        PaymentsService.get({
+          paymentId: $stateParams.paymentId
+        }).$promise.then(function (payment) {
+          vm.payment = payment;
+          PaymentFactory.set(payment);
+        });
+      }
     }
     vm.handleSavePayments = function () {
       // Verify Payments
@@ -75,6 +89,7 @@
     };
     vm.handleValidatePayment = function () {
     };
+
     // TRANSPORT
     function prepareTranspot() {
       if (vm.payment.transports.length === 0) return;

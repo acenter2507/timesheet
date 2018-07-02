@@ -37,8 +37,7 @@
         controller: 'PaymentsController',
         controllerAs: 'vm',
         data: { roles: ['user'] },
-        ncyBreadcrumb: { label: '清算表入力' },
-        resolve: { paymentResolve: getPayment }
+        ncyBreadcrumb: { label: '清算表入力' }
       })
       .state('payments.view', {
         url: '/:paymentId',
@@ -49,13 +48,5 @@
         resolve: { paymentResolve: getPayment },
         ncyBreadcrumb: { label: '清算表詳細' }
       });
-  }
-
-  getPayment.$inject = ['$stateParams', 'PaymentsService'];
-
-  function getPayment($stateParams, PaymentsService) {
-    return PaymentsService.get({
-      paymentId: $stateParams.paymentId
-    }).$promise;
   }
 }());
