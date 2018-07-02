@@ -10,7 +10,7 @@
 
   function LL_format() {
     return function (time) {
-      return moment(time).format('LL');
+      return time;//moment(time).format('LL');
     };
   }
   function LLL_format() {
