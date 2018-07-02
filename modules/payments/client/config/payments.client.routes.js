@@ -31,14 +31,6 @@
         data: { roles: ['accountant', 'admin'] },
         ncyBreadcrumb: { label: '清算表確認' }
       })
-      .state('payments.transport', {
-        url: '/:paymentId/transport',
-        templateUrl: 'modules/payments/client/views/components/payment-transport.client.template.html',
-        controller: 'PaymentTransportController',
-        controllerAs: 'vm',
-        data: { roles: ['user'] },
-        ncyBreadcrumb: { label: '交通費' }
-      })
       .state('payments.trip', {
         url: '/trip',
         templateUrl: 'modules/payments/client/views/components/payment-trip.client.template.html',
@@ -78,6 +70,14 @@
         controllerAs: 'vm',
         data: { roles: ['user'] },
         ncyBreadcrumb: { label: '清算表入力' }
+      })
+      .state('payments.transport', {
+        url: '/:paymentId/transport',
+        templateUrl: 'modules/payments/client/views/components/payment-transport.client.template.html',
+        controller: 'PaymentTransportController',
+        controllerAs: 'vm',
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '交通費' }
       })
       .state('payments.view', {
         url: '/:paymentId',
