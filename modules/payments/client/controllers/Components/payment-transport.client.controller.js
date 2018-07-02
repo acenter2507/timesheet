@@ -74,7 +74,7 @@
       };
       vm.uploader.onCompleteAll = function () {
         vm.uploader.clearQueue();
-        // TODO
+        
       };
     }
 
@@ -84,9 +84,11 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.transportForm');
         return false;
       }
-      // if (!validateTransport()) {
-      //   return $scope.handleShowToast('データが不足です！', true);
-      // }
+
+      if (!validateTransport()) {
+        $scope.handleShowToast('データが不足です！', true);
+        return false;
+      }
 
       // vm.handleShowConfirm({
       //   message: '交通費を保存しますか？'
@@ -101,30 +103,6 @@
 
     function validateTransport() {
       var error = true;
-      if (!vm.transport.date || !moment(vm.transport.date).isValid()) {
-        vm.transport.date_error = true;
-        error = false;
-      } else {
-        vm.transport.date_error = false;
-      }
-      if (CommonService.isStringEmpty(vm.transport.content)) {
-        vm.transport.content_error = true;
-        error = false;
-      } else {
-        vm.transport.content_error = false;
-      }
-      if (CommonService.isStringEmpty(vm.transport.start)) {
-        vm.transport.start_error = true;
-        error = false;
-      } else {
-        vm.transport.start_error = false;
-      }
-      if (CommonService.isStringEmpty(vm.transport.end)) {
-        vm.transport.end_error = true;
-        error = false;
-      } else {
-        vm.transport.end_error = false;
-      }
       if (vm.transport.method === 0 && CommonService.isStringEmpty(vm.transport.method_other)) {
         vm.transport.method_error = true;
         error = false;
