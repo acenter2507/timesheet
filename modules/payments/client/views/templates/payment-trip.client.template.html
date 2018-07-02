@@ -7,6 +7,7 @@
           <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
         </div>
       </div>
+
       <div class="form-group" ng-class="{ 'has-error': trip.date_error }">
         <label>日付</label>
         <div class="input-group">
@@ -53,9 +54,9 @@
         </select>
       </div>
 
-      <div class="form-group" ng-class="{ 'has-error': trip.method_error }">
+      <div class="form-group" ng-class="{ 'has-error': trip.method_error }" ng-show="trip.method === 0">
         <label>摘要の自筆記入</label>
-        <input class="form-control input-sm" ng-model="trip.method_other" type="text" ng-disabled="trip.method !== 0" />
+        <input class="form-control input-sm" ng-model="trip.method_other" type="text" />
       </div>
 
       <div class="form-group">
