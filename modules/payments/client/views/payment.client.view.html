@@ -20,8 +20,8 @@
           <tr>
             <th>起点</th>
             <th>終点</th>
-            <th>ＴＡＸＩ以外</th>
-            <th>ＴＡＸＩ</th>
+            <th class="w50">ＴＡＸＩ以外</th>
+            <th class="w50">ＴＡＸＩ</th>
           </tr>
         </thead>
         <tbody>
@@ -40,14 +40,14 @@
               <p class="mgn">{{ transport.method | TransportMethod }}</p>
               <p class="mgn" ng-show="transport.method === 0">{{ transport.other_method }}</p>
             </td>
-            <td>{{ transport.fee }}</td>
-            <td>{{ transport.taxi_fee }}</td>
+            <td class="w50">{{ transport.fee }}</td>
+            <td class="w50">{{ transport.taxi_fee }}</td>
             <td>
               <a ng-repeat="receipt in transport.receipts" ng-click="handleShowImage(receipt)">
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
-            <td>
+            <td class="w50">
               <a ng-click="vm.handleRemoveTransport(transport)" class="text-danger">
                 <i class="fa fa-times"></i>
               </a>
@@ -68,7 +68,7 @@
             <th colspan="2">経路</th>
             <th rowspan="2">往復</th>
             <th colspan="2">出張旅費</th>
-            <th rowspan="2">宿泊費</th>
+            <th rowspan="2" class="w50">宿泊費</th>
             <th rowspan="2">領収書</th>
             <th rowspan="2" class="text-center w50">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTrip()">追加</button>
@@ -78,7 +78,7 @@
             <th>起点</th>
             <th>終点</th>
             <th>摘要</th>
-            <th>金額</th>
+            <th class="w50">金額</th>
           </tr>
         </thead>
         <tbody>
@@ -97,8 +97,8 @@
               <p class="mgn">{{ trip.method | TripMethod }}</p>
               <p class="mgn" ng-show="transport.method === 0">{{ trip.other_method }}</p>
             </td>
-            <td>{{ trip.fee }}</td>
-            <td>{{ trip.stay_fee }}</td>
+            <td class="w50">{{ trip.fee }}</td>
+            <td class="w50">{{ trip.stay_fee }}</td>
             <td>
               <a ng-repeat="receipt in trip.receipts" ng-click="handleShowImage(receipt)">
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
@@ -123,7 +123,7 @@
             <th>日付</th>
             <th>摘要</th>
             <th>目的</th>
-            <th>金額</th>
+            <th class="w50">金額</th>
             <th>領収書</th>
             <th class="text-center w50">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddVehicle()">追加</button>
@@ -138,7 +138,7 @@
             <td>{{ vehicle.date | LL }} {{ vehicle.date | dddd }}</td>
             <td>{{ vehicle.content }}</td>
             <td>{{ vehicle.purpose }}</td>
-            <td>{{ vehicle.fee }}</td>
+            <td class="w50">{{ vehicle.fee }}</td>
             <td>
               <a ng-repeat="receipt in vehicle.receipts" ng-click="handleShowImage(receipt)">
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
@@ -163,7 +163,7 @@
             <th>日付</th>
             <th>摘要</th>
             <th>勘定科目</th>
-            <th>金額</th>
+            <th class="w50">金額</th>
             <th>領収書</th>
             <th class="text-center w50">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddOther()">追加</button>
@@ -178,7 +178,7 @@
             <td>{{ other.date | LL }} {{ other.date | dddd }}</td>
             <td>{{ other.content }}</td>
             <td>{{ other.kind | OtherKind }}</td>
-            <td>{{ other.fee }}</td>
+            <td class="w50">{{ other.fee }}</td>
             <td>
               <a ng-repeat="receipt in other.receipts" ng-click="handleShowImage(receipt)">
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
@@ -205,9 +205,9 @@
             <th>場所</th>
             <th>顧客氏名</th>
             <th>社員氏名</th>
-            <th>人数合計</th>
-            <th>使用金額</th>
-            <th>1人当たり</th>
+            <th class="w50">人数合計</th>
+            <th class="w50">使用金額</th>
+            <th class="w50">1人当たり</th>
             <th>勘定科目</th>
             <th>種別</th>
             <th class="text-center w50">
@@ -229,9 +229,9 @@
             <td>
               <p ng-repeat="employee in meeting.employees">{{ employee }}</p>
             </td>
-            <td>{{ meeting.total }}</td>
-            <td>{{ meeting.fee }}</td>
-            <td>{{ meeting.amount }}</td>
+            <td class="w50">{{ meeting.total }}</td>
+            <td class="w50">{{ meeting.fee }}</td>
+            <td class="w50">{{ meeting.amount }}</td>
             <td>
               <p class="mgn">{{ meeting.account | MeetingAccount }}</p>
               <p class="mgn" ng-show="meeting.account === 0">{{ meeting.account_method }}</p>
