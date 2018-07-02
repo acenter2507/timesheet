@@ -6,7 +6,7 @@
           <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
           <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveTrip(vm.form.tripForm.$valid)">完了</button>
         </div>
-        
+
         <form name="vm.form.tripForm" novalidate>
           <div class="form-group" ng-show="vm.uploader.isUploading">
             <p class="text-muted" ng-bind="vm.uploadingFileName"></p>
@@ -127,7 +127,7 @@
               <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
             </button>
             <div class="mg5t" ng-show="vm.trip.receipts.length > 0">
-              <img ng-repeat="receipt in trip.receipts" src="{{ receipt }}" class="receipt-img">
+              <img ng-repeat="receipt in vm.trip.receipts" src="{{ receipt }}" class="receipt-img">
             </div>
             <div class="mg5t" ng-show="vm.uploader.queue.length > 0">
               <div ng-repeat="item in vm.uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
