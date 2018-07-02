@@ -7,7 +7,7 @@
           <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
         </div>
       </div>
-      
+
       <div class="form-group" ng-class="{ 'has-error': meeting.date_error }">
         <label>日付</label>
         <div class="input-group">
@@ -30,6 +30,41 @@
       <div class="form-group">
         <label>場所</label>
         <input class="form-control input-sm" ng-model="meeting.location" type="text" />
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-6">
+          <label>顧客氏名</label>
+          <table class="table table-bordered">
+            <tbody>
+              <tr ng-repeat="partner in meeting.partners track by $index">
+                <td>
+                  <button class="btn btn-danger btn-xs" ng-click="handleRemovePartner(partner)">削除</button>
+                </td>
+                <td>
+                  <input class="form-control input-sm" ng-model="partner">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-default btn-xs" ng-click="handleAddPartner()">追加</button>
+        </div>
+        <div class="col-md-6">
+          <label>社員氏名</label>
+          <table class="table table-bordered">
+            <tbody>
+              <tr ng-repeat="employee in meeting.employees track by $index">
+                  <td>
+                    <button class="btn btn-danger btn-xs" ng-click="handleRemoveEmployee(employee)">削除</button>
+                  </td>
+                <td>
+                  <input class="form-control input-sm" ng-model="employee">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-default btn-xs" ng-click="handleAddEmployee()">追加</button>
+        </div>
       </div>
 
       <div class="form-group">

@@ -57,6 +57,18 @@
         }
       });
     };
+    $scope.handleAddPartner = function () {
+      meeting.partners.push('');
+    };
+    $scope.handleAddEmployee = function () {
+      meeting.employees.push('');
+    };
+    $scope.handleRemovePartner = function (partner) {
+      meeting.partner = _.without(meeting.partners, partner);
+    };
+    $scope.handleRemoveEmployee = function (employee) {
+      meeting.employees = _.without(meeting.employees, employee);
+    };
 
     function validateMeeting() {
       var error = true;
