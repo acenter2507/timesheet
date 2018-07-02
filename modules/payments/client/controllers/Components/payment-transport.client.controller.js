@@ -79,6 +79,7 @@
     }
 
     vm.handleSaveTransport = function (isValid) {
+      console.log(isValid);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.transportForm');
         return false;
