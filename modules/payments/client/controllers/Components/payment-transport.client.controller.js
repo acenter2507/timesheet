@@ -17,6 +17,8 @@
     vm.transport = {};
     vm.form = {};
 
+    vm.isEdit = false;
+
     prepareTransport();
     prepareUpload();
 
@@ -32,6 +34,7 @@
           method_error: false,
           fee_error: false
         });
+        vm.isEdit = true;
       } else {
         vm.transport = {
           id: new Date().getTime(),
