@@ -27,10 +27,6 @@
         vm.transport = PaymentFactory.transport;
         _.extend(vm.transport, {
           is_open_picker: false,
-          date_error: false,
-          content_error: false,
-          start_error: false,
-          end_error: false,
           method_error: false,
           fee_error: false
         });
@@ -43,10 +39,6 @@
           receipts: [],
           taxi_fee: 0,
           is_open_picker: false,
-          date_error: false,
-          content_error: false,
-          start_error: false,
-          end_error: false,
           method_error: false,
           fee_error: false
         };
@@ -79,11 +71,15 @@
     }
 
     vm.handleSaveTransport = function (isValid) {
-      if (!isValid || !validateTransport()) {
-        $scope.handleShowToast('データが不足です！', true);
+      var error = false;
+      if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.transportForm');
-        return false;
+        error = true;
       }
+      if (!validateTransport()) {
+        error = true;
+      }
+      if (error) return false;
 
       // vm.handleShowConfirm({
       //   message: '交通費を保存しますか？'

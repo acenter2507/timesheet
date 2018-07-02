@@ -79,7 +79,7 @@
             <label>手段の自筆記入</label>
             <input name="method_other" class="form-control" ng-model="vm.transport.method_other" type="text" />
             <div ng-messages="vm.transport.method_error" role="alert">
-              <p class="help-block error-text font-sm" ng-message="required">自筆記入は必須です。</p>
+              <p class="help-block error-text font-sm">手段は必須です。</p>
             </div>
           </div>
 
@@ -87,7 +87,7 @@
             <label>TAXI以外</label>
             <input name="fee" class="form-control" ng-model="vm.transport.fee" type="number" />
             <div ng-messages="vm.transport.fee_error" role="alert">
-              <p class="help-block error-text font-sm" ng-message="required">どれかの金額を入力してください！</p>
+              <p class="help-block error-text font-sm">どれかの金額を入力してください！</p>
             </div>
           </div>
 
@@ -95,7 +95,7 @@
             <label>TAXI</label>
             <input name="taxi_fee" class="form-control" ng-model="vm.transport.taxi_fee" type="number" />
             <div ng-messages="vm.transport.fee_error" role="alert">
-              <p class="help-block error-text font-sm" ng-message="required">どれかの金額を入力してください！</p>
+              <p class="help-block error-text font-sm">どれかの金額を入力してください！</p>
             </div>
           </div>
 
