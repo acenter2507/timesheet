@@ -79,14 +79,9 @@
     }
 
     vm.handleSaveTransport = function (isValid) {
-      console.log(isValid);
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.transportForm');
-        return false;
-      }
-
-      if (!validateTransport()) {
+      if (!isValid || !validateTransport()) {
         $scope.handleShowToast('データが不足です！', true);
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.transportForm');
         return false;
       }
 
