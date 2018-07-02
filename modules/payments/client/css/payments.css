@@ -1,31 +1,33 @@
-.transport .form-group {
-  margin-bottom: 10px; }
-.transport label {
-  display: inline-block;
-  max-width: 100%;
-  margin-bottom: 1px;
-  font-weight: 500; }
-.transport .drop-image-box {
-  position: relative;
-  height: 80px;
-  width: 100%;
-  margin-top: 5px;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 80px;
-  border: 2px dashed lightgray;
-  background-color: #fff }
-  .transport .drop-image-box.nv-file-over {
-    border: 2px dashed #3399ff; }
-  .transport .drop-image-box .btn-upload-file {
-    position: absolute;
-    right: 10px;
-    bottom: 10px; }
-.transport .receipt-img {
-  display: inline-block;
-  margin-right: 5px;
-  width: 50px;
-  height: auto; }
-  .transport .receipt-img canvas {
+.transport {
+  width: 100%; }
+  .transport .form-group {
+    margin-bottom: 10px; }
+  .transport label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 1px;
+    font-weight: 500; }
+  .transport .drop-image-box {
+    position: relative;
+    height: 80px;
+    width: 100%;
+    margin-top: 5px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 80px;
+    border: 2px dashed lightgray;
+    background-color: #fff }
+    .transport .drop-image-box.nv-file-over {
+      border: 2px dashed #3399ff; }
+    .transport .drop-image-box .btn-upload-file {
+      position: absolute;
+      right: 10px;
+      bottom: 10px; }
+  .transport .receipt-img {
+    display: inline-block;
+    margin-right: 5px;
     width: 50px;
     height: auto; }
+    .transport .receipt-img canvas {
+      width: 50px;
+      height: auto; }

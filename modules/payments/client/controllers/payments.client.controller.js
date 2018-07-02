@@ -57,22 +57,15 @@
     function preparePayment() {
       if (PaymentFactory.payment) {
         vm.payment = PaymentFactory.payment;
-        console.log('1', vm.payment);
       } else {
         PaymentsService.get({
           paymentId: $stateParams.paymentId
         }).$promise.then(function (payment) {
           vm.payment = payment;
-          PaymentFactory.set(payment);
-          prepareTransport();
-          prepareTrips();
-          prepareVehicles();
-          prepareOthers();
-          prepareMeetings();
-          console.log('2', vm.payment);
         });
       }
     }
+
     vm.handleSavePayments = function () {
       // Verify Payments
       $scope.handleShowConfirm({
@@ -93,40 +86,39 @@
     };
 
     // TRANSPORT
-    function prepareTransport() {
-      if (vm.payment.transports.length === 0) return;
-      for (var index = 0; index < vm.payment.transports.length; index++) {
-        var transport = vm.payment.transports[index];
-        _.extend(transport, ui_config.transport);
-      }
-    }
     vm.handleAddTransport = function () {
-      var transport = {
-        id: new Date().getTime(),
-        method: 1,
-        fee: 0,
-        receipts: [],
-        taxi_fee: 0
-      };
-      _.extend(transport, ui_config.transport);
-      $scope.transport = transport;
-      var mDialog = ngDialog.open({
-        template: 'modules/payments/client/views/templates/payment-transport.client.template.html',
-        controller: 'PaymentTransportController',
-        appendClassName: 'ngdialog-custom',
-        scope: $scope,
-        showClose: false,
-        closeByDocument: false
-      });
-      mDialog.closePromise.then(function (res) {
-        if (!res.value || res.value === '$document') {
-          delete $scope.transport;
-          return;
-        }
-        vm.payment.transports.push(res.value);
-        vm.handleCalculatePayment();
-        delete $scope.transport;
-      });
+      PaymentFactory.set(vm.payment);
+      $state.go('payments.transport');
+      // PaymentFactory.setTransport({
+      //   id: new Date().getTime(),
+      //   method: 1,
+      //   fee: 0,
+      //   receipts: [],
+      //   taxi_fee: 0
+      // });
+
+      // var transport = ;
+      // _.extend(transport, ui_config.transport);
+      // $scope.transport = transport;
+      // var mDialog = ngDialog.open({
+      //   template: 'modules/payments/client/views/templates/payment-transport.client.template.html',
+      //   controller: 'PaymentTransportController',
+      //   appendClassName: 'ngdialog-custom',
+      //   scope: $scope,
+      //   showClose: false,
+      //   closeByDocument: false
+      // });
+      // mDialog.closePromise.then(function (res) {
+      //   if (!res.value || res.value === '$document') {
+      //     delete $scope.transport;
+      //     return;
+      //   }
+      //   vm.payment.transports.push(res.value);
+      //   vm.handleCalculatePayment();
+      //   delete $scope.transport;
+      // });
+    };
+    vm.handleEditTransport = function (transport) {
     };
     vm.handleRemoveTransport = function (transport) {
       $scope.handleShowConfirm({
@@ -137,13 +129,6 @@
       });
     };
     // TRIPS
-    function prepareTrips() {
-      if (vm.payment.trips.length === 0) return;
-      for (var index = 0; index < vm.payment.trips.length; index++) {
-        var trip = vm.payment.trips[index];
-        _.extend(trip, ui_config.trip);
-      }
-    }
     vm.handleAddTrip = function () {
       var trip = {
         id: new Date().getTime(),
@@ -181,13 +166,6 @@
       });
     };
     // VEHICLES
-    function prepareVehicles() {
-      if (vm.payment.vehicles.length === 0) return;
-      for (var index = 0; index < vm.payment.vehicles.length; index++) {
-        var vehicle = vm.payment.vehicles[index];
-        _.extend(vehicle, ui_config.vehicle);
-      }
-    }
     vm.handleAddVehicle = function () {
       var vehicle = {
         id: new Date().getTime(),
@@ -224,13 +202,6 @@
       });
     };
     // OTHERS
-    function prepareOthers() {
-      if (vm.payment.others.length === 0) return;
-      for (var index = 0; index < vm.payment.others.length; index++) {
-        var other = vm.payment.others[index];
-        _.extend(other, ui_config.other);
-      }
-    }
     vm.handleAddOther = function () {
       var other = {
         id: new Date().getTime(),
@@ -266,13 +237,6 @@
       });
     };
     // MEETINGS
-    function prepareMeetings() {
-      if (vm.payment.meetings.length === 0) return;
-      for (var index = 0; index < vm.payment.meetings.length; index++) {
-        var meeting = vm.payment.meetings[index];
-        _.extend(meeting, ui_config.meeting);
-      }
-    }
     vm.handleAddMeeting = function () {
       var meeting = {
         id: new Date().getTime(),

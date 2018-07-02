@@ -19,8 +19,26 @@
     this.addVehicle = function (vehicle) {
       this.payment.vehicles.push(vehicle);
     };
+    this.addMeeting = function (meeting) {
+      this.payment.meetings.push(meeting);
+    };
     this.set = function (payment) {
       this.payment = payment;
+    };
+    this.setTransport = function (transport) {
+      this.transport = transport;
+    };
+    this.setTrip = function (trip) {
+      this.trip = trip;
+    };
+    this.setOther = function (other) {
+      this.other = other;
+    };
+    this.setVehicle = function (vehicle) {
+      this.vehicle = vehicle;
+    };
+    this.setMeeting = function (meeting) {
+      this.meeting = meeting;
     };
     this.update = function (payment) {
       _.extend(this.payment, payment);

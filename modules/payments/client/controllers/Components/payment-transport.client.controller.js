@@ -7,94 +7,126 @@
   PaymentTransportController.$inject = [
     '$scope',
     'FileUploader',
-    'CommonService'
+    'CommonService',
+    'PaymentFactory'
   ];
 
 
-  function PaymentTransportController($scope, FileUploader, CommonService) {
+  function PaymentTransportController($scope, FileUploader, CommonService, PaymentFactory) {
+    vm = this;
+    vm.transport = {};
 
-    $scope.receipts = [];
+    prepareTransport();
     prepareUpload();
 
+    function prepareTransport() {
+      if (PaymentFactory.transport) {
+        vm.transport = PaymentFactory.transport;
+        _.extend(vm.transport, {
+          is_open_picker: false,
+          date_error: false,
+          content_error: false,
+          start_error: false,
+          end_error: false,
+          method_error: false,
+          fee_error: false
+        });
+      } else {
+        vm.transport = {
+          id: new Date().getTime(),
+          method: 1,
+          fee: 0,
+          receipts: [],
+          taxi_fee: 0,
+          is_open_picker: false,
+          date_error: false,
+          content_error: false,
+          start_error: false,
+          end_error: false,
+          method_error: false,
+          fee_error: false
+        };
+      }
+    }
     function prepareUpload() {
-      $scope.uploader = new FileUploader({
+      vm.uploader = new FileUploader({
         url: 'api/payments/receipts',
         alias: 'paymentReceipts'
       });
-      $scope.uploader.filters.push({
+      vm.uploader.filters.push({
         name: 'imageFilter',
         fn: function (item, options) {
           var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
           return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
         }
       });
-      $scope.uploader.onBeforeUploadItem = function (item) {
-        $scope.uploadingFileName = item._file.name;
+      vm.uploader.onBeforeUploadItem = function (item) {
+        vm.uploadingFileName = item._file.name;
       };
-      $scope.uploader.onAfterAddingAll = function (addedFileItems) {
+      vm.uploader.onAfterAddingAll = function (addedFileItems) {
       };
-      $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-        $scope.transport.receipts.push(response);
+      vm.uploader.onCompleteItem = function (fileItem, response, status, headers) {
+        vm.transport.receipts.push(response);
       };
-      $scope.uploader.onCompleteAll = function () {
-        $scope.uploader.clearQueue();
-        $scope.closeThisDialog($scope.transport);
+      vm.uploader.onCompleteAll = function () {
+        vm.uploader.clearQueue();
+        // TODO
       };
     }
 
-    $scope.handleSaveTransport = function () {
+    vm.handleSaveTransport = function () {
       if (!validateTransport()) {
         return $scope.handleShowToast('データが不足です！', true);
       }
 
-      $scope.handleShowConfirm({
+      vm.handleShowConfirm({
         message: '交通費を保存しますか？'
       }, function () {
-        if ($scope.uploader.queue.length > 0) {
-          $scope.uploader.uploadAll();
+        if (vm.uploader.queue.length > 0) {
+          vm.uploader.uploadAll();
         } else {
-          $scope.closeThisDialog($scope.transport);
+          // TODO
         }
       });
     };
 
     function validateTransport() {
       var error = true;
-      if (!$scope.transport.date || !moment($scope.transport.date).isValid()) {
-        $scope.transport.date_error = true;
+      if (!vm.transport.date || !moment(vm.transport.date).isValid()) {
+        vm.transport.date_error = true;
         error = false;
       } else {
-        $scope.transport.date_error = false;
+        vm.transport.date_error = false;
       }
-      if (CommonService.isStringEmpty($scope.transport.content)) {
-        $scope.transport.content_error = true;
+      if (CommonService.isStringEmpty(vm.transport.content)) {
+        vm.transport.content_error = true;
         error = false;
       } else {
-        $scope.transport.content_error = false;
+        vm.transport.content_error = false;
       }
-      if (CommonService.isStringEmpty($scope.transport.start)) {
-        $scope.transport.start_error = true;
+      if (CommonService.isStringEmpty(vm.transport.start)) {
+        vm.transport.start_error = true;
         error = false;
       } else {
-        $scope.transport.start_error = false;
+        vm.transport.start_error = false;
       }
-      if (CommonService.isStringEmpty($scope.transport.end)) {
-        $scope.transport.end_error = true;
+      if (CommonService.isStringEmpty(vm.transport.end)) {
+        vm.transport.end_error = true;
         error = false;
       } else {
-        $scope.transport.end_error = false;
+        vm.transport.end_error = false;
       }
-      if ($scope.transport.method === 0 && CommonService.isStringEmpty($scope.transport.method_other)) {
-        $scope.transport.method_error = true;
+      if (vm.transport.method === 0 && CommonService.isStringEmpty(vm.transport.method_other)) {
+        vm.transport.method_error = true;
         error = false;
       } else {
-        $scope.transport.method_error = false;
+        vm.transport.method_error = false;
       }
-      if ($scope.transport.fee === 0 && $scope.transport.taxi_fee === 0) {
-        $scope.transport.fee_error = true;
+      if (vm.transport.fee === 0 && vm.transport.taxi_fee === 0) {
+        vm.transport.fee_error = true;
         error = false;
       } else {
-        $scope.transport.fee_error = false;
+        vm.transport.fee_error = false;
       }
       return error;
     }
