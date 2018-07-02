@@ -89,7 +89,6 @@
       };
       vm.uploader.onCompleteAll = function () {
         vm.uploader.clearQueue();
-        vm.payment.transports.push(vm.transport);
         handleSavePayment();
       };
     }
@@ -111,7 +110,6 @@
         if (vm.uploader.queue.length > 0) {
           vm.uploader.uploadAll();
         } else {
-          vm.payment.transports.push(vm.transport);
           handleSavePayment();
         }
       });
@@ -132,13 +130,14 @@
     };
 
     function handleSavePayment() {
-      vm.payment.$update(function (payment) {
-        PaymentFactory.update(vm.payment, payment);
-        PaymentFactory.deleteTransport();
-        $state.go('payments.edit', { paymentId: vm.payment._id });
-      }, function (err) {
-        $scope.handleShowToast(err.message, true);
-      });
+      console.log(vm.payment);
+      // vm.payment.$update(function (payment) {
+      //   PaymentFactory.update(vm.payment, payment);
+      //   PaymentFactory.deleteTransport();
+      //   $state.go('payments.edit', { paymentId: vm.payment._id });
+      // }, function (err) {
+      //   $scope.handleShowToast(err.message, true);
+      // });
     }
     function validateTransport() {
       var error = true;
