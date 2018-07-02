@@ -13,7 +13,7 @@
 
 
   function PaymentTransportController($scope, FileUploader, CommonService, PaymentFactory) {
-    vm = this;
+    var vm = this;
     vm.transport = {};
     vm.form = {};
 
