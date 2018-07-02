@@ -63,7 +63,7 @@
       $scope.meeting.employees.push('');
     };
     $scope.handleRemovePartner = function (partner) {
-      $scope.meeting.partner = _.without($scope.meeting.partners, partner);
+      $scope.meeting.partners = _.without($scope.meeting.partners, partner);
     };
     $scope.handleRemoveEmployee = function (employee) {
       $scope.meeting.employees = _.without($scope.meeting.employees, employee);
