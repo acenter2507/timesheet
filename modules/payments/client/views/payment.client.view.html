@@ -132,7 +132,7 @@
         </thead>
         <tbody>
           <tr ng-if="vm.payment.vehicles.length === 0">
-            <td colspan="10">出張旅費が登録されません！</td>
+            <td colspan="10">車両燃料費が登録されません！</td>
           </tr>
           <tr ng-repeat="vehicle in vm.payment.vehicles track by $index">
             <td>{{ vehicle.date | LL }} {{ vehicle.date | dddd }}</td>
