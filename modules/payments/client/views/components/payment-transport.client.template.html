@@ -21,8 +21,8 @@
               <input name="date" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="transport.date" is-open="transport.is_open_picker"
                 close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(transport)"
                 show-weeks="false" readonly="true" required/>
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="transport.is_open_picker = true;">
+              <span class="input-group-btn bdnl">
+                <button type="button" class="btn btn-default bdnl" ng-click="transport.is_open_picker = true;">
                   <i class="fa fa-calendar"></i>
                 </button>
               </span>

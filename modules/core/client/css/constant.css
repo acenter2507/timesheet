@@ -1,5 +1,13 @@
 .bdn {
   border: none !important; }
+  .bdnl {
+    border-left: none !important; }
+  .bdnr {
+    border-right: none !important; }
+  .bdnt {
+    border-top: none !important; }
+  .bdnb {
+    border-bottom: none !important; }
 .flat {
   border-radius: 0 !important; }
 .mga {
