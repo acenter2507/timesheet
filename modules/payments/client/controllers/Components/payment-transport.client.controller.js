@@ -67,7 +67,7 @@
       }
       if (vm.transport._id) {
         console.log(vm.transport.date);
-        vm.transport.date = moment(vm.transport.date).format('YYYY/MM/DD');
+        // vm.transport.date = moment(vm.transport.date).format('YYYY/MM/DD');
       }
     }
     function prepareUpload() {
