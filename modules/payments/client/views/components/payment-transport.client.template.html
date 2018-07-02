@@ -35,7 +35,7 @@
           <div class="form-group" show-errors>
             <label for="content">顧客名・事業内容</label>
             <input name="content" class="form-control" ng-model="transport.content" type="text" required/>
-            <div ng-messages="vm.form.comboForm.content.$error" role="alert">
+            <div ng-messages="vm.form.transportForm.content.$error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">顧客名・事業内容は必須です。</p>
             </div>
           </div>
@@ -43,7 +43,7 @@
           <div class="form-group" show-errors>
             <label for="start">起点</label>
             <input name="start" class="form-control" ng-model="transport.start" type="text" required/>
-            <div ng-messages="vm.form.comboForm.start.$error" role="alert">
+            <div ng-messages="vm.form.transportForm.start.$error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">起点は必須です。</p>
             </div>
           </div>
@@ -51,7 +51,7 @@
           <div class="form-group" show-errors>
             <label for="end">終点</label>
             <input name="end" class="form-control" ng-model="transport.end" type="text" required/>
-            <div ng-messages="vm.form.comboForm.end.$error" role="alert">
+            <div ng-messages="vm.form.transportForm.end.$error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">終点は必須です。</p>
             </div>
           </div>
