@@ -63,8 +63,8 @@
         data: { roles: ['user'] },
         ncyBreadcrumb: { label: '出張旅費' }
       })
-      .state('payments.trip', {
-        url: '/trip',
+      .state('payments.other', {
+        url: '/other',
         templateUrl: 'modules/payments/client/views/components/payment-other.client.template.html',
         controller: 'PaymentOtherController',
         controllerAs: 'vm',
