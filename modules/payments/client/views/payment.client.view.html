@@ -34,7 +34,7 @@
             <td>{{ transport.start }}</td>
             <td>{{ transport.end }}</td>
             <td class="w50 text-center">
-              <input type="checkbox" value="{{ transport.round }}">
+              <input type="checkbox" ng-checked="{{ transport.round }}">
             </td>
             <td>
               <p class="mgn">{{ transport.method | TransportMethod }}</p>
