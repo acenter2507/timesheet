@@ -15,6 +15,7 @@
   function PaymentTransportController($scope, FileUploader, CommonService, PaymentFactory) {
     vm = this;
     vm.transport = {};
+    vm.form = {};
 
     prepareTransport();
     prepareUpload();
@@ -74,20 +75,24 @@
       };
     }
 
-    vm.handleSaveTransport = function () {
-      if (!validateTransport()) {
-        return $scope.handleShowToast('データが不足です！', true);
+    vm.handleSaveTransport = function (isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.transportForm');
+        return false;
       }
+      // if (!validateTransport()) {
+      //   return $scope.handleShowToast('データが不足です！', true);
+      // }
 
-      vm.handleShowConfirm({
-        message: '交通費を保存しますか？'
-      }, function () {
-        if (vm.uploader.queue.length > 0) {
-          vm.uploader.uploadAll();
-        } else {
-          // TODO
-        }
-      });
+      // vm.handleShowConfirm({
+      //   message: '交通費を保存しますか？'
+      // }, function () {
+      //   if (vm.uploader.queue.length > 0) {
+      //     vm.uploader.uploadAll();
+      //   } else {
+      //     // TODO
+      //   }
+      // });
     };
 
     function validateTransport() {

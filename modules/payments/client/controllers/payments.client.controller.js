@@ -12,15 +12,6 @@
     var vm = this;
 
     var ui_config = {
-      transport: {
-        is_open_picker: false,
-        date_error: false,
-        content_error: false,
-        start_error: false,
-        end_error: false,
-        method_error: false,
-        fee_error: false
-      },
       trip: {
         is_open_picker: false,
         date_error: false,
