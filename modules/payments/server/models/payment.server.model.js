@@ -104,9 +104,9 @@ var PaymentSchema = new Schema({
     // 場所
     location: { type: String },
     // 顧客氏名
-    partner_names: [{ type: String }],
+    partners: [{ type: String }],
     // 社員氏名
-    employee_names: [{ type: String }],
+    employees: [{ type: String }],
     // 人数合計
     total: { type: Number },
     // 使用金額
@@ -114,9 +114,13 @@ var PaymentSchema = new Schema({
     // 1人当たり
     amount: { type: Number },
     // 勘定科目
-    kind: { type: String },
+    account: { type: String },
+    // 勘定科目Other
+    account_other: { type: String },
     // 種別
-    type: { type: String },
+    kind: { type: String },
+    // 種別Other
+    kind_other: { type: String },
     // 領収書
     receipts: [{ type: String }]
   }],

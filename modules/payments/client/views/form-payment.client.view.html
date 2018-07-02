@@ -1,6 +1,6 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
-
+    <!-- 交通費 -->
     <div class="col-xs-12">
       <h3>交通費</h3>
       <table class="table table-bordered">
@@ -57,7 +57,7 @@
         <button class="btn btn-primaty" ng-click="vm.handleAddTransport()">追加</button>
       </div>
     </div>
-
+    <!-- 出張旅費 -->
     <div class="col-xs-12">
       <h3>出張旅費</h3>
       <table class="table table-bordered">
@@ -114,7 +114,7 @@
         <button class="btn btn-primaty" ng-click="vm.handleAddTrip()">追加</button>
       </div>
     </div>
-
+    <!-- 車両燃料費 -->
     <div class="col-xs-12">
       <h3>車両燃料費</h3>
       <table class="table table-bordered">
@@ -154,7 +154,7 @@
         <button class="btn btn-primaty" ng-click="vm.handleAddVehicle()">追加</button>
       </div>
     </div>
-
+    <!-- その他の費用（備品等） -->
     <div class="col-xs-12">
       <h3>その他の費用（備品等）</h3>
       <table class="table table-bordered">
@@ -170,7 +170,7 @@
         </thead>
         <tbody>
           <tr ng-if="vm.payment.others.length === 0">
-            <td colspan="10">その他の費用が登録されません！</td>
+            <td colspan="6">その他の費用が登録されません！</td>
           </tr>
           <tr ng-repeat="other in vm.payment.others track by $index">
             <td>{{ other.date | LL }} {{ other.date | dddd }}</td>
@@ -194,9 +194,66 @@
         <button class="btn btn-primaty" ng-click="vm.handleAddOther()">追加</button>s
       </div>
     </div>
-
+    <!-- 接待交際費 -->
     <div class="col-xs-12">
       <h3>会議費 ･接待交際費報告書</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>顧客名・事業内容</th>
+            <th>場所</th>
+            <th>顧客氏名</th>
+            <th>社員氏名</th>
+            <th>人数合計</th>
+            <th>使用金額</th>
+            <th>1人当たり</th>
+            <th>勘定科目</th>
+            <th>種別</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="vm.payment.meetings.length === 0">
+            <td colspan="11">接待交際費が登録されません！</td>
+          </tr>
+          <tr ng-repeat="meeting in vm.payment.meetings track by $index">
+            <td>{{ meeting.date | LL }} {{ meeting.date | dddd }}</td>
+            <td>{{ meeting.content }}</td>
+            <td>{{ meeting.location }}</td>
+            <td>
+              <p ng-repeat="partner in meeting.partners">{{ partner }}</p>
+            </td>
+            <td>
+              <p ng-repeat="employee in meeting.employees">{{ employee }}</p>
+            </td>
+            <td>{{ meeting.total }}</td>
+            <td>{{ meeting.fee }}</td>
+            <td>{{ meeting.amount }}</td>
+            <td>
+              <p class="mgn">{{ meeting.account | MeetingAccount }}</p>
+              <p class="mgn" ng-show="meeting.account === 0">{{ meeting.account_method }}</p>
+            </td>
+            <td>
+              <p class="mgn">{{ meeting.kind | MeetingKind }}</p>
+              <p class="mgn" ng-show="meeting.kind === 0">{{ meeting.kind_other }}</p>
+            </td>
+            <td>
+              <a ng-repeat="receipt in meeting.receipts" ng-click="handleShowImage(receipt)">
+                <img class="w50 img-thumbnail" src="{{ receipt }}">
+              </a>
+            </td>
+            <td>
+              <a ng-click="vm.handleRemoveMeeting(meeting)" class="text-danger">
+                <i class="fa fa-times"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="form-group text-right">
+        <button class="btn btn-primaty" ng-click="vm.handleAddMeeting()">追加</button>
+      </div>
     </div>
   </div>
 </div>

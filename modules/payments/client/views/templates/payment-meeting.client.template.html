@@ -1,0 +1,102 @@
+<div class="transport">
+  <div class="row" nv-file-drop="" uploader="uploader">
+    <div class="col-xs-12">
+      <div class="form-group" ng-show="uploader.isUploading">
+        <p class="text-muted" ng-bind="uploadingFileName"></p>
+        <div class="progress progress-xs">
+          <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error': metting.date_error }">
+        <label>日付</label>
+        <div class="input-group">
+          <input type="text" class="form-control input-sm" datepicker-popup="yyyy/MM/dd" ng-model="metting.date" is-open="metting.is_open_picker"
+            close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(metting)"
+            show-weeks="false" readonly="true" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default btn-sm" ng-click="metting.is_open_picker = true;">
+              <i class="fa fa-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error': metting.content_error }">
+        <label>顧客名・事業内容</label>
+        <input class="form-control input-sm" ng-model="metting.content" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label>場所</label>
+        <input class="form-control input-sm" ng-model="metting.location" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label>人数合計</label>
+        <input class="form-control input-sm" ng-model="metting.total" type="number" disabled/>
+      </div>
+
+      <div class="form-group">
+        <label>使用金額</label>
+        <input class="form-control input-sm" ng-model="metting.fee" type="number" />
+      </div>
+
+      <div class="form-group">
+        <label>1人当たり</label>
+        <input class="form-control input-sm" ng-model="metting.amount" type="number" disabled/>
+      </div>
+
+      <div class="form-group">
+        <label>勘定科目</label>
+        <select class="form-control input-sm" ng-model="metting.account" convert-to-number>
+          <option value="1">会議費</option>
+          <option value="2">接待交際費</option>
+          <option value="3">厚生費</option>
+          <option value="0">自筆記入</option>
+        </select>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error': metting.account_error }" ng-show="metting.account === 0">
+        <label>勘定科目の自筆記入</label>
+        <input class="form-control input-sm" ng-model="metting.account_other" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label>種別</label>
+        <select class="form-control input-sm" ng-model="metting.kind" convert-to-number>
+          <option value="1">GIFT</option>
+          <option value="2">非課税</option>
+          <option value="0">自筆記入</option>
+        </select>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-error': metting.kind_error }" ng-show="metting.kind === 0">
+        <label>種別の自筆記入</label>
+        <input class="form-control input-sm" ng-model="metting.kind_other" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label>領収書</label>
+        <button class="btn btn-success btn-xs btn-upload-file">アップロード
+          <input type="file" nv-file-select uploader="uploader" style="display: hidden;" multiple>
+        </button>
+        <div class="mg5t" ng-show="metting.receipts.length > 0">
+          <img ng-repeat="receipt in metting.receipts" src="{{ receipt }}" class="receipt-img">
+        </div>
+        <div class="mg5t" ng-show="uploader.queue.length > 0">
+          <div ng-repeat="item in uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
+        </div>
+        <div class="d-sm-down-none" ng-if="uploader.isHTML5">
+          <div class="drop-image-box" nv-file-over="" uploader="uploader">
+            写真ファイルをドラッグしてください！
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group text-right mgnb mg5t">
+        <button class="btn btn-sm btn-default" ng-click="closeThisDialog()">キャンセル</button>
+        <button class="btn btn-sm btn-primary" ng-click="handleSaveMeeting()">完了</button>
+      </div>
+    </div>
+  </div>
+</div>
