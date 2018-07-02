@@ -64,6 +64,7 @@
           fee_error: false
         };
       }
+      console.log(vm.transport);
     }
     function prepareUpload() {
       vm.uploader = new FileUploader({
