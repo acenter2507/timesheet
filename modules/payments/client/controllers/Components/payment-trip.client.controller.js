@@ -141,11 +141,11 @@
     }
     function validateTrip() {
       var error = true;
-      if ($scope.trip.method === 0 && CommonService.isStringEmpty($scope.trip.method_other)) {
-        $scope.trip.method_error = true;
+      if (vm.trip.method === 0 && CommonService.isStringEmpty(vm.trip.method_other)) {
+        vm.trip.method_error = true;
         error = false;
       } else {
-        $scope.trip.method_error = false;
+        vm.trip.method_error = false;
       }
       return error;
     }
