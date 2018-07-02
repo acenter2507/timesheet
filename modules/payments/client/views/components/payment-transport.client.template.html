@@ -85,7 +85,7 @@
 
           <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }" show-errors>
             <label>TAXI以外</label>
-            <input class="form-control" ng-model="vm.transport.fee" type="number" />
+            <input name="fee" class="form-control" ng-model="vm.transport.fee" type="number" />
             <div ng-messages="vm.transport.fee_error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">どれかの金額を入力してください！</p>
             </div>
@@ -93,7 +93,7 @@
 
           <div class="form-group" ng-class="{ 'has-error': vm.transport.fee_error }" show-errors>
             <label>TAXI</label>
-            <input class="form-control" ng-model="vm.transport.taxi_fee" type="number" />
+            <input name="taxi_fee" class="form-control" ng-model="vm.transport.taxi_fee" type="number" />
             <div ng-messages="vm.transport.fee_error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">どれかの金額を入力してください！</p>
             </div>
