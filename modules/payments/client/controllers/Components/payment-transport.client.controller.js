@@ -64,7 +64,7 @@
         };
       }
       if (vm.transport._id) {
-        vm.transport.date = moment(vm.transport.date).format('YYYY/MM/DD');
+        vm.transport.new_date = moment(vm.transport.date).format('YYYY/MM/DD');
       }
     }
     function prepareUpload() {
@@ -103,6 +103,8 @@
         error = true;
       }
       if (error) return false;
+
+      console.log(vm.transport.new_date);
 
       $scope.handleShowConfirm({
         message: '交通費を保存しますか？'
