@@ -6,22 +6,28 @@
 
   PaymentTransportController.$inject = [
     '$scope',
+    '$state',
     'FileUploader',
     'CommonService',
     'PaymentFactory'
   ];
 
 
-  function PaymentTransportController($scope, FileUploader, CommonService, PaymentFactory) {
+  function PaymentTransportController($scope, $state, FileUploader, CommonService, PaymentFactory) {
     var vm = this;
+    vm.payment = {};
     vm.transport = {};
     vm.form = {};
 
     vm.isEdit = false;
 
+    preparePayment();
     prepareTransport();
     prepareUpload();
 
+    function preparePayment() {
+      vm.payment = PaymentFactory.payment;
+    }
     function prepareTransport() {
       if (PaymentFactory.transport) {
         vm.transport = PaymentFactory.transport;
@@ -66,7 +72,8 @@
       };
       vm.uploader.onCompleteAll = function () {
         vm.uploader.clearQueue();
-
+        vm.payment.transports.push(vm.transport);
+        handleSavePayment();
       };
     }
 
@@ -81,15 +88,16 @@
       }
       if (error) return false;
 
-      // vm.handleShowConfirm({
-      //   message: '交通費を保存しますか？'
-      // }, function () {
-      //   if (vm.uploader.queue.length > 0) {
-      //     vm.uploader.uploadAll();
-      //   } else {
-      //     // TODO
-      //   }
-      // });
+      vm.handleShowConfirm({
+        message: '交通費を保存しますか？'
+      }, function () {
+        if (vm.uploader.queue.length > 0) {
+          vm.uploader.uploadAll();
+        } else {
+          vm.payment.transports.push(vm.transport);
+          handleSavePayment();
+        }
+      });
     };
     vm.handleChangeMethod = function () {
       if (vm.transport.method === 0 && CommonService.isStringEmpty(vm.transport.method_other)) {
@@ -106,6 +114,14 @@
       }
     };
 
+    function handleSavePayment() {
+      vm.payment.$update(function(payment) {
+        PaymentFactory.update(vm.payment, payment);
+        $state.go('payments.edit', { paymentId: vm.payment._id });
+      }, function(err) {
+        $scope.handleShowToast(err.message, true);
+      });
+    }
     function validateTransport() {
       var error = true;
       if (vm.transport.method === 0 && CommonService.isStringEmpty(vm.transport.method_other)) {
