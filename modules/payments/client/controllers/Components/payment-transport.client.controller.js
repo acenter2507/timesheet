@@ -128,6 +128,7 @@
       }
     };
     vm.handleCancel = function () {
+      delete vm.transport;
       $state.go('payments.edit', { paymentId: vm.payment._id });
     };
 
