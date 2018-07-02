@@ -52,11 +52,6 @@
     onCreate();
     function onCreate() {
       preparePayment();
-      prepareTransport();
-      prepareTrips();
-      prepareVehicles();
-      prepareOthers();
-      prepareMeetings();
     }
 
     function preparePayment() {
@@ -69,6 +64,11 @@
         }).$promise.then(function (payment) {
           vm.payment = payment;
           PaymentFactory.set(payment);
+          prepareTransport();
+          prepareTrips();
+          prepareVehicles();
+          prepareOthers();
+          prepareMeetings();
           console.log('2', vm.payment);
         });
       }
