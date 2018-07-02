@@ -33,7 +33,7 @@
       })
       .state('payments.edit', {
         url: '/:paymentId/edit',
-        templateUrl: 'modules/payments/client/views/form-payment.client.view.html',
+        templateUrl: 'modules/payments/client/views/payment.client.view.html',
         controller: 'PaymentsController',
         controllerAs: 'vm',
         data: { roles: ['user'] },
