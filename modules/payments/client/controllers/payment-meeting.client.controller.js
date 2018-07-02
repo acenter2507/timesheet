@@ -2,16 +2,16 @@
   'use strict';
   // Polls controller
   angular.module('payments')
-    .controller('PaymentMettingController', PaymentMettingController);
+    .controller('PaymentMeetingController', PaymentMeetingController);
 
-  PaymentMettingController.$inject = [
+  PaymentMeetingController.$inject = [
     '$scope',
     'FileUploader',
     'CommonService'
   ];
 
 
-  function PaymentMettingController($scope, FileUploader, CommonService) {
+  function PaymentMeetingController($scope, FileUploader, CommonService) {
 
     $scope.receipts = [];
     prepareUpload();
