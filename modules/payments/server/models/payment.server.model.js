@@ -36,7 +36,7 @@ var PaymentSchema = new Schema({
     // 往復
     round: { type: Boolean },
     // 手段
-    method: { type: String },
+    method: { type: Number },
     // 手段Other
     method_other: { type: String },
     // 金額
@@ -59,7 +59,7 @@ var PaymentSchema = new Schema({
     // 往復
     round: { type: Boolean },
     // 摘要
-    method: { type: String },
+    method: { type: Number },
     // 手段Other
     method_other: { type: String },
     // 金額
