@@ -64,7 +64,7 @@
         };
       }
       if (vm.transport._id) {
-        vm.transport.date = moment(vm.transport.date).format('YYYY/MM/DD');
+        vm.transport.date = moment(vm.transport.date, 'YYYY/MM/DD').format('YYYY/MM/DD');
       }
     }
     function prepareUpload() {
