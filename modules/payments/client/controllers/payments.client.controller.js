@@ -12,12 +12,6 @@
     var vm = this;
 
     var ui_config = {
-      vehicle: {
-        is_open_picker: false,
-        date_error: false,
-        content_error: false,
-        purpose_error: false
-      },
       other: {
         is_open_picker: false,
         date_error: false,

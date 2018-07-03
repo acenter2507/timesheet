@@ -49,11 +49,7 @@
           taxi_fee: 0
         };
       }
-      _.extend(vm.vehicle, {
-        is_open_picker: false,
-        method_error: false,
-        fee_error: false
-      });
+      _.extend(vm.vehicle, { is_open_picker: false });
       if (vm.vehicle._id) {
         vm.vehicle.new_date = moment(vm.vehicle.date).format('YYYY/MM/DD');
       }
@@ -100,30 +96,6 @@
         }
       });
     };
-
-
-    function validateVehicle() {
-      var error = true;
-      if (!$scope.vehicle.date || !moment($scope.vehicle.date).isValid()) {
-        $scope.vehicle.date_error = true;
-        error = false;
-      } else {
-        $scope.vehicle.date_error = false;
-      }
-      if (CommonService.isStringEmpty($scope.vehicle.content)) {
-        $scope.vehicle.content_error = true;
-        error = false;
-      } else {
-        $scope.vehicle.content_error = false;
-      }
-      if (CommonService.isStringEmpty($scope.vehicle.purpose)) {
-        $scope.vehicle.purpose_error = true;
-        error = false;
-      } else {
-        $scope.vehicle.purpose_error = false;
-      }
-      return error;
-    }
     vm.handleCancel = function () {
       $state.go('payments.edit', { paymentId: vm.payment._id });
     };
