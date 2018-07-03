@@ -124,7 +124,6 @@
     vm.handleChangeAccount = function () {
       if (vm.meeting.account === 0 && CommonService.isStringEmpty(vm.meeting.account_other)) {
         vm.meeting.account_error = true;
-        error = false;
       } else {
         vm.meeting.account_error = false;
       }
@@ -132,7 +131,6 @@
     vm.handleChangeKind = function () {
       if (vm.meeting.kind === 0 && CommonService.isStringEmpty(vm.meeting.kind_other)) {
         vm.meeting.kind_error = true;
-        error = false;
       } else {
         vm.meeting.kind_error = false;
       }
