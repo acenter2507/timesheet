@@ -130,6 +130,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th>#</th>
             <th>日付</th>
             <th>摘要</th>
             <th>目的</th>
@@ -142,9 +143,10 @@
         </thead>
         <tbody>
           <tr ng-if="vm.payment.vehicles.length === 0">
-            <td colspan="10">車両燃料費が登録されません！</td>
+            <td colspan="7">車両燃料費が登録されません！</td>
           </tr>
           <tr ng-repeat="vehicle in vm.payment.vehicles track by $index">
+            <td>{{ $index + 1 }}</td>
             <td>{{ vehicle.date | LL }} {{ vehicle.date | dddd }}</td>
             <td>{{ vehicle.content }}</td>
             <td>{{ vehicle.purpose }}</td>
@@ -154,9 +156,12 @@
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
-            <td>
-              <a ng-click="vm.handleRemoveVehicle(vehicle)" class="text-danger">
-                <i class="fa fa-times"></i>
+            <td class="w50">
+              <a ng-click="vm.handleEditVehicle(vehicle)">
+                <i class="fa fa-pencil-square-o"></i>
+              </a>
+              <a class="mg5l" ng-click="vm.handleRemoveVehicle(vehicle)">
+                <i class="fa fa-trash-o"></i>
               </a>
             </td>
           </tr>

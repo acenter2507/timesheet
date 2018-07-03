@@ -108,31 +108,39 @@
     };
     // VEHICLES
     vm.handleAddVehicle = function () {
-      var vehicle = {
-        id: new Date().getTime(),
-        method: 1,
-        fee: 0,
-        receipts: []
-      };
-      _.extend(vehicle, ui_config.vehicle);
-      $scope.vehicle = vehicle;
-      var mDialog = ngDialog.open({
-        template: 'modules/payments/client/views/templates/payment-vehicle.client.template.html',
-        controller: 'PaymentVehicleController',
-        appendClassName: 'ngdialog-custom',
-        scope: $scope,
-        showClose: false,
-        closeByDocument: false
-      });
-      mDialog.closePromise.then(function (res) {
-        if (!res.value || res.value === '$document') {
-          delete $scope.vehicle;
-          return;
-        }
-        vm.payment.vehicles.push(res.value);
-        vm.handleCalculatePayment();
-        delete $scope.vehicle;
-      });
+      PaymentFactory.set(vm.payment);
+      $state.go('payments.vehicle', { paymentId: vm.payment._id });
+
+      // var vehicle = {
+      //   id: new Date().getTime(),
+      //   method: 1,
+      //   fee: 0,
+      //   receipts: []
+      // };
+      // _.extend(vehicle, ui_config.vehicle);
+      // $scope.vehicle = vehicle;
+      // var mDialog = ngDialog.open({
+      //   template: 'modules/payments/client/views/templates/payment-vehicle.client.template.html',
+      //   controller: 'PaymentVehicleController',
+      //   appendClassName: 'ngdialog-custom',
+      //   scope: $scope,
+      //   showClose: false,
+      //   closeByDocument: false
+      // });
+      // mDialog.closePromise.then(function (res) {
+      //   if (!res.value || res.value === '$document') {
+      //     delete $scope.vehicle;
+      //     return;
+      //   }
+      //   vm.payment.vehicles.push(res.value);
+      //   vm.handleCalculatePayment();
+      //   delete $scope.vehicle;
+      // });
+    };
+    vm.handleEditVehicle = function (vehicle) {
+      PaymentFactory.set(vm.payment);
+      PaymentFactory.setVehicle(vehicle);
+      $state.go('payments.vehicle', { paymentId: vm.payment._id, vehicle: vehicle._id });
     };
     vm.handleRemoveVehicle = function (vehicle) {
       $scope.handleShowConfirm({

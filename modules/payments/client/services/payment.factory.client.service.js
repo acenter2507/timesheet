@@ -25,26 +25,35 @@
     this.deleteTrip = function () {
       delete this.trip;
     };
-    this.addOther = function (other) {
-      this.payment.others.push(other);
-    };
     this.addVehicle = function (vehicle) {
       this.payment.vehicles.push(vehicle);
-    };
-    this.addMeeting = function (meeting) {
-      this.payment.meetings.push(meeting);
-    };
-    this.set = function (payment) {
-      this.payment = payment;
-    };
-    this.setOther = function (other) {
-      this.other = other;
     };
     this.setVehicle = function (vehicle) {
       this.vehicle = vehicle;
     };
+    this.deleteVehicle = function () {
+      delete this.vehicle;
+    };
+    this.addOther = function (other) {
+      this.payment.others.push(other);
+    };
+    this.setOther = function (other) {
+      this.other = other;
+    };
+    this.deleteOther = function () {
+      delete this.other;
+    };
+    this.addMeeting = function (meeting) {
+      this.payment.meetings.push(meeting);
+    };
     this.setMeeting = function (meeting) {
       this.meeting = meeting;
+    };
+    this.deleteMeeting = function () {
+      delete this.meeting;
+    };
+    this.set = function (payment) {
+      this.payment = payment;
     };
     this.update = function (payment) {
       _.extend(this.payment, payment);
