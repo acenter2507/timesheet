@@ -6,7 +6,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th rowspan="2" class="text-center">#</th>
+            <th rowspan="2" class="text-center w50">#</th>
             <th rowspan="2">日付</th>
             <th rowspan="2">顧客名・事業内容</th>
             <th colspan="2" class="text-center">経路</th>
@@ -30,7 +30,7 @@
             <td colspan="11">交通費が登録されません！</td>
           </tr>
           <tr ng-repeat="transport in vm.payment.transports">
-            <td class="text-center">{{ $index + 1 }}</td>
+            <td class="text-center w50">{{ $index + 1 }}</td>
             <td>{{ transport.date | LL }} {{ transport.date | dddd }}</td>
             <td>{{ transport.content }}</td>
             <td>{{ transport.start }}</td>
@@ -68,7 +68,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th rowspan="2" class="text-center">#</th>
+            <th rowspan="2" class="text-center w50">#</th>
             <th rowspan="2">日付</th>
             <th rowspan="2">顧客名・事業内容</th>
             <th colspan="2" class="text-center">経路</th>
@@ -92,7 +92,7 @@
             <td colspan="11">出張旅費が登録されません！</td>
           </tr>
           <tr ng-repeat="trip in vm.payment.trips track by $index">
-            <td class="text-center">{{ $index + 1 }}</td>
+            <td class="text-center w50">{{ $index + 1 }}</td>
             <td>{{ trip.date | LL }} {{ trip.date | dddd }}</td>
             <td>{{ trip.content }}</td>
             <td>{{ trip.start }}</td>
@@ -130,7 +130,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th class="text-center">#</th>
+            <th class="text-center w50">#</th>
             <th>日付</th>
             <th>摘要</th>
             <th>目的</th>
@@ -146,7 +146,7 @@
             <td colspan="7">車両燃料費が登録されません！</td>
           </tr>
           <tr ng-repeat="vehicle in vm.payment.vehicles track by $index">
-            <td class="text-center">{{ $index + 1 }}</td>
+            <td class="text-center w50">{{ $index + 1 }}</td>
             <td>{{ vehicle.date | LL }} {{ vehicle.date | dddd }}</td>
             <td>{{ vehicle.content }}</td>
             <td>{{ vehicle.purpose }}</td>
@@ -175,7 +175,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th class="text-center">#</th>
+            <th class="text-center w50">#</th>
             <th>日付</th>
             <th>摘要</th>
             <th>勘定科目</th>
@@ -191,7 +191,7 @@
             <td colspan="7">その他の費用が登録されません！</td>
           </tr>
           <tr ng-repeat="other in vm.payment.others track by $index">
-            <td class="text-center">{{ $index + 1 }}</td>
+            <td class="text-center w50">{{ $index + 1 }}</td>
             <td>{{ other.date | LL }} {{ other.date | dddd }}</td>
             <td>{{ other.content }}</td>
             <td>{{ other.kind | OtherKind }}</td>
