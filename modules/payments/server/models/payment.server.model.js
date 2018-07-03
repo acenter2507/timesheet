@@ -114,11 +114,11 @@ var PaymentSchema = new Schema({
     // 1人当たり
     amount: { type: Number },
     // 勘定科目
-    account: { type: String },
+    account: { type: Number },
     // 勘定科目Other
     account_other: { type: String },
     // 種別
-    kind: { type: String },
+    kind: { type: Number },
     // 種別Other
     kind_other: { type: String },
     // 領収書

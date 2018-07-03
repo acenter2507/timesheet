@@ -11,21 +11,6 @@
   function PaymentsController($scope, $state, ngDialog, $stateParams, PaymentsService, PaymentFactory) {
     var vm = this;
 
-    var ui_config = {
-      other: {
-        is_open_picker: false,
-        date_error: false,
-        content_error: false
-      },
-      meeting: {
-        is_open_picker: false,
-        date_error: false,
-        content_error: false,
-        account_error: false,
-        kind_error: false
-      }
-    };
-
     onCreate();
     function onCreate() {
       preparePayment();
@@ -104,32 +89,6 @@
     vm.handleAddVehicle = function () {
       PaymentFactory.set(vm.payment);
       $state.go('payments.vehicle', { paymentId: vm.payment._id });
-
-      // var vehicle = {
-      //   id: new Date().getTime(),
-      //   method: 1,
-      //   fee: 0,
-      //   receipts: []
-      // };
-      // _.extend(vehicle, ui_config.vehicle);
-      // $scope.vehicle = vehicle;
-      // var mDialog = ngDialog.open({
-      //   template: 'modules/payments/client/views/templates/payment-vehicle.client.template.html',
-      //   controller: 'PaymentVehicleController',
-      //   appendClassName: 'ngdialog-custom',
-      //   scope: $scope,
-      //   showClose: false,
-      //   closeByDocument: false
-      // });
-      // mDialog.closePromise.then(function (res) {
-      //   if (!res.value || res.value === '$document') {
-      //     delete $scope.vehicle;
-      //     return;
-      //   }
-      //   vm.payment.vehicles.push(res.value);
-      //   vm.handleCalculatePayment();
-      //   delete $scope.vehicle;
-      // });
     };
     vm.handleEditVehicle = function (vehicle) {
       PaymentFactory.set(vm.payment);
@@ -148,30 +107,6 @@
     vm.handleAddOther = function () {
       PaymentFactory.set(vm.payment);
       $state.go('payments.other', { paymentId: vm.payment._id });
-      // var other = {
-      //   id: new Date().getTime(),
-      //   fee: 0,
-      //   receipts: []
-      // };
-      // _.extend(other, ui_config.other);
-      // $scope.other = other;
-      // var mDialog = ngDialog.open({
-      //   template: 'modules/payments/client/views/templates/payment-other.client.template.html',
-      //   controller: 'PaymentOtherController',
-      //   appendClassName: 'ngdialog-custom',
-      //   scope: $scope,
-      //   showClose: false,
-      //   closeByDocument: false
-      // });
-      // mDialog.closePromise.then(function (res) {
-      //   if (!res.value || res.value === '$document') {
-      //     delete $scope.other;
-      //     return;
-      //   }
-      //   vm.payment.others.push(res.other);
-      //   vm.handleCalculatePayment();
-      //   delete $scope.other;
-      // });
     };
     vm.handleEditOther = function (other) {
       PaymentFactory.set(vm.payment);
@@ -188,34 +123,13 @@
     };
     // MEETINGS
     vm.handleAddMeeting = function () {
-      var meeting = {
-        id: new Date().getTime(),
-        account: 1,
-        kind: 1,
-        fee: 0,
-        partners: [''],
-        employees: [''],
-        receipts: []
-      };
-      _.extend(meeting, ui_config.meeting);
-      $scope.meeting = meeting;
-      var mDialog = ngDialog.open({
-        template: 'modules/payments/client/views/templates/payment-meeting.client.template.html',
-        controller: 'PaymentMeetingController',
-        appendClassName: 'ngdialog-custom',
-        scope: $scope,
-        showClose: false,
-        closeByDocument: false
-      });
-      mDialog.closePromise.then(function (res) {
-        if (!res.value || res.value === '$document') {
-          delete $scope.meeting;
-          return;
-        }
-        vm.payment.meetings.push(res.meeting);
-        vm.handleCalculatePayment();
-        delete $scope.meeting;
-      });
+      PaymentFactory.set(vm.payment);
+      $state.go('payments.meeting', { paymentId: vm.payment._id });
+    };
+    vm.handleEditMeeting = function (meeting) {
+      PaymentFactory.set(vm.payment);
+      PaymentFactory.setMeeting(meeting);
+      $state.go('payments.meeting', { paymentId: vm.payment._id, meeting: meeting._id });
     };
     vm.handleRemoveMeeting = function (meeting) {
       $scope.handleShowConfirm({

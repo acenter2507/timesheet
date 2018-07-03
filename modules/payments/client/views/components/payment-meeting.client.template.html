@@ -1,144 +1,193 @@
-<div class="transport">
-  <div class="row" nv-file-drop="" uploader="uploader">
-    <div class="col-xs-12">
-      <div class="form-group">
-        <span class="text-h4">接待交際費</span>
-        <button class="btn btn-sm btn-primary pull-right mg5l" ng-click="handleSaveMeeting()">完了</button>
-        <button class="btn btn-sm btn-default pull-right" ng-click="closeThisDialog()">キャンセル</button>
-        <div class="clearfix"></div>
-      </div>
-      <div class="form-group" ng-show="uploader.isUploading">
-        <p class="text-muted" ng-bind="uploadingFileName"></p>
-        <div class="progress progress-xs">
-          <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+<div class="container-fluid animated fadeIn" nv-file-drop="" uploader="vm.uploader">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-md-offset-3">
+      <div class="transport">
+        <div class="form-group text-right">
+          <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
+          <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveMeeting(vm.form.meetingForm.$valid)">完了</button>
         </div>
-      </div>
 
-      <div class="form-group" ng-class="{ 'has-error': meeting.date_error }">
-        <label>日付</label>
-        <div class="input-group">
-          <input type="text" class="form-control input-sm" datepicker-popup="yyyy/MM/dd" ng-model="meeting.date" is-open="meeting.is_open_picker"
-            close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(meeting)"
-            show-weeks="false" readonly="true" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default btn-sm" ng-click="meeting.is_open_picker = true;">
-              <i class="fa fa-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-
-      <div class="form-group" ng-class="{ 'has-error': meeting.content_error }">
-        <label>顧客名・事業内容</label>
-        <input class="form-control input-sm" ng-model="meeting.content" type="text" />
-      </div>
-
-      <div class="form-group">
-        <label>場所</label>
-        <input class="form-control input-sm" ng-model="meeting.location" type="text" />
-      </div>
-
-      <div class="form-group">
-        <div class="col-md-6 mgnb">
-          <label>顧客氏名</label>
-          <table class="table table-bordered">
-            <tbody>
-              <tr ng-repeat="partner in meeting.partners track by $index">
-                <td>
-                  <button class="btn btn-danger btn-xs" ng-click="handleRemovePartner(partner)">削除</button>
-                </td>
-                <td>
-                  <input class="form-control input-sm" ng-model="partner">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="btn btn-default btn-xs" ng-click="handleAddPartner()">追加</button>
-        </div>
-        <div class="col-md-6">
-          <label>社員氏名</label>
-          <table class="table table-bordered mgnb">
-            <tbody>
-              <tr ng-repeat="employee in meeting.employees track by $index">
-                  <td>
-                    <button class="btn btn-danger btn-xs" ng-click="handleRemoveEmployee(employee)">削除</button>
-                  </td>
-                <td>
-                  <input class="form-control input-sm" ng-model="employee">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="btn btn-default btn-xs" ng-click="handleAddEmployee()">追加</button>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-
-      <div class="form-group">
-        <label>人数合計</label>
-        <input class="form-control input-sm" ng-model="meeting.total" type="number" disabled/>
-      </div>
-
-      <div class="form-group">
-        <label>使用金額</label>
-        <input class="form-control input-sm" ng-model="meeting.fee" type="number" />
-      </div>
-
-      <div class="form-group">
-        <label>1人当たり</label>
-        <input class="form-control input-sm" ng-model="meeting.amount" type="number" disabled/>
-      </div>
-
-      <div class="form-group">
-        <label>勘定科目</label>
-        <select class="form-control input-sm" ng-model="meeting.account" convert-to-number>
-          <option value="1">会議費</option>
-          <option value="2">接待交際費</option>
-          <option value="3">厚生費</option>
-          <option value="0">自筆記入</option>
-        </select>
-      </div>
-
-      <div class="form-group" ng-class="{ 'has-error': meeting.account_error }" ng-show="meeting.account === 0">
-        <label>勘定科目の自筆記入</label>
-        <input class="form-control input-sm" ng-model="meeting.account_other" type="text" />
-      </div>
-
-      <div class="form-group">
-        <label>種別</label>
-        <select class="form-control input-sm" ng-model="meeting.kind" convert-to-number>
-          <option value="1">GIFT</option>
-          <option value="2">非課税</option>
-          <option value="0">自筆記入</option>
-        </select>
-      </div>
-
-      <div class="form-group" ng-class="{ 'has-error': meeting.kind_error }" ng-show="meeting.kind === 0">
-        <label>種別の自筆記入</label>
-        <input class="form-control input-sm" ng-model="meeting.kind_other" type="text" />
-      </div>
-
-      <div class="form-group">
-        <label>領収書</label>
-        <button class="btn btn-success btn-xs btn-upload-file">アップロード
-          <input type="file" nv-file-select uploader="uploader" style="display: hidden;" multiple>
-        </button>
-        <div class="mg5t" ng-show="meeting.receipts.length > 0">
-          <img ng-repeat="receipt in meeting.receipts" src="{{ receipt }}" class="receipt-img">
-        </div>
-        <div class="mg5t" ng-show="uploader.queue.length > 0">
-          <div ng-repeat="item in uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
-        </div>
-        <div class="d-sm-down-none" ng-if="uploader.isHTML5">
-          <div class="drop-image-box" nv-file-over="" uploader="uploader">
-            写真ファイルをドラッグしてください！
+        <form name="vm.form.meetingForm" novalidate>
+          <div class="form-group" ng-show="vm.uploader.isUploading">
+            <p class="text-muted" ng-bind="vm.uploadingFileName"></p>
+            <div class="progress progress-xs">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': vm.uploader.progress + '%' }"></div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="form-group text-right mgnb mg5t">
-        <button class="btn btn-sm btn-default" ng-click="closeThisDialog()">キャンセル</button>
-        <button class="btn btn-sm btn-primary" ng-click="handleSaveMeeting()">完了</button>
+          <div class="form-group" show-errors>
+            <label for="date">日付</label>
+            <div class="input-group">
+              <input name="date" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.meeting.new_date" is-open="vm.meeting.is_open_picker"
+                close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body show-weeks="false" readonly="true"
+                required/>
+              <span class="input-group-btn bdnl">
+                <button type="button" class="btn btn-default bdnl" ng-click="vm.meeting.is_open_picker = true;">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </span>
+            </div>
+            <div ng-messages="vm.form.meetingForm.date.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">日付は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="content">顧客名・事業内容</label>
+            <input name="content" class="form-control" ng-model="vm.meeting.content" type="text" required/>
+            <div ng-messages="vm.form.meetingForm.content.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">顧客名・事業内容は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>場所</label>
+            <input class="form-control" ng-model="vm.meeting.location" type="text" />
+          </div>
+
+          <div class="form-group d-sm-down-none">
+            <div class="col-xs-6 pdnl">
+              <label>顧客氏名</label>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr ng-repeat="partner in vm.meeting.partners track by $index">
+                    <td>
+                      <button class="btn btn-danger btn-xs" ng-click="vm.handleRemovePartner(partner)">削除</button>
+                    </td>
+                    <td>
+                      <input class="form-control" ng-model="partner">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-default btn-xs" ng-click="vm.handleAddPartner()">追加</button>
+            </div>
+            <div class="col-xs-6 pdnl">
+              <label>社員氏名</label>
+              <table class="table table-bordered mgnb">
+                <tbody>
+                  <tr ng-repeat="employee in vm.meeting.employees track by $index">
+                    <td>
+                      <button class="btn btn-danger btn-xs" ng-click="vm.handleRemoveEmployee(employee)">削除</button>
+                    </td>
+                    <td>
+                      <input class="form-control" ng-model="employee">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-default btn-xs" ng-click="vm.handleAddEmployee()">追加</button>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="form-group d-md-none">
+            <label>顧客氏名</label>
+            <table class="table table-bordered">
+              <tbody>
+                <tr ng-repeat="partner in vm.meeting.partners track by $index">
+                  <td>
+                    <button class="btn btn-danger btn-xs" ng-click="vm.handleRemovePartner(partner)">削除</button>
+                  </td>
+                  <td>
+                    <input class="form-control" ng-model="partner">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-default btn-xs" ng-click="vm.handleAddPartner()">追加</button>
+          </div>
+
+          <div class="form-group d-md-none">
+            <label>社員氏名</label>
+            <table class="table table-bordered mgnb">
+              <tbody>
+                <tr ng-repeat="employee in vm.meeting.employees track by $index">
+                  <td>
+                    <button class="btn btn-danger btn-xs" ng-click="vm.handleRemoveEmployee(employee)">削除</button>
+                  </td>
+                  <td>
+                    <input class="form-control" ng-model="employee">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-default btn-xs" ng-click="vm.handleAddEmployee()">追加</button>
+          </div>
+
+          <div class="form-group">
+            <label>人数合計</label>
+            <input class="form-control" ng-model="vm.meeting.total" type="number" disabled/>
+          </div>
+
+          <div class="form-group">
+            <label>使用金額</label>
+            <input class="form-control" ng-model="vm.meeting.fee" type="number" />
+          </div>
+
+          <div class="form-group">
+            <label>1人当たり</label>
+            <input class="form-control" ng-model="vm.meeting.amount" type="number" disabled/>
+          </div>
+
+          <div class="form-group">
+            <label>勘定科目</label>
+            <select class="form-control" ng-model="vm.meeting.account" convert-to-number>
+              <option value="1">会議費</option>
+              <option value="2">接待交際費</option>
+              <option value="3">厚生費</option>
+              <option value="0">自筆記入</option>
+            </select>
+          </div>
+
+          <div class="form-group" ng-class="{ 'has-error': vm.meeting.account_error }" ng-show="vm.meeting.account === 0">
+            <label>勘定科目の自筆記入</label>
+            <input class="form-control" ng-model="vm.meeting.account_other" type="text" ng-change="vm.handleChangeAccount()" />
+            <div ng-show="vm.meeting.account_error" role="alert">
+              <p class="help-block error-text font-sm">勘定科目は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>種別</label>
+            <select class="form-control" ng-model="vm.meeting.kind" convert-to-number>
+              <option value="1">GIFT</option>
+              <option value="2">非課税</option>
+              <option value="0">自筆記入</option>
+            </select>
+          </div>
+
+          <div class="form-group" ng-class="{ 'has-error': vm.meeting.kind_error }" ng-show="vm.meeting.kind === 0">
+            <label>種別の自筆記入</label>
+            <input class="form-control" ng-model="vm.meeting.kind_other" type="text" />
+            <div ng-show="vm.meeting.kind_error" role="alert">
+              <p class="help-block error-text font-sm">種別は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>領収書</label>
+            <button class="btn btn-success btn-xs btn-upload-file">アップロード
+              <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
+            </button>
+            <div class="mg5t" ng-show="vm.meeting.receipts.length > 0">
+              <img ng-repeat="receipt in vm.meeting.receipts" src="{{ receipt }}" class="receipt-img">
+            </div>
+            <div class="mg5t" ng-show="vm.uploader.queue.length > 0">
+              <div ng-repeat="item in vm.uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
+            </div>
+            <div class="d-sm-down-none" ng-if="vm.uploader.isHTML5">
+              <div class="drop-image-box" nv-file-over="" uploader="vm.uploader">
+                写真ファイルをドラッグしてください！
+              </div>
+            </div>
+          </div>
+
+        </form>
+        <div class="form-group text-right mgnb mg5t">
+          <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
+          <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveMeeting(vm.form.meetingForm.$valid)">完了</button>
+        </div>
       </div>
     </div>
   </div>

@@ -6,94 +6,149 @@
 
   PaymentMeetingController.$inject = [
     '$scope',
+    '$state',
+    '$stateParams',
     'FileUploader',
-    'CommonService'
+    'CommonService',
+    'PaymentFactory',
+    'PaymentsService'
   ];
 
 
-  function PaymentMeetingController($scope, FileUploader, CommonService) {
+  function PaymentMeetingController($scope, $state, $stateParams, FileUploader, CommonService, PaymentFactory, PaymentsService) {
+    var vm = this;
+    vm.payment = {};
+    vm.meeting = {};
+    vm.form = {};
 
+    preparePayment();
     prepareUpload();
 
+    function preparePayment() {
+      if (PaymentFactory.payment) {
+        vm.payment = PaymentFactory.payment;
+        prepareMeeting();
+      } else {
+        PaymentsService.get({
+          paymentId: $stateParams.paymentId
+        }).$promise.then(function (payment) {
+          vm.payment = payment;
+          prepareMeeting();
+        });
+      }
+    }
+    function prepareMeeting() {
+      if (PaymentFactory.meeting) {
+        vm.meeting = PaymentFactory.meeting;
+      } else if ($stateParams.meeting) {
+        vm.meeting = _.findWhere(vm.payment.meetings, { _id: $stateParams.meeting });
+      } else {
+        vm.meeting = {
+          account: 1,
+          kind: 1,
+          fee: 0,
+          partners: [''],
+          employees: [''],
+          receipts: []
+        };
+      }
+      _.extend(vm.meeting, {
+        is_open_picker: false,
+        account_error: false,
+        kind_error: false
+      });
+      if (vm.meeting._id) {
+        vm.meeting.new_date = moment(vm.meeting.date).format('YYYY/MM/DD');
+      }
+    }
     function prepareUpload() {
-      $scope.uploader = new FileUploader({
+      vm.uploader = new FileUploader({
         url: 'api/payments/receipts',
         alias: 'paymentReceipts'
       });
-      $scope.uploader.filters.push({
+      vm.uploader.filters.push({
         name: 'imageFilter',
         fn: function (item, options) {
           var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
           return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
         }
       });
-      $scope.uploader.onBeforeUploadItem = function (item) {
-        $scope.uploadingFileName = item._file.name;
+      vm.uploader.onBeforeUploadItem = function (item) {
+        vm.uploadingFileName = item._file.name;
       };
-      $scope.uploader.onAfterAddingAll = function (addedFileItems) {
+      vm.uploader.onAfterAddingAll = function (addedFileItems) {
       };
-      $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-        $scope.meeting.receipts.push(response);
+      vm.uploader.onCompleteItem = function (fileItem, response, status, headers) {
+        vm.meeting.receipts.push(response);
       };
-      $scope.uploader.onCompleteAll = function () {
-        $scope.uploader.clearQueue();
-        $scope.closeThisDialog($scope.meeting);
+      vm.uploader.onCompleteAll = function () {
+        vm.uploader.clearQueue();
+        handleSavePayment();
       };
     }
 
-    $scope.handleSaveMeeting = function () {
+    vm.handleSaveMeeting = function (isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.meetingForm');
+        return false;
+      }
       if (!validateMeeting()) {
         return $scope.handleShowToast('データが不足です！', true);
       }
 
       $scope.handleShowConfirm({
-        message: '交通費を保存しますか？'
+        message: '車両燃料費を保存しますか？'
       }, function () {
-        if ($scope.uploader.queue.length > 0) {
-          $scope.uploader.uploadAll();
+        if (vm.uploader.queue.length > 0) {
+          vm.uploader.uploadAll();
         } else {
-          $scope.closeThisDialog($scope.meeting);
+          handleSavePayment();
         }
       });
     };
-    $scope.handleAddPartner = function () {
-      $scope.meeting.partners.push('');
+
+    vm.handleAddPartner = function () {
+      vm.meeting.partners.push('');
     };
-    $scope.handleAddEmployee = function () {
-      $scope.meeting.employees.push('');
+    vm.handleAddEmployee = function () {
+      vm.meeting.employees.push('');
     };
-    $scope.handleRemovePartner = function (partner) {
-      $scope.meeting.partners = _.without($scope.meeting.partners, partner);
+    vm.handleRemovePartner = function (partner) {
+      vm.meeting.partners = _.without(vm.meeting.partners, partner);
     };
-    $scope.handleRemoveEmployee = function (employee) {
-      $scope.meeting.employees = _.without($scope.meeting.employees, employee);
+    vm.handleRemoveEmployee = function (employee) {
+      vm.meeting.employees = _.without(vm.meeting.employees, employee);
+    };
+    vm.handleChangeAccount = function () {
+      if (vm.meeting.account === 0 && CommonService.isStringEmpty(vm.meeting.account_other)) {
+        vm.meeting.account_error = true;
+        error = false;
+      } else {
+        vm.meeting.account_error = false;
+      }
+    };
+    vm.handleChangeKind = function () {
+      if (vm.meeting.kind === 0 && CommonService.isStringEmpty(vm.meeting.kind_other)) {
+        vm.meeting.kind_error = true;
+        error = false;
+      } else {
+        vm.meeting.kind_error = false;
+      }
     };
 
     function validateMeeting() {
       var error = true;
-      if (!$scope.meeting.date || !moment($scope.meeting.date).isValid()) {
-        $scope.meeting.date_error = true;
+      if (vm.meeting.account === 0 && CommonService.isStringEmpty(vm.meeting.account_other)) {
+        vm.meeting.account_error = true;
         error = false;
       } else {
-        $scope.meeting.date_error = false;
+        vm.meeting.account_error = false;
       }
-      if (CommonService.isStringEmpty($scope.meeting.content)) {
-        $scope.meeting.content_error = true;
+      if (vm.meeting.kind === 0 && CommonService.isStringEmpty(vm.meeting.kind_other)) {
+        vm.meeting.kind_error = true;
         error = false;
       } else {
-        $scope.meeting.content_error = false;
-      }
-      if ($scope.meeting.account === 0 && CommonService.isStringEmpty($scope.meeting.account_other)) {
-        $scope.meeting.account_error = true;
-        error = false;
-      } else {
-        $scope.meeting.account_error = false;
-      }
-      if ($scope.meeting.kind === 0 && CommonService.isStringEmpty($scope.meeting.kind_other)) {
-        $scope.meeting.kind_error = true;
-        error = false;
-      } else {
-        $scope.meeting.kind_error = false;
+        vm.meeting.kind_error = false;
       }
       return error;
     }
