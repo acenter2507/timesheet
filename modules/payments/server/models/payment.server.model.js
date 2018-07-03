@@ -76,7 +76,7 @@ var PaymentSchema = new Schema({
     // 摘要
     content: { type: String },
     // 勘定科目
-    kind: { type: String },
+    kind: { type: Number },
     // 金額
     fee: { type: Number },
     // 領収書
