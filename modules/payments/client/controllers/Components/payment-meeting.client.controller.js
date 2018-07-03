@@ -88,13 +88,15 @@
     }
 
     vm.handleSaveMeeting = function (isValid) {
+      var error = false;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.meetingForm');
-        return false;
+        error = true;
       }
       if (!validateMeeting()) {
-        return $scope.handleShowToast('データが不足です！', true);
+        error = true;
       }
+      if (error) return false;
 
       $scope.handleShowConfirm({
         message: '車両燃料費を保存しますか？'
