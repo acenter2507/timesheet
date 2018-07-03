@@ -175,6 +175,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th class="text-center">#</th>
             <th>日付</th>
             <th>摘要</th>
             <th>勘定科目</th>
@@ -187,9 +188,10 @@
         </thead>
         <tbody>
           <tr ng-if="vm.payment.others.length === 0">
-            <td colspan="6">その他の費用が登録されません！</td>
+            <td colspan="7">その他の費用が登録されません！</td>
           </tr>
           <tr ng-repeat="other in vm.payment.others track by $index">
+            <td class="text-center">{{ $index + 1 }}</td>
             <td>{{ other.date | LL }} {{ other.date | dddd }}</td>
             <td>{{ other.content }}</td>
             <td>{{ other.kind | OtherKind }}</td>
@@ -199,9 +201,12 @@
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
-            <td>
-              <a ng-click="vm.handleRemoveOther(other)" class="text-danger">
-                <i class="fa fa-times"></i>
+            <td class="w50">
+              <a ng-click="vm.handleEditOther(other)">
+                <i class="fa fa-pencil-square-o"></i>
+              </a>
+              <a class="mg5l" ng-click="vm.handleRemoveOther(other)">
+                <i class="fa fa-trash-o"></i>
               </a>
             </td>
           </tr>
