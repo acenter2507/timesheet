@@ -1,63 +1,87 @@
-<div class="transport">
-  <div class="row" nv-file-drop="" uploader="uploader">
-    <div class="col-xs-12">
-      <div class="form-group" ng-show="uploader.isUploading">
-        <p class="text-muted" ng-bind="uploadingFileName"></p>
-        <div class="progress progress-xs">
-          <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+<div class="container-fluid animated fadeIn" nv-file-drop="" uploader="vm.uploader">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-md-offset-3">
+      <div class="transport">
+        <div class="form-group text-right">
+          <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
+          <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveOther(vm.form.otherForm.$valid)">完了</button>
         </div>
-      </div>
-      
-      <div class="form-group" ng-class="{ 'has-error': other.date_error }">
-        <label>日付</label>
-        <div class="input-group">
-          <input type="text" class="form-control input-sm" datepicker-popup="yyyy/MM/dd" ng-model="other.date" is-open="other.is_open_picker"
-            close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body ng-change="vm.handleTransportDateChanged(other)"
-            show-weeks="false" readonly="true" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default btn-sm" ng-click="other.is_open_picker = true;">
-              <i class="fa fa-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
 
-      <div class="form-group" ng-class="{ 'has-error': other.content_error }">
-        <label>摘要</label>
-        <input class="form-control input-sm" ng-model="other.content" type="text" />
-      </div>
-
-      <div class="form-group" ng-class="{ 'has-error': other.purpose_error }">
-        <label>目的</label>
-        <input class="form-control input-sm" ng-model="other.purpose" type="text" />
-      </div>
-
-      <div class="form-group">
-        <label>金額</label>
-        <input class="form-control input-sm" ng-model="other.fee" type="number" />
-      </div>
-
-      <div class="form-group">
-        <label>領収書</label>
-        <button class="btn btn-success btn-xs btn-upload-file">アップロード
-          <input type="file" nv-file-select uploader="uploader" style="display: hidden;" multiple>
-        </button>
-        <div class="mg5t" ng-show="other.receipts.length > 0">
-          <img ng-repeat="receipt in other.receipts" src="{{ receipt }}" class="receipt-img">
-        </div>
-        <div class="mg5t" ng-show="uploader.queue.length > 0">
-          <div ng-repeat="item in uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
-        </div>
-        <div class="d-sm-down-none" ng-if="uploader.isHTML5">
-          <div class="drop-image-box" nv-file-over="" uploader="uploader">
-            写真ファイルをドラッグしてください！
+        <form name="vm.form.otherForm" novalidate>
+          <div class="form-group" ng-show="vm.uploader.isUploading">
+            <p class="text-muted" ng-bind="vm.uploadingFileName"></p>
+            <div class="progress progress-xs">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': vm.uploader.progress + '%' }"></div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="form-group text-right mgnb mg5t">
-        <button class="btn btn-sm btn-default" ng-click="closeThisDialog()">キャンセル</button>
-        <button class="btn btn-sm btn-primary" ng-click="handleSaveOther()">完了</button>
+          <div class="form-group" show-errors>
+            <label for="date">日付</label>
+            <div class="input-group">
+              <input name="date" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.other.new_date" is-open="vm.other.is_open_picker"
+                close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body show-weeks="false" readonly="true"
+                required/>
+              <span class="input-group-btn bdnl">
+                <button type="button" class="btn btn-default bdnl" ng-click="vm.other.is_open_picker = true;">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </span>
+            </div>
+            <div ng-messages="vm.form.otherForm.date.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">日付は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="content">摘要</label>
+            <input name="content" class="form-control" ng-model="vm.other.content" type="text" required/>
+            <div ng-messages="vm.form.otherForm.content.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">摘要は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>勘定科目</label>
+            <select class="form-control" ng-model="vm.other.kind" convert-to-number>
+              <option value="1">通信費</option>
+              <option value="2">発送配達費</option>
+              <option value="3">備品消耗品費</option>
+              <option value="4">図書研究費</option>
+              <option value="5">事務用品費</option>
+              <option value="6">その他</option>
+              <option value="7">その他①</option>
+              <option value="8">その他②</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>金額</label>
+            <input class="form-control" ng-model="vm.other.fee" type="number" />
+          </div>
+
+          <div class="form-group">
+            <label>領収書</label>
+            <button class="btn btn-success btn-xs btn-upload-file">アップロード
+              <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
+            </button>
+            <div class="mg5t" ng-show="vm.other.receipts.length > 0">
+              <img ng-repeat="receipt in vm.other.receipts" src="{{ receipt }}" class="receipt-img">
+            </div>
+            <div class="mg5t" ng-show="vm.uploader.queue.length > 0">
+              <div ng-repeat="item in vm.uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
+            </div>
+            <div class="d-sm-down-none" ng-if="vm.uploader.isHTML5">
+              <div class="drop-image-box" nv-file-over="" uploader="vm.uploader">
+                写真ファイルをドラッグしてください！
+              </div>
+            </div>
+          </div>
+
+        </form>
+        <div class="form-group text-right mgnb mg5t">
+          <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
+          <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveOther(vm.form.otherForm.$valid)">完了</button>
+        </div>
       </div>
     </div>
   </div>

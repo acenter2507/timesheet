@@ -6,72 +6,115 @@
 
   PaymentOtherController.$inject = [
     '$scope',
+    '$state',
+    '$stateParams',
     'FileUploader',
-    'CommonService'
+    'CommonService',
+    'PaymentFactory',
+    'PaymentsService'
   ];
 
 
-  function PaymentOtherController($scope, FileUploader, CommonService) {
+  function PaymentOtherController($scope, $state, $stateParams, FileUploader, CommonService, PaymentFactory, PaymentsService) {
+    var vm = this;
+    vm.payment = {};
+    vm.other = {};
+    vm.form = {};
 
+    preparePayment();
     prepareUpload();
 
+    function preparePayment() {
+      if (PaymentFactory.payment) {
+        vm.payment = PaymentFactory.payment;
+        prepareOther();
+      } else {
+        PaymentsService.get({
+          paymentId: $stateParams.paymentId
+        }).$promise.then(function (payment) {
+          vm.payment = payment;
+          prepareOther();
+        });
+      }
+    }
+    function prepareOther() {
+      if (PaymentFactory.other) {
+        vm.other = PaymentFactory.other;
+      } else if ($stateParams.other) {
+        vm.other = _.findWhere(vm.payment.others, { _id: $stateParams.other });
+      } else {
+        vm.other = {
+          kind: 1,
+          fee: 0,
+          receipts: []
+        };
+      }
+      _.extend(vm.other, { is_open_picker: false });
+      if (vm.other._id) {
+        vm.other.new_date = moment(vm.other.date).format('YYYY/MM/DD');
+      }
+    }
     function prepareUpload() {
-      $scope.uploader = new FileUploader({
+      vm.uploader = new FileUploader({
         url: 'api/payments/receipts',
         alias: 'paymentReceipts'
       });
-      $scope.uploader.filters.push({
+      vm.uploader.filters.push({
         name: 'imageFilter',
         fn: function (item, options) {
           var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
           return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
         }
       });
-      $scope.uploader.onBeforeUploadItem = function (item) {
-        $scope.uploadingFileName = item._file.name;
+      vm.uploader.onBeforeUploadItem = function (item) {
+        vm.uploadingFileName = item._file.name;
       };
-      $scope.uploader.onAfterAddingAll = function (addedFileItems) {
+      vm.uploader.onAfterAddingAll = function (addedFileItems) {
       };
-      $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-        $scope.other.receipts.push(response);
+      vm.uploader.onCompleteItem = function (fileItem, response, status, headers) {
+        vm.other.receipts.push(response);
       };
-      $scope.uploader.onCompleteAll = function () {
-        $scope.uploader.clearQueue();
-        $scope.closeThisDialog($scope.other);
+      vm.uploader.onCompleteAll = function () {
+        vm.uploader.clearQueue();
+        handleSavePayment();
       };
     }
 
-    $scope.handleSaveOther = function () {
-      if (!validateOther()) {
-        return $scope.handleShowToast('データが不足です！', true);
+    vm.handleSaveOther = function (isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.otherForm');
+        return false;
       }
 
       $scope.handleShowConfirm({
-        message: '交通費を保存しますか？'
+        message: 'その他の費用を保存しますか？'
       }, function () {
-        if ($scope.uploader.queue.length > 0) {
-          $scope.uploader.uploadAll();
+        if (vm.uploader.queue.length > 0) {
+          vm.uploader.uploadAll();
         } else {
-          $scope.closeThisDialog($scope.other);
+          handleSavePayment();
         }
       });
     };
+    vm.handleCancel = function () {
+      $state.go('payments.edit', { paymentId: vm.payment._id });
+    };
+    function handleSavePayment() {
+      if (vm.other._id) {
+        var other = _.findWhere(vm.payment.others, { _id: vm.other._id });
+        _.extend(other, vm.other);
+      } else {
+        vm.payment.others.push(vm.other);
+      }
 
-    function validateOther() {
-      var error = true;
-      if (!$scope.other.date || !moment($scope.other.date).isValid()) {
-        $scope.other.date_error = true;
-        error = false;
-      } else {
-        $scope.other.date_error = false;
-      }
-      if (CommonService.isStringEmpty($scope.other.content)) {
-        $scope.other.content_error = true;
-        error = false;
-      } else {
-        $scope.other.content_error = false;
-      }
-      return error;
+      vm.other.date = vm.other.new_date;
+      vm.payment.$update(function (payment) {
+        PaymentFactory.update(vm.payment, payment);
+        PaymentFactory.deleteOther();
+        $state.go('payments.edit', { paymentId: vm.payment._id });
+      }, function (err) {
+        $scope.handleShowToast(err.message, true);
+      });
     }
   }
 })();

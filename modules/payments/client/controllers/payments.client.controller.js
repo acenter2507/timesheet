@@ -146,30 +146,37 @@
     };
     // OTHERS
     vm.handleAddOther = function () {
-      var other = {
-        id: new Date().getTime(),
-        fee: 0,
-        receipts: []
-      };
-      _.extend(other, ui_config.other);
-      $scope.other = other;
-      var mDialog = ngDialog.open({
-        template: 'modules/payments/client/views/templates/payment-other.client.template.html',
-        controller: 'PaymentOtherController',
-        appendClassName: 'ngdialog-custom',
-        scope: $scope,
-        showClose: false,
-        closeByDocument: false
-      });
-      mDialog.closePromise.then(function (res) {
-        if (!res.value || res.value === '$document') {
-          delete $scope.other;
-          return;
-        }
-        vm.payment.others.push(res.other);
-        vm.handleCalculatePayment();
-        delete $scope.other;
-      });
+      PaymentFactory.set(vm.payment);
+      $state.go('payments.other', { paymentId: vm.payment._id });
+      // var other = {
+      //   id: new Date().getTime(),
+      //   fee: 0,
+      //   receipts: []
+      // };
+      // _.extend(other, ui_config.other);
+      // $scope.other = other;
+      // var mDialog = ngDialog.open({
+      //   template: 'modules/payments/client/views/templates/payment-other.client.template.html',
+      //   controller: 'PaymentOtherController',
+      //   appendClassName: 'ngdialog-custom',
+      //   scope: $scope,
+      //   showClose: false,
+      //   closeByDocument: false
+      // });
+      // mDialog.closePromise.then(function (res) {
+      //   if (!res.value || res.value === '$document') {
+      //     delete $scope.other;
+      //     return;
+      //   }
+      //   vm.payment.others.push(res.other);
+      //   vm.handleCalculatePayment();
+      //   delete $scope.other;
+      // });
+    };
+    vm.handleEditOther = function (other) {
+      PaymentFactory.set(vm.payment);
+      PaymentFactory.setOther(other);
+      $state.go('payments.other', { paymentId: vm.payment._id, other: other._id });
     };
     vm.handleRemoveOther = function (other) {
       $scope.handleShowConfirm({
