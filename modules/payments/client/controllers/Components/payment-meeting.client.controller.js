@@ -138,6 +138,23 @@
       }
     };
 
+    function handleSavePayment() {
+      if (vm.meeting._id) {
+        var meeting = _.findWhere(vm.payment.meetings, { _id: vm.meeting._id });
+        _.extend(meeting, vm.meeting);
+      } else {
+        vm.payment.meetings.push(vm.meeting);
+      }
+
+      vm.meeting.date = vm.meeting.new_date;
+      vm.payment.$update(function (payment) {
+        PaymentFactory.update(vm.payment, payment);
+        PaymentFactory.deleteMeeting();
+        $state.go('payments.edit', { paymentId: vm.payment._id });
+      }, function (err) {
+        $scope.handleShowToast(err.message, true);
+      });
+    }
     function validateMeeting() {
       var error = true;
       if (vm.meeting.account === 0 && CommonService.isStringEmpty(vm.meeting.account_other)) {
