@@ -10,6 +10,12 @@ var path = require('path'),
 
 // Create the chat configuration
 module.exports = function (io, socket) {
+  var chat = io.of('/chats');
+
+  chat.on('connection', function (socket) {
+    console.log('someone connected', socket.id);
+  });
+
   socket.on('chat', req => {
     // TODO
     // Đang gửi cho toàn bộ user
