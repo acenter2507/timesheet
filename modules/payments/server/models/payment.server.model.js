@@ -171,105 +171,126 @@ PaymentSchema.plugin(paginate);
 
 PaymentSchema.pre('save', function (next) {
   // 旅費交通費
-  var transport = this.transports.reduce((s, f) => {
-    return s + f.fee + f.taxi_fee;
-  }, 0);
-  var trip = this.trips.reduce((s, f) => {
-    return s + f.fee + f.stay_fee;
-  }, 0);
+  var index = 0;
+  var transport = 0;
+  var element = {};
+
+  for (index = 0; index < this.transports.length; index++) {
+    element = this.transports[index];
+    transport = transport + element.fee + element.taxi_fee;
+  }
+  var trip = 0;
+  for (index = 0; index < this.trips.length; index++) {
+    element = this.trips[index];
+    trip = trip + element.fee + element.stay_fee;
+  }
   this.transport_fee = transport + trip;
   // 車両費
-  this.vehicle_fee = this.vehicles.reduce((s, f) => {
-    return s + f.fee;
-  }, 0);
+  var count = 0;
+  for (index = 0; index < this.vehicles.length; index++) {
+    element = this.vehicles[index];
+    count = count + element.;
+  }
+  this.vehicle_fee = count;
   // 通信費
-  this.communicate_fee = this.others.reduce((s, f) => {
-    if (f.kind === 1) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 1) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.communicate_fee = count;
   // 通信費
-  this.ship_fee = this.others.reduce((s, f) => {
-    if (f.kind === 2) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 2) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.ship_fee = count;
   // 備品消耗品費
-  this.supplie_fee = this.others.reduce((s, f) => {
-    if (f.kind === 3) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 3) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.supplie_fee = count;
   // 備品消耗品費
-  this.book_fee = this.others.reduce((s, f) => {
-    if (f.kind === 4) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 4) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.book_fee = count;
   // 事務用品費
-  this.office_fee = this.others.reduce((s, f) => {
-    if (f.kind === 5) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 5) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.office_fee = count;
   // その他
-  this.other_fee = this.others.reduce((s, f) => {
-    if (f.kind === 6) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 6) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.other_fee = count;
   // その他2
-  this.other1_fee = this.others.reduce((s, f) => {
-    if (f.kind === 7) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 7) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.other1_fee = count;
   // その他3
-  this.other2_fee = this.others.reduce((s, f) => {
-    if (f.kind === 8) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 8) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.other2_fee = count;
   // 会議費
-  this.meeting_fee = this.mettings.reduce((s, f) => {
-    if (f.account === 1) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.mettings.length; index++) {
+    element = this.mettings[index];
+    if (element.account === 1) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.meeting_fee = count;
   // 接待交際費
-  this.relax_fee = this.mettings.reduce((s, f) => {
-    if (f.account === 2) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.mettings.length; index++) {
+    element = this.mettings[index];
+    if (element.account === 2) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.relax_fee = count;
   // 厚生費
-  this.welfare_fee = this.mettings.reduce((s, f) => {
-    if (f.account === 3) {
-      return s + f.fee;
-    } else {
-      return s;
+  count = 0;
+  for (index = 0; index < this.mettings.length; index++) {
+    element = this.mettings[index];
+    if (element.account === 3) {
+      count = count + element.fee;
     }
-  }, 0);
+  }
+  this.welfare_fee = count;
 
   this.total = this.transport_fee + this.vehicle_fee + this.communicate_fee + this.ship_fee
     + this.supplie_fee + this.book_fee + this.office_fee + this.other_fee
