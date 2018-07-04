@@ -132,33 +132,33 @@ var PaymentSchema = new Schema({
     receipts: [{ type: String }]
   }],
   // 旅費交通費
-  transport_fee: {},
+  transport_fee: { type: Number, default: 0 },
   // 車両費
-  vehicle_fee: {},
+  vehicle_fee: { type: Number, default: 0 },
   // 通信費
-  communicate_fee: {},
+  communicate_fee: { type: Number, default: 0 },
   // 発送配達費
-  ship_fee: {},
+  ship_fee: { type: Number, default: 0 },
   // 備品消耗品費
-  supplie_fee: {},
+  supplie_fee: { type: Number, default: 0 },
   // 図書研究費
-  book_fee: {},
+  book_fee: { type: Number, default: 0 },
   // 事務用品費
-  office_fee: {},
+  office_fee: { type: Number, default: 0 },
   // 会議費
-  meeting_fee: {},
+  meeting_fee: { type: Number, default: 0 },
   // 接待交際費
-  relax_fee: {},
+  relax_fee: { type: Number, default: 0 },
   // 厚生費
-  welfare_fee: {},
+  welfare_fee: { type: Number, default: 0 },
   // その他
-  other_fee: {},
+  other_fee: { type: Number, default: 0 },
   // その他1
-  other1_fee: {},
+  other1_fee: { type: Number, default: 0 },
   // その他2
-  other2_fee: {},
+  other2_fee: { type: Number, default: 0 },
   // 支払総額
-  total: { type: Number },
+  total: { type: Number, default: 0 },
   comments: [{
     author: { type: String },
     content: { type: String },
