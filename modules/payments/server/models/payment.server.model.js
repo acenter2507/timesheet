@@ -185,13 +185,13 @@ PaymentSchema.pre('save', function (next) {
     trip = trip + element.fee + element.stay_fee;
   }
   this.transport_fee = transport + trip;
-  // // 車両費
-  // var count = 0;
-  // for (index = 0; index < this.vehicles.length; index++) {
-  //   element = this.vehicles[index];
-  //   count = count + element.fee;
-  // }
-  // this.vehicle_fee = count;
+  // 車両費
+  var count = 0;
+  for (index = 0; index < this.vehicles.length; index++) {
+    element = this.vehicles[index];
+    count = count + element.fee;
+  }
+  this.vehicle_fee = count;
   // // 通信費
   // count = 0;
   // for (index = 0; index < this.others.length; index++) {
