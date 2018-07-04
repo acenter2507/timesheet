@@ -244,10 +244,10 @@
             <td>{{ meeting.content }}</td>
             <td>{{ meeting.location }}</td>
             <td>
-              <p ng-repeat="partner in meeting.partners">{{ partner }}</p>
+              <p ng-repeat="partner in meeting.partners">{{ partner.name }}</p>
             </td>
             <td>
-              <p ng-repeat="employee in meeting.employees">{{ employee }}</p>
+              <p ng-repeat="employee in meeting.employees">{{ employee.name }}</p>
             </td>
             <td class="w50">{{ meeting.total }}</td>
             <td class="w50">{{ meeting.fee }}</td>
