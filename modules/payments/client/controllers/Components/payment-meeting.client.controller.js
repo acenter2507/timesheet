@@ -186,7 +186,7 @@
         vm.meeting.kind_error = false;
       }
       for (var i = 0; i < vm.meeting.employees.length; i++) {
-        var employee = vm.meeting.partners[i];
+        var employee = vm.meeting.employees[i];
         if (CommonService.isStringEmpty(employee.name)) {
           employee.error = true;
           error = false;
