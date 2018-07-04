@@ -109,7 +109,7 @@
 
       vm.other.date = vm.other.new_date;
       vm.payment.$update(function (payment) {
-        PaymentFactory.update(vm.payment, payment);
+        PaymentFactory.update(payment);
         PaymentFactory.deleteOther();
         $state.go('payments.edit', { paymentId: vm.payment._id });
       }, function (err) {

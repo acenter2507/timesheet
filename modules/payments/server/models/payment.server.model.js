@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
+  _ = require('underscore'),
   Schema = mongoose.Schema;
 
 /**
@@ -167,5 +168,112 @@ var PaymentSchema = new Schema({
   user: { type: Schema.ObjectId, ref: 'User' }
 });
 PaymentSchema.plugin(paginate);
+
+PaymentSchema.pre('save', function (next) {
+  // 旅費交通費
+  var transport = this.transports.reduce((s, f) => {
+    return s + f.fee + f.taxi_fee;
+  }, 0);
+  var trip = this.trips.reduce((s, f) => {
+    return s + f.fee + f.stay_fee;
+  }, 0);
+  this.transport_fee = transport + trip;
+  // 車両費
+  this.vehicle_fee = this.vehicles.reduce((s, f) => {
+    return s + f.fee;
+  }, 0);
+  // 通信費
+  this.communicate_fee = this.others.reduce((s, f) => {
+    if (f.kind === 1) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // 通信費
+  this.ship_fee = this.others.reduce((s, f) => {
+    if (f.kind === 2) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // 備品消耗品費
+  this.supplie_fee = this.others.reduce((s, f) => {
+    if (f.kind === 3) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // 備品消耗品費
+  this.book_fee = this.others.reduce((s, f) => {
+    if (f.kind === 4) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // 事務用品費
+  this.office_fee = this.others.reduce((s, f) => {
+    if (f.kind === 5) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // その他
+  this.other_fee = this.others.reduce((s, f) => {
+    if (f.kind === 6) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // その他2
+  this.other1_fee = this.others.reduce((s, f) => {
+    if (f.kind === 7) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // その他3
+  this.other2_fee = this.others.reduce((s, f) => {
+    if (f.kind === 8) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // 会議費
+  this.meeting_fee = this.mettings.reduce((s, f) => {
+    if (f.account === 1) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // 接待交際費
+  this.relax_fee = this.mettings.reduce((s, f) => {
+    if (f.account === 2) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+  // 厚生費
+  this.welfare_fee = this.mettings.reduce((s, f) => {
+    if (f.account === 3) {
+      return s + f.fee;
+    } else {
+      return s;
+    }
+  }, 0);
+
+  this.total = this.transport_fee + this.vehicle_fee + this.communicate_fee + this.ship_fee + this.supplie_fee + this.book_fee + this.office_fee + this.other_fee + this.other2_fee + this.other1_fee + this.meeting_fee + this.relax_fee + this.welfare_fee;
+
+  next();
+});
 
 mongoose.model('Payment', PaymentSchema);

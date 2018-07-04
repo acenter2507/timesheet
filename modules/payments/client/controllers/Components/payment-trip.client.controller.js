@@ -132,7 +132,7 @@
 
       vm.trip.date = vm.trip.new_date;
       vm.payment.$update(function (payment) {
-        PaymentFactory.update(vm.payment, payment);
+        PaymentFactory.update(payment);
         PaymentFactory.deleteTrip();
         $state.go('payments.edit', { paymentId: vm.payment._id });
       }, function (err) {

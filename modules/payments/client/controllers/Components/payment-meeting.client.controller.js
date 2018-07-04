@@ -164,7 +164,7 @@
 
       vm.meeting.date = vm.meeting.new_date;
       vm.payment.$update(function (payment) {
-        PaymentFactory.update(vm.payment, payment);
+        PaymentFactory.update(payment);
         PaymentFactory.deleteMeeting();
         $state.go('payments.edit', { paymentId: vm.payment._id });
       }, function (err) {

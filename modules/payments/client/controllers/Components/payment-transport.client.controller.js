@@ -141,7 +141,7 @@
 
       vm.transport.date = vm.transport.new_date;
       vm.payment.$update(function (payment) {
-        PaymentFactory.update(vm.payment, payment);
+        PaymentFactory.update(payment);
         PaymentFactory.deleteTransport();
         $state.go('payments.edit', { paymentId: vm.payment._id });
       }, function (err) {
