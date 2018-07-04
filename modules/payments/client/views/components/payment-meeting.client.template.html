@@ -48,20 +48,20 @@
           <div class="form-group d-sm-down-none">
             <div class="col-xs-6 pdnl">
               <label>顧客氏名</label>
-              <button class="btn btn-default btn-xs pull-right" ng-click="vm.handleAddPartner()">
+              <button class="btn btn-primary btn-xs pull-right" ng-click="vm.handleAddPartner()">
                 <i class="fa fa-plus-square-o"></i>
               </button>
               <div class="clearfix"></div>
               <table class="table table-bordered">
                 <tbody>
                   <tr ng-repeat="partner in vm.meeting.partners track by $index">
-                    <td class="w30 text-center">
-                      <a ng-click="vm.handleRemovePartner(partner)">
-                        <i class="fa fa-minus-circle"></i>
-                      </a>
-                    </td>
                     <td>
                       <input class="form-control input-sm" ng-model="partner.name">
+                    </td>
+                    <td class="w30 text-center">
+                      <a class="btn btn-danger btn-sm" ng-click="vm.handleRemovePartner(partner)">
+                        <i class="fa fa-minus-circle"></i>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -69,19 +69,19 @@
             </div>
             <div class="col-xs-6 pdnl">
               <label>社員氏名</label>
-              <button class="btn btn-default btn-xs pull-right" ng-click="vm.handleAddEmployee()">
+              <button class="btn btn-primary btn-xs pull-right" ng-click="vm.handleAddEmployee()">
                 <i class="fa fa-plus-square-o"></i>
               </button>
               <table class="table table-bordered mgnb">
                 <tbody>
                   <tr ng-repeat="employee in vm.meeting.employees track by $index">
-                    <td class="w30 text-center">
-                      <a ng-click="vm.handleRemoveEmployee(employee)">
-                        <i class="fa fa-minus-circle"></i>
-                      </a>
-                    </td>
                     <td>
                       <input class="form-control input-sm" ng-model="employee.name">
+                    </td>
+                    <td class="w30 text-center">
+                      <a class="btn btn-danger btn-sm" ng-click="vm.handleRemoveEmployee(employee)">
+                        <i class="fa fa-minus-circle"></i>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
