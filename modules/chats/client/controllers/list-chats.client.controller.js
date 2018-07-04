@@ -57,6 +57,7 @@
       };
     }
     function prepareSocketListenner() {
+      var chatSocket = io('/chats');
       if (!Socket.socket) {
         Socket.connect();
       }
