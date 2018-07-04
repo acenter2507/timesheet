@@ -191,7 +191,7 @@
           employee.error = true;
           error = false;
         } else {
-          partner.error = false;
+          employee.error = false;
         }
       }
       for (var i = 0; i < vm.meeting.partners.length; i++) {
