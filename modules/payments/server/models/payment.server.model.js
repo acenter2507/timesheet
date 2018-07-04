@@ -189,7 +189,7 @@ PaymentSchema.pre('save', function (next) {
   var count = 0;
   for (index = 0; index < this.vehicles.length; index++) {
     element = this.vehicles[index];
-    count = count + element.;
+    count = count + element.fee;
   }
   this.vehicle_fee = count;
   // 通信費
