@@ -192,15 +192,15 @@ PaymentSchema.pre('save', function (next) {
     count = count + element.fee;
   }
   this.vehicle_fee = count;
-  // // 通信費
-  // count = 0;
-  // for (index = 0; index < this.others.length; index++) {
-  //   element = this.others[index];
-  //   if (element.kind === 1) {
-  //     count = count + element.fee;
-  //   }
-  // }
-  // this.communicate_fee = count;
+  // 通信費
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 1) {
+      count = count + element.fee;
+    }
+  }
+  this.communicate_fee = count;
   // // 通信費
   // count = 0;
   // for (index = 0; index < this.others.length; index++) {
