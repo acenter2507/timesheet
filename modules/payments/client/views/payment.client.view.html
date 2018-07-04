@@ -55,7 +55,7 @@
             <th rowspan="2">手段</th>
             <th colspan="2" class="text-center">交通費</th>
             <th rowspan="2">領収書</th>
-            <th rowspan="2" class="text-center w50">
+            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTransport()">追加</button>
             </th>
           </tr>
@@ -90,7 +90,7 @@
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
-            <td class="w50">
+            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
               <a ng-click="vm.handleEditTransport(transport)">
                 <i class="fa fa-pencil-square-o"></i>
               </a>
