@@ -194,8 +194,8 @@
           employee.error = false;
         }
       }
-      for (var i = 0; i < vm.meeting.partners.length; i++) {
-        var partner = vm.meeting.partners[i];
+      for (var x = 0; x < vm.meeting.partners.length; x++) {
+        var partner = vm.meeting.partners[x];
         if (CommonService.isStringEmpty(partner.name)) {
           partner.error = true;
           error = false;
