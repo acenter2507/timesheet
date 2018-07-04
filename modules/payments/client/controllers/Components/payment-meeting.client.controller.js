@@ -185,14 +185,14 @@
       } else {
         vm.meeting.kind_error = false;
       }
-      for (var i = 0; i < vm.meeting.partners.length; i++) {
+      for (var i = 0; i < vm.meeting.employees.length; i++) {
         var employee = vm.meeting.partners[i];
         if (CommonService.isStringEmpty(employee.name)) {
           employee.error = true;
           error = false;
         }
       }
-      for (var i = 0; i < vm.meeting.employees.length; i++) {
+      for (var i = 0; i < vm.meeting.partners.length; i++) {
         var partner = vm.meeting.partners[i];
         if (CommonService.isStringEmpty(partner.name)) {
           partner.error = true;
