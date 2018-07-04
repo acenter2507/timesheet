@@ -190,6 +190,8 @@
         if (CommonService.isStringEmpty(employee.name)) {
           employee.error = true;
           error = false;
+        } else {
+          partner.error = false;
         }
       }
       for (var i = 0; i < vm.meeting.partners.length; i++) {
@@ -197,6 +199,8 @@
         if (CommonService.isStringEmpty(partner.name)) {
           partner.error = true;
           error = false;
+        } else {
+          partner.error = false;
         }
       }
       return error;
