@@ -48,7 +48,10 @@
           <div class="form-group d-sm-down-none">
             <div class="col-xs-6 pdnl">
               <label>顧客氏名</label>
-              <button class="btn btn-default btn-xs" ng-click="vm.handleAddPartner()">追加</button>
+              <button class="btn btn-default btn-xs pull-right" ng-click="vm.handleAddPartner()">
+                <i class="fa-plus-square-o"></i>
+              </button>
+              <div class="clearfix"></div>
               <table class="table table-bordered">
                 <tbody>
                   <tr ng-repeat="partner in vm.meeting.partners track by $index">
@@ -66,7 +69,9 @@
             </div>
             <div class="col-xs-6 pdnl">
               <label>社員氏名</label>
-              <button class="btn btn-default btn-xs" ng-click="vm.handleAddEmployee()">追加</button>
+              <button class="btn btn-default btn-xs pull-right" ng-click="vm.handleAddEmployee()">
+                <i class="fa-plus-square-o"></i>
+              </button>
               <table class="table table-bordered mgnb">
                 <tbody>
                   <tr ng-repeat="employee in vm.meeting.employees track by $index">

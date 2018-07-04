@@ -47,8 +47,8 @@
           account: 1,
           kind: 1,
           fee: 0,
-          partners: [''],
-          employees: [''],
+          partners: [],
+          employees: [],
           receipts: []
         };
       }
@@ -110,10 +110,16 @@
     };
 
     vm.handleAddPartner = function () {
-      vm.meeting.partners.push('');
+      vm.meeting.partners.push({
+        time: new Date().getTime(),
+        name: ''
+      });
     };
     vm.handleAddEmployee = function () {
-      vm.meeting.employees.push('');
+      vm.meeting.employees.push({
+        time: new Date().getTime(),
+        name: ''
+      });
     };
     vm.handleRemovePartner = function (partner) {
       vm.meeting.partners = _.without(vm.meeting.partners, partner);

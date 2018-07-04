@@ -104,9 +104,15 @@ var PaymentSchema = new Schema({
     // 場所
     location: { type: String },
     // 顧客氏名
-    partners: [{ type: String }],
+    partners: [{
+      time: { type: Number },
+      name: { type: String }
+    }],
     // 社員氏名
-    employees: [{ type: String }],
+    employees: [{
+      time: { type: Number },
+      name: { type: String }
+    }],
     // 人数合計
     total: { type: Number },
     // 使用金額
