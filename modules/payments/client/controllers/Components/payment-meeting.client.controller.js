@@ -47,6 +47,8 @@
           account: 1,
           kind: 1,
           fee: 0,
+          total: 0,
+          amount: 0,
           partners: [],
           employees: [],
           receipts: []
@@ -114,18 +116,22 @@
         time: new Date().getTime(),
         name: ''
       });
+      handleCalculateMeeting();
     };
     vm.handleAddEmployee = function () {
       vm.meeting.employees.push({
         time: new Date().getTime(),
         name: ''
       });
+      handleCalculateMeeting();
     };
     vm.handleRemovePartner = function (partner) {
       vm.meeting.partners = _.without(vm.meeting.partners, partner);
+      handleCalculateMeeting();
     };
     vm.handleRemoveEmployee = function (employee) {
       vm.meeting.employees = _.without(vm.meeting.employees, employee);
+      handleCalculateMeeting();
     };
     vm.handleChangeAccount = function () {
       if (vm.meeting.account === 0 && CommonService.isStringEmpty(vm.meeting.account_other)) {
@@ -142,7 +148,8 @@
       }
     };
     function handleCalculateMeeting() {
-      vm.meeting.total = vm.partners.length + vm.employees.length;
+      vm.meeting.total = vm.meeting.partners.length + vm.meeting.employees.length;
+      vm.meeting.amount = vm.meeting.fee / vm.meeting.total;
     }
     function handleSavePayment() {
       if (vm.meeting._id) {
