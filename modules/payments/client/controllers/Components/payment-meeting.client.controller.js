@@ -141,7 +141,9 @@
         vm.meeting.kind_error = false;
       }
     };
-
+    function handleCalculateMeeting() {
+      vm.meeting.total = vm.partners.length + vm.employees.length;
+    }
     function handleSavePayment() {
       if (vm.meeting._id) {
         var meeting = _.findWhere(vm.payment.meetings, { _id: vm.meeting._id });
