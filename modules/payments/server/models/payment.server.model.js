@@ -201,15 +201,15 @@ PaymentSchema.pre('save', function (next) {
     }
   }
   this.communicate_fee = count;
-  // // 通信費
-  // count = 0;
-  // for (index = 0; index < this.others.length; index++) {
-  //   element = this.others[index];
-  //   if (element.kind === 2) {
-  //     count = count + element.fee;
-  //   }
-  // }
-  // this.ship_fee = count;
+  // 発送配達費
+  count = 0;
+  for (index = 0; index < this.others.length; index++) {
+    element = this.others[index];
+    if (element.kind === 2) {
+      count = count + element.fee;
+    }
+  }
+  this.ship_fee = count;
   // // 備品消耗品費
   // count = 0;
   // for (index = 0; index < this.others.length; index++) {
