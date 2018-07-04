@@ -179,7 +179,7 @@
       } else {
         vm.meeting.account_error = false;
       }
-      if (vm.meeting.kind === 0 && CommonService.isStringEmpty(vm.meeting.kind_other)) {
+      if (vm.meeting.kind === 0 && CommonService.isStringEmpty(vm.meeting.kind_other) && vm.meeting.account !== 2) {
         vm.meeting.kind_error = true;
         error = false;
       } else {
