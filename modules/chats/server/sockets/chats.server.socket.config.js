@@ -14,6 +14,9 @@ module.exports = function (io, socket) {
 
   chat.on('connection', function (socket) {
     console.log('someone connected', socket.id);
+    socket.on('messages', function (req) {
+      chat.emit('messages', req + ' clmm');
+    });
   });
 
   socket.on('chat', req => {

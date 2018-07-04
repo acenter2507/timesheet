@@ -58,6 +58,11 @@
     }
     function prepareSocketListenner() {
       var chatSocket = io('/chats');
+      chatSocket.emit('messages', 'Ahhihi');
+      chatSocket.on('messages', function(res) {
+        console.log(res);
+      });
+
       if (!Socket.socket) {
         Socket.connect();
       }
