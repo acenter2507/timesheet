@@ -220,6 +220,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th class="text-center w50">#</th>
             <th>日付</th>
             <th>顧客名・事業内容</th>
             <th>場所</th>
@@ -230,6 +231,7 @@
             <th class="w50">1人当たり</th>
             <th>勘定科目</th>
             <th>種別</th>
+            <th>領収書</th>
             <th class="text-center w50">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddMeeting()">追加</button>
             </th>
@@ -237,9 +239,10 @@
         </thead>
         <tbody>
           <tr ng-if="vm.payment.meetings.length === 0">
-            <td colspan="11">接待交際費が登録されません！</td>
+            <td colspan="13">接待交際費が登録されません！</td>
           </tr>
           <tr ng-repeat="meeting in vm.payment.meetings track by $index">
+            <td class="text-center w50">{{ $index + 1 }}</td>
             <td>{{ meeting.date | LL }} {{ meeting.date | dddd }}</td>
             <td>{{ meeting.content }}</td>
             <td>{{ meeting.location }}</td>
