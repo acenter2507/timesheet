@@ -133,6 +133,9 @@
       vm.meeting.employees = _.without(vm.meeting.employees, employee);
       handleCalculateMeeting();
     };
+    vm.handleChangeFee = function () {
+      handleCalculateMeeting();
+    };
     vm.handleChangeAccount = function () {
       if (vm.meeting.account === 0 && CommonService.isStringEmpty(vm.meeting.account_other)) {
         vm.meeting.account_error = true;
