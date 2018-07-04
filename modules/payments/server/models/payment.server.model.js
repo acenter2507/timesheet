@@ -171,20 +171,20 @@ PaymentSchema.plugin(paginate);
 
 PaymentSchema.pre('save', function (next) {
   // 旅費交通費
-  // var index = 0;
-  // var transport = 0;
-  // var element = {};
+  var index = 0;
+  var transport = 0;
+  var element = {};
 
-  // for (index = 0; index < this.transports.length; index++) {
-  //   element = this.transports[index];
-  //   transport = transport + element.fee + element.taxi_fee;
-  // }
-  // var trip = 0;
-  // for (index = 0; index < this.trips.length; index++) {
-  //   element = this.trips[index];
-  //   trip = trip + element.fee + element.stay_fee;
-  // }
-  // this.transport_fee = transport + trip;
+  for (index = 0; index < this.transports.length; index++) {
+    element = this.transports[index];
+    transport = transport + element.fee + element.taxi_fee;
+  }
+  var trip = 0;
+  for (index = 0; index < this.trips.length; index++) {
+    element = this.trips[index];
+    trip = trip + element.fee + element.stay_fee;
+  }
+  this.transport_fee = transport + trip;
   // // 車両費
   // var count = 0;
   // for (index = 0; index < this.vehicles.length; index++) {
@@ -293,7 +293,6 @@ PaymentSchema.pre('save', function (next) {
   // this.welfare_fee = count;
 
   // this.total = this.transport_fee + this.vehicle_fee + this.communicate_fee + this.ship_fee + this.supplie_fee + this.book_fee + this.office_fee + this.other_fee + this.other2_fee + this.other1_fee + this.meeting_fee + this.relax_fee + this.welfare_fee;
-  console.log(this);
   next();
 });
 
