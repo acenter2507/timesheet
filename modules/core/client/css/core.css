@@ -486,3 +486,5 @@ ul.user-menu {
   border-color: transparent;
   border-style: solid;
   border-width: 1px 2px; }
+.input-error {
+  border-color: #a94442 !important; }
