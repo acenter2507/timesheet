@@ -57,12 +57,6 @@
       };
     }
     function prepareSocketListenner() {
-      var chatSocket = io('/chats');
-      chatSocket.emit('messages', 'Ahhihi');
-      chatSocket.on('messages', function(res) {
-        console.log(res);
-      });
-
       if (!Socket.socket) {
         Socket.connect();
       }
@@ -163,6 +157,7 @@
     }
 
     function handleReceivedChat(res) {
+      console.log(res);
       if (res.error) return $scope.handleShowToast(res.message, true);
       if (res.user.toString() === $scope.user._id.toString()) return;
       if (res.room.toString() !== vm.room._id.toString()) return;
