@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
 var PaymentSchema = new Schema({
   year: { type: Number, required: true },
   month: { type: Number, required: true },
-  // 1-Unsend, 2-Send, 3-Done
+  // 1-Unsend, 2-Waiting, 3-Reject, 4-Done
   status: { type: Number, default: 1 },
   historys: [{
     // Action of history 1:Created - 2:Updated - 3:Send - 4:Approved - 5:Rejected - 6:Cancel

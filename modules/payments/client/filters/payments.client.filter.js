@@ -3,11 +3,23 @@
 
   angular
     .module('payments')
+    .filter('PaymentStatus', PaymentStatus)
     .filter('TransportMethod', TransportMethod)
     .filter('TripMethod', TripMethod)
     .filter('OtherKind', OtherKind)
     .filter('MeetingAccount', MeetingAccount)
     .filter('MeetingKind', MeetingKind);
+
+  function PaymentStatus() {
+    return function (value) {
+      switch (value) {
+        case 1: return '未申請';
+        case 2: return '申請中';
+        case 3: return '拒否';
+        case 4: return '清算済';
+      }
+    };
+  }
 
   function TransportMethod() {
     return function (value) {
