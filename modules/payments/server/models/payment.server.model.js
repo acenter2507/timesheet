@@ -271,7 +271,9 @@ PaymentSchema.pre('save', function (next) {
     }
   }, 0);
 
-  this.total = this.transport_fee + this.vehicle_fee + this.communicate_fee + this.ship_fee + this.supplie_fee + this.book_fee + this.office_fee + this.other_fee + this.other2_fee + this.other1_fee + this.meeting_fee + this.relax_fee + this.welfare_fee;
+  this.total = this.transport_fee + this.vehicle_fee + this.communicate_fee + this.ship_fee
+    + this.supplie_fee + this.book_fee + this.office_fee + this.other_fee
+    + this.other2_fee + this.other1_fee + this.meeting_fee + this.relax_fee + this.welfare_fee;
 
   next();
 });

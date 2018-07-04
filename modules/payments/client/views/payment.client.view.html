@@ -1,5 +1,46 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
+    <div class="col-xs-12">
+      <h4>合計額記入欄</h4>
+      <table class="table table-bordered">
+        <tr>
+          <th>旅費交通費</th>
+          <th>車両費</th>
+          <th>通信費</th>
+          <th>発送配達費</th>
+          <th>備品消耗品費</th>
+          <th>図書研究費</th>
+          <th>事務用品費</th>
+          <th>会議費</th>
+        </tr>
+        <tr>
+          <td>￥{{ vm.payment.transport_fee }}</td>
+          <td>￥{{ vm.payment.vehicle_fee }}</td>
+          <td>￥{{ vm.payment.communicate_fee }}</td>
+          <td>￥{{ vm.payment.ship_fee }}</td>
+          <td>￥{{ vm.payment.supplie_fee }}</td>
+          <td>￥{{ vm.payment.book_fee }}</td>
+          <td>￥{{ vm.payment.office_fee }}</td>
+          <td>￥{{ vm.payment.meeting_fee }}</td>
+        </tr>
+        <tr>
+          <th>接待交際費</th>
+          <th>厚生費</th>
+          <th>その他①</th>
+          <th>その他②</th>
+          <th>その他</th>
+          <th colspan="3">支払総額</th>
+        </tr>
+        <tr>
+          <td>￥{{ vm.payment.relax_fee }}</td>
+          <td>￥{{ vm.payment.welfare_fee }}</td>
+          <td>￥{{ vm.payment.other1_fee }}</td>
+          <td>￥{{ vm.payment.other2_fee }}</td>
+          <td>￥{{ vm.payment.other_fee }}</td>
+          <td colspan="3">￥{{ vm.payment.total }}</td>
+        </tr>
+      </table>
+    </div>
     <!-- 交通費 -->
     <div class="col-xs-12">
       <h4>交通費</h4>
