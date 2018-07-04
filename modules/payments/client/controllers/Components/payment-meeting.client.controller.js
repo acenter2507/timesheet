@@ -185,6 +185,20 @@
       } else {
         vm.meeting.kind_error = false;
       }
+      for (var i = 0; i < vm.meeting.partners.length; i++) {
+        var employee = vm.meeting.partners[i];
+        if (CommonService.isStringEmpty(employee.name)) {
+          employee.error = true;
+          var error = true;
+        }
+      }
+      for (var i = 0; i < vm.meeting.employees.length; i++) {
+        var partner = vm.meeting.partners[i];
+        if (CommonService.isStringEmpty(partner.name)) {
+          partner.error = true;
+          var error = true;
+        }
+      }
       return error;
     }
   }
