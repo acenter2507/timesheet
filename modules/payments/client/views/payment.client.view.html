@@ -4,14 +4,14 @@
       <h4>合計額記入欄</h4>
       <table class="table table-bordered">
         <tr>
-          <th>旅費交通費</th>
-          <th>車両費</th>
-          <th>通信費</th>
-          <th>発送配達費</th>
-          <th>備品消耗品費</th>
-          <th>図書研究費</th>
-          <th>事務用品費</th>
-          <th>会議費</th>
+          <th><a href="#transport">旅費交通費</a></th>
+          <th><a href="#vehicle">車両費</a></th>
+          <th><a href="#other">通信費</a></th>
+          <th><a href="#other">発送配達費</a></th>
+          <th><a href="#other">備品消耗品費</a></th>
+          <th><a href="#other">図書研究費</a></th>
+          <th><a href="#other">事務用品費</a></th>
+          <th><a href="#meeting">会議費</a></th>
         </tr>
         <tr>
           <td>￥{{ vm.payment.transport_fee }}</td>
@@ -24,11 +24,11 @@
           <td>￥{{ vm.payment.meeting_fee }}</td>
         </tr>
         <tr>
-          <th>接待交際費</th>
-          <th>厚生費</th>
-          <th>その他①</th>
-          <th>その他②</th>
-          <th>その他</th>
+          <th><a href="#meeting">接待交際費</a></th>
+          <th><a href="#meeting">厚生費</a></th>
+          <th><a href="#other">その他①</a></th>
+          <th><a href="#other">その他②</a></th>
+          <th><a href="#other">その他</a></th>
           <th colspan="3">支払総額</th>
         </tr>
         <tr>
@@ -44,7 +44,7 @@
     <!-- 交通費 -->
     <div class="col-xs-12">
       <h4>交通費</h4>
-      <table class="table table-bordered">
+      <table class="table table-bordered" id="transport">
         <thead>
           <tr>
             <th rowspan="2" class="text-center w50">#</th>
@@ -168,7 +168,7 @@
     <!-- 車両燃料費 -->
     <div class="col-xs-12">
       <h4>車両燃料費</h4>
-      <table class="table table-bordered">
+      <table class="table table-bordered" id="vehicle">
         <thead>
           <tr>
             <th class="text-center w50">#</th>
@@ -213,7 +213,7 @@
     <!-- その他の費用（備品等） -->
     <div class="col-xs-12">
       <h4>その他の費用（備品等）</h4>
-      <table class="table table-bordered">
+      <table class="table table-bordered" id="other">
         <thead>
           <tr>
             <th class="text-center w50">#</th>
@@ -258,7 +258,7 @@
     <!-- 接待交際費 -->
     <div class="col-xs-12">
       <h4>会議費 ･接待交際費報告書</h4>
-      <table class="table table-bordered">
+      <table class="table table-bordered" id="meeting">
         <thead>
           <tr>
             <th class="text-center w50">#</th>
