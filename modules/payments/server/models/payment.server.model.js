@@ -265,34 +265,34 @@ PaymentSchema.pre('save', function (next) {
   }
   this.other2_fee = count;
   // 会議費
-  // count = 0;
-  // for (index = 0; index < this.mettings.length; index++) {
-  //   element = this.mettings[index];
-  //   if (element.account === 1) {
-  //     count = count + element.fee;
-  //   }
-  // }
-  // this.meeting_fee = count;
+  count = 0;
+  for (index = 0; index < this.meetings.length; index++) {
+    element = this.meetings[index];
+    if (element.account === 1) {
+      count = count + element.fee;
+    }
+  }
+  this.meeting_fee = count;
   // 接待交際費
-  // count = 0;
-  // for (index = 0; index < this.mettings.length; index++) {
-  //   element = this.mettings[index];
-  //   if (element.account === 2) {
-  //     count = count + element.fee;
-  //   }
-  // }
-  // this.relax_fee = count;
+  count = 0;
+  for (index = 0; index < this.meetings.length; index++) {
+    element = this.meetings[index];
+    if (element.account === 2) {
+      count = count + element.fee;
+    }
+  }
+  this.relax_fee = count;
   // 厚生費
-  // count = 0;
-  // for (index = 0; index < this.mettings.length; index++) {
-  //   element = this.mettings[index];
-  //   if (element.account === 3) {
-  //     count = count + element.fee;
-  //   }
-  // }
-  // this.welfare_fee = count;
+  count = 0;
+  for (index = 0; index < this.meetings.length; index++) {
+    element = this.meetings[index];
+    if (element.account === 3) {
+      count = count + element.fee;
+    }
+  }
+  this.welfare_fee = count;
 
-  // this.total = this.transport_fee + this.vehicle_fee + this.communicate_fee + this.ship_fee + this.supplie_fee + this.book_fee + this.office_fee + this.other_fee + this.other2_fee + this.other1_fee + this.meeting_fee + this.relax_fee + this.welfare_fee;
+  this.total = this.transport_fee + this.vehicle_fee + this.communicate_fee + this.ship_fee + this.supplie_fee + this.book_fee + this.office_fee + this.other_fee + this.other2_fee + this.other1_fee + this.meeting_fee + this.relax_fee + this.welfare_fee;
   next();
 });
 
