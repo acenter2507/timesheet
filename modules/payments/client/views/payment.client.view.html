@@ -12,8 +12,9 @@
       </div>
     </div>
 
-    <div class="col-xs-12">
-      <table class="table table-bordered" ng-show="vm.isShowHistory">
+    <div class="col-xs-12" ng-show="vm.isShowHistory">
+      <h4>変更履歴</h4>
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th>日付</th>
@@ -121,8 +122,8 @@
           <tr>
             <th>起点</th>
             <th>終点</th>
-            <th class="text-center">ＴＡＸＩ以外</th>
-            <th class="text-center">ＴＡＸＩ</th>
+            <th class="text-center">TAXI以外</th>
+            <th class="text-center">TAXI</th>
           </tr>
         </thead>
         <tbody>
