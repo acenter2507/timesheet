@@ -28,17 +28,31 @@
       }
     }
 
-    vm.handleSavePayments = function () {
+    vm.handleSavePayment = function () {
       vm.payment.$update(function (payment) {
         _.extend(vm.payment, payment);
       }, function (err) {
         $scope.handleShowToast(err.message, true);
       });
     };
-    vm.handleRequestPayments = function () {
+    vm.handleRequestPayment = function () {
       // Verify Payments
       $scope.handleShowConfirm({
         message: '清算表を申請しますか？'
+      }, function () {
+        // PaymentsApi.request(item.payment._id)
+        //   .success(function (data) {
+        //     _.extend(item.payment, data);
+        //   })
+        //   .error(function (err) {
+        //     $scope.handleShowToast(err.message, true);
+        //   });
+      });
+    };
+    vm.handleCancelPayment = function () {
+      // Verify Payments
+      $scope.handleShowConfirm({
+        message: '清算表の申請をキャンセルしますか？'
       }, function () {
         // PaymentsApi.request(item.payment._id)
         //   .success(function (data) {
@@ -65,7 +79,7 @@
       }, function () {
         vm.payment.transports = _.without(vm.payment.transports, transport);
         // TODO (Lưu ngay khi xóa hay bấm button lưu)
-        vm.handleSavePayments();
+        vm.handleSavePayment();
       });
     };
     // TRIPS
@@ -84,7 +98,7 @@
       }, function () {
         vm.payment.trips = _.without(vm.payment.trips, trip);
         // TODO (Lưu ngay khi xóa hay bấm button lưu)
-        vm.handleSavePayments();
+        vm.handleSavePayment();
       });
     };
     // VEHICLES
@@ -102,7 +116,7 @@
         message: '燃料費を削除しますか？'
       }, function () {
         vm.payment.vehicles = _.without(vm.payment.vehicles, vehicle);
-        vm.handleSavePayments();
+        vm.handleSavePayment();
       });
     };
     // OTHERS
@@ -120,7 +134,7 @@
         message: 'その他の費用を削除しますか？'
       }, function () {
         vm.payment.others = _.without(vm.payment.others, other);
-        vm.handleSavePayments();
+        vm.handleSavePayment();
       });
     };
     // MEETINGS
@@ -138,7 +152,7 @@
         message: '接待交際費を削除しますか？'
       }, function () {
         vm.payment.meetings = _.without(vm.payment.meetings, meeting);
-        vm.handleSavePayments();
+        vm.handleSavePayment();
       });
     };
   }

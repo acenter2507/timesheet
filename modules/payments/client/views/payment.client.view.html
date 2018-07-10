@@ -1,5 +1,14 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
+    <!-- ツールバー -->
+    <div class="col-xs-12">
+      <div class="form-group text-right">
+        <button class="btn btn-default">戻る</button>
+        <button class="btn btn-primary" ng-show="vm.payment.status === 1 || vm.payment.status === 3" ng-click="vm.handleRequestPayment()">申請</button>
+        <button class="btn btn-warning" ng-show="vm.payment.status === 2" ng-click="vm.handleCancelPayment()">キャンセル</button>
+      </div>
+    </div>
+
     <div class="col-xs-12">
       <h4>合計額記入欄</h4>
       <table class="table table-bordered">
