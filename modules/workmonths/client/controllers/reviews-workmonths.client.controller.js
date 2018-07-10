@@ -47,7 +47,7 @@
 
     vm.handleClearCondition = function () {
       prepareCondition();
-      vm.condition.user = undefined;
+      vm.userSearchKey = '';
     };
 
     vm.handleStartSearch = function () {
