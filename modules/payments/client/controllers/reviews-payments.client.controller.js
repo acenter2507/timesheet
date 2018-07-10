@@ -6,9 +6,9 @@
     .module('payments')
     .controller('PaymentsReviewsController', PaymentsReviewsController);
 
-  PaymentsReviewsController.$inject = ['$scope', 'PaymentsService', '$state', 'CommonService', 'PaymentsApi', '$timeout', 'DepartmentsService'];
+  PaymentsReviewsController.$inject = ['$scope', 'PaymentsService', '$state', 'CommonService', '$stateParams', 'PaymentsApi', '$timeout', 'DepartmentsService'];
 
-  function PaymentsReviewsController($scope, PaymentsService, $state, CommonService, PaymentsApi, $timeout, DepartmentsService) {
+  function PaymentsReviewsController($scope, PaymentsService, $state, CommonService, $stateParams, PaymentsApi, $timeout, DepartmentsService) {
     var vm = this;
     vm.payments = [];
     vm.departments = [];
