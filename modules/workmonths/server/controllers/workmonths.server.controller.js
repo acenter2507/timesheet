@@ -374,11 +374,9 @@ exports.getWorkmonthsReview = function (req, res) {
     //   },
     // ],
     limit: condition.limit
-  }).then(function (rests) {
-    res.jsonp(rests);
+  }).then(function (workmonths) {
+    res.jsonp(workmonths);
   }, err => {
-    return res.status(400).send({
-      message: errorHandler.getErrorMessage(err)
-    });
+    return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
   });
 };

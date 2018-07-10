@@ -129,37 +129,33 @@
       </accordion>
     </div>
   </div>
-  <!-- Danh sách timesheet -->
+  <!-- 清算検索結果 -->
   <div class="row mg10t">
     <div class="col-xs-12">
-      <!-- 休暇一覧 -->
       <table class="table table-bordered">
         <thead>
           <tr>
             <th>社員名</th>
             <th>年</th>
             <th>月</th>
+            <th>合計</th>
             <th>状態</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-show="vm.workmonths.length === 0">
-            <td colspan="7">データが見つかりません。</td>
+          <tr ng-show="vm.payments.length === 0">
+            <td colspan="6">データが見つかりません。</td>
           </tr>
-          <tr ng-repeat="workmonth in vm.workmonths track by $index">
+          <tr ng-repeat="payment in vm.payments track by $index">
             <td>
-              <img class="user-common-avatar-small" src="{{workmonth.user.profileImageURL}}">
-              <a ng-click="handleViewDetailUser(workmonth.user)">{{workmonth.user.displayName}}</a>
+              <img class="user-common-avatar-small" src="{{ payment.user.profileImageURL }}">
+              <a ng-click="handleViewDetailUser(payment.user)">{{ payment.user.displayName }}</a>
             </td>
-            <td>{{ workmonth.year }}</td>
-            <td>{{ workmonth.month }}</td>
-            <td ng-switch="workmonth.status">
-              <span class="label label-default" ng-switch-when="1">{{ workmonth.status | WorkmonthStatusFilter}}</span>
-              <span class="label label-primary" ng-switch-when="2">{{ workmonth.status | WorkmonthStatusFilter}}</span>
-              <span class="label label-success" ng-switch-when="3">{{ workmonth.status | WorkmonthStatusFilter}}</span>
-              <span class="label label-danger" ng-switch-when="4">{{ workmonth.status | WorkmonthStatusFilter}}</span>
-            </td>
+            <td>{{ payment.year }}</td>
+            <td>{{ payment.month }}</td>
+            <td>{{ payment.total }}</td>
+            <td>{{ payment.status | RestStatusFilter}}</td>
             <td>
               <div dropdown dropdown-append-to-body>
                 <a dropdown-toggle class="btn btn-xs btn-default">
@@ -168,22 +164,22 @@
                 <ul class="dropdown-menu" role="menu">
                   <!-- Xem detail Workrest -->
                   <li>
-                    <a ui-sref="workmonths.review({ workmonthId: workmonth._id })">
+                    <a ui-sref="payments.review({ paymentId: payment._id })">
                       <i class="fa fa-eye"></i> 詳細確認</a>
                   </li>
                   <!-- Chấp nhận thỉnh cầu nghỉ -->
-                  <li ng-if="workmonth.status === 2">
-                    <a ng-click="vm.handleApproveWorkmonth(workmonth)">
+                  <li ng-if="payment.status === 2">
+                    <a ng-click="vm.handleApprovePayment(payment)">
                       <i class="fa fa-check-square-o"></i> 承認する</a>
                   </li>
                   <!-- Từ chối thỉnh cầu nghỉ -->
                   <li ng-if="rest.status === 2">
-                    <a ng-click="vm.handleRejectWorkmonth(workmonth)">
+                    <a ng-click="vm.handleRejectPayment(payment)">
                       <i class="fa fa-minus-circle"></i> 拒否する</a>
                   </li>
                   <!-- Xem lịch sử -->
                   <li>
-                    <a ng-click="vm.handleViewHistory(workmonth)">
+                    <a ng-click="vm.handleViewHistory(payment)">
                       <i class="fa fa-clock-o"></i> 歴史</a>
                   </li>
                 </ul>
