@@ -21,5 +21,9 @@
       title: '費用清算一覧',
       state: 'payments.list'
     });
+    menuService.addSubMenuItem('topbar', 'payments', {
+      title: '費用清算確認',
+      state: 'payments.reviews'
+    });
   }
 }());

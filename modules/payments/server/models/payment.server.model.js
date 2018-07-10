@@ -159,11 +159,6 @@ var PaymentSchema = new Schema({
   other2_fee: { type: Number, default: 0 },
   // 支払総額
   total: { type: Number, default: 0 },
-  comments: [{
-    author: { type: String },
-    content: { type: String },
-    time: { type: String }
-  }],
   created: { type: Date, default: Date.now },
   user: { type: Schema.ObjectId, ref: 'User' }
 });
