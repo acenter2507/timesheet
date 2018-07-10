@@ -1,0 +1,230 @@
+<div class="container-fluid animated fadeIn mg100b">
+    <!-- 検索ツール -->
+    <div class="row">
+      <div class="col-sm-12">
+        <accordion close-others="true" ng-init="openTools = false;">
+          <accordion-group is-open="openTools">
+            <accordion-heading>
+              <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openTools}"></i> 検索ツール
+            </accordion-heading>
+            <div class="form-group">
+              <div class="col-sm-6">
+                <label for="year">年</label>
+                <select name="year" class="form-control" ng-model="vm.condition.year">
+                  <option value>指定なし</option>
+                  <option value=2018>2018</option>
+                  <option value=2019>2019</option>
+                  <option value=2020>2020</option>
+                  <option value=2021>2021</option>
+                  <option value=2022>2022</option>
+                  <option value=2023>2023</option>
+                  <option value=2024>2024</option>
+                  <option value=2025>2025</option>
+                  <option value=2026>2026</option>
+                  <option value=2027>2027</option>
+                  <option value=2028>2028</option>
+                  <option value=2029>2029</option>
+                  <option value=2030>2030</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="month">月</label>
+                <select name="month" class="form-control" ng-model="vm.condition.month">
+                  <option value>指定なし</option>
+                  <option value=1>1</option>
+                  <option value=2>2</option>
+                  <option value=3>3</option>
+                  <option value=4>4</option>
+                  <option value=5>5</option>
+                  <option value=6>6</option>
+                  <option value=7>7</option>
+                  <option value=8>8</option>
+                  <option value=9>9</option>
+                  <option value=10>10</option>
+                  <option value=11>11</option>
+                  <option value=12>12</option>
+                </select>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-6">
+                <label for="status">状態</label>
+                <select name="status" class="form-control" ng-model="vm.condition.status">
+                  <option value>全て</option>
+                  <option value="1">未申請</option>
+                  <option value="2">申請中</option>
+                  <option value="3">承認</option>
+                  <option value="4">拒否</option>
+                  <option value="5">済</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="sort">並び順</label>
+                <select name="sort" class="form-control" ng-model="vm.condition.sort">
+                  <option value="-created">登録の新しい順番</option>
+                  <option value="created">登録の古い順番</option>
+                </select>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-6">
+                <label for="department">部署</label>
+                <select name="department" class="form-control" ng-model="vm.condition.department">
+                  <option value>指定しない</option>
+                  <option value="empty">未設定</option>
+                  <option ng-repeat="department in vm.departments" value="{{department._id}}">{{:: department.name}}</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="roles">役割</label>
+                <select name="roles" class="form-control" ng-model="vm.condition.roles" ng-list>
+                  <option value>指定しない</option>
+                  <option value="user">一般社員</option>
+                  <option value="user,accountant">経理</option>
+                  <option value="user,manager">マネージャ</option>
+                </select>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-6">
+                <label for="user">社員</label>
+                <div dropdown is-open="vm.isShowUserDropdown">
+                  <input class="form-control" ng-model="vm.userSearchKey" ng-change="vm.handleUserSearchChanged()" placeholder="ユーザー名検索">
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="text-center" ng-show="vm.isUserSearching">
+                      <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                    </li>
+                    <li ng-show="!vm.userSearching && vm.users.length === 0" class="pd12x">データが見つかりません。</li>
+                    <li ng-repeat="user in vm.users">
+                      <a ng-click="vm.handleUserSelected(user)">
+                        <img src="{{ user.profileImageURL }}" class="user-common-avatar-small">
+                        <span>{{ user.displayName }}</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="limit">表示件数</label>
+                <input name="limit" type="number" ng-model="vm.condition.limit" class="form-control">
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button class="btn btn-sm btn-danger pull-right" ng-click="vm.handleClearCondition()">クリア</button>
+                <button class="btn btn-sm btn-primary pull-right mg5r" ng-click="vm.handleStartSearch()">検索</button>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </accordion-group>
+        </accordion>
+      </div>
+    </div>
+    <!-- Danh sách timesheet -->
+    <div class="row mg10t">
+      <div class="col-xs-12">
+        <!-- 休暇一覧 -->
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>社員名</th>
+              <th>年</th>
+              <th>月</th>
+              <th>状態</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="vm.workmonths.length === 0">
+              <td colspan="7">データが見つかりません。</td>
+            </tr>
+            <tr ng-repeat="workmonth in vm.workmonths track by $index">
+              <td>
+                <img class="user-common-avatar-small" src="{{workmonth.user.profileImageURL}}">
+                <a ng-click="handleViewDetailUser(workmonth.user)">{{workmonth.user.displayName}}</a>
+              </td>
+              <td>{{ workmonth.year }}</td>
+              <td>{{ workmonth.month }}</td>
+              <td ng-switch="workmonth.status">
+                <span class="label label-default" ng-switch-when="1">{{ workmonth.status | WorkmonthStatusFilter}}</span>
+                <span class="label label-primary" ng-switch-when="2">{{ workmonth.status | WorkmonthStatusFilter}}</span>
+                <span class="label label-success" ng-switch-when="3">{{ workmonth.status | WorkmonthStatusFilter}}</span>
+                <span class="label label-danger" ng-switch-when="4">{{ workmonth.status | WorkmonthStatusFilter}}</span>
+              </td>
+              <td>
+                <div dropdown dropdown-append-to-body>
+                  <a dropdown-toggle class="btn btn-xs btn-default">
+                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <!-- Xem detail Workrest -->
+                    <li>
+                      <a ui-sref="workmonths.review({ workmonthId: workmonth._id })">
+                        <i class="fa fa-eye"></i> 詳細確認</a>
+                    </li>
+                    <!-- Chấp nhận thỉnh cầu nghỉ -->
+                    <li ng-if="workmonth.status === 2">
+                      <a ng-click="vm.handleApproveWorkmonth(workmonth)">
+                        <i class="fa fa-check-square-o"></i> 承認する</a>
+                    </li>
+                    <!-- Từ chối thỉnh cầu nghỉ -->
+                    <li ng-if="rest.status === 2">
+                      <a ng-click="vm.handleRejectWorkmonth(workmonth)">
+                        <i class="fa fa-minus-circle"></i> 拒否する</a>
+                    </li>
+                    <!-- Xem lịch sử -->
+                    <li>
+                      <a ng-click="vm.handleViewHistory(workmonth)">
+                        <i class="fa fa-clock-o"></i> 歴史</a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Pagination -->
+        <ul class="pagination mg10y" ng-show="vm.pages.length > 1">
+          <li ng-repeat="page in vm.pages" ng-class="{'active': page === vm.page}">
+            <a ng-click="vm.handlePageChanged(page)">{{page}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mg10t">
+      <div class="col-xs-12">
+        <div class="form-group">
+          <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
+          <div class="clearfix"></div>
+        </div>
+        <div class="table-responsive" id="months-list-historys" ng-show="vm.isShowHistory">
+          <table class="table table-bordered">
+            <thead class="thead-default">
+              <tr>
+                <th>日付</th>
+                <th>操作</th>
+                <th>コメント</th>
+                <th>操作者</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="history in vm.historys">
+                <td>{{history.timing | LLLL}}</td>
+                <td>{{history.action | RestActionFilter}}</td>
+                <td>
+                  <span ng-bind-html="history.comment | nl2br"></span>
+                </td>
+                <td>
+                  <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>

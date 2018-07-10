@@ -5,9 +5,9 @@
     .module('workmonths')
     .controller('WorkmonthsReviewsController', WorkmonthsReviewsController);
 
-  WorkmonthsReviewsController.$inject = ['WorkmonthsService', '$scope', '$state', 'DateUtil', '$stateParams', 'CommonService', 'WorkmonthsApi', '$timeout', 'AdminUserApi', 'DepartmentsService'];
+  WorkmonthsReviewsController.$inject = ['WorkmonthsService', '$scope', '$state', '$stateParams', 'CommonService', 'WorkmonthsApi', '$timeout', 'AdminUserApi', 'DepartmentsService'];
 
-  function WorkmonthsReviewsController(WorkmonthsService, $scope, $state, DateUtil, $stateParams, CommonService, WorkmonthsApi, $timeout, AdminUserApi, DepartmentsService) {
+  function WorkmonthsReviewsController(WorkmonthsService, $scope, $state, $stateParams, CommonService, WorkmonthsApi, $timeout, AdminUserApi, DepartmentsService) {
     var vm = this;
 
     vm.workmonths = [];
@@ -47,10 +47,15 @@
 
     vm.handleClearCondition = function () {
       prepareCondition();
+      vm.condition.user = undefined;
     };
 
     vm.handleStartSearch = function () {
       vm.page = 1;
+      handleSearch();
+    };
+    vm.handlePageChanged = function (page) {
+      vm.page = page;
       handleSearch();
     };
     function handleSearch() {

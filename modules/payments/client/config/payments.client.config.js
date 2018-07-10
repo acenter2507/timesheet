@@ -23,7 +23,8 @@
     });
     menuService.addSubMenuItem('topbar', 'payments', {
       title: '費用清算確認',
-      state: 'payments.reviews'
+      state: 'payments.reviews',
+      roles: ['accountant', 'admin']
     });
   }
 }());
