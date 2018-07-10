@@ -29,9 +29,16 @@
     }
 
     vm.handleSavePayments = function () {
+      vm.payment.$update(function (payment) {
+        _.extend(vm.payment, payment);
+      }, function (err) {
+        $scope.handleShowToast(err.message, true);
+      });
+    };
+    vm.handleRequestPayments = function () {
       // Verify Payments
       $scope.handleShowConfirm({
-        message: '清算表を保存しますか？'
+        message: '清算表を申請しますか？'
       }, function () {
         // PaymentsApi.request(item.payment._id)
         //   .success(function (data) {
@@ -42,11 +49,6 @@
         //   });
       });
     };
-    vm.handleCalculatePayment = function () {
-    };
-    vm.handleValidatePayment = function () {
-    };
-
     // TRANSPORT
     vm.handleAddTransport = function () {
       PaymentFactory.set(vm.payment);
@@ -63,7 +65,7 @@
       }, function () {
         vm.payment.transports = _.without(vm.payment.transports, transport);
         // TODO (Lưu ngay khi xóa hay bấm button lưu)
-        vm.handleCalculatePayment();
+        vm.handleSavePayments();
       });
     };
     // TRIPS
@@ -82,7 +84,7 @@
       }, function () {
         vm.payment.trips = _.without(vm.payment.trips, trip);
         // TODO (Lưu ngay khi xóa hay bấm button lưu)
-        vm.handleCalculatePayment();
+        vm.handleSavePayments();
       });
     };
     // VEHICLES
@@ -100,7 +102,7 @@
         message: '燃料費を削除しますか？'
       }, function () {
         vm.payment.vehicles = _.without(vm.payment.vehicles, vehicle);
-        vm.handleCalculatePayment();
+        vm.handleSavePayments();
       });
     };
     // OTHERS
@@ -118,7 +120,7 @@
         message: 'その他の費用を削除しますか？'
       }, function () {
         vm.payment.others = _.without(vm.payment.others, other);
-        vm.handleCalculatePayment();
+        vm.handleSavePayments();
       });
     };
     // MEETINGS
@@ -136,48 +138,8 @@
         message: '接待交際費を削除しますか？'
       }, function () {
         vm.payment.meetings = _.without(vm.payment.meetings, meeting);
-        vm.handleCalculatePayment();
+        vm.handleSavePayments();
       });
     };
-
-
-
-
-
-
-
-
-
-    // Remove existing Payment
-    // function remove() {
-    //   if ($window.confirm('Are you sure you want to delete?')) {
-    //     vm.payment.$remove($state.go('payments.list'));
-    //   }
-    // }
-
-    // // Save Payment
-    // function save(isValid) {
-    //   if (!isValid) {
-    //     $scope.$broadcast('show-errors-check-validity', 'vm.form.paymentForm');
-    //     return false;
-    //   }
-
-    //   // TODO: move create/update logic to service
-    //   if (vm.payment._id) {
-    //     vm.payment.$update(successCallback, errorCallback);
-    //   } else {
-    //     vm.payment.$save(successCallback, errorCallback);
-    //   }
-
-    //   function successCallback(res) {
-    //     $state.go('payments.view', {
-    //       paymentId: res._id
-    //     });
-    //   }
-
-    //   function errorCallback(res) {
-    //     vm.error = res.data.message;
-    //   }
-    // }
   }
 }());

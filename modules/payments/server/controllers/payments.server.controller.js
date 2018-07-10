@@ -16,13 +16,9 @@ exports.create = function (req, res) {
   payment.user = req.user;
 
   payment.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(payment);
-    }
+    if (err)
+      return res.status(400).send({ message: '清算表を保存できません！' });
+    return res.jsonp(payment);
   });
 };
 exports.read = function (req, res) {
