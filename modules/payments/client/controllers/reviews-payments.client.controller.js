@@ -48,7 +48,7 @@
       vm.busy = true;
       PaymentsApi.reviews(vm.condition, vm.page)
         .success(function (res) {
-          vm.workmonths = res.docs;
+          vm.payments = res.docs;
           vm.pages = CommonService.createArrayFromRange(res.pages);
           vm.total = res.total;
           vm.busy = false;
