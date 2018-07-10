@@ -151,13 +151,6 @@ exports.reviews = function (req, res) {
   if (condition.status) {
     and_arr.push({ status: condition.status });
   }
-  if (condition.department) {
-    if (condition.department === 'empty') {
-      and_arr.push({ department: null });
-    } else {
-      and_arr.push({ department: condition.department });
-    }
-  }
   if (condition.roles && condition.roles.length > 0) {
     and_arr.push({ roles: condition.roles });
   }
