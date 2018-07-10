@@ -97,9 +97,9 @@ exports.request = function (req, res) {
   }
   payment.status = 2;
   payment.historys.push({ action: 3, timing: new Date(), user: req.user._id });
-  payment.save((err, rest) => {
+  payment.save((err, payment) => {
     if (err)
-      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+      return res.status(400).send({ message: '清算表の状態を変更できません！' });
     return res.jsonp(payment);
   });
 };
@@ -115,7 +115,7 @@ exports.cancel = function (req, res) {
   }
   payment.status = 1;
   payment.historys.push({ action: 6, timing: new Date(), user: req.user._id });
-  payment.save((err, rest) => {
+  payment.save((err, payment) => {
     if (err)
       return res.status(400).send({ message: '清算表の状態を変更できません！' });
     return res.jsonp(payment);
