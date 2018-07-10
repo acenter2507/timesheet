@@ -108,7 +108,22 @@ exports.request = function (req, res) {
   });
 };
 exports.cancel = function (req, res) {
-  res.end();
+  var payment = req.payment;
+  // Kiểm tra người gửi cancel chính chủ
+  if (req.user._id.toString() !== payment.user._id.toString()) {
+    return res.status(400).send({ message: '清算表のキャンセルは本人が必要になります！' });
+  }
+  // Kiểm tra trạng thái của timesheet
+  if (payment.status !== 2) {
+    return res.status(400).send({ message: '清算表の状態でキャンセルできません！' });
+  }
+  payment.status = 1;
+  payment.historys.push({ action: 6, timing: new Date(), user: req.user._id });
+  payment.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: '清算表の状態を変更できません！' });
+    return res.jsonp(payment);
+  });
 };
 exports.approve = function (req, res) {
   res.end();
