@@ -6,9 +6,9 @@
     .module('payments')
     .controller('PaymentsController', PaymentsController);
 
-  PaymentsController.$inject = ['$scope', '$state', 'ngDialog', '$stateParams', 'PaymentsService', 'PaymentFactory'];
+  PaymentsController.$inject = ['$scope', '$state', '$stateParams', 'PaymentsService', 'PaymentFactory', 'PaymentsApi'];
 
-  function PaymentsController($scope, $state, ngDialog, $stateParams, PaymentsService, PaymentFactory) {
+  function PaymentsController($scope, $state, $stateParams, PaymentsService, PaymentFactory, PaymentsApi) {
     var vm = this;
 
     onCreate();
