@@ -66,5 +66,9 @@
       vm.page = page;
       handleSearch();
     };
+    vm.handleClearCondition = function () {
+      prepareCondition();
+    };
+
   }
 }());
