@@ -91,14 +91,6 @@ angular.module('users.admin').controller('UserListController', [
       vm.deleted.page = page;
       handleLoadDeletedUsers();
     };
-    // View detail user
-    vm.handleViewDetailUser = function (user) {
-      if ($scope.isAdmin || $scope.isAccountant) {
-        return $state.go('users.view', { userId: user._id });
-      } else {
-        return $state.go('profile.view', { userId: user._id });
-      }
-    };
     // Gửi message đến toàn bộ user trong 1 group
     vm.sendMessageAll = function (group) {
       $scope.handleShowToast('只今、この機能は作成中です。');

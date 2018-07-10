@@ -69,14 +69,6 @@
     vm.handleSendMessageUser = function (user) {
       $scope.handleShowToast('只今、この機能は作成中です。');
     };
-    // View user detail page
-    vm.handleViewDetailUser = function (user) {
-      if ($scope.isAdmin || $scope.isAccountant) {
-        return $state.go('users.view', { userId: user._id });
-      } else {
-        return $state.go('profile.view', { userId: user._id });
-      }
-    };
     // Remove member from department
     vm.handleRemoveUserFromDepartment = function (user) {
       $scope.handleShowConfirm({

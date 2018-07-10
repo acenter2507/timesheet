@@ -137,7 +137,6 @@ exports.receipts = function (req, res) {
     return res.jsonp(imageUrl);
   });
 };
-
 exports.paymentByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

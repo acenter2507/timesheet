@@ -145,7 +145,7 @@
           <tr ng-repeat="workmonth in vm.workmonths track by $index">
             <td>
               <img class="user-common-avatar-small" src="{{workmonth.user.profileImageURL}}">
-              <a ng-click="vm.handleViewDetailUser(workmonth.user)">{{workmonth.user.displayName}}</a>
+              <a ng-click="handleViewDetailUser(workmonth.user)">{{workmonth.user.displayName}}</a>
             </td>
             <td>{{ workmonth.year }}</td>
             <td>{{ workmonth.month }}</td>
@@ -219,7 +219,7 @@
                 <span ng-bind-html="history.comment | nl2br"></span>
               </td>
               <td>
-                <a ng-click="vm.handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+                <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
               </td>
             </tr>
           </tbody>

@@ -149,7 +149,7 @@
           <tr ng-repeat="rest in vm.workrests track by $index">
             <td>
               <img class="user-common-avatar-small" src="{{rest.user.profileImageURL}}">
-              <a ng-click="vm.handleViewDetailUser(rest.user)">{{rest.user.displayName}}</a>
+              <a ng-click="handleViewDetailUser(rest.user)">{{rest.user.displayName}}</a>
             </td>
             <td>{{ rest.holiday.name }}</td>
             <td>
@@ -236,7 +236,7 @@
               <p ng-bind-html="history.comment | nl2br"></p>
             </td>
             <td>
-              <a ng-click="vm.handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+              <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
             </td>
           </tr>
         </tbody>

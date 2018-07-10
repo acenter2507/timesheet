@@ -135,10 +135,18 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
       appendClassName: 'ngdialog-custom',
       showClose: false,
       width: 800
-    }).then(function(res) {
+    }).then(function (res) {
       delete $scope.url;
-    }, function(res) {
+    }, function (res) {
       delete $scope.url;
     });
+  };
+  // View user
+  $scope.handleViewDetailUser = function (user) {
+    if ($scope.isAdmin || $scope.isAccountant) {
+      return $state.go('users.view', { userId: user._id });
+    } else {
+      return $state.go('profile.view', { userId: user._id });
+    }
   };
 }

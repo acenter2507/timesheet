@@ -10,6 +10,7 @@
 
   function PaymentsController($scope, $state, $stateParams, PaymentsService, PaymentFactory, PaymentsApi) {
     var vm = this;
+    vm.isShowHistory = false;
 
     onCreate();
     function onCreate() {

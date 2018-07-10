@@ -78,7 +78,7 @@
               <img src="{{:: vm.workrest.user.profileImageURL }}">
             </div>
             <div class="user-info">
-              <a class="user-info-name" ng-click="vm.handleViewDetailUser(vm.workrest.user)">{{:: vm.workrest.user.displayName}}</a>
+              <a class="user-info-name" ng-click="handleViewDetailUser(vm.workrest.user)">{{:: vm.workrest.user.displayName}}</a>
               <a class="font-sm" ng-href="mailto:{{vm.workrest.user.email}}">{{::vm.workrest.user.email}}</a>
             </div>
             <!-- <div class="user-action" ng-if="leader._id !== user._id">
@@ -88,7 +88,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                   <li>
-                    <a ng-click="vm.handleViewDetailUser(leader)">
+                    <a ng-click="handleViewDetailUser(leader)">
                       <i class="fa fa-info-circle"></i> 詳細情報</a>
                   </li>
                   <li ng-if="isAdmin || isAccountant">
