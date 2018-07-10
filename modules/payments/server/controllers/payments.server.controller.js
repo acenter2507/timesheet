@@ -168,7 +168,7 @@ exports.reviews = function (req, res) {
   if (and_arr.length > 0) {
     query = { $and: and_arr };
   }
-  Payments.paginate(query, {
+  Payment.paginate(query, {
     sort: condition.sort,
     page: page,
     populate: [
