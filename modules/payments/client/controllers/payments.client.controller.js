@@ -36,31 +36,29 @@
       });
     };
     vm.handleRequestPayment = function () {
-      // Verify Payments
       $scope.handleShowConfirm({
         message: '清算表を申請しますか？'
       }, function () {
-        // PaymentsApi.request(item.payment._id)
-        //   .success(function (data) {
-        //     _.extend(item.payment, data);
-        //   })
-        //   .error(function (err) {
-        //     $scope.handleShowToast(err.message, true);
-        //   });
+        PaymentsApi.request(vm.payment._id)
+          .success(function (data) {
+            _.extend(vm.payment, data);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
       });
     };
     vm.handleCancelPayment = function () {
-      // Verify Payments
       $scope.handleShowConfirm({
         message: '清算表の申請をキャンセルしますか？'
       }, function () {
-        // PaymentsApi.request(item.payment._id)
-        //   .success(function (data) {
-        //     _.extend(item.payment, data);
-        //   })
-        //   .error(function (err) {
-        //     $scope.handleShowToast(err.message, true);
-        //   });
+        PaymentsApi.cancel(vm.payment._id)
+          .success(function (data) {
+            _.extend(vm.payment, data);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
       });
     };
     vm.handlePreviousScreen = handlePreviousScreen;

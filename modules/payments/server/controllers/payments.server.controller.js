@@ -37,13 +37,9 @@ exports.update = function (req, res) {
   payment = _.extend(payment, req.body);
 
   payment.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(payment);
-    }
+    if (err)
+      return res.status(400).send({ message: '清算表を保存できません！' });
+    return res.jsonp(payment);
   });
 };
 exports.delete = function (req, res) {
@@ -52,7 +48,7 @@ exports.delete = function (req, res) {
   payment.remove(function (err) {
     if (err) {
       return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
+        message: '清算表を削除できません！'
       });
     } else {
       res.jsonp(payment);
