@@ -64,8 +64,8 @@
     };
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'payments.list';
-      var params = state === 'payments.list' ? {} : $state.previous.params;
+      var state = $state.previous.state.name || 'admin.payments.reviews';
+      var params = state === 'admin.payments.reviews' ? {} : $state.previous.params;
       $state.go(state, params);
     }
     // TRANSPORT

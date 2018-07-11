@@ -125,9 +125,6 @@
               <th rowspan="2">手段</th>
               <th colspan="2" class="text-center">交通費</th>
               <th rowspan="2">領収書</th>
-              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTransport()">追加</button>
-              </th>
             </tr>
             <tr>
               <th>起点</th>
@@ -138,7 +135,7 @@
           </thead>
           <tbody>
             <tr ng-if="vm.payment.transports.length === 0">
-              <td colspan="11">交通費が登録されません！</td>
+              <td colspan="10">交通費が登録されません！</td>
             </tr>
             <tr ng-repeat="transport in vm.payment.transports">
               <td class="text-center w30">{{ $index + 1 }}</td>
@@ -160,14 +157,6 @@
                   <img class="w50 img-thumbnail" src="{{ receipt }}">
                 </a>
               </td>
-              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <a ng-click="vm.handleEditTransport(transport)">
-                  <i class="fa fa-pencil-square-o"></i>
-                </a>
-                <a class="mg5l" ng-click="vm.handleRemoveTransport(transport)">
-                  <i class="fa fa-trash-o"></i>
-                </a>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -187,9 +176,6 @@
               <th colspan="2" class="text-center">出張旅費</th>
               <th rowspan="2" class="text-center">宿泊費</th>
               <th rowspan="2">領収書</th>
-              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTrip()">追加</button>
-              </th>
             </tr>
             <tr>
               <th>起点</th>
@@ -200,7 +186,7 @@
           </thead>
           <tbody>
             <tr ng-if="vm.payment.trips.length === 0">
-              <td colspan="11">出張旅費が登録されません！</td>
+              <td colspan="10">出張旅費が登録されません！</td>
             </tr>
             <tr ng-repeat="trip in vm.payment.trips track by $index">
               <td class="text-center w30">{{ $index + 1 }}</td>
@@ -222,14 +208,6 @@
                   <img class="w50 img-thumbnail" src="{{ receipt }}">
                 </a>
               </td>
-              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <a ng-click="vm.handleEditTrip(trip)">
-                  <i class="fa fa-pencil-square-o"></i>
-                </a>
-                <a class="mg5l" ng-click="vm.handleRemoveTrip(trip)">
-                  <i class="fa fa-trash-o"></i>
-                </a>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -247,14 +225,11 @@
               <th>目的</th>
               <th class="w50">金額</th>
               <th>領収書</th>
-              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddVehicle()">追加</button>
-              </th>
             </tr>
           </thead>
           <tbody>
             <tr ng-if="vm.payment.vehicles.length === 0">
-              <td colspan="7">車両燃料費が登録されません！</td>
+              <td colspan="6">車両燃料費が登録されません！</td>
             </tr>
             <tr ng-repeat="vehicle in vm.payment.vehicles track by $index">
               <td class="text-center w30">{{ $index + 1 }}</td>
@@ -265,14 +240,6 @@
               <td>
                 <a ng-repeat="receipt in vehicle.receipts" ng-click="handleShowImage(receipt)">
                   <img class="w50 img-thumbnail" src="{{ receipt }}">
-                </a>
-              </td>
-              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <a ng-click="vm.handleEditVehicle(vehicle)">
-                  <i class="fa fa-pencil-square-o"></i>
-                </a>
-                <a class="mg5l" ng-click="vm.handleRemoveVehicle(vehicle)">
-                  <i class="fa fa-trash-o"></i>
                 </a>
               </td>
             </tr>
@@ -292,14 +259,11 @@
               <th>勘定科目</th>
               <th class="w50">金額</th>
               <th>領収書</th>
-              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddOther()">追加</button>
-              </th>
             </tr>
           </thead>
           <tbody>
             <tr ng-if="vm.payment.others.length === 0">
-              <td colspan="7">その他の費用が登録されません！</td>
+              <td colspan="6">その他の費用が登録されません！</td>
             </tr>
             <tr ng-repeat="other in vm.payment.others track by $index">
               <td class="text-center w30">{{ $index + 1 }}</td>
@@ -310,14 +274,6 @@
               <td>
                 <a ng-repeat="receipt in other.receipts" ng-click="handleShowImage(receipt)">
                   <img class="w50 img-thumbnail" src="{{ receipt }}">
-                </a>
-              </td>
-              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <a ng-click="vm.handleEditOther(other)">
-                  <i class="fa fa-pencil-square-o"></i>
-                </a>
-                <a class="mg5l" ng-click="vm.handleRemoveOther(other)">
-                  <i class="fa fa-trash-o"></i>
                 </a>
               </td>
             </tr>
@@ -337,20 +293,17 @@
               <th>場所</th>
               <th>顧客氏名</th>
               <th>社員氏名</th>
-              <th class="w50">人数合計</th>
-              <th class="w50">使用金額</th>
-              <th class="w50">1人当たり</th>
+              <th class="w50">人数</th>
+              <th class="w100">金額</th>
+              <th class="w100">1人当たり</th>
               <th>勘定科目</th>
               <th>種別</th>
               <th>領収書</th>
-              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddMeeting()">追加</button>
-              </th>
             </tr>
           </thead>
           <tbody>
             <tr ng-if="vm.payment.meetings.length === 0">
-              <td colspan="13">接待交際費が登録されません！</td>
+              <td colspan="12">接待交際費が登録されません！</td>
             </tr>
             <tr ng-repeat="meeting in vm.payment.meetings track by $index">
               <td class="text-center w30">{{ $index + 1 }}</td>
@@ -364,8 +317,8 @@
                 <p ng-repeat="employee in meeting.employees">{{ employee.name }}</p>
               </td>
               <td class="w50">{{ meeting.total }}</td>
-              <td class="w50">{{ meeting.fee }}</td>
-              <td class="w50">{{ meeting.amount }}</td>
+              <td class="w100">￥{{ meeting.fee }}</td>
+              <td class="w100">￥{{ meeting.amount }}</td>
               <td>
                 <p class="mgn">{{ meeting.account | MeetingAccount }}</p>
                 <p class="mgn" ng-show="meeting.account === 0">{{ meeting.account_method }}</p>
@@ -377,14 +330,6 @@
               <td>
                 <a ng-repeat="receipt in meeting.receipts" ng-click="handleShowImage(receipt)">
                   <img class="w50 img-thumbnail" src="{{ receipt }}">
-                </a>
-              </td>
-              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
-                <a ng-click="vm.handleEditMeeting(meeting)">
-                  <i class="fa fa-pencil-square-o"></i>
-                </a>
-                <a class="mg5l" ng-click="vm.handleRemoveMeeting(meeting)">
-                  <i class="fa fa-trash-o"></i>
                 </a>
               </td>
             </tr>
