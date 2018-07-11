@@ -32,7 +32,7 @@
           <tbody>
             <tr ng-repeat="item in vm.payments">
               <td class="text-center w50">
-                <a ng-if="!item.payment" class="btn btn-default btn-xs" ng-click="vm.handleCreatePayment(item.index)">
+                <a ng-if="!item.payment" class="btn btn-primary btn-xs" ng-click="vm.handleCreatePayment(item.index)">
                   <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createPaymentBusy"></i> 作成</a>
                 <div dropdown dropdown-append-to-body ng-show="item.payment">
                   <a dropdown-toggle class="btn btn-xs btn-default">
