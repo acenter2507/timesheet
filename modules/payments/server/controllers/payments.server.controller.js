@@ -44,7 +44,18 @@ exports.update = function (req, res) {
   payment.save(function (err) {
     if (err)
       return res.status(400).send({ message: '清算表を保存できません！' });
-    return res.jsonp(payment);
+    Payment.findById(payment._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL')
+      .exec(function (err, payment) {
+        if (err)
+          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+        return res.jsonp(payment);
+      });
   });
 };
 exports.delete = function (req, res) {
