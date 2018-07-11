@@ -124,9 +124,10 @@
                 <a dropdown-toggle class="btn btn-xs btn-default">
                   <i class="glyphicon glyphicon-option-horizontal"></i>
                 </a>
+
                 <ul class="dropdown-menu dropdown-menu-left" role="menu">
                   <li>
-                    <a ui-sref="payments.review({ paymentId: payment._id })">
+                    <a ui-sref="admin.payments.review({ paymentId: payment._id })">
                       <i class="fa fa-eye"></i> 詳細確認</a>
                   </li>
                   <li ng-if="payment.status === 2">
@@ -136,6 +137,10 @@
                   <li ng-if="payment.status === 2">
                     <a ng-click="vm.handleRejectPayment(payment)">
                       <i class="fa fa-minus-circle"></i> 拒否する</a>
+                  </li>
+                  <li ng-if="payment.status === 5">
+                    <a ng-click="vm.handleDeletePayment(payment)">
+                      <i class="fa fa-trash"></i> 取り消す</a>
                   </li>
                   <li>
                     <a ng-click="vm.handleViewHistory(payment)">

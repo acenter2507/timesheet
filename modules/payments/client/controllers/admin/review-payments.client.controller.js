@@ -119,5 +119,34 @@
       vm.isShowHistory = false;
       vm.historys = [];
     };
+    vm.handleApprovePayment = function (payment) {
+      $scope.handleShowConfirm({
+        message: 'この清算表を承認しますか？'
+      }, function () {
+        PaymentsAdminApi.approve(payment._id)
+          .success(function (data) {
+            _.extend(workrest, data);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleRejectPayment = function (payment) {
+      $scope.handleShowConfirm({
+        message: 'この清算表を拒否しますか？'
+      }, function () {
+        PaymentsAdminApi.reject(payment._id)
+          .success(function (data) {
+            _.extend(workrest, data);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleDeletePayment = function (payment) {
+
+    };
   }
 }());

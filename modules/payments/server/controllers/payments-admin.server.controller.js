@@ -7,8 +7,6 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Payment = mongoose.model('Payment'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  config = require(path.resolve('./config/config')),
-  multer = require('multer'),
   _ = require('underscore');
 
 exports.reviews = function (req, res) {
@@ -61,8 +59,32 @@ exports.reviews = function (req, res) {
   });
 };
 exports.approve = function (req, res) {
-  res.end();
+  var payment = req.payment;
+
+  if (payment.status !== 2) {
+    return res.status(400).send({ message: '清算表の状態で承認できません！' });
+  }
+
+  payment.status = 3;
+  payment.historys.push({ action: 4, timing: new Date(), user: req.user._id });
+  payment.save((err, payment) => {
+    if (err)
+      return res.status(400).send({ message: '承認処理が完了できません。' });
+    return res.jsonp(payment);
+  });
 };
 exports.reject = function (req, res) {
-  res.end();
+  var payment = req.payment;
+
+  if (payment.status !== 2) {
+    return res.status(400).send({ message: '清算表の状態で拒否できません！' });
+  }
+
+  payment.status = 4;
+  payment.historys.push({ action: 5, timing: new Date(), user: req.user._id });
+  payment.save((err, payment) => {
+    if (err)
+      return res.status(400).send({ message: '拒否処理が完了できません。' });
+    return res.jsonp(payment);
+  });
 };
