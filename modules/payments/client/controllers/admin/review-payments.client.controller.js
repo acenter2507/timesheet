@@ -56,6 +56,7 @@
         users: []
       };
       vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
+      vm.condition.user = ($stateParams.user) ? $stateParams.user : undefined;
     }
     function prepareParams() {
       if ($stateParams.user) {

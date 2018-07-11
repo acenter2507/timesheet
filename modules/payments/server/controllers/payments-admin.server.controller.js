@@ -32,6 +32,9 @@ exports.reviews = function (req, res) {
 
   if (condition.users) {
     var userIds = _.pluck(condition.users, '_id');
+    if (condition.user) {
+      userIds = _.union(userIds, [condition.user]);
+    }
     if (userIds.length > 0) {
       and_arr.push({ user: { $in: userIds } });
     }
