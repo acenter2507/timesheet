@@ -4,14 +4,15 @@
  * Module dependencies
  */
 var paymentsPolicy = require('../policies/payments.server.policy'),
-  payments = require('../controllers/payments.server.controller');
+  payments = require('../controllers/payments.server.controller'),
+  payments_admin = require('../controllers/payments-admin.server.controller');
 
 module.exports = function (app) {
 
   // Get all month in year of 1 user
   app.route('/api/payments/paymentsByYear').post(payments.paymentsByYear);
   app.route('/api/payments/receipts').all(paymentsPolicy.isAllowed).post(payments.receipts);
-  app.route('/api/payments/reviews').all(paymentsPolicy.isAllowed).post(payments.reviews);
+
   // Payments Routes
   app.route('/api/payments').all(paymentsPolicy.isAllowed)
     .get(payments.list)
@@ -24,8 +25,11 @@ module.exports = function (app) {
 
   app.route('/api/payments/:paymentId/request').all(paymentsPolicy.isAllowed).post(payments.request);
   app.route('/api/payments/:paymentId/cancel').all(paymentsPolicy.isAllowed).post(payments.cancel);
-  app.route('/api/payments/:paymentId/approve').all(paymentsPolicy.isAllowed).post(payments.approve);
-  app.route('/api/payments/:paymentId/reject').all(paymentsPolicy.isAllowed).post(payments.reject);
+
+  // ADMIN
+  app.route('/api/payments/admin/reviews').all(paymentsPolicy.isAllowed).post(payments_admin.reviews);
+  app.route('/api/payments/admin/:paymentId/approve').all(paymentsPolicy.isAllowed).post(payments_admin.approve);
+  app.route('/api/payments/admin/:paymentId/reject').all(paymentsPolicy.isAllowed).post(payments_admin.reject);
 
   // Finish by binding the Payment middleware
   app.param('paymentId', payments.paymentByID);
