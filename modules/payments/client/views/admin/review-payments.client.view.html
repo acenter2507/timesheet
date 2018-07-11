@@ -132,23 +132,19 @@
                 <a dropdown-toggle class="btn btn-xs btn-default">
                   <i class="glyphicon glyphicon-option-horizontal"></i>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                  <!-- Xem detail Workrest -->
+                <ul class="dropdown-menu" role="menu">
                   <li>
                     <a ui-sref="payments.review({ paymentId: payment._id })">
                       <i class="fa fa-eye"></i> 詳細確認</a>
                   </li>
-                  <!-- Chấp nhận thỉnh cầu nghỉ -->
                   <li ng-if="payment.status === 2">
                     <a ng-click="vm.handleApprovePayment(payment)">
                       <i class="fa fa-check-square-o"></i> 承認する</a>
                   </li>
-                  <!-- Từ chối thỉnh cầu nghỉ -->
                   <li ng-if="rest.status === 2">
                     <a ng-click="vm.handleRejectPayment(payment)">
                       <i class="fa fa-minus-circle"></i> 拒否する</a>
                   </li>
-                  <!-- Xem lịch sử -->
                   <li>
                     <a ng-click="vm.handleViewHistory(payment)">
                       <i class="fa fa-clock-o"></i> 歴史</a>
