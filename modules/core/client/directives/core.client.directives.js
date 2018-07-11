@@ -211,7 +211,7 @@ function scrollTopSpyDirective() {
 
   function link(scope, element, attrs) {
     var container = angular.element(element);
-    container.bind("scroll", function (evt) {
+    container.bind('scroll', function (evt) {
       if (container[0].scrollTop <= 0) {
         scope.scrollTopSpy();
       }
@@ -241,7 +241,7 @@ function scrollSmartDirective() {
 }
 function scrollSmartItemDirective() {
   return {
-    require: "^scrollSmart",
+    require: '^scrollSmart',
     link: function (scope, el, att, scrCtrl) {
       scrCtrl.addItem(el[0]);
     }
