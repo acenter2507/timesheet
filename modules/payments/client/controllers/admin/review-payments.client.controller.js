@@ -63,6 +63,7 @@
         AdminUserService.get({ userId: $stateParams.user }).$promise.then(function (user) {
           var _user = _.pick(user, 'displayName', 'email', 'profileImageURL', '_id');
           vm.condition.users.push(_user);
+          delete vm.condition.user;
         });
       }
     }
