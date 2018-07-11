@@ -1,4 +1,2 @@
-    Database Seeding:                   Local user added with password set to 7ffFKHtk
-    Database Seeding:                   Local admin added with password set to UsY@e295
-    Database Seeding:                   Local seedmanager added with password set to P&i8Gj2a
-    Database Seeding:                   Local seedaccountant added with password set to V&qjBap6
+admin - 12345678
+Đang làm: payments.reviews

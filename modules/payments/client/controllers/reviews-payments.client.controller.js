@@ -22,13 +22,14 @@
 
     onCreate();
     function onCreate() {
+      prepareCondition();
       prepareParams();
       prepareDepartments();
-      prepareCondition();
       handleSearch();
     }
     function prepareParams() {
-
+      
+      vm.condition.user = ($stateParams.user) ? $stateParams.user : undefined;
     }
     function prepareDepartments() {
       DepartmentsService.query().$promise.then(function (data) {
@@ -41,7 +42,6 @@
         limit: 20
       };
       vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
-      vm.condition.user = ($stateParams.user) ? $stateParams.user : undefined;
     }
     function handleSearch() {
       if (vm.busy) return;

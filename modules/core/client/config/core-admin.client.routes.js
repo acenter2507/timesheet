@@ -1,7 +1,7 @@
 'use strict';
 
 // Setting up route
-angular.module('core.admin.routes').config(['$stateProvider',
+angular.module('core.admin').config(['$stateProvider',
   function ($stateProvider) {
     $stateProvider
       .state('admin', {
@@ -9,7 +9,7 @@ angular.module('core.admin.routes').config(['$stateProvider',
         url: '/admin',
         template: '<ui-view/>',
         data: {
-          roles: ['admin', 'manager', 'accountant']
+          roles: ['admin', 'accountant']
         }
       });
   }

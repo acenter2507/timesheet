@@ -79,12 +79,12 @@
         data: { roles: ['user'] },
         ncyBreadcrumb: { label: '会議費 ･接待交際費報告書' }
       })
-      .state('payments.view', {
-        url: '/:paymentId',
-        templateUrl: 'modules/payments/client/views/view-payment.client.view.html',
-        controller: 'PaymentsController',
+      .state('payments.review', {
+        url: '/:paymentId/review',
+        templateUrl: 'modules/payments/client/views/review-payment.client.view.html',
+        controller: 'PaymentReviewController',
         controllerAs: 'vm',
-        data: { roles: ['user'] },
+        data: { roles: ['accountant', 'admin'] },
         ncyBreadcrumb: { label: '清算表詳細' }
       });
   }
