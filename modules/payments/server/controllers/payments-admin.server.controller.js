@@ -30,7 +30,7 @@ exports.reviews = function (req, res) {
   }
 
   if (condition.users) {
-    var userIds = _.pluck(condistion.users, '_id');
+    var userIds = _.pluck(condition.users, '_id');
     if (userIds.length > 0) {
       and_arr.push({ user: { $in: userIds } });
     }
