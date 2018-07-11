@@ -93,7 +93,18 @@ exports.request = function (req, res) {
   payment.save((err, payment) => {
     if (err)
       return res.status(400).send({ message: '清算表の状態を変更できません！' });
-    return res.jsonp(payment);
+    Payment.findById(payment._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL')
+      .exec(function (err, payment) {
+        if (err)
+          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+        return res.jsonp(payment);
+      });
   });
 };
 exports.cancel = function (req, res) {
@@ -111,7 +122,47 @@ exports.cancel = function (req, res) {
   payment.save((err, payment) => {
     if (err)
       return res.status(400).send({ message: '清算表の状態を変更できません！' });
-    return res.jsonp(payment);
+    Payment.findById(payment._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL')
+      .exec(function (err, payment) {
+        if (err)
+          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+        return res.jsonp(payment);
+      });
+  });
+};
+exports.deleteRequest = function (req, res) {
+  var payment = req.payment;
+  // Kiểm tra người gửi cancel chính chủ
+  if (req.user._id.toString() !== payment.user._id.toString()) {
+    return res.status(400).send({ message: '清算表の取り消し申請は本人が必要になります！' });
+  }
+  // Kiểm tra trạng thái của timesheet
+  if (payment.status !== 4) {
+    return res.status(400).send({ message: '清算表の状態で取り消し申請できません！' });
+  }
+  payment.status = 5;
+  payment.historys.push({ action: 7, timing: new Date(), user: req.user._id });
+  payment.save((err, payment) => {
+    if (err)
+      return res.status(400).send({ message: '清算表の状態を変更できません！' });
+    Payment.findById(payment._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL')
+      .exec(function (err, payment) {
+        if (err)
+          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+        return res.jsonp(payment);
+      });
   });
 };
 exports.receipts = function (req, res) {

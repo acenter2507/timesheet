@@ -25,6 +25,7 @@ module.exports = function (app) {
 
   app.route('/api/payments/:paymentId/request').all(paymentsPolicy.isAllowed).post(payments.request);
   app.route('/api/payments/:paymentId/cancel').all(paymentsPolicy.isAllowed).post(payments.cancel);
+  app.route('/api/payments/:paymentId/deleteRequest').all(paymentsPolicy.isAllowed).post(payments.deleteRequest);
 
   // ADMIN
   app.route('/api/payments/admin/reviews').all(paymentsPolicy.isAllowed).post(payments_admin.reviews);

@@ -88,8 +88,8 @@
         message: item.payment.month + '月の清算表を申請しますか？'
       }, function () {
         PaymentsApi.request(item.payment._id)
-          .success(function (data) {
-            _.extend(item.payment, data);
+          .success(function (payment) {
+            _.extend(item.payment, payment);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
@@ -98,11 +98,11 @@
     };
     vm.handleCancelPayment = function (item) {
       $scope.handleShowConfirm({
-        message: '清算表の申請をキャンセルしますか？'
+        message: item.payment.month + '月の清算表をキャンセルしますか？'
       }, function () {
-        PaymentsApi.cancel(vm.payment._id)
-          .success(function (data) {
-            _.extend(vm.payment, data);
+        PaymentsApi.cancel(item.payment._id)
+          .success(function (payment) {
+            _.extend(item.payment, payment);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
@@ -111,11 +111,11 @@
     };
     vm.handleRequestDeletePayment = function (item) {
       $scope.handleShowConfirm({
-        message: '清算表の申請をキャンセルしますか？'
+        message: item.payment.month + '月の清算表を取り消し申請しますか？'
       }, function () {
-        PaymentsApi.cancel(vm.payment._id)
-          .success(function (data) {
-            _.extend(vm.payment, data);
+        PaymentsApi.deleteRequest(item.payment._id)
+          .success(function (payment) {
+            _.extend(item.payment, payment);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
