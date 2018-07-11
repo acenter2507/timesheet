@@ -176,7 +176,7 @@ exports.reviews = function (req, res) {
   }).then(function (payments) {
     return res.jsonp(payments);
   }, err => {
-    return res.status(400).send({ message: 'サーバーでエラーが発生しました！'});
+    return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
   });
 };
 exports.paymentByID = function (req, res, next, id) {
