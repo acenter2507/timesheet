@@ -106,12 +106,12 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th class="w30 text-center">操作</th>
             <th>社員名</th>
             <th>年</th>
             <th>月</th>
             <th>合計</th>
             <th>状態</th>
-            <th>操作</th>
           </tr>
         </thead>
         <tbody>
@@ -119,15 +119,7 @@
             <td colspan="6">データが見つかりません。</td>
           </tr>
           <tr ng-repeat="payment in vm.payments track by $index">
-            <td>
-              <img class="user-common-avatar-small" src="{{ payment.user.profileImageURL }}">
-              <a ng-click="handleViewDetailUser(payment.user)">{{ payment.user.displayName }}</a>
-            </td>
-            <td>{{ payment.year }}</td>
-            <td>{{ payment.month }}</td>
-            <td>{{ payment.total }}</td>
-            <td>{{ payment.status | RestStatusFilter}}</td>
-            <td>
+            <td class="w30 text-center">
               <div dropdown dropdown-append-to-body>
                 <a dropdown-toggle class="btn btn-xs btn-default">
                   <i class="glyphicon glyphicon-option-horizontal"></i>
@@ -152,6 +144,14 @@
                 </ul>
               </div>
             </td>
+            <td>
+              <img class="user-common-avatar-small" src="{{ payment.user.profileImageURL }}">
+              <a ng-click="handleViewDetailUser(payment.user)">{{ payment.user.displayName }}</a>
+            </td>
+            <td>{{ payment.year }}</td>
+            <td>{{ payment.month }}</td>
+            <td>{{ payment.total }}</td>
+            <td>{{ payment.status | RestStatusFilter}}</td>
           </tr>
         </tbody>
       </table>
