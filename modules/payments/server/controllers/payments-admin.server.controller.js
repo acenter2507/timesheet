@@ -45,6 +45,7 @@ exports.reviews = function (req, res) {
     page: page,
     populate: [
       { path: 'user', select: 'profileImageURL displayName' },
+      { path: 'department', select: 'name' },
       {
         path: 'historys', populate: [
           { path: 'user', select: 'displayName profileImageURL', model: 'User' },
@@ -77,6 +78,7 @@ exports.approve = function (req, res) {
         ]
       })
       .populate('user', 'displayName profileImageURL')
+      .populate('department', 'name')
       .exec(function (err, payment) {
         if (err)
           return res.status(400).send({ message: '清算表の情報が見つかりません！' });
@@ -103,6 +105,7 @@ exports.reject = function (req, res) {
         ]
       })
       .populate('user', 'displayName profileImageURL')
+      .populate('department', 'name')
       .exec(function (err, payment) {
         if (err)
           return res.status(400).send({ message: '清算表の情報が見つかりません！' });

@@ -14,6 +14,10 @@ var path = require('path'),
 exports.create = function (req, res) {
   var payment = new Payment(req.body);
   payment.user = req.user;
+  
+  if (req.user.department) {
+    payment.department = req.user.department;
+  }
 
   payment.historys.push({ action: 1, timing: new Date(), user: req.user._id });
   payment.save(function (err) {
@@ -30,6 +34,7 @@ exports.read = function (req, res) {
       ]
     })
     .populate('user', 'displayName profileImageURL')
+    .populate('department', 'name')
     .exec(function (err, payment) {
       if (err)
         return res.status(400).send({ message: '清算表の情報が見つかりません！' });
@@ -51,6 +56,7 @@ exports.update = function (req, res) {
         ]
       })
       .populate('user', 'displayName profileImageURL')
+      .populate('department', 'name')
       .exec(function (err, payment) {
         if (err)
           return res.status(400).send({ message: '清算表の情報が見つかりません！' });
@@ -118,6 +124,7 @@ exports.request = function (req, res) {
         ]
       })
       .populate('user', 'displayName profileImageURL')
+      .populate('department', 'name')
       .exec(function (err, payment) {
         if (err)
           return res.status(400).send({ message: '清算表の情報が見つかりません！' });
@@ -147,6 +154,7 @@ exports.cancel = function (req, res) {
         ]
       })
       .populate('user', 'displayName profileImageURL')
+      .populate('department', 'name')
       .exec(function (err, payment) {
         if (err)
           return res.status(400).send({ message: '清算表の情報が見つかりません！' });
@@ -176,6 +184,7 @@ exports.deleteRequest = function (req, res) {
         ]
       })
       .populate('user', 'displayName profileImageURL')
+      .populate('department', 'name')
       .exec(function (err, payment) {
         if (err)
           return res.status(400).send({ message: '清算表の情報が見つかりません！' });
