@@ -65,8 +65,12 @@
                 </div>
               </td>
               <td>{{ item.index + '月'}}</td>
-              <td class="text-center w100">{{ item.payment.status | StatusFilter }}</td>
-              <td class="d-sm-down-none w150 text-center">￥{{ item.payment.total }}</td>
+              <td class="text-center w100">
+                <span ng-show="item.payment">{{ item.payment.status | StatusFilter }}</span>
+              </td>
+              <td class="d-sm-down-none w150 text-center">
+                <span ng-show="item.payment">￥{{ item.payment.total }}</span>
+              </td>
             </tr>
           </tbody>
         </table>
