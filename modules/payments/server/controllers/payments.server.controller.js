@@ -23,11 +23,18 @@ exports.create = function (req, res) {
   });
 };
 exports.read = function (req, res) {
-  // convert mongoose document to JSON
-  var payment = req.payment ? req.payment.toJSON() : {};
-  payment.isCurrentUserOwner = req.user && payment.user && payment.user._id.toString() === req.user._id.toString();
-
-  return res.jsonp(payment);
+  Payment.findById(req.payment._id)
+    .populate({
+      path: 'historys', populate: [
+        { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+      ]
+    })
+    .populate('user', 'displayName profileImageURL')
+    .exec(function (err, payment) {
+      if (err)
+        return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+      return res.jsonp(payment);
+    });
 };
 exports.update = function (req, res) {
   var payment = req.payment;

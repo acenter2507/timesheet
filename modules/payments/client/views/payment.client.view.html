@@ -14,24 +14,28 @@
 
     <div class="col-xs-12" ng-show="vm.isShowHistory">
       <h4>変更履歴</h4>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>日付</th>
-            <th>操作</th>
-            <th>操作者</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="history in vm.payment.historys">
-            <td>{{history.timing | LLLL}}</td>
-            <td>{{history.action | ActionFilter}}</td>
-            <td>
-              <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-default">
+            <tr>
+              <th class="w30 text-center">#</th>
+              <th>日付</th>
+              <th>操作</th>
+              <th>操作者</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="history in vm.payment.historys">
+              <td class="w30 text-center">{{ $index + 1 }}</td>
+              <td>{{ history.timing | LLLL }}</td>
+              <td>{{ history.action | ActionFilter }}</td>
+              <td>
+                <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <!-- 合計 -->
     <div class="col-xs-12">
@@ -98,7 +102,9 @@
           <td>￥{{ vm.payment.other1_fee }}</td>
           <td>￥{{ vm.payment.other2_fee }}</td>
           <td>￥{{ vm.payment.other_fee }}</td>
-          <td colspan="2"><strong>￥{{ vm.payment.total }}</strong></td>
+          <td colspan="2">
+            <strong>￥{{ vm.payment.total }}</strong>
+          </td>
           <td>{{ vm.payment.status | StatusFilter }}</td>
         </tr>
       </table>
