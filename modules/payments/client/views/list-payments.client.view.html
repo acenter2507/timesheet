@@ -40,22 +40,22 @@
                   </a>
 
                   <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                    <li ng-if="item.payment.status === 1 || item.payment.status === 3">
+                    <li ng-if="item.payment.status === 1 || item.payment.status === 4">
                       <a ui-sref="payments.edit({ paymentId: payment._id })">編集</a>
                     </li>
-                    <li ng-if="item.payment.status === 2 || item.payment.status === 4">
+                    <li ng-if="item.payment.status === 2 || item.payment.status === 3">
                       <a ui-sref="payments.edit({ paymentId: payment._id })">詳細</a>
                     </li>
-                    <li ng-if="item.payment.status === 1 || item.payment.status === 3">
+                    <li ng-if="item.payment.status === 1 || item.payment.status === 4">
                       <a ng-click="vm.handleRequestPayment(item)">申請</a>
                     </li>
                     <li ng-if="item.payment.status === 2">
                       <a ng-click="vm.handleCancelPayment(item)">申請キャンセル</a>
                     </li>
-                    <li ng-if="item.payment.status === 4">
+                    <li ng-if="item.payment.status === 3">
                       <a ng-click="vm.handleRequestDeletePayment(item)">取り消し申請</a>
                     </li>
-                    <li ng-if="item.payment.status === 1 || item.payment.status === 3">
+                    <li ng-if="item.payment.status === 1 || item.payment.status === 4">
                       <a ng-click="vm.handleDeletePayment(item)">削除</a>
                     </li>
                     <li>
