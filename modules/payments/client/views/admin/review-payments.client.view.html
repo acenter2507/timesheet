@@ -111,7 +111,7 @@
             <th class="w50 text-center">年</th>
             <th class="w50 text-center">月</th>
             <th class="w100 text-center">合計</th>
-            <th class="w100 text-center">状態</th>
+            <th class="w150 text-center">状態</th>
           </tr>
         </thead>
         <tbody>
@@ -156,7 +156,7 @@
             <td class="w50 text-center">{{ payment.year }}</td>
             <td class="w50 text-center">{{ payment.month }}</td>
             <td class="w100 text-center">￥{{ payment.total }}</td>
-            <td class="w100 text-center">{{ payment.status | StatusFilter}}</td>
+            <td class="w150 text-center">{{ payment.status | StatusFilter}}</td>
           </tr>
         </tbody>
       </table>
