@@ -5,9 +5,21 @@
     .module('payments')
     .controller('PaymentsListController', PaymentsListController);
 
-  PaymentsListController.$inject = ['$scope', '$state', 'PaymentsService', '$stateParams', 'PaymentsApi'];
+  PaymentsListController.$inject = [
+    '$scope',
+    '$state',
+    'PaymentsService',
+    '$stateParams',
+    'PaymentsApi'
+  ];
 
-  function PaymentsListController($scope, $state, PaymentsService, $stateParams, PaymentsApi) {
+  function PaymentsListController(
+    $scope,
+    $state,
+    PaymentsService,
+    $stateParams,
+    PaymentsApi
+  ) {
     var vm = this;
 
     vm.payments = [];
@@ -15,7 +27,6 @@
     vm.isShowHistory = false;
 
     onCreate();
-
     function onCreate() {
       prepareParams();
       preparePayments();
@@ -72,13 +83,39 @@
         vm.createPaymentBusy = false;
       });
     };
-    vm.handleSendRequestPayment = function (item) {
+    vm.handleRequestPayment = function (item) {
       $scope.handleShowConfirm({
         message: item.payment.month + '月の清算表を申請しますか？'
       }, function () {
         PaymentsApi.request(item.payment._id)
           .success(function (data) {
             _.extend(item.payment, data);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleCancelPayment = function (item) {
+      $scope.handleShowConfirm({
+        message: '清算表の申請をキャンセルしますか？'
+      }, function () {
+        PaymentsApi.cancel(vm.payment._id)
+          .success(function (data) {
+            _.extend(vm.payment, data);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleRequestDeletePayment = function (item) {
+      $scope.handleShowConfirm({
+        message: '清算表の申請をキャンセルしますか？'
+      }, function () {
+        PaymentsApi.cancel(vm.payment._id)
+          .success(function (data) {
+            _.extend(vm.payment, data);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);

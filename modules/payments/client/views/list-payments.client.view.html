@@ -1,4 +1,5 @@
 <div class="container-fluid animated fadeIn mg100b">
+  <!-- 時間コントロール -->
   <div class="row">
     <div class="col-xs-12">
       <h3 class="text-center mg5y">{{ vm.currentYear.year() + '年'}}</h3>
@@ -15,38 +16,57 @@
     </div>
     <div class="clearfix"></div>
   </div>
+  <!-- 時間コントロール -->
   <div class="row mg10t">
     <div class="col-xs-12">
-      <div class="table-responsive" id="payments-list-payments">
-        <table class="table table-bordered">
-          <thead class="thead-default">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
             <tr>
-              <th class="text-center">月</th>
-              <th class="text-center">状態</th>
-              <th class="d-sm-down-none">合計金額</th>
-              <th>操作</th>
+              <th class="text-center w50">操作</th>
+              <th class="text-center w50">月</th>
+              <th class="text-center w100">状態</th>
+              <th class="d-sm-down-none w50 text-center">合計</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="item in vm.payments">
-              <td class="text-center">{{ item.index + '月'}}</td>
-              <td class="text-center">
-                <span class="label label-default" ng-if="!item.payment">{{ item.payment.status | StatusFilter }}</span>
-                <!-- <span class="label label-primary" ng-if="item.payment.status === 1">{{ item.workmonth.status | StatusFilter}}</span>
-                <span class="label badge-warning" ng-if="item.payment.status === 2">{{ item.workmonth.status | StatusFilter}}</span>
-                <span class="label badge-success" ng-if="item.payment.status === 3">{{ item.workmonth.status | StatusFilter}}</span>
-                <span class="label badge-danger" ng-if="item.payment.status === 4">{{ item.workmonth.status | StatusFilter}}</span> -->
-              </td>
-              <td class="d-sm-down-none">{{item.payment.total}}</td>
-              <td>
+              <td class="text-center w50">
                 <a ng-if="!item.payment" class="btn btn-default btn-xs" ng-click="vm.handleCreatePayment(item.index)">
                   <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createPaymentBusy"></i> 作成</a>
-                <a ng-if="item.payment.status === 1 || item.payment.status === 3" class="btn btn-primary btn-xs" ng-click="vm.handleSendRequestPayment(item)">申請</a>
-                <a ng-if="item.payment.status === 1 || item.payment.status === 3" class="btn btn-success btn-xs" ui-sref="payments.edit({ paymentId: item.payment._id })">編集</a>
-                <a ng-if="item.payment.status === 1 || item.payment.status === 3" class="btn btn-danger btn-xs" ng-click="vm.handleDeletePayment(item)">削除</a>
-                <a ng-if="item.payment.status === 2 || item.payment.status === 4" class="btn btn-info btn-xs" ui-sref="payments.edit({ paymentId: item.payment._id })">詳細</a>
-                <a ng-if="item.payment" class="btn btn-warning btn-xs" ng-click="vm.handleViewHistory(item)">歴史</a>
+                <div dropdown dropdown-append-to-body ng-show="item.payment">
+                  <a dropdown-toggle class="btn btn-xs btn-default">
+                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                  </a>
+
+                  <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                    <li ng-if="item.payment.status === 1 || item.payment.status === 3">
+                      <a ui-sref="payments.edit({ paymentId: payment._id })">編集</a>
+                    </li>
+                    <li ng-if="item.payment.status === 2 || item.payment.status === 4">
+                      <a ui-sref="payments.edit({ paymentId: payment._id })">詳細</a>
+                    </li>
+                    <li ng-if="item.payment.status === 1 || item.payment.status === 3">
+                      <a ng-click="vm.handleRequestPayment(item)">申請</a>
+                    </li>
+                    <li ng-if="item.payment.status === 2">
+                      <a ng-click="vm.handleCancelPayment(item)">申請キャンセル</a>
+                    </li>
+                    <li ng-if="item.payment.status === 4">
+                      <a ng-click="vm.handleRequestDeletePayment(item)">取り消し申請</a>
+                    </li>
+                    <li ng-if="item.payment.status === 1 || item.payment.status === 3">
+                      <a ng-click="vm.handleDeletePayment(item)">削除</a>
+                    </li>
+                    <li>
+                      <a ng-click="vm.handleViewHistory(item)">歴史</a>
+                    </li>
+                  </ul>
+                </div>
               </td>
+              <td class="text-center w50">{{ item.index + '月'}}</td>
+              <td class="text-center w100">{{ item.payment.status | StatusFilter }}</td>
+              <td class="d-sm-down-none w50 text-center">{{ item.payment.total }}</td>
             </tr>
           </tbody>
         </table>
