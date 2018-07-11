@@ -41,6 +41,7 @@ exports.update = function (req, res) {
   });
 };
 exports.delete = function (req, res) {
+  console.log(req.payment);
   var payment = req.payment;
 
   payment.remove(function (err) {
