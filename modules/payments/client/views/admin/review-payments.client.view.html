@@ -133,7 +133,7 @@
                     <a ng-click="vm.handleApprovePayment(payment)">
                       <i class="fa fa-check-square-o"></i> 承認する</a>
                   </li>
-                  <li ng-if="rest.status === 2">
+                  <li ng-if="payment.status === 2">
                     <a ng-click="vm.handleRejectPayment(payment)">
                       <i class="fa fa-minus-circle"></i> 拒否する</a>
                   </li>

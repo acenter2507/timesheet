@@ -111,5 +111,13 @@
 
       return deferred.promise;
     };
+    vm.handleViewHistory = function (payment) {
+      vm.isShowHistory = true;
+      vm.historys = payment.historys;
+    };
+    vm.handleCloseHistory = function () {
+      vm.isShowHistory = false;
+      vm.historys = [];
+    };
   }
 }());
