@@ -70,26 +70,11 @@
           <div class="form-group">
             <div class="col-sm-12 col-md-6">
               <label for="user">社員</label>
-              <tags-input class="my-tags" ng-model="vm.message.users" key-property="_id" template="users_tags.html" display-property="displayName"
-                  placeholder="社員検索" replace-spaces-with-dashes="false">
-                  <auto-complete source="vm.handleSearchUsers($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
-                    template="autocomplete.html"></auto-complete>
-                </tags-input>
-                <div dropdown is-open="vm.isShowUserDropdown">
-                  <input class="form-control" ng-model="vm.userSearchKey" ng-change="vm.handleUserSearchChanged()" placeholder="ユーザー名検索">
-                  <ul class="dropdown-menu" role="menu">
-                    <li class="text-center" ng-show="vm.isUserSearching">
-                      <i class="fa fa-spinner fa-pulse fa-fw"></i>
-                    </li>
-                    <li ng-show="!vm.userSearching && vm.users.length === 0" class="pd12x">データが見つかりません。</li>
-                    <li ng-repeat="user in vm.users">
-                      <a ng-click="vm.handleUserSelected(user)">
-                        <img src="{{ user.profileImageURL }}" class="user-common-avatar-small">
-                        <span>{{ user.displayName }}</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+              <tags-input class="my-tags" ng-model="vm.condition.users" key-property="_id" template="users_tags.html" display-property="displayName"
+                placeholder="社員検索" replace-spaces-with-dashes="false">
+                <auto-complete source="vm.handleSearchUsers($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
+                  template="autocomplete.html"></auto-complete>
+              </tags-input>
             </div>
             <div class="col-sm-6 col-md-3">
               <label for="sort">並び順</label>
@@ -182,6 +167,7 @@
       </ul>
     </div>
   </div>
+  <!-- 履歴 -->
   <div class="row mg10t">
     <div class="col-xs-12">
       <div class="form-group">
@@ -215,3 +201,20 @@
     </div>
   </div>
 </div>
+
+<script type="text/ng-template" id="users_tags.html">
+  <a ui-sref="users.view({ userId: data._id })">{{ data.displayName }}</a>
+  <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
+</script>
+
+<script type="text/ng-template" id="autocomplete.html">
+  <div class="my-autocomplete">
+    <div class="left-panel">
+      <img src="{{ data.profileImageURL || data.avatar }}" />
+    </div>
+    <div class="right-panel">
+      <span>{{ data.displayName || data.name }}</span>
+      <span>{{ data.email }}</span>
+    </div>
+  </div>
+</script>

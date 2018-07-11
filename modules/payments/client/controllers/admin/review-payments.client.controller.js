@@ -6,9 +6,29 @@
     .module('payments.admin')
     .controller('PaymentsReviewController', PaymentsReviewController);
 
-  PaymentsReviewController.$inject = ['$scope', 'PaymentsService', '$state', 'CommonService', '$stateParams', 'PaymentsAdminApi', 'DepartmentsService'];
+  PaymentsReviewController.$inject = [
+    '$scope',
+    'PaymentsService',
+    '$state',
+    'CommonService',
+    '$stateParams',
+    'PaymentsAdminApi',
+    'DepartmentsService',
+    'AdminUserService',
+    'AdminUserApi'
+  ];
 
-  function PaymentsReviewController($scope, PaymentsService, $state, CommonService, $stateParams, PaymentsAdminApi, DepartmentsService) {
+  function PaymentsReviewController(
+    $scope,
+    PaymentsService,
+    $state,
+    CommonService,
+    $stateParams,
+    PaymentsAdminApi,
+    DepartmentsService,
+    AdminUserService,
+    AdminUserApi
+  ) {
     var vm = this;
     vm.payments = [];
     vm.departments = [];
@@ -27,21 +47,20 @@
       prepareDepartments();
       handleSearch();
     }
-    function prepareParams() {
-
-      vm.condition.user = ($stateParams.user) ? $stateParams.user : undefined;
-    }
-    function prepareDepartments() {
-      DepartmentsService.query().$promise.then(function (data) {
-        vm.departments = data;
-      });
-    }
     function prepareCondition() {
       vm.condition = {
         sort: '-created',
         limit: 20
       };
       vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
+    }
+    function prepareParams() {
+      if (!$stateParams.user) return;
+    }
+    function prepareDepartments() {
+      DepartmentsService.query().$promise.then(function (data) {
+        vm.departments = data;
+      });
     }
     function handleSearch() {
       if (vm.busy) return;
@@ -59,8 +78,9 @@
         });
     }
     vm.handleStartSearch = function () {
-      vm.page = 1;
-      handleSearch();
+      console.log(vm.condition);
+      // vm.page = 1;
+      // handleSearch();
     };
     vm.handlePageChanged = function (page) {
       vm.page = page;
@@ -69,6 +89,18 @@
     vm.handleClearCondition = function () {
       prepareCondition();
     };
+    vm.handleSearchUsers = function ($query) {
+      if (CommonService.isStringEmpty($query)) {
+        return [];
+      }
 
+      var deferred = $q.defer();
+      AdminUserApi.searchUsers({ key: $query, department: false })
+        .success(function (users) {
+          deferred.resolve(users);
+        });
+
+      return deferred.promise;
+    };
   }
 }());
