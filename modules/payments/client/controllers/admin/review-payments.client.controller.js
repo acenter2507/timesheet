@@ -78,7 +78,7 @@
       PaymentsAdminApi.reviews(vm.condition, vm.page)
         .success(function (res) {
           vm.payments = res.docs;
-          vm.pages = CommonService.createArrayFromRange(res.pages);
+          vm.pages = res.pages;
           vm.total = res.total;
           vm.busy = false;
         })

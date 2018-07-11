@@ -157,7 +157,7 @@
         </tbody>
       </table>
       <!-- Pagination -->
-      <pagination total-items="vm.total" ng-model="vm.page" max-size="5" boundary-links="true" rotate="false" num-pages="numPages" ng-change="vm.handlePageChanged()"></pagination>
+      <pagination total-items="vm.total" ng-model="vm.page" max-size="5" boundary-links="true" rotate="false" num-pages="vm.pages" ng-change="vm.handlePageChanged()"></pagination>
 
       <!-- <ul class="pagination mg10y" ng-show="vm.pages.length > 1">
         <li ng-repeat="page in vm.pages" ng-class="{'active': page === vm.page}">
