@@ -52,12 +52,18 @@
     function prepareCondition() {
       vm.condition = {
         sort: '-created',
-        limit: 20
+        limit: 20,
+        users: []
       };
       vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
     }
     function prepareParams() {
-      if (!$stateParams.user) return;
+      if ($stateParams.user) {
+        AdminUserService.get({ userId: $stateParams.user }).$promise.then(function (user) {
+          var _user = _.pick(user, 'displayName', 'email', 'profileImageURL');
+          vm.condition.users.push(_user);
+        });
+      }
     }
     function prepareDepartments() {
       DepartmentsService.query().$promise.then(function (data) {
@@ -80,9 +86,8 @@
         });
     }
     vm.handleStartSearch = function () {
-      console.log(vm.condition);
-      // vm.page = 1;
-      // handleSearch();
+      vm.page = 1;
+      handleSearch();
     };
     vm.handlePageChanged = function (page) {
       vm.page = page;
