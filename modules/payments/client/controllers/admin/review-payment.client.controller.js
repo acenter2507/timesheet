@@ -3,7 +3,7 @@
 
   // Payments controller
   angular
-    .module('payments')
+    .module('payments.admin')
     .controller('PaymentReviewController', PaymentReviewController);
 
   PaymentReviewController.$inject = ['$scope', '$state', '$stateParams', 'PaymentsService', 'PaymentFactory', 'PaymentsApi'];

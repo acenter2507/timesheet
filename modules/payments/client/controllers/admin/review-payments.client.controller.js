@@ -3,12 +3,12 @@
 
   // Payments controller
   angular
-    .module('payments')
-    .controller('PaymentsReviewsController', PaymentsReviewsController);
+    .module('payments.admin')
+    .controller('PaymentsReviewController', PaymentsReviewController);
 
-  PaymentsReviewsController.$inject = ['$scope', 'PaymentsService', '$state', 'CommonService', '$stateParams', 'PaymentsApi', '$timeout', 'DepartmentsService'];
+  PaymentsReviewController.$inject = ['$scope', 'PaymentsService', '$state', 'CommonService', '$stateParams', 'PaymentsAdminApi', 'DepartmentsService'];
 
-  function PaymentsReviewsController($scope, PaymentsService, $state, CommonService, $stateParams, PaymentsApi, $timeout, DepartmentsService) {
+  function PaymentsReviewController($scope, PaymentsService, $state, CommonService, $stateParams, PaymentsAdminApi, DepartmentsService) {
     var vm = this;
     vm.payments = [];
     vm.departments = [];
@@ -28,7 +28,7 @@
       handleSearch();
     }
     function prepareParams() {
-      
+
       vm.condition.user = ($stateParams.user) ? $stateParams.user : undefined;
     }
     function prepareDepartments() {
@@ -46,7 +46,7 @@
     function handleSearch() {
       if (vm.busy) return;
       vm.busy = true;
-      PaymentsApi.reviews(vm.condition, vm.page)
+      PaymentsAdminApi.reviews(vm.condition, vm.page)
         .success(function (res) {
           vm.payments = res.docs;
           vm.pages = CommonService.createArrayFromRange(res.pages);
