@@ -26,7 +26,7 @@
               <th class="text-center w50">操作</th>
               <th>月</th>
               <th class="text-center w100">状態</th>
-              <th class="d-sm-down-none w50 text-center">合計</th>
+              <th class="d-sm-down-none w150 text-center">合計</th>
             </tr>
           </thead>
           <tbody>
@@ -66,7 +66,7 @@
               </td>
               <td>{{ item.index + '月'}}</td>
               <td class="text-center w100">{{ item.payment.status | StatusFilter }}</td>
-              <td class="d-sm-down-none w50 text-center">{{ item.payment.total }}</td>
+              <td class="d-sm-down-none w150 text-center">{{ item.payment.total }}</td>
             </tr>
           </tbody>
         </table>
