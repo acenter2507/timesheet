@@ -52,7 +52,7 @@
     function prepareCondition() {
       vm.condition = {
         sort: '-created',
-        limit: 5,
+        limit: 10,
         users: []
       };
       vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
