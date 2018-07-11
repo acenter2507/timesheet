@@ -41,10 +41,10 @@
 
                   <ul class="dropdown-menu dropdown-menu-left" role="menu">
                     <li ng-if="item.payment.status === 1 || item.payment.status === 4">
-                      <a ui-sref="payments.edit({ paymentId: payment._id })">編集</a>
+                      <a ui-sref="payments.edit({ paymentId: item.payment._id })">編集</a>
                     </li>
                     <li ng-if="item.payment.status === 2 || item.payment.status === 3">
-                      <a ui-sref="payments.edit({ paymentId: payment._id })">詳細</a>
+                      <a ui-sref="payments.edit({ paymentId: item.payment._id })">詳細</a>
                     </li>
                     <li ng-if="item.payment.status === 1 || item.payment.status === 4">
                       <a ng-click="vm.handleRequestPayment(item)">申請</a>
