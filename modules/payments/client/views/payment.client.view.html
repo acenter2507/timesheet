@@ -1,5 +1,18 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
+    <!-- ツールバー -->
+    <div class="col-xs-12">
+      <div class="form-group text-right">
+        <button class="btn btn-default" ng-click="vm.handlePreviousScreen()">戻る</button>
+        <button class="btn btn-primary" ng-show="vm.payment.status === 1 || vm.payment.status === 4" ng-click="vm.handleRequestPayment()">申請</button>
+        <button class="btn btn-warning" ng-show="vm.payment.status === 2" ng-click="vm.handleCancelPayment()">申請キャンセル</button>
+        <button class="btn btn-danger" ng-show="vm.payment.status === 3" ng-click="vm.handleRequestDeletePayment()">取り消し申請</button>
+        <button class="btn btn-danger" ng-show="vm.payment.status === 1 || vm.payment.status === 4" ng-click="vm.handleDeletePayment()">削除</button>
+        <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
+          {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
+        </button>
+      </div>
+    </div>
     <!-- ヘッダー -->
     <div class="col-xs-12">
       <div class="table-responsive">
@@ -13,24 +26,17 @@
           </thead>
           <tbody>
             <tr>
-              <td><span class="text-h4">{{ vm.payment.user.displayName }}</span></td>
-              <td></td>
+              <td>
+                <span class="h4-text">{{ vm.payment.user.displayName }}</span>
+              </td>
+              <td>
+                <span ng-show="vm.payment.department">{{ vm.payment.department.name }}</span>
+                <span ng-show="!vm.payment.department">未設定</span>
+              </td>
+              <td>{{ vm.payment.year + '年' + vm.payment.month + '月' }}</td>
             </tr>
           </tbody>
         </table>
-      </div>
-    </div>
-    <!-- ツールバー -->
-    <div class="col-xs-12">
-      <div class="form-group text-right">
-        <button class="btn btn-default" ng-click="vm.handlePreviousScreen()">戻る</button>
-        <button class="btn btn-primary" ng-show="vm.payment.status === 1 || vm.payment.status === 4" ng-click="vm.handleRequestPayment()">申請</button>
-        <button class="btn btn-warning" ng-show="vm.payment.status === 2" ng-click="vm.handleCancelPayment()">申請キャンセル</button>
-        <button class="btn btn-danger" ng-show="vm.payment.status === 3" ng-click="vm.handleRequestDeletePayment()">取り消し申請</button>
-        <button class="btn btn-danger" ng-show="vm.payment.status === 1 || vm.payment.status === 4" ng-click="vm.handleDeletePayment()">削除</button>
-        <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
-          {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
-        </button>
       </div>
     </div>
     <!-- 履歴 -->

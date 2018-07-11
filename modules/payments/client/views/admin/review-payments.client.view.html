@@ -128,24 +128,19 @@
 
                 <ul class="dropdown-menu dropdown-menu-left" role="menu">
                   <li>
-                    <a ui-sref="admin.payments.review({ paymentId: payment._id })">
-                      <i class="fa fa-eye"></i> 詳細確認</a>
+                    <a ui-sref="admin.payments.review({ paymentId: payment._id })">詳細確認</a>
                   </li>
                   <li ng-if="payment.status === 2">
-                    <a ng-click="vm.handleApprovePayment(payment)">
-                      <i class="fa fa-check-square-o"></i> 承認する</a>
+                    <a ng-click="vm.handleApprovePayment(payment)">承認</a>
                   </li>
                   <li ng-if="payment.status === 2">
-                    <a ng-click="vm.handleRejectPayment(payment)">
-                      <i class="fa fa-minus-circle"></i> 拒否する</a>
+                    <a ng-click="vm.handleRejectPayment(payment)">拒否</a>
                   </li>
                   <li ng-if="payment.status === 5">
-                    <a ng-click="vm.handleDeletePayment(payment)">
-                      <i class="fa fa-trash"></i> 取り消す</a>
+                    <a ng-click="vm.handleDeletePayment(payment)">取り消す</a>
                   </li>
                   <li>
-                    <a ng-click="vm.handleViewHistory(payment)">
-                      <i class="fa fa-clock-o"></i> 歴史</a>
+                    <a ng-click="vm.handleViewHistory(payment)">歴史</a>
                   </li>
                 </ul>
               </div>
