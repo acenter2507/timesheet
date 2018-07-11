@@ -13,7 +13,7 @@
         </button>
       </div>
     </div>
-
+    <!-- 履歴 -->
     <div class="col-xs-12" ng-show="vm.isShowHistory">
       <h4>変更履歴</h4>
       <div class="table-responsive">
@@ -125,7 +125,7 @@
             <th rowspan="2">手段</th>
             <th colspan="2" class="text-center">交通費</th>
             <th rowspan="2">領収書</th>
-            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTransport()">追加</button>
             </th>
           </tr>
@@ -160,7 +160,7 @@
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
-            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <a ng-click="vm.handleEditTransport(transport)">
                 <i class="fa fa-pencil-square-o"></i>
               </a>
@@ -187,7 +187,7 @@
             <th colspan="2" class="text-center">出張旅費</th>
             <th rowspan="2" class="text-center">宿泊費</th>
             <th rowspan="2">領収書</th>
-            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTrip()">追加</button>
             </th>
           </tr>
@@ -222,7 +222,7 @@
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
-            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <a ng-click="vm.handleEditTrip(trip)">
                 <i class="fa fa-pencil-square-o"></i>
               </a>
@@ -247,7 +247,7 @@
             <th>目的</th>
             <th class="w50">金額</th>
             <th>領収書</th>
-            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddVehicle()">追加</button>
             </th>
           </tr>
@@ -267,7 +267,7 @@
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
-            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <a ng-click="vm.handleEditVehicle(vehicle)">
                 <i class="fa fa-pencil-square-o"></i>
               </a>
@@ -292,7 +292,7 @@
             <th>勘定科目</th>
             <th class="w50">金額</th>
             <th>領収書</th>
-            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddOther()">追加</button>
             </th>
           </tr>
@@ -312,7 +312,7 @@
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
-            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <a ng-click="vm.handleEditOther(other)">
                 <i class="fa fa-pencil-square-o"></i>
               </a>
@@ -343,7 +343,7 @@
             <th>勘定科目</th>
             <th>種別</th>
             <th>領収書</th>
-            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <button class="btn btn-primary btn-sm" ng-click="vm.handleAddMeeting()">追加</button>
             </th>
           </tr>
@@ -379,7 +379,7 @@
                 <img class="w50 img-thumbnail" src="{{ receipt }}">
               </a>
             </td>
-            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 3">
+            <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
               <a ng-click="vm.handleEditMeeting(meeting)">
                 <i class="fa fa-pencil-square-o"></i>
               </a>
