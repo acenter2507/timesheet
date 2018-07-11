@@ -46,7 +46,7 @@
               <a class="w100p h100p" dropdown-toggle><i class="glyphicon glyphicon-option-vertical"></i></a>
               <ul class="dropdown-menu dropdown-menu-right" role="menu">
                 <!-- Review payments -->
-                <li><a ui-sref="admin.payments.reviews({ user: member._id })"><i class="fa fa-jpy"></i> 清算表確認</a></li>
+                <li><a ui-sref="admin.payments.reviews({ user: member._id, status: 1 })"><i class="fa fa-jpy"></i> 清算表確認</a></li>
                 <!-- Change status to retired -->
                 <li ng-show="vm.user.status === 1"><a ng-click="vm.handleRetired()"><i class="fa fa-hand-paper-o"></i> 退職済み</a></li>
                 <!-- Change status to working -->
