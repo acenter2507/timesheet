@@ -25,7 +25,7 @@
             <tr>
               <th class="text-center w50">操作</th>
               <th>月</th>
-              <th class="text-center w100">状態</th>
+              <th class="text-center w150">状態</th>
               <th class="d-sm-down-none w150 text-center">合計</th>
             </tr>
           </thead>
@@ -65,7 +65,7 @@
                 </div>
               </td>
               <td>{{ item.index + '月'}}</td>
-              <td class="text-center w100">
+              <td class="text-center w150">
                 <span ng-show="item.payment">{{ item.payment.status | StatusFilter }}</span>
               </td>
               <td class="d-sm-down-none w150 text-center">
