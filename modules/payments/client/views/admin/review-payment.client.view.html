@@ -137,7 +137,7 @@
       </table>
     </div>
     <!-- 交通費 -->
-    <div class="col-xs-12">
+    <div class="col-xs-12" ng-if="vm.payment.transports.length > 0">
       <h4>交通費</h4>
       <table class="table table-bordered" id="transport">
         <thead>
@@ -159,9 +159,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-if="vm.payment.transports.length === 0">
-            <td colspan="10">交通費が登録されません！</td>
-          </tr>
           <tr ng-repeat="transport in vm.payment.transports">
             <td class="text-center w30">{{ $index + 1 }}</td>
             <td>{{ transport.date | LL }} {{ transport.date | dddd }}</td>
@@ -188,7 +185,7 @@
       <hr class="mgn">
     </div>
     <!-- 出張旅費 -->
-    <div class="col-xs-12">
+    <div class="col-xs-12" ng-if="vm.payment.trips.length > 0">
       <h4>出張旅費</h4>
       <table class="table table-bordered">
         <thead>
@@ -210,9 +207,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-if="vm.payment.trips.length === 0">
-            <td colspan="10">出張旅費が登録されません！</td>
-          </tr>
           <tr ng-repeat="trip in vm.payment.trips track by $index">
             <td class="text-center w30">{{ $index + 1 }}</td>
             <td>{{ trip.date | LL }} {{ trip.date | dddd }}</td>
@@ -239,7 +233,7 @@
       <hr class="mgn">
     </div>
     <!-- 車両燃料費 -->
-    <div class="col-xs-12">
+    <div class="col-xs-12" ng-if="vm.payment.vehicles.length > 0">
       <h4>車両燃料費</h4>
       <table class="table table-bordered" id="vehicle">
         <thead>
@@ -253,9 +247,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-if="vm.payment.vehicles.length === 0">
-            <td colspan="6">車両燃料費が登録されません！</td>
-          </tr>
           <tr ng-repeat="vehicle in vm.payment.vehicles track by $index">
             <td class="text-center w30">{{ $index + 1 }}</td>
             <td>{{ vehicle.date | LL }} {{ vehicle.date | dddd }}</td>
@@ -273,7 +264,7 @@
       <hr class="mgn">
     </div>
     <!-- その他の費用（備品等） -->
-    <div class="col-xs-12">
+    <div class="col-xs-12" ng-if="vm.payment.others.length > 0">
       <h4>その他の費用（備品等）</h4>
       <table class="table table-bordered" id="other">
         <thead>
@@ -287,9 +278,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-if="vm.payment.others.length === 0">
-            <td colspan="6">その他の費用が登録されません！</td>
-          </tr>
           <tr ng-repeat="other in vm.payment.others track by $index">
             <td class="text-center w30">{{ $index + 1 }}</td>
             <td>{{ other.date | LL }} {{ other.date | dddd }}</td>
@@ -307,7 +295,7 @@
       <hr class="mgn">
     </div>
     <!-- 接待交際費 -->
-    <div class="col-xs-12">
+    <div class="col-xs-12" ng-if="vm.payment.meetings.length > 0">
       <h4>会議費 ･接待交際費報告書</h4>
       <table class="table table-bordered" id="meeting">
         <thead>
@@ -327,9 +315,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-if="vm.payment.meetings.length === 0">
-            <td colspan="12">接待交際費が登録されません！</td>
-          </tr>
           <tr ng-repeat="meeting in vm.payment.meetings track by $index">
             <td class="text-center w30">{{ $index + 1 }}</td>
             <td>{{ meeting.date | LL }} {{ meeting.date | dddd }}</td>
