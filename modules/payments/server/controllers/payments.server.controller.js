@@ -143,7 +143,7 @@ exports.deleteRequest = function (req, res) {
     return res.status(400).send({ message: '清算表の取り消し申請は本人が必要になります！' });
   }
   // Kiểm tra trạng thái của timesheet
-  if (payment.status !== 4) {
+  if (payment.status !== 3) {
     return res.status(400).send({ message: '清算表の状態で取り消し申請できません！' });
   }
   payment.status = 5;
