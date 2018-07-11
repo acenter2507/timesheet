@@ -76,7 +76,6 @@
       });
     };
     vm.handleDeletePayment = function () {
-      if (!item.payment) return;
       $scope.handleShowConfirm({
         message: '清算表を削除しますか？'
       }, function () {
