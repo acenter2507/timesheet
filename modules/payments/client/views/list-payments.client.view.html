@@ -24,7 +24,7 @@
           <thead>
             <tr>
               <th class="text-center w50">操作</th>
-              <th class="text-center w50">月</th>
+              <th>月</th>
               <th class="text-center w100">状態</th>
               <th class="d-sm-down-none w50 text-center">合計</th>
             </tr>
@@ -39,7 +39,7 @@
                     <i class="glyphicon glyphicon-option-horizontal"></i>
                   </a>
 
-                  <ul class="dropdown-menu" role="menu">
+                  <ul class="dropdown-menu dropdown-menu-left" role="menu">
                     <li ng-if="item.payment.status === 1 || item.payment.status === 3">
                       <a ui-sref="payments.edit({ paymentId: payment._id })">編集</a>
                     </li>
@@ -64,7 +64,7 @@
                   </ul>
                 </div>
               </td>
-              <td class="text-center w50">{{ item.index + '月'}}</td>
+              <td>{{ item.index + '月'}}</td>
               <td class="text-center w100">{{ item.payment.status | StatusFilter }}</td>
               <td class="d-sm-down-none w50 text-center">{{ item.payment.total }}</td>
             </tr>
