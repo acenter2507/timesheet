@@ -23,14 +23,6 @@
         data: { roles: ['user'] },
         ncyBreadcrumb: { label: '清算表一覧' }
       })
-      .state('payments.reviews', {
-        url: '/reviews?user?status',
-        templateUrl: 'modules/payments/client/views/reviews-payments.client.view.html',
-        controller: 'PaymentsReviewsController',
-        controllerAs: 'vm',
-        data: { roles: ['accountant', 'admin'] },
-        ncyBreadcrumb: { label: '清算表確認' }
-      })
       .state('payments.edit', {
         url: '/:paymentId/edit',
         templateUrl: 'modules/payments/client/views/payment.client.view.html',
