@@ -108,10 +108,10 @@
           <tr>
             <th class="w50 text-center">操作</th>
             <th>社員名</th>
-            <th>年</th>
-            <th>月</th>
-            <th>合計</th>
-            <th>状態</th>
+            <th class="w50 text-center">年</th>
+            <th class="w50 text-center">月</th>
+            <th class="w50 text-center">合計</th>
+            <th class="w50 text-center">状態</th>
           </tr>
         </thead>
         <tbody>
@@ -148,10 +148,10 @@
               <img class="user-common-avatar-small" src="{{ payment.user.profileImageURL }}">
               <a ng-click="handleViewDetailUser(payment.user)">{{ payment.user.displayName }}</a>
             </td>
-            <td>{{ payment.year }}</td>
-            <td>{{ payment.month }}</td>
-            <td>{{ payment.total }}</td>
-            <td>{{ payment.status | RestStatusFilter}}</td>
+            <td class="w50 text-center">{{ payment.year }}</td>
+            <td class="w50 text-center">{{ payment.month }}</td>
+            <td class="w50 text-center">{{ payment.total }}</td>
+            <td class="w50 text-center">{{ payment.status | RestStatusFilter}}</td>
           </tr>
         </tbody>
       </table>
