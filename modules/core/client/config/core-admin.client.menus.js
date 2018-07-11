@@ -6,7 +6,7 @@ angular.module('core.admin').run(['Menus',
       title: '管理者',
       state: 'admin',
       type: 'dropdown',
-      roles: ['admin', 'accountant']
+      roles: ['admin', 'accountant', 'manager']
     });
   }
 ]);

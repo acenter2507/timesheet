@@ -8,7 +8,7 @@ angular.module('core.admin').config(['$stateProvider',
         abstract: true,
         url: '/admin',
         template: '<ui-view/>',
-        data: { roles: ['admin', 'accountant'] },
+        data: { roles: ['admin', 'accountant', 'manager'] },
         ncyBreadcrumb: { label: '管理者' }
       });
   }

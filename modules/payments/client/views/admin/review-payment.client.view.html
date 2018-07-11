@@ -1,26 +1,395 @@
-<section>
-  <div class="page-header">
-    <h1 ng-bind="vm.payment.name"></h1>
+<div class="container-fluid animated fadeIn">
+    <div class="row">
+      <!-- ツールバー -->
+      <div class="col-xs-12">
+        <div class="form-group text-right">
+          <button class="btn btn-default" ng-click="vm.handlePreviousScreen()">戻る</button>
+          <button class="btn btn-primary" ng-show="vm.payment.status === 1 || vm.payment.status === 4" ng-click="vm.handleRequestPayment()">申請</button>
+          <button class="btn btn-warning" ng-show="vm.payment.status === 2" ng-click="vm.handleCancelPayment()">申請キャンセル</button>
+          <button class="btn btn-danger" ng-show="vm.payment.status === 3" ng-click="vm.handleRequestDeletePayment()">取り消し申請</button>
+          <button class="btn btn-danger" ng-show="vm.payment.status === 1 || vm.payment.status === 4" ng-click="vm.handleDeletePayment()">削除</button>
+          <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
+            {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
+          </button>
+        </div>
+      </div>
+      <!-- 履歴 -->
+      <div class="col-xs-12" ng-show="vm.isShowHistory">
+        <h4>変更履歴</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="thead-default">
+              <tr>
+                <th class="w30 text-center">#</th>
+                <th>日付</th>
+                <th>操作</th>
+                <th>操作者</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="history in vm.payment.historys">
+                <td class="w30 text-center">{{ $index + 1 }}</td>
+                <td>{{ history.timing | LLLL }}</td>
+                <td>{{ history.action | ActionFilter }}</td>
+                <td>
+                  <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- 合計 -->
+      <div class="col-xs-12">
+        <h4>合計額記入欄</h4>
+        <table class="table table-bordered">
+          <tr>
+            <th>
+              <a href="#transport">旅費交通費</a>
+            </th>
+            <th>
+              <a href="#vehicle">車両費</a>
+            </th>
+            <th>
+              <a href="#other">通信費</a>
+            </th>
+            <th>
+              <a href="#other">発送配達費</a>
+            </th>
+            <th>
+              <a href="#other">備品消耗品費</a>
+            </th>
+            <th>
+              <a href="#other">図書研究費</a>
+            </th>
+            <th>
+              <a href="#other">事務用品費</a>
+            </th>
+            <th>
+              <a href="#meeting">会議費</a>
+            </th>
+          </tr>
+          <tr>
+            <td>￥{{ vm.payment.transport_fee }}</td>
+            <td>￥{{ vm.payment.vehicle_fee }}</td>
+            <td>￥{{ vm.payment.communicate_fee }}</td>
+            <td>￥{{ vm.payment.ship_fee }}</td>
+            <td>￥{{ vm.payment.supplie_fee }}</td>
+            <td>￥{{ vm.payment.book_fee }}</td>
+            <td>￥{{ vm.payment.office_fee }}</td>
+            <td>￥{{ vm.payment.meeting_fee }}</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="#meeting">接待交際費</a>
+            </th>
+            <th>
+              <a href="#meeting">厚生費</a>
+            </th>
+            <th>
+              <a href="#other">その他①</a>
+            </th>
+            <th>
+              <a href="#other">その他②</a>
+            </th>
+            <th>
+              <a href="#other">その他</a>
+            </th>
+            <th colspan="2">支払総額</th>
+            <th>状態</th>
+          </tr>
+          <tr>
+            <td>￥{{ vm.payment.relax_fee }}</td>
+            <td>￥{{ vm.payment.welfare_fee }}</td>
+            <td>￥{{ vm.payment.other1_fee }}</td>
+            <td>￥{{ vm.payment.other2_fee }}</td>
+            <td>￥{{ vm.payment.other_fee }}</td>
+            <td colspan="2">
+              <strong>￥{{ vm.payment.total }}</strong>
+            </td>
+            <td>{{ vm.payment.status | StatusFilter }}</td>
+          </tr>
+        </table>
+      </div>
+      <!-- 交通費 -->
+      <div class="col-xs-12">
+        <h4>交通費</h4>
+        <table class="table table-bordered" id="transport">
+          <thead>
+            <tr>
+              <th rowspan="2" class="text-center w30">#</th>
+              <th rowspan="2">日付</th>
+              <th rowspan="2">顧客名・事業内容</th>
+              <th colspan="2" class="text-center">経路</th>
+              <th rowspan="2" class="w50 text-center">往復</th>
+              <th rowspan="2">手段</th>
+              <th colspan="2" class="text-center">交通費</th>
+              <th rowspan="2">領収書</th>
+              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTransport()">追加</button>
+              </th>
+            </tr>
+            <tr>
+              <th>起点</th>
+              <th>終点</th>
+              <th class="text-center">TAXI以外</th>
+              <th class="text-center">TAXI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-if="vm.payment.transports.length === 0">
+              <td colspan="11">交通費が登録されません！</td>
+            </tr>
+            <tr ng-repeat="transport in vm.payment.transports">
+              <td class="text-center w30">{{ $index + 1 }}</td>
+              <td>{{ transport.date | LL }} {{ transport.date | dddd }}</td>
+              <td>{{ transport.content }}</td>
+              <td>{{ transport.start }}</td>
+              <td>{{ transport.end }}</td>
+              <td class="w50 text-center">
+                <input type="checkbox" ng-checked="{{ transport.round }}">
+              </td>
+              <td>
+                <p class="mgn">{{ transport.method | TransportMethod }}</p>
+                <p class="mgn" ng-show="transport.method === 0">{{ transport.method_other }}</p>
+              </td>
+              <td class="text-center">{{ transport.fee }}</td>
+              <td class="text-center">{{ transport.taxi_fee }}</td>
+              <td>
+                <a ng-repeat="receipt in transport.receipts" ng-click="handleShowImage(receipt)">
+                  <img class="w50 img-thumbnail" src="{{ receipt }}">
+                </a>
+              </td>
+              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <a ng-click="vm.handleEditTransport(transport)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </a>
+                <a class="mg5l" ng-click="vm.handleRemoveTransport(transport)">
+                  <i class="fa fa-trash-o"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="mgn">
+      </div>
+      <!-- 出張旅費 -->
+      <div class="col-xs-12">
+        <h4>出張旅費</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th rowspan="2" class="text-center w30">#</th>
+              <th rowspan="2">日付</th>
+              <th rowspan="2">顧客名・事業内容</th>
+              <th colspan="2" class="text-center">経路</th>
+              <th rowspan="2" class="text-center w50">往復</th>
+              <th colspan="2" class="text-center">出張旅費</th>
+              <th rowspan="2" class="text-center">宿泊費</th>
+              <th rowspan="2">領収書</th>
+              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddTrip()">追加</button>
+              </th>
+            </tr>
+            <tr>
+              <th>起点</th>
+              <th>終点</th>
+              <th>摘要</th>
+              <th class="w50">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-if="vm.payment.trips.length === 0">
+              <td colspan="11">出張旅費が登録されません！</td>
+            </tr>
+            <tr ng-repeat="trip in vm.payment.trips track by $index">
+              <td class="text-center w30">{{ $index + 1 }}</td>
+              <td>{{ trip.date | LL }} {{ trip.date | dddd }}</td>
+              <td>{{ trip.content }}</td>
+              <td>{{ trip.start }}</td>
+              <td>{{ trip.end }}</td>
+              <td class="text-center">
+                <input type="checkbox" ng-checked="{{ trip.round }}">
+              </td>
+              <td>
+                <p class="mgn">{{ trip.method | TripMethod }}</p>
+                <p class="mgn" ng-show="trip.method === 0">{{ trip.method_other }}</p>
+              </td>
+              <td class="text-center w50">{{ trip.fee }}</td>
+              <td class="text-center">{{ trip.stay_fee }}</td>
+              <td>
+                <a ng-repeat="receipt in trip.receipts" ng-click="handleShowImage(receipt)">
+                  <img class="w50 img-thumbnail" src="{{ receipt }}">
+                </a>
+              </td>
+              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <a ng-click="vm.handleEditTrip(trip)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </a>
+                <a class="mg5l" ng-click="vm.handleRemoveTrip(trip)">
+                  <i class="fa fa-trash-o"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="mgn">
+      </div>
+      <!-- 車両燃料費 -->
+      <div class="col-xs-12">
+        <h4>車両燃料費</h4>
+        <table class="table table-bordered" id="vehicle">
+          <thead>
+            <tr>
+              <th class="text-center w30">#</th>
+              <th>日付</th>
+              <th>摘要</th>
+              <th>目的</th>
+              <th class="w50">金額</th>
+              <th>領収書</th>
+              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddVehicle()">追加</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-if="vm.payment.vehicles.length === 0">
+              <td colspan="7">車両燃料費が登録されません！</td>
+            </tr>
+            <tr ng-repeat="vehicle in vm.payment.vehicles track by $index">
+              <td class="text-center w30">{{ $index + 1 }}</td>
+              <td>{{ vehicle.date | LL }} {{ vehicle.date | dddd }}</td>
+              <td>{{ vehicle.content }}</td>
+              <td>{{ vehicle.purpose }}</td>
+              <td class="w50">{{ vehicle.fee }}</td>
+              <td>
+                <a ng-repeat="receipt in vehicle.receipts" ng-click="handleShowImage(receipt)">
+                  <img class="w50 img-thumbnail" src="{{ receipt }}">
+                </a>
+              </td>
+              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <a ng-click="vm.handleEditVehicle(vehicle)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </a>
+                <a class="mg5l" ng-click="vm.handleRemoveVehicle(vehicle)">
+                  <i class="fa fa-trash-o"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="mgn">
+      </div>
+      <!-- その他の費用（備品等） -->
+      <div class="col-xs-12">
+        <h4>その他の費用（備品等）</h4>
+        <table class="table table-bordered" id="other">
+          <thead>
+            <tr>
+              <th class="text-center w30">#</th>
+              <th>日付</th>
+              <th>摘要</th>
+              <th>勘定科目</th>
+              <th class="w50">金額</th>
+              <th>領収書</th>
+              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddOther()">追加</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-if="vm.payment.others.length === 0">
+              <td colspan="7">その他の費用が登録されません！</td>
+            </tr>
+            <tr ng-repeat="other in vm.payment.others track by $index">
+              <td class="text-center w30">{{ $index + 1 }}</td>
+              <td>{{ other.date | LL }} {{ other.date | dddd }}</td>
+              <td>{{ other.content }}</td>
+              <td>{{ other.kind | OtherKind }}</td>
+              <td class="w50">{{ other.fee }}</td>
+              <td>
+                <a ng-repeat="receipt in other.receipts" ng-click="handleShowImage(receipt)">
+                  <img class="w50 img-thumbnail" src="{{ receipt }}">
+                </a>
+              </td>
+              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <a ng-click="vm.handleEditOther(other)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </a>
+                <a class="mg5l" ng-click="vm.handleRemoveOther(other)">
+                  <i class="fa fa-trash-o"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="mgn">
+      </div>
+      <!-- 接待交際費 -->
+      <div class="col-xs-12">
+        <h4>会議費 ･接待交際費報告書</h4>
+        <table class="table table-bordered" id="meeting">
+          <thead>
+            <tr>
+              <th class="text-center w30">#</th>
+              <th>日付</th>
+              <th>顧客名・事業内容</th>
+              <th>場所</th>
+              <th>顧客氏名</th>
+              <th>社員氏名</th>
+              <th class="w50">人数合計</th>
+              <th class="w50">使用金額</th>
+              <th class="w50">1人当たり</th>
+              <th>勘定科目</th>
+              <th>種別</th>
+              <th>領収書</th>
+              <th rowspan="2" class="text-center w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <button class="btn btn-primary btn-sm" ng-click="vm.handleAddMeeting()">追加</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-if="vm.payment.meetings.length === 0">
+              <td colspan="13">接待交際費が登録されません！</td>
+            </tr>
+            <tr ng-repeat="meeting in vm.payment.meetings track by $index">
+              <td class="text-center w30">{{ $index + 1 }}</td>
+              <td>{{ meeting.date | LL }} {{ meeting.date | dddd }}</td>
+              <td>{{ meeting.content }}</td>
+              <td>{{ meeting.location }}</td>
+              <td>
+                <p ng-repeat="partner in meeting.partners">{{ partner.name }}</p>
+              </td>
+              <td>
+                <p ng-repeat="employee in meeting.employees">{{ employee.name }}</p>
+              </td>
+              <td class="w50">{{ meeting.total }}</td>
+              <td class="w50">{{ meeting.fee }}</td>
+              <td class="w50">{{ meeting.amount }}</td>
+              <td>
+                <p class="mgn">{{ meeting.account | MeetingAccount }}</p>
+                <p class="mgn" ng-show="meeting.account === 0">{{ meeting.account_method }}</p>
+              </td>
+              <td>
+                <p class="mgn">{{ meeting.kind | MeetingKind }}</p>
+                <p class="mgn" ng-show="meeting.kind === 0">{{ meeting.kind_other }}</p>
+              </td>
+              <td>
+                <a ng-repeat="receipt in meeting.receipts" ng-click="handleShowImage(receipt)">
+                  <img class="w50 img-thumbnail" src="{{ receipt }}">
+                </a>
+              </td>
+              <td class="w50" ng-if="vm.payment.status === 1 || vm.payment.status === 4">
+                <a ng-click="vm.handleEditMeeting(meeting)">
+                  <i class="fa fa-pencil-square-o"></i>
+                </a>
+                <a class="mg5l" ng-click="vm.handleRemoveMeeting(meeting)">
+                  <i class="fa fa-trash-o"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="pull-right"
-       ng-show="vm.payment.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="payments.edit({ paymentId: vm.payment._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.payment.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.payment.user"
-            ng-bind="vm.payment.user.displayName"></span>
-      <span ng-if="!vm.payment.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.payment.content"></p>
-</section>
