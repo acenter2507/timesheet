@@ -28,8 +28,12 @@ exports.reviews = function (req, res) {
   if (condition.roles && condition.roles.length > 0) {
     and_arr.push({ roles: condition.roles });
   }
-  if (condition.user) {
-    and_arr.push({ user: condition.user });
+
+  if (condition.users) {
+    var userIds = _.pluck(condistion.users, '_id');
+    if (userIds.length > 0) {
+      and_arr.push({ user: { $in: userIds } });
+    }
   }
 
   if (and_arr.length > 0) {
