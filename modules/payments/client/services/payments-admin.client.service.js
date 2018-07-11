@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('admin.payments')
+    .module('payments.admin')
     .factory('PaymentsAdminApi', PaymentsAdminApi);
 
   PaymentsAdminApi.$inject = ['$http'];
