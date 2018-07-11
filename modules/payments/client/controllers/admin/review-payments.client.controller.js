@@ -15,7 +15,8 @@
     'PaymentsAdminApi',
     'DepartmentsService',
     'AdminUserService',
-    'AdminUserApi'
+    'AdminUserApi',
+    '$q'
   ];
 
   function PaymentsReviewController(
@@ -27,7 +28,8 @@
     PaymentsAdminApi,
     DepartmentsService,
     AdminUserService,
-    AdminUserApi
+    AdminUserApi,
+    $q
   ) {
     var vm = this;
     vm.payments = [];
