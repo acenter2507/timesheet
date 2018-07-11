@@ -16,7 +16,9 @@
               <td>
                 <span class="text-h4">{{ vm.payment.user.displayName }}</span>
               </td>
-              <td>{{ vm.payment.department.name }}</td>
+              <td>
+                <span ng-show="vm.payment.department">{{ vm.payment.department.name }}</span>
+              </td>
               <td>{{ vm.payment.year + '年' + vm.payment.month + '月' }}</td>
             </tr>
           </tbody>
