@@ -18,6 +18,7 @@
               </td>
               <td>
                 <span ng-show="vm.payment.department">{{ vm.payment.department.name }}</span>
+                <span ng-show="!vm.payment.department">未設定</span>
               </td>
               <td>{{ vm.payment.year + '年' + vm.payment.month + '月' }}</td>
             </tr>
