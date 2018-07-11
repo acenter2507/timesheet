@@ -20,6 +20,7 @@
     function preparePayment() {
       if (PaymentFactory.payment) {
         vm.payment = PaymentFactory.payment;
+        PaymentFactory.delete();
       } else {
         PaymentsService.get({
           paymentId: $stateParams.paymentId
