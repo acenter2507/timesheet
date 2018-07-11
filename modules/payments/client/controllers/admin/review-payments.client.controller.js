@@ -124,8 +124,8 @@
         message: 'この清算表を承認しますか？'
       }, function () {
         PaymentsAdminApi.approve(payment._id)
-          .success(function (data) {
-            _.extend(workrest, data);
+          .success(function (_payment) {
+            _.extend(payment, _payment);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
@@ -137,8 +137,8 @@
         message: 'この清算表を拒否しますか？'
       }, function () {
         PaymentsAdminApi.reject(payment._id)
-          .success(function (data) {
-            _.extend(workrest, data);
+          .success(function (_payment) {
+            _.extend(payment, _payment);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
