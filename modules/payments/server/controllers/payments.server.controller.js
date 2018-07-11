@@ -15,7 +15,7 @@ exports.create = function (req, res) {
   var payment = new Payment(req.body);
   payment.user = req.user;
 
-  payment.historys.push({ action: 3, timing: new Date(), user: req.user._id });
+  payment.historys.push({ action: 1, timing: new Date(), user: req.user._id });
   payment.save(function (err) {
     if (err)
       return res.status(400).send({ message: '清算表を保存できません！' });
@@ -25,18 +25,15 @@ exports.create = function (req, res) {
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var payment = req.payment ? req.payment.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   payment.isCurrentUserOwner = req.user && payment.user && payment.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(payment);
+  return res.jsonp(payment);
 };
 exports.update = function (req, res) {
   var payment = req.payment;
 
   payment = _.extend(payment, req.body);
-
+  payment.historys.push({ action: 2, timing: new Date(), user: req.user._id });
   payment.save(function (err) {
     if (err)
       return res.status(400).send({ message: '清算表を保存できません！' });
@@ -47,25 +44,20 @@ exports.delete = function (req, res) {
   var payment = req.payment;
 
   payment.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: '清算表を削除できません！'
-      });
-    } else {
-      res.jsonp(payment);
-    }
+    if (err)
+      return res.status(400).send({ message: '清算表を削除できません！' });
+    return res.jsonp(payment);
   });
 };
 exports.list = function (req, res) {
-  Payment.find().sort('-created').populate('user', 'displayName').exec(function (err, payments) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(payments);
-    }
-  });
+  Payment.find().sort('-created')
+    .populate('user', 'displayName').exec(function (err, payments) {
+      if (err)
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      return res.jsonp(payments);
+    });
 };
 exports.paymentsByYear = function (req, res) {
   var year = req.body.year;
