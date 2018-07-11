@@ -103,7 +103,7 @@
   <!-- 清算検索結果 -->
   <div class="row mg10t">
     <div class="col-xs-12">
-      <table class="table table-bordered">
+      <table class="table table-bordered table-striped">
         <thead>
           <tr>
             <th class="w50 text-center">操作</th>
@@ -166,12 +166,11 @@
   <!-- 履歴 -->
   <div class="row mg10t" ng-show="vm.isShowHistory">
     <div class="col-xs-12">
-      <div class="form-group">
-        <button class="btn btn-warning btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
-        <div class="clearfix"></div>
+      <div class="form-group text-right">
+        <button class="btn btn-warning btn-sm" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
       </div>
-      <div class="table-responsive" id="months-list-historys">
-        <table class="table table-bordered">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
           <thead class="thead-default">
             <tr>
               <th>日付</th>
