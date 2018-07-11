@@ -75,6 +75,17 @@
           });
       });
     };
+    vm.handleDeletePayment = function () {
+      if (!item.payment) return;
+      $scope.handleShowConfirm({
+        message: '清算表を削除しますか？'
+      }, function () {
+        var rsPayment = new PaymentsService({ _id: vm.payment._id });
+        rsPayment.$remove(function () {
+          handlePreviousScreen();
+        });
+      });
+    };
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
       var state = $state.previous.state.name || 'payments.list';
