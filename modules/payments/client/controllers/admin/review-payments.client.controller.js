@@ -38,7 +38,7 @@
 
     vm.busy = false;
     vm.page = 1;
-    vm.pages = [];
+    vm.pages = 0;
     vm.total = 0;
     vm.historys = [];
 
