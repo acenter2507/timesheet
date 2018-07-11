@@ -157,11 +157,13 @@
         </tbody>
       </table>
       <!-- Pagination -->
-      <ul class="pagination mg10y" ng-show="vm.pages.length > 1">
+      <pagination total-items="vm.total" ng-model="vm.page" max-size="5" boundary-links="true" rotate="false" num-pages="numPages" ng-change="vm.handlePageChanged()"></pagination>
+
+      <!-- <ul class="pagination mg10y" ng-show="vm.pages.length > 1">
         <li ng-repeat="page in vm.pages" ng-class="{'active': page === vm.page}">
           <a ng-click="vm.handlePageChanged(page)">{{page}}</a>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
   <!-- 履歴 -->

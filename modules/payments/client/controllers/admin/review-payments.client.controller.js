@@ -52,7 +52,7 @@
     function prepareCondition() {
       vm.condition = {
         sort: '-created',
-        limit: 10,
+        limit: 5,
         users: []
       };
       vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
@@ -91,8 +91,7 @@
       vm.page = 1;
       handleSearch();
     };
-    vm.handlePageChanged = function (page) {
-      vm.page = page;
+    vm.handlePageChanged = function () {
       handleSearch();
     };
     vm.handleClearCondition = function () {
