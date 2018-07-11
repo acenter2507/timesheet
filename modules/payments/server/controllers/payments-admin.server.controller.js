@@ -70,7 +70,18 @@ exports.approve = function (req, res) {
   payment.save((err, payment) => {
     if (err)
       return res.status(400).send({ message: '承認処理が完了できません。' });
-    return res.jsonp(payment);
+    Payment.findById(payment._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL')
+      .exec(function (err, payment) {
+        if (err)
+          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+        return res.jsonp(payment);
+      });
   });
 };
 exports.reject = function (req, res) {
@@ -85,6 +96,17 @@ exports.reject = function (req, res) {
   payment.save((err, payment) => {
     if (err)
       return res.status(400).send({ message: '拒否処理が完了できません。' });
-    return res.jsonp(payment);
+    Payment.findById(payment._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL')
+      .exec(function (err, payment) {
+        if (err)
+          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+        return res.jsonp(payment);
+      });
   });
 };
