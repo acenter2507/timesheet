@@ -14,7 +14,7 @@
       save: { method: 'POST', ignoreLoadingBar: true },
       get: { method: 'GET', ignoreLoadingBar: true },
       update: { method: 'PUT', ignoreLoadingBar: true },
-      remove: { ignoreLoadingBar: true },
+      remove: { method: 'DELETE', ignoreLoadingBar: true },
       query: { isArray: true, ignoreLoadingBar: true }
     });
   }
