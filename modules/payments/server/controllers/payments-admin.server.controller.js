@@ -14,6 +14,7 @@ var path = require('path'),
 exports.reviews = function (req, res) {
   var page = req.body.page || 1;
   var condition = req.body.condition || {};
+  console.log(condition);
   var query = {};
   var and_arr = [];
   if (condition.year) {

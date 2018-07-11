@@ -86,8 +86,9 @@
         });
     }
     vm.handleStartSearch = function () {
-      vm.page = 1;
-      handleSearch();
+      console.log(vm.condition);
+      // vm.page = 1;
+      // handleSearch();
     };
     vm.handlePageChanged = function (page) {
       vm.page = page;
