@@ -173,6 +173,7 @@
         <table class="table table-bordered table-striped">
           <thead class="thead-default">
             <tr>
+              <th class="w30 text-center">日付</th>
               <th>日付</th>
               <th>操作</th>
               <th>操作者</th>
@@ -180,8 +181,9 @@
           </thead>
           <tbody>
             <tr ng-repeat="history in vm.historys">
-              <td>{{history.timing | LLLL}}</td>
-              <td>{{history.action | ActionFilter}}</td>
+              <td class="w30 text-center">{{ $index + 1 }}</td>
+              <td>{{ history.timing | LLLL }}</td>
+              <td>{{ history.action | ActionFilter }}</td>
               <td>
                 <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
               </td>
