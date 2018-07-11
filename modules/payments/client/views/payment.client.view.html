@@ -25,7 +25,7 @@
         <tbody>
           <tr ng-repeat="history in vm.payment.historys">
             <td>{{history.timing | LLLL}}</td>
-            <td>{{history.action | RestActionFilter}}</td>
+            <td>{{history.action | ActionFilter}}</td>
             <td>
               <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
             </td>
@@ -99,7 +99,7 @@
           <td>￥{{ vm.payment.other2_fee }}</td>
           <td>￥{{ vm.payment.other_fee }}</td>
           <td colspan="2"><strong>￥{{ vm.payment.total }}</strong></td>
-          <td>{{ vm.payment.status | PaymentStatus }}</td>
+          <td>{{ vm.payment.status | StatusFilter }}</td>
         </tr>
       </table>
     </div>

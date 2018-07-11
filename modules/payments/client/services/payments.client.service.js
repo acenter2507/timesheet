@@ -29,9 +29,6 @@
     this.cancel = function (paymentId) {
       return $http.post('/api/payments/' + paymentId + '/cancel', null, { ignoreLoadingBar: true });
     };
-    this.historys = function (paymentId) {
-      return $http.post('/api/payments/' + paymentId + '/historys', null, { ignoreLoadingBar: true });
-    };
     return this;
   }
 }());

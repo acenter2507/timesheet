@@ -151,7 +151,7 @@
             <td class="w50 text-center">{{ payment.year }}</td>
             <td class="w50 text-center">{{ payment.month }}</td>
             <td class="w100 text-center">￥{{ payment.total }}</td>
-            <td class="w100 text-center">{{ payment.status | RestStatusFilter}}</td>
+            <td class="w100 text-center">{{ payment.status | StatusFilter}}</td>
           </tr>
         </tbody>
       </table>
@@ -164,13 +164,13 @@
     </div>
   </div>
   <!-- 履歴 -->
-  <div class="row mg10t">
+  <div class="row mg10t" ng-show="vm.isShowHistory">
     <div class="col-xs-12">
       <div class="form-group">
-        <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
+        <button class="btn btn-warning btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
         <div class="clearfix"></div>
       </div>
-      <div class="table-responsive" id="months-list-historys" ng-show="vm.isShowHistory">
+      <div class="table-responsive" id="months-list-historys">
         <table class="table table-bordered">
           <thead class="thead-default">
             <tr>
@@ -183,7 +183,7 @@
           <tbody>
             <tr ng-repeat="history in vm.historys">
               <td>{{history.timing | LLLL}}</td>
-              <td>{{history.action | RestActionFilter}}</td>
+              <td>{{history.action | ActionFilter}}</td>
               <td>
                 <span ng-bind-html="history.comment | nl2br"></span>
               </td>

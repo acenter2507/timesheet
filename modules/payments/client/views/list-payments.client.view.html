@@ -31,11 +31,11 @@
             <tr ng-repeat="item in vm.payments">
               <td class="text-center">{{ item.index + '月'}}</td>
               <td class="text-center">
-                <span class="label label-default" ng-if="!item.payment">{{ item.payment.status | PaymentStatus }}</span>
-                <!-- <span class="label label-primary" ng-if="item.payment.status === 1">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
-                <span class="label badge-warning" ng-if="item.payment.status === 2">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
-                <span class="label badge-success" ng-if="item.payment.status === 3">{{ item.workmonth.status | WorkmonthStatusFilter}}</span>
-                <span class="label badge-danger" ng-if="item.payment.status === 4">{{ item.workmonth.status | WorkmonthStatusFilter}}</span> -->
+                <span class="label label-default" ng-if="!item.payment">{{ item.payment.status | StatusFilter }}</span>
+                <!-- <span class="label label-primary" ng-if="item.payment.status === 1">{{ item.workmonth.status | StatusFilter}}</span>
+                <span class="label badge-warning" ng-if="item.payment.status === 2">{{ item.workmonth.status | StatusFilter}}</span>
+                <span class="label badge-success" ng-if="item.payment.status === 3">{{ item.workmonth.status | StatusFilter}}</span>
+                <span class="label badge-danger" ng-if="item.payment.status === 4">{{ item.workmonth.status | StatusFilter}}</span> -->
               </td>
               <td class="d-sm-down-none">{{item.payment.total}}</td>
               <td>
@@ -71,7 +71,7 @@
           <tbody>
             <tr ng-repeat="history in vm.historys">
               <td>{{history.timing | LLLL}}</td>
-              <td>{{history.action | RestActionFilter}}</td>
+              <td>{{history.action | ActionFilter}}</td>
               <td>
                 <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
               </td>

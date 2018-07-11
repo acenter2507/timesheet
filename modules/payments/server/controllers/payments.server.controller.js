@@ -15,6 +15,7 @@ exports.create = function (req, res) {
   var payment = new Payment(req.body);
   payment.user = req.user;
 
+  payment.historys.push({ action: 3, timing: new Date(), user: req.user._id });
   payment.save(function (err) {
     if (err)
       return res.status(400).send({ message: '清算表を保存できません！' });
@@ -122,16 +123,6 @@ exports.cancel = function (req, res) {
   });
 };
 exports.receipts = function (req, res) {
-  var upload = multer(config.uploads.paymentReceipts).single('paymentReceipts');
-  var filter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
-  upload.fileFilter = filter;
-  upload(req, res, function (uploadError) {
-    if (uploadError) return res.status(400).send({ message: '画像をアップロードできません。' });
-    var imageUrl = config.uploads.paymentReceipts.dest + req.file.filename;
-    return res.jsonp(imageUrl);
-  });
-};
-exports.historys = function (req, res) {
   var upload = multer(config.uploads.paymentReceipts).single('paymentReceipts');
   var filter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
   upload.fileFilter = filter;

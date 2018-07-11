@@ -2,10 +2,10 @@
   'use strict';
 
   angular
-    .module('workmonths')
-    .filter('WorkmonthStatusFilter', WorkmonthStatusFilter);
+    .module('core')
+    .filter('StatusFilter', StatusFilter);
 
-  function WorkmonthStatusFilter() {
+  function StatusFilter() {
     return function (status) {
       switch (status) {
         case 1:
@@ -16,6 +16,10 @@
           return '承認';
         case 4:
           return '拒否';
+        case 5:
+          return '取り消し申請中';
+        case 6:
+          return '完了';
         default:
           return '不明';
       }

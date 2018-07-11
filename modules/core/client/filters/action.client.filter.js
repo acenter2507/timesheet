@@ -2,12 +2,12 @@
   'use strict';
 
   angular
-    .module('workrests')
-    .filter('RestActionFilter', RestActionFilter);
+    .module('core')
+    .filter('ActionFilter', ActionFilter);
 
-  function RestActionFilter() {
-    return function (status) {
-      switch (status) {
+  function ActionFilter() {
+    return function (action) {
+      switch (action) {
         case 1:
           return '作成';
         case 2:
