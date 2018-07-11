@@ -149,7 +149,7 @@
       $scope.handleShowConfirm({
         message: '清算表を削除しますか？'
       }, function () {
-        var rsPayment = new Payment({ _id: payment._id });
+        var rsPayment = new PaymentsService({ _id: payment._id });
         rsPayment.$remove(function () {
           vm.payments = _.without(vm.payments, payment);
         });
