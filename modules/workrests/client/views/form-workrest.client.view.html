@@ -24,7 +24,7 @@
 
         <div class="form-group d-sm-down-none" show-errors>
           <div class="col-xs-6 pdnl">
-            <label for="start">開始</label>
+            <label for="start">開始＊</label>
             <div class="input-group">
               <input name="start" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.new_start" is-open="startDatePickerOpen"
                 min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇開始"
@@ -41,7 +41,7 @@
             </div>
           </div>
           <div class="col-xs-6 pdnr">
-            <label for="end">終了</label>
+            <label for="end">終了＊</label>
             <div class="input-group">
               <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.new_end" is-open="endDatePickerOpen"
                 min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇終了"
@@ -61,7 +61,7 @@
         </div>
         <!-- Range start -->
         <div class="form-group d-md-none" ng-init="startDatePickerOpen = false;" show-errors>
-          <label class="w100p" for="start">開始</label>
+          <label class="w100p" for="start">開始＊</label>
           <div class="input-group">
             <input name="start" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.new_start" is-open="startDatePickerOpen"
               min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇開始"
@@ -79,7 +79,7 @@
         </div>
         <!-- Range end -->
         <div class="form-group d-md-none" ng-init="endDatePickerOpen = false;" show-errors>
-          <label class="w100p" for="end">終了</label>
+          <label class="w100p" for="end">終了＊</label>
           <div class="input-group">
             <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.workrest.new_end" is-open="endDatePickerOpen"
               min-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="休暇終了"
@@ -97,10 +97,10 @@
         </div>
         <!-- Reason -->
         <div class="form-group" show-errors>
-          <label for="description">事由</label>
+          <label for="description">事由＊</label>
           <textarea name="description" class="form-control h100" data-ng-model="vm.workrest.description" required></textarea>
           <div ng-messages="vm.form.restForm.description.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">事由は必須です。</p>
+            <p class="help-block error-text font-sm" ng-message="required">事由は必須です。</p>
           </div>
         </div>
       </form>

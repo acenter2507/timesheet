@@ -21,8 +21,8 @@
         vm.workrest.status = 1;
         vm.workrest.duration = 0;
       } else {
-        vm.workrest.start = moment(vm.workrest.start).format('YYYY/MM/DD');
-        vm.workrest.end = moment(vm.workrest.end).format('YYYY/MM/DD');
+        vm.workrest.new_start = moment(vm.workrest.start).format('YYYY/MM/DD');
+        vm.workrest.new_end = moment(vm.workrest.end).format('YYYY/MM/DD');
       }
       prepareCalendar();
       prepareHodidays();
@@ -40,8 +40,8 @@
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
       vm.calendar.viewDate = (vm.workrest.start) ? moment(vm.workrest.start).startOf('month').toDate() : moment().startOf('month').toDate();
-      vm.tempStart = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start, 'YYYY/MM/DD').format() : vm.workrest.start;
-      vm.tempEnd = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end, 'YYYY/MM/DD').format() : vm.workrest.end;
+      vm.tempStart = (typeof vm.workrest.new_start === 'string') ? moment(vm.workrest.new_start, 'YYYY/MM/DD').format() : vm.workrest.new_start;
+      vm.tempEnd = (typeof vm.workrest.new_end === 'string') ? moment(vm.workrest.new_end, 'YYYY/MM/DD').format() : vm.workrest.new_end;
 
       vm.calendar.cellModifier = function (cell) {
         // cell.cssClass = 'odd-cell';
@@ -70,14 +70,14 @@
       return false;
     };
     vm.handleCalendarRangeSelected = function (start, end) {
-      vm.workrest.start = start;
-      vm.workrest.end = end;
+      vm.workrest.new_start = start;
+      vm.workrest.new_end = end;
       prepareCalendar();
     };
     vm.handleCalendarClicked = function (date) {
       if (DateUtil.isWorkOffDate(date)) return;
-      vm.workrest.start = date;
-      vm.workrest.end = date;
+      vm.workrest.new_start = date;
+      vm.workrest.new_end = date;
       prepareCalendar();
     };
     vm.handleRestRangeChanged = function () {
@@ -90,8 +90,8 @@
         return false;
       }
       // Kiểm tra ngày start ngày kết thúc
-      var start = (typeof vm.workrest.start === 'string') ? moment(vm.workrest.start, 'YYYY/MM/DD') : moment(vm.workrest.start);
-      var end = (typeof vm.workrest.end === 'string') ? moment(vm.workrest.end, 'YYYY/MM/DD') : moment(vm.workrest.end);
+      var start = (typeof vm.workrest.new_start === 'string') ? moment(vm.workrest.new_start, 'YYYY/MM/DD') : moment(vm.workrest.new_start);
+      var end = (typeof vm.workrest.new_end === 'string') ? moment(vm.workrest.new_end, 'YYYY/MM/DD') : moment(vm.workrest.new_end);
       var duration = DateUtil.getWorkDays(start, end);
       if (duration < 0) {
         $scope.handleShowToast('開始日または終了日が間違います。', true);
@@ -117,8 +117,8 @@
       vm.workrest.isPaid = holiday.isPaid;
       vm.workrest.hours = holiday.hours;
 
-      // vm.workrest.start = moment(vm.rest_start).format('YYYY/MM/DD');
-      // vm.workrest.end = moment(vm.rest_end).format('YYYY/MM/DD');
+      vm.workrest.start = vm.workrest.new_start;
+      vm.workrest.end = vm.workrest.new_end;
 
       if (vm.workrest._id) {
         vm.workrest.$update(successCallback, errorCallback);
