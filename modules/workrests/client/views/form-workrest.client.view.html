@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="form-group text-right">
+        <button ng-click="vm.handlePreviousScreen()" class="btn btn-default">キャンセル</button>
         <button ng-click="vm.handleSaveRest(vm.form.restForm.$valid)" class="btn btn-primary">
           <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存</button>
-        <button ng-click="vm.handlePreviousScreen()" class="btn btn-default">キャンセル</button>
       </div>
     </div>
   </div>

@@ -11,6 +11,7 @@
   function WorkrestsController($scope, $state, workrest, CommonService, DateUtil, WorkrestsApi, ngDialog, Socket, $stateParams, Notifications) {
     var vm = this;
     vm.workrest = workrest;
+    vm.isShowHistory = false;
 
     onCreate();
     function onCreate() {
@@ -85,7 +86,7 @@
       };
     }
     // Xóa ngày nghỉ
-    vm.handleDeleteRest = function () {
+    vm.handleDeleteWorkrest = function () {
       $scope.handleShowConfirm({
         message: '休暇登録を削除しますか？'
       }, function () {
@@ -95,7 +96,7 @@
       });
     };
     // Gửi thỉnh cầu cho leader
-    vm.handleSendRequestRest = function () {
+    vm.handleRequestWorkrest = function () {
       $scope.handleShowConfirm({
         message: '休暇を申請しますか？'
       }, function () {
@@ -110,7 +111,7 @@
       });
     };
     // Hủy bỏ thỉnh cầu
-    vm.handleCancelRequestRest = function () {
+    vm.handleCancelRequestWorkrest = function () {
       $scope.handleShowConfirm({
         message: '休暇の申請を取り消しますか？'
       }, function () {
@@ -124,7 +125,7 @@
       });
     };
     // Gửi thỉnh cầu xóa bỏ ngày nghỉ
-    vm.handleSendRequestDelete = function () {
+    vm.handleRequestDelete = function () {
       $scope.handleShowConfirm({
         message: '休暇を取り消す申請を送りますか？'
       }, function () {
@@ -178,5 +179,11 @@
       });
 
     };
+    vm.handlePreviousScreen = handlePreviousScreen;
+    function handlePreviousScreen() {
+      var state = $state.previous.state.name || 'workrests.list';
+      var params = state === 'workrests.list' ? {} : $state.previous.params;
+      $state.go(state, params);
+    }
   }
 }());
