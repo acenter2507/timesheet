@@ -20,7 +20,6 @@
       prepareCalendar();
     }
     function prepareSecurity() {
-      console.log(vm.workrest);
       // 自分の休暇
       if (vm.workrest.isCurrentUserOwner) return;
       // 他人の休暇で自分がリーダじゃない場合
