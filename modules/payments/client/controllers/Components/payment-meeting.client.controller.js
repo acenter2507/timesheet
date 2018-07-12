@@ -165,7 +165,7 @@
         .success(function () {
           vm.meeting.receipts = _.without(vm.meeting.receipts, receipt);
           var meeting = _.findWhere(vm.payment.meetings, { _id: vm.meeting._id });
-          _.extend(meeting, vm.meeting);
+          meeting.receipts = vm.meeting.receipts;
           PaymentFactory.update(payment);
         })
         .error(function (err) {

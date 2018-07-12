@@ -240,7 +240,6 @@ exports.deleteReceipt = function (req, res) {
     return res.end();
   });
 };
-expo
 exports.paymentByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
