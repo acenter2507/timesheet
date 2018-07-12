@@ -217,6 +217,9 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr ng-show="vm.meeting.receipts.length === 0 && vm.uploader.queue.length === 0">
+                    <td colspan="3">領収書がアップロードされていません！</td>
+                  </tr>
                   <tr ng-repeat="receipt in vm.meeting.receipts">
                     <td>
                       <img src="{{ receipt }}" class="receipt-img">
