@@ -184,8 +184,11 @@
     vm.handlePageChanged = function () {
       handleSearch();
     };
-    vm.handleWorkrestClicked = function (calendarEvent) {
+    vm.hanleSelectWorkrestOnCalendar = function (calendarEvent) {
       $state.go('workrests.view', { workrestId: calendarEvent.id });
+    };
+    vm.hanleSelectWorkrest = function (workrest) {
+      $state.go('workrests.view', { workrestId: workrest._id });
     };
     // Xóa bỏ Ngày nghỉ
     vm.handleDeleteWorkrest = function (workrest) {
