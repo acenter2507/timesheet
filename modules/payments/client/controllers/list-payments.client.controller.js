@@ -140,5 +140,9 @@
     vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
     };
+    vm.handleSelectPayment = function (item) {
+      if (!item.payment) return false;
+      $state.go('payments.edit', { paymentId: item.payment._id });
+    };
   }
 }());
