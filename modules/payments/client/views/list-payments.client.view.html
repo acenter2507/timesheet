@@ -30,7 +30,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="item in vm.payments" ng-click="vm.handleSelectPayment(item)">
+            <tr class="clickable" ng-repeat="item in vm.payments" ng-click="vm.handleSelectPayment(item)">
               <td class="text-center w50">
                 <a ng-if="!item.payment" class="btn btn-primary btn-xs inside-clickable" ng-click="vm.handleCreatePayment(item.index)">
                   <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createPaymentBusy"></i> 作成</a>
