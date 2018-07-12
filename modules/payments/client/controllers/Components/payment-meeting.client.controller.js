@@ -151,6 +151,7 @@
       }
     };
     vm.handleDeleteReceipt = function (receipt) {
+      console.log(receipt);
       vm.payment.receipts = _.without(vm.payment.receipts, receipt);
     };
     function handleCalculateMeeting() {
