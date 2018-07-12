@@ -4,10 +4,10 @@
       <div class="form-group text-right">
         <button ng-click="vm.handlePreviousScreen()" class="btn btn-default">戻る</button>
         <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-primary" ng-click="vm.handleRequestWorkrest()">申請</a>
-        <a ng-show="vm.workrest.status === 2" class="btn btn-danger" ng-click="vm.handleCancelWorkrest()">申請キャンセル</a>
-        <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-danger" ng-click="vm.handleDeleteWorkrest()">削除</a>
+        <a ng-show="vm.workrest.status === 2" class="btn btn-warning" ng-click="vm.handleCancelWorkrest()">申請キャンセル</a>
         <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-success" ui-sref="workrests.edit({ workrestId: vm.workrest._id })">編集</a>
-        <a ng-show="vm.workrest.status === 3" class="btn btn-warning" ng-click="vm.handleRequestDelete()">取り消し申請</a>
+        <a ng-show="vm.workrest.status === 3" class="btn btn-danger" ng-click="vm.handleRequestDelete()">取り消し申請</a>
+        <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-danger" ng-click="vm.handleDeleteWorkrest()">削除</a>
         <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
           {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
         </button>
