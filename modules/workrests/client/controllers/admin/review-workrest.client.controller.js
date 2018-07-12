@@ -5,7 +5,7 @@
     .module('workrests.admin')
     .controller('WorkrestReviewController', WorkrestReviewController);
 
-    WorkrestReviewController.$inject = ['$scope', '$state', 'WorkrestsService', 'CommonService', 'DateUtil', 'WorkrestsApi', 'DepartmentsService', 'ngDialog', '$document', '$stateParams', 'Notifications', 'Socket'];
+  WorkrestReviewController.$inject = ['$scope', '$state', 'WorkrestsService', 'CommonService', 'DateUtil', 'WorkrestsApi', 'DepartmentsService', 'ngDialog', '$document', '$stateParams', 'Notifications', 'Socket'];
 
   function WorkrestReviewController($scope, $state, WorkrestsService, CommonService, DateUtil, WorkrestsApi, DepartmentsService, ngDialog, $document, $stateParams, Notifications, Socket) {
     var vm = this;
