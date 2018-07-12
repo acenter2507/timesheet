@@ -9,7 +9,7 @@
   WorkrestsAdminApi.$inject = ['$http'];
   function WorkrestsAdminApi($http) {
     this.reviews = function (condition, page) {
-      return $http.post('/api/workrests/admin/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
+      return $http.post('/api/workrests/admin/reviews', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
     this.approve = function (workrestId) {
       return $http.post('/api/workrests/admin/' + workrestId + '/approve', { ignoreLoadingBar: true });

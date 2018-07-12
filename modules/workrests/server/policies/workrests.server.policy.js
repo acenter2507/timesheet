@@ -13,53 +13,14 @@ acl = new acl(new acl.memoryBackend());
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/workrests',
-      permissions: '*'
-    }, {
-      resources: '/api/workrests/:workrestId',
-      permissions: '*'
-    }, {
-      resources: '/api/workrests/:workrestId/approve',
-      permissions: ['post']
-    }, {
-      resources: '/api/workrests/:workrestId/reject',
-      permissions: ['post']
-    }]
-  }, {
     roles: ['user'],
     allows: [{
       resources: '/api/workrests',
       permissions: ['get', 'post']
-    }, {
-      resources: '/api/workrests/:workrestId',
-      permissions: ['get']
-    }, {
-      resources: '/api/workrests/:workrestId/requestDelete',
-      permissions: ['post']
-    }]
-  }, {
-    roles: ['accountant'],
-    allows: [{
-      resources: '/api/workrests',
-      permissions: '*'
-    }, {
-      resources: '/api/workrests/:workrestId',
-      permissions: '*'
-    }, {
-      resources: '/api/workrests/:workrestId/approve',
-      permissions: ['post']
-    }, {
-      resources: '/api/workrests/:workrestId/reject',
-      permissions: ['post']
     }]
   }, {
     roles: ['manager'],
     allows: [{
-      resources: '/api/workrests',
-      permissions: ['get', 'post']
-    }, {
       resources: '/api/workrests/:workrestId',
       permissions: ['get', 'put']
     }, {
@@ -80,8 +41,10 @@ exports.isAllowed = function (req, res, next) {
 
   if (roles.length === 0)
     return res.status(403).json({ message: 'アクセス権限がありません！' });
-
-  // If an Workrest is being processed and the current user created it then allow any manipulation
+  if (roles.indexOf('admin') >= 0)
+    return next();
+  if (roles.indexOf('accountant') >= 0)
+    return next();
   if (req.workrest && req.user && req.workrest.user && req.workrest.user.id === req.user.id) {
     return next();
   }

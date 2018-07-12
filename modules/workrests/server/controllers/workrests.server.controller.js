@@ -23,15 +23,15 @@ exports.create = function (req, res) {
       workrest.warning = '';
     }
 
-    workrest.historys = [{ action: 1, comment: '', timing: workrest.created, user: workrest.user }];
+    workrest.historys = [{ action: 1, comment: '', timing: new Date(), user: req.user._id }];
     // if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
     //   workrest.status = 3;
     //   workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: workrest.user });
     // }
     // Create search support field
     workrest.search = workrest.user.displayName + '-' + workrest.duration + '-' + workrest.description;
-    if (workrest.user.department) {
-      workrest.department = workrest.user.department._id || workrest.user.department;
+    if (req.user.department) {
+      workrest.department = req.user.department;
     }
     workrest.roles = workrest.user.roles;
     workrest.save((err, workrest) => {

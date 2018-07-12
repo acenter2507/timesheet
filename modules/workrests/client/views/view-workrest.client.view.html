@@ -66,6 +66,14 @@
             </td>
             <td>{{ vm.workrest.status | StatusFilter }}</td>
           </tr>
+          <tr ng-if="vm.workrest.warning">
+            <td>
+              <strong>警告</strong>
+            </td>
+            <td>
+              <span class="text-danger">{{ vm.workrest.warning }}</span>
+            </td>
+          </tr>
         </table>
       </div>
       <!-- History -->
