@@ -20,11 +20,12 @@
       prepareCalendar();
     }
     function prepareSecurity() {
+      console.log(vm.workrest);
       // 自分の休暇
       if (vm.workrest.isCurrentUserOwner) return;
       // 他人の休暇で自分がリーダじゃない場合
       if (!vm.workrest.isCurrentUserOwner && !$scope.isLeader) {
-        $scope.handleShowToast('権限が必要です。', true);
+        $scope.handleShowToast('アクセス権限がありません！', true);
         return $scope.handleBackScreen('home');
       }
       // 休暇の本人のリーダじゃない場合
