@@ -74,16 +74,16 @@
           return;
         }
       };
+      vm.handleCalendarEventClicked = function () {
+        return false;
+      };
+      vm.handleCalendarRangeSelected = function (start, end) {
+        return false;
+      };
+      vm.handleCalendarClicked = function (date) {
+        return false;
+      };
     }
-    vm.handleCalendarEventClicked = function () {
-      return false;
-    };
-    vm.handleCalendarRangeSelected = function (start, end) {
-      return false;
-    };
-    vm.handleCalendarClicked = function (date) {
-      return false;
-    };
     // Xóa ngày nghỉ
     vm.handleDeleteRest = function () {
       $scope.handleShowConfirm({
