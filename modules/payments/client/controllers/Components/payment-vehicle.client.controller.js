@@ -9,12 +9,20 @@
     '$state',
     '$stateParams',
     'FileUploader',
-    'CommonService',
     'PaymentFactory',
-    'PaymentsService'
+    'PaymentsService',
+    'PaymentsApi'
   ];
 
-  function PaymentVehicleController($scope, $state, $stateParams, FileUploader, CommonService, PaymentFactory, PaymentsService) {
+  function PaymentVehicleController(
+    $scope,
+    $state,
+    $stateParams,
+    FileUploader,
+    PaymentFactory,
+    PaymentsService,
+    PaymentsApi
+  ) {
     var vm = this;
     vm.payment = {};
     vm.vehicle = {};

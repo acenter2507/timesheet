@@ -11,11 +11,21 @@
     'FileUploader',
     'CommonService',
     'PaymentFactory',
-    'PaymentsService'
+    'PaymentsService',
+    'PaymentsApi'
   ];
 
 
-  function PaymentTripController($scope, $state, $stateParams, FileUploader, CommonService, PaymentFactory, PaymentsService) {
+  function PaymentTripController(
+    $scope,
+    $state,
+    $stateParams,
+    FileUploader,
+    CommonService,
+    PaymentFactory,
+    PaymentsService,
+    PaymentsApi
+  ) {
     var vm = this;
     vm.payment = {};
     vm.trip = {};
