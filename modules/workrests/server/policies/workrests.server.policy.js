@@ -17,6 +17,9 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/workrests',
       permissions: ['get', 'post']
+    }, {
+      resources: '/api/workrests/list',
+      permissions: ['post']
     }]
   }, {
     roles: ['manager'],

@@ -21,9 +21,6 @@
     // this.getWorkrestsToday = function (date) {
     //   return $http.post('/api/workrests/today', { date: date }, { ignoreLoadingBar: true });
     // };
-    // this.getRestOfCurrentUser = function (condition, page) {
-    //   return $http.post('/api/workrests/owner', { condition: condition, page: page }, { ignoreLoadingBar: true });
-    // };
     // this.getRestOfCurrentUserInRange = function (start, end, userId) {
     //   return $http.post('/api/workrests/owner_in_range', { start: start, end: end, userId: userId }, { ignoreLoadingBar: true });
     // };

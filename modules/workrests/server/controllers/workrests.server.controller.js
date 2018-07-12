@@ -195,72 +195,7 @@ exports.delete = function (req, res) {
     res.jsonp(workrest);
   });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 exports.list = function (req, res) {
-  Workrest.find({ user: req.user._id })
-    .sort('-created')
-    .populate('holiday', 'name isPaid')
-    .exec(function (err, workrests) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(workrests);
-      }
-    });
-};
-
-exports.workrestByID = function (req, res, next, id) {
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({ message: '休暇が見つかりません！' });
-  }
-
-  Workrest.findById(id)
-    .populate('user', 'displayName profileImageURL')
-    .populate('holiday', 'name isPaid')
-    .exec(function (err, workrest) {
-      if (err) {
-        return next(err);
-      } else if (!workrest) {
-        return res.status(404).send({ message: '休暇が見つかりません！' });
-      }
-      req.workrest = workrest;
-      return next();
-    });
-};
-
-exports.getRestOfCurrentUser = function (req, res) {
   var page = req.body.page || 1;
   var condition = req.body.condition || {};
   var query = {};
@@ -300,14 +235,62 @@ exports.getRestOfCurrentUser = function (req, res) {
         ]
       },
     ],
-    limit: 10
-  }).then(function (rests) {
-    res.jsonp(rests);
+    limit: condition.limit
+  }).then(function (workrests) {
+    return res.jsonp(workrests);
   }, err => {
-    return res.status(400).send({
-      message: errorHandler.getErrorMessage(err)
-    });
+    return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
   });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.workrestByID = function (req, res, next, id) {
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({ message: '休暇が見つかりません！' });
+  }
+
+  Workrest.findById(id)
+    .populate('user', 'displayName profileImageURL')
+    .populate('holiday', 'name isPaid')
+    .exec(function (err, workrest) {
+      if (err) {
+        return next(err);
+      } else if (!workrest) {
+        return res.status(404).send({ message: '休暇が見つかりません！' });
+      }
+      req.workrest = workrest;
+      return next();
+    });
 };
 
 exports.getRestOfCurrentUserInRange = function (req, res) {

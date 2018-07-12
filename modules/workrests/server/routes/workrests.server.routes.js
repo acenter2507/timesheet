@@ -9,7 +9,8 @@ var workrestsPolicy = require('../policies/workrests.server.policy'),
 
 module.exports = function(app) {
   // Workrests Routes
-  app.route('/api/workrests/owner').post(workrests.getRestOfCurrentUser);
+  app.route('/api/workrests/list').all(workrestsPolicy.isAllowed).post(workrests.list);
+  
   app.route('/api/workrests/owner_in_range').post(workrests.getRestOfCurrentUserInRange);
   app.route('/api/workrests/today').post(workrests.getWorkrestsToday);
 

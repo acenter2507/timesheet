@@ -5,13 +5,33 @@
     .module('workrests')
     .controller('WorkrestsListController', WorkrestsListController);
 
-  WorkrestsListController.$inject = ['$scope', '$state', 'WorkrestsService', 'CommonService', 'DateUtil', 'WorkrestsApi', '$document', 'Socket', '$stateParams', 'Notifications'];
+  WorkrestsListController.$inject = [
+    '$scope',
+    '$state',
+    'WorkrestsService',
+    'CommonService',
+    'DateUtil',
+    'WorkrestsApi',
+    'Socket',
+    '$stateParams',
+    'Notifications'
+  ];
 
-  function WorkrestsListController($scope, $state, WorkrestsService, CommonService, DateUtil, WorkrestsApi, $document, Socket, $stateParams, Notifications) {
+  function WorkrestsListController(
+    $scope,
+    $state,
+    WorkrestsService,
+    CommonService,
+    DateUtil,
+    WorkrestsApi,
+    Socket,
+    $stateParams,
+    Notifications
+  ) {
     var vm = this;
 
     // Pagination
-    vm.condition = { sort: '-created' };
+    vm.condition = {};
     vm.busy = false;
     vm.page = 1;
     vm.pages = [];
@@ -20,16 +40,21 @@
     // History and other control
     vm.isShowHistory = false;
     vm.historys = [];
-    vm.historyBox = angular.element(document.getElementById('rests-list-historys'));
-    vm.restsBox = angular.element(document.getElementById('rests-list-rests'));
-    vm.toolsBox = angular.element(document.getElementById('rests-list-tools'));
 
     onCreate();
     function onCreate() {
+      prepareCondition();
       prepareNotification();
       prepareCalendar();
       prepareWorkrestAction();
       handleSearch();
+    }
+    function prepareCondition() {
+      vm.condition = {
+        sort: '-created',
+        limit: 10
+      };
+      vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
     }
     function prepareNotification() {
       if ($stateParams.notif) {
@@ -61,6 +86,15 @@
         //   return;
         // }
       };
+      vm.handleCalendarEventClicked = function () {
+        return false;
+      };
+      vm.handleCalendarRangeSelected = function (start, end) {
+        return false;
+      };
+      vm.handleCalendarClicked = function (date) {
+        return false;
+      };
     }
     function prepareWorkrestAction() {
       vm.action = {
@@ -82,19 +116,19 @@
     function prepareCalendarEvent() {
       vm.events = [];
       if (vm.workrests.length === 0) return;
-      vm.workrests.forEach(function (rest) {
+      vm.workrests.forEach(function (workrest) {
         var color;
         var actions = [];
-        switch (rest.status) {
+        switch (workrest.status) {
           case 1: { // Not send
             color = { primary: '#777', secondary: '#e3e3e3' };
-            actions.push(vm.action.remove);
-            actions.push(vm.action.edit);
+            // actions.push(vm.action.remove);
+            // actions.push(vm.action.edit);
             break;
           }
           case 2: { // Waiting
             color = { primary: '#f0ad4e', secondary: '#fae6c9' };
-            actions.push(vm.action.remove);
+            // actions.push(vm.action.remove);
             break;
           }
           case 3: { // Approved
@@ -103,8 +137,8 @@
           }
           case 4: { // Rejected
             color = { primary: '#d9534f', secondary: '#fae3e3' };
-            actions.push(vm.action.remove);
-            actions.push(vm.action.edit);
+            // actions.push(vm.action.remove);
+            // actions.push(vm.action.edit);
             break;
           }
           case 5: { // Done
@@ -113,11 +147,11 @@
           }
         }
         vm.events.push({
-          id: rest._id.toString(),
-          title: rest.holiday.name,
+          id: workrest._id.toString(),
+          title: workrest.holiday.name,
           color: color,
-          startsAt: moment(rest.start).toDate(),
-          endsAt: moment(rest.end).toDate(),
+          startsAt: moment(workrest.start).toDate(),
+          endsAt: moment(workrest.end).toDate(),
           actions: actions
         });
       });
@@ -129,11 +163,12 @@
     function handleSearch() {
       if (vm.busy) return;
       vm.busy = true;
-      WorkrestsApi.getRestOfCurrentUser(vm.condition, vm.page)
+      WorkrestsApi.list(vm.condition, vm.page)
         .success(function (res) {
           vm.workrests = res.docs;
-          vm.pages = CommonService.createArrayFromRange(res.pages);
+          vm.pages = res.pages;
           vm.total = res.total;
+          vm.busy = false;
           prepareCalendar();
           prepareCalendarEvent();
           vm.busy = false;
@@ -144,37 +179,27 @@
         });
     }
     vm.handleClearCondition = function () {
-      vm.condition = { sort: '-created' };
+      prepareCondition();
     };
-    vm.handlePageChanged = function (page) {
-      vm.page = page;
-      vm.handleStartSearch();
+    vm.handlePageChanged = function () {
+      handleSearch();
     };
-    vm.handleCalendarEventClicked = function () {
-      return false;
-    };
-    vm.handleCalendarRangeSelected = function (start, end) {
-      return false;
-    };
-    vm.handleCalendarClicked = function (date) {
-      return false;
-    };
-    vm.handleRestClicked = function (calendarEvent) {
+    vm.handleWorkrestClicked = function (calendarEvent) {
       $state.go('workrests.view', { workrestId: calendarEvent.id });
     };
     // Xóa bỏ Ngày nghỉ
-    vm.handleDeleteRest = function (workrest) {
+    vm.handleDeleteWorkrest = function (workrest) {
       $scope.handleShowConfirm({
         message: '削除しますか？'
       }, function () {
-        var rsRest = new WorkrestsService({ _id: workrest._id });
-        rsRest.$remove(function () {
+        var rsWorkrest = new WorkrestsService({ _id: workrest._id });
+        rsWorkrest.$remove(function () {
           vm.workrests = _.without(vm.workrests, workrest);
         });
       });
     };
     // Gửi thỉnh cầu đến leader
-    vm.handleSendRequestRest = function (workrest) {
+    vm.handleRequestWorkrest = function (workrest) {
       $scope.handleShowConfirm({
         message: '休暇を申請しますか？'
       }, function () {
@@ -189,7 +214,7 @@
       });
     };
     // Hủy bỏ thỉnh cầu
-    vm.handleCancelRequestRest = function (workrest) {
+    vm.handleCancelWorkrest = function (workrest) {
       $scope.handleShowConfirm({
         message: '休暇の申請を取り消しますか？'
       }, function () {
@@ -203,7 +228,7 @@
       });
     };
     // Gửi thỉnh cầu xóa bỏ ngày nghỉ
-    vm.handleSendRequestDelete = function (workrest) {
+    vm.handleRequestDelete = function (workrest) {
       $scope.handleShowConfirm({
         message: '休暇を取り消す申請を送りますか？'
       }, function () {
@@ -217,9 +242,9 @@
           });
       });
     };
-    vm.handleViewHistory = function (rest) {
+    vm.handleViewHistory = function (workrest) {
       vm.isShowHistory = true;
-      vm.historys = rest.historys;
+      vm.historys = workrest.historys;
     };
     vm.handleCloseHistory = function () {
       vm.isShowHistory = false;

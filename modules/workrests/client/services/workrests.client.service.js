@@ -20,23 +20,8 @@
   }
   WorkrestsApi.$inject = ['$http'];
   function WorkrestsApi($http) {
-    this.getWorkrestsToday = function (date) {
-      return $http.post('/api/workrests/today', { date: date }, { ignoreLoadingBar: true });
-    };
-    this.getRestOfCurrentUser = function (condition, page) {
-      return $http.post('/api/workrests/owner', { condition: condition, page: page }, { ignoreLoadingBar: true });
-    };
-    this.getRestOfCurrentUserInRange = function (start, end, userId) {
-      return $http.post('/api/workrests/owner_in_range', { start: start, end: end, userId: userId }, { ignoreLoadingBar: true });
-    };
-    this.getRestReview = function (condition, page) {
-      return $http.post('/api/workrests/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
-    };
-    this.approve = function (workrestId) {
-      return $http.post('/api/workrests/' + workrestId + '/approve', { ignoreLoadingBar: true });
-    };
-    this.reject = function (workrestId, data) {
-      return $http.post('/api/workrests/' + workrestId + '/reject', { data: data }, { ignoreLoadingBar: true });
+    this.list = function (condition, page) {
+      return $http.post('/api/workrests/list', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
     this.request = function (workrestId) {
       return $http.post('/api/workrests/' + workrestId + '/request', null, { ignoreLoadingBar: true });
@@ -46,6 +31,17 @@
     };
     this.requestDelete = function (workrestId) {
       return $http.post('/api/workrests/' + workrestId + '/requestDelete', null, { ignoreLoadingBar: true });
+    };
+
+    
+    this.getWorkrestsToday = function (date) {
+      return $http.post('/api/workrests/today', { date: date }, { ignoreLoadingBar: true });
+    };
+    this.getRestOfCurrentUserInRange = function (start, end, userId) {
+      return $http.post('/api/workrests/owner_in_range', { start: start, end: end, userId: userId }, { ignoreLoadingBar: true });
+    };
+    this.getRestReview = function (condition, page) {
+      return $http.post('/api/workrests/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
     return this;
   }
