@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="form-group text-right">
-        <button ng-click="vm.handlePreviousScreen()" class="btn btn-default">キャンセル</button>
+        <button ng-click="vm.handlePreviousScreen()" class="btn btn-default">戻る</button>
         <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-primary" ng-click="vm.handleRequestWorkrest()">申請</a>
         <a ng-show="vm.workrest.status === 2" class="btn btn-danger" ng-click="vm.handleCancelRequestWorkrest()">申請キャンセル</a>
         <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-danger" ng-click="vm.handleDeleteWorkrest()">削除</a>
@@ -15,6 +15,43 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <table class="table table-bordered">
+        <tr>
+          <td>氏名</td>
+          <td>{{ vm.workrest.user.displayName }}</td>
+        </tr>
+        <tr>
+          <td>部署</td>
+          <td>
+            <span ng-show="vm.workrest.department">{{ vm.workrest.department.name }}</span>
+            <span ng-show="!vm.workrest.department">未設定</span>
+          </td>
+        </tr>
+        <tr>
+          <td>種類</td>
+          <td>{{ vm.workrest.holiday.name }}</td>
+        </tr>
+        <tr>
+          <td>期　間</td>
+          <td>
+            <span>{{ vm.workrest.start | LL}}</span>
+            <span>～</span>
+            <span>{{ vm.workrest.end | LL}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td>事由</td>
+          <td>
+            <p ng-bind-html="vm.workrest.description | nl2br"></p>
+          </td>
+        </tr>
+        <tr>
+          <td>状態</td>
+          <td>{{ vm.workrest.status | StatusFilter }}</td>
+        </tr>
+      </table>
+    </div>
     <div class="col-sm-12 col-md-6">
       <!-- # MOBILE # -->
       <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
@@ -50,43 +87,6 @@
           on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
         </mwl-calendar>
       </div>
-    </div>
-    <div class="col-sm-12 col-md-6">
-      <table class="table table-bordered">
-        <tr>
-          <td>氏名</td>
-          <td>{{ vm.workrest.user.displayName }}</td>
-        </tr>
-        <tr>
-          <td>部署</td>
-          <td>
-            <span ng-show="vm.workrest.department">{{ vm.workrest.department.name | LL }}</span>
-            <span ng-show="!vm.workrest.department">未設定</span>
-          </td>
-        </tr>
-        <tr>
-          <td>種類</td>
-          <td>{{ vm.workrest.holiday.name }}</td>
-        </tr>
-        <tr>
-          <td>期　間</td>
-          <td>
-            <span>{{ vm.workrest.start | LL}}</span>
-            <span>～</span>
-            <span>{{ vm.workrest.end | LL}}</span>
-          </td>
-        </tr>
-        <tr>
-          <td>事由</td>
-          <td>
-            <p ng-bind-html="vm.workrest.description | nl2br"></p>
-          </td>
-        </tr>
-        <tr>
-          <td>状態</td>
-          <td>{{ vm.workrest.status | StatusFilter }}</td>
-        </tr>
-      </table>
     </div>
   </div>
 </div>
