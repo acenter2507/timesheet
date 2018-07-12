@@ -36,32 +36,98 @@ exports.create = function (req, res) {
     workrest.roles = workrest.user.roles;
     workrest.save((err, workrest) => {
       if (err)
-        return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+        return res.status(400).send({ message: '休暇を保存できません！' });
       res.jsonp(workrest);
     });
   });
 };
+exports.read = function (req, res) {
+  Workrest.findById(req.workrest._id)
+    .populate({
+      path: 'historys', populate: [
+        { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+      ]
+    })
+    .populate('user', 'displayName profileImageURL roles leaders profileImageURL email company')
+    .populate('department', 'name')
+    .populate('holiday', 'name isPaid')
+    .exec(function (err, workrest) {
+      if (err)
+        return res.status(400).send({ message: '休暇の情報が見つかりません！' });
+      return res.jsonp(workrest);
+    });
+};
+exports.update = function (req, res) {
+  var workrest = req.workrest;
+  workrest = _.extend(workrest, req.body);
 
+  isConflictRest(workrest).then(result => {
+    if (!result) {
+      workrest.warning = 'この日には二つの休暇以上入っている。';
+    } else {
+      workrest.warning = '';
+    }
+    workrest.historys.push({ action: 2, timing: new Date(), user: req.user._id });
+
+    // Create search support field
+    workrest.search = workrest.user.displayName + '-' + workrest.duration + '-' + workrest.description;
+    if (workrest.user.department) {
+      workrest.department = workrest.user.department._id || workrest.user.department;
+    }
+
+    workrest.save((err, workrest) => {
+      if (err)
+        return res.status(400).send({ message: '休暇を保存できません！' });
+      return res.jsonp(workrest);
+    });
+  });
+};
 exports.request = function (req, res) {
   var workrest = req.workrest;
   // Kiểm tra status của Ngày nghỉ
   if (workrest.status !== 1 && workrest.status !== 4) {
     return res.status(400).send({ message: 'この休暇は申請できません！' });
   }
-
+  if (req.user._id.toString() !== workrest.user._id.toString()) {
+    return res.status(400).send({ message: '休暇の申請は本人が必要になります！' });
+  }
   // Kiểm tra lượng ngày nghỉ còn lại
-  if (workrest.isPaid && workrest.duration > workrest.user.company.paidHolidayCnt) {
+  if (workrest.holiday.isPaid && workrest.duration > workrest.user.company.paidHolidayCnt) {
     return res.status(400).send({ message: '有給休暇の残日が不足です。' });
   }
 
   workrest.status = 2;
-  workrest.historys.push({ action: 3, comment: '', timing: new Date(), user: workrest.user });
+  workrest.historys.push({ action: 3, comment: '', timing: new Date(), user: req.user._id });
   workrest.save((err, rest) => {
     if (err)
-      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-    res.jsonp(workrest);
+      return res.status(400).send({ message: '休暇を保存できません！' });
+    return res.jsonp(workrest);
   });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 exports.cancel = function (req, res) {
   var workrest = req.workrest;
@@ -95,106 +161,7 @@ exports.requestDelete = function (req, res) {
   });
 };
 
-exports.read = function (req, res) {
-  // convert mongoose document to JSON
-  var workrest = req.workrest ? req.workrest.toJSON() : {};
-  workrest.isCurrentUserOwner = req.user && workrest.user && workrest.user._id.toString() === req.user._id.toString();
-  res.jsonp(workrest);
-};
 
-exports.update = function (req, res) {
-  var workrest = req.workrest;
-  workrest = _.extend(workrest, req.body);
-
-  isConflictRest(workrest).then(result => {
-    if (!result) {
-      workrest.warning = 'この日には二つの休暇以上入っている。';
-    } else {
-      workrest.warning = '';
-    }
-    // return res.status(400).send({ message: '休暇日程が既に登録されました。自分のスケジュールを確認してください。' });
-
-    workrest.status = 1;
-    workrest.historys.push({ action: 2, comment: '', timing: new Date(), user: req.user._id });
-
-    // Create search support field
-    workrest.search = workrest.user.displayName + '-' + workrest.duration + '-' + workrest.description;
-    if (workrest.user.department) {
-      workrest.department = workrest.user.department._id || workrest.user.department;
-    }
-
-    workrest.save((err, workrest) => {
-      if (err)
-        return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-      res.jsonp(workrest);
-    });
-  });
-};
-
-exports.approve = function (req, res) {
-  var workrest = req.workrest;
-
-  // Kiểm tra số ngày nghỉ còn lại
-  if (workrest.isPaid && workrest.duration > workrest.user.company.paidHolidayCnt) {
-    return res.status(400).send({ message: '有給休暇の残日が不足です。' });
-  }
-
-  workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
-  workrest.status = 3;
-  workrest.save((err, rest) => {
-    if (err)
-      return res.status(400).send({ message: '承認処理が完了できません。' });
-    Workrest.findOne(workrest)
-      .populate({
-        path: 'historys',
-        populate: {
-          path: 'user',
-          select: 'displayName profileImageURL',
-          model: 'User'
-        }
-      })
-      .populate('holiday', 'name isPaid')
-      .populate('user')
-      .exec((err, workrest) => {
-        if (err)
-          return res.status(400).send({ message: '新しいデータを取得できません。' });
-        res.jsonp(workrest);
-        // 有給休暇の残日を計算する
-        var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
-        User.updateHolidays(workrest.user._id, newHolidayCnt);
-        // Thêm workrest vào các workdate có liên quan
-        workdateController.addWorkrestToWorkdates(workrest);
-        // TODO
-        // Load lại toàn bộ thông tin workmonth và workdate
-      });
-  });
-};
-
-exports.reject = function (req, res) {
-  var workrest = req.workrest;
-  workrest.historys.push({ action: 5, comment: req.body.data.comment, timing: new Date(), user: req.user._id });
-  workrest.status = 4;
-  workrest.save((err, workrest) => {
-    if (err)
-      return res.status(400).send({ message: '拒否処理が完了できません。' });
-    Workrest.findOne(workrest)
-      .populate({
-        path: 'historys',
-        populate: {
-          path: 'user',
-          select: 'displayName profileImageURL',
-          model: 'User'
-        }
-      })
-      .populate('holiday', 'name isPaid')
-      .populate('user')
-      .exec((err, rest) => {
-        if (err)
-          return res.status(400).send({ message: '新しいデータを取得できません。' });
-        return res.jsonp(rest);
-      });
-  });
-};
 
 exports.delete = function (req, res) {
   var workrest = req.workrest;
@@ -239,8 +206,9 @@ exports.workrestByID = function (req, res, next, id) {
   }
 
   Workrest.findById(id)
-    .populate('user', 'displayName roles leaders profileImageURL email company')
-    .populate('holiday', 'name isPaid').exec(function (err, workrest) {
+    .populate('user', 'displayName profileImageURL')
+    .populate('holiday', 'name isPaid')
+    .exec(function (err, workrest) {
       if (err) {
         return next(err);
       } else if (!workrest) {
@@ -329,77 +297,6 @@ exports.getRestOfCurrentUserInRange = function (req, res) {
         return res.status(400).send({ message: 'データを取得できません。' });
       return res.jsonp(rests);
     });
-};
-
-exports.getRestReview = function (req, res) {
-  var page = req.body.page || 1;
-  var condition = req.body.condition || {};
-  var query = {};
-  var and_arr = [];
-  if (condition.search && condition.search !== '') {
-    var key_lower = condition.search.toLowerCase();
-    var key_upper = condition.search.toUpperCase();
-    var or_arr = [
-      { description: { $regex: '.*' + condition.search + '.*' } },
-      { description: { $regex: '.*' + key_lower + '.*' } },
-      { description: { $regex: '.*' + key_upper + '.*' } },
-      { search: { $regex: '.*' + condition.search + '.*' } },
-      { search: { $regex: '.*' + key_lower + '.*' } },
-      { search: { $regex: '.*' + key_upper + '.*' } }
-    ];
-    and_arr.push({ $or: or_arr });
-  }
-  if (condition.start) {
-    and_arr.push({ start: { $gte: condition.start } });
-  }
-  if (condition.end) {
-    and_arr.push({ end: { $lte: condition.end } });
-  }
-  if (condition.status) {
-    and_arr.push({ status: condition.status });
-  }
-  if (_.contains(req.user.roles, 'manager')) {
-    if (!req.user.department) {
-      return res.jsonp({ docs: [], pages: 0, total: 0 });
-    }
-    var department = req.user.department._id || req.user.department;
-    and_arr.push({ department: department });
-    and_arr.push({ roles: { $ne: ['manager', 'admin', 'accountant'] } });
-  } else {
-    if (condition.department) {
-      if (condition.department === 'empty') {
-        and_arr.push({ department: null });
-      } else {
-        and_arr.push({ department: condition.department });
-      }
-    }
-    if (condition.roles && condition.roles.length > 0) {
-      and_arr.push({ roles: condition.roles });
-    }
-  }
-  if (and_arr.length > 0) {
-    query = { $and: and_arr };
-  }
-  Workrest.paginate(query, {
-    sort: condition.sort,
-    page: page,
-    populate: [
-      { path: 'holiday', select: 'name isPaid' },
-      { path: 'user', select: 'displayName profileImageURL' },
-      {
-        path: 'historys', populate: [
-          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-        ]
-      },
-    ],
-    limit: condition.limit
-  }).then(function (rests) {
-    res.jsonp(rests);
-  }, err => {
-    return res.status(400).send({
-      message: errorHandler.getErrorMessage(err)
-    });
-  });
 };
 
 exports.getWorkrestsToday = function (req, res) {
