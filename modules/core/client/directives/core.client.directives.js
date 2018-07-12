@@ -13,7 +13,8 @@ angular
   .directive('scrollTopSpy', scrollTopSpyDirective)
   .directive('scrollSmart', scrollSmartDirective)
   .directive('scrollSmartItem', scrollSmartItemDirective)
-  .directive('a', insideClickableDirective);
+  .directive('a', insideClickableDirective)
+  .directive('button', insideClickableDirective);
 
 // Hủy tác dụng của link rỗng
 function preventClickDirective() {
