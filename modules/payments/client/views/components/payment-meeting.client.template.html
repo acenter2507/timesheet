@@ -202,15 +202,47 @@
 
           <div class="form-group">
             <label>領収書</label>
-            <button class="btn btn-success btn-xs btn-upload-file">アップロード
-              <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
-            </button>
-            <div class="mg5t" ng-show="vm.meeting.receipts.length > 0">
-              <img ng-repeat="receipt in vm.meeting.receipts" src="{{ receipt }}" class="receipt-img">
+            <!-- Image table -->
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>サムネール</th>
+                    <th class="text-center w100">状態</th>
+                    <th class="w50 text-center">
+                      <button class="btn btn-success btn-xs btn-upload-file">選択
+                        <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
+                      </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="receipt in vm.meeting.receipts">
+                    <td>
+                      <img src="{{ receipt }}" class="receipt-img">
+                    </td>
+                    <td>アップロード済</td>
+                    <td>
+                      <button class="btn btn-danger btn-xs" ng-class="vm.handleDeleteSavedReceipt(receipt)">削除</button>
+                    </td>
+                  </tr>
+                  <tr ng-repeat="receipt in vm.uploader.queue">
+                    <td>
+                      <div image-preview="{ file: receipt._file, width: 50 }" class="receipt-img"></div>
+                    </td>
+                    <td>未アップロード</td>
+                    <td>
+                      <button class="btn btn-danger btn-xs" ng-class="vm.handleDeleteAddedReceipt(receipt)">削除</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <div class="mg5t" ng-show="vm.meeting.receipts.length > 0">
             </div>
             <div class="mg5t" ng-show="vm.uploader.queue.length > 0">
               <div ng-repeat="item in vm.uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
-            </div>
+            </div> -->
             <div class="d-sm-down-none" ng-if="vm.uploader.isHTML5">
               <div class="drop-image-box" nv-file-over="" uploader="vm.uploader">
                 写真ファイルをドラッグしてください！
