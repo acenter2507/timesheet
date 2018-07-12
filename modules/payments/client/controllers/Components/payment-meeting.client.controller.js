@@ -152,7 +152,7 @@
     };
     vm.handleDeleteReceipt = function (receipt) {
       console.log(receipt);
-      vm.payment.receipts = _.without(vm.payment.receipts, receipt);
+      vm.meeting.receipts = _.without(vm.meeting.receipts, receipt);
     };
     function handleCalculateMeeting() {
       vm.meeting.total = vm.meeting.partners.length + vm.meeting.employees.length;
