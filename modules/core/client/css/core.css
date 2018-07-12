@@ -491,3 +491,5 @@ ul.user-menu {
 
 .clickable {
   cursor: pointer; }
+  .clickable:hover {
+    background-color: #e0e0e0; }
