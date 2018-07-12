@@ -120,7 +120,20 @@
       }
     };
     vm.handleCancel = function () {
+      PaymentFactory.deleteTrip();
       $state.go('payments.edit', { paymentId: vm.payment._id });
+    };
+    vm.handleDeleteReceipt = function (receipt) {
+      PaymentsApi.deleteReceipt(vm.payment._id, receipt)
+        .success(function () {
+          vm.trip.receipts = _.without(vm.trip.receipts, receipt);
+          var trip = _.findWhere(vm.payment.trips, { _id: vm.trip._id });
+          trip.receipts = vm.trip.receipts;
+          PaymentFactory.update(vm.payment);
+        })
+        .error(function (err) {
+          $scope.handleShowToast(err.message, true);
+        });
     };
     function handleSavePayment() {
       if (vm.trip._id) {

@@ -97,7 +97,20 @@
       });
     };
     vm.handleCancel = function () {
+      PaymentFactory.deleteVehicle();
       $state.go('payments.edit', { paymentId: vm.payment._id });
+    };
+    vm.handleDeleteReceipt = function (receipt) {
+      PaymentsApi.deleteReceipt(vm.payment._id, receipt)
+        .success(function () {
+          vm.vehicle.receipts = _.without(vm.vehicle.receipts, receipt);
+          var vehicle = _.findWhere(vm.payment.vehicles, { _id: vm.vehicle._id });
+          vehicle.receipts = vm.vehicle.receipts;
+          PaymentFactory.update(vm.payment);
+        })
+        .error(function (err) {
+          $scope.handleShowToast(err.message, true);
+        });
     };
     function handleSavePayment() {
       if (vm.vehicle._id) {

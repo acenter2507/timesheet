@@ -136,14 +136,44 @@
 
           <div class="form-group">
             <label>領収書</label>
-            <button class="btn btn-success btn-xs btn-upload-file">アップロード
-              <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
-            </button>
-            <div class="mg5t" ng-show="vm.transport.receipts.length > 0">
-              <img ng-repeat="receipt in vm.transport.receipts" src="{{ receipt }}" class="receipt-img">
-            </div>
-            <div class="mg5t" ng-show="vm.uploader.queue.length > 0">
-              <div ng-repeat="item in vm.uploader.queue" image-preview="{ file: item._file, width: 50 }" class="receipt-img"></div>
+            <!-- Image table -->
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>サムネール</th>
+                    <th class="text-center">状態</th>
+                    <th class="w50 text-center">
+                      <button class="btn btn-success btn-xs btn-upload-file">追加
+                        <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
+                      </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-show="vm.transport.receipts.length === 0 && vm.uploader.queue.length === 0">
+                    <td colspan="3">領収書がアップロードされていません！</td>
+                  </tr>
+                  <tr ng-repeat="receipt in vm.transport.receipts">
+                    <td>
+                      <img src="{{ receipt }}" class="receipt-img">
+                    </td>
+                    <td>アップロード済</td>
+                    <td>
+                      <button class="btn btn-danger btn-xs" ng-click="vm.handleDeleteReceipt(receipt)">削除</button>
+                    </td>
+                  </tr>
+                  <tr ng-repeat="receipt in vm.uploader.queue">
+                    <td>
+                      <div image-preview="{ file: receipt._file, width: 50 }" class="receipt-img"></div>
+                    </td>
+                    <td>未アップロード</td>
+                    <td>
+                      <button class="btn btn-danger btn-xs" ng-click="receipt.remove()">削除</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div class="d-sm-down-none" ng-if="vm.uploader.isHTML5">
               <div class="drop-image-box" nv-file-over="" uploader="vm.uploader">
@@ -152,7 +182,7 @@
             </div>
           </div>
         </form>
-        
+
         <div class="form-group text-right mgnb mg5t">
           <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
           <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveTransport(vm.form.transportForm.$valid)">完了</button>

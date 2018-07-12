@@ -11,11 +11,21 @@
     'FileUploader',
     'CommonService',
     'PaymentFactory',
-    'PaymentsService'
+    'PaymentsService',
+    'PaymentsApi'
   ];
 
 
-  function PaymentTransportController($scope, $state, $stateParams, FileUploader, CommonService, PaymentFactory, PaymentsService) {
+  function PaymentTransportController(
+    $scope,
+    $state,
+    $stateParams,
+    FileUploader,
+    CommonService,
+    PaymentFactory,
+    PaymentsService,
+    PaymentsApi
+  ) {
     var vm = this;
     vm.payment = {};
     vm.transport = {};
@@ -129,7 +139,20 @@
       }
     };
     vm.handleCancel = function () {
+      PaymentFactory.deleteTransport();
       $state.go('payments.edit', { paymentId: vm.payment._id });
+    };
+    vm.handleDeleteReceipt = function (receipt) {
+      PaymentsApi.deleteReceipt(vm.payment._id, receipt)
+        .success(function () {
+          vm.transport.receipts = _.without(vm.transport.receipts, receipt);
+          var transport = _.findWhere(vm.payment.transports, { _id: vm.transport._id });
+          transport.receipts = vm.transport.receipts;
+          PaymentFactory.update(vm.payment);
+        })
+        .error(function (err) {
+          $scope.handleShowToast(err.message, true);
+        });
     };
     function handleSavePayment() {
       if (vm.transport._id) {
