@@ -488,3 +488,6 @@ ul.user-menu {
   border-width: 1px 2px; }
 .input-error {
   border-color: #a94442 !important; }
+
+.clickable {
+  cursor: pointer; }

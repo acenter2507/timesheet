@@ -154,5 +154,8 @@
         });
       });
     };
+    vm.hanleSelectPayment = function (payment) {
+      $state.go('admin.payments.review', { paymentId: payment._id });
+    };
   }
 }());

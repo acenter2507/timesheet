@@ -120,7 +120,7 @@
           <tr ng-show="vm.payments.length === 0">
             <td colspan="6">データが見つかりません。</td>
           </tr>
-          <tr ng-repeat="payment in vm.payments track by $index">
+          <tr ng-repeat="payment in vm.payments track by $index" class="clickable" ng-click="vm.hanleSelectPayment(payment)">
             <td class="w50 text-center">
               <div dropdown dropdown-append-to-body>
                 <a dropdown-toggle class="btn btn-xs btn-default">
