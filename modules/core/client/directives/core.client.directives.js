@@ -12,7 +12,8 @@ angular
   .directive('imagePreview', imagePreviewDirective)
   .directive('scrollTopSpy', scrollTopSpyDirective)
   .directive('scrollSmart', scrollSmartDirective)
-  .directive('scrollSmartItem', scrollSmartItemDirective);
+  .directive('scrollSmartItem', scrollSmartItemDirective)
+  .directive('a', insideClickableDirective);
 
 // Hủy tác dụng của link rỗng
 function preventClickDirective() {
@@ -246,4 +247,18 @@ function scrollSmartItemDirective() {
     }
   };
 }
+function insideClickableDirective() {
+  var directive = {
+    restrict: 'E',
+    link: link
+  };
+  return directive;
 
+  function link(scope, element, attrs) {
+    element.on('click', function (e) {
+      if (element.hasClass('inside-clickable')) {
+        e.stopImmediatePropagation();
+      }
+    });
+  }
+}
