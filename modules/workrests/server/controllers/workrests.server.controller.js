@@ -88,7 +88,7 @@ exports.request = function (req, res) {
   var workrest = req.workrest;
   // Kiểm tra status của Ngày nghỉ
   if (workrest.status !== 1 && workrest.status !== 4) {
-    return res.status(400).send({ message: 'この休暇は申請できません！' });
+    return res.status(400).send({ message: '休暇の状態で申請できません！' });
   }
   if (req.user._id.toString() !== workrest.user._id.toString()) {
     return res.status(400).send({ message: '休暇の申請は本人が必要になります！' });
@@ -100,52 +100,80 @@ exports.request = function (req, res) {
 
   workrest.status = 2;
   workrest.historys.push({ action: 3, comment: '', timing: new Date(), user: req.user._id });
-  workrest.save((err, rest) => {
+  workrest.save((err, workrest) => {
     if (err)
       return res.status(400).send({ message: '休暇を保存できません！' });
-    return res.jsonp(workrest);
+    Workrest.findById(workrest._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL roles leaders profileImageURL email company')
+      .populate('department', 'name')
+      .populate('holiday', 'name isPaid')
+      .exec(function (err, workrest) {
+        if (err)
+          return res.status(400).send({ message: '休暇の情報が見つかりません！' });
+        return res.jsonp(workrest);
+      });
   });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 exports.cancel = function (req, res) {
   var workrest = req.workrest;
-  // Kiểm tra status của Ngày nghỉ
+  if (req.user._id.toString() !== workrest.user._id.toString()) {
+    return res.status(400).send({ message: '休暇の申請は本人が必要になります！' });
+  }
   if (workrest.status !== 2) {
-    return res.status(400).send({ message: '現在確認中の状態ではありません！' });
+    return res.status(400).send({ message: '休暇の状態でキャンセルできません！' });
   }
 
   workrest.status = 1;
-  workrest.historys.push({ action: 6, comment: '', timing: new Date(), user: workrest.user });
-  workrest.save((err, rest) => {
+  workrest.historys.push({ action: 6, timing: new Date(), user: req.user._id });
+  workrest.save((err, workrest) => {
     if (err)
-      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-    res.jsonp(workrest);
+      return res.status(400).send({ message: '休暇を保存できません！' });
+    Workrest.findById(workrest._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL roles leaders profileImageURL email company')
+      .populate('department', 'name')
+      .populate('holiday', 'name isPaid')
+      .exec(function (err, workrest) {
+        if (err)
+          return res.status(400).send({ message: '休暇の情報が見つかりません！' });
+        return res.jsonp(workrest);
+      });
   });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 exports.requestDelete = function (req, res) {
   var workrest = req.workrest;

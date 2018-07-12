@@ -101,8 +101,8 @@
         message: '休暇を申請しますか？'
       }, function () {
         WorkrestsApi.request(vm.workrest._id)
-          .success(function (data) {
-            _.extend(vm.workrest, data);
+          .success(function (workrest) {
+            _.extend(vm.workrest, workrest);
             Socket.emit('rest_request', { workrestId: vm.workrest._id, userId: $scope.user._id });
           })
           .error(function (err) {
@@ -111,13 +111,13 @@
       });
     };
     // Hủy bỏ thỉnh cầu
-    vm.handleCancelRequestWorkrest = function () {
+    vm.handleCancelWorkrest = function () {
       $scope.handleShowConfirm({
-        message: '休暇の申請を取り消しますか？'
+        message: '休暇の申請をキャンセルしますか？'
       }, function () {
         WorkrestsApi.cancel(vm.workrest._id)
-          .success(function (data) {
-            _.extend(vm.workrest, data);
+          .success(function (workrest) {
+            _.extend(vm.workrest, workrest);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
