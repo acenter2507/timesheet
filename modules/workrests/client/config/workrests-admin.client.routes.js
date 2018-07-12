@@ -22,6 +22,14 @@
         controllerAs: 'vm',
         data: { roles: ['admin', 'manager', 'accountant'] },
         ncyBreadcrumb: { label: '休暇確認' }
+      })
+      .state('admin.workrests.review', {
+        url: '/:workrestId/review',
+        templateUrl: 'modules/workrests/client/views/admin/review-workrest.client.view.html',
+        controller: 'WorkrestReviewController',
+        controllerAs: 'vm',
+        data: { roles: ['admin', 'manager', 'accountant'] },
+        ncyBreadcrumb: { label: '休暇詳細' }
       });
   }
 }());

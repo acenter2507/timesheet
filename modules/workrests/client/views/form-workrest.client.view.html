@@ -1,13 +1,9 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
     <div class="col-xs-12">
-      <div class="form-group">
-        <button ng-click="vm.handleSaveRest(vm.form.restForm.$valid)" class="btn btn-primary pull-right">
+      <div class="form-group text-right">
+        <button ng-click="vm.handleSaveRest(vm.form.restForm.$valid)" class="btn btn-primary">
           <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存</button>
-        <!-- <button ng-if="vm.workrest.status === 1" ng-click="vm.handleSendRest()" class="btn btn-success pull-right">申請</button>
-        <button ng-if="vm.workrest.status === 5" ng-click="vm.handleReSendRest()" class="btn btn-success pull-right">再申請</button>
-        <button ng-if="vm.workrest.status === 2 || vm.workrest.status === 4" ng-click="vm.handleCancelRest()" class="btn btn-success pull-right">申請キャンセル</button> -->
-        <div class="clearfix"></div>
       </div>
     </div>
   </div>

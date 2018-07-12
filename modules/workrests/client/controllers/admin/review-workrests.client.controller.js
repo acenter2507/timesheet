@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('workrests')
+    .module('workrests.admin')
     .controller('WorkrestsReviewController', WorkrestsReviewController);
 
   WorkrestsReviewController.$inject = ['$scope', '$state', 'WorkrestsService', 'CommonService', 'DateUtil', 'WorkrestsApi', 'DepartmentsService', 'ngDialog', '$document', '$stateParams', 'Notifications', 'Socket'];

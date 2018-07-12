@@ -14,15 +14,15 @@
         url: '/workrests',
         template: '<ui-view/>',
         data: { roles: ['user'] },
-        ncyBreadcrumb: { label: '休暇' }
+        ncyBreadcrumb: { label: '休暇管理' }
       })
       .state('workrests.list', {
         url: '?notif',
         templateUrl: 'modules/workrests/client/views/list-workrests.client.view.html',
         controller: 'WorkrestsListController',
         controllerAs: 'vm',
-        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
-        ncyBreadcrumb: { label: '一覧' }
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '休暇一覧' }
       })
       .state('workrests.create', {
         url: '/create',
@@ -30,8 +30,8 @@
         controller: 'WorkrestInputController',
         controllerAs: 'vm',
         resolve: { workrestResolve: newWorkrest },
-        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
-        ncyBreadcrumb: { label: '登録' }
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '休暇登録' }
       })
       .state('workrests.edit', {
         url: '/:workrestId/edit?notif',
@@ -39,8 +39,8 @@
         controller: 'WorkrestInputController',
         controllerAs: 'vm',
         resolve: { workrestResolve: getWorkrest },
-        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
-        ncyBreadcrumb: { label: '編集' }
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '休暇編集' }
       })
       .state('workrests.view', {
         url: '/:workrestId?notif',
@@ -48,8 +48,8 @@
         controller: 'WorkrestsController',
         controllerAs: 'vm',
         resolve: { workrestResolve: getWorkrest },
-        data: { roles: ['user', 'admin', 'manager', 'accountant'] },
-        ncyBreadcrumb: { label: '詳細' }
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '休暇詳細' }
       });
   }
 
