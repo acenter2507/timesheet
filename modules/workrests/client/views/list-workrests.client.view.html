@@ -145,7 +145,7 @@
       <div class="form-group text-right">
         <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive" ng-show="vm.isShowHistory">
         <table class="table table-bordered table-striped">
           <thead class="thead-default">
             <tr>
