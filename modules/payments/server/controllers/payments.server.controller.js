@@ -236,7 +236,9 @@ exports.deleteReceipt = function (req, res) {
   payment.save((err, payment) => {
     if (err)
       return res.status(400).send({ message: '領収書を削除できません！' });
-    fs.unlink(receipt);
+    if (fs.existsSync(receipt)) {
+      fs.unlink(receipt);
+    }
     return res.end();
   });
 };
