@@ -20,6 +20,7 @@
         templateUrl: 'modules/payments/client/views/admin/review-payments.client.view.html',
         controller: 'PaymentsReviewController',
         controllerAs: 'vm',
+        data: { roles: ['accountant', 'admin'] },
         ncyBreadcrumb: { label: '清算表確認' }
       })
       .state('admin.payments.review', {

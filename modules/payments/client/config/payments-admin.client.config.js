@@ -10,7 +10,8 @@
   function menuConfig(menuService) {
     menuService.addSubMenuItem('topbar', 'admin', {
       title: '費用清算確認',
-      state: 'admin.payments.reviews'
+      state: 'admin.payments.reviews',
+      roles: ['admin', 'accountant']
     });
   }
 }());

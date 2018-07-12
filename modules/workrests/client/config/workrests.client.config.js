@@ -29,12 +29,5 @@
       state: 'workrests.create',
       roles: ['user']
     });
-
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'workrests', {
-      title: '休暇確認',
-      state: 'workrests.review',
-      roles: ['manager', 'admin', 'accountant']
-    });
   }
 }());

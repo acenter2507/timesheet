@@ -12,6 +12,8 @@ var mongoose = require('mongoose'),
  */
 var WorkrestSchema = new Schema({
   holiday: { type: Schema.ObjectId, ref: 'Holiday' },
+  // Department
+  department: { type: Schema.ObjectId, ref: 'Department' },
   // Start vacation
   start: { type: Date },
   // End vacation
@@ -26,8 +28,6 @@ var WorkrestSchema = new Schema({
   status: { type: Number },
   // search
   search: { type: String },
-  // Department
-  department: { type: Schema.ObjectId, ref: 'Department' },
   // Roles
   roles: {
     type: [{
@@ -44,8 +44,6 @@ var WorkrestSchema = new Schema({
   historys: [{
     // Action of history 1:Created - 2:Updated - 3:Send - 4:Approved - 5:Rejected - 6:Cancel request - 7: Request delete
     action: { type: Number },
-    // Comment of history
-    comment: { type: String },
     // Time of history
     timing: { type: Date },
     // Owner

@@ -24,14 +24,6 @@
         data: { roles: ['user', 'admin', 'manager', 'accountant'] },
         ncyBreadcrumb: { label: '一覧' }
       })
-      .state('workrests.review', {
-        url: '/review?notif?status',
-        templateUrl: 'modules/workrests/client/views/review-workrest.client.view.html',
-        controller: 'WorkrestsReviewController',
-        controllerAs: 'vm',
-        data: { roles: ['admin', 'manager', 'accountant'] },
-        ncyBreadcrumb: { label: '確認' }
-      })
       .state('workrests.create', {
         url: '/create',
         templateUrl: 'modules/workrests/client/views/form-workrest.client.view.html',

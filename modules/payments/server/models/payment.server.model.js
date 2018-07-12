@@ -5,7 +5,6 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
-  _ = require('underscore'),
   Schema = mongoose.Schema;
 
 /**
