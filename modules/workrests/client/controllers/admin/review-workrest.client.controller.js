@@ -242,5 +242,45 @@
     vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
     };
+    // Chấp nhận ngày nghỉ
+    vm.handleApproveRest = function () {
+      $scope.handleShowConfirm({
+        message: 'この休暇を承認しますか？'
+      }, function () {
+        WorkrestsApi.approve(vm.workrest._id)
+          .success(function (data) {
+            _.extend(vm.workrest, data);
+            Socket.emit('rest_review', { workrestId: vm.workrest._id, user: $scope.user._id });
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    // Không chấp nhận ngày nghỉ
+    vm.handleRejectRest = function () {
+      ngDialog.openConfirm({
+        templateUrl: 'commentTemplate.html',
+        scope: $scope,
+        showClose: false
+      }).then(function (comment) {
+        delete $scope.comment;
+        $scope.handleShowConfirm({
+          message: 'この休暇を拒否しますか？'
+        }, function () {
+          WorkrestsApi.reject(vm.workrest._id, { comment: comment })
+            .success(function (data) {
+              _.extend(vm.workrest, data);
+              Socket.emit('rest_review', { workrestId: vm.workrest._id, user: $scope.user._id });
+            })
+            .error(function (err) {
+              $scope.handleShowToast(err.message, true);
+            });
+        });
+      }, function () {
+        delete $scope.comment;
+      });
+
+    };
   }
 }());

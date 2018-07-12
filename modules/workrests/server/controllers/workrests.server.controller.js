@@ -149,47 +149,62 @@ exports.cancel = function (req, res) {
       });
   });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 exports.requestDelete = function (req, res) {
   var workrest = req.workrest;
-  // Kiểm tra status của Ngày nghỉ
+  if (req.user._id.toString() !== workrest.user._id.toString()) {
+    return res.status(400).send({ message: '休暇の取り消し申請は本人が必要になります！' });
+  }
   if (workrest.status !== 3) {
-    return res.status(400).send({ message: '取り消し申請は確認済みの休暇しかできません！' });
+    return res.status(400).send({ message: '休暇の状態で取り消し申請できません！' });
   }
 
   workrest.status = 5;
-  workrest.historys.push({ action: 7, comment: '', timing: new Date(), user: workrest.user });
-  workrest.save((err, rest) => {
+  workrest.historys.push({ action: 7, timing: new Date(), user: workrest.user });
+  workrest.save((err, workrest) => {
     if (err)
       return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-    res.jsonp(workrest);
+    Workrest.findById(workrest._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL roles leaders profileImageURL email company')
+      .populate('department', 'name')
+      .populate('holiday', 'name isPaid')
+      .exec(function (err, workrest) {
+        if (err)
+          return res.status(400).send({ message: '休暇の情報が見つかりません！' });
+        return res.jsonp(workrest);
+      });
   });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
