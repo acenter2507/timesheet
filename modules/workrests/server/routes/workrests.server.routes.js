@@ -24,7 +24,7 @@ module.exports = function(app) {
 
   app.route('/api/workrests/:workrestId/request').all(workrestsPolicy.isAllowed).post(workrests.request);
   app.route('/api/workrests/:workrestId/cancel').all(workrestsPolicy.isAllowed).post(workrests.cancel);
-  app.route('/api/workrests/:workrestId/deleteRequest').all(workrestsPolicy.isAllowed).post(workrests.deleteRequest);
+  app.route('/api/workrests/:workrestId/requestDelete').all(workrestsPolicy.isAllowed).post(workrests.requestDelete);
   app.route('/api/workrests/:workrestId/approve').all(workrestsPolicy.isAllowed).post(workrests.approve);
   app.route('/api/workrests/:workrestId/reject').all(workrestsPolicy.isAllowed).post(workrests.reject);
 

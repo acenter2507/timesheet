@@ -36,7 +36,7 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/workrests/:workrestId',
       permissions: ['get']
     }, {
-      resources: '/api/workrests/:workrestId/deleteRequest',
+      resources: '/api/workrests/:workrestId/requestDelete',
       permissions: ['post']
     }]
   }, {

@@ -79,7 +79,7 @@ exports.cancel = function (req, res) {
   });
 };
 
-exports.deleteRequest = function (req, res) {
+exports.requestDelete = function (req, res) {
   var workrest = req.workrest;
   // Kiểm tra status của Ngày nghỉ
   if (workrest.status !== 3) {

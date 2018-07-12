@@ -11,11 +11,21 @@
     'FileUploader',
     'CommonService',
     'PaymentFactory',
-    'PaymentsService'
+    'PaymentsService',
+    'PaymentsApi'
   ];
 
 
-  function PaymentMeetingController($scope, $state, $stateParams, FileUploader, CommonService, PaymentFactory, PaymentsService) {
+  function PaymentMeetingController(
+    $scope,
+    $state,
+    $stateParams,
+    FileUploader,
+    CommonService,
+    PaymentFactory,
+    PaymentsService,
+    PaymentsApi
+  ) {
     var vm = this;
     vm.payment = {};
     vm.meeting = {};
@@ -151,8 +161,20 @@
       }
     };
     vm.handleDeleteReceipt = function (receipt) {
-      console.log(receipt);
-      vm.meeting.receipts = _.without(vm.meeting.receipts, receipt);
+      PaymentsApi.deleteReceipt(vm.payment._id, receipt)
+        .success(function () {
+          vm.meeting.receipts = _.without(vm.meeting.receipts, receipt);
+          var meeting = _.findWhere(vm.payment.meetings, { _id: vm.meeting._id });
+          _.extend(meeting, vm.meeting);
+          PaymentFactory.update(payment);
+        })
+        .error(function (err) {
+          $scope.handleShowToast(err.message, true);
+        });
+    };
+    vm.handleCancel = function () {
+      PaymentFactory.deleteMeeting();
+      $state.go('payments.edit', { paymentId: vm.payment._id });
     };
     function handleCalculateMeeting() {
       vm.meeting.total = vm.meeting.partners.length + vm.meeting.employees.length;

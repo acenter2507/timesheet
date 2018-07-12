@@ -128,7 +128,7 @@
       $scope.handleShowConfirm({
         message: '休暇を取り消す申請を送りますか？'
       }, function () {
-        WorkrestsApi.deleteRequest(vm.workrest._id)
+        WorkrestsApi.requestDelete(vm.workrest._id)
           .success(function (data) {
             _.extend(vm.workrest, data);
             Socket.emit('rest_delete_request', { workrestId: vm.workrest._id, userId: $scope.user._id });

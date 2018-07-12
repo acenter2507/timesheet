@@ -30,8 +30,11 @@
     this.cancel = function (paymentId) {
       return $http.post('/api/payments/' + paymentId + '/cancel', null, { ignoreLoadingBar: true });
     };
-    this.deleteRequest = function (paymentId) {
-      return $http.post('/api/payments/' + paymentId + '/deleteRequest', null, { ignoreLoadingBar: true });
+    this.requestDelete = function (paymentId) {
+      return $http.post('/api/payments/' + paymentId + '/requestDelete', null, { ignoreLoadingBar: true });
+    };
+    this.deleteReceipt = function (paymentId, receipt) {
+      return $http.post('/api/payments/' + paymentId + '/deleteReceipt', { receipt: receipt }, { ignoreLoadingBar: true });
     };
     return this;
   }

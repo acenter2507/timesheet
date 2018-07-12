@@ -67,7 +67,7 @@
       $scope.handleShowConfirm({
         message: '清算表を取り消し申請しますか？'
       }, function () {
-        PaymentsApi.deleteRequest(vm.payment._id)
+        PaymentsApi.requestDelete(vm.payment._id)
           .success(function (payment) {
             _.extend(vm.payment, payment);
           })

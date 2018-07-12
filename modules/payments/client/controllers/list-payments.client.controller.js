@@ -113,7 +113,7 @@
       $scope.handleShowConfirm({
         message: item.payment.month + '月の清算表を取り消し申請しますか？'
       }, function () {
-        PaymentsApi.deleteRequest(item.payment._id)
+        PaymentsApi.requestDelete(item.payment._id)
           .success(function (payment) {
             _.extend(item.payment, payment);
           })

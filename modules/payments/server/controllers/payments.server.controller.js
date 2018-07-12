@@ -9,12 +9,13 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   config = require(path.resolve('./config/config')),
   multer = require('multer'),
+  fs = require('fs'),
   _ = require('underscore');
 
 exports.create = function (req, res) {
   var payment = new Payment(req.body);
   payment.user = req.user;
-  
+
   if (req.user.department) {
     payment.department = req.user.department;
   }
@@ -162,7 +163,7 @@ exports.cancel = function (req, res) {
       });
   });
 };
-exports.deleteRequest = function (req, res) {
+exports.requestDelete = function (req, res) {
   var payment = req.payment;
   // Kiểm tra người gửi cancel chính chủ
   if (req.user._id.toString() !== payment.user._id.toString()) {
@@ -202,6 +203,44 @@ exports.receipts = function (req, res) {
     return res.jsonp(imageUrl);
   });
 };
+exports.deleteReceipt = function (req, res) {
+  var payment = req.payment;
+  var receipt = req.body.receipt;
+
+  for (let i = 0; i < payment.transports.length; i++) {
+    const element = payment.transports[i];
+    if (_.contains(element.receipts, receipt))
+      element.receipts = _.without(element.receipts, receipt);
+  }
+  for (let i = 0; i < payment.trips.length; i++) {
+    const element = payment.transports[i];
+    if (_.contains(element.receipts, receipt))
+      element.receipts = _.without(element.receipts, receipt);
+  }
+  for (let i = 0; i < payment.others.length; i++) {
+    const element = payment.others[i];
+    if (_.contains(element.receipts, receipt))
+      element.receipts = _.without(element.receipts, receipt);
+  }
+  for (let i = 0; i < payment.vehicles.length; i++) {
+    const element = payment.vehicles[i];
+    if (_.contains(element.receipts, receipt))
+      element.receipts = _.without(element.receipts, receipt);
+  }
+  for (let i = 0; i < payment.meetings.length; i++) {
+    const element = payment.meetings[i];
+    if (_.contains(element.receipts, receipt))
+      element.receipts = _.without(element.receipts, receipt);
+  }
+
+  payment.save((err, payment) => {
+    if (err)
+      return res.status(400).send({ message: '領収書を削除できません！' });
+    fs.unlink(receipt);
+    return res.end();
+  });
+};
+expo
 exports.paymentByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
