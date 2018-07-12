@@ -54,6 +54,7 @@ exports.read = function (req, res) {
     .exec(function (err, workrest) {
       if (err)
         return res.status(400).send({ message: '休暇の情報が見つかりません！' });
+        workrest.isCurrentUserOwner = workrest.user._id === req.user._id;
       return res.jsonp(workrest);
     });
 };
