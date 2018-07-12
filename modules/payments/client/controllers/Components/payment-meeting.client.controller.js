@@ -150,6 +150,9 @@
         vm.meeting.kind_error = false;
       }
     };
+    vm.handleDeleteReceipt = function (receipt) {
+      vm.payment.receipts = _.without(vm.payment.receipts, receipt);
+    }
     function handleCalculateMeeting() {
       vm.meeting.total = vm.meeting.partners.length + vm.meeting.employees.length;
       vm.meeting.amount = vm.meeting.fee / vm.meeting.total;
