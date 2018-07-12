@@ -1,4 +1,4 @@
-<div class="container-fluid animated fadeIn mg100b">
+<div class="container-fluid animated fadeIn">
   <!-- 検索ツール -->
   <div class="row">
     <div class="col-sm-12 col-md-6 col-md-push-6">
@@ -143,7 +143,7 @@
 
       <!-- 歴史 -->
       <div class="form-group text-right">
-        <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
+        <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm" ng-click="vm.isShowHistory = false;">歴史表を閉じる</button>
       </div>
       <div class="table-responsive" ng-show="vm.isShowHistory">
         <table class="table table-bordered table-striped">

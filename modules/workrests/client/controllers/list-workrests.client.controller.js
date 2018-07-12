@@ -249,9 +249,6 @@
       vm.isShowHistory = true;
       vm.historys = workrest.historys;
     };
-    vm.handleCloseHistory = function () {
-      vm.isShowHistory = false;
-    };
 
   }
 }());
