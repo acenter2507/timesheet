@@ -166,7 +166,7 @@
           vm.meeting.receipts = _.without(vm.meeting.receipts, receipt);
           var meeting = _.findWhere(vm.payment.meetings, { _id: vm.meeting._id });
           meeting.receipts = vm.meeting.receipts;
-          PaymentFactory.update(payment);
+          PaymentFactory.update(vm.payment);
         })
         .error(function (err) {
           $scope.handleShowToast(err.message, true);
