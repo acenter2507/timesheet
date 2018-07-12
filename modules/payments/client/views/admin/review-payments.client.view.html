@@ -1,7 +1,7 @@
 <div class="container-fluid animated fadeIn mg100b">
   <!-- 検索ツール -->
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
       <accordion close-others="true" ng-init="openTools = false;">
         <accordion-group is-open="openTools">
           <accordion-heading>
@@ -103,7 +103,7 @@
   </div>
   <!-- 清算検索結果 -->
   <div class="row mg10t">
-    <div class="col-xs-12">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
       <p>全 {{ vm.total }} 件</p>
       <table class="table table-bordered table-striped">
         <thead>
@@ -163,7 +163,7 @@
   </div>
   <!-- 履歴 -->
   <div class="row mg10t" ng-show="vm.isShowHistory">
-    <div class="col-xs-12">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
       <div class="form-group text-right">
         <button class="btn btn-warning btn-sm" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
       </div>
