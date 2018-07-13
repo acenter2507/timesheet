@@ -10,6 +10,7 @@ var path = require('path'),
   _ = require('underscore');
 
 exports.reviews = function (req, res) {
+  console.log(typeof req.user.roles);
   var page = req.body.page || 1;
   var condition = req.body.condition || {};
   var query = {};
