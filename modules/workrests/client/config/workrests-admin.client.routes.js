@@ -17,7 +17,7 @@
       })
       .state('admin.workrests.reviews', {
         url: '/reviews?user?status?notif',
-        templateUrl: 'modules/workrests/client/views/review-workrests.client.view.html',
+        templateUrl: 'modules/workrests/client/views/admin/review-workrests.client.view.html',
         controller: 'WorkrestsReviewController',
         controllerAs: 'vm',
         data: { roles: ['admin', 'manager', 'accountant'] },
