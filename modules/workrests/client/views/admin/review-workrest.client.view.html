@@ -2,25 +2,105 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="form-group text-right">
-          <button ng-click="vm.handlePreviousScreen()" class="btn btn-default">キャンセル</button>
+          <button ng-click="vm.handlePreviousScreen()" class="btn btn-default">戻る</button>
           <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-primary" ng-click="vm.handleRequestWorkrest()">申請</a>
-          <a ng-show="vm.workrest.status === 2" class="btn btn-danger" ng-click="vm.handleCancelRequestWorkrest()">申請キャンセル</a>
-          <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-danger" ng-click="vm.handleDeleteWorkrest()">削除</a>
+          <a ng-show="vm.workrest.status === 2" class="btn btn-warning" ng-click="vm.handleCancelWorkrest()">申請キャンセル</a>
           <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-success" ui-sref="workrests.edit({ workrestId: vm.workrest._id })">編集</a>
-          <a ng-show="vm.workrest.status === 3" class="btn btn-warning" ng-click="vm.handleRequestDelete()">取り消し申請</a>
-  
-          <!-- Dành cho leader -->
-          <a ng-if="vm.workrest.status === 2 && isLeader" class="btn btn-primary pull-right mg5r" ng-click="vm.handleApproveRest()">
-            承認</a>
-          <a ng-if="vm.workrest.status === 2 && isLeader" class="btn btn-warning pull-right mg5r" ng-click="vm.handleRejectRest()">
-            拒否</a>
-          <a ng-if="vm.workrest.status === 5 && isLeader" class="btn btn-danger pull-right mg5r" ng-click="vm.handleDeleteRest()">
-            削除</a>
+          <a ng-show="vm.workrest.status === 3" class="btn btn-danger" ng-click="vm.handleRequestDelete()">取り消し申請</a>
+          <a ng-show="vm.workrest.status === 1 || vm.workrest.status === 4" class="btn btn-danger" ng-click="vm.handleDeleteWorkrest()">削除</a>
+          <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
+            {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
+          </button>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 col-md-6">
+      <div class="col-sm-12 col-md-6 col-md-push-6">
+        <!-- Content -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <tr>
+              <td>
+                <strong>氏名</strong>
+              </td>
+              <td>
+                <h4 class="mgn">{{ vm.workrest.user.displayName }}</h4>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>部署</strong>
+              </td>
+              <td>
+                <span ng-show="vm.workrest.department">{{ vm.workrest.department.name }}</span>
+                <span ng-show="!vm.workrest.department">未設定</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>種類</strong>
+              </td>
+              <td>{{ vm.workrest.holiday.name }}</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>期間</strong>
+              </td>
+              <td>
+                <span>{{ vm.workrest.start | LL}}</span>
+                <span>～</span>
+                <span>{{ vm.workrest.end | LL}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>事由</strong>
+              </td>
+              <td>
+                <p ng-bind-html="vm.workrest.description | nl2br"></p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>状態</strong>
+              </td>
+              <td>{{ vm.workrest.status | StatusFilter }}</td>
+            </tr>
+            <tr ng-if="vm.workrest.warning">
+              <td>
+                <strong>警告</strong>
+              </td>
+              <td>
+                <span class="text-danger">{{ vm.workrest.warning }}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- History -->
+        <div class="table-responsive" ng-show="vm.isShowHistory">
+          <table class="table table-bordered table-striped">
+            <thead class="thead-default">
+              <tr>
+                <th class="w30 text-center">#</th>
+                <th>日付</th>
+                <th>操作</th>
+                <th>操作者</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="history in vm.workrest.historys">
+                <td class="w30 text-center">{{ $index + 1 }}</td>
+                <td>{{ history.timing | LLLL }}</td>
+                <td>{{ history.action | ActionFilter }}</td>
+                <td>
+                  <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-md-pull-6">
         <!-- # MOBILE # -->
         <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
           <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">
@@ -54,99 +134,6 @@
             cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
             on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
           </mwl-calendar>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-6">
-        <div class="well">
-          <h4>状態：
-            <span ng-switch="vm.workrest.status">
-              <span class="label label-default" ng-switch-when="1">{{ vm.workrest.status | StatusFilter}}</span>
-              <span class="label label-primary" ng-switch-when="2">{{ vm.workrest.status | StatusFilter}}</span>
-              <span class="label label-success" ng-switch-when="3">{{ vm.workrest.status | StatusFilter}}</span>
-              <span class="label label-danger" ng-switch-when="4">{{ vm.workrest.status | StatusFilter}}</span>
-              <span class="label label-warning" ng-switch-when="5">{{ vm.workrest.status | StatusFilter}}</span>
-            </span>
-          </h4>
-          <div class="user-item-block">
-            <div class="user-basic-info">
-              <div class="user-avatar">
-                <img src="{{:: vm.workrest.user.profileImageURL }}">
-              </div>
-              <div class="user-info">
-                <a class="user-info-name" ng-click="handleViewDetailUser(vm.workrest.user)">{{:: vm.workrest.user.displayName}}</a>
-                <a class="font-sm" ng-href="mailto:{{vm.workrest.user.email}}">{{::vm.workrest.user.email}}</a>
-              </div>
-              <!-- <div class="user-action" ng-if="leader._id !== user._id">
-                <div dropdown dropdown-append-to-body>
-                  <a dropdown-toggle class="user-options">
-                    <i class="glyphicon glyphicon-option-horizontal"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li>
-                      <a ng-click="handleViewDetailUser(leader)">
-                        <i class="fa fa-info-circle"></i> 詳細情報</a>
-                    </li>
-                    <li ng-if="isAdmin || isAccountant">
-                      <a ui-sref="users.edit({ userId: leader._id })">
-                        <i class="fa fa-pencil-square-o"></i> 編集</a>
-                    </li>
-                    <li ng-if="isAdmin || isAccountant">
-                      <a ui-sref="users.timesheet({ userId: leader._id })">
-                        <i class="fa fa-calendar"></i> 勤務表レビュー</a>
-                    </li>
-                    <li>
-                      <a ng-click="vm.handleSendMessageUser(leader)">
-                        <i class="fa fa-commenting"></i> メッセージ送信</a>
-                    </li>
-                    <li>
-                      <a ng-href="mailto:{{leader.email}}">
-                        <i class="fa fa-envelope"></i> メール送信</a>
-                    </li>
-                    <li ng-if="isAdmin || isAccountant">
-                      <a ng-click="vm.handleRemoveUserFromDepartment(leader)">
-                        <i class="glyphicon glyphicon-log-out"></i> 部署からさ削除</a>
-                    </li>
-                    <li ng-if="isAdmin || isAccountant">
-                      <a ng-click="vm.handleLogicDeleteUser(leader)">
-                        <i class="fa fa-user-times"></i> 削除</a>
-                    </li>
-                    <li ng-if="isAdmin">
-                      <a ng-click="vm.handleDatabaseDeleteUser(leader)">
-                        <i class="fa fa-trash"></i> 完全削除</a>
-                    </li>
-                  </ul>
-                </div>
-              </div> -->
-            </div>
-          </div>
-          <table>
-            <tr>
-              <td>形態：</td>
-              <td>{{ vm.workrest.holiday.name }}</td>
-            </tr>
-            <tr>
-              <td>開始：</td>
-              <td>{{ vm.workrest.start | LL}}</td>
-            </tr>
-            <tr>
-              <td>終了：</td>
-              <td>{{ vm.workrest.end | LL}}</td>
-            </tr>
-            <tr>
-              <td>期間：</td>
-              <td>{{ vm.workrest.duration }} 日間</td>
-            </tr>
-            <tr>
-              <td>事由：</td>
-              <td>
-                <p ng-bind-html="vm.workrest.description | nl2br"></p>
-              </td>
-            </tr>
-            <tr>
-              <td>警告：</td>
-              <td>{{ vm.workrest.warning }}</td>
-            </tr>
-          </table>
         </div>
       </div>
     </div>
