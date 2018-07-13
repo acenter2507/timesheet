@@ -1,5 +1,5 @@
 <div class="container-fluid animated fadeIn">
-  <!-- Tool tìm kiếm -->
+  <!-- 検索ツール -->
   <div class="row">
     <div class="col-sm-12 col-md-8 col-md-offset-2">
       <accordion close-others="true" ng-init="openTools = false;">
@@ -9,8 +9,10 @@
           </accordion-heading>
           <!-- 検索キー -->
           <div class="form-group">
-            <label for="search">検索キー</label>
-            <input name="search" type="text" ng-model="vm.condition.search" class="form-control" placeholder="検索キー">
+            <div class="col-sm-12">
+              <label for="search">検索キー</label>
+              <input name="search" type="text" ng-model="vm.condition.search" class="form-control" placeholder="検索キー">
+            </div>
           </div>
 
           <!-- 検索範囲 -->
@@ -103,7 +105,7 @@
       </accordion>
     </div>
   </div>
-  <!-- Danh sách ngày nghỉ -->
+  <!-- 休暇検索結果 -->
   <div class="row">
     <div class="col-sm-12 col-md-8 col-md-offset-2">
       <p>全 {{ vm.total }} 件</p>
