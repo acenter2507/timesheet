@@ -12,69 +12,6 @@ var path = require('path'),
   _ = require('underscore'),
   _moment = require('moment');
 
-exports.approve = function (req, res) {
-  var workrest = req.workrest;
-
-  // Kiểm tra số ngày nghỉ còn lại
-  if (workrest.isPaid && workrest.duration > workrest.user.company.paidHolidayCnt) {
-    return res.status(400).send({ message: '有給休暇の残日が不足です。' });
-  }
-
-  workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
-  workrest.status = 3;
-  workrest.save((err, rest) => {
-    if (err)
-      return res.status(400).send({ message: '承認処理が完了できません。' });
-    Workrest.findOne(workrest)
-      .populate({
-        path: 'historys',
-        populate: {
-          path: 'user',
-          select: 'displayName profileImageURL',
-          model: 'User'
-        }
-      })
-      .populate('holiday', 'name isPaid')
-      .populate('user')
-      .exec((err, workrest) => {
-        if (err)
-          return res.status(400).send({ message: '新しいデータを取得できません。' });
-        res.jsonp(workrest);
-        // 有給休暇の残日を計算する
-        var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
-        User.updateHolidays(workrest.user._id, newHolidayCnt);
-        // Thêm workrest vào các workdate có liên quan
-        workdateController.addWorkrestToWorkdates(workrest);
-        // TODO
-        // Load lại toàn bộ thông tin workmonth và workdate
-      });
-  });
-};
-exports.reject = function (req, res) {
-  var workrest = req.workrest;
-  workrest.historys.push({ action: 5, comment: req.body.data.comment, timing: new Date(), user: req.user._id });
-  workrest.status = 4;
-  workrest.save((err, workrest) => {
-    if (err)
-      return res.status(400).send({ message: '拒否処理が完了できません。' });
-    Workrest.findOne(workrest)
-      .populate({
-        path: 'historys',
-        populate: {
-          path: 'user',
-          select: 'displayName profileImageURL',
-          model: 'User'
-        }
-      })
-      .populate('holiday', 'name isPaid')
-      .populate('user')
-      .exec((err, rest) => {
-        if (err)
-          return res.status(400).send({ message: '新しいデータを取得できません。' });
-        return res.jsonp(rest);
-      });
-  });
-};
 exports.reviews = function (req, res) {
   var page = req.body.page || 1;
   var condition = req.body.condition || {};
@@ -143,5 +80,68 @@ exports.reviews = function (req, res) {
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });
+  });
+};
+exports.approve = function (req, res) {
+  var workrest = req.workrest;
+
+  // Kiểm tra số ngày nghỉ còn lại
+  if (workrest.isPaid && workrest.duration > workrest.user.company.paidHolidayCnt) {
+    return res.status(400).send({ message: '有給休暇の残日が不足です。' });
+  }
+
+  workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: req.user._id });
+  workrest.status = 3;
+  workrest.save((err, rest) => {
+    if (err)
+      return res.status(400).send({ message: '承認処理が完了できません。' });
+    Workrest.findOne(workrest)
+      .populate({
+        path: 'historys',
+        populate: {
+          path: 'user',
+          select: 'displayName profileImageURL',
+          model: 'User'
+        }
+      })
+      .populate('holiday', 'name isPaid')
+      .populate('user')
+      .exec((err, workrest) => {
+        if (err)
+          return res.status(400).send({ message: '新しいデータを取得できません。' });
+        res.jsonp(workrest);
+        // 有給休暇の残日を計算する
+        var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
+        User.updateHolidays(workrest.user._id, newHolidayCnt);
+        // Thêm workrest vào các workdate có liên quan
+        workdateController.addWorkrestToWorkdates(workrest);
+        // TODO
+        // Load lại toàn bộ thông tin workmonth và workdate
+      });
+  });
+};
+exports.reject = function (req, res) {
+  var workrest = req.workrest;
+  workrest.historys.push({ action: 5, comment: req.body.data.comment, timing: new Date(), user: req.user._id });
+  workrest.status = 4;
+  workrest.save((err, workrest) => {
+    if (err)
+      return res.status(400).send({ message: '拒否処理が完了できません。' });
+    Workrest.findOne(workrest)
+      .populate({
+        path: 'historys',
+        populate: {
+          path: 'user',
+          select: 'displayName profileImageURL',
+          model: 'User'
+        }
+      })
+      .populate('holiday', 'name isPaid')
+      .populate('user')
+      .exec((err, rest) => {
+        if (err)
+          return res.status(400).send({ message: '新しいデータを取得できません。' });
+        return res.jsonp(rest);
+      });
   });
 };
