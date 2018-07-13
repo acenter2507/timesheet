@@ -13,7 +13,6 @@
     'CommonService',
     '$stateParams',
     'PaymentsAdminApi',
-    'DepartmentsService',
     'AdminUserService',
     'AdminUserApi',
     '$q'
@@ -26,14 +25,12 @@
     CommonService,
     $stateParams,
     PaymentsAdminApi,
-    DepartmentsService,
     AdminUserService,
     AdminUserApi,
     $q
   ) {
     var vm = this;
     vm.payments = [];
-    vm.departments = [];
     vm.condition = {};
 
     vm.busy = false;
@@ -46,7 +43,6 @@
     function onCreate() {
       prepareCondition();
       prepareParams();
-      prepareDepartments();
       handleSearch();
     }
     function prepareCondition() {
@@ -66,11 +62,6 @@
           delete vm.condition.user;
         });
       }
-    }
-    function prepareDepartments() {
-      DepartmentsService.query().$promise.then(function (data) {
-        vm.departments = data;
-      });
     }
     function handleSearch() {
       if (vm.busy) return;

@@ -9,34 +9,33 @@
     '$scope',
     '$state',
     'WorkrestsService',
-    'CommonService',
     'DateUtil',
-    'DepartmentsService',
     'ngDialog',
     '$stateParams',
     'Notifications',
     'Socket',
     'WorkrestsAdminApi',
-    'AdminUserService'
+    'AdminUserService',
+    'CommonService',
+    '$q'
   ];
 
   function WorkrestsReviewController(
     $scope,
     $state,
     WorkrestsService,
-    CommonService,
     DateUtil,
-    DepartmentsService,
     ngDialog,
     $stateParams,
     Notifications,
     Socket,
     WorkrestsAdminApi,
-    AdminUserService
+    AdminUserService,
+    CommonService,
+    $q
   ) {
     var vm = this;
     vm.workrests = [];
-    vm.departments = [];
     vm.condition = {};
 
     vm.busy = false;
@@ -53,7 +52,6 @@
       prepareNotification();
       prepareCalendar();
       // prepareRestAction();
-      prepareDepartments();
       handleSearch();
     }
     function prepareCondition() {
@@ -78,11 +76,6 @@
           delete vm.condition.user;
         });
       }
-    }
-    function prepareDepartments() {
-      DepartmentsService.query().$promise.then(function (data) {
-        vm.departments = data;
-      });
     }
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
@@ -225,8 +218,21 @@
     vm.hanleSelectWorkrest = function (workrest) {
       $state.go('admin.workrests.review', { workrestId: workrest._id });
     };
+    vm.handleSearchUsers = function ($query) {
+      if (CommonService.isStringEmpty($query)) {
+        return [];
+      }
 
-    
+      var deferred = $q.defer();
+      AdminUserApi.searchUsers({ key: $query, department: false })
+        .success(function (users) {
+          deferred.resolve(users);
+        });
+
+      return deferred.promise;
+    };
+
+
     // Chấp nhận ngày nghỉ
     vm.handleApproveRest = function (workrest) {
       $scope.handleShowConfirm({

@@ -22,16 +22,11 @@ exports.create = function (req, res) {
     } else {
       workrest.warning = '';
     }
-
     workrest.historys = [{ action: 1, comment: '', timing: new Date(), user: req.user._id }];
-    // if (_.contains(req.user.roles, 'admin') || _.contains(req.user.roles, 'manager') || _.contains(req.user.roles, 'accountant')) {
-    //   workrest.status = 3;
-    //   workrest.historys.push({ action: 4, comment: '', timing: new Date(), user: workrest.user });
-    // }
     // Create search support field
     workrest.search = workrest.user.displayName + '-' + workrest.duration + '-' + workrest.description;
-    if (req.user.department) {
-      workrest.department = req.user.department;
+    if (workrest.user.department) {
+      workrest.department = req.user.department._id || workrest.user.department;
     }
     workrest.roles = workrest.user.roles;
     workrest.save((err, workrest) => {
@@ -71,12 +66,11 @@ exports.update = function (req, res) {
     }
     workrest.historys.push({ action: 2, timing: new Date(), user: req.user._id });
 
-    // Create search support field
     workrest.search = workrest.user.displayName + '-' + workrest.duration + '-' + workrest.description;
     if (workrest.user.department) {
-      workrest.department = workrest.user.department._id || workrest.user.department;
+      workrest.department = req.user.department._id || workrest.user.department;
     }
-
+    workrest.roles = workrest.user.roles;
     workrest.save((err, workrest) => {
       if (err)
         return res.status(400).send({ message: '休暇を保存できません！' });

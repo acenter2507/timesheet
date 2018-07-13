@@ -7,20 +7,16 @@
           <accordion-heading>
             <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openTools}"></i> 検索ツール
           </accordion-heading>
+          <!-- 検索キー -->
           <div class="form-group">
-            <div class="col-sm-6">
-              <label for="search">検索キー</label>
-              <input name="search" type="text" ng-model="vm.condition.search" class="form-control" placeholder="検索キー">
-            </div>
-            <div class="col-sm-6">
-              <label for="limit">表示件数</label>
-              <input name="limit" type="number" ng-model="vm.condition.limit" class="form-control">
-            </div>
-            <div class="clearfix"></div>
+            <label for="search">検索キー</label>
+            <input name="search" type="text" ng-model="vm.condition.search" class="form-control" placeholder="検索キー">
           </div>
+
+          <!-- 検索範囲 -->
           <div class="form-group">
-            <label for="status" class="w100p pd15l">検索範囲</label>
             <div class="col-sm-6" ng-init="startDatePickerOpen = false;">
+              <label for="start">開始時点</label>
               <div class="input-group">
                 <input name="start" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.condition.start" is-open="startDatePickerOpen"
                   close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="開始" show-weeks="false"
@@ -33,6 +29,7 @@
               </div>
             </div>
             <div class="col-sm-6" ng-init="endDatePickerOpen = false;">
+              <label for="end">終了時点</label>
               <div class="input-group">
                 <input name="end" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.condition.end" is-open="endDatePickerOpen"
                   close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body placeholder="終了" show-weeks="false"
@@ -46,8 +43,18 @@
             </div>
             <div class="clearfix"></div>
           </div>
+
+          <!-- Other  -->
           <div class="form-group">
-            <div class="col-sm-6">
+            <div class="col-sm-12 col-md-6">
+              <label for="user">社員</label>
+              <tags-input class="my-tags" ng-model="vm.condition.users" key-property="_id" template="users_tags.html" display-property="displayName"
+                placeholder="社員検索" replace-spaces-with-dashes="false">
+                <auto-complete source="vm.handleSearchUsers($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
+                  template="autocomplete.html"></auto-complete>
+              </tags-input>
+            </div>
+            <div class="col-sm-6 col-md-3">
               <label for="status">状態</label>
               <select name="status" class="form-control" ng-model="vm.condition.status">
                 <option value>全て</option>
@@ -59,7 +66,7 @@
                 <option value="6">完了</option>
               </select>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 col-md-3">
               <label for="roles">役割</label>
               <select name="roles" class="form-control" ng-model="vm.condition.roles" ng-list>
                 <option value ng-if="isAccountant || isAdmin">指定しない</option>
@@ -70,15 +77,8 @@
             </div>
             <div class="clearfix"></div>
           </div>
+          <!-- 表示 -->
           <div class="form-group">
-            <div class="col-sm-6">
-              <label for="department">部署</label>
-              <select name="department" class="form-control" ng-model="vm.condition.department">
-                <option value>指定しない</option>
-                <option value="empty">未設定</option>
-                <option ng-repeat="department in vm.departments" value="{{department._id}}">{{:: department.name}}</option>
-              </select>
-            </div>
             <div class="col-sm-6">
               <label for="sort">並び順</label>
               <select name="sort" class="form-control" ng-model="vm.condition.sort">
@@ -88,36 +88,16 @@
                 <option value="duration">期間の短い順番</option>
               </select>
             </div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-12">
-              <button class="btn btn-sm btn-danger pull-right" ng-click="vm.handleClearCondition()">クリア</button>
-              <button class="btn btn-sm btn-primary pull-right mg5r" ng-click="vm.handleStartSearch()">検索</button>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-12 col-md-6">
-              <label for="user">社員</label>
-              <tags-input class="my-tags" ng-model="vm.condition.users" key-property="_id" template="users_tags.html" display-property="displayName"
-                placeholder="社員検索" replace-spaces-with-dashes="false">
-                <auto-complete source="vm.handleSearchUsers($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
-                  template="autocomplete.html"></auto-complete>
-              </tags-input>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <label for="sort">並び順</label>
-              <select name="sort" class="form-control" ng-model="vm.condition.sort">
-                <option value="-created">登録の新しい順番</option>
-                <option value="created">登録の古い順番</option>
-              </select>
-            </div>
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6">
               <label for="limit">表示件数</label>
               <input name="limit" type="number" ng-model="vm.condition.limit" class="form-control">
             </div>
             <div class="clearfix"></div>
+          </div>
+          <!-- ボタン -->
+          <div class="form-group text-right">
+            <button class="btn btn-sm btn-danger" ng-click="vm.handleClearCondition()">クリア</button>
+            <button class="btn btn-sm btn-primary" ng-click="vm.handleStartSearch()">検索</button>
           </div>
         </accordion-group>
       </accordion>
@@ -268,3 +248,21 @@
     </div>
   </div>
 </div>
+
+
+<script type="text/ng-template" id="users_tags.html">
+  <a ui-sref="users.view({ userId: data._id })">{{ data.displayName }}</a>
+  <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
+</script>
+
+<script type="text/ng-template" id="autocomplete.html">
+  <div class="my-autocomplete">
+    <div class="left-panel">
+      <img src="{{ data.profileImageURL || data.avatar }}" />
+    </div>
+    <div class="right-panel">
+      <span>{{ data.displayName || data.name }}</span>
+      <span>{{ data.email }}</span>
+    </div>
+  </div>
+</script>

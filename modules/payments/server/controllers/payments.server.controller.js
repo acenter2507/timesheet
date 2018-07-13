@@ -16,7 +16,7 @@ exports.create = function (req, res) {
   var payment = new Payment(req.body);
   payment.user = req.user;
 
-  if (req.user.department) {
+  if (payment.user.department) {
     payment.department = payment.user.department._id || payment.user.department;
   }
   payment.roles = payment.user.roles;
@@ -47,7 +47,7 @@ exports.update = function (req, res) {
 
   payment = _.extend(payment, req.body);
   payment.historys.push({ action: 2, timing: new Date(), user: req.user._id });
-  if (req.user.department) {
+  if (payment.user.department) {
     payment.department = payment.user.department._id || payment.user.department;
   }
   payment.roles = payment.user.roles;
