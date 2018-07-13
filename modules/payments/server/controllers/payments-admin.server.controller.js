@@ -25,7 +25,7 @@ exports.reviews = function (req, res) {
   }
   console.log(condition.roles);
   if (condition.roles && condition.roles.length > 0) {
-    and_arr.push({ user: { $elemMatch: { roles: { $eq: condition.roles } } } });
+    and_arr.push({ 'user': { $exists: true } });
   }
 
   if (condition.users) {
@@ -48,6 +48,7 @@ exports.reviews = function (req, res) {
       { path: 'user', select: 'profileImageURL displayName' },
       { path: 'department', select: 'name' },
       {
+        // match: { age: { $gte: 18 }},
         path: 'historys', populate: [
           { path: 'user', select: 'displayName profileImageURL', model: 'User' },
         ]
