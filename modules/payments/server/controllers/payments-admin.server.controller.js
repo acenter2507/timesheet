@@ -23,8 +23,9 @@ exports.reviews = function (req, res) {
   if (condition.status) {
     and_arr.push({ status: condition.status });
   }
+  console.log(condition.roles);
   if (condition.roles && condition.roles.length > 0) {
-    and_arr.push({ 'user.roles': { $eq : condition.roles } });
+    and_arr.push({ 'user.roles': { $eq: condition.roles } });
   }
 
   if (condition.users) {
