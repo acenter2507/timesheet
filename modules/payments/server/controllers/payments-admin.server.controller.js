@@ -25,7 +25,7 @@ exports.reviews = function (req, res) {
   }
   console.log(condition.roles);
   if (condition.roles && condition.roles.length > 0) {
-    and_arr.push({ 'user.email': 'lenh@ktcc.co.jp' });
+    and_arr.push({ 'user.status': 1 });
   }
 
   if (condition.users) {
