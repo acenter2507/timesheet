@@ -25,7 +25,7 @@ exports.reviews = function (req, res) {
   }
   console.log(condition.roles);
   if (condition.roles && condition.roles.length > 0) {
-    and_arr.push({ "user.roles": [ 'user' ] });
+    and_arr.push({ user: { $elementMatch: { roles: ['user'] } } });
   }
 
   if (condition.users) {
