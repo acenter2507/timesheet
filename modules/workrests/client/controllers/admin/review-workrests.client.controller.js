@@ -5,34 +5,84 @@
     .module('workrests.admin')
     .controller('WorkrestsReviewController', WorkrestsReviewController);
 
-  WorkrestsReviewController.$inject = ['$scope', '$state', 'WorkrestsService', 'CommonService', 'DateUtil', 'WorkrestsApi', 'DepartmentsService', 'ngDialog', '$document', '$stateParams', 'Notifications', 'Socket'];
+  WorkrestsReviewController.$inject = [
+    '$scope',
+    '$state',
+    'WorkrestsService',
+    'CommonService',
+    'DateUtil',
+    'DepartmentsService',
+    'ngDialog',
+    '$stateParams',
+    'Notifications',
+    'Socket',
+    'WorkrestsAdminApi',
+    'AdminUserService'
+  ];
 
-  function WorkrestsReviewController($scope, $state, WorkrestsService, CommonService, DateUtil, WorkrestsApi, DepartmentsService, ngDialog, $document, $stateParams, Notifications, Socket) {
+  function WorkrestsReviewController(
+    $scope,
+    $state,
+    WorkrestsService,
+    CommonService,
+    DateUtil,
+    DepartmentsService,
+    ngDialog,
+    $stateParams,
+    Notifications,
+    Socket,
+    WorkrestsAdminApi,
+    AdminUserService
+  ) {
     var vm = this;
+    vm.workrests = [];
+    vm.departments = [];
+    vm.condition = {};
+
     vm.busy = false;
     vm.page = 1;
     vm.pages = [];
     vm.total = 0;
     vm.isShowHistory = false;
     vm.historys = [];
-    vm.historyBox = angular.element(document.getElementById('rests-review-historys'));
-    vm.restsBox = angular.element(document.getElementById('rests-review-rests'));
-    vm.toolsBox = angular.element(document.getElementById('rests-review-tools'));
-    vm.calendarBox = angular.element(document.getElementById('rests-review-calendar'));
 
     onCreate();
     function onCreate() {
+      prepareCondition();
+      prepareParams();
       prepareNotification();
       prepareCalendar();
-      prepareRestAction();
+      // prepareRestAction();
       prepareDepartments();
-      prepareCondition();
       handleSearch();
+    }
+    function prepareCondition() {
+      vm.condition = {
+        sort: '-created',
+        limit: 10,
+        users: []
+      };
+      vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
+      vm.condition.user = ($stateParams.user) ? $stateParams.user : undefined;
     }
     function prepareNotification() {
       if ($stateParams.notif) {
         Notifications.remove($stateParams.notif);
       }
+    }
+    function prepareParams() {
+      if ($stateParams.user) {
+        AdminUserService.get({ userId: $stateParams.user }).$promise.then(function (user) {
+          var _user = _.pick(user, 'displayName', 'email', 'profileImageURL', '_id');
+          vm.condition.users.push(_user);
+          delete vm.condition.user;
+        });
+      }
+    }
+    function prepareDepartments() {
+      DepartmentsService.query().$promise.then(function (data) {
+        vm.departments = data;
+      });
     }
     function prepareCalendar() {
       vm.calendar = { view: 'month' };
@@ -59,7 +109,17 @@
         //   return;
         // }
       };
+      vm.handleCalendarEventClicked = function () {
+        return false;
+      };
+      vm.handleCalendarRangeSelected = function (start, end) {
+        return false;
+      };
+      vm.handleCalendarClicked = function (date) {
+        return false;
+      };
     }
+
     function prepareRestAction() {
       vm.action = {
         remove: {
@@ -91,18 +151,6 @@
         }
       };
     }
-    function prepareDepartments() {
-      DepartmentsService.query().$promise.then(function (data) {
-        vm.departments = data;
-      });
-    }
-    function prepareCondition() {
-      vm.condition = {
-        sort: '-created',
-        limit: 20
-      };
-      vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
-    }
     function prepareCalendarEvent() {
       vm.events = [];
       if (vm.workrests.length === 0) return;
@@ -117,8 +165,8 @@
           }
           case 2: { // Waiting
             color = { primary: '#f0ad4e', secondary: '#fae6c9' };
-            actions.push(vm.action.approve);
-            actions.push(vm.action.reject);
+            // actions.push(vm.action.approve);
+            // actions.push(vm.action.reject);
             break;
           }
           case 3: { // Approved
@@ -151,10 +199,10 @@
     function handleSearch() {
       if (vm.busy) return;
       vm.busy = true;
-      WorkrestsApi.getRestReview(vm.condition, vm.page)
+      WorkrestsAdminApi.reviews(vm.condition, vm.page)
         .success(function (res) {
           vm.workrests = res.docs;
-          vm.pages = CommonService.createArrayFromRange(res.pages);
+          vm.pages = res.pages;
           vm.total = res.total;
           prepareCalendar();
           prepareCalendarEvent();
@@ -168,28 +216,23 @@
     vm.handleClearCondition = function () {
       prepareCondition();
     };
-    vm.handlePageChanged = function (page) {
-      vm.page = page;
+    vm.handlePageChanged = function () {
       handleSearch();
     };
-    vm.handleCalendarEventClicked = function () {
-      return false;
+    vm.hanleSelectWorkrestOnCalendar = function (calendarEvent) {
+      $state.go('admin.workrests.review', { workrestId: calendarEvent.id });
     };
-    vm.handleCalendarRangeSelected = function (start, end) {
-      return false;
+    vm.hanleSelectWorkrest = function (workrest) {
+      $state.go('admin.workrests.review', { workrestId: workrest._id });
     };
-    vm.handleCalendarClicked = function (date) {
-      return false;
-    };
-    vm.handleRestClicked = function (calendarEvent) {
-      $state.go('workrests.view', { workrestId: calendarEvent.id });
-    };
+
+    
     // Chấp nhận ngày nghỉ
     vm.handleApproveRest = function (workrest) {
       $scope.handleShowConfirm({
         message: 'この休暇を承認しますか？'
       }, function () {
-        WorkrestsApi.approve(workrest._id)
+        WorkrestsAdminApi.approve(workrest._id)
           .success(function (data) {
             _.extend(workrest, data);
             Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
@@ -210,7 +253,7 @@
         $scope.handleShowConfirm({
           message: 'この休暇を拒否しますか？'
         }, function () {
-          WorkrestsApi.reject(workrest._id, { comment: content })
+          WorkrestsAdminApi.reject(workrest._id, { comment: content })
             .success(function (data) {
               _.extend(workrest, data);
               Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });

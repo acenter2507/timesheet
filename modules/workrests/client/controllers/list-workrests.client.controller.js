@@ -9,7 +9,6 @@
     '$scope',
     '$state',
     'WorkrestsService',
-    'CommonService',
     'DateUtil',
     'WorkrestsApi',
     'Socket',
@@ -21,7 +20,6 @@
     $scope,
     $state,
     WorkrestsService,
-    CommonService,
     DateUtil,
     WorkrestsApi,
     Socket,
@@ -190,7 +188,6 @@
     vm.hanleSelectWorkrest = function (workrest) {
       $state.go('workrests.view', { workrestId: workrest._id });
     };
-    // Xóa bỏ Ngày nghỉ
     vm.handleDeleteWorkrest = function (workrest) {
       $scope.handleShowConfirm({
         message: '削除しますか？'
@@ -201,7 +198,6 @@
         });
       });
     };
-    // Gửi thỉnh cầu đến leader
     vm.handleRequestWorkrest = function (workrest) {
       $scope.handleShowConfirm({
         message: '休暇を申請しますか？'
@@ -216,7 +212,6 @@
           });
       });
     };
-    // Hủy bỏ thỉnh cầu
     vm.handleCancelWorkrest = function (workrest) {
       $scope.handleShowConfirm({
         message: '休暇の申請を取り消しますか？'
@@ -230,7 +225,6 @@
           });
       });
     };
-    // Gửi thỉnh cầu xóa bỏ ngày nghỉ
     vm.handleRequestDelete = function (workrest) {
       $scope.handleShowConfirm({
         message: '休暇を取り消す申請を送りますか？'

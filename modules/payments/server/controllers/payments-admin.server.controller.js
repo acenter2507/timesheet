@@ -24,7 +24,7 @@ exports.reviews = function (req, res) {
     and_arr.push({ status: condition.status });
   }
   if (condition.roles && condition.roles.length > 0) {
-    and_arr.push({ roles: condition.roles });
+    and_arr.push({ 'user.roles': condition.roles });
   }
 
   if (condition.users) {
