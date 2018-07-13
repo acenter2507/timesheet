@@ -40,7 +40,7 @@
       }
     }
     function preparePayments() {
-      PaymentsApi.getPaymentsByYear(vm.currentYear.year())
+      PaymentsApi.list(vm.currentYear.year())
         .success(function (res) {
           prepareShowingPayments(res);
         })
