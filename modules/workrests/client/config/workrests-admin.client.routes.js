@@ -28,8 +28,18 @@
         templateUrl: 'modules/workrests/client/views/admin/review-workrest.client.view.html',
         controller: 'WorkrestReviewController',
         controllerAs: 'vm',
+        resolve: { workrestResolve: getWorkrest },
         data: { roles: ['admin', 'manager', 'accountant'] },
         ncyBreadcrumb: { label: '休暇詳細' }
       });
+  }
+
+
+  getWorkrest.$inject = ['$stateParams', 'WorkrestsService'];
+
+  function getWorkrest($stateParams, WorkrestsService) {
+    return WorkrestsService.get({
+      workrestId: $stateParams.workrestId
+    }).$promise;
   }
 }());

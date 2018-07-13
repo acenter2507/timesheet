@@ -18,6 +18,7 @@
       prepareNotification();
       prepareCalendar();
     }
+
     function prepareSecurity() {
       // 自分の休暇
       if (vm.workrest.isCurrentUserOwner) return;
