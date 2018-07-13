@@ -23,10 +23,10 @@ exports.reviews = function (req, res) {
   if (condition.status) {
     and_arr.push({ 'status': condition.status });
   }
-  // console.log(condition.roles);
-  // if (condition.roles && condition.roles.length > 0) {
-  //   and_arr.push({ 'user': { $elementMatch: { roles: ['user'] } } });
-  // }
+  console.log(condition.roles);
+  if (condition.roles && condition.roles.length > 0) {
+    and_arr.push({ 'user': req.user._id });
+  }
 
   if (condition.users) {
     var userIds = _.pluck(condition.users, '_id');
