@@ -57,6 +57,7 @@ exports.reviews = function (req, res) {
   }).then(function (payments) {
     return res.jsonp(payments);
   }, err => {
+    console.log(err);
     return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
   });
 };
