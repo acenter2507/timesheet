@@ -69,7 +69,7 @@
             <div class="col-sm-6 col-md-3">
               <label for="roles">役割</label>
               <select name="roles" class="form-control" ng-model="vm.condition.roles" ng-list>
-                <option value ng-if="isAccountant || isAdmin">指定しない</option>
+                <option value>指定しない</option>
                 <option value="user">一般社員</option>
                 <option value="user,accountant" ng-if="isAccountant || isAdmin">経理</option>
                 <option value="user,manager" ng-if="isAccountant || isAdmin">マネージャ</option>
