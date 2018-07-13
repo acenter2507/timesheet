@@ -10,7 +10,6 @@ var path = require('path'),
   _ = require('underscore');
 
 exports.reviews = function (req, res) {
-  console.log(typeof req.user.roles);
   var page = req.body.page || 1;
   var condition = req.body.condition || {};
   var query = {};
@@ -26,7 +25,7 @@ exports.reviews = function (req, res) {
   }
   console.log(condition.roles);
   if (condition.roles && condition.roles.length > 0) {
-    and_arr.push({ "user.roles": { $size: 1 } });
+    and_arr.push({ "user.roles": [ 'user' ] });
   }
 
   if (condition.users) {
