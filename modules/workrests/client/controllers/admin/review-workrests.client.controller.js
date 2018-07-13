@@ -10,12 +10,12 @@
     '$state',
     'WorkrestsService',
     'DateUtil',
-    'ngDialog',
     '$stateParams',
     'Notifications',
     'Socket',
     'WorkrestsAdminApi',
     'AdminUserService',
+    'AdminUserApi',
     'CommonService',
     '$q'
   ];
@@ -25,12 +25,12 @@
     $state,
     WorkrestsService,
     DateUtil,
-    ngDialog,
     $stateParams,
     Notifications,
     Socket,
     WorkrestsAdminApi,
     AdminUserService,
+    AdminUserApi,
     CommonService,
     $q
   ) {
@@ -250,27 +250,27 @@
     };
     // Không chấp nhận ngày nghỉ
     vm.handleRejectRest = function (workrest) {
-      ngDialog.openConfirm({
-        templateUrl: 'commentTemplate.html',
-        scope: $scope,
-        showClose: false
-      }).then(function (content) {
-        delete $scope.content;
-        $scope.handleShowConfirm({
-          message: 'この休暇を拒否しますか？'
-        }, function () {
-          WorkrestsAdminApi.reject(workrest._id, { comment: content })
-            .success(function (data) {
-              _.extend(workrest, data);
-              Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
-            })
-            .error(function (err) {
-              $scope.handleShowToast(err.message, true);
-            });
-        });
-      }, function () {
-        delete $scope.content;
-      });
+      // ngDialog.openConfirm({
+      //   templateUrl: 'commentTemplate.html',
+      //   scope: $scope,
+      //   showClose: false
+      // }).then(function (content) {
+      //   delete $scope.content;
+      //   $scope.handleShowConfirm({
+      //     message: 'この休暇を拒否しますか？'
+      //   }, function () {
+      //     WorkrestsAdminApi.reject(workrest._id, { comment: content })
+      //       .success(function (data) {
+      //         _.extend(workrest, data);
+      //         Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
+      //       })
+      //       .error(function (err) {
+      //         $scope.handleShowToast(err.message, true);
+      //       });
+      //   });
+      // }, function () {
+      //   delete $scope.content;
+      // });
 
     };
     // Xóa ngày nghỉ theo thỉnh cầu
