@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/payments/receipts',
       permissions: ['post']
+    }, {
+      resources: '/api/payments/list',
+      permissions: ['post']
     }]
   }]);
 };

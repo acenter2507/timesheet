@@ -17,9 +17,9 @@ exports.create = function (req, res) {
   payment.user = req.user;
 
   if (req.user.department) {
-    payment.department = req.user.department;
+    payment.department = payment.user.department._id || payment.user.department;
   }
-
+  payment.roles = payment.user.roles;
   payment.historys.push({ action: 1, timing: new Date(), user: req.user._id });
   payment.save(function (err) {
     if (err)
@@ -47,6 +47,10 @@ exports.update = function (req, res) {
 
   payment = _.extend(payment, req.body);
   payment.historys.push({ action: 2, timing: new Date(), user: req.user._id });
+  if (req.user.department) {
+    payment.department = payment.user.department._id || payment.user.department;
+  }
+  payment.roles = payment.user.roles;
   payment.save(function (err) {
     if (err)
       return res.status(400).send({ message: '清算表を保存できません！' });
@@ -75,16 +79,6 @@ exports.delete = function (req, res) {
   });
 };
 exports.list = function (req, res) {
-  Payment.find().sort('-created')
-    .populate('user', 'displayName').exec(function (err, payments) {
-      if (err)
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      return res.jsonp(payments);
-    });
-};
-exports.paymentsByYear = function (req, res) {
   var year = req.body.year;
   if (!year || year === '') return res.status(400).send({ message: 'リクエスト情報が間違います。' });
 
@@ -249,7 +243,7 @@ exports.paymentByID = function (req, res, next, id) {
     });
   }
   Payment.findById(id)
-    .populate('user', 'displayName profileImageURL')
+    .populate('user', 'displayName profileImageURL roles')
     .exec(function (err, payment) {
       if (err) {
         return next(err);

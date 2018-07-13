@@ -10,7 +10,7 @@ var paymentsPolicy = require('../policies/payments.server.policy'),
 module.exports = function (app) {
 
   // Get all month in year of 1 user
-  app.route('/api/payments/paymentsByYear').post(payments.paymentsByYear);
+  app.route('/api/payments/list').all(paymentsPolicy.isAllowed).post(payments.list);
   app.route('/api/payments/receipts').all(paymentsPolicy.isAllowed).post(payments.receipts);
 
   // Payments Routes
