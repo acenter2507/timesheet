@@ -50,7 +50,7 @@
       prepareCondition();
       prepareParams();
       prepareNotification();
-      prepareCalendar();
+      // prepareCalendar();
       // prepareRestAction();
       handleSearch();
     }
@@ -197,8 +197,8 @@
           vm.workrests = res.docs;
           vm.pages = res.pages;
           vm.total = res.total;
-          prepareCalendar();
-          prepareCalendarEvent();
+          // prepareCalendar();
+          // prepareCalendarEvent();
           vm.busy = false;
         })
         .error(function (err) {
@@ -231,10 +231,10 @@
 
       return deferred.promise;
     };
-
-
-    // Chấp nhận ngày nghỉ
-    vm.handleApproveRest = function (workrest) {
+    vm.hanleSelectWorkrest = function (workrest) {
+      $state.go('admin.workrests.review', { workrestId: workrest._id });
+    };
+    vm.handleApproveWorkrest = function (workrest) {
       $scope.handleShowConfirm({
         message: 'この休暇を承認しますか？'
       }, function () {
@@ -248,35 +248,22 @@
           });
       });
     };
-    // Không chấp nhận ngày nghỉ
-    vm.handleRejectRest = function (workrest) {
-      // ngDialog.openConfirm({
-      //   templateUrl: 'commentTemplate.html',
-      //   scope: $scope,
-      //   showClose: false
-      // }).then(function (content) {
-      //   delete $scope.content;
-      //   $scope.handleShowConfirm({
-      //     message: 'この休暇を拒否しますか？'
-      //   }, function () {
-      //     WorkrestsAdminApi.reject(workrest._id, { comment: content })
-      //       .success(function (data) {
-      //         _.extend(workrest, data);
-      //         Socket.emit('rest_review', { workrestId: workrest._id, user: $scope.user._id });
-      //       })
-      //       .error(function (err) {
-      //         $scope.handleShowToast(err.message, true);
-      //       });
-      //   });
-      // }, function () {
-      //   delete $scope.content;
-      // });
-
-    };
-    // Xóa ngày nghỉ theo thỉnh cầu
-    vm.handleDelete = function (workrest) {
+    vm.handleRejectWorkrest = function (workrest) {
       $scope.handleShowConfirm({
-        message: '削除しますか？'
+        message: 'この休暇を拒否しますか？'
+      }, function () {
+        WorkrestsAdminApi.reject(workrest._id)
+          .success(function (data) {
+            _.extend(workrest, data);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleDeleteWorkrest = function (workrest) {
+      $scope.handleShowConfirm({
+        message: '休暇を取り消しますか？'
       }, function () {
         var rsRest = new WorkrestsService({ _id: workrest._id });
         rsRest.$remove(function () {
@@ -287,9 +274,6 @@
     vm.handleViewHistory = function (rest) {
       vm.isShowHistory = true;
       vm.historys = rest.historys;
-    };
-    vm.handleCloseHistory = function () {
-      vm.isShowHistory = false;
     };
   }
 }());

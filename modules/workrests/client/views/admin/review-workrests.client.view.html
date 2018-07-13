@@ -124,7 +124,7 @@
           <tr ng-show="vm.workrests.length === 0">
             <td colspan="7">データが見つかりません。</td>
           </tr>
-          <tr ng-repeat="workrest in vm.workrests track by $index" class="clickable" ng-click="vm.hanleSelectPayment(payment)">
+          <tr ng-repeat="workrest in vm.workrests track by $index" class="clickable" ng-click="vm.hanleSelectWorkrest(workrest)">
             <td class="w50 text-center">
               <div dropdown dropdown-append-to-body>
                 <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
@@ -178,7 +178,7 @@
   <div class="row mg10t" ng-show="vm.isShowHistory">
     <div class="col-sm-12 col-md-8 col-md-offset-2">
       <div class="form-group text-right">
-        <button class="btn btn-warning btn-sm" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
+        <button class="btn btn-warning btn-sm" ng-click="vm.isShowHistory = false;">歴史表を閉じる</button>
       </div>
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
