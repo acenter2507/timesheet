@@ -68,7 +68,7 @@
       vm.busy = true;
       PaymentsAdminApi.reviews(vm.condition, vm.page)
         .success(function (res) {
-          console.log(res.docs);
+          console.log(res);
           vm.payments = res.docs;
           vm.pages = res.pages;
           vm.total = res.total;
