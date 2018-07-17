@@ -61,11 +61,11 @@ exports.reviews = function (req, res) {
   // });
   Payment.aggregate(
     [
-      { $match: { total: 0 } },
+      { $match: { total: 0 } }
     ], (err, result) => {
       return res.jsonp(result);
     }
-  ).allowDiskUse(true);
+  );
 };
 exports.approve = function (req, res) {
   var payment = req.payment;
