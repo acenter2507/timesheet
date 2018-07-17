@@ -166,7 +166,7 @@
             <td>{{ transport.start }}</td>
             <td>{{ transport.end }}</td>
             <td class="w50 text-center">
-              <input type="checkbox" ng-checked="{{ transport.round }}" disabled>
+              <input type="checkbox" ng-checked="{{ transport.round }}" readonly>
             </td>
             <td>
               <p class="mgn">{{ transport.method | TransportMethod }}</p>
@@ -214,7 +214,7 @@
             <td>{{ trip.start }}</td>
             <td>{{ trip.end }}</td>
             <td class="text-center">
-              <input type="checkbox" ng-checked="{{ trip.round }}" disabled>
+              <input type="checkbox" ng-checked="{{ trip.round }}" readonly>
             </td>
             <td>
               <p class="mgn">{{ trip.method | TripMethod }}</p>
