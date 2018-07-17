@@ -194,10 +194,9 @@
       vm.busy = true;
       WorkrestsAdminApi.reviews(vm.condition, vm.page)
         .success(function (res) {
-          console.log(res);
-          // vm.workrests = res.docs;
-          // vm.pages = res.pages;
-          // vm.total = res.total;
+          vm.workrests = res.docs;
+          vm.pages = res.pages;
+          vm.total = res.total;
           // prepareCalendar();
           // prepareCalendarEvent();
           vm.busy = false;
