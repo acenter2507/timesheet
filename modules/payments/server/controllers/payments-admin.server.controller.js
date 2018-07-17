@@ -74,8 +74,7 @@ exports.reviews = function (req, res) {
       { $limit: 5 }
     ], (err, result) => {
       return res.jsonp(result);
-    }
-  );
+    });
 };
 exports.approve = function (req, res) {
   var payment = req.payment;
