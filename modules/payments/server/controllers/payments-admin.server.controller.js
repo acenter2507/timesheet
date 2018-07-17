@@ -71,7 +71,7 @@ exports.reviews = function (req, res) {
       {
         $lookup:
         {
-          from: "user",
+          from: "users",
           localField: "user",
           foreignField: "_id",
           as: "user"
