@@ -5,15 +5,15 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
-  relationship = require("mongoose-relationship"),
+  relationship = require('mongoose-relationship'),
   Schema = mongoose.Schema;
 
 /**
  * Workdate Schema
  */
 var WorkdateSchema = new Schema({
-  workmonth: { type: Schema.ObjectId, ref: 'Workmonth', childPath:"workdates" },
-  workrests: [{ type: Schema.ObjectId, ref: 'Workrest', childPath:"workdates" }], // 休日形態
+  workmonth: { type: Schema.ObjectId, ref: 'Workmonth', childPath: 'workdates' },
+  workrests: [{ type: Schema.ObjectId, ref: 'Workrest', childPath: 'workdates' }], // 休日形態
   year: { type: Number },
   month: { type: Number }, // カレンダーの月
   date: { type: Number }, // カレンダーの日
