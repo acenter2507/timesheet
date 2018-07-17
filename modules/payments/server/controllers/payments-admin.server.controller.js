@@ -39,23 +39,51 @@ exports.reviews = function (req, res) {
   if (and_arr.length > 0) {
     query = { $and: and_arr };
   }
-  Payment.paginate(query, {
-    sort: condition.sort,
-    page: page,
-    populate: [
-      { path: 'user', select: 'profileImageURL displayName' },
-      { path: 'department', select: 'name' },
-      {
-        // match: { age: { $gte: 18 }},
-        path: 'historys',
-        select: 'action timing user'
-      },
-    ],
-    limit: condition.limit
-  }).then(function (payments) {
-    return res.jsonp(payments);
-  }, err => {
-    return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
+  // Payment.paginate(query, {
+  //   sort: condition.sort,
+  //   page: page,
+  //   populate: [
+  //     { path: 'user', select: 'profileImageURL displayName' },
+  //     { path: 'department', select: 'name' },
+  //     {
+  //       // match: { age: { $gte: 18 }},
+  //       path: 'historys', populate: [
+  //         { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+  //       ]
+  //     },
+  //   ],
+  //   limit: condition.limit
+  // }).then(function (payments) {
+  //   return res.jsonp(payments);
+  // }, err => {
+  //   console.log(err);
+  //   return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
+  // });
+  Payment.find().populate({
+    path: 'user',
+    match: { roles: ['user'] }
+  }).exec((err, payments) => {
+    var ids = _.pluck(payments, '_id');
+    return Payment.paginate({ _id: { $in: ids } }, {
+      sort: condition.sort,
+      page: page,
+      populate: [
+        { path: 'user', select: 'profileImageURL displayName' },
+        { path: 'department', select: 'name' },
+        {
+          // match: { age: { $gte: 18 }},
+          path: 'historys', populate: [
+            { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+          ]
+        },
+      ],
+      limit: condition.limit
+    }).then(function (payments) {
+      return res.jsonp(payments);
+    }, err => {
+      console.log(err);
+      return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
+    });
   });
 };
 exports.approve = function (req, res) {
