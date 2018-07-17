@@ -54,14 +54,19 @@ exports.reviews = function (req, res) {
     // ],
     limit: condition.limit
   }).then(function (payments) {
-    var ids = _.pluck(payments, '_id');
-    Payment.find({ _id: { $in: ids } })
-      .populate({ path: 'user', select: 'profileImageURL displayName' })
+    // return res.jsonp(payments);
+    Payment.findById(payments[0]._id)
       .populate({
-        path: 'historys', populate: { path: 'user', select: 'displayName profileImageURL', model: 'User' }
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
       })
-      .exec((err, payments) => {
-        return res.jsonp(payments);
+      .populate('user', 'displayName profileImageURL')
+      .populate('department', 'name')
+      .exec(function (err, payment) {
+        if (err)
+          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+        return res.jsonp(payment);
       });
   }, err => {
     console.log(err);
