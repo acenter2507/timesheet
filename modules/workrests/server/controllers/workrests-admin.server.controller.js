@@ -17,7 +17,7 @@ exports.reviews = function (req, res) {
   var aggregate = Workrest.aggregate();
   aggregate.lookup({ from: 'user', localField: 'user', foreignField: '_id', as: 'user' });
   aggregate.match({ 'user.roles': ["sales", "engineering"] });
-  var options = { page: 1, limit: 5 }
+  var options = { page: 1, limit: 5 };
   Workrest.aggregatePaginate(aggregate, options)
     .then(function (value) {
       return res.jsonp(value);
