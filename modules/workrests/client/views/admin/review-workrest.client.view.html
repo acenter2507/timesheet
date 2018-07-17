@@ -1,124 +1,110 @@
 <div class="container-fluid animated fadeIn">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="form-group text-right">
-          <button class="btn btn-default" ng-click="vm.handlePreviousScreen()">戻る</button>
-          <button class="btn btn-primary" ng-show="vm.payment.workrest === 2" ng-click="vm.handleApproveWorkrest()">承認</button>
-          <button class="btn btn-warning" ng-show="vm.payment.workrest === 2" ng-click="vm.handleRejectWorkrest()">拒否</button>
-          <button class="btn btn-danger" ng-show="vm.payment.workrest === 5" ng-click="vm.handleDeleteWorkrest()">取り消し</button>
-          <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
-        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group text-right">
+        <button class="btn btn-default" ng-click="vm.handlePreviousScreen()">戻る</button>
+        <button class="btn btn-primary" ng-show="vm.payment.workrest === 2" ng-click="vm.handleApproveWorkrest()">承認</button>
+        <button class="btn btn-warning" ng-show="vm.payment.workrest === 2" ng-click="vm.handleRejectWorkrest()">拒否</button>
+        <button class="btn btn-danger" ng-show="vm.payment.workrest === 5" ng-click="vm.handleDeleteWorkrest()">取り消し</button>
+        <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
+          {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
+        </button>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12 col-md-6 col-md-push-6">
-        <!-- Content -->
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <tr>
-              <td>
-                <strong>氏名</strong>
-              </td>
-              <td>
-                <h4 class="mgn">{{ vm.workrest.user.displayName }}</h4>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>部署</strong>
-              </td>
-              <td>
-                <span ng-show="vm.workrest.department">{{ vm.workrest.department.name }}</span>
-                <span ng-show="!vm.workrest.department">未設定</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>種類</strong>
-              </td>
-              <td>{{ vm.workrest.holiday.name }}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>期間</strong>
-              </td>
-              <td>
-                <span>{{ vm.workrest.start | LL}}</span>
-                <span>～</span>
-                <span>{{ vm.workrest.end | LL}}</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>事由</strong>
-              </td>
-              <td>
-                <p ng-bind-html="vm.workrest.description | nl2br"></p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>状態</strong>
-              </td>
-              <td>{{ vm.workrest.status | StatusFilter }}</td>
-            </tr>
-            <tr ng-if="vm.workrest.warning">
-              <td>
-                <strong>警告</strong>
-              </td>
-              <td>
-                <span class="text-danger">{{ vm.workrest.warning }}</span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <!-- History -->
-        <div class="table-responsive" ng-show="vm.isShowHistory">
-          <table class="table table-bordered table-striped">
-            <thead class="thead-default">
-              <tr>
-                <th class="w30 text-center">#</th>
-                <th>日付</th>
-                <th>操作</th>
-                <th>操作者</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="history in vm.workrest.historys">
-                <td class="w30 text-center">{{ $index + 1 }}</td>
-                <td>{{ history.timing | LLLL }}</td>
-                <td>{{ history.action | ActionFilter }}</td>
-                <td>
-                  <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-md-push-6">
+      <!-- Content -->
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tr>
+            <td>
+              <strong>氏名</strong>
+            </td>
+            <td>
+              <h4 class="mgn">{{ vm.workrest.user.displayName }}</h4>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>部署</strong>
+            </td>
+            <td>
+              <span ng-show="vm.workrest.department">{{ vm.workrest.department.name }}</span>
+              <span ng-show="!vm.workrest.department">未設定</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>種類</strong>
+            </td>
+            <td>{{ vm.workrest.holiday.name }}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>期間</strong>
+            </td>
+            <td>
+              <span>{{ vm.workrest.start | LL}}</span>
+              <span>～</span>
+              <span>{{ vm.workrest.end | LL}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>事由</strong>
+            </td>
+            <td>
+              <p ng-bind-html="vm.workrest.description | nl2br"></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>状態</strong>
+            </td>
+            <td>{{ vm.workrest.status | StatusFilter }}</td>
+          </tr>
+          <tr ng-if="vm.workrest.warning">
+            <td>
+              <strong>警告</strong>
+            </td>
+            <td>
+              <span class="text-danger">{{ vm.workrest.warning }}</span>
+            </td>
+          </tr>
+        </table>
       </div>
-      <div class="col-sm-12 col-md-6 col-md-pull-6">
-        <!-- # MOBILE # -->
-        <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
-          <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">
-            <i class="fa fa-calendar"></i> {{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
-          <div collapse="isCloseCalendar">
-            <div class="row text-center mg5t">
-              <div class="btn-group">
-                <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
-                <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
-                <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
-              </div>
-            </div>
-            <h3 class="text-center">{{ vm.calendar.title }}</h3>
-            <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
-              cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
-              on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
-            </mwl-calendar>
-          </div>
-        </div>
-        <!-- # DESKTOP # -->
-        <div class="form-group" ng-if="!isMobile">
-          <div class="row text-center">
+      <!-- History -->
+      <div class="table-responsive" ng-show="vm.isShowHistory">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-default">
+            <tr>
+              <th class="w30 text-center">#</th>
+              <th>日付</th>
+              <th>操作</th>
+              <th>操作者</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="history in vm.workrest.historys">
+              <td class="w30 text-center">{{ $index + 1 }}</td>
+              <td>{{ history.timing | LLLL }}</td>
+              <td>{{ history.action | ActionFilter }}</td>
+              <td>
+                <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-md-pull-6">
+      <!-- # MOBILE # -->
+      <div class="form-group" ng-if="isMobile" ng-init="isCloseCalendar = true;">
+        <button class="btn btn-success btn-sm btn-block" ng-click="isCloseCalendar = !isCloseCalendar">
+          <i class="fa fa-calendar"></i> {{ (isCloseCalendar) ? 'カレンダー表示' : 'カレンダー非表示' }}</button>
+        <div collapse="isCloseCalendar">
+          <div class="row text-center mg5t">
             <div class="btn-group">
               <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
               <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
@@ -132,5 +118,21 @@
           </mwl-calendar>
         </div>
       </div>
+      <!-- # DESKTOP # -->
+      <div class="form-group" ng-if="!isMobile">
+        <div class="row text-center">
+          <div class="btn-group">
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+            <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+            <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+          </div>
+        </div>
+        <h3 class="text-center">{{ vm.calendar.title }}</h3>
+        <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" view-title="vm.calendar.title"
+          cell-modifier="vm.calendar.cellModifier(calendarCell)" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+          on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+        </mwl-calendar>
+      </div>
     </div>
   </div>
+</div>
