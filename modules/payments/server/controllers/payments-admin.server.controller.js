@@ -61,22 +61,14 @@ exports.reviews = function (req, res) {
   // });
   Payment.aggregate(
     [
-      {
-        $project: {
-          _id: 1,
-          user: 1
-        }
-      },
+      // {
+      //   $project: {
+      //     _id: 1,
+      //     user: 1
+      //   }
+      // },
+      { $unwind: '$user'},
       { $match: { total: 0 } },
-      {
-        $lookup:
-        {
-          from: "users",
-          localField: "user",
-          foreignField: "_id",
-          as: "user"
-        }
-      },
       { $limit: 5 }
     ], (err, result) => {
       return res.jsonp(result);
