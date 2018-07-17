@@ -48,10 +48,7 @@ exports.reviews = function (req, res) {
       {
         // match: { age: { $gte: 18 }},
         path: 'historys',
-        select: 'action timing user',
-        populate: [
-          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-        ]
+        select: 'action timing user'
       },
     ],
     limit: condition.limit
