@@ -39,30 +39,27 @@ exports.reviews = function (req, res) {
   if (and_arr.length > 0) {
     query = { $and: and_arr };
   }
-  Payment.paginate({
-    'User.username': 'lenh'
-  }, {
-      sort: condition.sort,
-      page: page,
-      populate: [
-        { path: 'user', select: 'profileImageURL displayName' },
-        { path: 'department', select: 'name' },
-        {
-          // match: { age: { $gte: 18 }},
-          path: 'historys',
-          select: 'action timing user',
-          populate: [
-            { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-          ]
-        },
-      ],
-      limit: condition.limit
-    }).then(function (payments) {
-      return res.jsonp(payments);
-    }, err => {
-      console.log(err);
-      return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
-    });
+  Payment.paginate(query, {
+    sort: condition.sort,
+    page: page,
+    populate: [
+      { path: 'user', select: 'profileImageURL displayName' },
+      { path: 'department', select: 'name' },
+      {
+        // match: { age: { $gte: 18 }},
+        path: 'historys',
+        select: 'action timing user',
+        populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      },
+    ],
+    limit: condition.limit
+  }).then(function (payments) {
+    return res.jsonp(payments);
+  }, err => {
+    return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
+  });
 };
 exports.approve = function (req, res) {
   var payment = req.payment;
