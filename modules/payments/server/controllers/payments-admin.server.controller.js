@@ -39,7 +39,9 @@ exports.reviews = function (req, res) {
   if (and_arr.length > 0) {
     query = { $and: and_arr };
   }
-  Payment.paginate(query, {
+  Payment.paginate( {
+    'user.roles': ['user']
+  }, {
     sort: condition.sort,
     page: page,
     populate: [

@@ -83,12 +83,11 @@ exports.reviews = function (req, res) {
     populate: [
       { path: 'holiday', select: 'name isPaid' },
       { path: 'user', select: 'displayName profileImageURL' },
-      { path: 'historys' },
-      // {
-      //   // path: 'historys', populate: [
-      //   //   { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-      //   // ]
-      // },
+      {
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      },
     ],
     limit: condition.limit
   }).then(function (rests) {
