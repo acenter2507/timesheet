@@ -54,7 +54,8 @@ exports.reviews = function (req, res) {
     // ],
     limit: condition.limit
   }).then(function (payments) {
-    Payment.find(payments)
+    var ids = _.pluck(payments, '_id');
+    Payment.find({ _id: { $in: ids } })
       .populate({ path: 'user', select: 'profileImageURL displayName' })
       .populate({
         path: 'historys', populate: { path: 'user', select: 'displayName profileImageURL', model: 'User' }
