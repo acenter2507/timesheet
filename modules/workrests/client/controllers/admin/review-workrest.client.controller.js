@@ -11,8 +11,8 @@
     'workrestResolve',
     'CommonService',
     'DateUtil',
-    'WorkrestsApi',
-    'ngDialog',
+    'WorkrestsAdminApi',
+    'WorkrestsService',
     'Socket',
     '$stateParams',
     'Notifications'
@@ -24,8 +24,8 @@
     workrest,
     CommonService,
     DateUtil,
-    WorkrestsApi,
-    ngDialog,
+    WorkrestsAdminApi,
+    WorkrestsService,
     Socket,
     $stateParams,
     Notifications
