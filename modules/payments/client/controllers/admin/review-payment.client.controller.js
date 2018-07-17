@@ -6,60 +6,51 @@
     .module('payments.admin')
     .controller('PaymentReviewController', PaymentReviewController);
 
-  PaymentReviewController.$inject = ['$scope', '$state', '$stateParams', 'PaymentsService', 'PaymentFactory', 'PaymentsApi'];
+  PaymentReviewController.$inject = ['$scope', '$state', 'paymentResolve', '$stateParams', 'PaymentsService', 'PaymentsAdminApi'];
 
-  function PaymentReviewController($scope, $state, $stateParams, PaymentsService, PaymentFactory, PaymentsApi) {
+  function PaymentReviewController($scope, $state, payment, $stateParams, PaymentsService, PaymentsAdminApi) {
     var vm = this;
+    vm.payment = payment;
     vm.isShowHistory = false;
 
     onCreate();
     function onCreate() {
-      preparePayment();
     }
 
-    function preparePayment() {
-      if (PaymentFactory.payment) {
-        vm.payment = PaymentFactory.payment;
-      } else {
-        PaymentsService.get({
-          paymentId: $stateParams.paymentId
-        }).$promise.then(function (payment) {
-          vm.payment = payment;
+    vm.handleApprovePayment = function () {
+      $scope.handleShowConfirm({
+        message: 'この清算表を承認しますか？'
+      }, function () {
+        PaymentsAdminApi.approve(payment._id)
+          .success(function (_payment) {
+            _.extend(payment, _payment);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleRejectPayment = function () {
+      $scope.handleShowConfirm({
+        message: 'この清算表を拒否しますか？'
+      }, function () {
+        PaymentsAdminApi.reject(payment._id)
+          .success(function (_payment) {
+            _.extend(payment, _payment);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleDeletePayment = function () {
+      $scope.handleShowConfirm({
+        message: '清算表を削除しますか？'
+      }, function () {
+        var rsPayment = new PaymentsService({ _id: payment._id });
+        rsPayment.$remove(function () {
+          handlePreviousScreen();
         });
-      }
-    }
-
-    vm.handleSavePayment = function () {
-      vm.payment.$update(function (payment) {
-        _.extend(vm.payment, payment);
-      }, function (err) {
-        $scope.handleShowToast(err.message, true);
-      });
-    };
-    vm.handleRequestPayment = function () {
-      $scope.handleShowConfirm({
-        message: '清算表を申請しますか？'
-      }, function () {
-        PaymentsApi.request(vm.payment._id)
-          .success(function (data) {
-            _.extend(vm.payment, data);
-          })
-          .error(function (err) {
-            $scope.handleShowToast(err.message, true);
-          });
-      });
-    };
-    vm.handleCancelPayment = function () {
-      $scope.handleShowConfirm({
-        message: '清算表の申請をキャンセルしますか？'
-      }, function () {
-        PaymentsApi.cancel(vm.payment._id)
-          .success(function (data) {
-            _.extend(vm.payment, data);
-          })
-          .error(function (err) {
-            $scope.handleShowToast(err.message, true);
-          });
       });
     };
     vm.handlePreviousScreen = handlePreviousScreen;

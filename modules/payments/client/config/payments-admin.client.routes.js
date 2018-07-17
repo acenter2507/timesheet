@@ -28,8 +28,16 @@
         templateUrl: 'modules/payments/client/views/admin/review-payment.client.view.html',
         controller: 'PaymentReviewController',
         controllerAs: 'vm',
+        resolve: { paymentResolve: getPayment },
         data: { roles: ['accountant', 'admin'] },
         ncyBreadcrumb: { label: '清算表詳細' }
       });
+  }
+  getPayment.$inject = ['$stateParams', 'PaymentsService'];
+
+  function getPayment($stateParams, PaymentsService) {
+    return PaymentsService.get({
+      paymentId: $stateParams.paymentId
+    }).$promise;
   }
 }());

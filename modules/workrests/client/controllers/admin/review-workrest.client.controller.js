@@ -5,9 +5,31 @@
     .module('workrests.admin')
     .controller('WorkrestReviewController', WorkrestReviewController);
 
-  WorkrestReviewController.$inject = ['$scope', '$state', 'workrestResolve', 'CommonService', 'DateUtil', 'WorkrestsApi', 'ngDialog', 'Socket', '$stateParams', 'Notifications'];
+  WorkrestReviewController.$inject = [
+    '$scope',
+    '$state',
+    'workrestResolve',
+    'CommonService',
+    'DateUtil',
+    'WorkrestsApi',
+    'ngDialog',
+    'Socket',
+    '$stateParams',
+    'Notifications'
+  ];
 
-  function WorkrestReviewController($scope, $state, workrest, CommonService, DateUtil, WorkrestsApi, ngDialog, Socket, $stateParams, Notifications) {
+  function WorkrestReviewController(
+    $scope,
+    $state,
+    workrest,
+    CommonService,
+    DateUtil,
+    WorkrestsApi,
+    ngDialog,
+    Socket,
+    $stateParams,
+    Notifications
+  ) {
     var vm = this;
     vm.workrest = workrest;
     vm.isShowHistory = false;
@@ -141,8 +163,8 @@
     };
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'workrests.list';
-      var params = state === 'workrests.list' ? {} : $state.previous.params;
+      var state = $state.previous.state.name || 'admin.workrests.list';
+      var params = state === 'admin.workrests.list' ? {} : $state.previous.params;
       $state.go(state, params);
     }
   }
