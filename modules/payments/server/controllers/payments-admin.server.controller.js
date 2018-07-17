@@ -61,7 +61,7 @@ exports.reviews = function (req, res) {
   // });
   Payment.find().populate({
     path: 'user',
-    match: { roles: { $all: ['user'] } }
+    match: { username: 'lenh' }
   }).exec((err, payments) => {
     var ids = _.pluck(payments, '_id');
     return Payment.paginate({ _id: { $in: ids } }, {
