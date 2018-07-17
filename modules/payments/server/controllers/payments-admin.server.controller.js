@@ -55,9 +55,7 @@ exports.reviews = function (req, res) {
     limit: condition.limit
   }).then(function (payments) {
     Payment.populate(payments, {
-      path: 'historys', populate: [
-        { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-      ]
+      path: 'historys', populate: { path: 'user', select: 'displayName profileImageURL', model: 'User' }
     }, (err, payments) => {
       return res.jsonp(payments);
     });
