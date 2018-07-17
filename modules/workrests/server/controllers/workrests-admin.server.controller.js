@@ -82,7 +82,7 @@ exports.reviews = function (req, res) {
     page: page,
     populate: [
       { path: 'holiday', select: 'name isPaid' },
-      { path: 'user', select: 'displayName profileImageURL', match: { roles: ['user'] } },
+      { path: 'user', select: 'displayName profileImageURL' },
       {
         path: 'historys', populate: [
           { path: 'user', select: 'displayName profileImageURL', model: 'User' },
