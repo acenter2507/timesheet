@@ -61,14 +61,13 @@ exports.reviews = function (req, res) {
   // });
   Payment.aggregate(
     [
-      // {
-      //   $project: {
-      //     _id: 1,
-      //     user: 1
-      //   }
-      // },
+      {
+        $project: {
+          _id: 1,
+          role: '$user.roles'
+        }
+      },
       { $match: { total: 0 } },
-      { $project: { user: '$user' } },
       { $limit: 5 }
     ], (err, result) => {
       return res.jsonp(result);
