@@ -54,11 +54,14 @@ exports.reviews = function (req, res) {
     // ],
     limit: condition.limit
   }).then(function (payments) {
-    Payment.populate(payments, {
-      path: 'historys', populate: { path: 'user', select: 'displayName profileImageURL', model: 'User' }
-    }, (err, payments) => {
-      return res.jsonp(payments);
-    });
+    Payment.find(payments)
+      .populate({ path: 'user', select: 'profileImageURL displayName' })
+      .populate({
+        path: 'historys', populate: { path: 'user', select: 'displayName profileImageURL', model: 'User' }
+      })
+      .exec((err, payments) => {
+        return res.jsonp(payments);
+      });
   }, err => {
     console.log(err);
     return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
