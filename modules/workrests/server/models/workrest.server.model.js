@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
-  relationship = require("mongoose-relationship"),
+  aggregate = require('mongoose-aggregate-paginate'),
   Schema = mongoose.Schema;
 
 /**
