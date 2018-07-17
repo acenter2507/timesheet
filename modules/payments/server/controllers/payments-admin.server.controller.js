@@ -40,7 +40,7 @@ exports.reviews = function (req, res) {
     query = { $and: and_arr };
   }
   Payment.paginate( {
-    'user.username': 'lenh'
+    'User.username': 'lenh'
   }, {
     sort: condition.sort,
     page: page,
