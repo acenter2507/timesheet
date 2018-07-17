@@ -59,11 +59,13 @@ exports.reviews = function (req, res) {
   //   console.log(err);
   //   return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
   // });
-  Payment.find()
-  .populate({ path: 'user', select: 'profileImageURL displayName', match: { username: 'lenh' } })
-  .exec((err, payments) => {
-    return res.jsonp(payments);
-  });
+  Payment.aggregate(
+    [
+      { $match: { total: 0 } }
+    ], (err, result) => {
+      return res.jsonp(result);
+    }
+  );
 };
 exports.approve = function (req, res) {
   var payment = req.payment;
