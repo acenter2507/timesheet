@@ -3,9 +3,9 @@
     <div class="col-xs-12">
       <div class="form-group text-right">
         <button class="btn btn-default" ng-click="vm.handlePreviousScreen()">戻る</button>
-        <button class="btn btn-primary" ng-show="vm.payment.workrest === 2" ng-click="vm.handleApproveWorkrest()">承認</button>
-        <button class="btn btn-warning" ng-show="vm.payment.workrest === 2" ng-click="vm.handleRejectWorkrest()">拒否</button>
-        <button class="btn btn-danger" ng-show="vm.payment.workrest === 5" ng-click="vm.handleDeleteWorkrest()">取り消し</button>
+        <button class="btn btn-primary" ng-show="vm.workrest.status === 2" ng-click="vm.handleApproveWorkrest()">承認</button>
+        <button class="btn btn-warning" ng-show="vm.workrest.status === 2" ng-click="vm.handleRejectWorkrest()">拒否</button>
+        <button class="btn btn-danger" ng-show="vm.workrest.status === 5" ng-click="vm.handleDeleteWorkrest()">取り消し</button>
         <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
           {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
         </button>
