@@ -67,8 +67,8 @@ exports.reviews = function (req, res) {
       //     user: 1
       //   }
       // },
-      { $unwind: '$user'},
       { $match: { total: 0 } },
+      { $project: { user: '$user' } },
       { $limit: 5 }
     ], (err, result) => {
       return res.jsonp(result);
