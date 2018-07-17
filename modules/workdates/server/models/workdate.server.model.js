@@ -12,8 +12,8 @@ var mongoose = require('mongoose'),
  * Workdate Schema
  */
 var WorkdateSchema = new Schema({
-  workmonth: { type: Schema.ObjectId, ref: 'Workmonth' },
-  workrests: [{ type: Schema.ObjectId, ref: 'Workrest' }], // 休日形態
+  workmonth: { type: Schema.ObjectId, ref: 'Workmonth', childPath:"workdates" },
+  workrests: [{ type: Schema.ObjectId, ref: 'Workrest', childPath:"workdates" }],
   year: { type: Number },
   month: { type: Number }, // カレンダーの月
   date: { type: Number }, // カレンダーの日
