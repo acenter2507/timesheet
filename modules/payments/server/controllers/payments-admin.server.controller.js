@@ -39,39 +39,31 @@ exports.reviews = function (req, res) {
   if (and_arr.length > 0) {
     query = { $and: and_arr };
   }
-  // Payment.paginate(query, {
-  //   sort: condition.sort,
-  //   page: page,
-  //   populate: [
-  //     { path: 'user', select: 'profileImageURL displayName' },
-  //     { path: 'department', select: 'name' },
-  //     {
-  //       // match: { age: { $gte: 18 }},
-  //       path: 'historys', populate: [
-  //         { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-  //       ]
-  //     },
-  //   ],
-  //   limit: condition.limit
-  // }).then(function (payments) {
-  //   return res.jsonp(payments);
-  // }, err => {
-  //   console.log(err);
-  //   return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
-  // });
-  Payment.aggregate([
-    { $match: { total: 0 } },
-    {
-      $lookup: {
-        from: 'users',
-        localField: 'user',
-        foreignField: '_id',
-        as: 'xxxxx'
-      }
-    },
-    { $limit: 5 }
-  ], (err, result) => {
-    return res.jsonp(result);
+  Payment.paginate(query, {
+    sort: condition.sort,
+    page: page,
+    // populate: [
+    //   { path: 'user', select: 'profileImageURL displayName' },
+    //   { path: 'department', select: 'name' },
+    //   {
+    //     // match: { age: { $gte: 18 }},
+    //     path: 'historys', populate: [
+    //       { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+    //     ]
+    //   },
+    // ],
+    limit: condition.limit
+  }).then(function (payments) {
+    Payment.populate(payments, {
+      path: 'historys', populate: [
+        { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+      ]
+    }, (err, payments) => {
+      return res.jsonp(payments);
+    });
+  }, err => {
+    console.log(err);
+    return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
   });
 };
 exports.approve = function (req, res) {
