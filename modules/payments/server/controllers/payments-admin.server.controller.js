@@ -39,42 +39,43 @@ exports.reviews = function (req, res) {
   if (and_arr.length > 0) {
     query = { $and: and_arr };
   }
-  Payment.paginate({
-    'user.$username': 'lenh'
-  }, {
-      sort: condition.sort,
-      page: page,
-      populate: [
-        { path: 'user', select: 'profileImageURL displayName' },
-        { path: 'department', select: 'name' },
-        {
-          // match: { age: { $gte: 18 }},
-          path: 'historys', populate: [
-            { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-          ]
-        },
-      ],
-      limit: condition.limit
-    }).then(function (payments) {
-      return res.jsonp(payments);
-    }, err => {
-      console.log(err);
-      return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
-    });
-  // Payment.aggregate(
-  //   [
+  // Payment.paginate(query, {
+  //   sort: condition.sort,
+  //   page: page,
+  //   populate: [
+  //     { path: 'user', select: 'profileImageURL displayName' },
+  //     { path: 'department', select: 'name' },
   //     {
-  //       $project: {
-  //         _id: 1,
-  //         roles: '$user.roles'
-  //       }
+  //       // match: { age: { $gte: 18 }},
+  //       path: 'historys', populate: [
+  //         { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+  //       ]
   //     },
-  //     { $match: { total: 0 } },
-  //     { $limit: 5 }
-  //   ], (err, result) => {
-  //     return res.jsonp(result);
-  //   }
-  // );
+  //   ],
+  //   limit: condition.limit
+  // }).then(function (payments) {
+  //   return res.jsonp(payments);
+  // }, err => {
+  //   console.log(err);
+  //   return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
+  // });
+  Payment.aggregate(
+    [
+      { $match: { total: 0 } },
+      {
+        $lookup:
+        {
+          from: 'users',
+          localField: 'user',
+          foreignField: '_id',
+          as: user
+        }
+      },
+      { $limit: 5 }
+    ], (err, result) => {
+      return res.jsonp(result);
+    }
+  );
 };
 exports.approve = function (req, res) {
   var payment = req.payment;
