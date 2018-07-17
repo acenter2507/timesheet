@@ -21,9 +21,9 @@
       $scope.handleShowConfirm({
         message: 'この清算表を承認しますか？'
       }, function () {
-        PaymentsAdminApi.approve(payment._id)
+        PaymentsAdminApi.approve(vm.payment._id)
           .success(function (_payment) {
-            _.extend(payment, _payment);
+            _.extend(vm.payment, _payment);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
@@ -34,9 +34,9 @@
       $scope.handleShowConfirm({
         message: 'この清算表を拒否しますか？'
       }, function () {
-        PaymentsAdminApi.reject(payment._id)
+        PaymentsAdminApi.reject(vm.payment._id)
           .success(function (_payment) {
-            _.extend(payment, _payment);
+            _.extend(vm.payment, _payment);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
@@ -47,7 +47,7 @@
       $scope.handleShowConfirm({
         message: '清算表を削除しますか？'
       }, function () {
-        var rsPayment = new PaymentsService({ _id: payment._id });
+        var rsPayment = new PaymentsService({ _id: vm.payment._id });
         rsPayment.$remove(function () {
           handlePreviousScreen();
         });

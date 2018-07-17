@@ -107,58 +107,41 @@
         return false;
       };
     }
-    // Xóa ngày nghỉ
+    vm.handleApproveWorkrest = function () {
+      $scope.handleShowConfirm({
+        message: 'この休暇を承認しますか？'
+      }, function () {
+        WorkrestsAdminApi.approve(vm.workrest._id)
+          .success(function (data) {
+            _.extend(vm.workrest, data);
+            Socket.emit('rest_review', { workrestId: vm.workrest._id, user: $scope.user._id });
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleRejectWorkrest = function () {
+      $scope.handleShowConfirm({
+        message: 'この休暇を拒否しますか？'
+      }, function () {
+        WorkrestsAdminApi.reject(vm.workrest._id)
+          .success(function (data) {
+            _.extend(vm.workrest, data);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
     vm.handleDeleteWorkrest = function () {
       $scope.handleShowConfirm({
-        message: '休暇登録を削除しますか？'
+        message: '休暇を取り消しますか？'
       }, function () {
-        vm.workrest.$remove(function () {
+        var rsRest = new WorkrestsService({ _id: vm.workrest._id });
+        rsRest.$remove(function () {
           handlePreviousScreen();
         });
-      });
-    };
-    // Gửi thỉnh cầu cho leader
-    vm.handleRequestWorkrest = function () {
-      $scope.handleShowConfirm({
-        message: '休暇を申請しますか？'
-      }, function () {
-        WorkrestsApi.request(vm.workrest._id)
-          .success(function (workrest) {
-            _.extend(vm.workrest, workrest);
-            Socket.emit('rest_request', { workrestId: vm.workrest._id, userId: $scope.user._id });
-          })
-          .error(function (err) {
-            $scope.handleShowToast(err.message, true);
-          });
-      });
-    };
-    // Hủy bỏ thỉnh cầu
-    vm.handleCancelWorkrest = function () {
-      $scope.handleShowConfirm({
-        message: '休暇の申請をキャンセルしますか？'
-      }, function () {
-        WorkrestsApi.cancel(vm.workrest._id)
-          .success(function (workrest) {
-            _.extend(vm.workrest, workrest);
-          })
-          .error(function (err) {
-            $scope.handleShowToast(err.message, true);
-          });
-      });
-    };
-    // Gửi thỉnh cầu xóa bỏ ngày nghỉ
-    vm.handleRequestDelete = function () {
-      $scope.handleShowConfirm({
-        message: '休暇を取り消す申請を送りますか？'
-      }, function () {
-        WorkrestsApi.requestDelete(vm.workrest._id)
-          .success(function (workrest) {
-            _.extend(vm.workrest, workrest);
-            Socket.emit('rest_delete_request', { workrestId: vm.workrest._id, userId: $scope.user._id });
-          })
-          .error(function (err) {
-            $scope.handleShowToast(err.message, true);
-          });
       });
     };
     vm.handlePreviousScreen = handlePreviousScreen;

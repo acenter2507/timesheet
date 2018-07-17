@@ -88,7 +88,7 @@
     // Xóa ngày nghỉ
     vm.handleDeleteWorkrest = function () {
       $scope.handleShowConfirm({
-        message: '休暇登録を削除しますか？'
+        message: '休暇を削除しますか？'
       }, function () {
         vm.workrest.$remove(function () {
           handlePreviousScreen();
