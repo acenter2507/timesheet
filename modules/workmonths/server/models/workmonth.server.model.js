@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
   Workdate = mongoose.model('Workdate'),
   paginate = require('mongoose-paginate'),
+  relationship = require("mongoose-relationship"),
   _ = require('underscore'),
   Schema = mongoose.Schema;
 
@@ -46,6 +47,7 @@ var WorkmonthSchema = new Schema({
   user: { type: Schema.ObjectId, ref: 'User' }
 });
 WorkmonthSchema.plugin(paginate);
+WorkmonthSchema.plugin(relationship, { relationshipPathName: 'workdates' });
 
 WorkmonthSchema.statics.calculatorWorkdates = function (workmonthId) {
   return this.findById(workmonthId)

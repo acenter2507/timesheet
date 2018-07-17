@@ -5,6 +5,8 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
+  relationship = require("mongoose-relationship"),
+  aggregate = require('mongoose-aggregate-paginate'),
   Schema = mongoose.Schema;
 
 /**
@@ -14,6 +16,7 @@ var WorkrestSchema = new Schema({
   holiday: { type: Schema.ObjectId, ref: 'Holiday' },
   // Department
   department: { type: Schema.ObjectId, ref: 'Department' },
+  workdates: [{ type: Schema.ObjectId, ref: 'Workdate' }],
   // Start vacation
   start: { type: Date },
   // End vacation
@@ -53,6 +56,8 @@ var WorkrestSchema = new Schema({
   user: { type: Schema.ObjectId, ref: 'User' }
 });
 WorkrestSchema.plugin(paginate);
+WorkrestSchema.plugin(aggregate);
+WorkrestSchema.plugin(relationship, { relationshipPathName: 'workdates' });
 
 WorkrestSchema.statics.addHistory = function (workrestId, history) {
   return this.findById(workrestId).exec(function (err, workrest) {

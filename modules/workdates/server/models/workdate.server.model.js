@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
   paginate = require('mongoose-paginate'),
+  relationship = require("mongoose-relationship"),
   Schema = mongoose.Schema;
 
 /**
@@ -41,6 +42,7 @@ var WorkdateSchema = new Schema({
   user: { type: Schema.ObjectId, ref: 'User' }
 });
 WorkdateSchema.plugin(paginate);
+WorkdateSchema.plugin(relationship, { relationshipPathName: ['workrests', 'workmonth'] });
 
 WorkdateSchema.statics.addWorkrest = function (workrestId, year, month, date) {
   return this.find({ year: year, month: month, date: date })
