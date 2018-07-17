@@ -42,32 +42,19 @@ exports.reviews = function (req, res) {
   Payment.paginate(query, {
     sort: condition.sort,
     page: page,
-    // populate: [
-    //   { path: 'user', select: 'profileImageURL displayName' },
-    //   { path: 'department', select: 'name' },
-    //   {
-    //     // match: { age: { $gte: 18 }},
-    //     path: 'historys', populate: [
-    //       { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-    //     ]
-    //   },
-    // ],
-    limit: condition.limit
-  }).then(function (payments) {
-    // return res.jsonp(payments);
-    Payment.findById(payments.docs[0]._id)
-      .populate({
+    populate: [
+      { path: 'user', select: 'profileImageURL displayName' },
+      { path: 'department', select: 'name' },
+      {
+        // match: { age: { $gte: 18 }},
         path: 'historys', populate: [
           { path: 'user', select: 'displayName profileImageURL', model: 'User' },
         ]
-      })
-      .populate('user', 'displayName profileImageURL')
-      .populate('department', 'name')
-      .exec(function (err, payment) {
-        if (err)
-          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
-        return res.jsonp(payment);
-      });
+      },
+    ],
+    limit: condition.limit
+  }).then(function (payments) {
+    return res.jsonp(payments);
   }, err => {
     console.log(err);
     return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
