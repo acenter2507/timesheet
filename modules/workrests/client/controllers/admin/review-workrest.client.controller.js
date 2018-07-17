@@ -146,8 +146,8 @@
     };
     vm.handlePreviousScreen = handlePreviousScreen;
     function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'admin.workrests.list';
-      var params = state === 'admin.workrests.list' ? {} : $state.previous.params;
+      var state = $state.previous.state.name || 'admin.workrests.reviews';
+      var params = state === 'admin.workrests.reviews' ? {} : $state.previous.params;
       $state.go(state, params);
     }
   }
