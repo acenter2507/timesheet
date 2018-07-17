@@ -55,7 +55,7 @@ exports.reviews = function (req, res) {
     limit: condition.limit
   }).then(function (payments) {
     // return res.jsonp(payments);
-    Payment.findById(payments[0]._id)
+    Payment.findById(payments.docs[0]._id)
       .populate({
         path: 'historys', populate: [
           { path: 'user', select: 'displayName profileImageURL', model: 'User' },
