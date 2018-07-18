@@ -1,14 +1,35 @@
 (function () {
   'use strict';
 
-  // Workmonths controller
   angular
     .module('workmonths')
     .controller('WorkmonthsController', WorkmonthsController);
 
-  WorkmonthsController.$inject = ['$scope', '$state', '$window', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'Socket', 'Constant', 'CommonService', 'NumberUtil', 'WorkdatesService'];
+  WorkmonthsController.$inject = [
+    '$scope',
+    '$state',
+    'workmonthResolve',
+    'WorkdatesApi',
+    'ngDialog',
+    'WorkmonthsApi',
+    'Socket',
+    'Constant',
+    'CommonService',
+    'NumberUtil',
+    'WorkdatesService'];
 
-  function WorkmonthsController($scope, $state, $window, workmonth, WorkdatesApi, ngDialog, WorkmonthsApi, Socket, Constant, CommonService, NumberUtil, WorkdatesService) {
+  function WorkmonthsController(
+    $scope,
+    $state,
+    workmonth,
+    WorkdatesApi,
+    ngDialog,
+    WorkmonthsApi,
+    Socket,
+    Constant,
+    CommonService,
+    NumberUtil,
+    WorkdatesService) {
     var vm = this;
 
     vm.workmonth = workmonth;
@@ -26,11 +47,9 @@
       });
     }
 
-    // Về màn hình xem workmonth theo năm hiện tại
     vm.handleViewYear = function () {
       $state.go('workmonths.list', { year: vm.workmonth.year });
     };
-    // Gửi yêu cầu phê duyệt workmonth
     vm.handleSendRequestMonth = function () {
       $scope.handleShowConfirm({
         message: '勤務表を申請しますか？'
@@ -45,7 +64,6 @@
           });
       });
     };
-    // Hủy yêu cầu phê duyệt workmonth
     vm.handleCancelRequestMonth = function () {
       $scope.handleShowConfirm({
         message: '勤務表の申請を取り消しますか？'
@@ -60,7 +78,6 @@
           });
       });
     };
-    // Xóa workmonth
     vm.handleDeleteMonth = function () {
       $scope.handleShowConfirm({
         message: 'この勤務表を完全削除しますか？'
@@ -70,6 +87,7 @@
         });
       });
     };
+    
     vm.handleViewHistory = function () {
       vm.isShowHistory = true;
     };

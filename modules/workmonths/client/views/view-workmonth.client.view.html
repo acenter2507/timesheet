@@ -1,121 +1,138 @@
 <div class="container-fluid animated fadeIn">
+  <!-- ツールバー -->
   <div class="row">
-    <div class="col-xs-12">
-      <h3 class="text-center mg5y">{{ vm.workmonth.year + '年' + vm.workmonth.month + '月'}}</h3>
+    <div class="form-group text-right">
+      <button class="btn btn-default" ng-click="vm.handleViewYear()">{{:: vm.workmonth.year + '年'}}</button>
+      <button class="btn btn-primary" ng-show="vm.workmonth.status === 1 || vm.workmonth.status === 4" ng-click="vm.handleRequestWorkmonth()">申請</button>
+      <button class="btn btn-warning" ng-show="vm.workmonth.status === 2" ng-click="vm.handleCancelWorkmonth()">申請キャンセル</button>
+      <button class="btn btn-danger" ng-show="vm.workmonth.status === 3" ng-click="vm.handleRequestDeleteWorkmonth()">取り消し申請</button>
+      <button class="btn btn-danger" ng-show="vm.workmonth.status === 1 || vm.workmonth.status === 4" ng-click="vm.handleDeleteWorkmonth()">削除</button>
+      <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
+        {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
+      </button>
     </div>
   </div>
+
+  <!-- ヘッダー -->
   <div class="row">
     <div class="col-xs-12">
-      <!-- 歴史 -->
-      <div class="form-group">
-        <button ng-show="vm.isShowHistory" class="btn btn-warning btn-sm pull-right" ng-click="vm.handleCloseHistory()">歴史表を閉じる</button>
-      </div>
-      <div class="clearfix mg5y"></div>
-      <table class="table table-bordered" ng-show="vm.isShowHistory">
-        <thead>
-          <tr>
-            <th>日付</th>
-            <th>操作</th>
-            <th>操作者</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="history in vm.workmonth.historys">
-            <td>{{history.timing | LLLL}}</td>
-            <td>{{history.action | ActionFilter}}</td>
-            <td>
-              <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-4 col-sm-12 col-md-push-8 col-lg-3 col-lg-push-9">
-      <div class="well">
-        <div class="w100p text-right">
-          <button class="btn btn-sm btn-default" ng-click="vm.handleViewYear()">{{:: vm.workmonth.year + '年'}}</button>
-          <button ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" class="btn btn-sm btn-success" ng-click="vm.handleSendRequestMonth()">申請</button>
-          <button ng-if="vm.workmonth.status === 2" class="btn btn-sm btn-warning" ng-click="vm.handleCancelRequestMonth()">キャンセル</button>
-          <button ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4" class="btn btn-sm btn-danger" ng-click="vm.handleDeleteMonth()">削除</button>
-          <button class="btn btn-info btn-sm" ng-click="vm.handleViewHistory()">歴史</button>
-        </div>
-      </div>
-      <div class="well">
-        <table class="table">
-          <tr>
-            <td>出勤日数</td>
-            <td class="text-right">{{ vm.workmonth.numWorkDate }}</td>
-          </tr>
-          <tr>
-            <td>残業時間</td>
-            <td class="text-right">{{ vm.workmonth.overtime }}</td>
-          </tr>
-          <tr>
-            <td>休深時間</td>
-            <td class="text-right">{{ vm.workmonth.overnight }}</td>
-          </tr>
-          <tr>
-            <td>休憩時間</td>
-            <td class="text-right">{{ vm.workmonth.middleRest }}</td>
-          </tr>
-          <tr>
-            <td>状態</td>
-            <td class="text-right">
-              <span ng-switch="vm.workmonth.status">
-                <span class="label label-default" ng-switch-when="1">{{ vm.workmonth.status | StatusFilter }}</span>
-                <span class="label label-primary" ng-switch-when="2">{{ vm.workmonth.status | StatusFilter }}</span>
-                <span class="label label-success" ng-switch-when="3">{{ vm.workmonth.status | StatusFilter }}</span>
-                <span class="label label-danger" ng-switch-when="4">{{ vm.workrworkmonthest.status | StatusFilter }}</span>
-                <span class="label label-warning" ng-switch-when="5">{{ vm.workmonth.status | StatusFilter }}</span>
-              </span>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="col-md-8 col-sm-12 col-md-pull-4 col-lg-9 col-lg-pull-3">
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead class="bg-primary">
             <tr>
-              <th></th>
+              <th>氏名</th>
+              <th>部署</th>
+              <th>報告年月</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="h4-text">{{ vm.workmonth.user.displayName }}</span>
+              </td>
+              <td>
+                <span ng-show="vm.workmonth.department">{{ vm.workmonth.department.name }}</span>
+                <span ng-show="!vm.workmonth.department">未設定</span>
+              </td>
+              <td>{{ vm.workmonth.year + '年' + vm.workmonth.month + '月' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 履歴 -->
+  <div class="row">
+    <div class="col-xs-12" ng-show="vm.isShowHistory">
+      <h4>変更履歴</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-default">
+            <tr>
+              <th class="w30 text-center">#</th>
+              <th>日付</th>
+              <th>操作</th>
+              <th>操作者</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="history in vm.workmonth.historys">
+              <td class="w30 text-center">{{ $index + 1 }}</td>
+              <td>{{ history.timing | LLLL }}</td>
+              <td>{{ history.action | ActionFilter }}</td>
+              <td>
+                <a ng-click="handleViewDetailUser(history.user)">{{history.user.displayName}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 合計 -->
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>合計情報</h4>
+      <table class="table table-bordered">
+        <tr>
+          <th>出勤日数</th>
+          <th>残業時間</th>
+          <th>休深時間</th>
+          <th>休憩時間</th>
+          <th>状態</th>
+        </tr>
+        <tr>
+          <td>{{ vm.workmonth.numWorkDate }}</td>
+          <td>{{ vm.workmonth.overtime }}</td>
+          <td>{{ vm.workmonth.overnight }}</td>
+          <td>{{ vm.workmonth.middleRest }}</td>
+          <td>{{ vm.workmonth.status | StatusFilter }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 勤務時間一覧 -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="text-center w50">操作</th>
               <th>日付</th>
               <th>業務内容</th>
-              <th>開始</th>
-              <th>終了</th>
+              <th class="w50">開始</th>
+              <th class="w50">終了</th>
               <th>休憩</th>
-              <th>休暇</th>
+              <th class="w50">休暇</th>
               <th>振替</th>
               <th>コメント</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="workdate in vm.workmonth.workdates">
-              <td>
-                <button class="btn btn-xs btn-default" ng-show="vm.isCopying && workdate._id !== vm.copyingWorkdate._id" ng-click="vm.handlePasteWorkdate(workdate)">
+            <tr class="clickable" ng-repeat="workdate in vm.workmonth.workdates" ng-click="vm.handleSelectWorkdate(workdate)">
+              <td class="text-center w50">
+                <button class="btn btn-xs btn-default inside-clickable" ng-show="vm.isCopying && workdate._id !== vm.copyingWorkdate._id" ng-click="vm.handlePasteWorkdate(workdate)">
                   <span ng-hide="vm.isSaving">貼り付け</span>
                   <i ng-show="vm.isSaving" class="fa fa-spinner fa-pulse fa-fw"></i>
                 </button>
-                <button class="btn btn-xs btn-danger" ng-show="vm.isCopying && workdate._id === vm.copyingWorkdate._id" ng-click="vm.handleCancleCopyWorkdate()">
+                <button class="btn btn-xs btn-danger inside-clickable" ng-show="vm.isCopying && workdate._id === vm.copyingWorkdate._id" ng-click="vm.handleCancleCopyWorkdate()">
                   <span ng-hide="vm.isSaving">キャンセル</span>
                   <i ng-show="vm.isSaving" class="fa fa-spinner fa-pulse fa-fw"></i>
                 </button>
                 <div dropdown dropdown-append-to-body ng-show="!vm.isCopying">
-                  <a dropdown-toggle class="btn btn-xs btn-default">
+                  <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
                     <i class="glyphicon glyphicon-option-horizontal"></i>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                    <!-- Sửa nếu chưa được approve -->
                     <li ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4">
-                      <a ui-sref="workdates.view({ workdateId: workdate._id })">
-                        <i class="fa fa-pencil-square-o"></i> 編集</a>
+                      <a ui-sref="workdates.view({ workdateId: workdate._id })">編集</a>
                     </li>
-                    <!-- Copy -->
                     <li ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4">
-                      <a ng-click="vm.handleCopyWorkdate(workdate)">
-                        <i class="fa fa-copy"></i> コピー</a>
+                      <a ng-click="vm.handleCopyWorkdate(workdate)">コピー</a>
                     </li>
                   </ul>
                 </div>
