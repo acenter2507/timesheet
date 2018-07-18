@@ -2,34 +2,34 @@
   'use strict';
 
   angular
-    .module('workmonths')
+    .module('workmonths.admin')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('workmonths', {
+      .state('admin.workmonths', {
         abstract: true,
         url: '/workmonths',
         template: '<ui-view/>',
         ncyBreadcrumb: { label: '勤務表管理' }
       })
-      .state('workmonths.list', {
-        url: '?year',
-        templateUrl: 'modules/workmonths/client/views/list-workmonths.client.view.html',
-        controller: 'WorkmonthsListController',
+      .state('admin.workmonths.reviews', {
+        url: '/reviews?user?status',
+        templateUrl: 'modules/workmonths/client/views/admin/reviews-workmonths.client.view.html',
+        controller: 'WorkmonthsReviewController',
         controllerAs: 'vm',
-        data: { roles: ['user'] },
-        ncyBreadcrumb: { label: '勤務表一覧' }
+        data: { roles: ['accountant', 'admin', 'manager'] },
+        ncyBreadcrumb: { label: '勤務表確認' }
       })
-      .state('workmonths.view', {
-        url: '/:workmonthId',
-        templateUrl: 'modules/workmonths/client/views/view-workmonth.client.view.html',
-        controller: 'WorkmonthsController',
+      .state('admin.workmonths.review', {
+        url: '/:workmonthId/review',
+        templateUrl: 'modules/workmonths/client/views/admin/review-workmonth.client.view.html',
+        controller: 'WorkmonthReviewController',
         controllerAs: 'vm',
         resolve: { workmonthResolve: getWorkmonth },
-        data: { roles: ['user'] },
+        data: { roles: ['accountant', 'admin', 'manager'] },
         ncyBreadcrumb: { label: '勤務表詳細' }
       });
   }

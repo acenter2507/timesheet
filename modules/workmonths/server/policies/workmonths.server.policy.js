@@ -13,21 +13,6 @@ acl = new acl(new acl.memoryBackend());
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/workmonths',
-      permissions: '*'
-    }, {
-      resources: '/api/workmonths/:workmonthId',
-      permissions: '*'
-    }, {
-      resources: '/api/workmonths/:workmonthId/approve',
-      permissions: ['post']
-    }, {
-      resources: '/api/workmonths/:workmonthId/reject',
-      permissions: ['post']
-    }]
-  }, {
     roles: ['user'],
     allows: [{
       resources: '/api/workmonths',
@@ -37,28 +22,13 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }]
   }, {
-    roles: ['accountant'],
-    allows: [{
-      resources: '/api/workmonths',
-      permissions: '*'
-    }, {
-      resources: '/api/workmonths/:workmonthId',
-      permissions: '*'
-    }, {
-      resources: '/api/workmonths/:workmonthId/approve',
-      permissions: ['post']
-    }, {
-      resources: '/api/workmonths/:workmonthId/reject',
-      permissions: ['post']
-    }]
-  }, {
     roles: ['manager'],
     allows: [{
       resources: '/api/workmonths',
       permissions: ['get', 'post']
     }, {
       resources: '/api/workmonths/:workmonthId',
-      permissions: ['get', 'put']
+      permissions: ['get', 'put', 'delete']
     }, {
       resources: '/api/workmonths/:workmonthId/approve',
       permissions: ['post']
@@ -73,10 +43,15 @@ exports.invokeRolesPolicies = function () {
  * Check If Workmonths Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
-  var roles = (req.user) ? req.user.roles : [''];
+  var roles = (req.user) ? req.user.roles : [];
 
   if (roles.length === 0)
     return res.status(403).json({ message: 'アクセス権限がありません！' });
+
+  if (roles.indexOf('admin') >= 0)
+    return next();
+  if (roles.indexOf('accountant') >= 0)
+    return next();
 
   // If an Workmonth is being processed and the current user created it then allow any manipulation
   if (req.workmonth && req.user && req.workmonth.user && req.workmonth.user.id === req.user.id) {
@@ -93,9 +68,7 @@ exports.isAllowed = function (req, res, next) {
         // Access granted! Invoke next middleware
         return next();
       } else {
-        return res.status(403).json({
-          message: 'アクセス権限がありません！'
-        });
+        return res.status(403).json({ message: 'アクセス権限がありません！' });
       }
     }
   });

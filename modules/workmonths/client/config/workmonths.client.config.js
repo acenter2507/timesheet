@@ -20,10 +20,5 @@
       state: 'workmonths.list',
       roles: ['user']
     });
-    menuService.addSubMenuItem('topbar', 'workmonths', {
-      title: '勤務表確認',
-      state: 'workmonths.reviews',
-      roles: ['manager', 'admin', 'accountant']
-    });
   }
 }());

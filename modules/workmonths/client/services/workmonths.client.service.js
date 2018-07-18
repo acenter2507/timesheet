@@ -14,6 +14,7 @@
       save: { method: 'POST', ignoreLoadingBar: true },
       get: { method: 'GET', ignoreLoadingBar: true },
       update: { method: 'PUT', ignoreLoadingBar: true },
+      remove: { method: 'DELETE', ignoreLoadingBar: true },
       query: { isArray: true, ignoreLoadingBar: true }
     });
   }
@@ -27,12 +28,6 @@
     };
     this.getWorkmonthsReview = function (condition, page) {
       return $http.post('/api/workmonths/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
-    };
-    this.approve = function (workmonthId) {
-      return $http.post('/api/workmonths/' + workmonthId + '/approve', null, { ignoreLoadingBar: true });
-    };
-    this.reject = function (workmonthId, data) {
-      return $http.post('/api/workmonths/' + workmonthId + '/reject', { data: data }, { ignoreLoadingBar: true });
     };
     this.request = function (workmonthId) {
       return $http.post('/api/workmonths/' + workmonthId + '/request', null, { ignoreLoadingBar: true });

@@ -30,7 +30,7 @@ module.exports = function(app) {
   // ADMIN
   app.route('/api/workrests/admin/reviews').all(workrestsPolicy.isAllowed).post(workrests_admin.reviews);
   app.route('/api/workrests/admin/:workrestId/approve').all(workrestsPolicy.isAllowed).post(workrests_admin.approve);
-  app.route('/api/workrests/admin/:paymworkrestIdentId/reject').all(workrestsPolicy.isAllowed).post(workrests_admin.reject);
+  app.route('/api/workrests/admin/:workrestId/reject').all(workrestsPolicy.isAllowed).post(workrests_admin.reject);
 
   // Finish by binding the Workrest middleware
   app.param('workrestId', workrests.workrestByID);

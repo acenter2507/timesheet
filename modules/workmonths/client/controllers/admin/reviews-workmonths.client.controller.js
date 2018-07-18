@@ -2,12 +2,12 @@
   'use strict';
 
   angular
-    .module('workmonths')
-    .controller('WorkmonthsReviewsController', WorkmonthsReviewsController);
+    .module('workmonths.admin')
+    .controller('WorkmonthsReviewController', WorkmonthsReviewController);
 
-  WorkmonthsReviewsController.$inject = ['WorkmonthsService', '$scope', '$state', '$stateParams', 'CommonService', 'WorkmonthsApi', '$timeout', 'AdminUserApi', 'DepartmentsService'];
+  WorkmonthsReviewController.$inject = ['WorkmonthsService', '$scope', '$state', '$stateParams', 'CommonService', 'WorkmonthsApi', '$timeout', 'AdminUserApi', 'DepartmentsService'];
 
-  function WorkmonthsReviewsController(WorkmonthsService, $scope, $state, $stateParams, CommonService, WorkmonthsApi, $timeout, AdminUserApi, DepartmentsService) {
+  function WorkmonthsReviewController(WorkmonthsService, $scope, $state, $stateParams, CommonService, WorkmonthsApi, $timeout, AdminUserApi, DepartmentsService) {
     var vm = this;
 
     vm.workmonths = [];

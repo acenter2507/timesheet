@@ -24,8 +24,11 @@ exports.invokeRolesPolicies = function () {
   }, {
     roles: ['manager'],
     allows: [{
+      resources: '/api/workrests',
+      permissions: ['get', 'post']
+    }, {
       resources: '/api/workrests/:workrestId',
-      permissions: ['get', 'put']
+      permissions: ['get', 'put', 'delete']
     }, {
       resources: '/api/workrests/:workrestId/approve',
       permissions: ['post']

@@ -3,7 +3,7 @@
 
   // Workmonths controller
   angular
-    .module('workmonths')
+    .module('workmonths.admin')
     .controller('WorkmonthReviewController', WorkmonthReviewController);
 
   WorkmonthReviewController.$inject = ['$scope', '$state', 'workmonthResolve', 'WorkdatesApi', 'ngDialog', 'WorkmonthsApi', 'CommonService', 'WorkrestsApi', 'Socket'];
