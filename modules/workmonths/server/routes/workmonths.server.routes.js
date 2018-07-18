@@ -4,7 +4,7 @@
  * Module dependencies
  */
 var workmonthsPolicy = require('../policies/workmonths.server.policy'),
-  workmonths = require('../controllers/workmonths.server.controller');
+  workmonths = require('../controllers/workmonths.server.controller'),
   workmonths_admin = require('../controllers/workmonths-admin.server.controller');
 
 module.exports = function (app) {

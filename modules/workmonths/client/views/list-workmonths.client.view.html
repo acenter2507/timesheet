@@ -33,7 +33,7 @@
             <tr class="clickable" ng-repeat="item in vm.workmonths" ng-click="vm.handleSelectWorkmonth(item)">
               <td class="text-center w50">
                 <a ng-show="!item.workmonth" class="btn btn-primary btn-xs inside-clickable" ng-click="vm.handleCreateWorkmonth(item.index)">
-                  <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.createWorkmonthBusy"></i> 作成</a>
+                  <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.busy"></i> 作成</a>
                 <div dropdown dropdown-append-to-body ng-show="item.workmonth">
                   <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
                     <i class="glyphicon glyphicon-option-horizontal"></i>
