@@ -75,6 +75,31 @@ exports.create = function (req, res) {
         message: 'エラーで勤務表を作成できません！'
       });
     });
+
+  function getWorkrestsForWorkdate(workdate) {
+    return new Promise((resolve, reject) => {
+      var date = _m().year(workdate.year).month(workdate.month - 1).date(workdate.date).startOf('date').format();
+      Workrest.find({
+        $and: [
+          { start: { $lte: date } },
+          { end: { $gte: date } },
+          {
+            $or: [
+              { status: 3 },
+              { status: 5 },
+            ]
+          }
+        ]
+      }).exec(function (err, workrests) {
+        if (err)
+          return reject(err);
+        return resolve(workrests);
+      });
+    });
+  }
+  function isWeekend(date) {
+    return date.day() === 0 || date.day() === 6;
+  }
 };
 exports.read = function (req, res) {
   Workmonth.findById(req.workmonth._id)
@@ -109,11 +134,9 @@ exports.update = function (req, res) {
 
   workmonth.save(function (err) {
     if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      return res.status(400).send({ message: '勤務表の情報が見つかりません！' });
     } else {
-      res.jsonp(workmonth);
+      return res.jsonp(workmonth);
     }
   });
 };
@@ -121,57 +144,16 @@ exports.delete = function (req, res) {
   var workmonth = req.workmonth;
 
   workmonth.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      // Xóa bỏ các date đã tạo trong month này
-      Workdate.remove({ workmonth: workmonth._id }).exec();
-      res.jsonp(workmonth);
-    }
-  });
-};
-exports.request = function (req, res) {
-  var workmonth = req.workmonth;
-  // Kiểm tra người gửi request chính chủ
-  if (req.user._id.toString() !== workmonth.user._id.toString()) {
-    return res.status(400).send({ message: '勤務表の申請は本人が必要になります！' });
-  }
-  // Kiểm tra trạng thái của timesheet
-  if (workmonth.status !== 1 && workmonth.status !== 4) {
-    return res.status(400).send({ message: '勤務表の状態で申請できません！' });
-  }
-  workmonth.status = 2;
-  workmonth.historys.push({ action: 3, timing: new Date(), user: workmonth.user });
-  workmonth.save((err, rest) => {
     if (err)
-      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-    res.jsonp(workmonth);
-  });
-};
-exports.cancel = function (req, res) {
-  var workmonth = req.workmonth;
-  // Kiểm tra người gửi request chính chủ
-  if (req.user._id.toString() !== workmonth.user._id.toString()) {
-    return res.status(400).send({ message: '勤務表の申請のキャンセルは本人が必要になります！' });
-  }
-  // Kiểm tra trạng thái của timesheet
-  if (workmonth.status !== 2) {
-    return res.status(400).send({ message: '勤務表の状態でキャンセルできません！' });
-  }
-
-  workmonth.status = 1;
-  workmonth.historys.push({ action: 6, timing: new Date(), user: workmonth.user });
-  workmonth.save((err, rest) => {
-    if (err)
-      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-    res.jsonp(workmonth);
+      return res.status(400).send({ message: '勤務表を削除できません！' });
+    // Xóa bỏ các date đã tạo trong month này
+    Workdate.remove({ workmonth: workmonth._id }).exec();
+    return res.jsonp(workmonth);
   });
 };
 exports.list = function (req, res) {
   var year = req.body.year;
-  if (!year || !req.user) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
+  if (!year || year === '') return res.status(400).send({ message: 'リクエスト情報が間違います。' });
 
   Workmonth.find({ user: req.user._id, year: year })
     .populate({
@@ -188,6 +170,89 @@ exports.list = function (req, res) {
       return res.jsonp(workmonths);
     });
 };
+exports.request = function (req, res) {
+  var workmonth = req.workmonth;
+  // Kiểm tra người gửi request chính chủ
+  if (req.user._id.toString() !== workmonth.user._id.toString()) {
+    return res.status(400).send({ message: '勤務表の申請は本人が必要になります！' });
+  }
+  // Kiểm tra trạng thái của timesheet
+  if (workmonth.status !== 1 && workmonth.status !== 4) {
+    return res.status(400).send({ message: '勤務表の状態で申請できません！' });
+  }
+  workmonth.status = 2;
+  workmonth.historys.push({ action: 3, timing: new Date(), user: workmonth.user });
+  workmonth.save((err, workmonth) => {
+    if (err)
+      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+
+    Workmonth.findById(workmonth._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName roles status profileImageURL')
+      .populate({
+        path: 'workdates', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+          { path: 'transfers', model: 'Workdate' },
+          {
+            path: 'workrests', model: 'Workrest', populate: [
+              { path: 'holiday', model: 'Holiday' }
+            ]
+          },
+        ]
+      })
+      .exec(function (err, workmonth) {
+        if (err)
+          return res.status(400).send({ message: '勤務表の情報が見つかりません！' });
+        return res.jsonp(workmonth);
+      });
+  });
+};
+exports.cancel = function (req, res) {
+  var workmonth = req.workmonth;
+  // Kiểm tra người gửi request chính chủ
+  if (req.user._id.toString() !== workmonth.user._id.toString()) {
+    return res.status(400).send({ message: '勤務表の申請のキャンセルは本人が必要になります！' });
+  }
+  // Kiểm tra trạng thái của timesheet
+  if (workmonth.status !== 2) {
+    return res.status(400).send({ message: '勤務表の状態でキャンセルできません！' });
+  }
+
+  workmonth.status = 1;
+  workmonth.historys.push({ action: 6, timing: new Date(), user: workmonth.user });
+  workmonth.save((err, workmonth) => {
+    if (err)
+      return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+
+    Workmonth.findById(workmonth._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName roles status profileImageURL')
+      .populate({
+        path: 'workdates', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+          { path: 'transfers', model: 'Workdate' },
+          {
+            path: 'workrests', model: 'Workrest', populate: [
+              { path: 'holiday', model: 'Holiday' }
+            ]
+          },
+        ]
+      })
+      .exec(function (err, workmonth) {
+        if (err)
+          return res.status(400).send({ message: '勤務表の情報が見つかりません！' });
+        return res.jsonp(workmonth);
+      });
+  });
+};
 exports.requestDelete = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi cancel chính chủ
@@ -203,22 +268,49 @@ exports.requestDelete = function (req, res) {
   workmonth.save((err, workmonth) => {
     if (err)
       return res.status(400).send({ message: '清算表の状態を変更できません！' });
+
     Workmonth.findById(workmonth._id)
       .populate({
         path: 'historys', populate: [
           { path: 'user', select: 'displayName profileImageURL', model: 'User' },
         ]
       })
-      .populate('user', 'displayName profileImageURL')
+      .populate('user', 'displayName roles status profileImageURL')
+      .populate({
+        path: 'workdates', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+          { path: 'transfers', model: 'Workdate' },
+          {
+            path: 'workrests', model: 'Workrest', populate: [
+              { path: 'holiday', model: 'Holiday' }
+            ]
+          },
+        ]
+      })
       .exec(function (err, workmonth) {
         if (err)
-          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+          return res.status(400).send({ message: '勤務表の情報が見つかりません！' });
         return res.jsonp(workmonth);
       });
   });
 };
+exports.workmonthByID = function (req, res, next, id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({ message: '勤務表情報が見た借りません。' });
+  }
 
-
+  Workmonth.findById(id)
+    .populate('user', 'displayName profileImageURL roles')
+    .exec(function (err, workmonth) {
+      if (err) {
+        return next(err);
+      } else if (!workmonth) {
+        return res.status(404).send({ message: '勤務表情報が見た借りません。' });
+      }
+      req.workmonth = workmonth;
+      next();
+    });
+};
 exports.getHolidayWorking = function (req, res) {
   var workmonthId = req.body.workmonthId;
   if (!workmonthId) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
@@ -242,51 +334,3 @@ exports.getHolidayWorking = function (req, res) {
       return res.jsonp(workmonths);
     });
 };
-exports.workmonthByID = function (req, res, next, id) {
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: '勤務表情報が見た借りません。'
-    });
-  }
-
-  Workmonth.findById(id)
-    .populate('user', 'displayName')
-    .populate('workdates')
-    .exec(function (err, workmonth) {
-      if (err) {
-        return next(err);
-      } else if (!workmonth) {
-        return res.status(404).send({
-          message: '勤務表情報が見た借りません。'
-        });
-      }
-      req.workmonth = workmonth;
-      next();
-    });
-};
-function isWeekend(date) {
-  return date.day() === 0 || date.day() === 6;
-}
-// Lấy danh sách ngày nghỉ của 1 ngày làm việc
-function getWorkrestsForWorkdate(workdate) {
-  return new Promise((resolve, reject) => {
-    var date = _m().year(workdate.year).month(workdate.month - 1).date(workdate.date).startOf('date').format();
-    Workrest.find({
-      $and: [
-        { start: { $lte: date } },
-        { end: { $gte: date } },
-        {
-          $or: [
-            { status: 3 },
-            { status: 5 },
-          ]
-        }
-      ]
-    }).exec(function (err, workrests) {
-      if (err)
-        return reject(err);
-      return resolve(workrests);
-    });
-  });
-}
