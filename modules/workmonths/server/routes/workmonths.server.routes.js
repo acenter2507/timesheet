@@ -9,9 +9,8 @@ var workmonthsPolicy = require('../policies/workmonths.server.policy'),
 
 module.exports = function (app) {
   // Get all month in year of 1 user
-  app.route('/api/workmonths/workmonthsByYearAndUser').post(workmonths.getMonthsOfYearByUser);
+  app.route('/api/workmonths/list').post(workmonths.list);
   app.route('/api/workmonths/getHolidayWorking').post(workmonths.getHolidayWorking);
-  app.route('/api/workmonths/review').post(workmonths.getWorkmonthsReview);
 
   // Workmonths Routes
   app.route('/api/workmonths').all(workmonthsPolicy.isAllowed)
@@ -25,6 +24,7 @@ module.exports = function (app) {
 
   app.route('/api/workmonths/:workmonthId/request').all(workmonthsPolicy.isAllowed).post(workmonths.request);
   app.route('/api/workmonths/:workmonthId/cancel').all(workmonthsPolicy.isAllowed).post(workmonths.cancel);
+  app.route('/api/workmonths/:workmonthId/requestDelete').all(workmonthsPolicy.isAllowed).post(workmonths.requestDelete);
 
   // ADMIN
   app.route('/api/workmonths/admin/reviews').post(workmonths_admin.reviews);

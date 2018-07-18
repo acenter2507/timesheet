@@ -13,7 +13,7 @@ var path = require('path'),
   _m = require('moment'),
   jh = require('japanese-holidays');
 
-exports.getWorkmonthsReview = function (req, res) {
+exports.reviews = function (req, res) {
   var page = req.body.page || 1;
   var condition = req.body.condition || {};
   var query = {};

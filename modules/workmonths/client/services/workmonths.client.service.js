@@ -20,20 +20,20 @@
   }
   WorkmonthsApi.$inject = ['$http'];
   function WorkmonthsApi($http) {
-    this.getWorkMonthsByYearAndUser = function (year, userId) {
-      return $http.post('/api/workmonths/workmonthsByYearAndUser', { year: year, userId: userId }, { ignoreLoadingBar: true });
+    this.list = function (year) {
+      return $http.post('/api/workmonths/list', { year: year }, { ignoreLoadingBar: true });
     };
     this.getHolidayWorking = function (workmonthId) {
       return $http.post('/api/workmonths/getHolidayWorking', { workmonthId: workmonthId }, { ignoreLoadingBar: true });
-    };
-    this.getWorkmonthsReview = function (condition, page) {
-      return $http.post('/api/workmonths/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
     this.request = function (workmonthId) {
       return $http.post('/api/workmonths/' + workmonthId + '/request', null, { ignoreLoadingBar: true });
     };
     this.cancel = function (workmonthId) {
       return $http.post('/api/workmonths/' + workmonthId + '/cancel', null, { ignoreLoadingBar: true });
+    };
+    this.requestDelete = function (workmonthId) {
+      return $http.post('/api/workmonths/' + workmonthId + '/requestDelete', null, { ignoreLoadingBar: true });
     };
     return this;
   }

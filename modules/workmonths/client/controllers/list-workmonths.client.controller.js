@@ -5,11 +5,11 @@
     .module('workmonths')
     .controller('WorkmonthsListController', WorkmonthsListController);
 
-  WorkmonthsListController.$inject = ['WorkmonthsService', '$scope', '$state', 'DateUtil', '$stateParams', 'CommonService', 'WorkmonthsApi', 'Socket'];
+  WorkmonthsListController.$inject = ['WorkmonthsService', '$scope', '$state', '$stateParams', 'WorkmonthsApi', 'Socket'];
 
-  function WorkmonthsListController(WorkmonthsService, $scope, $state, DateUtil, $stateParams, CommonService, WorkmonthsApi, Socket) {
+  function WorkmonthsListController(WorkmonthsService, $scope, $state, $stateParams, WorkmonthsApi, Socket) {
     var vm = this;
-    vm.createMonthBusy = false;
+    vm.busy = false;
     vm.isShowHistory = false;
 
     vm.workmonths = [];
@@ -21,15 +21,14 @@
     }
 
     function prepareParams() {
-      var param = $stateParams.year;
-      if (param) {
-        vm.currentYear = moment(param, 'YYYY');
+      if ($stateParams.year) {
+        vm.currentYear = moment($stateParams.year, 'YYYY');
       } else {
         vm.currentYear = moment();
       }
     }
     function prepareMonths() {
-      WorkmonthsApi.getWorkMonthsByYearAndUser(vm.currentYear.year(), $scope.user._id)
+      WorkmonthsApi.list(vm.currentYear.year())
         .success(function (res) {
           prepareShowingData(res);
         })
@@ -44,43 +43,57 @@
       }
     }
 
-    vm.handleNextYear = function () {
-      var lastYear = vm.currentYear.clone().subtract(1, 'years');
-      $state.go('workmonths.list', { year: lastYear.year() });
-    };
-    vm.handlePreviousYear = function () {
-      var nextYear = vm.currentYear.clone().add(1, 'years');
-      $state.go('workmonths.list', { year: nextYear.year() });
-    };
-    vm.handleCurrentYear = function () {
-      var current = moment(new Date(), 'YYYY');
-      $state.go('workmonths.list', { year: current.year() });
-    };
-    vm.handleCreateWorkMonth = function (index) {
-      if (vm.createMonthBusy) return;
-      vm.createMonthBusy = true;
+    vm.handleCreateWorkmonth = function (index) {
+      if (vm.busy) return;
+      vm.busy = true;
 
       var newMonth = new WorkmonthsService({
         year: vm.currentYear.year(),
         month: index
       });
-      newMonth.$save(function (res) {
-        vm.createMonthBusy = false;
+      newMonth.$save(function (workmonth) {
         var oldMonth = _.findWhere(vm.workmonths, { index: index });
-        _.extend(oldMonth, { workmonth: res });
+        _.extend(oldMonth, { workmonth: workmonth });
+        vm.busy = false;
       }, function (err) {
         $scope.handleShowToast(err.data.message, true);
-        vm.createMonthBusy = false;
+        vm.busy = false;
       });
     };
-    vm.handleSendRequestWorkmonth = function (item) {
+    vm.handleRequestWorkmonth = function (item) {
       $scope.handleShowConfirm({
         message: item.workmonth.month + '月の勤務表を申請しますか？'
       }, function () {
         WorkmonthsApi.request(item.workmonth._id)
-          .success(function (data) {
-            _.extend(item.workmonth, data);
+          .success(function (workmonth) {
+            _.extend(item.workmonth, workmonth);
             Socket.emit('month_request', { workmonthId: item.workmonth._id, userId: $scope.user._id });
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleCancelWorkmonth = function (item) {
+      $scope.handleShowConfirm({
+        message: item.workmonth.month + '月の清算表をキャンセルしますか？'
+      }, function () {
+        WorkmonthsApi.cancel(item.workmonth._id)
+          .success(function (workmonth) {
+            _.extend(item.workmonth, workmonth);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleRequestDeleteWorkmonth = function (item) {
+      $scope.handleShowConfirm({
+        message: item.workmonth.month + '月の清算表を取り消し申請しますか？'
+      }, function () {
+        WorkmonthsApi.requestDelete(item.workmonth._id)
+          .success(function (workmonth) {
+            _.extend(item.workmonth, workmonth);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
@@ -98,12 +111,28 @@
         });
       });
     };
+    vm.handleSelectWorkmonth = function (item) {
+      if (!item.workmonth) return false;
+      $state.go('workmonths.view', { workmonthId: item.workmonth._id });
+    };
     vm.handleViewHistory = function (item) {
       vm.isShowHistory = true;
       vm.historys = item.workmonth.historys;
     };
     vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
+    };
+    vm.handleNextYear = function () {
+      var lastYear = vm.currentYear.clone().subtract(1, 'years');
+      $state.go('workmonths.list', { year: lastYear.year() });
+    };
+    vm.handlePreviousYear = function () {
+      var nextYear = vm.currentYear.clone().add(1, 'years');
+      $state.go('workmonths.list', { year: nextYear.year() });
+    };
+    vm.handleCurrentYear = function () {
+      var current = moment(new Date(), 'YYYY');
+      $state.go('workmonths.list', { year: current.year() });
     };
   }
 }());

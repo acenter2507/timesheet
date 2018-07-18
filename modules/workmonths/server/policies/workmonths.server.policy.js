@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/workmonths/:workmonthId',
       permissions: ['get']
+    }, {
+      resources: '/api/workmonths/list',
+      permissions: ['post']
     }]
   }, {
     roles: ['manager'],

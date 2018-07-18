@@ -76,7 +76,6 @@ exports.create = function (req, res) {
       });
     });
 };
-
 exports.read = function (req, res) {
   Workmonth.findById(req.workmonth._id)
     .populate({
@@ -102,7 +101,6 @@ exports.read = function (req, res) {
       return res.jsonp(workmonth);
     });
 };
-
 exports.update = function (req, res) {
   var workmonth = req.workmonth;
 
@@ -119,7 +117,6 @@ exports.update = function (req, res) {
     }
   });
 };
-
 exports.delete = function (req, res) {
   var workmonth = req.workmonth;
 
@@ -135,7 +132,6 @@ exports.delete = function (req, res) {
     }
   });
 };
-
 exports.request = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
@@ -154,7 +150,6 @@ exports.request = function (req, res) {
     res.jsonp(workmonth);
   });
 };
-
 exports.cancel = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
@@ -174,64 +169,11 @@ exports.cancel = function (req, res) {
     res.jsonp(workmonth);
   });
 };
-
-exports.approve = function (req, res) {
-  var workmonth = req.workmonth;
-  // Kiểm tra người gửi request chính chủ
-  if (!_.contains(req.user.roles, 'accountant')) {
-    return res.status(400).send({ message: '経理部以外はできません！' });
-  }
-  // Kiểm tra trạng thái của timesheet
-  if (workmonth.status !== 2) {
-    return res.status(400).send({ message: '勤務表の状態で確認できません！' });
-  }
-
-  workmonth.status = 3;
-  workmonth.historys.push({ action: 4, timing: new Date(), user: req.user._id });
-  workmonth.save((err, rest) => {
-    if (err)
-      return res.status(400).send({ message: '承認処理が完了できません。' });
-    res.jsonp(workmonth);
-  });
-};
-
-exports.reject = function (req, res) {
-  var workmonth = req.workmonth;
-  // Kiểm tra người gửi request chính chủ
-  if (!_.contains(req.user.roles, 'accountant')) {
-    return res.status(400).send({ message: '経理部以外はできません！' });
-  }
-  // Kiểm tra trạng thái của timesheet
-  if (workmonth.status !== 2) {
-    return res.status(400).send({ message: '勤務表の状態で拒否できません！' });
-  }
-
-  workmonth.status = 4;
-  workmonth.historys.push({ action: 5, timing: new Date(), user: req.user._id });
-
-  workmonth.save((err, workrest) => {
-    if (err)
-      return res.status(400).send({ message: '拒否処理が完了できません。' });
-    return res.jsonp(workmonth);
-  });
-};
-
 exports.list = function (req, res) {
-  Workmonth.find().sort('-created').populate('user', 'displayName').exec(function (err, workmonths) {
-    if (err) {
-      return res.status(400).send({ message: '勤務表データを取得できません！' });
-    } else {
-      res.jsonp(workmonths);
-    }
-  });
-};
-
-exports.getMonthsOfYearByUser = function (req, res) {
   var year = req.body.year;
-  var userId = req.body.userId;
-  if (!year || !userId) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
+  if (!year || !req.user) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
 
-  Workmonth.find({ user: userId, year: year })
+  Workmonth.find({ user: req.user._id, year: year })
     .populate({
       path: 'historys',
       populate: {
@@ -246,6 +188,36 @@ exports.getMonthsOfYearByUser = function (req, res) {
       return res.jsonp(workmonths);
     });
 };
+exports.requestDelete = function (req, res) {
+  var workmonth = req.workmonth;
+  // Kiểm tra người gửi cancel chính chủ
+  if (req.user._id.toString() !== workmonth.user._id.toString()) {
+    return res.status(400).send({ message: '勤務表の取り消し申請は本人が必要になります！' });
+  }
+  // Kiểm tra trạng thái của workmonth
+  if (workmonth.status !== 3) {
+    return res.status(400).send({ message: '勤務表の状態で取り消し申請できません！' });
+  }
+  workmonth.status = 5;
+  workmonth.historys.push({ action: 7, timing: new Date(), user: req.user._id });
+  workmonth.save((err, workmonth) => {
+    if (err)
+      return res.status(400).send({ message: '清算表の状態を変更できません！' });
+    Workmonth.findById(workmonth._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName profileImageURL')
+      .exec(function (err, workmonth) {
+        if (err)
+          return res.status(400).send({ message: '清算表の情報が見つかりません！' });
+        return res.jsonp(workmonth);
+      });
+  });
+};
+
 
 exports.getHolidayWorking = function (req, res) {
   var workmonthId = req.body.workmonthId;
@@ -270,7 +242,6 @@ exports.getHolidayWorking = function (req, res) {
       return res.jsonp(workmonths);
     });
 };
-
 exports.workmonthByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -294,7 +265,6 @@ exports.workmonthByID = function (req, res, next, id) {
       next();
     });
 };
-
 function isWeekend(date) {
   return date.day() === 0 || date.day() === 6;
 }
@@ -320,63 +290,3 @@ function getWorkrestsForWorkdate(workdate) {
     });
   });
 }
-
-exports.getWorkmonthsReview = function (req, res) {
-  var page = req.body.page || 1;
-  var condition = req.body.condition || {};
-  var query = {};
-  var and_arr = [];
-  if (condition.year) {
-    and_arr.push({ year: condition.year });
-  }
-  if (condition.month) {
-    and_arr.push({ month: condition.month });
-  }
-  if (condition.status) {
-    and_arr.push({ status: condition.status });
-  }
-  if (condition.department) {
-    if (condition.department === 'empty') {
-      and_arr.push({ department: null });
-    } else {
-      and_arr.push({ department: condition.department });
-    }
-  }
-  if (condition.roles && condition.roles.length > 0) {
-    and_arr.push({ roles: condition.roles });
-  }
-  if (condition.user) {
-    and_arr.push({ user: condition.user });
-  }
-
-  if (and_arr.length > 0) {
-    query = { $and: and_arr };
-  }
-  Workmonth.paginate(query, {
-    sort: condition.sort,
-    page: page,
-    populate: [
-      { path: 'workdates' },
-      { path: 'user', select: 'profileImageURL displayName' },
-      {
-        path: 'historys', populate: [
-          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-        ]
-      },
-    ],
-    // populate: [
-    //   { path: 'workdates', select: 'name isPaid' },
-    //   { path: 'user', select: 'displayName profileImageURL' },
-    //   {
-    //     path: 'historys', populate: [
-    //       { path: 'user', select: 'displayName profileImageURL', model: 'User' },
-    //     ]
-    //   },
-    // ],
-    limit: condition.limit
-  }).then(function (workmonths) {
-    res.jsonp(workmonths);
-  }, err => {
-    return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
-  });
-};
