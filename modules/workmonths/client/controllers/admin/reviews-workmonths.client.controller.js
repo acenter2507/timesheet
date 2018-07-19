@@ -12,9 +12,9 @@
     'CommonService',
     '$stateParams',
     'WorkmonthsAdminApi',
-    '$timeout',
     'AdminUserApi',
-    'AdminUserService'];
+    'AdminUserService',
+    '$q'];
 
   function WorkmonthsReviewController(
     WorkmonthsService,
@@ -23,9 +23,9 @@
     CommonService,
     $stateParams,
     WorkmonthsAdminApi,
-    $timeout,
     AdminUserApi,
-    AdminUserService) {
+    AdminUserService,
+    $q) {
     var vm = this;
     vm.workmonths = [];
     vm.condition = {};
