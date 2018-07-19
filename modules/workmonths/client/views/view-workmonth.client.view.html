@@ -103,7 +103,7 @@
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th class="text-center w50">操作</th>
+              <th class="text-center w50" ng-show="vm.workmonth.status === 1 || vm.workmonth.status === 4">操作</th>
               <th>日付</th>
               <th>業務内容</th>
               <th class="w50">開始</th>
@@ -116,7 +116,7 @@
           </thead>
           <tbody>
             <tr class="clickable" ng-repeat="workdate in vm.workmonth.workdates" ng-click="vm.handleSelectWorkdate(workdate)">
-              <td class="text-center w50">
+              <td class="text-center w50" ng-show="vm.workmonth.status === 1 || vm.workmonth.status === 4">
                 <button class="btn btn-xs btn-default inside-clickable" ng-show="vm.isCopying && workdate._id !== vm.copyingWorkdate._id" ng-click="vm.handlePasteWorkdate(workdate)">
                   <span ng-hide="vm.isSaving">貼り付け</span>
                   <i ng-show="vm.isSaving" class="fa fa-spinner fa-pulse fa-fw"></i>
@@ -130,10 +130,10 @@
                     <i class="glyphicon glyphicon-option-horizontal"></i>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                    <li ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4">
+                    <link>
                       <a ui-sref="workdates.view({ workdateId: workdate._id })">編集</a>
                     </li>
-                    <li ng-if="vm.workmonth.status === 1 || vm.workmonth.status === 4">
+                    <li>
                       <a ng-click="vm.handleCopyWorkdate(workdate)">コピー</a>
                     </li>
                   </ul>

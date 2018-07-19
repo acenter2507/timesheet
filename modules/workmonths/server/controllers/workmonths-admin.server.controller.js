@@ -84,10 +84,32 @@ exports.approve = function (req, res) {
 
   workmonth.status = 3;
   workmonth.historys.push({ action: 4, timing: new Date(), user: req.user._id });
-  workmonth.save((err, rest) => {
+  workmonth.save((err, workmonth) => {
     if (err)
       return res.status(400).send({ message: '承認処理が完了できません。' });
-    res.jsonp(workmonth);
+    Workmonth.findById(workmonth._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName roles status profileImageURL')
+      .populate({
+        path: 'workdates', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+          { path: 'transfers', model: 'Workdate' },
+          {
+            path: 'workrests', model: 'Workrest', populate: [
+              { path: 'holiday', model: 'Holiday' }
+            ]
+          },
+        ]
+      })
+      .exec(function (err, workmonth) {
+        if (err)
+          return res.status(400).send({ message: '勤務表の情報が見つかりません！' });
+        return res.jsonp(workmonth);
+      });
   });
 };
 exports.reject = function (req, res) {
@@ -104,33 +126,31 @@ exports.reject = function (req, res) {
   workmonth.status = 4;
   workmonth.historys.push({ action: 5, timing: new Date(), user: req.user._id });
 
-  workmonth.save((err, workrest) => {
+  workmonth.save((err, workmonth) => {
     if (err)
       return res.status(400).send({ message: '拒否処理が完了できません。' });
-    return res.jsonp(workmonth);
+    Workmonth.findById(workmonth._id)
+      .populate({
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
+      })
+      .populate('user', 'displayName roles status profileImageURL')
+      .populate({
+        path: 'workdates', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+          { path: 'transfers', model: 'Workdate' },
+          {
+            path: 'workrests', model: 'Workrest', populate: [
+              { path: 'holiday', model: 'Holiday' }
+            ]
+          },
+        ]
+      })
+      .exec(function (err, workmonth) {
+        if (err)
+          return res.status(400).send({ message: '勤務表の情報が見つかりません！' });
+        return res.jsonp(workmonth);
+      });
   });
-};
-
-exports.getHolidayWorking = function (req, res) {
-  var workmonthId = req.body.workmonthId;
-  if (!workmonthId) return res.status(400).send({ message: 'リクエスト情報が間違います。' });
-
-  var condition = {
-    $and: [
-      { workmonth: workmonthId },
-      { isHoliday: true },
-      {
-        $or: [
-          { overtime: { $gt: 0 } },
-          { overnight: { $gt: 0 } }]
-      }
-    ]
-  };
-  Workdate.find(condition)
-    .populate('workmonth', 'year')
-    .exec(function (err, workmonths) {
-      if (err)
-        return res.status(400).send({ message: 'データを取得できません。' });
-      return res.jsonp(workmonths);
-    });
 };
