@@ -26,7 +26,6 @@ exports.create = function (req, res) {
   var duration = endDate.diff(startDate, 'days');
 
   var promises = [];
-  console.log('+++++++++++++++', duration);
   for (var index = 0; index <= duration; index++) {
     var date = startDate.clone().add(index, 'days');
     var workdate = new Workdate({
