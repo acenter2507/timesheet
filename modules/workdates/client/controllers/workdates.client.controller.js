@@ -238,6 +238,8 @@
         }
       }
 
+      vm.workdate.overtime = overtime_duration;
+      vm.workdate.overnight = overnight_duration;
       vm.workdate.work_duration = work_duration;
     };
 
