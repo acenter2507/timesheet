@@ -29,7 +29,7 @@ exports.read = function (req, res) {
     })
     .exec(function (err, workdate) {
       if (err)
-        return next(err);
+        return res.status(400).send({ message: '勤務時間の情報が見つかりません！' });
       return res.jsonp(workdate);
     });
 };
