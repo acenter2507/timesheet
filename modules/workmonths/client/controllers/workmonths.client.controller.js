@@ -100,7 +100,11 @@
         });
       });
     };
-
+    vm.handleSelectWorkdate = function (workdate) {
+      if (vm.workmonth.status === 1 || vm.workmonth.status === 4) {
+        $state.go('workdates.view', { workdateId: workdate._id });
+      }
+    };
     // Chức năng copy workdate
     vm.isCopying = false;
     vm.isSaving = false;
