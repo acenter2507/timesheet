@@ -81,6 +81,7 @@ exports.create = function (req, res) {
       var date = _m().year(workdate.year).month(workdate.month - 1).date(workdate.date).startOf('date').format();
       Workrest.find({
         $and: [
+          { user: workdate.user },
           { start: { $lte: date } },
           { end: { $gte: date } },
           {
