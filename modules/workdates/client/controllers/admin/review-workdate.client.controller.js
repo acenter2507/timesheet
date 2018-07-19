@@ -6,16 +6,28 @@
     .module('workdates.admin')
     .controller('WorkdateReviewController', WorkdateReviewController);
 
-  WorkdateReviewController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant', 'CommonService', 'WorkmonthsApi', 'WorkmonthsService', 'WorkdatesService'];
+  WorkdateReviewController.$inject = [
+    '$scope', 
+    'workdateResolve', 
+    'ngDialog', 
+    'Constant', 
+    'CommonService', 
+    'WorkmonthsApi', 
+    'WorkdatesService'];
 
-  function WorkdateReviewController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant, CommonService, WorkmonthsApi, WorkmonthsService, WorkdatesService) {
+  function WorkdateReviewController(
+    $scope, 
+    workdate, 
+    ngDialog, 
+    Constant, 
+    CommonService, 
+    WorkmonthsApi, 
+    WorkdatesService) {
     var vm = this;
 
     vm.Constant = Constant;
     vm.workdate = workdate;
-
-    // Backup info
-    vm.workdate.bk_start = vm.workdate.start;
+    vm.form = {};
 
     vm.error = {};
     vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
@@ -107,10 +119,6 @@
       });
       vm.busy = true;
       rs_workdate.$update(function (res) {
-        vm.workdate.workmonth.middleRest = res.workmonth.middleRest;
-        vm.workdate.workmonth.numWorkDate = res.workmonth.numWorkDate;
-        vm.workdate.workmonth.overnight = res.workmonth.overnight;
-        vm.workdate.workmonth.overtime = res.workmonth.overtime;
         vm.busy = false;
         $scope.handleShowToast('勤務時間を保存しました！', false);
       }, function (err) {
