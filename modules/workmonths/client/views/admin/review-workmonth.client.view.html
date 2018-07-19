@@ -1,14 +1,16 @@
 <div class="container-fluid animated fadeIn">
   <!-- ツールバー -->
   <div class="row">
-    <div class="form-group text-right">
-      <button class="btn btn-default" ng-click="handleBackScreen('admin.workmonths.reviews');">戻る</button>
-      <button class="btn btn-primary" ng-show="vm.workmonth.status === 2" ng-click="vm.handleApproveWorkmonth()">承認</button>
-      <button class="btn btn-warning" ng-show="vm.workmonth.status === 2" ng-click="vm.handleRejectWorkmonth()">拒否</button>
-      <button class="btn btn-danger" ng-show="vm.workmonth.status === 5" ng-click="vm.handleDeleteWorkmonth()">取り消し</button>
-      <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
-        {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
-      </button>
+    <div class="col-xs-12">
+      <div class="form-group text-right">
+        <button class="btn btn-default" ng-click="handleBackScreen('admin.workmonths.reviews');">戻る</button>
+        <button class="btn btn-primary" ng-show="vm.workmonth.status === 2" ng-click="vm.handleApproveWorkmonth()">承認</button>
+        <button class="btn btn-warning" ng-show="vm.workmonth.status === 2" ng-click="vm.handleRejectWorkmonth()">拒否</button>
+        <button class="btn btn-danger" ng-show="vm.workmonth.status === 5" ng-click="vm.handleDeleteWorkmonth()">取り消し</button>
+        <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
+          {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
+        </button>
+      </div>
     </div>
   </div>
 
