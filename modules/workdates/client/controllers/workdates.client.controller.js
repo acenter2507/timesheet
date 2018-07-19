@@ -35,8 +35,6 @@
 
     vm.Constant = Constant;
     vm.workdate = workdate;
-    console.log(workdate);
-    vm.backup = _.clone(workdate);
     vm.form = {};
 
     // Backup info
@@ -45,11 +43,6 @@
     vm.workdate.new_overtime = vm.workdate.overtime;
     vm.workdate.new_overnight = vm.workdate.overnight;
     vm.workdate.new_work_duration = vm.workdate.work_duration;
-
-    vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight;
-    vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime;
-    vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate;
-    vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.middleRest;
 
     vm.error = {};
     vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
