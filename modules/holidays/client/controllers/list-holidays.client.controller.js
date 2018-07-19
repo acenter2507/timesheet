@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('holidays')
+    .module('holidays.admin')
     .controller('HolidaysListController', HolidaysListController);
 
   HolidaysListController.$inject = [

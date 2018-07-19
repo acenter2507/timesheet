@@ -22,19 +22,19 @@
       </ul>
       <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
     </li>
-    <li ng-if="isAdmin || isAccountant" class="dropdown" dropdown>
-      <a class="dropdown-toggle" dropdown-toggle role="button">経理専用&nbsp;
+    <li ng-show="isLogged" class="dropdown" dropdown>
+      <a class="dropdown-toggle" dropdown-toggle role="button">会社員メニュー&nbsp;
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu" role="menu">
         <li ui-sref-active="active">
-          <a ui-sref="workmonths.reviews">勤務表確認</a>
+          <a ui-sref="workmonths.list">勤務表管理/a>
         </li>
         <li ui-sref-active="active">
-          <a ui-sref="holidays.list">休日形態管理</a>
+          <a ui-sref="workrest.list">休暇管理</a>
         </li>
         <li ui-sref-active="active">
-          <a ui-sref="messages.create">メッセージ送信</a>
+          <a ui-sref="payments.list">清算管理</a>
         </li>
       </ul>
     </li>

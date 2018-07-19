@@ -2,40 +2,27 @@
   'use strict';
 
   angular
-    .module('holidays')
+    .module('holidays.admin')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('holidays', {
+      .state('admin.holidays', {
         abstract: true,
         url: '/holidays',
         template: '<ui-view/>',
         data: { roles: ['admin', 'accountant'] },
-        ncyBreadcrumb: { label: '休日形態' }
+        ncyBreadcrumb: { label: '休日形態管理' }
       })
-      .state('holidays.list', {
+      .state('admin.holidays.list', {
         url: '',
         templateUrl: 'modules/holidays/client/views/list-holidays.client.view.html',
         controller: 'HolidaysListController',
         controllerAs: 'vm',
-        ncyBreadcrumb: { label: '一覧' }
+        data: { roles: ['admin', 'accountant'] },
+        ncyBreadcrumb: { label: '休日形態一覧' }
       });
-  }
-
-  getHoliday.$inject = ['$stateParams', 'HolidaysService'];
-
-  function getHoliday($stateParams, HolidaysService) {
-    return HolidaysService.get({
-      holidayId: $stateParams.holidayId
-    }).$promise;
-  }
-
-  newHoliday.$inject = ['HolidaysService'];
-
-  function newHoliday(HolidaysService) {
-    return new HolidaysService();
   }
 }());
