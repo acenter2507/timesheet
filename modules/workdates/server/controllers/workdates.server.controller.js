@@ -83,6 +83,7 @@ exports.workdateByID = function (req, res, next, id) {
   }
 
   Workdate.findById(id)
+    .populate('user', 'displayName profileImageURL')
     .exec(function (err, workdate) {
       if (err) {
         return next(err);
