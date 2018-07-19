@@ -37,44 +37,22 @@
     vm.workdate = workdate;
     vm.form = {};
 
-    // Backup info
-    vm.workdate.bk_start = vm.workdate.start;
-    vm.workdate.new_middleRest = vm.workdate.middleRest;
-    vm.workdate.new_overtime = vm.workdate.overtime;
-    vm.workdate.new_overnight = vm.workdate.overnight;
-    vm.workdate.new_work_duration = vm.workdate.work_duration;
-
     vm.error = {};
     vm.date = moment().year(vm.workdate.workmonth.year).month(vm.workdate.month - 1).date(vm.workdate.date);
 
     vm.busy = false;
 
-    vm.handleViewWorkrest = function () {
-      $scope.workrests = vm.workdate.workrests;
-      var mDialog = ngDialog.open({
-        template: 'workrests_list.html',
-        scope: $scope,
-        showClose: false
-      });
-      mDialog.closePromise.then(function (res) {
-        delete $scope.workrests;
-      });
-    };
-
     vm.handleSetDefaultWorkdateInfo = function () {
       vm.workdate.start = '09:00';
       vm.workdate.end = '17:30';
-      vm.workdate.new_middleRest = 1;
+      vm.workdate.middleRest = 1;
       vm.handleChangedInput();
     };
-
     vm.handleClearWorkdateInfo = function () {
       vm.workdate.content = '';
       vm.workdate.start = '';
       vm.workdate.end = '';
-      vm.workdate.new_middleRest = 0;
-      vm.workdate.new_overtime = 0;
-      vm.workdate.new_overnight = 0;
+      vm.workdate.middleRest = 0;
       vm.handleChangedInput();
     };
 
@@ -91,8 +69,8 @@
         }, function () {
           handleStartSave();
         });
-        return;
-      } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && !CommonService.isStringEmpty(vm.workdate.content) && vm.workdate.new_middleRest >= 0) {
+        return false;
+      } else if (!CommonService.isStringEmpty(vm.workdate.start) && !CommonService.isStringEmpty(vm.workdate.end) && !CommonService.isStringEmpty(vm.workdate.content) && vm.workdate.middleRest >= 0) {
         isError = false;
       } else {
         if (CommonService.isStringEmpty(vm.workdate.start)) {
@@ -107,7 +85,7 @@
           vm.error.content = { error: true, message: '作業内容を入力してください！' };
           isError = true;
         }
-        if (vm.workdate.new_middleRest < 0) {
+        if (vm.workdate.middleRest < 0) {
           vm.error.middleRest = { error: true, message: '休憩時間は0以上入力してください！' };
           isError = true;
         }
@@ -139,7 +117,7 @@
         content: vm.workdate.content,
         start: vm.workdate.start,
         end: vm.workdate.end,
-        middleRest: vm.workdate.new_middleRest,
+        middleRest: vm.workdate.middleRest,
         overtime: vm.workdate.new_overtime,
         overnight: vm.workdate.new_overnight,
         work_duration: vm.workdate.new_work_duration,
@@ -158,7 +136,7 @@
       if (CommonService.isStringEmpty(vm.workdate.start) || CommonService.isStringEmpty(vm.workdate.end)) {
         isError = true;
       }
-      if (vm.workdate.new_middleRest < 0) {
+      if (vm.workdate.middleRest < 0) {
         isError = true;
       }
       // 1 trong 2 trường thời gian bị sai
@@ -166,16 +144,7 @@
         isError = true;
       }
 
-      if (isError) {
-        vm.workdate.new_overtime = 0;
-        vm.workdate.new_overnight = 0;
-        vm.workdate.new_work_duration = 0;
-        vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.overnight;
-        vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.overtime;
-        vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.middleRest;
-        vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate;
-        return;
-      }
+      if (isError) return;
 
       // Tính thời gian có mặt ở công ty
       var start = moment(vm.workdate.start, 'HH:mm');
@@ -203,7 +172,7 @@
       // Thời gian tính làm việc tiêu chuẩn trong 1 ngày
       var work_range = 0;
       // Tính thời gian nghỉ giải lao
-      vm.workdate.new_middleRest = NumberUtil.precisionRound(vm.workdate.new_middleRest, 1);
+      vm.workdate.middleRest = NumberUtil.precisionRound(vm.workdate.middleRest, 1);
 
       // Nếu là ngày bình thường (ngày nghỉ = 0)
       if (!vm.workdate.isHoliday) {
@@ -234,7 +203,7 @@
           // Tính tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.middleRest - work_range - overnight_duration, 1);
         } else {
           // Tính thời gian từ nửa đêm đến thời điểm kết thúc ovetnight
           midnight_to_endovernight_duration = overnightEnd.diff(temp_min, 'hours', true);
@@ -245,7 +214,7 @@
           // Tính tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration + endovernight_to_end_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.middleRest - work_range - overnight_duration, 1);
         }
       } else {
         // Trường hợp kết thúc trước thời gian tính overnight
@@ -255,7 +224,7 @@
           // Thời gian overnight
           overnight_duration = 0;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.middleRest - work_range - overnight_duration, 1);
         } else {
           // Trường hợp kết thúc trong khoảng overnight đến nữa đêm
           // Tính thời gian bắt đầu đến lúc overnight
@@ -265,25 +234,10 @@
           // Tổng thời gian làm việc trong ngày
           work_duration = before_overnight_duration + overnight_duration;
           // Tính thời gian làm thêm giờ
-          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.new_middleRest - work_range - overnight_duration, 1);
+          overtime_duration = NumberUtil.precisionRound(work_duration - vm.workdate.middleRest - work_range - overnight_duration, 1);
         }
       }
 
-      vm.workdate.new_overtime = overtime_duration;
-      vm.workdate.new_overnight = overnight_duration;
-      vm.workdate.new_work_duration = work_duration;
-
-      var diff_overnight = vm.workdate.new_overnight - vm.workdate.overnight;
-      var diff_overtime = vm.workdate.new_overtime - vm.workdate.overtime;
-      var diff_middleRest = vm.workdate.new_middleRest - vm.workdate.middleRest;
-
-      vm.workdate.workmonth.new_overnight = vm.workdate.workmonth.new_overnight + diff_overnight;
-      vm.workdate.workmonth.new_overtime = vm.workdate.workmonth.new_overtime + diff_overtime;
-      vm.workdate.workmonth.new_middleRest = vm.workdate.workmonth.new_middleRest + diff_middleRest;
-
-      if (CommonService.isStringEmpty(vm.workdate.bk_start)) {
-        vm.workdate.workmonth.new_numWorkDate = vm.workdate.workmonth.numWorkDate + 1;
-      }
       vm.workdate.work_duration = work_duration;
     };
 
@@ -324,6 +278,17 @@
         .error(function (err) {
           $scope.handleShowToast(err.message, true);
         });
+    };
+    vm.handleViewWorkrest = function () {
+      $scope.workrests = vm.workdate.workrests;
+      var mDialog = ngDialog.open({
+        template: 'workrests_list.html',
+        scope: $scope,
+        showClose: false
+      });
+      mDialog.closePromise.then(function (res) {
+        delete $scope.workrests;
+      });
     };
   }
 }());

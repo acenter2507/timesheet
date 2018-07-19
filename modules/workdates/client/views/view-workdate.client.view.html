@@ -6,7 +6,7 @@
         <button class="btn btn-default" ng-click="handleBackScreen('home')">戻る</button>
         <button class="btn btn-success" ng-click="vm.handleSetDefaultWorkdateInfo()">デフォルト</button>
         <button class="btn btn-warning" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
-        <button class="btn btn-primary" ng-click="vm.handleSaveWorkdate(vm.form.workdateForm.$valid)" ng-disabled="vm.busy">保存</button>
+        <button class="btn btn-primary" ng-click="vm.handleSaveWorkdate()" ng-disabled="vm.busy">保存</button>
       </div>
     </div>
   </div>
@@ -39,13 +39,10 @@
 
       <form name="vm.form.workdateForm" novalidate>
         <!-- 作業内容 -->
-        <div class="form-group" show-errors>
+        <div class="form-group">
           <label for="content">作業内容：</label>
-          <textarea name="content" class="form-control h100" ng-model="vm.workdate.content" required></textarea>
-          <div ng-messages="vm.form.workdateForm.content.$error" role="alert">
-            <p class="help-block error-text font-sm" ng-message="required">作業内容：は必須です。</p>
-          </div>
-          <!-- <span class="text-danger" ng-show="vm.error.content.error">{{vm.error.content.message}}</span> -->
+          <textarea name="content" class="form-control h100" ng-model="vm.workdate.content"></textarea>
+          <span class="text-danger" ng-show="vm.error.content.error">{{vm.error.content.message}}</span>
         </div>
 
         <!-- 時間 -->

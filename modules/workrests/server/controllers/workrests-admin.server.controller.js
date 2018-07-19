@@ -11,22 +11,6 @@ var path = require('path'),
   workdateController = require(path.resolve('./modules/workdates/server/controllers/workdates.server.controller')),
   _ = require('underscore'),
   _moment = require('moment');
-// exports.reviews = function (req, res) {
-//   var page = req.body.page || 1;
-//   var condition = req.body.condition || {};
-//   var aggregate = Workrest.aggregate();
-//   // aggregate.lookup({ from: 'user', localField: 'user', foreignField: '_id', as: 'user' });
-//   aggregate.match({ 'user.roles': ['user'] });
-//   var options = { page: 1, limit: 5 };
-//   Workrest.aggregatePaginate(aggregate, options)
-//     .then(function (value) {
-//       return res.jsonp(value);
-//     })
-//     .catch(function (err) {
-//       console.err(err);
-//       res.end();
-//     });
-// };
 
 exports.reviews = function (req, res) {
   var page = req.body.page || 1;
