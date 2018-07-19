@@ -7,25 +7,25 @@
     .controller('WorkmonthReviewController', WorkmonthReviewController);
 
   WorkmonthReviewController.$inject = [
-    '$scope', 
-    '$state', 
-    'workmonthResolve', 
-    'WorkdatesApi', 
-    'ngDialog', 
-    'WorkmonthsAdminApi', 
-    'CommonService', 
-    'WorkrestsApi', 
+    '$scope',
+    '$state',
+    'workmonthResolve',
+    'WorkdatesApi',
+    'ngDialog',
+    'WorkmonthsAdminApi',
+    'CommonService',
+    'WorkrestsApi',
     'Socket'];
 
   function WorkmonthReviewController(
-    $scope, 
-    $state, 
-    workmonth, 
-    WorkdatesApi, 
-    ngDialog, 
-    WorkmonthsAdminApi, 
-    CommonService, 
-    WorkrestsApi, 
+    $scope,
+    $state,
+    workmonth,
+    WorkdatesApi,
+    ngDialog,
+    WorkmonthsAdminApi,
+    CommonService,
+    WorkrestsApi,
     Socket) {
     var vm = this;
     vm.workmonth = workmonth;
@@ -53,7 +53,7 @@
     //       vm.workrests = workrests;
     //     });
     // }
-    
+
     vm.handleApproveWorkmonth = function () {
       $scope.handleShowConfirm({
         message: 'この勤務表を承認しますか？'
@@ -93,6 +93,11 @@
           $scope.handleBackScreen('admin.workmonths.reviews');
         });
       });
+    };
+    vm.handleSelectWorkdate = function (workdate) {
+      if (vm.workmonth.status === 3) {
+        $state.go('workdates.review', { workdateId: workdate._id });
+      }
     };
     // Xem tất cả các comment
     vm.handleViewMoreWorkdateComment = function (workdate) {
