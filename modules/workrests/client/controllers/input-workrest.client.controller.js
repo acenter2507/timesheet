@@ -141,11 +141,5 @@
       var holiday = JapaneseHolidays.isHoliday(new Date(date));
       return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6) || holiday);
     };
-    vm.handlePreviousScreen = handlePreviousScreen;
-    function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'workrests.list';
-      var params = state === 'workrests.list' ? {} : $state.previous.params;
-      $state.go(state, params);
-    }
   }
 }());

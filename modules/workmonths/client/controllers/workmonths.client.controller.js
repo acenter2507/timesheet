@@ -50,13 +50,13 @@
     vm.handleViewYear = function () {
       $state.go('workmonths.list', { year: vm.workmonth.year });
     };
-    vm.handleSendRequestMonth = function () {
+    vm.handleRequestWorkmonth = function () {
       $scope.handleShowConfirm({
         message: '勤務表を申請しますか？'
       }, function () {
         WorkmonthsApi.request(vm.workmonth._id)
-          .success(function (data) {
-            _.extend(vm.workmonth, data);
+          .success(function (workmonth) {
+            _.extend(vm.workmonth, workmonth);
             Socket.emit('month_request', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
           .error(function (err) {
@@ -64,13 +64,13 @@
           });
       });
     };
-    vm.handleCancelRequestMonth = function () {
+    vm.handleCancelWorkmonth = function () {
       $scope.handleShowConfirm({
         message: '勤務表の申請を取り消しますか？'
       }, function () {
         WorkmonthsApi.cancel(vm.workmonth._id)
-          .success(function (data) {
-            _.extend(vm.workmonth, data);
+          .success(function (workmonth) {
+            _.extend(vm.workmonth, workmonth);
             Socket.emit('month_cancel', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
           .error(function (err) {
@@ -78,22 +78,29 @@
           });
       });
     };
-    vm.handleDeleteMonth = function () {
+    vm.handleRequestDeleteWorkmonth = function () {
       $scope.handleShowConfirm({
-        message: 'この勤務表を完全削除しますか？'
+        message: '勤務表を取り消し申請しますか？'
+      }, function () {
+        WorkmonthsApi.requestDelete(vm.workmonth._id)
+          .success(function (workmonth) {
+            _.extend(vm.workmonth, workmonth);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleDeleteWorkmonth = function () {
+      $scope.handleShowConfirm({
+        message: 'この勤務表を削除しますか？'
       }, function () {
         vm.workmonth.$remove(function () {
           $scope.handleBackScreen('workmonths.list');
         });
       });
     };
-    
-    vm.handleViewHistory = function () {
-      vm.isShowHistory = true;
-    };
-    vm.handleCloseHistory = function () {
-      vm.isShowHistory = false;
-    };
+
     // Chức năng copy workdate
     vm.isCopying = false;
     vm.isSaving = false;
@@ -180,7 +187,6 @@
         delete $scope.comment;
       });
     };
-
     function calculateTimeWorkdate(workdate) {
       if (CommonService.isStringEmpty(workdate.start) && CommonService.isStringEmpty(workdate.end) && CommonService.isStringEmpty(workdate.content)) {
         workdate.overtime = 0;

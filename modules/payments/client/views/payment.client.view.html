@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="form-group text-right">
-        <button class="btn btn-default" ng-click="vm.handlePreviousScreen()">戻る</button>
+        <button class="btn btn-default" ng-click="handleBackScreen('payments.list')">戻る</button>
         <button class="btn btn-primary" ng-show="vm.payment.status === 1 || vm.payment.status === 4" ng-click="vm.handleRequestPayment()">申請</button>
         <button class="btn btn-warning" ng-show="vm.payment.status === 2" ng-click="vm.handleCancelPayment()">申請キャンセル</button>
         <button class="btn btn-danger" ng-show="vm.payment.status === 3" ng-click="vm.handleRequestDeletePayment()">取り消し申請</button>

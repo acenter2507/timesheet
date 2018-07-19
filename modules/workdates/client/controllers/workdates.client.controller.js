@@ -307,12 +307,5 @@
           $scope.handleShowToast(err.message, true);
         });
     };
-
-    vm.handlePreviousScreen = handlePreviousScreen;
-    function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'workmonths.view';
-      var params = state === 'workmonths.view' ? { workmonthId: vm.workdate.workmonth._id } : $state.previous.params;
-      $state.go(state, params);
-    }
   }
 }());

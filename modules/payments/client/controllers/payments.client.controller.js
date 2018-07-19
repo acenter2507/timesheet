@@ -82,16 +82,10 @@
       }, function () {
         var rsPayment = new PaymentsService({ _id: vm.payment._id });
         rsPayment.$remove(function () {
-          handlePreviousScreen();
+          $scope.handleBackScreen('payments.list');
         });
       });
     };
-    vm.handlePreviousScreen = handlePreviousScreen;
-    function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'payments.list';
-      var params = state === 'payments.list' ? {} : $state.previous.params;
-      $state.go(state, params);
-    }
     // TRANSPORT
     vm.handleAddTransport = function () {
       PaymentFactory.set(vm.payment);

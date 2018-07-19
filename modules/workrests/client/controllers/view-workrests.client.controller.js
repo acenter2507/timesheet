@@ -91,7 +91,7 @@
         message: '休暇を削除しますか？'
       }, function () {
         vm.workrest.$remove(function () {
-          handlePreviousScreen();
+          $scope.handleBackScreen('workrests.list');
         });
       });
     };
@@ -139,11 +139,5 @@
           });
       });
     };
-    vm.handlePreviousScreen = handlePreviousScreen;
-    function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'workrests.list';
-      var params = state === 'workrests.list' ? {} : $state.previous.params;
-      $state.go(state, params);
-    }
   }
 }());

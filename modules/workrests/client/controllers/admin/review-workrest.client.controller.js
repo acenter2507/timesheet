@@ -140,15 +140,9 @@
       }, function () {
         var rsRest = new WorkrestsService({ _id: vm.workrest._id });
         rsRest.$remove(function () {
-          handlePreviousScreen();
+          $scope.handleBackScreen('admin.workrests.reviews');
         });
       });
     };
-    vm.handlePreviousScreen = handlePreviousScreen;
-    function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'admin.workrests.reviews';
-      var params = state === 'admin.workrests.reviews' ? {} : $state.previous.params;
-      $state.go(state, params);
-    }
   }
 }());

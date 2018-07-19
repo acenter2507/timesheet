@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="form-group text-right">
-        <button class="btn btn-default" ng-click="vm.handlePreviousScreen()">戻る</button>
+        <button class="btn btn-default" ng-click="handleBackScreen('admin.workrests.reviews')">戻る</button>
         <button class="btn btn-primary" ng-show="vm.workrest.status === 2" ng-click="vm.handleApproveWorkrest()">承認</button>
         <button class="btn btn-warning" ng-show="vm.workrest.status === 2" ng-click="vm.handleRejectWorkrest()">拒否</button>
         <button class="btn btn-danger" ng-show="vm.workrest.status === 5" ng-click="vm.handleDeleteWorkrest()">取り消し</button>

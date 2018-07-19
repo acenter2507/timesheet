@@ -49,15 +49,9 @@
       }, function () {
         var rsPayment = new PaymentsService({ _id: vm.payment._id });
         rsPayment.$remove(function () {
-          handlePreviousScreen();
+          $scope.handleBackScreen('admin.payments.reviews');
         });
       });
     };
-    vm.handlePreviousScreen = handlePreviousScreen;
-    function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'admin.payments.reviews';
-      var params = state === 'admin.payments.reviews' ? {} : $state.previous.params;
-      $state.go(state, params);
-    }
   }
 }());

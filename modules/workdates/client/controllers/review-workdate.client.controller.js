@@ -157,12 +157,5 @@
           $scope.handleShowToast(err.message, true);
         });
     };
-
-    vm.handlePreviousScreen = handlePreviousScreen;
-    function handlePreviousScreen() {
-      var state = $state.previous.state.name || 'workmonths.review';
-      var params = state === 'workmonths.review' ? { workmonthId: vm.workdate.workmonth._id } : $state.previous.params;
-      $state.go(state, params);
-    }
   }
 }());
