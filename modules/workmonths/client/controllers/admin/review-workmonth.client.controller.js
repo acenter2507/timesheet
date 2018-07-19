@@ -153,9 +153,16 @@
       var isPaid_duration = 0;
       for (var i = 0; i < workdate.workrests.length; i++) {
         const workrest = workdate.workrests[i];
-        rest_duration += workrest.duration;
-        if (workrest.holiday.isPaid) {
-          isPaid_duration += workrest.duration;
+        if (workrest.duration < 1) {
+          rest_duration += workrest.duration;
+          if (workrest.holiday.isPaid) {
+            isPaid_duration += workrest.duration;
+          }
+        } else {
+          rest_duration += 1;
+          if (workrest.holiday.isPaid) {
+            isPaid_duration += 1;
+          }
         }
       }
       if (rest_duration > 1) {
