@@ -8,9 +8,9 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Room Schema
+ * Group Schema
  */
-var RoomSchema = new Schema({
+var GroupSchema = new Schema({
   // Các member trong user
   users: [{ type: Schema.ObjectId, ref: 'User' }],
   avatar: { type: String },
@@ -18,11 +18,11 @@ var RoomSchema = new Schema({
   updated: { type: Date },
   created: { type: Date, default: Date.now },
   started: { type: Number, default: 1 },
-  //  Người đã tạo ra room
+  //  Người đã tạo ra group
   user: { type: Schema.ObjectId, ref: 'User' },
-  // Loại room chat (1: Private, 2: Group, 3: My Chat)
+  // Loại group chat (1: Private, 2: Group, 3: My Chat)
   kind: { type: Number, default: 1 },
 });
-RoomSchema.plugin(paginate);
+GroupSchema.plugin(paginate);
 
-mongoose.model('Room', RoomSchema);
+mongoose.model('Group', GroupSchema);

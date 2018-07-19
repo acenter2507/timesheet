@@ -6,7 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Chat = mongoose.model('Chat'),
-  Room = mongoose.model('Room'),
+  Group = mongoose.model('Group'),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('underscore');
@@ -55,9 +55,9 @@ exports.delete = function (req, res) {
 };
 
 exports.load = function (req, res) {
-  var room = req.body.room;
+  var group = req.body.group;
   var paginate = req.body.paginate;
-  Chat.paginate({ room: room }, {
+  Chat.paginate({ group: group }, {
     page: paginate.page,
     limit: paginate.limit,
     sort: '-created',

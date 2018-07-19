@@ -22,8 +22,8 @@
     this.users = function (paginate) {
       return $http.post('/api/chats/users', { paginate: paginate }, { ignoreLoadingBar: true });
     };
-    this.load = function (room, paginate) {
-      return $http.post('/api/chats/load', { room: room, paginate: paginate }, { ignoreLoadingBar: true });
+    this.load = function (group, paginate) {
+      return $http.post('/api/chats/load', { group: group, paginate: paginate }, { ignoreLoadingBar: true });
     };
     return this;
   }

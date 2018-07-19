@@ -11,8 +11,8 @@ var mongoose = require('mongoose'),
  * Chat Schema
  */
 var ChatSchema = new Schema({
-  // Id room chả
-  room: { type: Schema.ObjectId, ref: 'Room' },
+  // Id group chả
+  group: { type: Schema.ObjectId, ref: 'Group' },
   // Nội dung của tin nhắn
   content: { type: String, default: '' },
   // User đã xem tin nhắn này hay chưa 1: chưa xem - 2: xem rồi

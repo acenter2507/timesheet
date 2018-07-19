@@ -4,12 +4,12 @@
 
   angular
     .module('chats')
-    .factory('RoomsService', RoomsService)
-    .factory('RoomsApi', RoomsApi);
+    .factory('GroupsService', GroupsService)
+    .factory('GroupsApi', GroupsApi);
 
-  RoomsService.$inject = ['$resource'];
-  function RoomsService($resource) {
-    return $resource('api/rooms/:roomId', { roomId: '@_id' }, {
+  GroupsService.$inject = ['$resource'];
+  function GroupsService($resource) {
+    return $resource('api/groups/:groupId', { groupId: '@_id' }, {
       save: { method: 'POST', ignoreLoadingBar: true },
       get: { method: 'GET', ignoreLoadingBar: true },
       update: { method: 'PUT', ignoreLoadingBar: true },
@@ -17,16 +17,16 @@
     });
   }
 
-  RoomsApi.$inject = ['$http'];
-  function RoomsApi($http) {
+  GroupsApi.$inject = ['$http'];
+  function GroupsApi($http) {
     this.load = function (condition) {
-      return $http.post('/api/rooms/load', { condition: condition }, { ignoreLoadingBar: true });
+      return $http.post('/api/groups/load', { condition: condition }, { ignoreLoadingBar: true });
     };
-    this.privateRoom = function (user) {
-      return $http.post('/api/rooms/privateRoom', { user: user }, { ignoreLoadingBar: true });
+    this.privateGroup = function (user) {
+      return $http.post('/api/groups/privateGroup', { user: user }, { ignoreLoadingBar: true });
     };
-    this.myRoom = function () {
-      return $http.post('/api/rooms/myRoom', {}, { ignoreLoadingBar: true });
+    this.myGroup = function () {
+      return $http.post('/api/groups/myGroup', {}, { ignoreLoadingBar: true });
     };
     return this;
   }

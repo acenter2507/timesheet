@@ -5,18 +5,18 @@
     </div>
     <div class="leftside-wrapper">
       <div class="leftside-container">
-        <div class="leftside-content" infinite-scroll="vm.handleLoadRooms()" infinite-scroll-distance='1'>
+        <div class="leftside-content" infinite-scroll="vm.handleLoadGroups()" infinite-scroll-distance='1'>
           <div class="list-group chat-list">
-            <a ng-repeat="room in vm.rooms | orderBy: '-updated'" ng-click="vm.handleRoomSelected(room)" class="list-group-item" ng-class="{ 'active': vm.room._id === room._id}">
+            <a ng-repeat="group in vm.groups | orderBy: '-updated'" ng-click="vm.handleGroupSelected(group)" class="list-group-item" ng-class="{ 'active': vm.group._id === group._id}">
               <div class="item-content">
-                <img src="{{ room.avatar }}" class="img-round">
-                <span>{{ room.name }}</span>
+                <img src="{{ group.avatar }}" class="img-round">
+                <span>{{ group.name }}</span>
               </div>
             </a>
             <!-- Load more -->
-            <a class="list-group-item item-button" ng-show="!vm.roomPaginate.stopped" ng-click="vm.handleLoadRooms()">
-              <span ng-show="!vm.roomPaginate.busy">もっと見る</span>
-              <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.roomPaginate.busy"></i>
+            <a class="list-group-item item-button" ng-show="!vm.groupPaginate.stopped" ng-click="vm.handleLoadGroups()">
+              <span ng-show="!vm.groupPaginate.busy">もっと見る</span>
+              <i class="fa fa-spinner fa-pulse fa-fw" ng-show="vm.groupPaginate.busy"></i>
             </a>
           </div>
         </div>
@@ -26,7 +26,7 @@
 
   <div class="chat-center">
     <div class="center-toolbar">
-      <h1 class="room-title">{{ vm.room.name }}</h1>
+      <h1 class="group-title">{{ vm.group.name }}</h1>
     </div>
     <div class="center-wrapper">
       <div class="center-container" scroll-glue="vm.messagePaginate.newest" scroll-top-spy="vm.handleLoadMessages()" scroll-smart>

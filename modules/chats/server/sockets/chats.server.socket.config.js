@@ -4,7 +4,7 @@ const _ = require('underscore');
 var path = require('path'),
   mongoose = require('mongoose'),
   Chat = mongoose.model('Chat'),
-  Room = mongoose.model('Room'),
+  Group = mongoose.model('Group'),
   Notif = mongoose.model('Notif'),
   User = mongoose.model('User');
 
@@ -15,17 +15,17 @@ module.exports = function (io, socket) {
     // Đang gửi cho toàn bộ user
     socket.broadcast.emit('chat', req);
   });
-  socket.on('rooms', req => {
+  socket.on('groups', req => {
     if (!req.user) return;
-    Room.paginate({ users: req.user }, {
+    Group.paginate({ users: req.user }, {
       page: req.paginate.page,
       limit: req.paginate.limit,
       sort: '-updated',
       select: 'name avatar'
     }).then(result => {
-      io.sockets.connected[socket.id].emit('rooms', { error: false, rooms: result.docs });
+      io.sockets.connected[socket.id].emit('groups', { error: false, groups: result.docs });
     }).catch(err => {
-      io.sockets.connected[socket.id].emit('rooms', { error: true, message: 'チャットグループを取得できません！' });
+      io.sockets.connected[socket.id].emit('groups', { error: true, message: 'チャットグループを取得できません！' });
     });
   });
   socket.on('onlines', req => {
@@ -41,16 +41,16 @@ module.exports = function (io, socket) {
       io.sockets.connected[socket.id].emit('onlines', { error: true, message: 'オンライン中のデータを取得できません！' });
     });
   });
-  socket.on('verify_private_room', req => {
+  socket.on('verify_private_group', req => {
     var users = req.users;
 
-    Room.findOne({ kind: 1, users: users })
+    Group.findOne({ kind: 1, users: users })
       .select('name avatar')
-      .exec((err, room) => {
+      .exec((err, group) => {
         if (err) {
-          io.sockets.connected[socket.id].emit('verify_private_room');
+          io.sockets.connected[socket.id].emit('verify_private_group');
         } else {
-          io.sockets.connected[socket.id].emit('verify_private_room', { room: room });
+          io.sockets.connected[socket.id].emit('verify_private_group', { group: group });
         }
       });
   });

@@ -5,14 +5,14 @@
     .module('chats')
     .controller('ChatsListController', ChatsListController);
 
-  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService', 'RoomsService', 'RoomsApi', 'ChatsApi', 'CommonService'];
+  ChatsListController.$inject = ['$scope', 'Socket', 'ChatsService', 'GroupsService', 'GroupsApi', 'ChatsApi', 'CommonService'];
 
-  function ChatsListController($scope, Socket, ChatsService, RoomsService, RoomsApi, ChatsApi, CommonService) {
+  function ChatsListController($scope, Socket, ChatsService, GroupsService, GroupsApi, ChatsApi, CommonService) {
     var vm = this;
 
     vm.activeTab = 1;
 
-    vm.room = {};
+    vm.group = {};
     vm.message = '';
     vm.socketKeys = {
       chat: 'chat'
@@ -21,10 +21,10 @@
     onCreate();
     function onCreate() {
       prepareMessagesPaging();
-      prepareRoomsPaging();
+      prepareGroupsPaging();
       prepareUsersPaging();
       prepareSocketListenner();
-      handleLoadRooms();
+      handleLoadGroups();
       handleLoadUsers();
     }
 
@@ -38,9 +38,9 @@
         limit: 10
       };
     }
-    function prepareRoomsPaging() {
-      vm.rooms = [];
-      vm.roomPaginate = {
+    function prepareGroupsPaging() {
+      vm.groups = [];
+      vm.groupPaginate = {
         page: 1,
         limit: 15,
         busy: false,
@@ -62,51 +62,51 @@
       }
       // Nhận tin nhắn đến
       Socket.on(vm.socketKeys.chat, handleReceivedChat);
-      // // Nhận rooms
-      // Socket.on('rooms', handleReceivedRooms);
+      // // Nhận groups
+      // Socket.on('groups', handleReceivedGroups);
       // // Nhận onlines
       // Socket.on('onlines', handleReceivedOnlines);
 
       $scope.$on('$destroy', function () {
         Socket.removeListener('chat');
-        Socket.removeListener('rooms');
+        Socket.removeListener('groups');
         Socket.removeListener('onlines');
       });
     }
-    vm.handleLoadRooms = handleLoadRooms;
-    function handleLoadRooms() {
-      if (vm.roomPaginate.busy || vm.roomPaginate.stopped) return;
-      vm.roomPaginate.busy = true;
-      RoomsApi.load({ user: $scope.user._id, paginate: vm.roomPaginate })
-        .success(function (_rooms) {
-          if (!_rooms || _rooms.length === 0) {
-            vm.roomPaginate.stopped = true;
+    vm.handleLoadGroups = handleLoadGroups;
+    function handleLoadGroups() {
+      if (vm.groupPaginate.busy || vm.groupPaginate.stopped) return;
+      vm.groupPaginate.busy = true;
+      GroupsApi.load({ user: $scope.user._id, paginate: vm.groupPaginate })
+        .success(function (_groups) {
+          if (!_groups || _groups.length === 0) {
+            vm.groupPaginate.stopped = true;
           } else {
-            for (var index = 0; index < _rooms.length; index++) {
-              handlePrepareForShowRoom(_rooms[index]);
+            for (var index = 0; index < _groups.length; index++) {
+              handlePrepareForShowGroup(_groups[index]);
             }
-            vm.rooms = _.union(vm.rooms, _rooms);
-            vm.roomPaginate.page += 1;
-            if (_rooms.length < vm.roomPaginate.limit) vm.roomPaginate.stopped = true;
+            vm.groups = _.union(vm.groups, _groups);
+            vm.groupPaginate.page += 1;
+            if (_groups.length < vm.groupPaginate.limit) vm.groupPaginate.stopped = true;
           }
-          // Trường hợp không có room nào
-          if (vm.roomPaginate.stopped === true && vm.rooms.length === 0) {
-            RoomsApi.myRoom()
-              .success(function (room) {
-                handleStartChatRoom(room, true);
+          // Trường hợp không có group nào
+          if (vm.groupPaginate.stopped === true && vm.groups.length === 0) {
+            GroupsApi.myGroup()
+              .success(function (group) {
+                handleStartChatGroup(group, true);
               }).error(function (err) {
                 $scope.handleShowToast(err.message, true);
               });
           }
-          // Trường hợp chưa có room nào đang active
-          if ((!vm.room || !vm.room._id) && vm.rooms.length > 0) {
-            handleStartChatRoom(vm.rooms[0], false);
+          // Trường hợp chưa có group nào đang active
+          if ((!vm.group || !vm.group._id) && vm.groups.length > 0) {
+            handleStartChatGroup(vm.groups[0], false);
           }
-          vm.roomPaginate.busy = false;
+          vm.groupPaginate.busy = false;
           if (!$scope.$$phase) $scope.$digest();
         })
         .error(function (err) {
-          vm.roomPaginate.busy = false;
+          vm.groupPaginate.busy = false;
           return $scope.handleShowToast(err.message, true);
         });
     }
@@ -135,7 +135,7 @@
     function handleLoadMessages() {
       if (vm.messagePaginate.busy || vm.messagePaginate.stopped) return;
       vm.messagePaginate.busy = true;
-      ChatsApi.load(vm.room._id, vm.messagePaginate)
+      ChatsApi.load(vm.group._id, vm.messagePaginate)
         .success(function (messages) {
           if (!messages || messages.length === 0) {
             vm.messagePaginate.stopped = true;
@@ -160,15 +160,15 @@
       console.log(res);
       if (res.error) return $scope.handleShowToast(res.message, true);
       if (res.user.toString() === $scope.user._id.toString()) return;
-      if (res.room.toString() !== vm.room._id.toString()) return;
+      if (res.group.toString() !== vm.group._id.toString()) return;
       ChatsService.get({ chatId: res.chat }).$promise.then(function (message) {
         handlePrepareForShowMessage(message);
         vm.messages.push(message);
-        vm.room.updated = new Date();
-        vm.room.$update();
+        vm.group.updated = new Date();
+        vm.group.$update();
       });
     }
-    function handleReceivedRooms(res) {
+    function handleReceivedGroups(res) {
     }
     function handleReceivedUserss(res) {
     }
@@ -177,48 +177,48 @@
       vm.activeTab = tab;
     };
     vm.handleUserSelected = function (user) {
-      // Nếu chọn chính mình thì gọi room Mychat
+      // Nếu chọn chính mình thì gọi group Mychat
       if (user._id === $scope.user._id) {
-        return RoomsApi.myRoom().success(successCallback).error(errorCallback);
+        return GroupsApi.myGroup().success(successCallback).error(errorCallback);
       } else {
-        return RoomsApi.privateRoom(user._id).success(successCallback).error(errorCallback);
+        return GroupsApi.privateGroup(user._id).success(successCallback).error(errorCallback);
       }
-      function successCallback(room) {
-        handleStartChatRoom(room, false);
+      function successCallback(group) {
+        handleStartChatGroup(group, false);
       }
       function errorCallback(err) {
         return $scope.handleShowToast(err.message, true);
       }
     };
-    vm.handleRoomSelected = function (room) {
-      if (!room._id) return;
-      if (room._id === vm.room._id) return;
-      handleStartChatRoom(room, false);
+    vm.handleGroupSelected = function (group) {
+      if (!group._id) return;
+      if (group._id === vm.group._id) return;
+      handleStartChatGroup(group, false);
     };
 
-    function handleStartChatRoom(room, isAdd) {
-      RoomsService.get({ roomId: room._id }).$promise.then(function (room) {
-        handlePrepareForShowRoom(room);
-        vm.room = room;
+    function handleStartChatGroup(group, isAdd) {
+      GroupsService.get({ groupId: group._id }).$promise.then(function (group) {
+        handlePrepareForShowGroup(group);
+        vm.group = group;
         if (isAdd) {
-          vm.rooms.push(room);
+          vm.groups.push(group);
         }
         prepareMessagesPaging();
         handleLoadMessages();
       });
     }
-    function handlePrepareForShowRoom(room) {
-      if (room.kind === 1) {
-        for (var index = 0; index < room.users.length; index++) {
-          var user = room.users[index];
+    function handlePrepareForShowGroup(group) {
+      if (group.kind === 1) {
+        for (var index = 0; index < group.users.length; index++) {
+          var user = group.users[index];
           if (user._id !== $scope.user._id) {
-            room.name = user.displayName;
-            room.avatar = user.profileImageURL;
+            group.name = user.displayName;
+            group.avatar = user.profileImageURL;
           }
         }
-      } else if (room.kind === 3) {
-        room.name = 'マイチャット';
-        room.avatar = room.user.profileImageURL;
+      } else if (group.kind === 3) {
+        group.name = 'マイチャット';
+        group.avatar = group.user.profileImageURL;
       }
     }
     function handlePrepareForShowMessage(message) {
@@ -230,7 +230,7 @@
     }
 
     vm.handleSendMessage = function () {
-      if (!vm.room || !vm.room._id || CommonService.isStringEmpty(vm.message)) {
+      if (!vm.group || !vm.group._id || CommonService.isStringEmpty(vm.message)) {
         return;
       }
       // TODO
@@ -238,7 +238,7 @@
       var message = new ChatsService({
         content: vm.message,
         user: $scope.user._id,
-        room: vm.room._id
+        group: vm.group._id
       });
       message.$save(successCallback, errorCallback);
       function successCallback(message) {
@@ -247,21 +247,21 @@
         // Thêm tin nhắn vào màn hình
         vm.messages.push(message);
         // Nếu không phải là My Chat thì gửi Socket
-        if (vm.room.kind !== 3) {
+        if (vm.group.kind !== 3) {
           Socket.emit(vm.socketKeys.chat, {
-            room: vm.room._id,
+            group: vm.group._id,
             time: new Date().getTime(),
             chat: message._id,
             user: $scope.user._id
           });
         }
-        vm.room.updated = new Date();
-        // Trường hợp room chưa được tạo trước đó
-        if (vm.room.started === 1) {
-          vm.room.started = 2;
-          vm.rooms.push(vm.room);
+        vm.group.updated = new Date();
+        // Trường hợp group chưa được tạo trước đó
+        if (vm.group.started === 1) {
+          vm.group.started = 2;
+          vm.groups.push(vm.group);
         }
-        vm.room.$update();
+        vm.group.$update();
         vm.message = '';
       }
       function errorCallback(err) {
