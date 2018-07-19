@@ -71,7 +71,6 @@ exports.reviews = function (req, res) {
     return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
   });
 };
-
 exports.approve = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ
@@ -91,7 +90,6 @@ exports.approve = function (req, res) {
     res.jsonp(workmonth);
   });
 };
-
 exports.reject = function (req, res) {
   var workmonth = req.workmonth;
   // Kiểm tra người gửi request chính chủ

@@ -11,7 +11,7 @@
     menuService.addSubMenuItem('topbar', 'admin', {
       title: '勤務表確認',
       state: 'admin.workmonths.reviews',
-      roles: ['admin', 'accountant', 'manager']
+      roles: ['admin', 'accountant']
     });
   }
 }());

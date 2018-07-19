@@ -20,7 +20,7 @@
         templateUrl: 'modules/workmonths/client/views/admin/reviews-workmonths.client.view.html',
         controller: 'WorkmonthsReviewController',
         controllerAs: 'vm',
-        data: { roles: ['accountant', 'admin', 'manager'] },
+        data: { roles: ['accountant', 'admin'] },
         ncyBreadcrumb: { label: '勤務表確認' }
       })
       .state('admin.workmonths.review', {
@@ -29,7 +29,7 @@
         controller: 'WorkmonthReviewController',
         controllerAs: 'vm',
         resolve: { workmonthResolve: getWorkmonth },
-        data: { roles: ['accountant', 'admin', 'manager'] },
+        data: { roles: ['accountant', 'admin'] },
         ncyBreadcrumb: { label: '勤務表詳細' }
       });
   }

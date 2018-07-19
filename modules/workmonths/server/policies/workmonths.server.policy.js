@@ -24,21 +24,6 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/workmonths/list',
       permissions: ['post']
     }]
-  }, {
-    roles: ['manager'],
-    allows: [{
-      resources: '/api/workmonths',
-      permissions: ['get', 'post']
-    }, {
-      resources: '/api/workmonths/:workmonthId',
-      permissions: ['get', 'put', 'delete']
-    }, {
-      resources: '/api/workmonths/:workmonthId/approve',
-      permissions: ['post']
-    }, {
-      resources: '/api/workmonths/:workmonthId/reject',
-      permissions: ['post']
-    }]
   }]);
 };
 
