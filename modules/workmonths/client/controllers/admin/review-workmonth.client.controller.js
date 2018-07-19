@@ -88,8 +88,7 @@
       $scope.handleShowConfirm({
         message: '勤務表を削除しますか？'
       }, function () {
-        var rsWorkmonth = new WorkmonthsService({ _id: vm.workmonth._id });
-        rsWorkmonth.$remove(function () {
+        vm.workmonth.$remove(function () {
           $scope.handleBackScreen('admin.workmonths.reviews');
         });
       });
