@@ -112,8 +112,8 @@
         message: 'この休暇を承認しますか？'
       }, function () {
         WorkrestsAdminApi.approve(vm.workrest._id)
-          .success(function (data) {
-            _.extend(vm.workrest, data);
+          .success(function (workrest) {
+            _.extend(vm.workrest, workrest);
             Socket.emit('rest_review', { workrestId: vm.workrest._id, user: $scope.user._id });
           })
           .error(function (err) {
@@ -126,8 +126,8 @@
         message: 'この休暇を拒否しますか？'
       }, function () {
         WorkrestsAdminApi.reject(vm.workrest._id)
-          .success(function (data) {
-            _.extend(vm.workrest, data);
+          .success(function (workrest) {
+            _.extend(vm.workrest, workrest);
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);

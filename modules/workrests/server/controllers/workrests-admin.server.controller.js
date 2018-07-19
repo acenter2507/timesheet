@@ -95,22 +95,20 @@ exports.approve = function (req, res) {
   workrest.save((err, rest) => {
     if (err)
       return res.status(400).send({ message: '承認処理が完了できません。' });
-    Workrest.findOne(workrest)
+    Workrest.findById(workrest._id)
       .populate({
-        path: 'historys',
-        populate: {
-          path: 'user',
-          select: 'displayName profileImageURL',
-          model: 'User'
-        }
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
       })
+      .populate('user', 'displayName profileImageURL roles leaders profileImageURL email company')
+      .populate('department', 'name')
       .populate('holiday', 'name isPaid')
-      .populate('user')
-      .exec((err, workrest) => {
+      .exec(function (err, workrest) {
         if (err)
-          return res.status(400).send({ message: '新しいデータを取得できません。' });
-
-
+          return res.status(400).send({ message: '休暇の情報が見つかりません！' });
+        workrest = workrest.toJSON();
+        workrest.isCurrentUserOwner = workrest.user._id.toString() === req.user._id.toString();
         // 有給休暇の残日を計算する
         var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
         User.updateHolidays(workrest.user._id, newHolidayCnt);
@@ -118,7 +116,6 @@ exports.approve = function (req, res) {
         workdateController.addWorkrestToWorkdates(workrest);
         // TODO
         // Load lại toàn bộ thông tin workmonth và workdate
-
         return res.jsonp(workrest);
       });
   });
@@ -130,21 +127,19 @@ exports.reject = function (req, res) {
   workrest.save((err, workrest) => {
     if (err)
       return res.status(400).send({ message: '拒否処理が完了できません。' });
-    Workrest.findOne(workrest)
+    Workrest.findById(workrest._id)
       .populate({
-        path: 'historys',
-        populate: {
-          path: 'user',
-          select: 'displayName profileImageURL',
-          model: 'User'
-        }
+        path: 'historys', populate: [
+          { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+        ]
       })
+      .populate('user', 'displayName profileImageURL roles leaders profileImageURL email company')
+      .populate('department', 'name')
       .populate('holiday', 'name isPaid')
-      .populate('user')
-      .exec((err, rest) => {
+      .exec(function (err, workrest) {
         if (err)
-          return res.status(400).send({ message: '新しいデータを取得できません。' });
-        return res.jsonp(rest);
+          return res.status(400).send({ message: '休暇の情報が見つかりません！' });
+        return res.jsonp(workrest);
       });
   });
 };

@@ -32,7 +32,22 @@ exports.create = function (req, res) {
     workrest.save((err, workrest) => {
       if (err)
         return res.status(400).send({ message: '休暇を保存できません！' });
-      res.jsonp(workrest);
+      Workrest.findById(workrest._id)
+        .populate({
+          path: 'historys', populate: [
+            { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+          ]
+        })
+        .populate('user', 'displayName profileImageURL roles leaders profileImageURL email company')
+        .populate('department', 'name')
+        .populate('holiday', 'name isPaid')
+        .exec(function (err, workrest) {
+          if (err)
+            return res.status(400).send({ message: '休暇の情報が見つかりません！' });
+          workrest = workrest.toJSON();
+          workrest.isCurrentUserOwner = workrest.user._id.toString() === req.user._id.toString();
+          return res.jsonp(workrest);
+        });
     });
   });
 };
@@ -74,7 +89,22 @@ exports.update = function (req, res) {
     workrest.save((err, workrest) => {
       if (err)
         return res.status(400).send({ message: '休暇を保存できません！' });
-      return res.jsonp(workrest);
+      Workrest.findById(workrest._id)
+        .populate({
+          path: 'historys', populate: [
+            { path: 'user', select: 'displayName profileImageURL', model: 'User' },
+          ]
+        })
+        .populate('user', 'displayName profileImageURL roles leaders profileImageURL email company')
+        .populate('department', 'name')
+        .populate('holiday', 'name isPaid')
+        .exec(function (err, workrest) {
+          if (err)
+            return res.status(400).send({ message: '休暇の情報が見つかりません！' });
+          workrest = workrest.toJSON();
+          workrest.isCurrentUserOwner = workrest.user._id.toString() === req.user._id.toString();
+          return res.jsonp(workrest);
+        });
     });
   });
 };
