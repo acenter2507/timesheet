@@ -56,7 +56,8 @@
       }, function () {
         WorkmonthsApi.request(vm.workmonth._id)
           .success(function (workmonth) {
-            _.extendOwn(vm.workmonth, workmonth);
+            _.extend(vm.workmonth, workmonth);
+            prepareShowingData();
             Socket.emit('month_request', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
           .error(function (err) {
@@ -71,6 +72,7 @@
         WorkmonthsApi.cancel(vm.workmonth._id)
           .success(function (workmonth) {
             _.extend(vm.workmonth, workmonth);
+            prepareShowingData();
             Socket.emit('month_cancel', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
           .error(function (err) {
@@ -85,6 +87,7 @@
         WorkmonthsApi.requestDelete(vm.workmonth._id)
           .success(function (workmonth) {
             _.extend(vm.workmonth, workmonth);
+            prepareShowingData();
           })
           .error(function (err) {
             $scope.handleShowToast(err.message, true);
