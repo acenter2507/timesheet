@@ -6,13 +6,36 @@
     .module('workdates')
     .controller('WorkdatesController', WorkdatesController);
 
-  WorkdatesController.$inject = ['$scope', '$state', '$window', 'workdateResolve', 'ngDialog', 'NumberUtil', 'Constant', 'CommonService', 'WorkmonthsApi', 'WorkmonthsService', 'WorkdatesService'];
+  WorkdatesController.$inject = [
+    '$scope',
+    '$state',
+    '$window',
+    'workdateResolve',
+    'ngDialog',
+    'NumberUtil',
+    'Constant',
+    'CommonService',
+    'WorkmonthsApi',
+    'WorkmonthsService',
+    'WorkdatesService'];
 
-  function WorkdatesController($scope, $state, $window, workdate, ngDialog, NumberUtil, Constant, CommonService, WorkmonthsApi, WorkmonthsService, WorkdatesService) {
+  function WorkdatesController(
+    $scope,
+    $state,
+    $window,
+    workdate,
+    ngDialog,
+    NumberUtil,
+    Constant,
+    CommonService,
+    WorkmonthsApi,
+    WorkmonthsService,
+    WorkdatesService) {
     var vm = this;
 
     vm.Constant = Constant;
     vm.workdate = workdate;
+    vm.form = {};
 
     // Backup info
     vm.workdate.bk_start = vm.workdate.start;

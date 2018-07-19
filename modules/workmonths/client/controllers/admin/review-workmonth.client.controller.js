@@ -95,7 +95,7 @@
     };
     vm.handleSelectWorkdate = function (workdate) {
       if (vm.workmonth.status === 3) {
-        $state.go('workdates.review', { workdateId: workdate._id });
+        $state.go('admin.workdates.review', { workdateId: workdate._id });
       }
     };
     // Xem tất cả các comment

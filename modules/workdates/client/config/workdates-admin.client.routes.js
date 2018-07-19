@@ -2,27 +2,27 @@
   'use strict';
 
   angular
-    .module('workdates')
+    .module('workdates.admin')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('workdates', {
+      .state('admin.workdates', {
         abstract: true,
         url: '/workdates',
         template: '<ui-view/>',
         ncyBreadcrumb: { label: '勤務時間' }
       })
-      .state('workdates.view', {
-        url: '/:workdateId',
-        templateUrl: 'modules/workdates/client/views/view-workdate.client.view.html',
-        controller: 'WorkdatesController',
+      .state('admin.workdates.review', {
+        url: '/:workdateId/review',
+        templateUrl: 'modules/workdates/client/views/admin/review-workdate.client.view.html',
+        controller: 'WorkdateReviewController',
         controllerAs: 'vm',
         resolve: { workdateResolve: getWorkdate },
-        data: { roles: ['user'] },
-        ncyBreadcrumb: { label: '入力' }
+        data: { roles: ['admin', 'accountant'] },
+        ncyBreadcrumb: { label: '勤務時間編集' }
       });
   }
 

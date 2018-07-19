@@ -13,25 +13,26 @@ var path = require('path'),
   _m = require('moment');
 
 exports.create = function (req, res) {
-  res.end();
+  var workdate = new Workdate(req.body);
+  workdate.user = req.user;
+
+  workdate.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(workdate);
+    }
+  });
 };
+
 exports.read = function (req, res) {
-  Workdate.findById(req.workdate._id)
-    .populate({
-      path: 'workmonth', populate: [
-        { path: 'user', select: 'displayName profileImageURL', model: 'User' }
-      ]
-    })
-    .populate('transfers')
-    .populate({
-      path: 'workrests',
-      populate: { path: 'holiday' }
-    })
-    .exec(function (err, workdate) {
-      if (err)
-        return next(err);
-      return res.jsonp(workdate);
-    });
+  // convert mongoose document to JSON
+  var workdate = req.workdate ? req.workdate.toJSON() : {};
+  workdate.isCurrentUserOwner = req.user && workdate.user && workdate.user._id.toString() === req.user._id.toString();
+
+  res.jsonp(workdate);
 };
 
 exports.update = function (req, res) {
@@ -109,6 +110,13 @@ exports.workdateByID = function (req, res, next, id) {
   }
 
   Workdate.findById(id)
+    .populate('user', 'displayName')
+    .populate('workmonth')
+    .populate('transfers')
+    .populate({
+      path: 'workrests',
+      populate: { path: 'holiday' }
+    })
     .exec(function (err, workdate) {
       if (err) {
         return next(err);
