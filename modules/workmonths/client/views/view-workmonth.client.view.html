@@ -160,8 +160,8 @@
                   <span>{{comment.content}}</span>
                   <small>{{comment.time}}</small>
                 </p>
-                <a class="mg5x" ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 1">全て</a>
-                <a class="mg5x" ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
+                <a class="mg5x inside-clickable" ng-click="vm.handleViewMoreWorkdateComment(workdate)" ng-if="workdate.comments.length > 1">全て</a>
+                <a class="mg5x inside-clickable" ng-click="vm.handleWriteWorkdateComment(workdate)">書く</a>
               </td>
             </tr>
           </tbody>
