@@ -4,8 +4,7 @@
  * Module dependencies
  */
 var workdatesPolicy = require('../policies/workdates.server.policy'),
-  workdates = require('../controllers/workdates.server.controller'),
-  workdates_admin = require('../controllers/workdates-admin.server.controller');
+  workdates = require('../controllers/workdates.server.controller');
 
 module.exports = function (app) {
   // Workdates Routes
