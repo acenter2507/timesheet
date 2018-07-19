@@ -35,6 +35,8 @@
 
     vm.Constant = Constant;
     vm.workdate = workdate;
+    console.log(workdate);
+    vm.backup = _.clone(workdate);
     vm.form = {};
 
     // Backup info

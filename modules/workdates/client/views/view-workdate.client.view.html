@@ -6,7 +6,7 @@
         <button class="btn btn-default" ng-click="handleBackScreen('home')">戻る</button>
         <button class="btn btn-success" ng-click="vm.handleSetDefaultWorkdateInfo()">デフォルト</button>
         <button class="btn btn-warning" ng-click="vm.handleClearWorkdateInfo()">クリア</button>
-        <button class="btn btn-primary" ng-click="vm.handleSaveWorkdate()" ng-disabled="vm.busy">保存</button>
+        <button class="btn btn-primary" ng-click="vm.handleSaveWorkdate(vm.form.workdateForm.$valid)" ng-disabled="vm.busy">保存</button>
       </div>
     </div>
   </div>
