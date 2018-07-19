@@ -96,7 +96,7 @@
         message: 'この勤務表を削除しますか？'
       }, function () {
         vm.workmonth.$remove(function () {
-          $scope.handleBackScreen('workmonths.list');
+          $state.go('workmonths.list', { year: vm.workmonth.year });
         });
       });
     };
