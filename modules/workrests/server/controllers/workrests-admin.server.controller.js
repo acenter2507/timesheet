@@ -109,7 +109,8 @@ exports.approve = function (req, res) {
       .exec((err, workrest) => {
         if (err)
           return res.status(400).send({ message: '新しいデータを取得できません。' });
-        res.jsonp(workrest);
+
+
         // 有給休暇の残日を計算する
         var newHolidayCnt = workrest.user.company.paidHolidayCnt - workrest.duration;
         User.updateHolidays(workrest.user._id, newHolidayCnt);
@@ -117,6 +118,8 @@ exports.approve = function (req, res) {
         workdateController.addWorkrestToWorkdates(workrest);
         // TODO
         // Load lại toàn bộ thông tin workmonth và workdate
+
+        return res.jsonp(workrest);
       });
   });
 };

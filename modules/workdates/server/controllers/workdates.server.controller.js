@@ -171,7 +171,7 @@ exports.addWorkrestToWorkdates = function (workrest) {
     var end = _m(workrest.end);
     var duration = end.diff(start, 'days');
     var promises = [];
-    for (var index = 0; index <= duration; index++) {
+    for (var index = 0; index < duration; index++) {
       var current = start.clone().add(index, 'days');
       promises.push(Workdate.addWorkrest(workrest._id, current.year(), current.month() + 1, current.date()));
     }
@@ -185,7 +185,7 @@ exports.removeWorkrestToWorkdates = function (workrest) {
     var end = _m(workrest.end);
     var duration = end.diff(start, 'days');
     var promises = [];
-    for (var index = 0; index <= duration; index++) {
+    for (var index = 0; index < duration; index++) {
       var current = start.clone().add(index, 'days');
       promises.push(Workdate.removeWorkrest(workrest._id, current.year(), current.month() + 1, current.date()));
     }
