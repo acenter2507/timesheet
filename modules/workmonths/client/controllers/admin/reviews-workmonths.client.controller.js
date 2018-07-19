@@ -143,6 +143,7 @@
         var rsWorkmonth = new WorkmonthsService({ _id: workmonth._id });
         rsWorkmonth.$remove(function () {
           vm.workmonths = _.without(vm.workmonths, workmonth);
+          vm.total -= 1;
         });
       });
     };

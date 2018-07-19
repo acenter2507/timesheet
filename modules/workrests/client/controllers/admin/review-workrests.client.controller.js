@@ -268,6 +268,7 @@
         var rsRest = new WorkrestsService({ _id: workrest._id });
         rsRest.$remove(function () {
           vm.workrests = _.without(vm.workrests, workrest);
+          vm.total -= 1;
         });
       });
     };

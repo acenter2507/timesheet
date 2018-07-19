@@ -142,6 +142,7 @@
         var rsPayment = new PaymentsService({ _id: payment._id });
         rsPayment.$remove(function () {
           vm.payments = _.without(vm.payments, payment);
+          vm.total -= 1;
         });
       });
     };
