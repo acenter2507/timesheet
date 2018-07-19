@@ -21,11 +21,8 @@
 
   WorkdatesApi.$inject = ['$http'];
   function WorkdatesApi($http) {
-    this.getWorkrestsInWorkdate = function (workdateId) {
-      return $http.post('/api/workdates/' + workdateId + '/workrests', {}, { ignoreLoadingBar: true });
-    };
-    this.addComment = function (workdateId, comment) {
-      return $http.post('/api/workdates/' + workdateId + '/add_comment', { comment: comment }, { ignoreLoadingBar: true });
+    this.comment = function (workdateId, comment) {
+      return $http.post('/api/workdates/' + workdateId + '/comment', { comment: comment }, { ignoreLoadingBar: true });
     };
     return this;
   }

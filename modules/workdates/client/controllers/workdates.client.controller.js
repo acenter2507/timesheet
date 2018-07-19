@@ -8,28 +8,22 @@
 
   WorkdatesController.$inject = [
     '$scope',
-    '$state',
-    '$window',
     'workdateResolve',
     'ngDialog',
     'NumberUtil',
     'Constant',
     'CommonService',
     'WorkmonthsApi',
-    'WorkmonthsService',
     'WorkdatesService'];
 
   function WorkdatesController(
     $scope,
-    $state,
-    $window,
     workdate,
     ngDialog,
     NumberUtil,
     Constant,
     CommonService,
     WorkmonthsApi,
-    WorkmonthsService,
     WorkdatesService) {
     var vm = this;
 
@@ -55,7 +49,6 @@
       vm.workdate.middleRest = 0;
       vm.handleChangedInput();
     };
-
     vm.handleSaveWorkdate = function () {
       if (vm.busy) return;
       vm.busy = true;
@@ -109,7 +102,6 @@
       }
       handleStartSave();
     };
-
     function handleStartSave() {
       var transfers = _.pluck(vm.workdate.transfers, '_id');
       var rs_workdate = new WorkdatesService({
@@ -118,9 +110,9 @@
         start: vm.workdate.start,
         end: vm.workdate.end,
         middleRest: vm.workdate.middleRest,
-        overtime: vm.workdate.new_overtime,
-        overnight: vm.workdate.new_overnight,
-        work_duration: vm.workdate.new_work_duration,
+        overtime: vm.workdate.overtime,
+        overnight: vm.workdate.overnight,
+        work_duration: vm.workdate.work_duration,
         transfers: transfers,
       });
       vm.busy = false;
@@ -129,7 +121,6 @@
         $scope.handleShowToast('勤務時間を保存しました！', false);
       });
     }
-
     vm.handleChangedInput = function () {
       var isError = false;
       // 1 trong 3 trường bị trống
@@ -242,7 +233,6 @@
       vm.workdate.overnight = overnight_duration;
       vm.workdate.work_duration = work_duration;
     };
-
     vm.handleCompensatoryOff = function () {
       if (vm.busy) {
         return;

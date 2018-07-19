@@ -12,9 +12,6 @@ var path = require('path'),
   _ = require('underscore'),
   _m = require('moment');
 
-exports.create = function (req, res) {
-  res.end();
-};
 exports.read = function (req, res) {
   Workdate.findById(req.workdate._id)
     .populate({
@@ -33,7 +30,6 @@ exports.read = function (req, res) {
       return res.jsonp(workdate);
     });
 };
-
 exports.update = function (req, res) {
   var workdate = req.workdate;
 
@@ -43,65 +39,43 @@ exports.update = function (req, res) {
   workdate = _.extend(workdate, req.body);
 
   workdate.save(function (err) {
-    if (err) {
+    if (err)
       return res.status(400).send({ message: '勤務時間を保存できません！' });
-    } else {
-      var workmonthId = workdate.workmonth._id || workdate.workmonth;
-      Workmonth.calculatorWorkdates(workmonthId)
-        .then(() => {
-          return Workmonth.updateStatusTransfers(workmonthId);
-        })
-        .then(() => {
-          Workdate.findById(workdate._id)
-            .populate('workmonth')
-            .exec((err, workdate) => {
-              res.jsonp(workdate);
-            });
-        });
-    }
-  });
-};
-
-exports.delete = function (req, res) {
-  var workdate = req.workdate;
-
-  workdate.remove(function (err) {
-    if (err) {
-      return res.status(400).send({ message: '勤務時間を削除できません！' });
-    } else {
-      res.jsonp(workdate);
-    }
-  });
-};
-
-exports.list = function (req, res) {
-  Workdate.find().sort('-created').populate('user', 'displayName').exec(function (err, workdates) {
-    if (err) {
-      return res.status(400).send({ message: '勤務時間リストを取得できません！' });
-    } else {
-      res.jsonp(workdates);
-    }
-  });
-};
-
-exports.workrests = function (req, res) {
-  var workdate = req.workdate;
-  var promises = [];
-  for (var index = 0; index < workdate.workrests.length; index++) {
-    const workrestID = workdate.workrests[index]._id || workdate.workrests[index];
-    promises.push(Workrest.findById(workrestID).populate('holiday').exec());
-  }
-  Promise.all(promises)
-    .then(workrests => {
-      res.jsonp(workrests);
-    })
-    .catch(err => {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
+    var workmonthId = workdate.workmonth._id || workdate.workmonth;
+    Workmonth.calculatorWorkdates(workmonthId)
+      .then(() => {
+        return Workmonth.updateStatusTransfers(workmonthId);
+      })
+      .then(() => {
+        return res.end();
       });
-    });
+  });
+};
+exports.comment = function (req, res) {
+  var workdate = req.workdate;
+  var comment = req.body.comment;
+
+  workdate.comments.push(comment);
+  workdate.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: ('コメントを追加できません！')
+      });
+    } else {
+      res.end();
+    }
+  });
 };
 
+exports.create = function (req, res) {
+  res.end();
+};
+exports.delete = function (req, res) {
+  return res.end();
+};
+exports.list = function (req, res) {
+  return res.end();
+};
 exports.workdateByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -119,7 +93,6 @@ exports.workdateByID = function (req, res, next, id) {
       next();
     });
 };
-
 // Kiểm tra có thể add 1 workrest vào workdate hay không
 exports.verifyWorkdateWithWorkrest = function (mDate, workrest) {
   return new Promise((resolve, reject) => {
@@ -217,21 +190,5 @@ exports.removeWorkrestToWorkdates = function (workrest) {
       promises.push(Workdate.removeWorkrest(workrest._id, current.year(), current.month() + 1, current.date()));
     }
     return Promise.all(promises);
-  });
-};
-// Thêm mới comment vào workdate
-exports.addComment = function (req, res) {
-  var workdate = req.workdate;
-  var comment = req.body.comment;
-
-  workdate.comments.push(comment);
-  workdate.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: ('コメントを追加できません！')
-      });
-    } else {
-      res.end();
-    }
   });
 };

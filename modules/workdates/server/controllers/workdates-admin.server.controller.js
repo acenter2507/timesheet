@@ -228,7 +228,7 @@ exports.removeWorkrestToWorkdates = function (workrest) {
   });
 };
 // Thêm mới comment vào workdate
-exports.addComment = function (req, res) {
+exports.comment = function (req, res) {
   var workdate = req.workdate;
   var comment = req.body.comment;
 

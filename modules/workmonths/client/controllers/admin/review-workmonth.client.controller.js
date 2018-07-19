@@ -127,7 +127,7 @@
           author: $scope.user.displayName,
           time: moment().format('LLLL')
         };
-        WorkdatesApi.addComment(workdate._id, comment)
+        WorkdatesApi.comment(workdate._id, comment)
           .success(function (res) {
             workdate.comments.push(comment);
           })
