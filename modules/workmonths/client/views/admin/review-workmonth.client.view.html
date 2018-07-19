@@ -7,7 +7,7 @@
         <button class="btn btn-primary" ng-show="vm.workmonth.status === 2" ng-click="vm.handleApproveWorkmonth()">承認</button>
         <button class="btn btn-warning" ng-show="vm.workmonth.status === 2" ng-click="vm.handleRejectWorkmonth()">拒否</button>
         <button class="btn btn-danger" ng-show="vm.workmonth.status === 5" ng-click="vm.handleDeleteWorkmonth()">取り消し</button>
-        <button class="btn btn-success" ng-click="vm.handleViewMoreWorkdateComment()">自動確認</button>
+        <button class="btn btn-success" ng-show="vm.workmonth.status === 2" ng-click="vm.handleViewMoreWorkdateComment()">自動確認</button>
         <button class="btn btn-info" ng-click="vm.isShowHistory = !vm.isShowHistory">
           {{ (vm.isShowHistory) ? '履歴非表示' : '履歴表示' }}
         </button>
@@ -25,6 +25,7 @@
               <th>氏名</th>
               <th>部署</th>
               <th>報告年月</th>
+              <th>状態</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +38,7 @@
                 <span ng-show="!vm.workmonth.department">未設定</span>
               </td>
               <td>{{ vm.workmonth.year + '年' + vm.workmonth.month + '月' }}</td>
+              <td>{{ vm.workmonth.status | StatusFilter }}</td>
             </tr>
           </tbody>
         </table>
@@ -83,14 +85,12 @@
           <th>残業時間</th>
           <th>休深時間</th>
           <th>休憩時間</th>
-          <th>状態</th>
         </tr>
         <tr>
           <td>{{ vm.workmonth.numWorkDate }}</td>
           <td>{{ vm.workmonth.overtime }}</td>
           <td>{{ vm.workmonth.overnight }}</td>
           <td>{{ vm.workmonth.middleRest }}</td>
-          <td>{{ vm.workmonth.status | StatusFilter }}</td>
         </tr>
       </table>
     </div>
