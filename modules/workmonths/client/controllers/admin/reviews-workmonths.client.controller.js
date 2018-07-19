@@ -5,66 +5,68 @@
     .module('workmonths.admin')
     .controller('WorkmonthsReviewController', WorkmonthsReviewController);
 
-  WorkmonthsReviewController.$inject = ['WorkmonthsService', '$scope', '$state', '$stateParams', 'CommonService', 'WorkmonthsApi', '$timeout', 'AdminUserApi', 'DepartmentsService'];
+  WorkmonthsReviewController.$inject = [
+    'WorkmonthsService',
+    '$scope',
+    '$state',
+    'CommonService',
+    '$stateParams',
+    'WorkmonthsAdminApi',
+    '$timeout',
+    'AdminUserApi',
+    'AdminUserService'];
 
-  function WorkmonthsReviewController(WorkmonthsService, $scope, $state, $stateParams, CommonService, WorkmonthsApi, $timeout, AdminUserApi, DepartmentsService) {
+  function WorkmonthsReviewController(
+    WorkmonthsService,
+    $scope,
+    $state,
+    CommonService,
+    $stateParams,
+    WorkmonthsAdminApi,
+    $timeout,
+    AdminUserApi,
+    AdminUserService) {
     var vm = this;
-
     vm.workmonths = [];
-    vm.departments = [];
     vm.condition = {};
 
     vm.busy = false;
     vm.page = 1;
-    vm.pages = [];
+    vm.pages = 0;
     vm.total = 0;
     vm.historys = [];
 
     onCreate();
     function onCreate() {
-      prepareParams();
-      prepareDepartments();
       prepareCondition();
+      prepareParams();
       handleSearch();
     }
-    function prepareParams() {
-
-    }
-    // Khởi tạo điều kiện search
     function prepareCondition() {
       vm.condition = {
         sort: '-created',
-        limit: 20
+        limit: 20,
+        users: []
       };
       vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
       vm.condition.user = ($stateParams.user) ? $stateParams.user : undefined;
     }
-    function prepareDepartments() {
-      DepartmentsService.query().$promise.then(function (data) {
-        vm.departments = data;
-      });
+    function prepareParams() {
+      if ($stateParams.user) {
+        AdminUserService.get({ userId: $stateParams.user }).$promise.then(function (user) {
+          var _user = _.pick(user, 'displayName', 'email', 'profileImageURL', '_id');
+          vm.condition.users.push(_user);
+          delete vm.condition.user;
+        });
+      }
     }
-
-    vm.handleClearCondition = function () {
-      prepareCondition();
-      vm.userSearchKey = '';
-    };
-
-    vm.handleStartSearch = function () {
-      vm.page = 1;
-      handleSearch();
-    };
-    vm.handlePageChanged = function (page) {
-      vm.page = page;
-      handleSearch();
-    };
     function handleSearch() {
       if (vm.busy) return;
       vm.busy = true;
-      WorkmonthsApi.getWorkmonthsReview(vm.condition, vm.page)
+      WorkmonthsAdminApi.reviews(vm.condition, vm.page)
         .success(function (res) {
           vm.workmonths = res.docs;
-          vm.pages = CommonService.createArrayFromRange(res.pages);
+          vm.pages = res.pages;
           vm.total = res.total;
           vm.busy = false;
         })
@@ -73,47 +75,76 @@
           vm.busy = false;
         });
     }
-    /**
-     * HANDLES
-     */
-    vm.isUserSearching = false;
-    vm.isShowUserDropdown = false;
-    vm.userSearchKey = '';
 
-    vm.handleUserSearchChanged = function () {
-      if (vm.userSearchKey === '') return;
-      if (vm.searchTimer) {
-        $timeout.cancel(vm.searchTimer);
-        vm.searchTimer = undefined;
+    vm.handleStartSearch = function () {
+      vm.page = 1;
+      handleSearch();
+    };
+    vm.handlePageChanged = function () {
+      handleSearch();
+    };
+    vm.handleClearCondition = function () {
+      prepareCondition();
+    };
+    vm.handleSearchUsers = function ($query) {
+      if (CommonService.isStringEmpty($query)) {
+        return [];
       }
-      vm.searchTimer = $timeout(handleSearchUser, 500);
-    };
-    vm.handleUserSelected = function (user) {
-      vm.userSearchKey = user.displayName;
-      vm.condition.user = user._id;
-    };
-    function handleSearchUser() {
-      if (vm.isUserSearching) return;
-      vm.isUserSearching = true;
-      vm.isShowUserDropdown = true;
-      AdminUserApi.searchUsers({ key: vm.userSearchKey, department: false })
+
+      var deferred = $q.defer();
+      AdminUserApi.searchUsers({ key: $query, department: false })
         .success(function (users) {
-          vm.users = users;
-          vm.isUserSearching = false;
-          if (!$scope.$$phase) $scope.$digest();
-        })
-        .error(function (err) {
-          $scope.handleShowToast(err.message, true);
-          vm.isUserSearching = false;
-          vm.isShowUserDropdown = false;
+          deferred.resolve(users);
         });
-    }
+
+      return deferred.promise;
+    };
     vm.handleViewHistory = function (workmonth) {
       vm.isShowHistory = true;
       vm.historys = workmonth.historys;
     };
     vm.handleCloseHistory = function () {
       vm.isShowHistory = false;
+      vm.historys = [];
+    };
+    vm.hanleSelectWorkmonth = function (workmonth) {
+      $state.go('admin.workmonths.review', { workmonthId: workmonth._id });
+    };
+    vm.handleApproveWorkmonth = function (workmonth) {
+      $scope.handleShowConfirm({
+        message: 'この勤務表を承認しますか？'
+      }, function () {
+        WorkmonthsAdminApi.approve(workmonth._id)
+          .success(function (_workmonth) {
+            _.extend(workmonth, _workmonth);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleRejectWorkmonth = function (workmonth) {
+      $scope.handleShowConfirm({
+        message: 'この勤務表を拒否しますか？'
+      }, function () {
+        WorkmonthsAdminApi.reject(workmonth._id)
+          .success(function (_workmonth) {
+            _.extend(workmonth, _workmonth);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
+    };
+    vm.handleDeleteWorkmonth = function (workmonth) {
+      $scope.handleShowConfirm({
+        message: '勤務表を削除しますか？'
+      }, function () {
+        var rsWorkmonth = new WorkmonthsService({ _id: workmonth._id });
+        rsWorkmonth.$remove(function () {
+          vm.workmonths = _.without(vm.workmonths, workmonth);
+        });
+      });
     };
   }
 }());
