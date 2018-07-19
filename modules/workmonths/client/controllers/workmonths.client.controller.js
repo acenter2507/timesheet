@@ -56,6 +56,7 @@
       }, function () {
         WorkmonthsApi.request(vm.workmonth._id)
           .success(function (workmonth) {
+            console.log(workmonth);
             _.extend(vm.workmonth, workmonth);
             Socket.emit('month_request', { workmonthId: vm.workmonth._id, userId: $scope.user._id });
           })
