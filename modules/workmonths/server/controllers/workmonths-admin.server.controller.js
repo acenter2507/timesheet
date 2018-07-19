@@ -27,18 +27,17 @@ exports.reviews = function (req, res) {
   if (condition.status) {
     and_arr.push({ status: condition.status });
   }
-  if (condition.department) {
-    if (condition.department === 'empty') {
-      and_arr.push({ department: null });
-    } else {
-      and_arr.push({ department: condition.department });
-    }
-  }
   if (condition.roles && condition.roles.length > 0) {
     and_arr.push({ roles: condition.roles });
   }
-  if (condition.user) {
-    and_arr.push({ user: condition.user });
+  if (condition.users) {
+    var userIds = _.pluck(condition.users, '_id');
+    if (condition.user) {
+      userIds = _.union(userIds, [condition.user]);
+    }
+    if (userIds.length > 0) {
+      and_arr.push({ user: { $in: userIds } });
+    }
   }
 
   if (and_arr.length > 0) {
@@ -67,7 +66,7 @@ exports.reviews = function (req, res) {
     // ],
     limit: condition.limit
   }).then(function (workmonths) {
-    res.jsonp(workmonths);
+    return res.jsonp(workmonths);
   }, err => {
     return res.status(400).send({ message: 'サーバーでエラーが発生しました！' });
   });
