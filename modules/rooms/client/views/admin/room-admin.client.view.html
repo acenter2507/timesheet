@@ -1,15 +1,15 @@
 <div class="container-fluid animated fadeIn">
-  <div class="row h300">
+  <div class="row h400">
     <div class="col-xs-12">
       <carousel interval="100000">
         <slide ng-repeat="image in vm.room.images">
-          <img src="{{ image }}" style="margin:auto; height: 300px; width: auto;">
+          <img src="{{! image }}" style="margin:auto; height: 400px; width: auto;">
         </slide>
       </carousel>
     </div>
     <div class="clearfix"></div>
   </div>
-  <div class="row">
+  <div class="row mg20t">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
       <div class="form-group text-right">
         <a class="btn btn-default" ui-sref="admin.rooms.list">一覧へ</a>
@@ -22,8 +22,41 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-    <h2>{{ vm.room.name }}</h2>
-
+    <h2>{{! vm.room.name }}</h2>
+    <p class="text-justify" ng-bind-html="vm.room.description | nl2br"></p>
+    <h4>詳細情報</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <tr>
+          <td>利用状態</td>
+          <td>{{! vm.room.usable ? '利用可能' : '利用不可' }}</td>
+        </tr>
+        <tr>
+          <td>席数</td>
+          <td>{{! vm.room.seats }}</td>
+        </tr>
+        <tr>
+          <td>プロジェクター</td>
+          <td>{{! vm.room.projector ? '有' : '無' }}</td>
+        </tr>
+        <tr>
+          <td>エアコン</td>
+          <td>{{! vm.room.air_conditional ? '有' : '無' }}</td>
+        </tr>
+        <tr>
+          <td>ホワイトボードー</td>
+          <td>{{! vm.room.white_board ? '有' : '無' }}</td>
+        </tr>
+        <tr>
+          <td>パソコン</td>
+          <td>{{! vm.room.computer }}</td>
+        </tr>
+        <tr>
+          <td>音響</td>
+          <td>{{! vm.room.sound ? '有' : '無' }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>
 </div>
