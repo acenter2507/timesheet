@@ -26,18 +26,22 @@
             <!-- 時間 -->
             <div class="form-group d-sm-down-none">
               <div class="col-xs-6">
-                <label for="start">開始</label><br>
+                <label for="start">開始</label>
+                <br>
                 <datepicker ng-model="vm.condition.start_date" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
               </div>
               <div class="col-xs-6">
-                <label for="start">終了</label><br>
+                <label for="start">終了</label>
+                <br>
                 <datepicker ng-model="vm.condition.end_date" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
               </div>
             </div>
           </div>
-        </div>
-        <div class="well h200">
-          <button class="btn btn-primary" ng-click="vm.handleNextToRooms()">室選択へ</button>
+          <div class="panel-footer">
+            <div class="form-group text-right">
+              <button class="btn btn-primary" ng-click="vm.handleNextToRooms()">室選択へ</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="booking-rooms" ng-show="vm.step === 2">
