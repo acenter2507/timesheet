@@ -208,7 +208,7 @@
                 <thead>
                   <tr>
                     <th>サムネール</th>
-                    <th class="text-center">状態</th>
+                    <th class="text-center w120">状態</th>
                     <th class="w50 text-center">
                       <button class="btn btn-success btn-xs btn-upload-file">追加
                         <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
@@ -224,8 +224,8 @@
                     <td>
                       <img src="{{ receipt }}" class="receipt-img">
                     </td>
-                    <td>アップロード済</td>
-                    <td>
+                    <td class="text-center w120">アップロード済</td>
+                    <td class="w50 text-center">
                       <button class="btn btn-danger btn-xs" ng-click="vm.handleDeleteReceipt(receipt)">削除</button>
                     </td>
                   </tr>
@@ -233,8 +233,8 @@
                     <td>
                       <div image-preview="{ file: receipt._file, width: 50 }" class="receipt-img"></div>
                     </td>
-                    <td>未アップロード</td>
-                    <td>
+                    <td class="text-center w120">未アップロード</td>
+                    <td class="w50 text-center">
                       <button class="btn btn-danger btn-xs" ng-click="receipt.remove()">削除</button>
                     </td>
                   </tr>

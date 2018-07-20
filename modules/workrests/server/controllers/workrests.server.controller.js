@@ -268,35 +268,6 @@ exports.list = function (req, res) {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 exports.workrestByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
