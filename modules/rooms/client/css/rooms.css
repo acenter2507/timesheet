@@ -102,11 +102,14 @@
 
 .booking-condition,
 .booking-rooms,
-.booking-confirm {
+.booking-confirm,
+.booking-result {
   width: 100%;
   -webkit-transition:all linear 0.5s;
-  transition:all linear 0.5s; }
+  transition:all linear 0.5s;
+  opacity:1; }
   .booking-condition.ng-hide,
   .booking-rooms.ng-hide,
-  .booking-confirm.ng-hide {
+  .booking-confirm.ng-hide,
+  .booking-result.ng-hide {
     opacity:0; }

@@ -15,7 +15,7 @@
         <li ng-class="{ 'completed': vm.step > 2, 'active': vm.step === 2 }">
           <a href="#">室選択</a>
         </li>
-        <li ng-class="{ 'active': vm.step === 3 }">
+        <li ng-class="{ 'completed': vm.step > 3, 'active': vm.step === 3 }">
           <a href="#">確認</a>
         </li>
       </ul>
@@ -34,6 +34,11 @@
         <div class="well h200">
           <button class="btn btn-primary" ng-click="vm.handleSaveBooking()">予約する</button>
           <button class="btn btn-default" ng-click="vm.handleBackToRooms()">戻る</button>
+        </div>
+      </div>
+      <div class="booking-result" ng-show="vm.step === 4">
+        <div class="well h200">
+          <h3>Done</h3>
         </div>
       </div>
     </div>

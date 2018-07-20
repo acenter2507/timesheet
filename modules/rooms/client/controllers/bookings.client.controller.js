@@ -20,7 +20,7 @@
       vm.step = 3;
     };
     vm.handleSaveBooking = function() {
-      alert('Save');
+      vm.step = 4;
     };
     vm.handleBackToCondition = function() {
       vm.step = 1;
