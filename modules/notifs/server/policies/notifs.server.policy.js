@@ -46,7 +46,7 @@ exports.invokeRolesPolicies = function () {
  * Check If Notifs Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
-  var roles = (req.user) ? req.user.roles : [''];
+  var roles = (req.user) ? req.user.roles : [];
 
   if (roles.length === 0)
     return res.status(403).json({ message: 'アクセス権限がありません！' });

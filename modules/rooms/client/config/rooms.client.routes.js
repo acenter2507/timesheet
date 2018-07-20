@@ -12,54 +12,25 @@
       .state('rooms', {
         abstract: true,
         url: '/rooms',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        ncyBreadcrumb: { label: '会議室' }
       })
       .state('rooms.list', {
         url: '',
         templateUrl: 'modules/rooms/client/views/list-rooms.client.view.html',
         controller: 'RoomsListController',
         controllerAs: 'vm',
-        data: {
-          pageTitle: 'Rooms List'
-        }
-      })
-      .state('rooms.create', {
-        url: '/create',
-        templateUrl: 'modules/rooms/client/views/form-room.client.view.html',
-        controller: 'RoomsController',
-        controllerAs: 'vm',
-        resolve: {
-          roomResolve: newRoom
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Rooms Create'
-        }
-      })
-      .state('rooms.edit', {
-        url: '/:roomId/edit',
-        templateUrl: 'modules/rooms/client/views/form-room.client.view.html',
-        controller: 'RoomsController',
-        controllerAs: 'vm',
-        resolve: {
-          roomResolve: getRoom
-        },
-        data: {
-          roles: ['user', 'admin'],
-          pageTitle: 'Edit Room {{ roomResolve.name }}'
-        }
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '会議室一覧' }
       })
       .state('rooms.view', {
         url: '/:roomId',
         templateUrl: 'modules/rooms/client/views/view-room.client.view.html',
         controller: 'RoomsController',
         controllerAs: 'vm',
-        resolve: {
-          roomResolve: getRoom
-        },
-        data: {
-          pageTitle: 'Room {{ roomResolve.name }}'
-        }
+        resolve: { roomResolve: getRoom },
+        data: { roles: ['user'] },
+        ncyBreadcrumb: { label: '会議室詳細' }
       });
   }
 
@@ -69,11 +40,5 @@
     return RoomsService.get({
       roomId: $stateParams.roomId
     }).$promise;
-  }
-
-  newRoom.$inject = ['RoomsService'];
-
-  function newRoom(RoomsService) {
-    return new RoomsService();
   }
 }());

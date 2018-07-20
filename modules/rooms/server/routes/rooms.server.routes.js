@@ -5,6 +5,7 @@
  */
 var roomsPolicy = require('../policies/rooms.server.policy'),
   rooms = require('../controllers/rooms.server.controller');
+  rooms_admin = require('../controllers/rooms-admin.server.controller');
 
 module.exports = function(app) {
   // Rooms Routes
