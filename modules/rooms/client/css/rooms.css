@@ -129,6 +129,7 @@
   flex-direction: row; }
   .booking-time-date {
     flex-shrink: 2;
-    flex-grow: 1; }
+    flex-grow: 1;
+    margin-right: 5px; }
   .booking-time-hour {
     min-width: 100px; }
