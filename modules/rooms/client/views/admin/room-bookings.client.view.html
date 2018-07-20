@@ -24,7 +24,7 @@
           </thead>
           <tbody>
             <tr ng-show="vm.bookings.length === 0">
-              <td colspan="5">予約情報がみつかりません！</td>
+              <td colspan="6">予約情報がみつかりません！</td>
             </tr>
             <!-- 予約一覧 -->
             <tr ng-repeat="booking in vm.bookings track by $index" class="clickable" ng-click="vm.hanleSelectBooking(booking)">
