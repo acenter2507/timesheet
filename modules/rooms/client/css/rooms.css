@@ -99,3 +99,14 @@
       left: 100%;
       z-index: 2; }
     
+
+.booking-condition,
+.booking-rooms,
+.booking-confirm {
+  width: 100%;
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s; }
+  .booking-condition,
+  .booking-rooms,
+  .booking-confirm {
+    opacity:0; }
