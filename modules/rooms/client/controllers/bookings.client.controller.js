@@ -11,7 +11,12 @@
   function BookingsController ($scope, $state, booking) {
     var vm = this;
     vm.booking = booking;
+    vm.condition = {};
     vm.step = 1;
+
+    function preapareCondition() {
+      
+    }
 
     vm.handleNextToRooms = function() {
       vm.step = 2;
