@@ -20,6 +20,7 @@
             <th class="text-center">ホワイトボードー</th>
             <th class="text-center">パソコン</th>
             <th class="text-center w50">音響</th>
+            <th>写真</th>
             <th class="text-center w50">操作</th>
           </tr>
         </thead>
@@ -29,13 +30,18 @@
           </tr>
           <tr ng-repeat="room in vm.rooms track by $index" class="clickable" ng-click="vm.hanleSelectRoom(room)">
             <td>{{ room.name }}</td>
-            <td>{{ room.info }}</td>
+            <td>{{ room.description }}</td>
             <td class="text-center w50">{{ room.seats }}</td>
             <td class="text-center">{{ room.projector ? '有' : '無' }}</td>
             <td class="text-center">{{ room.air_conditional ? '有' : '無' }}</td>
             <td class="text-center">{{ room.white_board ? '有' : '無' }}</td>
             <td class="text-center">{{ room.computer }}</td>
             <td class="text-center">{{ room.sound ? '有' : '無' }}</td>
+            <td>
+              <a ng-repeat="image in room.images" ng-click="handleShowImage(image)">
+                <img class="w50 img-thumbnail" src="{{ image }}">
+              </a>
+            </td>
             <td class="text-center w50">
               <button class="btn btn-xs btn-danger" ng-click="vm.handleDeleteRoom(room)">削除</button>
             </td>

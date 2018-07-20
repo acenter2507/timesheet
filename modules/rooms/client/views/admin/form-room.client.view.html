@@ -1,24 +1,206 @@
-<section>
-  <div class="page-header">
-    <h1>{{vm.room._id ? 'Edit Room' : 'New Room'}}</h1>
-  </div>
-  <div class="col-md-12">
-    <form name="vm.form.roomForm" class="form-horizontal" ng-submit="vm.save(vm.form.roomForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.room.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.roomForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Room name is required.</p>
+<div class="container-fluid animated fadeIn" nv-file-drop="" uploader="vm.uploader">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-md-offset-3">
+      <div class="room-form">
+        <div class="form-group text-right">
+          <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
+          <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveRoom(vm.form.roomForm.$valid)">完了</button>
+        </div>
+
+        <form name="vm.form.roomForm" novalidate>
+          <div class="form-group" ng-show="vm.uploader.isUploading">
+            <p class="text-muted" ng-bind="vm.uploadingFileName"></p>
+            <div class="progress progress-xs">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': vm.uploader.progress + '%' }"></div>
+            </div>
           </div>
+
+          <!-- 名前  -->
+          <div class="form-group" show-errors>
+            <label for="name">名前
+              <small class="error-text">*</small>
+            </label>
+            <input name="name" class="form-control" ng-model="vm.room.name" type="text" required/>
+            <div ng-messages="vm.form.roomForm.name.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">名前は必須です。</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">説明</label>
+            <textarea name="description" class="form-control h80" ng-model="vm.room.description" /></textarea>
+          </div>
+
+          <div class="form-group d-sm-down-none">
+            <div class="col-xs-4 pdnl">
+              <label for="seats">席数</label>
+              <input name="seats" class="form-control" ng-model="vm.room.seats" type="number" min="1" step="1" />
+            </div>
+            <div class="col-xs-4">
+              <label for="projector">プロジェクター</label>
+              <select name="projector" class="form-control" ng-model="vm.room.projector">
+                <option value="{{ false }}">無</option>
+                <option value="{{ true }}">有</option>
+              </select>
+            </div>
+            <div class="col-xs-4 pdnr">
+              <label for="air_conditional">エアコン</label>
+              <select name="air_conditional" class="form-control" ng-model="vm.room.air_conditional">
+                <option value="{{ false }}">無</option>
+                <option value="{{ true }}">有</option>
+              </select>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="form-group d-md-none">
+            <label for="seats">席数</label>
+            <input name="seats" class="form-control" ng-model="vm.room.seats" type="number" min="1" step="1" />
+          </div>
+          <div class="form-group d-md-none">
+            <label for="projector">プロジェクター</label>
+            <select name="projector" class="form-control" ng-model="vm.room.projector">
+              <option value="{{ false }}">無</option>
+              <option value="{{ true }}">有</option>
+            </select>
+          </div>
+          <div class="form-group d-md-none">
+            <label for="air_conditional">エアコン</label>
+            <select name="air_conditional" class="form-control" ng-model="vm.room.air_conditional">
+              <option value="{{ false }}">無</option>
+              <option value="{{ true }}">有</option>
+            </select>
+          </div>
+
+
+          <div class="form-group d-sm-down-none">
+            <div class="col-xs-4 pdnl">
+              <label for="white_board">ホワイトボードー</label>
+              <select name="white_board" class="form-control" ng-model="vm.room.white_board">
+                <option value="{{ false }}">無</option>
+                <option value="{{ true }}">有</option>
+              </select>
+            </div>
+            <div class="col-xs-4">
+              <label for="computer">パソコン</label>
+              <input name="computer" class="form-control" ng-model="vm.room.computer" type="number" min="0" step="1" />
+            </div>
+            <div class="col-xs-4 pdnr">
+              <label for="sound">音響</label>
+              <select name="sound" class="form-control" ng-model="vm.room.sound">
+                <option value="{{ false }}">無</option>
+                <option value="{{ true }}">有</option>
+              </select>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="form-group d-md-none">
+            <label for="white_board">ホワイトボードー</label>
+            <select name="white_board" class="form-control" ng-model="vm.room.white_board">
+              <option value="{{ false }}">無</option>
+              <option value="{{ true }}">有</option>
+            </select>
+          </div>
+          <div class="form-group d-md-none">
+            <label for="computer">パソコン</label>
+            <input name="computer" class="form-control" ng-model="vm.room.computer" type="number" min="0" step="1" />
+          </div>
+          <div class="form-group d-md-none">
+            <label for="sound">音響</label>
+            <select name="sound" class="form-control" ng-model="vm.room.sound">
+              <option value="{{ false }}">無</option>
+              <option value="{{ true }}">有</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>領収書</label>
+            <!-- Image table -->
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>サムネール</th>
+                    <th class="text-center">状態</th>
+                    <th class="w50 text-center">
+                      <button class="btn btn-success btn-xs btn-upload-file">追加
+                        <input type="file" nv-file-select uploader="vm.uploader" style="display: hidden;" multiple>
+                      </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-show="vm.room.images.length === 0 && vm.uploader.queue.length === 0">
+                    <td colspan="3">領収書がアップロードされていません！</td>
+                  </tr>
+                  <tr ng-repeat="image in vm.room.images">
+                    <td>
+                      <img src="{{ image }}" class="image-img">
+                    </td>
+                    <td>アップロード済</td>
+                    <td>
+                      <button class="btn btn-danger btn-xs" ng-click="vm.handleDeleteImage(image)">削除</button>
+                    </td>
+                  </tr>
+                  <tr ng-repeat="image in vm.uploader.queue">
+                    <td>
+                      <div image-preview="{ file: image._file, width: 50 }" class="image-img"></div>
+                    </td>
+                    <td>未アップロード</td>
+                    <td>
+                      <button class="btn btn-danger btn-xs" ng-click="image.remove()">削除</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="d-sm-down-none" ng-if="vm.uploader.isHTML5">
+              <div class="drop-image-box" nv-file-over="" uploader="vm.uploader">
+                写真ファイルをドラッグしてください！
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="form-group text-right mg5t">
+          <button class="btn btn-sm btn-default" ng-click="vm.handleCancel()">キャンセル</button>
+          <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveRoom(vm.form.roomForm.$valid)">完了</button>
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.room._id ? 'Update' : 'Create'}}</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </fieldset>
-    </form>
+      </div>
+
+      <div class="well">
+        <h4>会議費、接待交際費基準</h4>
+        <table class="table table-bordered">
+          <tr class="h20">
+            <th class="w100">勘定項目</th>
+            <th class="w100">種別</th>
+            <th>内容</th>
+          </tr>
+          <tr class="h20">
+            <td>会議費</td>
+            <td></td>
+            <td>社外（顧客）を対象とした１名あたり5,000円以下の飲食代および、社内外を問わず会議に係る費用（会場使用料、お茶など）</td>
+          </tr>
+          <tr class="h20">
+            <td>接待交際費</td>
+            <td></td>
+            <td>社外（顧客）を対象とした１名あたり5,000円超の飲食代</td>
+          </tr>
+          <tr class="h20">
+            <td>接待交際費</td>
+            <td>GIFT</td>
+            <td>手土産代、贈物、接待のためのタクシー代（金額には関係なし）</td>
+          </tr>
+          <tr class="h20">
+            <td>接待交際費</td>
+            <td>非課税</td>
+            <td>図書券、商品券（含むビール券）、慶弔金（金額には関係なし）</td>
+          </tr>
+          <tr class="h20">
+            <td>厚生費</td>
+            <td></td>
+            <td>金額は関係なく社内（社員）を対象とした飲食代</td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
-</section>
+</div>

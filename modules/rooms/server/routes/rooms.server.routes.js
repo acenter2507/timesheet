@@ -8,7 +8,7 @@ var roomsPolicy = require('../policies/rooms.server.policy'),
   rooms_admin = require('../controllers/rooms-admin.server.controller');
 
 module.exports = function(app) {
-  // Rooms Routes
+
   app.route('/api/rooms').all(roomsPolicy.isAllowed)
     .get(rooms.list)
     .post(rooms.create);
@@ -17,6 +17,10 @@ module.exports = function(app) {
     .get(rooms.read)
     .put(rooms.update)
     .delete(rooms.delete);
+
+  // ADMIN
+  app.route('/api/rooms/admin/images').all(roomsPolicy.isAllowed).post(rooms_admin.images);
+  app.route('/api/rooms/:roomId/deleteImage').all(roomsPolicy.isAllowed).post(rooms_admin.deleteImage);
 
   // Finish by binding the Room middleware
   app.param('roomId', rooms.roomByID);

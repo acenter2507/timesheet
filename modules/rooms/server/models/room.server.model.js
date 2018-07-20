@@ -9,7 +9,8 @@ var mongoose = require('mongoose'),
 
 var RoomSchema = new Schema({
   name: { type: String, required: '会議室の名前は必須です。', trim: true },
-  info: { type: String, default: '' },
+  usable: { type: Boolean, default: true },
+  description: { type: String, default: '' },
   // 席数
   seats: { type: Number, default: 1 },
   // プロジェクター
@@ -22,6 +23,8 @@ var RoomSchema = new Schema({
   computer: { type: Number, default: 0 },
   // 音響
   sound: { type: Boolean, default: false },
+  // 写真
+  images: [{ type: String }],
   created: { type: Date, default: Date.now },
   user: { type: Schema.ObjectId, ref: 'User' }
 });
