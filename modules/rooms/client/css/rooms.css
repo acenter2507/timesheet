@@ -55,10 +55,7 @@
       width: calc( 100% - 10px );
       background-color: #dcdcdc;
       text-align: center;
-      text-transform: capitalize;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis; }
+      text-transform: capitalize; }
     .booking-step li.completed a {
       color: #fff;
       background: brown;
