@@ -37,7 +37,7 @@
   background: transparent;
   list-style: none;
   overflow: hidden;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 20px;
   border-radius: 4px; }
   .booking-step > li {
@@ -49,7 +49,7 @@
     .booking-step li a {
       color: #999;
       text-decoration: none;
-      padding: 10px 0 10px 45px;
+      padding: 15px 0 15px 45px;
       position: relative;
       display: inline-block;
       width: calc( 100% - 10px );
@@ -63,9 +63,10 @@
     .booking-step li.completed a:after {
       border-left: 30px solid #449d44; }
     .booking-step li.active a {
-      background: #ffc107; }
+      color: #fff;
+      background: #f0ad4e; }
     .booking-step li.active a:after {
-      border-left: 30px solid #ffc107; }
+      border-left: 30px solid #f0ad4e; }
     .booking-step li:first-child a {
       padding-left: 15px; }
     .booking-step li:last-of-type a {
@@ -91,7 +92,7 @@
       height: 0;
       border-top: 50px solid transparent;
       border-bottom: 50px solid transparent;
-      border-left: 30px solid hsla(0, 0%, 83%, 1);
+      border-left: 30px solid #dcdcdc;
       position: absolute;
       top: 50%;
       margin-top: -50px;
