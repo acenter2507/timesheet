@@ -25,6 +25,7 @@
     vm.room = room;
 
     vm.form = {};
+    vm.options = [{ n: '無', v: false }, { n: '有', v: true }];
 
     onCreate();
     function onCreate() {
