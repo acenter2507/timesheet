@@ -49,7 +49,7 @@
     .booking-step li a {
       color: #999;
       text-decoration: none;
-      padding: 10px 0 10px 0;
+      padding: 10px 0 10px 10px;
       position: relative;
       display: inline-block;
       width: calc( 100% - 10px );
