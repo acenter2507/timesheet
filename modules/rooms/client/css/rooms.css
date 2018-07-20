@@ -47,20 +47,21 @@
     .booking-step > li+li:before {
       padding: 0; }
     .booking-step li a {
-      color: white;
+      color: #999;
       text-decoration: none;
       padding: 10px 0 10px 45px;
       position: relative;
       display: inline-block;
       width: calc( 100% - 10px );
-      background-color: hsla(0, 0%, 83%, 1);
+      background-color: #dcdcdc;
       text-align: center;
       text-transform: capitalize; }
     .booking-step li.completed a {
+      color: #fff;
       background: brown;
-      background: hsla(153, 57%, 51%, 1); }
+      background: #449d44; }
     .booking-step li.completed a:after {
-      border-left: 30px solid hsla(153, 57%, 51%, 1); }
+      border-left: 30px solid #449d44; }
     .booking-step li.active a {
       background: #ffc107; }
     .booking-step li.active a:after {
