@@ -104,7 +104,9 @@
 .booking-rooms,
 .booking-confirm,
 .booking-result {
-  width: 100%; }
+  width: 100%;
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s; }
   .booking-condition.ng-hide-add,
   .booking-rooms.ng-hide-add,
   .booking-confirm.ng-hide-add,
@@ -115,8 +117,7 @@
   .booking-rooms.ng-hide-remove,
   .booking-confirm.ng-hide-remove,
   .booking-result.ng-hide-remove {
-    -webkit-animation:0.5s flipInX ease; 
-    animation:0.5s flipInX ease; }
+    opacity:1; }
 
 
 /* flip in */
