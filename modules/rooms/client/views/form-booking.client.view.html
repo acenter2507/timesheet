@@ -132,24 +132,13 @@
 
             <!-- 詳細 -->
             <div class="form-group d-sm-down-none">
-              <div class="col-xs-4 pdnl">
+              <div class="col-xs-6 pdnl">
                 <label for="seats">席数</label>
                 <input class="form-control" ng-model="vm.condition.seats" type="number" min="1" step="1">
               </div>
-              <div class="col-xs-4">
+              <div class="col-xs-6 pdnr">
                 <label for="computer">パソコン</label>
                 <input class="form-control" ng-model="vm.condition.computer" type="number" min="1" step="1">
-              </div>
-              <div class="col-xs-4 pdnr">
-                <label for="projector">プロジェクター</label>
-                <div>
-                  <div class="btn-group">
-                    <label class="btn btn-sm" ng-class="{ 'btn-success': vm.condition.projector, 'btn-default': !vm.condition.projector }" ng-model="vm.room.projector"
-                      btn-radio="true" uncheckable>必要</label>
-                    <label class="btn btn-sm" ng-class="{ 'btn-danger': !vm.condition.projector, 'btn-default': vm.condition.projector }" ng-model="vm.condition.projector"
-                      btn-radio="false" uncheckable>不要</label>
-                  </div>
-                </div>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -165,9 +154,9 @@
               <label for="projector">プロジェクター</label>
               <div>
                 <div class="btn-group">
-                  <label class="btn btn-sm" ng-class="{ 'btn-success': vm.condition.projector, 'btn-default': !vm.condition.projector }" ng-model="vm.room.projector"
+                  <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.projector, 'btn-default': !vm.condition.projector }" ng-model="vm.room.projector"
                     btn-radio="true" uncheckable>必要</label>
-                  <label class="btn btn-sm" ng-class="{ 'btn-danger': !vm.condition.projector, 'btn-default': vm.condition.projector }" ng-model="vm.condition.projector"
+                  <label class="btn btn-xs" ng-class="{ 'btn-danger': !vm.condition.projector, 'btn-default': vm.condition.projector }" ng-model="vm.condition.projector"
                     btn-radio="false" uncheckable>不要</label>
                 </div>
               </div>
@@ -175,12 +164,23 @@
 
             <div class="form-group d-sm-down-none">
               <div class="col-xs-4 pdnl">
+                <label for="projector">プロジェクター</label>
+                <div>
+                  <div class="btn-group">
+                    <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.projector, 'btn-default': !vm.condition.projector }" ng-model="vm.room.projector"
+                      btn-radio="true" uncheckable>必要</label>
+                    <label class="btn btn-xs" ng-class="{ 'btn-danger': !vm.condition.projector, 'btn-default': vm.condition.projector }" ng-model="vm.condition.projector"
+                      btn-radio="false" uncheckable>不要</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-4">
                 <label for="air_conditional">エアコン</label>
                 <div>
                   <div class="btn-group">
-                    <label class="btn btn-sm" ng-class="{ 'btn-success': vm.condition.air_conditional, 'btn-default': !vm.condition.air_conditional }"
+                    <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.air_conditional, 'btn-default': !vm.condition.air_conditional }"
                       ng-model="vm.room.air_conditional" btn-radio="true" uncheckable>必要</label>
-                    <label class="btn btn-sm" ng-class="{ 'btn-danger': !vm.condition.air_conditional, 'btn-default': vm.condition.air_conditional }"
+                    <label class="btn btn-xs" ng-class="{ 'btn-danger': !vm.condition.air_conditional, 'btn-default': vm.condition.air_conditional }"
                       ng-model="vm.condition.air_conditional" btn-radio="false" uncheckable>不要</label>
                   </div>
                 </div>
@@ -189,9 +189,9 @@
                 <label for="white_board">ホワイトボードー</label>
                 <div>
                   <div class="btn-group">
-                    <label class="btn btn-sm" ng-class="{ 'btn-success': vm.condition.white_board, 'btn-default': !vm.condition.white_board }"
+                    <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.white_board, 'btn-default': !vm.condition.white_board }"
                       ng-model="vm.room.white_board" btn-radio="true" uncheckable>必要</label>
-                    <label class="btn btn-sm" ng-class="{ 'btn-danger': !vm.condition.white_board, 'btn-default': vm.condition.white_board }"
+                    <label class="btn btn-xs" ng-class="{ 'btn-danger': !vm.condition.white_board, 'btn-default': vm.condition.white_board }"
                       ng-model="vm.condition.white_board" btn-radio="false" uncheckable>不要</label>
                   </div>
                 </div>
@@ -200,9 +200,9 @@
                 <label for="sound">音響</label>
                 <div>
                   <div class="btn-group">
-                    <label class="btn btn-sm" ng-class="{ 'btn-success': vm.condition.sound, 'btn-default': !vm.condition.sound }" ng-model="vm.room.sound"
+                    <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.sound, 'btn-default': !vm.condition.sound }" ng-model="vm.room.sound"
                       btn-radio="true" uncheckable>必要</label>
-                    <label class="btn btn-sm" ng-class="{ 'btn-danger': !vm.condition.sound, 'btn-default': vm.condition.sound }" ng-model="vm.condition.sound"
+                    <label class="btn btn-xs" ng-class="{ 'btn-danger': !vm.condition.sound, 'btn-default': vm.condition.sound }" ng-model="vm.condition.sound"
                       btn-radio="false" uncheckable>不要</label>
                   </div>
                 </div>
@@ -213,9 +213,9 @@
               <label for="air_conditional">エアコン</label>
               <div>
                 <div class="btn-group">
-                  <label class="btn btn-sm" ng-class="{ 'btn-success': vm.condition.air_conditional, 'btn-default': !vm.condition.air_conditional }"
+                  <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.air_conditional, 'btn-default': !vm.condition.air_conditional }"
                     ng-model="vm.room.air_conditional" btn-radio="true" uncheckable>必要</label>
-                  <label class="btn btn-sm" ng-class="{ 'btn-danger': !vm.condition.air_conditional, 'btn-default': vm.condition.air_conditional }"
+                  <label class="btn btn-xs" ng-class="{ 'btn-danger': !vm.condition.air_conditional, 'btn-default': vm.condition.air_conditional }"
                     ng-model="vm.condition.air_conditional" btn-radio="false" uncheckable>不要</label>
                 </div>
               </div>
@@ -224,9 +224,9 @@
               <label for="white_board">ホワイトボードー</label>
               <div>
                 <div class="btn-group">
-                  <label class="btn btn-sm" ng-class="{ 'btn-success': vm.condition.white_board, 'btn-default': !vm.condition.white_board }"
+                  <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.white_board, 'btn-default': !vm.condition.white_board }"
                     ng-model="vm.room.white_board" btn-radio="true" uncheckable>必要</label>
-                  <label class="btn btn-sm" ng-class="{ 'btn-danger': !vm.condition.white_board, 'btn-default': vm.condition.white_board }"
+                  <label class="btn btn-xs" ng-class="{ 'btn-danger': !vm.condition.white_board, 'btn-default': vm.condition.white_board }"
                     ng-model="vm.condition.white_board" btn-radio="false" uncheckable>不要</label>
                 </div>
               </div>
@@ -235,9 +235,9 @@
               <label for="sound">音響</label>
               <div>
                 <div class="btn-group">
-                  <label class="btn btn-sm" ng-class="{ 'btn-success': vm.condition.sound, 'btn-default': !vm.condition.sound }" ng-model="vm.room.sound"
+                  <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.sound, 'btn-default': !vm.condition.sound }" ng-model="vm.room.sound"
                     btn-radio="true" uncheckable>必要</label>
-                  <label class="btn btn-sm" ng-class="{ 'btn-danger': !vm.condition.sound, 'btn-default': vm.condition.sound }" ng-model="vm.condition.sound"
+                  <label class="btn btn-xs" ng-class="{ 'btn-danger': !vm.condition.sound, 'btn-default': vm.condition.sound }" ng-model="vm.condition.sound"
                     btn-radio="false" uncheckable>不要</label>
                 </div>
               </div>

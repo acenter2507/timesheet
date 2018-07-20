@@ -22,6 +22,8 @@
         end_date: vm.current.format('YYYY/MM/DD'),
         start_hour: '08:00',
         end_hour: '23:30',
+        seats: 1,
+        computer: 1
         // start_hour: vm.current.startOf('hour').add(1, 'hours').format('HH:mm'),
         // end_hour: vm.current.startOf('hour').add(2, 'hours').format('HH:mm')
       };
