@@ -6,43 +6,42 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row mg10t">
-  <div class="col-sm-12 col-md-8 col-md-offset-2">
-    <p>全 {{ vm.total }} 件</p>
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>名前</th>
-          <th>詳細情報</th>
-          <th class="text-center w30">席</th>
-          <th class="text-center">プロジェクター</th>
-          <th class="text-center">エアコン</th>
-          <th class="text-center">ホワイトボードー</th>
-          <th class="text-center">パソコン</th>
-          <th class="text-center w30">音響</th>
-          <th class="text-center w50">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-show="vm.rooms.length === 0">
-          <td colspan="9">データが見つかりません。</td>
-        </tr>
-        <tr ng-repeat="room in vm.rooms track by $index" class="clickable" ng-click="vm.hanleSelectRoom(room)">
-          <td>{{ room.name }}</td>
-          <td>{{ room.info }}</td>
-          <td class="text-center w30">{{ room.seats }}</td>
-          <td class="text-center">{{ room.projector ? '有' : '無' }}</td>
-          <td class="text-center">{{ room.air_conditional ? '有' : '無' }}</td>
-          <td class="text-center">{{ room.white_board ? '有' : '無' }}</td>
-          <td class="text-center">{{ room.computer }}</td>
-          <td class="text-center">{{ room.sound ? '有' : '無' }}</td>
-          <td class="text-center w50">
-            <button class="btn btn-xs btn-danger" ng-click="vm.handleDeleteRoom(room)">削除</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="row mg10t">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+      <p>全 {{ vm.rooms.length }} 件</p>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>名前</th>
+            <th>詳細情報</th>
+            <th class="text-center w30">席</th>
+            <th class="text-center">プロジェクター</th>
+            <th class="text-center">エアコン</th>
+            <th class="text-center">ホワイトボードー</th>
+            <th class="text-center">パソコン</th>
+            <th class="text-center w30">音響</th>
+            <th class="text-center w50">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-show="vm.rooms.length === 0">
+            <td colspan="9">データが見つかりません。</td>
+          </tr>
+          <tr ng-repeat="room in vm.rooms track by $index" class="clickable" ng-click="vm.hanleSelectRoom(room)">
+            <td>{{ room.name }}</td>
+            <td>{{ room.info }}</td>
+            <td class="text-center w30">{{ room.seats }}</td>
+            <td class="text-center">{{ room.projector ? '有' : '無' }}</td>
+            <td class="text-center">{{ room.air_conditional ? '有' : '無' }}</td>
+            <td class="text-center">{{ room.white_board ? '有' : '無' }}</td>
+            <td class="text-center">{{ room.computer }}</td>
+            <td class="text-center">{{ room.sound ? '有' : '無' }}</td>
+            <td class="text-center w50">
+              <button class="btn btn-xs btn-danger" ng-click="vm.handleDeleteRoom(room)">削除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 </div>
