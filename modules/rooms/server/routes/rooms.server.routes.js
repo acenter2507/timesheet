@@ -20,7 +20,8 @@ module.exports = function(app) {
 
   // ADMIN
   app.route('/api/rooms/admin/images').all(roomsPolicy.isAllowed).post(rooms_admin.images);
-  app.route('/api/rooms/:roomId/deleteImage').all(roomsPolicy.isAllowed).post(rooms_admin.deleteImage);
+  app.route('/api/rooms/admin/:roomId/deleteImage').all(roomsPolicy.isAllowed).post(rooms_admin.deleteImage);
+  app.route('/api/rooms/admin/:roomId/bookings').all(roomsPolicy.isAllowed).post(rooms_admin.bookings);
 
   // Finish by binding the Room middleware
   app.param('roomId', rooms.roomByID);

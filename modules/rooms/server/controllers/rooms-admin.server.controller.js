@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Room = mongoose.model('Room'),
+  Booking = mongoose.model('Booking'),
   config = require(path.resolve('./config/config')),
   multer = require('multer'),
   fs = require('fs'),
@@ -35,4 +36,14 @@ exports.deleteImage = function (req, res) {
     }
     return res.end();
   });
+};
+exports.bookings = function (req, res) {
+  var room = req.room;
+  Booking.find({ room: room._id, status: 1 })
+    .populate('user', 'displayName profileImageURL')
+    .exec((err, bookings) => {
+      if (err)
+        return res.status(400).send({ message: '予約情報を取得できません！' });
+      return res.jsonp(bookings);
+    });
 };

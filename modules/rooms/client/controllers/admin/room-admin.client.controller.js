@@ -25,12 +25,10 @@
     vm.room = room;
 
     vm.form = {};
-    vm.options = [{ n: '無', v: false }, { n: '有', v: true }];
 
     onCreate();
     function onCreate() {
       prepareRoom();
-      prepareUpload();
     }
 
     function prepareRoom() {
@@ -45,6 +43,12 @@
           images: [],
           usable: true
         });
+        vm.options = [{ n: '無', v: false }, { n: '有', v: true }];
+        prepareUpload();
+      } else {
+        if ($state.current.name === 'admin.rooms.bookings') {
+          prepareBookings();
+        }
       }
     }
     function prepareUpload() {
@@ -72,6 +76,15 @@
         handleSaveRoom();
       };
     }
+    function prepareBookings() {
+      RoomsAdminApi.bookings(vm.room._id)
+        .success(function (bookings) {
+          vm.bookings = bookings;
+        })
+        .error(function (err) {
+          $scope.handleShowToast(err.message, true);
+        });
+    }
     vm.handleSaveRoom = function (isValid) {
       if (!isValid) {
         return $scope.$broadcast('show-errors-check-validity', 'vm.form.roomForm');
@@ -98,6 +111,15 @@
     };
     vm.handleCancel = function () {
       $state.go('admin.rooms.list');
+    };
+    vm.handleDeleteRoom = function () {
+      $scope.handleShowConfirm({
+        message: vm.room.name + 'を削除しますか？'
+      }, function () {
+        vm.room.$remove(function () {
+          $state.go('admin.rooms.list');
+        });
+      });
     };
 
     function handleSaveRoom() {

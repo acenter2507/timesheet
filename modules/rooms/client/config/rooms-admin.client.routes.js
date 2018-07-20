@@ -49,6 +49,15 @@
         resolve: { roomResolve: getRoom },
         data: { roles: ['accountant', 'admin'] },
         ncyBreadcrumb: { label: '会議室詳細' }
+      })
+      .state('admin.rooms.bookings', {
+        url: '/:roomId/bookings',
+        templateUrl: 'modules/rooms/client/views/admin/room-bookings.client.view.html',
+        controller: 'RoomAdminController',
+        controllerAs: 'vm',
+        resolve: { roomResolve: getRoom },
+        data: { roles: ['accountant', 'admin'] },
+        ncyBreadcrumb: { label: '予約状況' }
       });
   }
 

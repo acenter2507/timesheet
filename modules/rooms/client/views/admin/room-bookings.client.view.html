@@ -1,0 +1,48 @@
+<div class="container-fluid animated fadeIn">
+  <div class="row mg20t">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <div class="form-group text-right">
+        <a class="btn btn-default" ui-sref="admin.bookings.list">予約一覧</a>
+        <a class="btn btn-success" ui-sref="admin.rooms.view({ roomId: vm.room._id })">会議室詳細</a>
+      </div>
+      <h2>{{ vm.room.name }}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="text-center w30">#</th>
+              <th>会社員</th>
+              <th>タイトル</th>
+              <th>開始</th>
+              <th>終了</th>
+              <th class="text-center w50">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="vm.bookings.length === 0">
+              <td colspan="5">予約情報がみつかりません！</td>
+            </tr>
+            <!-- 予約一覧 -->
+            <tr ng-repeat="booking in vm.bookings track by $index" class="clickable" ng-click="vm.hanleSelectBooking(booking)">
+              <td class="text-center w30">{{ $index + 1 }}</td>
+              <td>
+                <img class="user-common-avatar-small" src="{{ booking.user.profileImageURL }}">
+                <a class="inside-clickable" ng-click="handleViewDetailUser(booking.user)">{{ booking.user.displayName }}</a>
+              </td>
+              <td>{{ booking.title }}</td>
+              <td>{{ booking.start }}</td>
+              <td>{{ booking.end }}</td>
+              <td class="text-center w50">
+                <button class="btn btn-warning btn-sm" ng-click="vm.handleRejectBooking(booking)">拒否</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="container-fluid animated fadeIn">
+  <!-- <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group text-right">
+        <a class="btn btn-primary" ui-sref="admin.rooms.create">登録</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p>全 {{ vm.rooms.length }} 件</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="text-center w30">#</th>
+              <th>名前</th>
+              <th>詳細情報</th>
+              <th class="text-center w50">席</th>
+              <th class="text-center">プロジェクター</th>
+              <th class="text-center">エアコン</th>
+              <th class="text-center">ホワイトボードー</th>
+              <th class="text-center">パソコン</th>
+              <th class="text-center w50">音響</th>
+              <th>写真</th>
+              <th class="text-center w100">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="vm.rooms.length === 0">
+              <td colspan="10">データが見つかりません。</td>
+            </tr>
+            <tr ng-repeat="room in vm.rooms track by $index" class="clickable" ng-click="vm.hanleSelectRoom(room)">
+              <td>{{ $index + 1 }}</td>
+              <td>{{ room.name }}</td>
+              <td>{{ room.description }}</td>
+              <td class="text-center w50">{{ room.seats }}</td>
+              <td class="text-center">{{ room.projector ? '有' : '無' }}</td>
+              <td class="text-center">{{ room.air_conditional ? '有' : '無' }}</td>
+              <td class="text-center">{{ room.white_board ? '有' : '無' }}</td>
+              <td class="text-center">{{ room.computer }}</td>
+              <td class="text-center">{{ room.sound ? '有' : '無' }}</td>
+              <td>
+                <a class="inside-clickable" ng-repeat="image in room.images" ng-click="handleShowImage(image)">
+                  <img class="w50 img-thumbnail" src="{{ image }}">
+                </a>
+              </td>
+              <td class="text-center w100">
+                <button class="btn btn-xs btn-danger inside-clickable" ng-click="vm.handleDeleteRoom(room)">削除</button>
+                <a class="btn btn-xs btn-success inside-clickable" ui-sref="admin.rooms.edit({ roomId: room._id })">編集</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> -->
+</div>
