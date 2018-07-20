@@ -97,6 +97,14 @@
           </div>
 
           <div class="form-group">
+            <label>利用状態</label>
+            <div class="btn-group">
+              <label class="btn btn-primary" ng-model="vm.room.usable" btn-radio="true">利用可能</label>
+              <label class="btn btn-danger" ng-model="vm.room.usable" btn-radio="false">利用不可</label>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label>領収書</label>
             <!-- Image table -->
             <div class="table-responsive">

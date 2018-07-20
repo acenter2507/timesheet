@@ -42,7 +42,8 @@
           white_board: false,
           computer: 0,
           sound: false,
-          images: []
+          images: [],
+          usable: true
         });
       }
     }
@@ -112,37 +113,5 @@
         $scope.handleShowToast(err.message, true);
       }
     }
-
-    // // Remove existing Room
-    // function remove() {
-    //   if ($window.confirm('Are you sure you want to delete?')) {
-    //     vm.room.$remove($state.go('rooms.list'));
-    //   }
-    // }
-
-    // // Save Room
-    // function save(isValid) {
-    //   if (!isValid) {
-    //     $scope.$broadcast('show-errors-check-validity', 'vm.form.roomForm');
-    //     return false;
-    //   }
-
-    //   // TODO: move create/update logic to service
-    //   if (vm.room._id) {
-    //     vm.room.$update(successCallback, errorCallback);
-    //   } else {
-    //     vm.room.$save(successCallback, errorCallback);
-    //   }
-
-    //   function successCallback(res) {
-    //     $state.go('rooms.view', {
-    //       roomId: res._id
-    //     });
-    //   }
-
-    //   function errorCallback(res) {
-    //     vm.error = res.data.message;
-    //   }
-    // }
   }
 }());
