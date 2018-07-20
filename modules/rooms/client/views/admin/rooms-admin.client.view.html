@@ -40,7 +40,7 @@
             <td class="text-center">{{ room.computer }}</td>
             <td class="text-center">{{ room.sound ? '有' : '無' }}</td>
             <td>
-              <a ng-repeat="image in room.images inside-clickable" ng-click="handleShowImage(image)">
+              <a class="inside-clickable" ng-repeat="image in room.images" ng-click="handleShowImage(image)">
                 <img class="w50 img-thumbnail" src="{{ image }}">
               </a>
             </td>
