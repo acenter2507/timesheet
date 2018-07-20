@@ -106,7 +106,7 @@
   width: 100%;
   -webkit-transition:all linear 0.5s;
   transition:all linear 0.5s; }
-  .booking-condition,
-  .booking-rooms,
-  .booking-confirm {
+  .booking-condition.ng-hide,
+  .booking-rooms.ng-hide,
+  .booking-confirm.ng-hide {
     opacity:0; }
