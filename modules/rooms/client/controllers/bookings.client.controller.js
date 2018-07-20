@@ -11,11 +11,11 @@
   function BookingsController ($scope, $state, booking) {
     var vm = this;
     vm.booking = booking;
-    vm.condition = {};
     vm.step = 1;
 
+    preapareCondition();
     function preapareCondition() {
-      
+      vm.condition = {};
     }
 
     vm.handleNextToRooms = function() {
