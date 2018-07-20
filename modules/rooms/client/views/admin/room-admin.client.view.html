@@ -1,10 +1,11 @@
 <div class="container-fluid animated fadeIn">
   <div class="row">
-    <div class=""></div>
-    <carousel interval="3000">
-      <slide ng-repeat="image in vm.room.images">
-        <img ng-src="{{ image }}" style="margin:auto;">
-      </slide>
-    </carousel>
+    <div class="col-xs-12 h300">
+      <carousel interval="3000">
+        <slide ng-repeat="image in vm.room.images">
+          <img ng-src="{{ image }}" style="margin:auto;">
+        </slide>
+      </carousel>
+    </div>
   </div>
 </div>
