@@ -43,10 +43,10 @@
                   </div>
                   <div class="booking-time-hour">
                     <select class="form-control" ng-model="vm.condition.start_hour">
-                      <option value="08:00"></option>
-                      <option value="08:30"></option>
-                      <option value="23:30"></option>
-                      <option value="24:00"></option>
+                      <option value="08:00">08:00</option>
+                      <option value="08:30">08:30</option>
+                      <option value="23:30">23:30</option>
+                      <option value="24:00">24:00</option>
                     </select>
                   </div>
                 </div>
@@ -56,10 +56,9 @@
                 <div class="booking-time" ng-init="endDatePickerOpen = false;">
                   <div class="booking-time-date">
                     <div class="input-group">
-                      <input name="end_date" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.condition.end_date"
-                        is-open="endDatePickerOpen" min-date="vm.condition.min_date" close-text="閉じる" current-text="本日" clear-text="クリア"
-                        datepicker-append-to-body placeholder="利用終了日" ng-change="vm.handleEndDateChanged()" show-weeks="false"
-                        readonly="true" />
+                      <input name="end_date" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="vm.condition.end_date" is-open="endDatePickerOpen"
+                        min-date="vm.condition.min_date" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body
+                        placeholder="利用終了日" ng-change="vm.handleEndDateChanged()" show-weeks="false" readonly="true" />
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="endDatePickerOpen = true;">
                           <i class="fa fa-calendar"></i>
@@ -69,15 +68,13 @@
                   </div>
                   <div class="booking-time-hour">
                     <select class="form-control" ng-model="vm.condition.end_hour">
-                      <option value="08:00"></option>
-                      <option value="08:30"></option>
-                      <option value="23:30"></option>
-                      <option value="24:00"></option>
+                      <option value="08:00">08:00</option>
+                      <option value="08:30">08:30</option>
+                      <option value="23:30">23:30</option>
+                      <option value="24:00">24:00</option>
                     </select>
                   </div>
                 </div>
-                <br>
-                <datepicker ng-model="vm.condition.end_date" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
               </div>
             </div>
           </div>
