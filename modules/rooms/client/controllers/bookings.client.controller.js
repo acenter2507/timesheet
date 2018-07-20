@@ -11,7 +11,7 @@
   function BookingsController ($scope, $state, booking) {
     var vm = this;
     vm.booking = booking;
-    vm.steps = 1;
+    vm.step = 1;
 
     function validateCondition() {
 
