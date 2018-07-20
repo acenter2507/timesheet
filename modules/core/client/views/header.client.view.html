@@ -24,6 +24,9 @@
         <li ui-sref-active="active">
           <a ui-sref="payments.list">清算管理</a>
         </li>
+        <li ui-sref-active="active">
+          <a ui-sref="bookings.create">会議室予約</a>
+        </li>
       </ul>
     </li>
     <li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(user);" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }"
