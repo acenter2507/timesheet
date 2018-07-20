@@ -81,69 +81,71 @@
       </accordion>
       <!-- 休暇一覧 -->
       <p>全 {{ vm.total }} 件</p>
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th class="w50 text-center">操作</th>
-            <th>形態</th>
-            <th>開始</th>
-            <th>終了</th>
-            <th>事由</th>
-            <th class="text-center">状態</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-show="vm.workrests.length === 0">
-            <td colspan="6">データが見つかりません。</td>
-          </tr>
-          <tr ng-repeat="workrest in vm.workrests track by $index" class="clickable" ng-click="vm.hanleSelectWorkrest(workrest)">
-            <td class="w50 text-center">
-              <div dropdown dropdown-append-to-body>
-                <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
-                  <i class="glyphicon glyphicon-option-horizontal"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                  <!-- Xem detail Workrest -->
-                  <li>
-                    <a ui-sref="workrests.view({ workrestId: workrest._id })">詳細</a>
-                  </li>
-                  <!-- Gửi request -->
-                  <li ng-if="workrest.status === 1 || workrest.status === 4">
-                    <a ng-click="vm.handleRequestWorkrest(workrest)">申請</a>
-                  </li>
-                  <!-- Hủy bỏ request -->
-                  <li ng-if="workrest.status === 2">
-                    <a ng-click="vm.handleCancelWorkrest(workrest)">申請キャンセル</a>
-                  </li>
-                  <!-- Chỉnh sửa khi chưa request hoặc khi bị reject -->
-                  <li ng-if="workrest.status === 1 || workrest.status === 4">
-                    <a ui-sref="workrests.edit({ workrestId: workrest._id })">編集</a>
-                  </li>
-                  <!-- Xóa khi đang ở trạng thái chưa request hoặc bị reject -->
-                  <li ng-if="workrest.status === 1 || workrest.status === 4">
-                    <a ng-click="vm.handleDeleteWorkrest(workrest)">削除</a>
-                  </li>
-                  <!-- Gửi nhờ xóa rest -->
-                  <li ng-if="workrest.status === 3">
-                    <a ng-click="vm.handleRequestDelete(workrest)">取り消し申請</a>
-                  </li>
-                  <!-- Xem lịch sử -->
-                  <li>
-                    <a ng-click="vm.handleViewHistory(workrest)">歴史</a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-            <td>{{ workrest.holiday.name }}</td>
-            <td>{{ workrest.start | LL }}</td>
-            <td>{{ workrest.end | LL }}</td>
-            <td>
-              <p class="mgn" ng-bind-html="workrest.description | nl2br"></p>
-            </td>
-            <td class="text-center">{{ workrest.status | StatusFilter }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="w50 text-center">操作</th>
+              <th>形態</th>
+              <th>開始</th>
+              <th>終了</th>
+              <th>事由</th>
+              <th class="text-center">状態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="vm.workrests.length === 0">
+              <td colspan="6">データが見つかりません。</td>
+            </tr>
+            <tr ng-repeat="workrest in vm.workrests track by $index" class="clickable" ng-click="vm.hanleSelectWorkrest(workrest)">
+              <td class="w50 text-center">
+                <div dropdown dropdown-append-to-body>
+                  <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
+                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                    <!-- Xem detail Workrest -->
+                    <li>
+                      <a ui-sref="workrests.view({ workrestId: workrest._id })">詳細</a>
+                    </li>
+                    <!-- Gửi request -->
+                    <li ng-if="workrest.status === 1 || workrest.status === 4">
+                      <a ng-click="vm.handleRequestWorkrest(workrest)">申請</a>
+                    </li>
+                    <!-- Hủy bỏ request -->
+                    <li ng-if="workrest.status === 2">
+                      <a ng-click="vm.handleCancelWorkrest(workrest)">申請キャンセル</a>
+                    </li>
+                    <!-- Chỉnh sửa khi chưa request hoặc khi bị reject -->
+                    <li ng-if="workrest.status === 1 || workrest.status === 4">
+                      <a ui-sref="workrests.edit({ workrestId: workrest._id })">編集</a>
+                    </li>
+                    <!-- Xóa khi đang ở trạng thái chưa request hoặc bị reject -->
+                    <li ng-if="workrest.status === 1 || workrest.status === 4">
+                      <a ng-click="vm.handleDeleteWorkrest(workrest)">削除</a>
+                    </li>
+                    <!-- Gửi nhờ xóa rest -->
+                    <li ng-if="workrest.status === 3">
+                      <a ng-click="vm.handleRequestDelete(workrest)">取り消し申請</a>
+                    </li>
+                    <!-- Xem lịch sử -->
+                    <li>
+                      <a ng-click="vm.handleViewHistory(workrest)">歴史</a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+              <td>{{ workrest.holiday.name }}</td>
+              <td>{{ workrest.start | LL }}</td>
+              <td>{{ workrest.end | LL }}</td>
+              <td>
+                <p class="mgn" ng-bind-html="workrest.description | nl2br"></p>
+              </td>
+              <td class="text-center">{{ workrest.status | StatusFilter }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <!-- Pagination -->
       <pagination total-items="vm.total" ng-model="vm.page" max-size="5" boundary-links="true" items-per-page="vm.condition.limit"
         ng-change="vm.handlePageChanged()" previous-text="前" next-text="次" first-text="最初" last-text="最後"></pagination>

@@ -77,22 +77,24 @@
   <div class="row">
     <div class="col-xs-12">
       <h4>合計情報</h4>
-      <table class="table table-bordered">
-        <tr>
-          <th>出勤日数</th>
-          <th>残業時間</th>
-          <th>休深時間</th>
-          <th>休憩時間</th>
-          <th>状態</th>
-        </tr>
-        <tr>
-          <td>{{ vm.workmonth.numWorkDate }}</td>
-          <td>{{ vm.workmonth.overtime }}</td>
-          <td>{{ vm.workmonth.overnight }}</td>
-          <td>{{ vm.workmonth.middleRest }}</td>
-          <td>{{ vm.workmonth.status | StatusFilter }}</td>
-        </tr>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tr>
+            <th>出勤日数</th>
+            <th>残業時間</th>
+            <th>休深時間</th>
+            <th>休憩時間</th>
+            <th>状態</th>
+          </tr>
+          <tr>
+            <td>{{ vm.workmonth.numWorkDate }}</td>
+            <td>{{ vm.workmonth.overtime }}</td>
+            <td>{{ vm.workmonth.overnight }}</td>
+            <td>{{ vm.workmonth.middleRest }}</td>
+            <td>{{ vm.workmonth.status | StatusFilter }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -117,11 +119,13 @@
           <tbody>
             <tr class="clickable" ng-repeat="workdate in vm.workmonth.workdates" ng-click="vm.handleSelectWorkdate(workdate)">
               <td class="text-center w50" ng-show="vm.workmonth.status === 1 || vm.workmonth.status === 4">
-                <button class="btn btn-xs btn-default inside-clickable" ng-show="vm.isCopying && workdate._id !== vm.copyingWorkdate._id" ng-click="vm.handlePasteWorkdate(workdate)">
+                <button class="btn btn-xs btn-default inside-clickable" ng-show="vm.isCopying && workdate._id !== vm.copyingWorkdate._id"
+                  ng-click="vm.handlePasteWorkdate(workdate)">
                   <span ng-hide="vm.isSaving">貼り付け</span>
                   <i ng-show="vm.isSaving" class="fa fa-spinner fa-pulse fa-fw"></i>
                 </button>
-                <button class="btn btn-xs btn-danger inside-clickable" ng-show="vm.isCopying && workdate._id === vm.copyingWorkdate._id" ng-click="vm.handleCancleCopyWorkdate()">
+                <button class="btn btn-xs btn-danger inside-clickable" ng-show="vm.isCopying && workdate._id === vm.copyingWorkdate._id"
+                  ng-click="vm.handleCancleCopyWorkdate()">
                   <span ng-hide="vm.isSaving">キャンセル</span>
                   <i ng-show="vm.isSaving" class="fa fa-spinner fa-pulse fa-fw"></i>
                 </button>

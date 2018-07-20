@@ -111,67 +111,69 @@
     <div class="col-sm-12 col-md-8 col-md-offset-2">
       <p>全 {{ vm.total }} 件</p>
       <!-- 休暇一覧 -->
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th class="w50 text-center">操作</th>
-            <th>社員名</th>
-            <th>形態</th>
-            <th>開始・終了</th>
-            <th>期間</th>
-            <th>事由</th>
-            <th class="w150 text-center">状態</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-show="vm.workrests.length === 0">
-            <td colspan="7">データが見つかりません。</td>
-          </tr>
-          <tr ng-repeat="workrest in vm.workrests track by $index" class="clickable" ng-click="vm.hanleSelectWorkrest(workrest)">
-            <td class="w50 text-center">
-              <div dropdown dropdown-append-to-body>
-                <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
-                  <i class="glyphicon glyphicon-option-horizontal"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                  <!-- Xem detail Workrest -->
-                  <li>
-                    <a ui-sref="admin.workrests.review({ workrestId: workrest._id })">詳細確認</a>
-                  </li>
-                  <li ng-if="workrest.status === 2">
-                    <a ng-click="vm.handleApproveWorkrest(workrest)">承認</a>
-                  </li>
-                  <li ng-if="workrest.status === 2">
-                    <a ng-click="vm.handleRejectWorkrest(workrest)">拒否</a>
-                  </li>
-                  <!-- Gửi nhờ xóa rest -->
-                  <li ng-if="workrest.status === 5">
-                    <a ng-click="vm.handleDeleteWorkrest(workrest)">取り消し</a>
-                  </li>
-                  <li>
-                    <a ng-click="vm.handleViewHistory(workrest)">歴史</a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-            <td>
-              <img class="user-common-avatar-small" src="{{ workrest.user.profileImageURL }}">
-              <a class="inside-clickable" ng-click="handleViewDetailUser(workrest.user)">{{ workrest.user.displayName }}</a>
-            </td>
-            <td>{{ workrest.holiday.name }}</td>
-            <td>
-              <div>{{ workrest.start | LL }}</div>
-              <div>{{ workrest.end | LL }}</div>
-            </td>
-            <td>{{ workrest.duration }}</td>
-            <td>
-              <p ng-bind-html="workrest.description | nl2br"></p>
-              <p class="text-danger">{{ workrest.warning }}</p>
-            </td>
-            <td>{{ workrest.status | StatusFilter}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="w50 text-center">操作</th>
+              <th>社員名</th>
+              <th>形態</th>
+              <th>開始・終了</th>
+              <th>期間</th>
+              <th>事由</th>
+              <th class="w150 text-center">状態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="vm.workrests.length === 0">
+              <td colspan="7">データが見つかりません。</td>
+            </tr>
+            <tr ng-repeat="workrest in vm.workrests track by $index" class="clickable" ng-click="vm.hanleSelectWorkrest(workrest)">
+              <td class="w50 text-center">
+                <div dropdown dropdown-append-to-body>
+                  <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
+                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                    <!-- Xem detail Workrest -->
+                    <li>
+                      <a ui-sref="admin.workrests.review({ workrestId: workrest._id })">詳細確認</a>
+                    </li>
+                    <li ng-if="workrest.status === 2">
+                      <a ng-click="vm.handleApproveWorkrest(workrest)">承認</a>
+                    </li>
+                    <li ng-if="workrest.status === 2">
+                      <a ng-click="vm.handleRejectWorkrest(workrest)">拒否</a>
+                    </li>
+                    <!-- Gửi nhờ xóa rest -->
+                    <li ng-if="workrest.status === 5">
+                      <a ng-click="vm.handleDeleteWorkrest(workrest)">取り消し</a>
+                    </li>
+                    <li>
+                      <a ng-click="vm.handleViewHistory(workrest)">歴史</a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+              <td>
+                <img class="user-common-avatar-small" src="{{ workrest.user.profileImageURL }}">
+                <a class="inside-clickable" ng-click="handleViewDetailUser(workrest.user)">{{ workrest.user.displayName }}</a>
+              </td>
+              <td>{{ workrest.holiday.name }}</td>
+              <td>
+                <div>{{ workrest.start | LL }}</div>
+                <div>{{ workrest.end | LL }}</div>
+              </td>
+              <td>{{ workrest.duration }}</td>
+              <td>
+                <p ng-bind-html="workrest.description | nl2br"></p>
+                <p class="text-danger">{{ workrest.warning }}</p>
+              </td>
+              <td>{{ workrest.status | StatusFilter}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <!-- Pagination -->
       <pagination total-items="vm.total" ng-model="vm.page" max-size="5" boundary-links="true" items-per-page="vm.condition.limit"
         ng-change="vm.handlePageChanged()" previous-text="前" next-text="次" first-text="最初" last-text="最後"></pagination>

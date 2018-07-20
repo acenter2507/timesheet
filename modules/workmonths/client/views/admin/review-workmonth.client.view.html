@@ -79,20 +79,22 @@
   <div class="row">
     <div class="col-xs-12">
       <h4>合計情報</h4>
-      <table class="table table-bordered">
-        <tr>
-          <th>出勤日数</th>
-          <th>残業時間</th>
-          <th>休深時間</th>
-          <th>休憩時間</th>
-        </tr>
-        <tr>
-          <td>{{ vm.workmonth.numWorkDate }}</td>
-          <td>{{ vm.workmonth.overtime }}</td>
-          <td>{{ vm.workmonth.overnight }}</td>
-          <td>{{ vm.workmonth.middleRest }}</td>
-        </tr>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tr>
+            <th>出勤日数</th>
+            <th>残業時間</th>
+            <th>休深時間</th>
+            <th>休憩時間</th>
+          </tr>
+          <tr>
+            <td>{{ vm.workmonth.numWorkDate }}</td>
+            <td>{{ vm.workmonth.overtime }}</td>
+            <td>{{ vm.workmonth.overnight }}</td>
+            <td>{{ vm.workmonth.middleRest }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 

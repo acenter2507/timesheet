@@ -102,56 +102,58 @@
   <div class="row mg10t">
     <div class="col-sm-12 col-md-8 col-md-offset-2">
       <p>全 {{ vm.total }} 件</p>
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th class="w50 text-center">操作</th>
-            <th>社員名</th>
-            <th class="w50 text-center">年</th>
-            <th class="w50 text-center">月</th>
-            <th class="w150 text-center">状態</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-show="vm.workmonths.length === 0">
-            <td colspan="5">データが見つかりません。</td>
-          </tr>
-          <tr ng-repeat="workmonth in vm.workmonths track by $index" class="clickable" ng-click="vm.hanleSelectWorkmonth(workmonth)">
-            <td class="w50 text-center">
-              <div dropdown dropdown-append-to-body>
-                <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
-                  <i class="glyphicon glyphicon-option-horizontal"></i>
-                </a>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="w50 text-center">操作</th>
+              <th>社員名</th>
+              <th class="w50 text-center">年</th>
+              <th class="w50 text-center">月</th>
+              <th class="w150 text-center">状態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="vm.workmonths.length === 0">
+              <td colspan="5">データが見つかりません。</td>
+            </tr>
+            <tr ng-repeat="workmonth in vm.workmonths track by $index" class="clickable" ng-click="vm.hanleSelectWorkmonth(workmonth)">
+              <td class="w50 text-center">
+                <div dropdown dropdown-append-to-body>
+                  <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
+                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                  </a>
 
-                <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                  <li>
-                    <a ui-sref="admin.workmonths.review({ workmonthId: workmonth._id })">詳細確認</a>
-                  </li>
-                  <li ng-if="workmonth.status === 2">
-                    <a ng-click="vm.handleApproveWorkmonth(workmonth)">承認</a>
-                  </li>
-                  <li ng-if="workmonth.status === 2">
-                    <a ng-click="vm.handleRejectWorkmonth(workmonth)">拒否</a>
-                  </li>
-                  <li ng-if="workmonth.status === 5">
-                    <a ng-click="vm.handleDeleteWorkmonth(workmonth)">取り消し</a>
-                  </li>
-                  <li>
-                    <a ng-click="vm.handleViewHistory(workmonth)">歴史</a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-            <td>
-              <img class="user-common-avatar-small" src="{{ workmonth.user.profileImageURL }}">
-              <a class="inside-clickable" ng-click="handleViewDetailUser(workmonth.user)">{{ workmonth.user.displayName }}</a>
-            </td>
-            <td class="w50 text-center">{{ workmonth.year }}</td>
-            <td class="w50 text-center">{{ workmonth.month }}</td>
-            <td class="w150 text-center">{{ workmonth.status | StatusFilter}}</td>
-          </tr>
-        </tbody>
-      </table>
+                  <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                    <li>
+                      <a ui-sref="admin.workmonths.review({ workmonthId: workmonth._id })">詳細確認</a>
+                    </li>
+                    <li ng-if="workmonth.status === 2">
+                      <a ng-click="vm.handleApproveWorkmonth(workmonth)">承認</a>
+                    </li>
+                    <li ng-if="workmonth.status === 2">
+                      <a ng-click="vm.handleRejectWorkmonth(workmonth)">拒否</a>
+                    </li>
+                    <li ng-if="workmonth.status === 5">
+                      <a ng-click="vm.handleDeleteWorkmonth(workmonth)">取り消し</a>
+                    </li>
+                    <li>
+                      <a ng-click="vm.handleViewHistory(workmonth)">歴史</a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+              <td>
+                <img class="user-common-avatar-small" src="{{ workmonth.user.profileImageURL }}">
+                <a class="inside-clickable" ng-click="handleViewDetailUser(workmonth.user)">{{ workmonth.user.displayName }}</a>
+              </td>
+              <td class="w50 text-center">{{ workmonth.year }}</td>
+              <td class="w50 text-center">{{ workmonth.month }}</td>
+              <td class="w150 text-center">{{ workmonth.status | StatusFilter}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <!-- Pagination -->
       <pagination total-items="vm.total" ng-model="vm.page" max-size="5" boundary-links="true" items-per-page="vm.condition.limit"
         ng-change="vm.handlePageChanged()" previous-text="前" next-text="次" first-text="最初" last-text="最後"></pagination>
