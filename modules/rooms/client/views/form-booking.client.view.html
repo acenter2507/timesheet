@@ -167,9 +167,9 @@
                 <label for="projector">プロジェクター</label>
                 <div>
                   <div class="btn-group">
-                    <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.projector === true, 'btn-default': vm.condition.projector === false }" ng-model="vm.room.projector"
+                    <label class="btn btn-xs" ng-class="{ 'btn-success': vm.condition.projector, 'btn-default': !vm.condition.projector }" ng-model="vm.room.projector"
                       btn-radio="true" uncheckable>必要</label>
-                    <label class="btn btn-xs" ng-class="{ 'btn-danger': vm.condition.projector === false, 'btn-default': vm.condition.projector === true }" ng-model="vm.condition.projector"
+                    <label class="btn btn-xs" ng-class="{ 'btn-danger': !vm.condition.projector, 'btn-default': vm.condition.projector }" ng-model="vm.condition.projector"
                       btn-radio="false" uncheckable>不要</label>
                   </div>
                 </div>
