@@ -28,9 +28,23 @@
 
     onCreate();
     function onCreate() {
+      prepareRoom();
       prepareUpload();
     }
 
+    function prepareRoom() {
+      if (!vm.room._id) {
+        _.extend(vm.room, {
+          seats: 1,
+          projector: false,
+          air_conditional: false,
+          white_board: false,
+          computer: 0,
+          sound: false,
+          images: []
+        });
+      }
+    }
     function prepareUpload() {
       vm.uploader = new FileUploader({
         url: 'api/rooms/admin/images',
