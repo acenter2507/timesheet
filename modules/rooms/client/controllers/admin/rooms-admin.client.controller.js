@@ -5,9 +5,9 @@
     .module('rooms.admin')
     .controller('RoomsAdminController', RoomsAdminController);
 
-  RoomsAdminController.$inject = ['RoomsService', '$state'];
+  RoomsAdminController.$inject = ['$scope', '$state', 'RoomsService'];
 
-  function RoomsAdminController(RoomsService, $state) {
+  function RoomsAdminController($scope, $state, RoomsService) {
     var vm = this;
     vm.rooms = RoomsService.query();
 

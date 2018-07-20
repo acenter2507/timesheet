@@ -59,7 +59,6 @@
     vm.handleSaveRoom = function (isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.roomForm');
-        error = true;
       }
 
       $scope.handleShowConfirm({
