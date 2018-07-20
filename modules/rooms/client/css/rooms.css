@@ -106,18 +106,13 @@
 .booking-result {
   width: 100%;
   -webkit-transition:all linear 0.5s;
-  transition:all linear 0.5s; }
-  .booking-condition.ng-hide-add,
-  .booking-rooms.ng-hide-add,
-  .booking-confirm.ng-hide-add,
-  .booking-result.ng-hide-add {
-    -webkit-animation:0.5s lightSpeedOut ease; 
-    animation:0.5s lightSpeedOut ease; }
-  .booking-condition.ng-hide-remove,
-  .booking-rooms.ng-hide-remove,
-  .booking-confirm.ng-hide-remove,
-  .booking-result.ng-hide-remove {
-    opacity:1; }
+  transition:all linear 0.5s;
+  opacity:1; }
+  .booking-condition.ng-hide,
+  .booking-rooms.ng-hide,
+  .booking-confirm.ng-hide,
+  .booking-result.ng-hide {
+    opacity:0; }
 
 
 /* flip in */
