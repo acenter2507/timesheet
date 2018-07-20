@@ -125,8 +125,10 @@
     .booking-result.ng-hide {
       opacity : 0; }
 .booking-time {
-  display: flex; }
+  display: flex;
+  flex-direction: row; }
   .booking-time-date {
+    flex-shrink: 2;
     flex-grow: 1; }
   .booking-time-hour {
-    width: 100px; }
+    min-width: 100px; }
