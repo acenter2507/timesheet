@@ -40,7 +40,7 @@
 
     vm.hanleSelectBooking = function (booking) {
       return;
-    }
+    };
     vm.handleRejectBooking = function (booking) {
       $scope.handleShowConfirm({
         message: '予約を拒否しますか？'
@@ -53,6 +53,6 @@
             $scope.handleShowToast(err.message, true);
           });
       });
-    }
+    };
   }
 }());
