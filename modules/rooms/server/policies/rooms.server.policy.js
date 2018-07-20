@@ -20,6 +20,12 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/rooms/:roomId',
       permissions: ['get']
+    }, {
+      resources: '/api/bookings',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/bookings/:bookingId',
+      permissions: ['get']
     }]
   }]);
 };
@@ -38,6 +44,10 @@ exports.isAllowed = function (req, res, next) {
     return next();
 
   if (req.room && req.user && req.room.user && req.room.user.id === req.user.id) {
+    return next();
+  }
+
+  if (req.booking && req.user && req.booking.user && req.booking.user.id === req.user.id) {
     return next();
   }
 

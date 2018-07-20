@@ -53,7 +53,7 @@
       .state('admin.rooms.bookings', {
         url: '/:roomId/bookings',
         templateUrl: 'modules/rooms/client/views/admin/room-bookings.client.view.html',
-        controller: 'RoomAdminController',
+        controller: 'RoomBookingAdminController',
         controllerAs: 'vm',
         resolve: { roomResolve: getRoom },
         data: { roles: ['accountant', 'admin'] },

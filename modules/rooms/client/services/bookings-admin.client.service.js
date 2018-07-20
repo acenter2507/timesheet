@@ -7,6 +7,9 @@
 
   BookingsAdminApi.$inject = ['$http'];
   function BookingsAdminApi($http) {
+    this.reject = function (bookingId) {
+      return $http.post('/api/bookings/admin/' + bookingId + '/reject', null, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());

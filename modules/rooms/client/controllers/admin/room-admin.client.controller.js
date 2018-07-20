@@ -45,10 +45,6 @@
         });
         vm.options = [{ n: '無', v: false }, { n: '有', v: true }];
         prepareUpload();
-      } else {
-        if ($state.current.name === 'admin.rooms.bookings') {
-          prepareBookings();
-        }
       }
     }
     function prepareUpload() {
