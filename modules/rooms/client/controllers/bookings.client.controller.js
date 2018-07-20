@@ -15,7 +15,11 @@
 
     preapareCondition();
     function preapareCondition() {
-      vm.condition = {};
+      vm.condition = {
+        min_date: new Date(),
+        start_date: new Date(),
+        end_date: new Date()
+      };
     }
 
     vm.handleNextToRooms = function() {

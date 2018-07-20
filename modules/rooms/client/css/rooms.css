@@ -124,3 +124,9 @@
     .booking-confirm.ng-hide,
     .booking-result.ng-hide {
       opacity : 0; }
+.booking-time {
+  display: flex; }
+  .booking-time-date {
+    flex-grow: 1; }
+  .booking-time-hour {
+    width: 100px; }
