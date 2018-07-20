@@ -128,7 +128,7 @@
                   </tr>
                   <tr ng-repeat="image in vm.room.images">
                     <td>
-                      <img src="{{ image }}" class="image-img">
+                      <img src="{{ image }}" class="receipt-img">
                     </td>
                     <td class="text-center w120">アップロード済</td>
                     <td class="w50 text-center">
@@ -137,7 +137,7 @@
                   </tr>
                   <tr ng-repeat="image in vm.uploader.queue">
                     <td>
-                      <div image-preview="{ file: image._file, width: 50 }" class="image-img"></div>
+                      <div image-preview="{ file: image._file, width: 50 }" class="receipt-img"></div>
                     </td>
                     <td class="text-center w120">未アップロード</td>
                     <td class="w50 text-center">
