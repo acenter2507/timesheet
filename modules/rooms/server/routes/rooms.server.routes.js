@@ -37,5 +37,5 @@ module.exports = function (app) {
 
   // Finish by binding the Room middleware
   app.param('roomId', rooms.roomByID);
-  app.param('bookingId', bookings.roomByID);
+  app.param('bookingId', bookings.bookingByID);
 };
