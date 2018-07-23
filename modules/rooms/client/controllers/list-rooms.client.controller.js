@@ -9,14 +9,19 @@
 
   function RoomsListController(RoomsService) {
     var vm = this;
-    vm.rooms = RoomsService.query();
 
     onCreate();
     function onCreate() {
       prepareCalendar();
     }
-    function prepareBookings() {
-
+    function prepareData() {
+      RoomsService.query().$promise
+        .then(function (rooms) {
+          vm.rooms = rooms;
+          if (vm.rooms.length === 0) return;
+          vm.room = vm.rooms[0];
+        })
+        .catch();
     }
     function prepareCalendar() {
       vm.calendar = { view: 'day' };
@@ -34,6 +39,6 @@
         return false;
       };
     }
-    
+
   }
 }());

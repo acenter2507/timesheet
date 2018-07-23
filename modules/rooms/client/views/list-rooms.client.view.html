@@ -3,7 +3,7 @@
     <div class="col-xs-12 col-sm-4 col-md-3">
       <h4>会議室一覧</h4>
       <div class="list-group">
-        <a ng-repeat="room in vm.rooms" ng-click="vm.handleSelectedRoom(room)" class="list-group-item">{{ room.name }}</a>
+        <a ng-repeat="room in vm.rooms" ng-click="vm.handleSelectedRoom(room)" class="list-group-item" ng-class="{ 'active': room._id === vm.room._id }">{{ room.name }}</a>
       </div>
     </div>
     <div class="col-xs-12 col-sm-8 col-md-9">
