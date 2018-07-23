@@ -118,11 +118,13 @@
           vm.bookings.push(booking);
           for (var i = 0; i < vm.rooms.length; i++) {
             var room = vm.rooms[i];
-            if (room._id.toString() === booking.room.toString()) {
+            if (room._id === booking.room) {
               room.bookings.push(booking);
             }
           }
-          prepareEvent();
+          if (vm.room._id === booking.room) {
+            prepareEvent();
+          }
         });
     }
 
