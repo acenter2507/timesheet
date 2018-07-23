@@ -118,6 +118,14 @@ exports.rooms = function (req, res) {
       });
   });
 };
+exports.waiting = function (req, res) {
+  Booking.find({ status: 1 })
+    .exec((err, bookings) => {
+      if (err)
+        return res.status(400).send({ message: '予約の情報が見つかりません！' });
+      return res.jsonp(bookings);
+    });
+};
 exports.bookingByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({ message: '予約の情報が見つかりません！' });

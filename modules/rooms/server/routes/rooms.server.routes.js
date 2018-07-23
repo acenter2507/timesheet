@@ -27,6 +27,8 @@ module.exports = function (app) {
 
   // BOOKINGS
   app.route('/api/bookings/rooms').all(roomsPolicy.isAllowed).post(bookings.rooms);
+  app.route('/api/bookings/waiting').all(roomsPolicy.isAllowed).post(bookings.waiting);
+
   app.route('/api/bookings').all(roomsPolicy.isAllowed)
     .get(bookings.list)
     .post(bookings.create);

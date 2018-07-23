@@ -24,6 +24,9 @@
     this.rooms = function (condition) {
       return $http.post('/api/bookings/rooms', { condition: condition }, { ignoreLoadingBar: true });
     };
+    this.waiting = function () {
+      return $http.post('/api/bookings/waiting', null, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());

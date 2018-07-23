@@ -29,6 +29,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/bookings/rooms',
       permissions: ['post']
+    }, {
+      resources: '/api/bookings/waiting',
+      permissions: ['post']
     }]
   }]);
 };

@@ -5,9 +5,9 @@
     .module('rooms')
     .controller('RoomsListController', RoomsListController);
 
-  RoomsListController.$inject = ['$scope', '$state', 'RoomsService'];
+  RoomsListController.$inject = ['$scope', '$state', 'RoomsService', 'BookingsApi'];
 
-  function RoomsListController($scope, $state, RoomsService) {
+  function RoomsListController($scope, $state, RoomsService, BookingsApi) {
     var vm = this;
 
     onCreate();
@@ -15,6 +15,12 @@
       preapreRooms()
         .then(function () {
           return preapreBookings();
+        })
+        .then(function () {
+          return prepareData();
+        })
+        .then(function () {
+          return prepareEvent();
         });
       prepareCalendar();
     }
@@ -24,9 +30,6 @@
         RoomsService.query().$promise
           .then(function (rooms) {
             vm.rooms = rooms;
-            if (vm.rooms.length !== 0) {
-              vm.room = vm.rooms[0];
-            }
             return resolve();
           })
           .catch(function (err) {
@@ -36,8 +39,30 @@
     }
     function preapreBookings() {
       return new Promise(function (resolve, reject) {
-
+        BookingsApi.waiting()
+          .success(function (bookings) {
+            vm.bookings = bookings;
+            return resolve();
+          })
+          .error(function (err) {
+            return reject(err);
+          });
       });
+    }
+    function prepareData() {
+      return new Promise(function (resolve, reject) {
+        for (var i = 0; i < vm.rooms.length; i++) {
+          var room = vm.rooms[i];
+          room.bookings = _.where(vm.bookings, { room: room._id.toString() });
+        }
+        if (vm.rooms.length > 0) {
+          vm.room = vm.rooms[0];
+        }
+        return resolve();
+      });
+    }
+    function prepareEvent() {
+      console.log(vm.rooms);
     }
     function prepareCalendar() {
       vm.calendar = { view: 'day' };
