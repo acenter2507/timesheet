@@ -14,6 +14,7 @@
     vm.step = 1;
     vm.current = moment();
     vm.error = {};
+    console.log(vm.current.format());
 
     preapareCondition();
     function preapareCondition() {
@@ -52,6 +53,7 @@
       vm.step = 2;
     };
     function validateCondition() {
+      // var start = moment(vm.condition.start_date + )
     }
     function validateRoom() {
 
