@@ -79,9 +79,21 @@ exports.rooms = function (req, res) {
     console.log(condition.end);
     Booking.find({
       room: { $in: roomIds },
-      start: { $gt: condition.start },
-      end: { $lt: condition.end },
-      status: 1
+      status: 1,
+      $or: [
+        {
+          $and: [
+            { start: { $lt: condition.start } },
+            { end: { $lte: condition.start } }
+          ]
+        },
+        {
+          $and: [
+            { start: { $gte: condition.end } },
+            { end: { $gt: condition.end } }
+          ]
+        }
+      ]
     })
       .exec((err, bookings) => {
         console.log(bookings);
