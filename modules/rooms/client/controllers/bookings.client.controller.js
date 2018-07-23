@@ -90,6 +90,7 @@
         function successCallback(booking) {
           vm.busy = false;
           vm.condition._users = vm.condition.users;
+          delete vm.condition.users;
           vm.step = 4;
         }
         function errorCallback(err) {
