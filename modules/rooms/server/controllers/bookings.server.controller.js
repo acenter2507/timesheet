@@ -52,6 +52,36 @@ exports.list = function (req, res) {
       return res.jsonp(bookings);
     });
 };
+exports.rooms = function (req, res) {
+  var condition = req.body.condition;
+
+  var query = {};
+  var and_arr = [];
+  and_arr.push({ seats: { $gte: condition.seats } });
+  and_arr.push({ computer: { $gte: condition.computer } });
+  if (condition.projector) {
+    and_arr.push({ projector: projector });
+  }
+  if (condition.air_conditional) {
+    and_arr.push({ air_conditional: air_conditional });
+  }
+  if (condition.white_board) {
+    and_arr.push({ white_board: white_board });
+  }
+  if (condition.sound) {
+    and_arr.push({ sound: sound });
+  }
+  query = { $and: and_arr };
+  Room.find(query).exec((err, rooms) => {
+    return res.jsonp(rooms);
+  });
+  // Booking.find().sort('-created')
+  //   .populate('user', 'displayName').exec(function (err, bookings) {
+  //     if (err)
+  //       return res.status(400).send({ message: '予約一覧を取得できません！' });
+  //     return res.jsonp(bookings);
+  //   });
+};
 exports.bookingByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({ message: '予約の情報が見つかりません！' });

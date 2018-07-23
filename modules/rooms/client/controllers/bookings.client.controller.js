@@ -6,14 +6,16 @@
     .module('bookings')
     .controller('BookingsController', BookingsController);
 
-  BookingsController.$inject = ['$scope', '$state', 'bookingResolve'];
+  BookingsController.$inject = ['$scope', '$state', 'bookingResolve', 'BookingsApi'];
 
-  function BookingsController ($scope, $state, booking) {
+  function BookingsController($scope, $state, booking, BookingsApi) {
     var vm = this;
     vm.booking = booking;
     vm.step = 1;
     vm.current = moment();
     vm.error = {};
+
+    vm.busy = false;
     console.log(vm.current.format());
 
     preapareCondition();
@@ -30,26 +32,39 @@
         air_conditional: false,
         white_board: false,
         sound: false
-        
+
         // start_time: vm.current.startOf('hour').add(1, 'hours').format('HH:mm'),
         // end_time: vm.current.startOf('hour').add(2, 'hours').format('HH:mm')
       };
     }
 
-    vm.handleNextToRooms = function() {
-      console.log(vm.condition);
-      validateCondition();
+    vm.handleNextToRooms = function () {
+      if (vm.busy) return;
+      vm.busy = true;
+      if (!validateCondition()) {
+        vm.busy = false;
+        return;
+      }
+      BookingsApi.rooms(vm.condition)
+        .success(function (rooms) {
+          console.log(rooms);
+          vm.busy = false;
+        })
+        .error(function (err) {
+          $scope.handleShowToast(err.message, true);
+          vm.busy = false;
+        });
     };
-    vm.handleNextToConfirm = function() {
+    vm.handleNextToConfirm = function () {
       vm.step = 3;
     };
-    vm.handleSaveBooking = function() {
+    vm.handleSaveBooking = function () {
       vm.step = 4;
     };
-    vm.handleBackToCondition = function() {
+    vm.handleBackToCondition = function () {
       vm.step = 1;
     };
-    vm.handleBackToRooms = function() {
+    vm.handleBackToRooms = function () {
       vm.step = 2;
     };
     function validateCondition() {
@@ -66,11 +81,13 @@
 
       var start = moment(start_date + ' ' + vm.condition.start_time, 'YYYY/MM/DD HH:mm');
       var end = moment(end_date + ' ' + vm.condition.end_time, 'YYYY/MM/DD HH:mm');
-      if(!start.isBefore(end)) {
+      if (!start.isBefore(end)) {
         $scope.handleShowToast('開始と終了時間が合わないです。再確認してください！', true);
         return false;
       }
-
+      vm.condition.start = start.format();
+      vm.condition.end = end.format();
+      return true;
     }
     function validateRoom() {
 

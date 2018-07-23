@@ -33,6 +33,8 @@ module.exports = function (app) {
     .get(bookings.read)
     .put(bookings.update)
     .delete(bookings.delete);
+
+  app.route('/api/bookings/rooms').all(roomsPolicy.isAllowed).post(bookings.rooms);
   app.route('/api/bookings/admin/:bookingId/reject').all(roomsPolicy.isAllowed).post(bookings_admin.reject);
 
   // Finish by binding the Room middleware

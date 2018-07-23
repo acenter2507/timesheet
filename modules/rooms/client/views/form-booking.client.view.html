@@ -20,6 +20,10 @@
         </li>
       </ul>
 
+      <div class="form-group text-center">
+        <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw fa-3x"></i>
+      </div>
+
       <div class="booking-condition" ng-show="vm.step === 1">
         <div class="panel panel-default">
           <div class="panel-heading">予約の条件を選択</div>

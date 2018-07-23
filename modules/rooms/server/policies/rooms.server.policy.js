@@ -26,6 +26,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/bookings/:bookingId',
       permissions: ['get']
+    }, {
+      resources: '/api/bookings/rooms',
+      permissions: ['post']
     }]
   }]);
 };

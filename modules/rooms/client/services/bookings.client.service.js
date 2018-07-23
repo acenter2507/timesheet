@@ -21,6 +21,9 @@
 
   BookingsApi.$inject = ['$http'];
   function BookingsApi($http) {
+    this.rooms = function (condition) {
+      return $http.post('/api/bookings/rooms', { condition: condition }, { ignoreLoadingBar: true });
+    };
     return this;
   }
 }());
