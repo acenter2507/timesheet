@@ -5,14 +5,15 @@
     .module('rooms')
     .controller('RoomsListController', RoomsListController);
 
-  RoomsListController.$inject = ['$scope', '$state', 'RoomsService', 'BookingsApi', 'calendarConfig'];
+  RoomsListController.$inject = ['$scope', '$state', 'RoomsService', 'BookingsService', 'BookingsApi', 'calendarConfig', 'Socket'];
 
-  function RoomsListController($scope, $state, RoomsService, BookingsApi, calendarConfig) {
+  function RoomsListController($scope, $state, RoomsService, BookingsService, BookingsApi, calendarConfig, Socket) {
     var vm = this;
 
     onCreate();
     function onCreate() {
       prepareCalendar();
+      prepareSocketListenner();
       preapreRooms()
         .then(function () {
           return preapreBookings();
@@ -102,6 +103,27 @@
         console.log('on-event-click', calendarEvent);
         return false;
       };
+    }
+    function prepareSocketListenner() {
+      Socket.on('bookings', handleReceivedBooking);
+      $scope.$on('$destroy', function () {
+        Socket.removeListener('bookings');
+      });
+    }
+
+    function handleReceivedBooking(res) {
+      if (!res.booking) return;
+      BookingsService.get({ bookingId: res.booking }).$promise
+        .then(function (booking) {
+          vm.bookings.push(booking);
+          for (var i = 0; i < vm.rooms.length; i++) {
+            var room = vm.rooms[i];
+            if (room._id.toString() === booking.room.toString()) {
+              room.bookings.push(booking);
+            }
+          }
+          prepareEvent();
+        });
     }
 
     vm.handleSelectedRoom = function (room) {

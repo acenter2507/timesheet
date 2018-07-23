@@ -14,9 +14,10 @@
     '$window',
     'AdminUserApi',
     'CommonService',
-    '$q'];
+    '$q',
+    'Socket'];
 
-  function BookingsController($scope, $state, booking, BookingsApi, $window, AdminUserApi, CommonService, $q) {
+  function BookingsController($scope, $state, booking, BookingsApi, $window, AdminUserApi, CommonService, $q, Socket) {
     var vm = this;
     vm.booking = booking;
     vm.step = 1;
@@ -90,6 +91,7 @@
         function successCallback(booking) {
           vm.busy = false;
           vm.step = 4;
+          Socket.emit('bookings', { booking: booking._id });
         }
         function errorCallback(err) {
           $scope.handleShowToast(err.message, true);
