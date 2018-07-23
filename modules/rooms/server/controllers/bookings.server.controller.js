@@ -17,7 +17,7 @@ exports.create = function (req, res) {
   booking.save(function (err) {
     if (err)
       return res.status(400).send({ message: '予約を保存できません！' });
-    return res.jsonp(booking);
+    return res.end();
   });
 };
 exports.read = function (req, res) {

@@ -87,7 +87,7 @@
 
         vm.booking.$save(successCallback, errorCallback);
         function successCallback(booking) {
-          $state.go('bookings.list', { bookingId: booking._id })
+          $state.go('bookings.list', { bookingId: booking._id });
         }
         function errorCallback(err) {
           $scope.handleShowToast(err.message, true);
