@@ -67,7 +67,7 @@
       var start = moment(start_date + ' ' + vm.condition.start_time, 'YYYY/MM/DD HH:mm');
       var end = moment(end_date + ' ' + vm.condition.end_time, 'YYYY/MM/DD HH:mm');
       if(!start.isBefore(end)) {
-        $scope.handleShowToast('開始と終了時間が合わないです。再確認してください！');
+        $scope.handleShowToast('開始と終了時間が合わないです。再確認してください！', true);
         return false;
       }
 
