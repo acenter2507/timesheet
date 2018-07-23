@@ -242,7 +242,7 @@
           </div>
           <div class="panel-footer">
             <div class="form-group mgn text-right">
-              <button class="btn btn-success" ui-sref="rooms.list">全室状況</button>
+              <a class="btn btn-success" ui-sref="rooms.list">全室状況</a>
               <button class="btn btn-primary" ng-click="vm.handleNextToRooms()">室選択へ</button>
             </div>
           </div>
@@ -308,7 +308,7 @@
         </div>
 
         <div class="form-group mgn text-right">
-          <button class="btn btn-success" ui-sref="rooms.list">全室状況</button>
+          <a class="btn btn-success" ui-sref="rooms.list">全室状況</a>
           <button class="btn btn-default" ng-click="vm.handleBackToCondition()">戻る</button>
         </div>
       </div>
@@ -335,7 +335,7 @@
             <tr>
               <th>会議室</th>
               <td colspan="4">
-                <a ui-sref="rooms.view({ roomId: vm.room._id })">{{ vm.room.name }}</a>
+                <a ui-sref="rooms.view({ roomId: vm.room._id })" target="_blank">{{ vm.room.name }}</a>
               </td>
             </tr>
           </table>
@@ -363,15 +363,52 @@
           </div>
           <div class="panel-footer">
             <div class="form-group mgn text-right">
-              <button class="btn btn-primary" ng-click="vm.handleSaveBooking(vm.form.bookingForm.$valid)">予約する</button>
               <button class="btn btn-default" ng-click="vm.handleBackToRooms()">戻る</button>
+              <button class="btn btn-primary" ng-click="vm.handleSaveBooking(vm.form.bookingForm.$valid)">予約する</button>
             </div>
           </div>
         </div>
       </div>
       <div class="booking-result" ng-show="vm.step === 4">
-        <div class="well h200">
-          <h3>Done</h3>
+        <h4>予約が完了しました！</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tr>
+              <th>タイトル</th>
+              <td colspan="4">{{ vm.condition.title }}</td>
+            </tr>
+            <tr>
+              <th>日時</th>
+              <td colspan="4">{{ vm.condition.start | LLL }} ～ {{ vm.condition.end | LLL }}</td>
+            </tr>
+            <tr>
+              <th rowspan="2">詳細条件</th>
+              <td colspan="2">席数： {{ vm.condition.seats }}</td>
+              <td colspan="2">パソコン： {{ vm.condition.computer }}</td>
+            </tr>
+            <tr>
+              <td>プロジェクター：{{ vm.condition.projector ? '必要' : '不要' }}</td>
+              <td>エアコン：{{ vm.condition.air_conditional ? '必要' : '不要' }}</td>
+              <td>ホワイトボードー：{{ vm.condition.white_board ? '必要' : '不要' }}</td>
+              <td>音響：{{ vm.condition.sound ? '必要' : '不要' }}</td>
+            </tr>
+            <tr>
+              <th>会議室</th>
+              <td colspan="4">
+                <a ui-sref="rooms.view({ roomId: vm.room._id })" target="_blank">{{ vm.room.name }}</a>
+              </td>
+            </tr>
+            <tr>
+              <th>参加者</th>
+              <td colspan="4">
+                <tags-input class="my-tags" ng-model="vm.condition.users" template="disable_user_tags.html" add-from-autocomplete-only="true"></tags-input>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="form-group mgn text-right">
+          <a class="btn btn-success" ui-sref="bookings.list">予約履歴</a>
+          <button class="btn btn-default" ng-click="vm.handleBackToCondition()">ホーム</button>
         </div>
       </div>
     </div>
@@ -379,8 +416,12 @@
 </div>
 
 <script type="text/ng-template" id="users_tags.html">
-  <a ui-sref="users.view({ userId: data._id })">{{ data.displayName }}</a>
+  <a ui-sref="users.view({ userId: data._id })" target="_blank">{{ data.displayName }}</a>
   <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
+</script>
+
+<script type="text/ng-template" id="disable_user_tags.html">
+  <a ui-sref="users.view({ userId: data._id })" target="_blank">{{ data.displayName }}</a>
 </script>
 
 <script type="text/ng-template" id="autocomplete.html">

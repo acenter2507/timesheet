@@ -77,20 +77,23 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.bookingForm');
         return false;
       }
-
       $scope.handleShowConfirm({
         message: '予約しますか？'
       }, function () {
+        if (vm.busy) return;
+        vm.busy = true;
         _.extend(vm.booking, vm.condition);
         vm.booking.room = vm.room._id;
         vm.booking.users = _.pluck(vm.condition.users, '_id');
 
         vm.booking.$save(successCallback, errorCallback);
         function successCallback(booking) {
-          $state.go('bookings.list', { bookingId: booking._id });
+          vm.busy = false;
+          vm.step = 4;
         }
         function errorCallback(err) {
           $scope.handleShowToast(err.message, true);
+          vm.busy = false;
         }
       });
     };
