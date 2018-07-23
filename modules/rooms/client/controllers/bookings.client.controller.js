@@ -38,7 +38,7 @@
 
     vm.handleNextToRooms = function() {
       console.log(vm.condition);
-      //vm.step = 2;
+      validateCondition();
     };
     vm.handleNextToConfirm = function() {
       vm.step = 3;
@@ -53,7 +53,12 @@
       vm.step = 2;
     };
     function validateCondition() {
-      // var start = moment(vm.condition.start_date + )
+      var start = moment(vm.condition.start_date + ' ' + vm.condition.start_time, 'YYYY/MM/DD HH:mm');
+      var end = moment(vm.condition.end_date + ' ' + vm.condition.end_time, 'YYYY/MM/DD HH:mm');
+      console.log(start.format());
+      console.log(end.format());
+      console.log(start.isBefore(end));
+
     }
     function validateRoom() {
 
