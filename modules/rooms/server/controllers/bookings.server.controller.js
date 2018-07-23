@@ -84,12 +84,20 @@ exports.rooms = function (req, res) {
         {
           $and: [
             { start: { $lt: condition.start } },
-            { end: { $lte: condition.start } }
+            { end: { $gt: condition.start } }
           ]
         },
         {
           $and: [
-            { start: { $gte: condition.end } },
+            { start: { $gte: condition.start } },
+            { end: { $gt: condition.start } },
+            { end: { $lte: condition.end } }
+          ]
+        },
+        {
+          $and: [
+            { start: { $gte: condition.start } },
+            { start: { $lt: condition.end } },
             { end: { $gt: condition.end } }
           ]
         }
