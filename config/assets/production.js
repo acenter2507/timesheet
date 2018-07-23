@@ -15,6 +15,7 @@ module.exports = {
         'public/lib/ng-tags-input/ng-tags-input.min.css'
       ],
       js: [
+        'public/lib/other-libraries/bluebird.min.js',
         'public/lib/jquery/dist/jquery.min.js',
         'public/lib/angular/angular.min.js',
         'public/lib/angular-resource/angular-resource.min.js',

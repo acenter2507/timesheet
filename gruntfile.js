@@ -258,6 +258,8 @@ module.exports = function (grunt) {
 
     grunt.file.mkdir(path.normalize(__dirname + '/public/lib/other-libraries'));
 
+    // Copy bluebird.min.js
+    grunt.file.copy(path.normalize(__dirname + '/scripts/custom-source/bluebird.min.js'), path.normalize(__dirname + '/public/lib/other-libraries/bluebird.min.min.js'));
     // Copy angular-locale_ja-jp.min.js
     grunt.file.copy(path.normalize(__dirname + '/scripts/custom-source/angular-locale_ja-jp.min.js'), path.normalize(__dirname + '/public/lib/other-libraries/angular-locale_ja-jp.min.js'));
     // Copy japanese-holidays.min.js
