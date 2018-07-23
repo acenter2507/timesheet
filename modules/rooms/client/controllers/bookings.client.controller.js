@@ -23,7 +23,7 @@
         start_hour: '08:00',
         end_hour: '23:30',
         seats: 1,
-        computer: 1,
+        computer: 0,
         projector: false,
         air_conditional: false,
         white_board: false,
@@ -35,7 +35,8 @@
     }
 
     vm.handleNextToRooms = function() {
-      vm.step = 2;
+
+      //vm.step = 2;
     };
     vm.handleNextToConfirm = function() {
       vm.step = 3;
