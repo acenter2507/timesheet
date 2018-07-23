@@ -83,6 +83,7 @@ exports.rooms = function (req, res) {
       status: 1
     })
       .exec((err, bookings) => {
+        console.log(bookings);
         if (bookings.length === 0)
           return res.jsonp(rooms);
         var valid_rooms = _.pluck(bookings, 'room');
