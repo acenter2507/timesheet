@@ -110,7 +110,9 @@ exports.rooms = function (req, res) {
         var rs_rooms = [];
         for (let index = 0; index < rooms.length; index++) {
           const room = rooms[index];
-          if (invalid_rooms.indexOf(room._id.toString) < 0) {
+          console.log(room._id.toString());
+          console.log(invalid_rooms);
+          if (invalid_rooms.indexOf(room._id.toString()) < 0) {
             rs_rooms.push(room);
           }
         }
