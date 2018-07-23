@@ -60,6 +60,7 @@
         });
     };
     vm.handleNextToConfirm = function (room) {
+      vm.room = room;
       vm.step = 3;
     };
     vm.handleSaveBooking = function () {
@@ -70,6 +71,7 @@
       vm.step = 1;
     };
     vm.handleBackToRooms = function () {
+      delete vm.room;
       vm.step = 2;
     };
     vm.hanleSelectRoom = function (room) {
