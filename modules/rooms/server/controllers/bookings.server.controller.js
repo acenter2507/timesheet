@@ -74,14 +74,23 @@ exports.rooms = function (req, res) {
   }
   query = { $and: and_arr };
   Room.find(query).exec((err, rooms) => {
-    return res.jsonp(rooms);
+    var roomIds = _.pluck(rooms, '_id');
+    Booking.find({
+      room: { $in: roomIds },
+      start: { $gt: condition.start },
+      end: { $lt: condition.end },
+      status: 1
+    })
+      .populate('room')
+      .exec((err, bookings) => {
+        if (bookings.length === 0)
+          return res.jsonp(rooms);
+        var valid_rooms = _.pluck(bookings, 'room');
+        var valid_roomIds = _.pluck(valid_rooms, '_id');
+        var rs_rooms = _.filter(rooms, function (room) { return !_.contains(valid_roomIds, room._id.toString()); });
+        return res.jsonp(rs_rooms);
+      });
   });
-  // Booking.find().sort('-created')
-  //   .populate('user', 'displayName').exec(function (err, bookings) {
-  //     if (err)
-  //       return res.status(400).send({ message: '予約一覧を取得できません！' });
-  //     return res.jsonp(bookings);
-  //   });
 };
 exports.bookingByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
