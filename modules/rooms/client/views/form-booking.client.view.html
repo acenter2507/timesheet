@@ -257,12 +257,13 @@
               <tr>
                 <th class="text-center w30">#</th>
                 <th>名前</th>
-                <th class="text-center w50">席</th>
-                <th class="text-center">プロジェクター</th>
-                <th class="text-center">エアコン</th>
-                <th class="text-center">ホワイトボードー</th>
-                <th class="text-center">パソコン</th>
-                <th class="text-center w50">音響</th>
+                <th class="d-sm-down-none">詳細</th>
+                <th class="text-center d-sm-down-none">席</th>
+                <th class="text-center d-sm-down-none">プロジェクター</th>
+                <th class="text-center d-sm-down-none">エアコン</th>
+                <th class="text-center d-sm-down-none">ホワイトボードー</th>
+                <th class="text-center d-sm-down-none">パソコン</th>
+                <th class="text-center d-sm-down-none">音響</th>
                 <th></th>
               </tr>
             </thead>
@@ -270,15 +271,16 @@
               <tr ng-repeat="room in vm.rooms track by $index" class="clickable" ng-click="vm.hanleSelectRoom(room)">
                 <td>{{ $index + 1 }}</td>
                 <td>{{ room.name }}</td>
-                <td class="text-center w50">{{ room.seats }}</td>
-                <td class="text-center">{{ room.projector ? '有' : '無' }}</td>
-                <td class="text-center">{{ room.air_conditional ? '有' : '無' }}</td>
-                <td class="text-center">{{ room.white_board ? '有' : '無' }}</td>
-                <td class="text-center">{{ room.computer }}</td>
-                <td class="text-center">{{ room.sound ? '有' : '無' }}</td>
+                <td class="d-sm-down-none">{{ room.description }}</td>
+                <td class="text-center d-sm-down-none">{{ room.seats }}</td>
+                <td class="text-center d-sm-down-none">{{ room.projector ? '有' : '無' }}</td>
+                <td class="text-center d-sm-down-none">{{ room.air_conditional ? '有' : '無' }}</td>
+                <td class="text-center d-sm-down-none">{{ room.white_board ? '有' : '無' }}</td>
+                <td class="text-center d-sm-down-none">{{ room.computer }}</td>
+                <td class="text-center d-sm-down-none">{{ room.sound ? '有' : '無' }}</td>
                 <td>
                   <button class="btn btn-sm btn-default inside-clickable" ng-click="handleShowImages(room.images)">写真</button>
-                  <button class="btn btn-sm btn-primary inside-clickable">予約</button>
+                  <button class="btn btn-sm btn-primary inside-clickable" ng-click="vm.handleNextToConfirm(room)">予約</button>
                 </td>
               </tr>
             </tbody>

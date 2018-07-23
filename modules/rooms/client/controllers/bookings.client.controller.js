@@ -59,7 +59,7 @@
           vm.busy = false;
         });
     };
-    vm.handleNextToConfirm = function () {
+    vm.handleNextToConfirm = function (room) {
       vm.step = 3;
     };
     vm.handleSaveBooking = function () {
