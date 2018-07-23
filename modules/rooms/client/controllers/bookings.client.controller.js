@@ -22,8 +22,8 @@
         min_date: vm.current.format('YYYY/MM/DD'),
         start_date: vm.current.format('YYYY/MM/DD'),
         end_date: vm.current.format('YYYY/MM/DD'),
-        start_hour: '08:00',
-        end_hour: '23:30',
+        start_time: '08:00',
+        end_time: '23:30',
         seats: 1,
         computer: 0,
         projector: false,
@@ -31,8 +31,8 @@
         white_board: false,
         sound: false
         
-        // start_hour: vm.current.startOf('hour').add(1, 'hours').format('HH:mm'),
-        // end_hour: vm.current.startOf('hour').add(2, 'hours').format('HH:mm')
+        // start_time: vm.current.startOf('hour').add(1, 'hours').format('HH:mm'),
+        // end_time: vm.current.startOf('hour').add(2, 'hours').format('HH:mm')
       };
     }
 
