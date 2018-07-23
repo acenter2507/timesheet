@@ -346,7 +346,7 @@
             <form name="vm.form.bookingForm" novalidate>
               <div class="form-group" show-errors>
                 <label for="title">用件タイトル</label>
-                <input name="title" class="form-control" ng-model="vm.condition.title" type="text" placeholder="用件タイトル">
+                <input name="title" class="form-control" ng-model="vm.condition.title" type="text" placeholder="用件タイトル" required>
                 <div ng-messages="vm.form.bookingForm.title.$error" role="alert">
                   <p class="help-block error-text font-sm" ng-message="required">用件タイトルは必須です。</p>
                 </div>
