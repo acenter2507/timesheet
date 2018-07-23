@@ -13,6 +13,7 @@
     vm.booking = booking;
     vm.step = 1;
     vm.current = moment();
+    vm.error = {};
 
     preapareCondition();
     function preapareCondition() {
@@ -35,7 +36,7 @@
     }
 
     vm.handleNextToRooms = function() {
-
+      console.log(vm.condition);
       //vm.step = 2;
     };
     vm.handleNextToConfirm = function() {
@@ -51,7 +52,6 @@
       vm.step = 2;
     };
     function validateCondition() {
-
     }
     function validateRoom() {
 
