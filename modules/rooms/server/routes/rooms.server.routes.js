@@ -26,6 +26,7 @@ module.exports = function (app) {
   app.route('/api/rooms/admin/:roomId/bookings').all(roomsPolicy.isAllowed).post(rooms_admin.bookings);
 
   // BOOKINGS
+  app.route('/api/bookings/rooms').all(roomsPolicy.isAllowed).post(bookings.rooms);
   app.route('/api/bookings').all(roomsPolicy.isAllowed)
     .get(bookings.list)
     .post(bookings.create);
@@ -34,7 +35,6 @@ module.exports = function (app) {
     .put(bookings.update)
     .delete(bookings.delete);
 
-  app.route('/api/bookings/rooms').all(roomsPolicy.isAllowed).post(bookings.rooms);
   app.route('/api/bookings/admin/:bookingId/reject').all(roomsPolicy.isAllowed).post(bookings_admin.reject);
 
   // Finish by binding the Room middleware
