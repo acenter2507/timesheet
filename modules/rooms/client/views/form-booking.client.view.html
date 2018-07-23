@@ -250,28 +250,25 @@
       </div>
 
       <div class="booking-rooms" ng-show="vm.step === 2">
-        <div class="well">
-          <h4>現在の予約状況</h4>
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <tr>
-                <th>日時</th>
-                <td colspan="4">{{ moment(vm.condition.start).format() | LLL }} ～ {{ moment(vm.condition.end).format() | LLL }}</td>
-              </tr>
-              <tr>
-                <th rowspan="2">詳細条件</th>
-                <td colspan="2">席数： {{ vm.condition.seats }}</td>
-                <td colspan="2">パソコン： {{ vm.condition.computer }}</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>プロジェクター：{{ vm.condition.projector ? '必要' : '不要' }}</td>
-                <td>エアコン：{{ vm.condition.air_conditional ? '必要' : '不要' }}</td>
-                <td>ホワイトボードー：{{ vm.condition.white_board ? '必要' : '不要' }}</td>
-                <td>音響：{{ vm.condition.sound ? '必要' : '不要' }}</td>
-              </tr>
-            </table>
-          </div>
+        <h4>現在の予約状況</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tr>
+              <th>日時</th>
+              <td colspan="4">{{ moment(vm.condition.start).format() | LLL }} ～ {{ moment(vm.condition.end).format() | LLL }}</td>
+            </tr>
+            <tr>
+              <th rowspan="2">詳細条件</th>
+              <td colspan="2">席数： {{ vm.condition.seats }}</td>
+              <td colspan="2">パソコン： {{ vm.condition.computer }}</td>
+            </tr>
+            <tr>
+              <td>プロジェクター：{{ vm.condition.projector ? '必要' : '不要' }}</td>
+              <td>エアコン：{{ vm.condition.air_conditional ? '必要' : '不要' }}</td>
+              <td>ホワイトボードー：{{ vm.condition.white_board ? '必要' : '不要' }}</td>
+              <td>音響：{{ vm.condition.sound ? '必要' : '不要' }}</td>
+            </tr>
+          </table>
         </div>
         <p>全 {{ vm.rooms.length }} 室</p>
         <div class="table-responsive">
