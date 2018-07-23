@@ -5,9 +5,9 @@
     .module('rooms')
     .controller('RoomsListController', RoomsListController);
 
-  RoomsListController.$inject = ['$scope', '$state', 'RoomsService', 'BookingsApi'];
+  RoomsListController.$inject = ['$scope', '$state', 'RoomsService', 'BookingsApi', 'calendarConfig'];
 
-  function RoomsListController($scope, $state, RoomsService, BookingsApi) {
+  function RoomsListController($scope, $state, RoomsService, BookingsApi, calendarConfig) {
     var vm = this;
 
     onCreate();
@@ -81,10 +81,6 @@
       vm.calendar.end = '24:00';
       vm.calendar.openCell = false;
       vm.calendar.viewDate = moment().startOf('month').toDate();
-      vm.handleViewChangeClick = function () {
-        console.log('on-view-change-click');
-        return false;
-      };
       vm.handleCalendarRangeSelected = function (start, end) {
         console.log('on-date-range-select');
         return false;
