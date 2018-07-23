@@ -47,7 +47,8 @@
       }
       BookingsApi.rooms(vm.condition)
         .success(function (rooms) {
-          console.log(rooms);
+          vm.rooms = rooms;
+          vm.step = 2;
           vm.busy = false;
         })
         .error(function (err) {
@@ -62,6 +63,7 @@
       vm.step = 4;
     };
     vm.handleBackToCondition = function () {
+      vm.rooms = rooms;
       vm.step = 1;
     };
     vm.handleBackToRooms = function () {
