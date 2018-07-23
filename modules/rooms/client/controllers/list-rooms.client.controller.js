@@ -12,10 +12,10 @@
 
     onCreate();
     function onCreate() {
-      preapreRooms().then(function () {
-        return preapreBookings();
-      })
-      prepareData();
+      preapreRooms()
+        .then(function () {
+          return preapreBookings();
+        });
       prepareCalendar();
     }
 
@@ -36,6 +36,7 @@
     }
     function preapreBookings() {
       return new Promise(function (resolve, reject) {
+
       });
     }
     function prepareCalendar() {
