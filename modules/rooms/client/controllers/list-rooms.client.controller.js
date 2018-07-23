@@ -17,7 +17,9 @@
     }
     function prepareCalendar() {
       vm.calendar = { view: 'day' };
-      vm.calendar.viewDate = moment().startOf('day').toDate();
+      vm.calendar.start = '08:00';
+      vm.calendar.end = '24:00';
+      vm.calendar.viewDate = moment().startOf('month').toDate();
       vm.handleCalendarEventClicked = function () {
         return false;
       };

@@ -25,8 +25,9 @@
         </div>
       </div>
       <h3 class="text-center">{{ vm.calendar.title }}</h3>
-      <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
-        on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+      <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" day-view-start="vm.calendar.start" day-view-end="vm.calendar.end"
+        on-view-change-click="vm.handleCalendarEventClicked(calendarDate)" on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)"
+        on-timespan-click="vm.handleCalendarClicked(calendarDate)">
       </mwl-calendar>
 
       <!-- <mwl-calendar
