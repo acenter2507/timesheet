@@ -15,6 +15,9 @@
     function onCreate() {
       prepareCalendar();
     }
+    function prepareBookings() {
+      
+    }
     function prepareCalendar() {
       vm.calendar = { view: 'day' };
       vm.calendar.start = '08:00';
