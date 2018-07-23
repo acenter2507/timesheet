@@ -62,7 +62,7 @@
       vm.step = 4;
     };
     vm.handleBackToCondition = function () {
-      vm.rooms = rooms;
+      vm.rooms = [];
       vm.step = 1;
     };
     vm.handleBackToRooms = function () {
