@@ -2,7 +2,13 @@
   <div class="rooms-bookings">
     <div class="rooms">
       <div class="panel panel-default">
-        <div class="panel-heading">Panel with panel-default class</div>
+        <div class="panel-heading">
+          会議室一覧
+          <a ng-click="vm.handleToggleLeftside()" class="text-muted pull-right">
+            <i class="fa fa-menu"></i>
+          </a>
+          <div class="clearfix"></div>
+        </div>
         <div class="panel-body">
           <div class="list-group">
             <a ng-repeat="room in vm.rooms" ng-click="vm.handleSelectedRoom(room)" class="list-group-item">{{ room.name }}</a>
