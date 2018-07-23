@@ -84,7 +84,7 @@
         vm.busy = true;
         _.extend(vm.booking, vm.condition);
         vm.booking.room = vm.room._id;
-        vm.booking.users = _.pluck(vm.condition.users, '_id');
+        vm.booking.members = _.pluck(vm.condition.users, '_id');
 
         vm.booking.$save(successCallback, errorCallback);
         function successCallback(booking) {
