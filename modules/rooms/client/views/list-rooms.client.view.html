@@ -3,11 +3,30 @@
     <div class="rooms">
       <div class="panel panel-default">
         <div class="panel-heading">Panel with panel-default class</div>
-        <div class="panel-body">Panel Content</div>
+        <div class="panel-body">
+          <div class="list-group">
+            <a ng-repeat="room in vm.rooms" ng-click="vm.handleSelectedRoom(room)" class="list-group-item">{{ room.name }}</a>
+          </div>
+        </div>
       </div>
     </div>
     <div class="bookings">
-      
+
+      <!-- <mwl-calendar
+        events="vm.events"
+        view="vm.calendarView"
+        view-title="vm.calendarTitle"
+        view-date="vm.viewDate"
+        on-event-click="vm.eventClicked(calendarEvent)"
+        on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+        cell-is-open="vm.cellIsOpen"
+        day-view-start="06:00"
+        day-view-end="22:59"
+        day-view-split="30"
+        cell-modifier="vm.modifyCell(calendarCell)"
+        cell-auto-open-disabled="true"
+        on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)">
+      </mwl-calendar> -->
     </div>
   </div>
 </div>
