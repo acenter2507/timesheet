@@ -28,7 +28,7 @@
       opacity: .4 !important; }
 
 tags-input[disabled] .tags .input {
-  display: none; }
+  display: none !important; }
 
 .my-autocomplete .left-panel {
   float: left; }
