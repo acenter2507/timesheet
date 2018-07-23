@@ -60,16 +60,16 @@ exports.rooms = function (req, res) {
   and_arr.push({ seats: { $gte: condition.seats } });
   and_arr.push({ computer: { $gte: condition.computer } });
   if (condition.projector) {
-    and_arr.push({ projector: projector });
+    and_arr.push({ projector: condition.projector });
   }
   if (condition.air_conditional) {
-    and_arr.push({ air_conditional: air_conditional });
+    and_arr.push({ air_conditional: condition.air_conditional });
   }
   if (condition.white_board) {
-    and_arr.push({ white_board: white_board });
+    and_arr.push({ white_board: condition.white_board });
   }
   if (condition.sound) {
-    and_arr.push({ sound: sound });
+    and_arr.push({ sound: condition.sound });
   }
   query = { $and: and_arr };
   Room.find(query).exec((err, rooms) => {
