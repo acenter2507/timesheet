@@ -53,8 +53,6 @@
       vm.step = 2;
     };
     function validateCondition() {
-      console.log(typeof vm.condition.start_date);
-      console.log(typeof vm.condition.end_date);
       if (typeof vm.condition.start_date === 'object') {
         var start_date = moment(vm.condition.start_date).format('YYYY/MM/DD');
       } else {
@@ -68,9 +66,11 @@
 
       var start = moment(start_date + ' ' + vm.condition.start_time, 'YYYY/MM/DD HH:mm');
       var end = moment(end_date + ' ' + vm.condition.end_time, 'YYYY/MM/DD HH:mm');
-      console.log(start.format());
-      console.log(end.format());
-      console.log(start.isBefore(end));
+      if(!start.isBefore(end)) {
+        vm.error.start = true;
+        vm.error.start_error = '開始と終了の時間を確認してください！';
+        return false;
+      }
 
     }
     function validateRoom() {
