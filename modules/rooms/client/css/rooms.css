@@ -138,9 +138,7 @@
   min-height: 100%;
   display: flex; }
   .rooms-bookings .rooms{
-    background-color: #dcdcdc;
     min-width: 250px; }
   .rooms-bookings .bookings{
-    background-color: #999;
     flex-shrink: 2;
     flex-grow: 1;}
