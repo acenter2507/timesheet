@@ -106,16 +106,19 @@ exports.rooms = function (req, res) {
       .exec((err, bookings) => {
         if (bookings.length === 0)
           return res.jsonp(rooms);
-          
+
         var invalid_rooms = _.pluck(bookings, 'room');
+        for (let index = 0; index < invalid_rooms.length; index++) {
+          const element = invalid_rooms[index];
+          console.log(typeof element);
+        }
         var rs_rooms = [];
         for (let index = 0; index < rooms.length; index++) {
           const room = rooms[index];
-          console.log(room._id.toString());
-          console.log(invalid_rooms);
-          if (invalid_rooms.indexOf(room._id.toString()) < 0) {
-            rs_rooms.push(room);
-          }
+          console.log(typeof room._id);
+          // if (invalid_rooms.indexOf(room._id.toString()) < 0) {
+          //   rs_rooms.push(room);
+          // }
         }
         // var rs_rooms = _.filter(rooms, function (room) { return !_.contains(valid_rooms, room._id.toString()); });
         return res.jsonp(rs_rooms);
