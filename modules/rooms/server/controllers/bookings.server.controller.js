@@ -13,6 +13,7 @@ var path = require('path'),
 exports.create = function (req, res) {
   var booking = new Booking(req.body);
   booking.user = req.user;
+  booking.status = 1;
 
   booking.save(function (err) {
     if (err)
