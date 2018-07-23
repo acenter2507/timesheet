@@ -65,6 +65,7 @@
       vm.events = [];
       if (vm.room.bookings.length === 0) return;
       vm.room.bookings.forEach(function (booking) {
+        console.log(booking);
         // var color;
         // var actions = [];
         // switch (rest.status) {
