@@ -343,18 +343,23 @@
         <div class="panel panel-default">
           <div class="panel-heading">用件の情報入力</div>
           <div class="panel-body">
-            <div class="form-group">
-              <label for="title">用件タイトル</label>
-              <input class="form-control" ng-model="vm.condition.title" type="text" placeholder="用件タイトル">
-            </div>
-            <div class="form-group">
-              <label for="member">参加者</label>
-              <tags-input class="my-tags" ng-model="vm.condition.users" key-property="_id" template="users_tags.html" display-property="displayName"
-                placeholder="社員検索" replace-spaces-with-dashes="false">
-                <auto-complete source="vm.handleSearchUsers($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
-                  template="autocomplete.html"></auto-complete>
-              </tags-input>
-            </div>
+            <form name="vm.form.bookingForm" novalidate>
+              <div class="form-group" show-errors>
+                <label for="title">用件タイトル</label>
+                <input name="title" class="form-control" ng-model="vm.condition.title" type="text" placeholder="用件タイトル">
+                <div ng-messages="vm.form.bookingForm.title.$error" role="alert">
+                  <p class="help-block error-text font-sm" ng-message="required">用件タイトルは必須です。</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="member">参加者</label>
+                <tags-input class="my-tags" ng-model="vm.condition.users" key-property="_id" template="users_tags.html" display-property="displayName"
+                  placeholder="社員検索" replace-spaces-with-dashes="false">
+                  <auto-complete source="vm.handleSearchUsers($query)" min-length="1" load-on-focus="true" load-on-empty="true" max-results-to-show="32"
+                    template="autocomplete.html"></auto-complete>
+                </tags-input>
+              </div>
+            </form>
           </div>
           <div class="panel-footer">
             <div class="form-group mgn text-right">

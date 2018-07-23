@@ -7,14 +7,14 @@
     .controller('BookingsController', BookingsController);
 
   BookingsController.$inject = [
-    '$scope', 
-  '$state', 
-  'bookingResolve', 
-  'BookingsApi', 
-  '$window', 
-  'AdminUserApi',
-  'CommonService',
-  '$q'];
+    '$scope',
+    '$state',
+    'bookingResolve',
+    'BookingsApi',
+    '$window',
+    'AdminUserApi',
+    'CommonService',
+    '$q'];
 
   function BookingsController($scope, $state, booking, BookingsApi, $window, AdminUserApi, CommonService, $q) {
     var vm = this;
@@ -22,6 +22,7 @@
     vm.step = 1;
     vm.current = moment();
     vm.error = {};
+    vm.form = {};
 
     vm.busy = false;
 
@@ -71,8 +72,17 @@
       vm.room = room;
       vm.step = 3;
     };
-    vm.handleSaveBooking = function () {
-      vm.step = 4;
+    vm.handleSaveBooking = function (isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.bookingForm');
+        return false;
+      }
+
+      $scope.handleShowConfirm({
+        message: '予約しますか？'
+      }, function () {
+        console.log(vm.condition);
+      });
     };
     vm.handleBackToCondition = function () {
       vm.rooms = [];
