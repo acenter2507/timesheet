@@ -23,7 +23,7 @@
         data: { roles: ['user'] },
         ncyBreadcrumb: { label: '会議室状況' }
       })
-      .state('rooms.booking', {
+      .state('rooms.view', {
         url: '/:roomId',
         templateUrl: 'modules/rooms/client/views/view-room.client.view.html',
         controller: 'RoomsController',
