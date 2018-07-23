@@ -12,7 +12,7 @@ var BookingSchema = new Schema({
   end: { type: Date },
   room: { type: Schema.ObjectId, ref: 'Room' },
   status: { type: Number, default: 1 },
-  subject: { type: String },
+  title: { type: String },
   members: [{ type: Schema.ObjectId, ref: 'User' }],
   historys: [{
     action: { type: Number },
