@@ -120,6 +120,7 @@ exports.rooms = function (req, res) {
 };
 exports.waiting = function (req, res) {
   Booking.find({ status: 1 })
+    .populate('user', 'displayName')
     .exec((err, bookings) => {
       if (err)
         return res.status(400).send({ message: '予約の情報が見つかりません！' });
