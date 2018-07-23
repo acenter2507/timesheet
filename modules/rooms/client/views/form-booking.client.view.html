@@ -51,7 +51,7 @@
                     </select>
                   </div>
                 </div>
-                <div ng-messages="vm.error.start" role="alert">
+                <div ng-show="vm.error.start" role="alert">
                   <p class="help-block error-text font-sm mgn">{{ vm.error.start_error }}</p>
                 </div>
               </div>
@@ -79,7 +79,7 @@
                     </select>
                   </div>
                 </div>
-                <div ng-messages="vm.error.end" role="alert">
+                <div ng-show="vm.error.end" role="alert">
                   <p class="help-block error-text font-sm mgn">{{ vm.error.end_error }}</p>
                 </div>
               </div>
@@ -110,7 +110,7 @@
                   </select>
                 </div>
               </div>
-              <div ng-messages="" role="alert">
+              <div ng-show="vm.error.start" role="alert">
                 <p class="help-block error-text font-sm mgn">{{ vm.error.start_error }}</p>
               </div>
             </div>
@@ -138,7 +138,7 @@
                   </select>
                 </div>
               </div>
-              <div ng-messages="vm.error.end" role="alert">
+              <div ng-show="vm.error.end" role="alert">
                 <p class="help-block error-text font-sm mgn">{{ vm.error.end_error }}</p>
               </div>
             </div>
