@@ -81,28 +81,22 @@
       vm.calendar.end = '24:00';
       vm.calendar.openCell = false;
       vm.calendar.viewDate = moment().startOf('month').toDate();
-      vm.handleCalendarRangeSelected = function (start, end) {
-        console.log('on-date-range-select');
-        return false;
-      };
       vm.handleTimespanClicked = function (date, cell) {
-        console.log('on-timespan-click', date);
-        return false;
-        // if (vm.calendar.view === 'month') {
-        //   if ((vm.calendar.openCell && moment(date).startOf('day').isSame(moment(vm.calendar.viewDate).startOf('day'))) || cell.events.length === 0 || !cell.inMonth) {
-        //     vm.calendar.openCell = false;
-        //   } else {
-        //     vm.calendar.openCell = true;
-        //     vm.calendar.viewDate = date;
-        //   }
-        // } else if (vm.calendarView === 'year') {
-        //   if ((vm.calendar.openCell && moment(date).startOf('month').isSame(moment(vm.calendar.viewDate).startOf('month'))) || cell.events.length === 0) {
-        //     vm.calendar.openCell = false;
-        //   } else {
-        //     vm.calendar.openCell = true;
-        //     vm.calendar.viewDate = date;
-        //   }
-        // }
+        if (vm.calendar.view === 'month') {
+          if ((vm.calendar.openCell && moment(date).startOf('day').isSame(moment(vm.calendar.viewDate).startOf('day'))) || cell.events.length === 0 || !cell.inMonth) {
+            vm.calendar.openCell = false;
+          } else {
+            vm.calendar.openCell = true;
+            vm.calendar.viewDate = date;
+          }
+        } else if (vm.calendarView === 'year') {
+          if ((vm.calendar.openCell && moment(date).startOf('month').isSame(moment(vm.calendar.viewDate).startOf('month'))) || cell.events.length === 0) {
+            vm.calendar.openCell = false;
+          } else {
+            vm.calendar.openCell = true;
+            vm.calendar.viewDate = date;
+          }
+        }
       };
       vm.handleEventClicked = function (calendarEvent) {
         console.log('on-event-click', calendarEvent);
