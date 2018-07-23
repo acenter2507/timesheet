@@ -21,7 +21,7 @@
         controller: 'RoomsListController',
         controllerAs: 'vm',
         data: { roles: ['user'] },
-        ncyBreadcrumb: { label: '会議室予約' }
+        ncyBreadcrumb: { label: '会議室状況' }
       })
       .state('rooms.booking', {
         url: '/:roomId',
