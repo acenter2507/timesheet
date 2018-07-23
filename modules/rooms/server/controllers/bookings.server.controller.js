@@ -108,11 +108,11 @@ exports.rooms = function (req, res) {
         if (bookings.length === 0)
           return res.jsonp(rooms);
         var valid_rooms = _.pluck(bookings, 'room');
-        var rs_room = [];
+        var rs_rooms = [];
         for (let index = 0; index < rooms.length; index++) {
           const room = rooms[index];
           if (!_.contains(valid_rooms, room._id.toString())) {
-            rs_room.push(room);
+            rs_rooms.push(room);
           }
         }
         // var rs_rooms = _.filter(rooms, function (room) { return !_.contains(valid_rooms, room._id.toString()); });
