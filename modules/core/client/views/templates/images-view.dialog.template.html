@@ -1,3 +1,8 @@
-<div class="image-view">
+<!-- <div class="image-view">
   <img src="{{:: images[0] }}">
-</div>
+</div> -->
+<carousel interval="100000">
+  <slide ng-repeat="image in images">
+    <img src="{{ image }}" style="margin:auto; max-height: 400px; width: auto;">
+  </slide>
+</carousel>
