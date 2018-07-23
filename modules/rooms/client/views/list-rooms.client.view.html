@@ -30,7 +30,7 @@
       </div>
       <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" day-view-start="{{ vm.calendar.start }}"
         day-view-end="{{ vm.calendar.end }}" cell-is-open="vm.calendar.openCell" view-title="vm.calendar.title" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
-        on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+        on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate, calendarCel)">
       </mwl-calendar>
     </div>
     <div class="clearfix"></div>

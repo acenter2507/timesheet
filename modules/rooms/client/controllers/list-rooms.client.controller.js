@@ -65,38 +65,10 @@
       vm.events = [];
       if (vm.room.bookings.length === 0) return;
       vm.room.bookings.forEach(function (booking) {
-        console.log(booking);
-        // var color;
-        // var actions = [];
-        // switch (rest.status) {
-        //   case 1: { // Not send
-        //     color = undefined;
-        //     color = { primary: '#777', secondary: '#e3e3e3' };
-        //     break;
-        //   }
-        //   case 2: { // Waiting
-        //     color = { primary: '#f0ad4e', secondary: '#fae6c9' };
-        //     // actions.push(vm.action.approve);
-        //     // actions.push(vm.action.reject);
-        //     break;
-        //   }
-        //   case 3: { // Approved
-        //     color = { primary: '#5cb85c', secondary: '#bde2bd' };
-        //     break;
-        //   }
-        //   case 4: { // Rejected
-        //     color = { primary: '#d9534f', secondary: '#fae3e3' };
-        //     break;
-        //   }
-        //   case 5: { // Done
-        //     color = { primary: '#337ab7', secondary: '#D1E8FF' };
-        //     break;
-        //   }
-        // }
         vm.events.push({
           id: booking._id.toString(),
           title: booking.title + '・' + booking.user.displayName,
-          // color: color,
+          color: { primary: '#5cb85c', secondary: '#bde2bd' },
           startsAt: moment(booking.start).toDate(),
           endsAt: moment(booking.end).toDate(),
           actions: []
@@ -115,8 +87,22 @@
       vm.handleCalendarRangeSelected = function (start, end) {
         return false;
       };
-      vm.handleCalendarClicked = function (date) {
-        return false;
+      vm.handleCalendarClicked = function (date, cell) {
+        if (vm.calendar.view === 'month') {
+          if ((vm.calendar.openCell && moment(date).startOf('day').isSame(moment(vm.calendar.viewDate).startOf('day'))) || cell.events.length === 0 || !cell.inMonth) {
+            vm.calendar.openCell = false;
+          } else {
+            vm.calendar.openCell = true;
+            vm.calendar.viewDate = date;
+          }
+        } else if (vm.calendarView === 'year') {
+          if ((vm.calendar.openCell && moment(date).startOf('month').isSame(moment(vm.calendar.viewDate).startOf('month'))) || cell.events.length === 0) {
+            vm.calendar.openCell = false;
+          } else {
+            vm.calendar.openCell = true;
+            vm.calendar.viewDate = date;
+          }
+        }
       };
     }
 
