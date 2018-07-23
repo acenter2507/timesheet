@@ -82,11 +82,11 @@
       vm.calendar.openCell = false;
       vm.calendar.viewDate = moment().startOf('month').toDate();
       vm.handleViewChangeClick = function () {
-        console.log('on-view-change-click', date);
+        console.log('on-view-change-click');
         return false;
       };
       vm.handleCalendarRangeSelected = function (start, end) {
-        console.log('on-date-range-select', date);
+        console.log('on-date-range-select');
         return false;
       };
       vm.handleTimespanClicked = function (date, cell) {
