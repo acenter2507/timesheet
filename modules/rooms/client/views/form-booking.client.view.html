@@ -255,7 +255,7 @@
           <table class="table table-bordered">
             <tr>
               <th>日時</th>
-              <td colspan="4">{{ moment(vm.condition.start).format() | LLL }} ～ {{ moment(vm.condition.end).format() | LLL }}</td>
+              <td colspan="4">{{ vm.condition.start | LLL }} ～ {{ vm.condition.end | LLL }}</td>
             </tr>
             <tr>
               <th rowspan="2">詳細条件</th>
@@ -319,7 +319,7 @@
           <table class="table table-bordered">
             <tr>
               <th>日時</th>
-              <td colspan="4">{{ moment(vm.condition.start).format() | LLL }} ～ {{ moment(vm.condition.end).format() | LLL }}</td>
+              <td colspan="4">{{ vm.condition.start | LLL }} ～ {{ vm.condition.end | LLL }}</td>
             </tr>
             <tr>
               <th rowspan="2">詳細条件</th>
