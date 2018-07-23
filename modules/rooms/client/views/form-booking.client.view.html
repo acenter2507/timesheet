@@ -19,6 +19,7 @@
           <a href="#">確認</a>
         </li>
       </ul>
+
       <div class="booking-condition" ng-show="vm.step === 1">
         <div class="panel panel-default">
           <div class="panel-heading">予約の条件を選択</div>
@@ -78,7 +79,7 @@
               </div>
               <div class="clearfix"></div>
             </div>
-            <div class="form-control d-md-none">
+            <div class="form-group d-md-none">
               <label for="start">開始</label>
               <div class="booking-time" ng-init="startDatePickerOpen = false;">
                 <div class="booking-time-date">
@@ -104,7 +105,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-control d-md-none">
+            <div class="form-group d-md-none">
               <label for="end">終了</label>
               <div class="booking-time" ng-init="endDatePickerOpen = false;">
                 <div class="booking-time-date">
@@ -251,12 +252,14 @@
           </div>
         </div>
       </div>
+
       <div class="booking-rooms" ng-show="vm.step === 2">
         <div class="well h200">
           <button class="btn btn-primary" ng-click="vm.handleNextToConfirm()">次へ</button>
           <button class="btn btn-default" ng-click="vm.handleBackToCondition()">戻る</button>
         </div>
       </div>
+
       <div class="booking-confirm" ng-show="vm.step === 3">
         <div class="well h200">
           <button class="btn btn-primary" ng-click="vm.handleSaveBooking()">予約する</button>
