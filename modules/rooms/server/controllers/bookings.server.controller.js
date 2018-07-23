@@ -108,20 +108,14 @@ exports.rooms = function (req, res) {
           return res.jsonp(rooms);
 
         var invalid_rooms = _.pluck(bookings, 'room');
-        _.map(invalid_rooms, function(room){ return room.toString(); });
-        for (let index = 0; index < invalid_rooms.length; index++) {
-          const element = invalid_rooms[index];
-          console.log(typeof element);
-        }
         var rs_rooms = [];
         for (let index = 0; index < rooms.length; index++) {
           const room = rooms[index];
-          console.log(typeof room._id);
-          // if (invalid_rooms.indexOf(room._id.toString()) < 0) {
-          //   rs_rooms.push(room);
-          // }
+
+          if (!contains(invalid_rooms, room._id)) {
+            rs_rooms.push(room);
+          }
         }
-        // var rs_rooms = _.filter(rooms, function (room) { return !_.contains(valid_rooms, room._id.toString()); });
         return res.jsonp(rs_rooms);
       });
   });
@@ -141,3 +135,13 @@ exports.bookingByID = function (req, res, next, id) {
       return next();
     });
 };
+
+function contains(arr, ele) {
+  for (let index = 0; index < arr.length; index++) {
+    const element = arr[index].toString();
+    if (element === ele.toString()) {
+      return true;
+    }
+  }
+  return false;
+}
