@@ -5,9 +5,9 @@
     .module('rooms')
     .controller('RoomsListController', RoomsListController);
 
-  RoomsListController.$inject = ['RoomsService'];
+  RoomsListController.$inject = ['$scope', '$state', 'RoomsService'];
 
-  function RoomsListController(RoomsService) {
+  function RoomsListController($scope, $state, RoomsService) {
     var vm = this;
 
     onCreate();
