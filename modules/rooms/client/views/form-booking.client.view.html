@@ -250,52 +250,44 @@
       </div>
 
       <div class="booking-rooms" ng-show="vm.step === 2">
-        <div class="panel panel-default">
-          <div class="panel-heading">会議室を選択</div>
-          <div class="panel-body">
-            <pre>{{ vm.rooms }}</pre>
-            <p>全 {{ vm.rooms.length }} 室</p>
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center w30">#</th>
-                    <th>名前</th>
-                    <th>詳細情報</th>
-                    <th class="text-center w50">席</th>
-                    <th class="text-center">プロジェクター</th>
-                    <th class="text-center">エアコン</th>
-                    <th class="text-center">ホワイトボードー</th>
-                    <th class="text-center">パソコン</th>
-                    <th class="text-center w50">音響</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-show="vm.rooms.length === 0">
-                    <td colspan="10">データが見つかりません。</td>
-                  </tr>
-                  <tr ng-repeat="room in vm.rooms track by $index" class="clickable" ng-click="vm.hanleSelectRoom(room)">
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ room.name }}</td>
-                    <td>{{ room.description }}</td>
-                    <td class="text-center w50">{{ room.seats }}</td>
-                    <td class="text-center">{{ room.projector ? '有' : '無' }}</td>
-                    <td class="text-center">{{ room.air_conditional ? '有' : '無' }}</td>
-                    <td class="text-center">{{ room.white_board ? '有' : '無' }}</td>
-                    <td class="text-center">{{ room.computer }}</td>
-                    <td class="text-center">{{ room.sound ? '有' : '無' }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="panel-footer">
-            <div class="form-group mgn text-right">
-              <button class="btn btn-success" ui-sref="rooms.list">全室状況</button>
-              <button class="btn btn-default" ng-click="vm.handleBackToCondition()">戻る</button>
-              <button class="btn btn-primary" ng-click="vm.handleNextToConfirm()">予約</button>
-            </div>
-          </div>
+        <p>全 {{ vm.rooms.length }} 室</p>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="text-center w30">#</th>
+                <th>名前</th>
+                <th class="text-center w50">席</th>
+                <th class="text-center">プロジェクター</th>
+                <th class="text-center">エアコン</th>
+                <th class="text-center">ホワイトボードー</th>
+                <th class="text-center">パソコン</th>
+                <th class="text-center w50">音響</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="room in vm.rooms track by $index" class="clickable" ng-click="vm.hanleSelectRoom(room)">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ room.name }}</td>
+                <td class="text-center w50">{{ room.seats }}</td>
+                <td class="text-center">{{ room.projector ? '有' : '無' }}</td>
+                <td class="text-center">{{ room.air_conditional ? '有' : '無' }}</td>
+                <td class="text-center">{{ room.white_board ? '有' : '無' }}</td>
+                <td class="text-center">{{ room.computer }}</td>
+                <td class="text-center">{{ room.sound ? '有' : '無' }}</td>
+                <td>
+                  <button class="btn btn-sm btn-default inside-clickable" ng-click="handleShowImages(room.images)">写真</button>
+                  <button class="btn btn-sm btn-primary inside-clickable">予約</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-group mgn text-right">
+          <button class="btn btn-success" ui-sref="rooms.list">全室状況</button>
+          <button class="btn btn-default" ng-click="vm.handleBackToCondition()">戻る</button>
         </div>
       </div>
 

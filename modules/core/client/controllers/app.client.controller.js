@@ -141,6 +141,20 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
       delete $scope.url;
     });
   };
+  // Hiển thị nhiều hình ảnh
+  $scope.handleShowImages = function (images) {
+    $scope.images = images;
+    var mDialog = ngDialog.open({
+      template: 'modules/core/client/views/templates/images-view.dialog.template.html',
+      scope: $scope,
+      controller: 'ImagesViewController',
+      showClose: false
+    });
+    mDialog.closePromise.then(function (res) {
+      delete $scope.images;
+    });
+  };
+
   // View user
   $scope.handleViewDetailUser = function (user) {
     if ($scope.isAdmin || $scope.isAccountant) {

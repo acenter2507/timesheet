@@ -6,9 +6,9 @@
     .module('bookings')
     .controller('BookingsController', BookingsController);
 
-  BookingsController.$inject = ['$scope', '$state', 'bookingResolve', 'BookingsApi'];
+  BookingsController.$inject = ['$scope', '$state', 'bookingResolve', 'BookingsApi', '$window'];
 
-  function BookingsController($scope, $state, booking, BookingsApi) {
+  function BookingsController($scope, $state, booking, BookingsApi, $window) {
     var vm = this;
     vm.booking = booking;
     vm.step = 1;
@@ -71,6 +71,10 @@
     };
     vm.handleBackToRooms = function () {
       vm.step = 2;
+    };
+    vm.hanleSelectRoom = function (room) {
+      var url = $state.href('rooms.view', { roomId: room._id });
+      $window.open(url, '_blank');
     };
     function validateCondition() {
       var start_date, end_date = '';
