@@ -53,6 +53,8 @@
       vm.step = 2;
     };
     function validateCondition() {
+      console.log(typeof vm.condition.start_date);
+      console.log(typeof vm.condition.end_date);
       var start_date = moment(vm.condition.start_date).format('YYYY/MM/DD');
       var end_date = moment(vm.condition.end_date).format('YYYY/MM/DD');
       var start = moment(start_date + ' ' + vm.condition.start_time, 'YYYY/MM/DD HH:mm');
