@@ -148,6 +148,7 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
       template: 'modules/core/client/views/templates/images-view.dialog.template.html',
       scope: $scope,
       controller: 'ImagesViewController',
+      appendClassName: 'ngdialog-custom',
       showClose: false,
       width: 800
     });
