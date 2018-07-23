@@ -108,6 +108,7 @@ exports.rooms = function (req, res) {
           return res.jsonp(rooms);
 
         var invalid_rooms = _.pluck(bookings, 'room');
+        _.map(invalid_rooms, function(room){ return room.toString(); });
         for (let index = 0; index < invalid_rooms.length; index++) {
           const element = invalid_rooms[index];
           console.log(typeof element);
