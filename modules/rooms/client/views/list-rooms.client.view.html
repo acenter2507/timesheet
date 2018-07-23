@@ -8,6 +8,7 @@
     </div>
     <div class="col-xs-12 col-sm-8 col-md-9">
       <div class="row">
+        <h3 class="text-center">{{ vm.calendar.title }}</h3>
         <div class="col-xs-12 col-sm-6">
           <div class="form-group text-center">
             <div class="btn-group">
@@ -27,7 +28,6 @@
           </div>
         </div>
       </div>
-      <h3 class="text-center">{{ vm.calendar.title }}</h3>
       <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" day-view-start="{{ vm.calendar.start }}"
         day-view-end="{{ vm.calendar.end }}" cell-is-open="vm.calendar.openCell" view-title="vm.calendar.title" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
         on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
