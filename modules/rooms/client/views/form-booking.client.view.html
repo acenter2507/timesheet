@@ -363,7 +363,7 @@
           </div>
           <div class="panel-footer">
             <div class="form-group mgn text-right">
-              <button class="btn btn-primary" ng-click="vm.handleSaveBooking()">予約する</button>
+              <button class="btn btn-primary" ng-click="vm.handleSaveBooking(vm.form.bookingForm.$valid)">予約する</button>
               <button class="btn btn-default" ng-click="vm.handleBackToRooms()">戻る</button>
             </div>
           </div>
