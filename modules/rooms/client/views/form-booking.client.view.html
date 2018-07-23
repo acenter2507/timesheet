@@ -369,6 +369,7 @@
           </div>
         </div>
       </div>
+
       <div class="booking-result" ng-show="vm.step === 4">
         <h4>予約が完了しました！</h4>
         <div class="table-responsive">
@@ -401,7 +402,7 @@
             <tr>
               <th>参加者</th>
               <td colspan="4">
-                <tags-input class="my-tags" ng-model="vm.condition.users" template="disable_user_tags.html" add-from-autocomplete-only="true"></tags-input>
+                <!-- <tags-input class="my-tags" ng-model="vm.condition.users" template="disable_user_tags.html" add-from-autocomplete-only="true"></tags-input> -->
               </td>
             </tr>
           </table>
@@ -420,9 +421,9 @@
   <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
 </script>
 
-<script type="text/ng-template" id="disable_user_tags.html">
+<!-- <script type="text/ng-template" id="disable_user_tags.html">
   <a ui-sref="users.view({ userId: data._id })" target="_blank">{{ data.displayName }}</a>
-</script>
+</script> -->
 
 <script type="text/ng-template" id="autocomplete.html">
   <div class="my-autocomplete">
