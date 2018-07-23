@@ -12,6 +12,7 @@
 
     onCreate();
     function onCreate() {
+      prepareData();
       prepareCalendar();
     }
     function prepareData() {
