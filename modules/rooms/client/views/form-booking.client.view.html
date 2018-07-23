@@ -16,7 +16,7 @@
           <a href="#">室選択</a>
         </li>
         <li ng-class="{ 'completed': vm.step > 3, 'active': vm.step === 3 }">
-          <a href="#">確認</a>
+          <a href="#">予約</a>
         </li>
       </ul>
 
@@ -250,9 +250,18 @@
       </div>
 
       <div class="booking-rooms" ng-show="vm.step === 2">
-        <div class="well h200">
-          <button class="btn btn-primary" ng-click="vm.handleNextToConfirm()">次へ</button>
-          <button class="btn btn-default" ng-click="vm.handleBackToCondition()">戻る</button>
+        <div class="panel panel-default">
+          <div class="panel-heading">会議室を選択</div>
+          <div class="panel-body">
+            <pre>{{ vm.rooms }}</pre>
+          </div>
+          <div class="panel-footer">
+            <div class="form-group mgn text-right">
+              <button class="btn btn-success" ui-sref="rooms.list">全室状況</button>
+              <button class="btn btn-default" ng-click="vm.handleBackToCondition()">戻る</button>
+              <button class="btn btn-primary" ng-click="vm.handleNextToConfirm()">予約</button>
+            </div>
+          </div>
         </div>
       </div>
 

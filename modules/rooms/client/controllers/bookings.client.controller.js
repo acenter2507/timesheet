@@ -16,7 +16,6 @@
     vm.error = {};
 
     vm.busy = false;
-    console.log(vm.current.format());
 
     preapareCondition();
     function preapareCondition() {

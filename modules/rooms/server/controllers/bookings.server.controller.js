@@ -54,7 +54,6 @@ exports.list = function (req, res) {
 };
 exports.rooms = function (req, res) {
   var condition = req.body.condition;
-  console.log(condition);
 
   var query = {};
   var and_arr = [];
