@@ -1,22 +1,6 @@
-<section>
-  <div class="page-header">
-    <h1>Rooms</h1>
+<div class="container-fluid animated fadeIn">
+  <div class="rooms-bookings">
+    <div class="rooms"></div>
+    <div class="bookings"></div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="room in vm.rooms"
-       ui-sref="rooms.view({ roomId: room._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="room.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="room.user" ng-bind="room.user.displayName"></span>
-        <span ng-if="!room.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="room.name"></h4>
-    </a>
-  </div>
-  <div class="alert alert-warning text-center" ng-if="vm.rooms.$resolved && !vm.rooms.length">
-    No Rooms yet, why don't you <a ui-sref="rooms.create">create one</a>?
-  </div>
-</section>
+</div>
