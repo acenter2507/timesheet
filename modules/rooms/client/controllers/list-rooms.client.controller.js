@@ -119,5 +119,10 @@
       };
     }
 
+    vm.handleSelectedRoom = function (room) {
+      vm.room = room;
+      prepareEvent();
+    };
+
   }
 }());
