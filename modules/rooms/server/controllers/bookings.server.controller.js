@@ -74,6 +74,8 @@ exports.rooms = function (req, res) {
   query = { $and: and_arr };
   Room.find(query).exec((err, rooms) => {
     var roomIds = _.pluck(rooms, '_id');
+    console.log(condition.start);
+    console.log(condition.end);
     Booking.find({
       room: { $in: roomIds },
       start: { $gt: condition.start },
