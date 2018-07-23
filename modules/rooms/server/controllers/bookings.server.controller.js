@@ -79,7 +79,7 @@ exports.rooms = function (req, res) {
     console.log(condition.end);
     Booking.find({
       room: { $in: roomIds },
-      start: condition.start,
+      start: { $gt: condition.start },
       end: { $lt: condition.end },
       status: 1
     })
