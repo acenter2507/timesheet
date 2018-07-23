@@ -111,7 +111,7 @@ exports.rooms = function (req, res) {
         var rs_rooms = [];
         for (let index = 0; index < rooms.length; index++) {
           const room = rooms[index];
-          if (!_.contains(invalid_rooms, room._id.toString())) {
+          if (!_.contains(invalid_rooms, room._id)) {
             rs_rooms.push(room);
           }
         }
