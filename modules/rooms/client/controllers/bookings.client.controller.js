@@ -68,15 +68,16 @@
       vm.step = 2;
     };
     function validateCondition() {
+      var start_date, end_date = '';
       if (typeof vm.condition.start_date === 'object') {
-        var start_date = moment(vm.condition.start_date).format('YYYY/MM/DD');
+        start_date = moment(vm.condition.start_date).format('YYYY/MM/DD');
       } else {
-        var start_date = vm.condition.start_date;
+        start_date = vm.condition.start_date;
       }
       if (typeof vm.condition.end_date === 'object') {
-        var end_date = moment(vm.condition.end_date).format('YYYY/MM/DD');
+        end_date = moment(vm.condition.end_date).format('YYYY/MM/DD');
       } else {
-        var end_date = vm.condition.end_date;
+        end_date = vm.condition.end_date;
       }
 
       var start = moment(start_date + ' ' + vm.condition.start_time, 'YYYY/MM/DD HH:mm');
