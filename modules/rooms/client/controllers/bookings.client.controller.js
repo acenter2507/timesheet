@@ -6,9 +6,16 @@
     .module('bookings')
     .controller('BookingsController', BookingsController);
 
-  BookingsController.$inject = ['$scope', '$state', 'bookingResolve', 'BookingsApi', '$window'];
+  BookingsController.$inject = [
+    '$scope', 
+  '$state', 
+  'bookingResolve', 
+  'BookingsApi', 
+  '$window', 
+  'AdminUserApi',
+  '$q'];
 
-  function BookingsController($scope, $state, booking, BookingsApi, $window) {
+  function BookingsController($scope, $state, booking, BookingsApi, $window, AdminUserApi, $q) {
     var vm = this;
     vm.booking = booking;
     vm.step = 1;
@@ -77,6 +84,19 @@
     vm.hanleSelectRoom = function (room) {
       var url = $state.href('rooms.view', { roomId: room._id });
       $window.open(url, '_blank');
+    };
+    vm.handleSearchUsers = function ($query) {
+      if (CommonService.isStringEmpty($query)) {
+        return [];
+      }
+
+      var deferred = $q.defer();
+      AdminUserApi.searchUsers({ key: $query, department: false })
+        .success(function (users) {
+          deferred.resolve(users);
+        });
+
+      return deferred.promise;
     };
     function validateCondition() {
       var start_date, end_date = '';
