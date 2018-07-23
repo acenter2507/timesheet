@@ -13,9 +13,10 @@
   'BookingsApi', 
   '$window', 
   'AdminUserApi',
+  'CommonService',
   '$q'];
 
-  function BookingsController($scope, $state, booking, BookingsApi, $window, AdminUserApi, $q) {
+  function BookingsController($scope, $state, booking, BookingsApi, $window, AdminUserApi, CommonService, $q) {
     var vm = this;
     vm.booking = booking;
     vm.step = 1;
