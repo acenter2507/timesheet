@@ -81,13 +81,12 @@ exports.rooms = function (req, res) {
       end: { $lt: condition.end },
       status: 1
     })
-      .populate('room')
       .exec((err, bookings) => {
         if (bookings.length === 0)
           return res.jsonp(rooms);
         var valid_rooms = _.pluck(bookings, 'room');
-        var valid_roomIds = _.pluck(valid_rooms, '_id');
-        var rs_rooms = _.filter(rooms, function (room) { return !_.contains(valid_roomIds, room._id.toString()); });
+        // var valid_roomIds = _.pluck(valid_rooms, '_id');
+        var rs_rooms = _.filter(rooms, function (room) { return !_.contains(valid_rooms, room._id.toString()); });
         return res.jsonp(rs_rooms);
       });
   });
