@@ -32,7 +32,7 @@ module.exports = function (app) {
   app.route('/api/bookings').all(roomsPolicy.isAllowed)
     .get(bookings.list)
     .post(bookings.create);
-  app.route('/api/bookings/:roomId').all(roomsPolicy.isAllowed)
+  app.route('/api/bookings/:bookingId').all(roomsPolicy.isAllowed)
     .get(bookings.read)
     .put(bookings.update)
     .delete(bookings.delete);
