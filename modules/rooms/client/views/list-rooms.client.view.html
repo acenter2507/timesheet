@@ -1,7 +1,30 @@
 <div class="container-fluid animated fadeIn">
-  <div class="rooms-bookings">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-3">
+      <h4>会議室一覧</h4>
+      <div class="list-group">
+        <a ng-repeat="room in vm.rooms" ng-click="vm.handleSelectedRoom(room)" class="list-group-item">{{ room.name }}</a>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-8 col-md-9">
+      <div class="row text-center">
+        <div class="btn-group">
+          <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
+          <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
+          <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+        </div>
+      </div>
+      <h3 class="text-center">{{ vm.calendar.title }}</h3>
+      <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" day-view-start="{{ vm.calendar.start }}"
+        day-view-end="{{ vm.calendar.end }}" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)" on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)"
+        on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+      </mwl-calendar>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <!-- <div class="rooms-bookings">
     <div class="rooms">
-      <div class="panel panel-default h100p">
+      <div class="panel panel-default">
         <div class="panel-heading">
           会議室一覧
           <a ng-click="vm.handleToggleLeftside()" class="text-muted pull-right">
@@ -25,26 +48,10 @@
         </div>
       </div>
       <h3 class="text-center">{{ vm.calendar.title }}</h3>
-      <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" day-view-start="{{ vm.calendar.start }}" day-view-end="{{ vm.calendar.end }}"
-        on-view-change-click="vm.handleCalendarEventClicked(calendarDate)" on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)"
+      <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" day-view-start="{{ vm.calendar.start }}"
+        day-view-end="{{ vm.calendar.end }}" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)" on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)"
         on-timespan-click="vm.handleCalendarClicked(calendarDate)">
       </mwl-calendar>
-
-      <!-- <mwl-calendar
-        events="vm.events"
-        view="vm.calendarView"
-        view-title="vm.calendarTitle"
-        view-date="vm.viewDate"
-        on-event-click="vm.eventClicked(calendarEvent)"
-        on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
-        cell-is-open="vm.cellIsOpen"
-        day-view-start="06:00"
-        day-view-end="22:59"
-        day-view-split="30"
-        cell-modifier="vm.modifyCell(calendarCell)"
-        cell-auto-open-disabled="true"
-        on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)">
-      </mwl-calendar> -->
     </div>
-  </div>
+  </div> -->
 </div>
