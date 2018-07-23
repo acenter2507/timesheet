@@ -107,11 +107,10 @@ exports.rooms = function (req, res) {
         if (bookings.length === 0)
           return res.jsonp(rooms);
         var invalid_rooms = _.pluck(bookings, 'room');
-        console.log(invalid_rooms);
         var rs_rooms = [];
         for (let index = 0; index < rooms.length; index++) {
           const room = rooms[index];
-          if (!_.contains(invalid_rooms, room._id)) {
+          if (invalid_rooms.indexOf(room._id.toString) < 0) {
             rs_rooms.push(room);
           }
         }
