@@ -7,17 +7,31 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-8 col-md-9">
-      <div class="row text-center">
-        <div class="btn-group">
-          <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view">前へ</button>
-          <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button>
-          <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view">次へ</button>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group text-center">
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" decrement="vm.calendar.view" ng-click="vm.calendar.openCell = false">前へ</button>
+              <button class="btn btn-default btn-sm" mwl-date-modifier date="vm.calendar.viewDate" set-to-today>本日</button ng-click="vm.calendar.openCell = false">
+              <button class="btn btn-primary btn-sm" mwl-date-modifier date="vm.calendar.viewDate" increment="vm.calendar.view" ng-click="vm.calendar.openCell = false">次へ</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group text-center">
+            <div class="btn-group">
+              <label class="btn btn-primary" ng-model="vm.calendar.view" uib-btn-radio="'year'" ng-click="vm.calendar.openCell = false">Year</label>
+              <label class="btn btn-primary" ng-model="vm.calendar.view" uib-btn-radio="'month'" ng-click="vm.calendar.openCell = false">Month</label>
+              <label class="btn btn-primary" ng-model="vm.calendar.view" uib-btn-radio="'week'" ng-click="vm.calendar.openCell = false">Week</label>
+              <label class="btn btn-primary" ng-model="vm.calendar.view" uib-btn-radio="'day'" ng-click="vm.calendar.openCell = false">Day</label>
+            </div>
+          </div>
         </div>
       </div>
       <h3 class="text-center">{{ vm.calendar.title }}</h3>
       <mwl-calendar events="vm.events" view="vm.calendar.view" view-date="vm.calendar.viewDate" day-view-start="{{ vm.calendar.start }}"
-        day-view-end="{{ vm.calendar.end }}" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)" on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)"
-        on-timespan-click="vm.handleCalendarClicked(calendarDate)">
+        day-view-end="{{ vm.calendar.end }}" cell-is-open="vm.calendar.openCell" on-view-change-click="vm.handleCalendarEventClicked(calendarDate)"
+        on-date-range-select="vm.handleCalendarRangeSelected(calendarRangeStartDate, calendarRangeEndDate)" on-timespan-click="vm.handleCalendarClicked(calendarDate)">
       </mwl-calendar>
     </div>
     <div class="clearfix"></div>
