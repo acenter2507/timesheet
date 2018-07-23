@@ -12,17 +12,31 @@
 
     onCreate();
     function onCreate() {
+      preapreRooms().then(function () {
+        return preapreBookings();
+      })
       prepareData();
       prepareCalendar();
     }
-    function prepareData() {
-      RoomsService.query().$promise
-        .then(function (rooms) {
-          vm.rooms = rooms;
-          if (vm.rooms.length === 0) return;
-          vm.room = vm.rooms[0];
-        })
-        .catch();
+
+    function preapreRooms() {
+      return new Promise(function (resolve, reject) {
+        RoomsService.query().$promise
+          .then(function (rooms) {
+            vm.rooms = rooms;
+            if (vm.rooms.length !== 0) {
+              vm.room = vm.rooms[0];
+            }
+            return resolve();
+          })
+          .catch(function (err) {
+            return reject(err);
+          });
+      });
+    }
+    function preapreBookings() {
+      return new Promise(function (resolve, reject) {
+      });
     }
     function prepareCalendar() {
       vm.calendar = { view: 'day' };
