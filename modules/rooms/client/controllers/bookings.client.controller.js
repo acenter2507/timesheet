@@ -47,8 +47,12 @@
       BookingsApi.rooms(vm.condition)
         .success(function (rooms) {
           vm.rooms = rooms;
-          vm.step = 2;
           vm.busy = false;
+          if (vm.rooms.length === 0) {
+            $scope.handleShowToast('只今会議室が空いていません！', true);
+          } else {
+            vm.step = 2;
+          }
         })
         .error(function (err) {
           $scope.handleShowToast(err.message, true);
