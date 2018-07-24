@@ -12,7 +12,8 @@ angular.module('users.admin')
   'AdminUserApi',
   'DepartmentsService',
   'ngDialog',
-  'DepartmentsApi'
+  'DepartmentsApi',
+  '$q'
 ];
 
 function UserController(
@@ -24,7 +25,8 @@ function UserController(
   AdminUserApi,
   DepartmentsService,
   ngDialog,
-  DepartmentsApi
+  DepartmentsApi,
+  $q
 ) {
   var vm = this;
   vm.user = userResolve;
