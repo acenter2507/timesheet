@@ -14,7 +14,8 @@ UserListController.$inject = [
   'DepartmentsApi',
   'DepartmentsService',
   '$stateParams',
-  'UserRolesService'
+  'UserRolesService',
+  '$q'
 ];
 
 function UserListController(
@@ -27,7 +28,8 @@ function UserListController(
   DepartmentsApi,
   DepartmentsService,
   $stateParams,
-  UserRolesService
+  UserRolesService,
+  $q
 ) {
   var vm = this;
   vm.users = [];
