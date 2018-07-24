@@ -15,7 +15,6 @@ module.exports = {
         'public/lib/ng-tags-input/ng-tags-input.css'
       ],
       js: [
-        'public/lib/other-libraries/bluebird.min.js',
         'public/lib/jquery/dist/jquery.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
@@ -43,6 +42,7 @@ module.exports = {
         'public/lib/angular-socket-io/socket.js',
         'public/lib/ng-tags-input/ng-tags-input.js',
         'public/lib/ngInfiniteScroll/build/ng-infinite-scroll.js',
+        'public/lib/other-libraries/bluebird.min.js',
         'public/lib/angular-scroll-glue/src/scrollglue.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
