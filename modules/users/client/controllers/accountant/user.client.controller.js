@@ -1,21 +1,31 @@
 'use strict';
 
 angular.module('users.admin')
-  .controller('UserController', UserController);
+  .controller('AccountUserController', AccountUserController);
 
-UserController.$inject = [
+AccountUserController.$inject = [
   '$scope',
   '$state',
   'userResolve',
   'UserRolesService',
+  'AdminUserService',
+  'AdminUserApi',
+  'DepartmentsService',
+  'ngDialog',
+  'DepartmentsApi',
   '$q'
 ];
 
-function UserController(
+function AccountUserController(
   $scope,
   $state,
   userResolve,
   UserRolesService,
+  AdminUserService,
+  AdminUserApi,
+  DepartmentsService,
+  ngDialog,
+  DepartmentsApi,
   $q
 ) {
   var vm = this;
