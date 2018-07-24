@@ -96,7 +96,6 @@ exports.delete = function (req, res) {
 exports.list = function (req, res) {
   var page = req.body.page || 1;
   var condition = req.body.condition || {};
-  console.log(condition);
   var query = {};
   var and_arr = [];
 
@@ -116,7 +115,7 @@ exports.list = function (req, res) {
       roles = _.union(roles, [condition.role]);
     }
     if (roles.length > 0) {
-      and_arr.push({ roles: { $in: condition.roles } });
+      and_arr.push({ roles: condition.roles });
     }
   }
 
