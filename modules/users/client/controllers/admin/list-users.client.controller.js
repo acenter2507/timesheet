@@ -12,7 +12,6 @@ UserListController.$inject = [
   'AdminUserService',
   'CommonService',
   'DepartmentsApi',
-  'DepartmentsService',
   '$stateParams',
   'UserRolesService',
   '$q'
