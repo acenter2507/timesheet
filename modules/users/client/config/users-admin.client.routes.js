@@ -32,7 +32,7 @@ angular.module('users.admin').config(['$stateProvider',
         },
         ncyBreadcrumb: { label: '新規アカウント登録' }
       })
-      .state('admin.admin.users.view', {
+      .state('admin.users.view', {
         url: '/:userId',
         templateUrl: 'modules/users/client/views/admin/view-user.client.view.html',
         controller: 'UserController',
