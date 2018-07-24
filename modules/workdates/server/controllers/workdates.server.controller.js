@@ -47,7 +47,11 @@ exports.update = function (req, res) {
         return Workmonth.updateStatusTransfers(workmonthId);
       })
       .then(() => {
-        return res.end();
+        Workdate.findById(workdate._id)
+          .populate('workmonth')
+          .exec((err, workdate) => {
+            return res.jsonp(workdate);
+          });
       });
   });
 };

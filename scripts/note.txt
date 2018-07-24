@@ -1,2 +1,6 @@
 admin - 12345678
-Đang làm: booking.create
+Danh sách công việc ưu tiên
+0. Sửa chức năng copy workdate
+1. Tạo danh sách role
+2. Edit màn hình quản lý user
+3. Tạo màn hình phân quyền
