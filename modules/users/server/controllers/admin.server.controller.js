@@ -103,6 +103,12 @@ exports.list = function (req, res) {
     var key_lower = condition.search.toLowerCase();
     var key_upper = condition.search.toUpperCase();
     var or_arr = [
+      { email: { $regex: '.*' + condition.search + '.*' } },
+      { email: { $regex: '.*' + key_lower + '.*' } },
+      { email: { $regex: '.*' + key_upper + '.*' } },
+      { username: { $regex: '.*' + condition.search + '.*' } },
+      { username: { $regex: '.*' + key_lower + '.*' } },
+      { username: { $regex: '.*' + key_upper + '.*' } },
       { search: { $regex: '.*' + condition.search + '.*' } },
       { search: { $regex: '.*' + key_lower + '.*' } },
       { search: { $regex: '.*' + key_upper + '.*' } }
@@ -114,6 +120,7 @@ exports.list = function (req, res) {
     if (condition.role) {
       roles = _.union(roles, [condition.role]);
     }
+    console.log(roles);
     if (roles.length > 0) {
       and_arr.push({ roles: { $in: roles } });
     }
