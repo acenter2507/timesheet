@@ -20,8 +20,8 @@ exports.add = function (req, res) {
     user.displayName = user.firstName + ' ' + user.lastName;
     user.search = user.displayName.toLowerCase() + '-' + user.email.toLowerCase() + '-' + user.username.toLowerCase();
     user.save(function (err) {
-      //if (err) 
-      return res.status(400).send({ message: 'ユーザーを保存できません！' });;
+      if (err)
+        return res.status(400).send({ message: 'ユーザーを保存できません！' });;
       // Thêm user vào department
       // var departmentId = user.department ? user.department._id || user.department : undefined;
       // if (departmentId) {
