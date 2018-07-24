@@ -13,9 +13,6 @@ var path = require('path'),
 var _ = require('underscore'),
   _moment = require('moment');
 
-/**
- * Add a User
- */
 exports.add = function (req, res) {
   // Verify username
   User.findOne({ username: req.body.username }, function (err, _user) {
@@ -112,21 +109,14 @@ exports.list = function (req, res) {
     ];
     and_arr.push({ $or: or_arr });
   }
-  if (condition.status) {
-    and_arr.push({ status: condition.status });
-  }
   if (condition.roles) {
     and_arr.push({ roles: { $in: condition.roles } });
-  }
-  if (condition.department) {
-    and_arr.push({ department: condition.department });
   }
 
   var options = {
     page: page,
     sort: condition.sort,
-    limit: condition.limit,
-    populate: [{ path: 'department', select: 'name' }]
+    limit: condition.limit
   };
 
   User.paginate(query, options).then(
@@ -362,4 +352,46 @@ exports.userByID = function (req, res, next, id) {
       req.model = user;
       next();
     });
+};
+exports.list_account = function (req, res) {
+  var page = req.body.page || 1;
+  var condition = req.body.condition || {};
+  var query = {};
+  var and_arr = [];
+
+  if (condition.search && condition.search !== '') {
+    var key_lower = condition.search.toLowerCase();
+    var key_upper = condition.search.toUpperCase();
+    var or_arr = [
+      { search: { $regex: '.*' + condition.search + '.*' } },
+      { search: { $regex: '.*' + key_lower + '.*' } },
+      { search: { $regex: '.*' + key_upper + '.*' } }
+    ];
+    and_arr.push({ $or: or_arr });
+  }
+  if (condition.status) {
+    and_arr.push({ status: condition.status });
+  }
+  if (condition.roles) {
+    and_arr.push({ roles: { $in: condition.roles } });
+  }
+  if (condition.department) {
+    and_arr.push({ department: condition.department });
+  }
+
+  var options = {
+    page: page,
+    sort: condition.sort,
+    limit: condition.limit,
+    populate: [{ path: 'department', select: 'name' }]
+  };
+
+  User.paginate(query, options).then(
+    result => {
+      return res.jsonp(result);
+    },
+    err => {
+      return res.status(400).send({ message: '社員の情報を取得できません！' });
+    }
+  );
 };

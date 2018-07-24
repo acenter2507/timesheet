@@ -8,7 +8,7 @@
   function UserRolesService() {
     this.roles = [
       { name: '管理者', value: 'admin' },
-      { name: 'マネージャ', value: 'manager' },
+      { name: 'マネージャー', value: 'manager' },
       { name: '一般社員', value: 'user' },
       { name: '確認者', value: 'reviewer' },
       { name: '参照者', value: 'viewer' },

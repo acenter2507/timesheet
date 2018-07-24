@@ -7,14 +7,10 @@
           <accordion-heading>
             <i class="fa fa-arrow-circle-down" ng-class="{'fa-rotate-180': openTools}"></i> 検索ツール
           </accordion-heading>
-
           <div class="form-group">
             <div class="col-sm-6">
-              <label for="department">部署</label>
-              <select name="department" class="form-control" ng-model="vm.condition.department">
-                <option value>全て</option>
-                <option ng-repeat="department in vm.departments" value="{{ department._id }}">{{:: department.name}}</option>
-              </select>
+              <label for="search">検索キー</label>
+              <input name="search" type="text" ng-model="vm.condition.search" class="form-control">
             </div>
             <div class="col-sm-6">
               <label for="roles">役割</label>
@@ -25,7 +21,6 @@
             </div>
             <div class="clearfix"></div>
           </div>
-
 
           <div class="form-group">
             <div class="col-sm-6">
@@ -42,10 +37,82 @@
             <div class="clearfix"></div>
           </div>
 
+          <div class="form-group text-right">
+            <button class="btn btn-sm btn-danger" ng-click="vm.handleClearCondition()">クリア</button>
+            <button class="btn btn-sm btn-primary" ng-click="vm.handleStartSearch()">検索</button>
+          </div>
+
         </accordion-group>
       </accordion>
     </div>
   </div>
+
+  <div class="row mg10t">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+      <p>全 {{ vm.total }} 件</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="w50 text-center">操作</th>
+              <th>氏名</th>
+              <th>ユーザーID</th>
+              <th>メール</th>
+              <th>役割</th>
+              <th>登録日</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="vm.users.length === 0">
+              <td colspan="6">データが見つかりません。</td>
+            </tr>
+
+            <tr ng-repeat="user in vm.users track by $index" class="clickable" ng-click="vm.hanleSelectUser(user)">
+              <td class="w50 text-center">
+                <div dropdown dropdown-append-to-body>
+                  <a dropdown-toggle class="btn btn-xs btn-default inside-clickable">
+                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                  </a>
+
+                  <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                    <li>
+                      <a ui-sref="admin.users.review({ userId: user._id })">詳細確認</a>
+                    </li>
+                    <li ng-if="user.status === 2">
+                      <a ng-click="vm.handleApproveUser(user)">承認</a>
+                    </li>
+                    <li ng-if="user.status === 2">
+                      <a ng-click="vm.handleRejectUser(user)">拒否</a>
+                    </li>
+                    <li ng-if="user.status === 5">
+                      <a ng-click="vm.handleDeleteUser(user)">取り消し</a>
+                    </li>
+                    <li>
+                      <a ng-click="vm.handleViewHistory(user)">歴史</a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+              <td>
+                <img class="user-common-avatar-small" src="{{ user.profileImageURL }}">
+                <span>{{ user.user.displayName }}</a>
+              </td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <p class="mgn" ng-repeat="role in user.roles">{{ role | RoleFilter }}</p>
+              </td>
+              <td>{{ user.created | LLL }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Pagination -->
+      <pagination total-items="vm.total" ng-model="vm.page" max-size="5" boundary-links="true" items-per-page="vm.condition.limit"
+        ng-change="vm.handlePageChanged()" previous-text="前" next-text="次" first-text="最初" last-text="最後"></pagination>
+    </div>
+  </div>
+
 </div>
 
 <script type="text/ng-template" id="roles_tags.html">

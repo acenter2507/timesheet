@@ -44,7 +44,7 @@
             <select name="roles" class="form-control" ng-model="vm.user.roles" ng-list required>
               <option value="user">一般社員</option>
               <option value="user,accountant">経理</option>
-              <option value="user,manager">マネージャ</option>
+              <option value="user,manager">マネージャー</option>
               <option ng-if="isAdmin" value="user,admin">システム管理</option>
             </select>
             <div ng-messages="vm.form.userForm.roles.$error" role="alert">

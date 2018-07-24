@@ -2,9 +2,9 @@
 
 angular
   .module('users.admin')
-  .controller('UserListController', UserListController);
+  .controller('AccountantUserListController', AccountantUserListController);
 
-UserListController.$inject = [
+AccountantUserListController.$inject = [
   '$scope',
   '$state',
   '$filter',
@@ -18,7 +18,7 @@ UserListController.$inject = [
   '$q'
 ];
 
-function UserListController(
+function AccountantUserListController(
   $scope,
   $state,
   $filter,
@@ -34,16 +34,10 @@ function UserListController(
   vm.users = [];
   vm.condition = {};
 
-  vm.busy = false;
-  vm.page = 1;
-  vm.pages = 0;
-  vm.total = 0;
-
   onCreate();
   function onCreate() {
     prepareCondition();
     prepareParams();
-    handleSearch();
 
     // vm.manager = { page: 1 };
     // vm.member = { page: 1 };
@@ -56,12 +50,14 @@ function UserListController(
     //   handleLoadDeletedUsers();
     // }
   }
+
   function prepareCondition() {
     vm.condition = {
       sort: '-created',
       limit: 10,
       roles: []
     };
+    vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
     vm.condition.role = ($stateParams.role) ? $stateParams.role : undefined;
   }
   function prepareParams() {
@@ -71,32 +67,6 @@ function UserListController(
     }
   }
 
-  function handleSearch() {
-    if (vm.busy) return;
-    vm.busy = true;
-    AdminUserApi.list(vm.condition, vm.page)
-      .success(function (res) {
-        vm.users = res.docs;
-        vm.pages = res.pages;
-        vm.total = res.total;
-        vm.busy = false;
-      })
-      .error(function (err) {
-        $scope.handleShowToast(err.message, true);
-        vm.busy = false;
-      });
-  }
-  
-  vm.handleStartSearch = function () {
-    vm.page = 1;
-    handleSearch();
-  };
-  vm.handlePageChanged = function () {
-    handleSearch();
-  };
-  vm.handleClearCondition = function () {
-    prepareCondition();
-  };
   vm.handleSearchRoles = function () {
     var deferred = $q.defer();
     deferred.resolve(UserRolesService.roles);
