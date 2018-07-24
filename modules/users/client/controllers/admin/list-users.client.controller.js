@@ -96,6 +96,6 @@ function UserListController(
         vm.total -= 1;
       });
     });
-  }
+  };
 
 }
