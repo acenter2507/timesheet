@@ -3,7 +3,7 @@
 angular.module('users.admin')
   .controller('UserController', UserController);
 
-UserListController.$inject = [
+  UserController.$inject = [
   '$scope',
   '$state',
   'userResolve',
