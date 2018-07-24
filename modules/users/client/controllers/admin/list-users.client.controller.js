@@ -79,7 +79,7 @@ function UserListController(
     var deferred = $q.defer();
     deferred.resolve(UserRolesService.roles);
     return deferred.promise;
-  }
+  };
 
 
 
