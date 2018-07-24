@@ -4,8 +4,8 @@
 
   angular
     .module('workrests')
-    .factory('WorkrestsService', WorkrestsService)
-    .factory('WorkrestsApi', WorkrestsApi);
+    .factory('WorkrestsService', WorkrestsService);
+    // .factory('WorkrestsApi', WorkrestsApi);
 
   WorkrestsService.$inject = ['$resource'];
 
@@ -18,31 +18,31 @@
       query: { isArray: true, ignoreLoadingBar: true }
     });
   }
-  WorkrestsApi.$inject = ['$http'];
-  function WorkrestsApi($http) {
-    this.list = function (condition, page) {
-      return $http.post('/api/workrests/list', { condition: condition, page: page }, { ignoreLoadingBar: true });
-    };
-    this.request = function (workrestId) {
-      return $http.post('/api/workrests/' + workrestId + '/request', null, { ignoreLoadingBar: true });
-    };
-    this.cancel = function (workrestId) {
-      return $http.post('/api/workrests/' + workrestId + '/cancel', null, { ignoreLoadingBar: true });
-    };
-    this.requestDelete = function (workrestId) {
-      return $http.post('/api/workrests/' + workrestId + '/requestDelete', null, { ignoreLoadingBar: true });
-    };
+  // WorkrestsApi.$inject = ['$http'];
+  // function WorkrestsApi($http) {
+    // this.list = function (condition, page) {
+    //   return $http.post('/api/workrests/list', { condition: condition, page: page }, { ignoreLoadingBar: true });
+    // };
+    // this.request = function (workrestId) {
+    //   return $http.post('/api/workrests/' + workrestId + '/request', null, { ignoreLoadingBar: true });
+    // };
+    // this.cancel = function (workrestId) {
+    //   return $http.post('/api/workrests/' + workrestId + '/cancel', null, { ignoreLoadingBar: true });
+    // };
+    // this.requestDelete = function (workrestId) {
+    //   return $http.post('/api/workrests/' + workrestId + '/requestDelete', null, { ignoreLoadingBar: true });
+    // };
 
     
-    this.getWorkrestsToday = function (date) {
-      return $http.post('/api/workrests/today', { date: date }, { ignoreLoadingBar: true });
-    };
-    this.getRestOfCurrentUserInRange = function (start, end, userId) {
-      return $http.post('/api/workrests/owner_in_range', { start: start, end: end, userId: userId }, { ignoreLoadingBar: true });
-    };
-    this.getRestReview = function (condition, page) {
-      return $http.post('/api/workrests/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
-    };
-    return this;
-  }
+    // this.getWorkrestsToday = function (date) {
+    //   return $http.post('/api/workrests/today', { date: date }, { ignoreLoadingBar: true });
+    // };
+    // this.getRestOfCurrentUserInRange = function (start, end, userId) {
+    //   return $http.post('/api/workrests/owner_in_range', { start: start, end: end, userId: userId }, { ignoreLoadingBar: true });
+    // };
+    // this.getRestReview = function (condition, page) {
+    //   return $http.post('/api/workrests/review', { condition: condition, page: page }, { ignoreLoadingBar: true });
+    // };
+  //   return this;
+  // }
 }());
