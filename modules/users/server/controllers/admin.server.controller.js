@@ -20,28 +20,24 @@ exports.add = function (req, res) {
     user.displayName = user.firstName + ' ' + user.lastName;
     user.search = user.displayName.toLowerCase() + '-' + user.email.toLowerCase() + '-' + user.username.toLowerCase();
     user.save(function (err) {
-      if (err) return handleError(err);
+      //if (err) 
+      return res.status(400).send({ message: 'ユーザーを保存できません！' });;
       // Thêm user vào department
-      var departmentId = user.department ? user.department._id || user.department : undefined;
-      if (departmentId) {
-        if (_.contains(user.roles, 'manager')) {
-          Department.addLeader(departmentId, user._id).then(department => {
-            User.setLeaders(department._id, department.leaders);
-          });
-        } else {
-          Department.addMember(departmentId, user._id).then(department => {
-            User.setLeaders(department._id, department.leaders);
-          });
-        }
-      }
-      res.jsonp(user);
+      // var departmentId = user.department ? user.department._id || user.department : undefined;
+      // if (departmentId) {
+      //   if (_.contains(user.roles, 'manager')) {
+      //     Department.addLeader(departmentId, user._id).then(department => {
+      //       User.setLeaders(department._id, department.leaders);
+      //     });
+      //   } else {
+      //     Department.addMember(departmentId, user._id).then(department => {
+      //       User.setLeaders(department._id, department.leaders);
+      //     });
+      //   }
+      // }
+      return res.jsonp(user);
     });
   });
-  function handleError(err) {
-    return res.status(400).send({
-      message: errorHandler.getErrorMessage(err)
-    });
-  }
 };
 exports.read = function (req, res) {
   res.json(req.model);
