@@ -55,7 +55,7 @@ function UserListController(
   }
 
   function prepareDepartments() {
-    DepartmentsService.query.$promise.then(function (departments) {
+    DepartmentsService.query().$promise.then(function (departments) {
       vm.departments = departments;
     });
   }
