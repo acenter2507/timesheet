@@ -48,6 +48,11 @@ function UserController(
       }
     }
   }
+  vm.handleSearchRoles = function () {
+    var deferred = $q.defer();
+    deferred.resolve(UserRolesService.roles);
+    return deferred.promise;
+  };
 
 
 
