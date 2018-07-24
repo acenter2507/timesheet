@@ -120,12 +120,15 @@ exports.list = function (req, res) {
     if (condition.role) {
       roles = _.union(roles, [condition.role]);
     }
-    
+
     if (roles.length > 0) {
       and_arr.push({ roles: { $all: roles } });
     }
   }
 
+  if (and_arr.length > 0) {
+    query = { $and: and_arr };
+  }
   var options = {
     page: page,
     sort: condition.sort,
