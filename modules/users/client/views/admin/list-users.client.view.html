@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12" ng-if="isAdmin || isAccountant">
       <div class="form-group">
-        <a ng-if="isAdmin || isAccountant" ui-sref="users.new" class="btn btn-default pull-right" tooltip-placement="left" tooltip="アカウントを追加する"><i class="fa fa-user-plus fa-lg"></i></a>
+        <a ng-if="isAdmin || isAccountant" ui-sref="admin.users.create" class="btn btn-default pull-right" tooltip-placement="left" tooltip="アカウントを追加する"><i class="fa fa-user-plus fa-lg"></i></a>
         <div class="clearfix"></div>
       </div>
     </div>
@@ -24,16 +24,16 @@
                   <span class="user-status" ng-class="{ 'working': admin.status === 1, 'retired': admin.status === 2 }"></span>
                 </div>
                 <div class="user-info">
-                  <a class="user-info-name" ui-sref="users.view({ userId: admin._id })">{{:: admin.displayName}}</a>
+                  <a class="user-info-name" ui-sref="admin.users.view({ userId: admin._id })">{{:: admin.displayName}}</a>
                   <a class="font-sm" ng-href="mailto:{{admin.email}}">{{::admin.email}}</a>
                 </div>
                 <div class="user-action">
                   <div dropdown dropdown-append-to-body>
                     <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                      <li><a ui-sref="users.view({ userId: admin._id })"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                      <li><a ui-sref="users.edit({ userId: admin._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                      <li><a ui-sref="users.timesheet({ userId: admin._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                      <li><a ui-sref="admin.users.view({ userId: admin._id })"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                      <li><a ui-sref="admin.users.edit({ userId: admin._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                      <li><a ui-sref="admin.workmonths.reviews({ user: admin._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                       <li><a ng-click="vm.handleSendMessageUser(admin)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
                       <li><a ng-href="mailto:{{admin.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
                       <li><a ng-click="vm.handleLogicDeleteUser(admin)"><i class="fa fa-user-times"></i> 削除</a></li>
@@ -78,8 +78,8 @@
                     <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                       <li><a ng-click="handleViewDetailUser(manager)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                      <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: manager._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                      <li ng-if="isAdmin || isAccountant"><a ui-sref="users.timesheet({ userId: manager._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                      <li ng-if="isAdmin || isAccountant"><a ui-sref="admin.users.edit({ userId: manager._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                      <li ng-if="isAdmin || isAccountant"><a ui-sref="admin.workmonths.reviews({ user: manager._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                       <li><a ng-click="vm.handleSendMessageUser(manager)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
                       <li><a ng-href="mailto:{{manager.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
                       <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(manager)"><i class="fa fa-user-times"></i> 削除</a></li>
@@ -124,8 +124,8 @@
                     <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                       <li><a ng-click="handleViewDetailUser(member)"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                      <li ng-if="isAdmin || isAccountant"><a ui-sref="users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                      <li ng-if="isLeader"><a ui-sref="users.timesheet({ userId: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                      <li ng-if="isAdmin || isAccountant"><a ui-sref="admin.users.edit({ userId: member._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                      <li ng-if="isLeader"><a ui-sref="admin.workmonths.reviews({ user: member._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                       <li><a ng-click="vm.handleSendMessageUser(member)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
                       <li><a ng-href="mailto:{{member.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
                       <li ng-if="isAdmin || isAccountant"><a ng-click="vm.handleLogicDeleteUser(member)"><i class="fa fa-user-times"></i> 削除</a></li>
@@ -159,16 +159,16 @@
               <div class="user-basic-info">
                 <div class="user-avatar"><img src="{{:: deleted.profileImageURL }}"></div>
                 <div class="user-info">
-                  <a class="user-info-name" ui-sref="users.view({ userId: deleted._id })">{{:: deleted.displayName}}</a>
+                  <a class="user-info-name" ui-sref="admin.users.view({ userId: deleted._id })">{{:: deleted.displayName}}</a>
                   <a class="font-sm" ng-href="mailto:{{deleted.email}}">{{::deleted.email}}</a>
                 </div>
                 <div class="user-action">
                   <div dropdown dropdown-append-to-body>
                     <a dropdown-toggle class="user-options"><i class="glyphicon glyphicon-option-horizontal"></i></a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                      <li><a ui-sref="users.view({ userId: deleted._id })"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
-                      <li><a ui-sref="users.edit({ userId: deleted._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
-                      <li><a ui-sref="users.timesheet({ userId: deleted._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
+                      <li><a ui-sref="admin.users.view({ userId: deleted._id })"><i class="fa fa-info-circle"></i> 詳細情報</a></li>
+                      <li><a ui-sref="admin.users.edit({ userId: deleted._id })"><i class="fa fa-pencil-square-o"></i> 編集</a></li>
+                      <li><a ui-sref="admin.workmonths.reviews({ user: deleted._id })"><i class="fa fa-calendar"></i> 勤務表レビュー</a></li>
                       <li><a ng-click="vm.handleSendMessageUser(deleted)"><i class="fa fa-commenting"></i> メッセージ送信</a></li>
                       <li><a ng-href="mailto:{{deleted.email}}"><i class="fa fa-envelope"></i> メール送信</a></li>
                       <li><a ng-click="vm.handleResetUser(deleted)"><i class="fa fa-user-times"></i> 復元</a></li>

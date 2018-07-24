@@ -48,11 +48,11 @@
               <i class="fa fa-commenting"></i>
             </a>
             <!-- Edit info user -->
-            <a class="user-tool-button" ui-sref="users.edit({ userId: vm.user._id })" tooltip-placement="bottom" tooltip="編集">
+            <a class="user-tool-button" ui-sref="admin.users.edit({ userId: vm.user._id })" tooltip-placement="bottom" tooltip="編集">
               <i class="fa fa-pencil-square-o"></i>
             </a>
             <!-- View timesheet of current user -->
-            <a class="user-tool-button" ui-sref="users.timesheet({ userId: member._id })" tooltip-placement="bottom" tooltip="勤務表">
+            <a class="user-tool-button" ui-sref="admin.workmonths.reviews({ user: vm.user._id })" tooltip-placement="bottom" tooltip="勤務表">
               <i class="fa fa-calendar"></i>
             </a>
             <!-- Options menu -->

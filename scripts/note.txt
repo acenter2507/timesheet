@@ -1,6 +1,6 @@
 admin - 12345678
 Danh sách công việc ưu tiên
-0. Sửa chức năng copy workdate
+0. Sửa chức năng copy workdate Done
 1. Tạo danh sách role
 2. Edit màn hình quản lý user
 3. Tạo màn hình phân quyền

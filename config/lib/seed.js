@@ -146,7 +146,6 @@ module.exports.start = function start(options) {
         .catch(reportError(reject));
     } else {
       // Add both Admin and User account
-
       User.generateRandomPassphrase()
         .then(seedTheUser(userAccount))
         .then(User.generateRandomPassphrase)

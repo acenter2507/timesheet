@@ -69,7 +69,7 @@
             <img src="{{:: leader.profileImageURL }}">
           </div>
           <div class="user-info">
-            <a class="user-info-name" ui-sref="users.view({ userId: leader._id })">{{:: leader.displayName}}</a>
+            <a class="user-info-name" ui-sref="admin.users.view({ userId: leader._id })">{{:: leader.displayName}}</a>
             <a class="font-sm" ng-href="mailto:{{leader.email}}">{{::leader.email}}</a>
           </div>
           <div class="user-action">
@@ -113,7 +113,7 @@
             <img src="{{:: member.profileImageURL }}">
           </div>
           <div class="user-info">
-            <a class="user-info-name" ui-sref="users.view({ userId: member._id })">{{:: member.displayName}}</a>
+            <a class="user-info-name" ui-sref="admin.users.view({ userId: member._id })">{{:: member.displayName}}</a>
             <a class="font-sm" ng-href="mailto:{{member.email}}">{{::member.email}}</a>
           </div>
           <div class="user-action">

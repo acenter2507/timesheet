@@ -182,7 +182,7 @@
       $scope.handleShowConfirm({
         message: '操作を止めますか？'
       }, function () {
-        $scope.handleBackScreen('users.list');
+        $scope.handleBackScreen('admin.users.list');
       });
     };
     // Change image from URI to blob

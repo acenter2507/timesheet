@@ -194,7 +194,7 @@
 </div>
 
 <script type="text/ng-template" id="users_tags.html">
-  <a ui-sref="users.view({ userId: data._id })">{{ data.displayName }}</a>
+  <a ui-sref="admin.users.view({ userId: data._id })">{{ data.displayName }}</a>
   <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
 </script>
 

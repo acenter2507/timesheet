@@ -60,10 +60,10 @@ module.exports = {
       seedAdmin: {
         username: process.env.MONGO_SEED_ADMIN_USERNAME || 'admin',
         email: process.env.MONGO_SEED_ADMIN_EMAIL || 'admin@localhost.com',
-        firstName: 'Admin',
-        lastName: 'Local',
-        displayName: 'Admin Local',
-        roles: ['user', 'admin']
+        firstName: 'システム',
+        lastName: '管理者',
+        displayName: 'システム 管理者',
+        roles: ['admin', 'accountant', 'manager', 'user', 'reviewer', 'viewer']
       }
     }
   }

@@ -51,7 +51,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         vm.user.$save(handleSuccess, handleError);
       }
       function handleSuccess(res) {
-        $state.go('users.view', { userId: vm.user._id });
+        $state.go('admin.users.view', { userId: vm.user._id });
         vm.busy = false;
       }
       function handleError(err) {
@@ -64,7 +64,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
       $scope.handleShowConfirm({
         message: '操作を止めますか？'
       }, function () {
-        $scope.handleBackScreen('users.list');
+        $scope.handleBackScreen('admin.users.list');
       });
     };
     // Xóa user level logic
@@ -75,7 +75,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         vm.user.status = 3;
         vm.user.$update(function () {
           if (!$scope.isAdmin) {
-            $scope.handleBackScreen('users.list');
+            $scope.handleBackScreen('admin.users.list');
           }
         });
       });
@@ -86,7 +86,7 @@ angular.module('users.admin').controller('UserInputController', ['$scope', '$sta
         message: vm.user.displayName + 'を完全削除しますか？'
       }, function () {
         vm.user.$remove(function () {
-          $scope.handleBackScreen('users.list');
+          $scope.handleBackScreen('admin.users.list');
         });
       });
     };

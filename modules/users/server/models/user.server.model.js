@@ -12,12 +12,12 @@ var mongoose = require('mongoose'),
 /**
  * A Validation function for local strategy email
  */
-var validateLocalStrategyEmail = function (email) {
-  return validator.isEmail(email);
-};
+// var validateLocalStrategyEmail = function (email) {
+//   return validator.isEmail(email);
+// };
 
 var UserSchema = new Schema({
-  username: { type: String, unique: 'Username already exists', required: true, lowercase: true, trim: true },
+  username: { type: String, unique: 'ユーさーIDは既存しています！', required: true, lowercase: true, trim: true },
   password: { type: String, default: '' },
   firstName: { type: String, trim: true, default: '', required: true },
   lastName: { type: String, trim: true, default: '', required: true },
@@ -25,11 +25,27 @@ var UserSchema = new Schema({
   status: { type: Number, default: 1 }, // 1: 働いている, 2: 退職済, 3: 削除
   email: {
     type: String,
-    index: { unique: true, sparse: true },
     lowercase: true,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+    // validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+  },
+  profileImageURL: { type: String, default: 'modules/users/client/img/profile/default.png' },
+  department: { type: Schema.ObjectId, ref: 'Department' },
+  roles: {
+    type: [{
+      type: String,
+      enum: ['admin', 'accountant', 'manager', 'user', 'reviewer', 'viewer']
+    }],
+    default: ['user'],
+    required: 'Please provide at least one role'
+  },
+  company: {
+    employeeId: { type: String },
+    taxId: { type: String },
+    salary: { type: Number },
+    // 有給休暇の日数
+    paidHolidayCnt: { type: Number, default: 10 },
   },
   private: {
     hobby: { type: String, trim: true },
@@ -39,33 +55,14 @@ var UserSchema = new Schema({
     birthdate: { type: Date },
     introduct: { type: String, trim: true }
   },
-  profileImageURL: { type: String, default: 'modules/users/client/img/profile/default.png' },
-  department: { type: Schema.ObjectId, ref: 'Department' },
-  company: {
-    employeeId: { type: String },
-    taxId: { type: String },
-    salary: { type: Number },
-    // 有給休暇の日数
-    paidHolidayCnt: { type: Number, default: 10 },
-  },
   report: {
     holidayCnt: { type: Number, default: 0 }
   },
-  leaders: [
-    { type: Schema.ObjectId, ref: 'User' },
-  ],
-  salt: { type: String },
-  roles: {
-    type: [{
-      type: String,
-      enum: ['user', 'accountant', 'manager', 'admin']
-    }],
-    default: ['user'],
-    required: 'Please provide at least one role'
-  },
+  leaders: [{ type: Schema.ObjectId, ref: 'User' }],
   updated: { type: Date },
   created: { type: Date, default: Date.now },
   /* For reset password */
+  salt: { type: String },
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date }
 });
@@ -79,7 +76,6 @@ UserSchema.pre('save', function (next) {
     this.salt = crypto.randomBytes(16).toString('base64');
     this.password = this.hashPassword(this.password);
   }
-
   next();
 });
 
