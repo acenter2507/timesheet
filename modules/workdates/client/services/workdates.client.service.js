@@ -8,7 +8,6 @@
     .factory('WorkdatesApi', WorkdatesApi);
 
   WorkdatesService.$inject = ['$resource'];
-
   function WorkdatesService($resource) {
     return $resource('api/workdates/:workdateId', { workdateId: '@_id' }, {
       save: { method: 'POST', ignoreLoadingBar: true },
