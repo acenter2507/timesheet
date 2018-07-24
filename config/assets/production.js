@@ -15,7 +15,6 @@ module.exports = {
         'public/lib/ng-tags-input/ng-tags-input.min.css'
       ],
       js: [
-        'public/lib/other-libraries/bluebird.min.js',
         'public/lib/jquery/dist/jquery.min.js',
         'public/lib/angular/angular.min.js',
         'public/lib/angular-resource/angular-resource.min.js',
@@ -43,6 +42,7 @@ module.exports = {
         'public/lib/angular-socket-io/socket.min.js',
         'public/lib/ng-tags-input/ng-tags-input.min.js',
         'public/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
+        'public/lib/other-libraries/bluebird.min.js',
         'public/lib/angular-scroll-glue/src/scrollglue.js'
       ]
     },
