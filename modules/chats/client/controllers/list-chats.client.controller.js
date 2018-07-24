@@ -265,7 +265,7 @@
         vm.message = '';
       }
       function errorCallback(err) {
-        $scope.handleShowToast(err.message, true);
+        $scope.handleShowToast(err.data.message, true);
       }
     };
     vm.handleScroll = function() {

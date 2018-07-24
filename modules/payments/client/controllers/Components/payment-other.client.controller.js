@@ -134,7 +134,7 @@
         PaymentFactory.deleteOther();
         $state.go('payments.edit', { paymentId: vm.payment._id });
       }, function (err) {
-        $scope.handleShowToast(err.message, true);
+        $scope.handleShowToast(err.data.message, true);
       });
     }
   }

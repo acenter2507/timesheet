@@ -94,7 +94,7 @@
           Socket.emit('bookings', { booking: booking._id });
         }
         function errorCallback(err) {
-          $scope.handleShowToast(err.message, true);
+          $scope.handleShowToast(err.data.message, true);
           vm.busy = false;
         }
       });

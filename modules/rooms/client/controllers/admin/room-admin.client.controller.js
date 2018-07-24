@@ -128,7 +128,7 @@
         $state.go('admin.rooms.view', { roomId: res._id });
       }
       function errorCallback(err) {
-        $scope.handleShowToast(err.message, true);
+        $scope.handleShowToast(err.data.message, true);
       }
     }
   }

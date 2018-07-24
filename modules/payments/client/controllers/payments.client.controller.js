@@ -34,7 +34,7 @@
       vm.payment.$update(function (payment) {
         _.extend(vm.payment, payment);
       }, function (err) {
-        $scope.handleShowToast(err.message, true);
+        $scope.handleShowToast(err.data.message, true);
       });
     };
     vm.handleRequestPayment = function () {

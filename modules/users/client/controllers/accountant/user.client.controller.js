@@ -77,7 +77,6 @@ function AccountUserController(
     }
 
     function errorCallback(err) {
-      console.log(err);
       vm.busy = false;
       $scope.handleShowToast(err.data.message, true);
     }

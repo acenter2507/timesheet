@@ -61,13 +61,11 @@ function UserController(
     }
 
     function successCallback(res) {
-      console.log(res);
       vm.busy = false;
       $state.go('admin.users.view', { userId: res._id });
     }
 
     function errorCallback(err) {
-      console.log(err);
       vm.busy = false;
       $scope.handleShowToast(err.data.message, true);
     }

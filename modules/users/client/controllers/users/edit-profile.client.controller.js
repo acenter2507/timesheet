@@ -18,7 +18,7 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
         $scope.handleShowToast('個人情報を変更しました。', false);
         Authentication.user = res;
       }, function (err) {
-        $scope.handleShowToast(err.message, false);
+        $scope.handleShowToast(err.data.message, false);
       });
     };
   }
