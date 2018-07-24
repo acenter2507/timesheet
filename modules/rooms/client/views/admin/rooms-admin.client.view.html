@@ -28,7 +28,7 @@
           </thead>
           <tbody>
             <tr ng-show="vm.rooms.length === 0">
-              <td colspan="10">データが見つかりません。</td>
+              <td colspan="11">データが見つかりません。</td>
             </tr>
             <tr ng-repeat="room in vm.rooms track by $index" class="clickable" ng-click="vm.hanleSelectRoom(room)">
               <td>{{ $index + 1 }}</td>
