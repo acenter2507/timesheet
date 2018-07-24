@@ -9,7 +9,7 @@
   AdminUserApi.$inject = ['$http'];
 
   function AdminUserApi($http) {
-    this.loadUsers = function (condition, page) {
+    this.list = function (condition, page) {
       return $http.post('/api/users/list', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
     this.changeUserPassword = function (userId, newPassword) {
@@ -37,12 +37,12 @@
     .factory('AdminUserService', AdminUserService);
 
   AdminUserService.$inject = ['$resource'];
-
   function AdminUserService($resource) {
     return $resource('/api/users/:userId', { userId: '@_id' }, {
       save: { method: 'POST', ignoreLoadingBar: true },
       get: { method: 'GET', ignoreLoadingBar: true },
       update: { method: 'PUT', ignoreLoadingBar: true },
+      remove: { method: 'DELETE', ignoreLoadingBar: true },
       query: { isArray: true, ignoreLoadingBar: true }
     });
   }

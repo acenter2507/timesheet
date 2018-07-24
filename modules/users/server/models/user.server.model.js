@@ -22,7 +22,7 @@ var UserSchema = new Schema({
   firstName: { type: String, trim: true, default: '', required: true },
   lastName: { type: String, trim: true, default: '', required: true },
   displayName: { type: String, trim: true },
-  status: { type: Number, default: 1 }, // 1: 働いている, 2: 退職済, 3: 削除
+  status: { type: Number, default: 1 }, // 1: 働いている, 2: 退職済
   email: {
     type: String,
     lowercase: true,

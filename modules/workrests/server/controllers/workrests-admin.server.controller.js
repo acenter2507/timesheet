@@ -77,9 +77,7 @@ exports.reviews = function (req, res) {
   }).then(function (rests) {
     res.jsonp(rests);
   }, err => {
-    return res.status(400).send({
-      message: errorHandler.getErrorMessage(err)
-    });
+    return res.status(400).send({ message: '休暇情報を取得できません' });
   });
 };
 exports.approve = function (req, res) {

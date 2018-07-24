@@ -23,6 +23,7 @@ exports.add = function (req, res) {
 
     var user = new User(req.body);
     user.displayName = user.firstName + ' ' + user.lastName;
+    user.search = user.displayName.toLowerCase() + '-' + user.email.toLowerCase() + '-' + user.username.toLowerCase();;
     user.save(function (err) {
       if (err) return handleError(err);
       // Thêm user vào department
@@ -47,17 +48,9 @@ exports.add = function (req, res) {
     });
   }
 };
-
-/**
- * Show the current user
- */
 exports.read = function (req, res) {
   res.json(req.model);
 };
-
-/**
- * Update a User
- */
 exports.update = function (req, res) {
   var user = req.model;
 
@@ -69,6 +62,7 @@ exports.update = function (req, res) {
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
   user.displayName = user.firstName + ' ' + user.lastName;
+  user.search = user.displayName.toLowerCase() + '-' + user.email.toLowerCase() + '-' + user.username.toLowerCase();;
   user.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -78,10 +72,6 @@ exports.update = function (req, res) {
     res.json(user);
   });
 };
-
-/**
- * Delete a user
- */
 exports.delete = function (req, res) {
   var user = req.model;
 
@@ -106,101 +96,48 @@ exports.delete = function (req, res) {
     res.json(user);
   });
 };
-
-/**
- * List of Users
- */
 exports.list = function (req, res) {
-  User.find({}, '-salt -password')
-    .sort('-created')
-    .populate('user', 'displayName')
-    .exec(function (err, users) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      }
-
-      res.json(users);
-    });
-};
-
-/**
- * User middleware
- */
-exports.userByID = function (req, res, next, id) {
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'User is invalid'
-    });
-  }
-
-  User.findById(id, '-salt -password')
-    .populate('leaders', 'displayName email profileImageURL')
-    .populate('department', 'name')
-    .exec(function (err, user) {
-      if (err) {
-        return next(err);
-      } else if (!user) {
-        return next(new Error('Failed to load user ' + id));
-      }
-
-      req.model = user;
-      next();
-    });
-};
-
-/**
- * Tìm kiếm user với key và list ignore
- */
-exports.loadUsers = function (req, res) {
-  var condition = req.body.condition;
   var page = req.body.page || 1;
-  var roles = condition.roles;
-  var mode = condition.mode;
+  var condition = req.body.condition || {};
+  var query = {};
+  var and_arr = [];
 
-  var query;
-  if (!roles && mode === 'deleted') {
-    query = { status: 3 };
-  } else {
-    if (roles === 'admin' || roles === 'manager') {
-      query = { status: { $ne: 3 }, roles: roles };
-    } else {
-      query = {
-        status: { $ne: 3 },
-        $and: [
-          { roles: { $ne: 'admin' } },
-          { roles: { $ne: 'manager' } },
-          { roles: 'user' }
-        ]
-      };
-    }
+  if (condition.search && condition.search !== '') {
+    var key_lower = condition.search.toLowerCase();
+    var key_upper = condition.search.toUpperCase();
+    var or_arr = [
+      { search: { $regex: '.*' + condition.search + '.*' } },
+      { search: { $regex: '.*' + key_lower + '.*' } },
+      { search: { $regex: '.*' + key_upper + '.*' } }
+    ];
+    and_arr.push({ $or: or_arr });
+  }
+  if (condition.status) {
+    and_arr.push({ status: condition.status });
+  }
+  if (condition.roles) {
+    and_arr.push({ roles: { $in: condition.roles } });
+  }
+  if (condition.department) {
+    and_arr.push({ department: condition.department });
   }
 
   var options = {
     page: page,
-    sort: '-created',
-    limit: 20,
+    sort: condition.sort,
+    limit: condition.limit,
     populate: [{ path: 'department', select: 'name' }]
   };
 
   User.paginate(query, options).then(
-    function (result) {
-      res.jsonp(result);
+    result => {
+      return res.jsonp(result);
     },
     err => {
-      return handleError(err);
+      return res.status(400).send({ message: '社員の情報を取得できません！' });
     }
   );
-
-  function handleError(err) {
-    return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-  }
 };
-
-/**
- * Tìm kiếm user với key và list ignore
- */
 exports.searchUsers = function (req, res) {
   var condition = req.body.condition || {};
   var key = condition.key;
@@ -219,12 +156,9 @@ exports.searchUsers = function (req, res) {
     var key_lower = key.toLowerCase();
     var key_upper = key.toUpperCase();
     var or_arr = [
-      { displayName: { $regex: '.*' + key + '.*' } },
-      { displayName: { $regex: '.*' + key_lower + '.*' } },
-      { displayName: { $regex: '.*' + key_upper + '.*' } },
-      { email: { $regex: '.*' + key + '.*' } },
-      { email: { $regex: '.*' + key_lower + '.*' } },
-      { email: { $regex: '.*' + key_upper + '.*' } }
+      { search: { $regex: '.*' + key + '.*' } },
+      { search: { $regex: '.*' + key_lower + '.*' } },
+      { search: { $regex: '.*' + key_upper + '.*' } }
     ];
 
     ands.push({ $or: or_arr });
@@ -234,8 +168,8 @@ exports.searchUsers = function (req, res) {
   User.find(query)
     .select('displayName email profileImageURL roles')
     .exec((err, users) => {
-      if (err) res.status(400).send(err);
-      res.jsonp(users);
+      if (err) return res.status(400).send(err);
+      return res.jsonp(users);
     });
 };
 
@@ -404,3 +338,28 @@ function arraysEqual(arr1, arr2) {
   }
   return true;
 }
+
+/**
+ * User middleware
+ */
+exports.userByID = function (req, res, next, id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'User is invalid'
+    });
+  }
+
+  User.findById(id, '-salt -password')
+    .populate('leaders', 'displayName email profileImageURL')
+    .populate('department', 'name')
+    .exec(function (err, user) {
+      if (err) {
+        return next(err);
+      } else if (!user) {
+        return next(new Error('Failed to load user ' + id));
+      }
+
+      req.model = user;
+      next();
+    });
+};
