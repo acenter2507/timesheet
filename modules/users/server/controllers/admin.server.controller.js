@@ -125,7 +125,6 @@ exports.list = function (req, res) {
   if (and_arr.length > 0) {
     query = { $and: and_arr };
   }
-  console.log(condition);
   var options = {
     page: page,
     sort: condition.sort,

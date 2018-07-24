@@ -1,0 +1,145 @@
+<div class="container-fluid animated fadeIn">
+
+  <div class="col-sm-12 col-md-6 col-md-offset-3">
+    <div>
+      <div class="form-group text-right">
+        <button class="btn btn-sm btn-default" ng-click="handleBackScreen('admin.users.list')">キャンセル</button>
+        <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveUser(vm.form.userForm.$valid)">保存</button>
+      </div>
+
+      <form name="vm.form.userForm" novalidate>
+        <!-- ユーザーID パスワード -->
+        <div class="form-group d-sm-down-none" show-errors>
+          <div class="col-xs-6 pdnl">
+            <label for="username">ユーザーID</label>
+            <input type="text" name="username" class="form-control" ng-model="vm.user.username" placeholder="ユーザーID" required />
+            <div ng-messages="vm.form.userForm.username.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">ユーザーIDは必須です。</p>
+            </div>
+          </div>
+          <div class="col-xs-6 pdnr" ng-show="!vm.user._id">
+            <label for="password">社員氏名</label>
+            <input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="パスワード"
+              required password-validator/>
+            <div ng-messages="vm.form.userForm.password.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">パスワードは必須です。</p>
+              <div ng-repeat="passwordError in passwordErrors">
+                <p class="help-block error-text font-sm" ng-show="vm.form.userForm.password.$error.requirements">{{passwordError}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6 pdnr" ng-show="vm.user._id">
+            <a class="btn btn-warning btn-block" ng-click="vm.handleResetPassword()">
+              <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i>
+              パスワード変換
+            </a>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="form-group d-md-none" show-errors>
+          <label for="username">ユーザーID</label>
+          <input type="text" name="username" class="form-control" ng-model="vm.user.username" placeholder="ユーザーID" required />
+          <div ng-messages="vm.form.userForm.username.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">ユーザーIDは必須です。</p>
+          </div>
+        </div>
+        <div class="form-group d-md-none" ng-show="!vm.user._id" show-errors>
+          <label for="password">社員氏名</label>
+          <input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="パスワード"
+            required password-validator/>
+          <div ng-messages="vm.form.userForm.password.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">パスワードは必須です。</p>
+            <div ng-repeat="passwordError in passwordErrors">
+              <p class="help-block error-text font-sm" ng-show="vm.form.userForm.password.$error.requirements">{{passwordError}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group d-md-none" ng-show="vm.user._id">
+          <a class="btn btn-warning btn-block" ng-click="vm.handleResetPassword()">
+            <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i>
+            パスワード変換
+          </a>
+        </div>
+
+        <!-- 氏名 -->
+        <div class="form-group d-sm-down-none" show-errors>
+          <div class="col-xs-6 pdnl">
+            <label for="firstName">姓</label>
+            <input type="text" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="姓" required />
+            <div ng-messages="vm.form.userForm.firstName.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">姓は必須です。</p>
+            </div>
+          </div>
+          <div class="col-xs-6 pdnr">
+            <label for="lastName">名</label>
+            <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="名" required
+            />
+            <div ng-messages="vm.form.userForm.lastName.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">名は必須です。</p>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="form-group d-md-none" show-errors>
+          <label for="firstName">姓</label>
+          <input type="text" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="姓" required />
+          <div ng-messages="vm.form.userForm.firstName.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">姓は必須です。</p>
+          </div>
+        </div>
+        <div class="form-group d-md-none" show-errors>
+          <label for="lastName">名</label>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="名" required
+          />
+          <div ng-messages="vm.form.userForm.lastName.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">名は必須です。</p>
+          </div>
+        </div>
+
+        <!-- メール 役割 -->
+        <div class="form-group d-sm-down-none" show-errors>
+          <div class="col-xs-6 pdnl">
+            <label for="email">メール</label>
+            <input type="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required />
+            <div ng-messages="vm.form.userForm.email.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">メールは必須です。</p>
+              <p class="help-block error-text font-sm" ng-message="email">メールのフォーマットが違います。</p>
+            </div>
+          </div>
+          <div class="col-xs-6 pdnr">
+            <label for="_roles">メール</label>
+            <tags-input class="my-tags" ng-model="vm.condition._roles" key-property="value" template="_roles_tags.html" display-property="name"
+              placeholder="ロール" replace-spaces-with-dashes="false">
+              <auto-complete source="vm.handleSearchRoles($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="32"></auto-complete>
+            </tags-input>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="form-group d-md-none" show-errors>
+          <label for="email">メール</label>
+          <input type="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required />
+          <div ng-messages="vm.form.userForm.email.$error" role="alert">
+            <p class="help-block error-text font-sm" ng-message="required">メールは必須です。</p>
+            <p class="help-block error-text font-sm" ng-message="email">メールのフォーマットが違います。</p>
+          </div>
+        </div>
+        <div class="form-group d-md-none">
+          <label for="_roles">メール</label>
+          <tags-input class="my-tags" ng-model="vm.condition._roles" key-property="value" template="_roles_tags.html" display-property="name"
+            placeholder="ロール" replace-spaces-with-dashes="false">
+            <auto-complete source="vm.handleSearchRoles($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="32"></auto-complete>
+          </tags-input>
+        </div>
+      </form>
+
+      <div class="form-group text-right mg5t">
+        <button class="btn btn-sm btn-default" ng-click="handleBackScreen('admin.users.list')">キャンセル</button>
+        <button class="btn btn-sm btn-primary" ng-click="vm.handleSaveUser(vm.form.userForm.$valid)">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/ng-template" id="_roles_tags.html">
+  <a href="#">{{ data.name }}</a>
+  <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
+</script>

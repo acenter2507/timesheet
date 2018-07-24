@@ -12,9 +12,9 @@ var mongoose = require('mongoose'),
 /**
  * A Validation function for local strategy email
  */
-// var validateLocalStrategyEmail = function (email) {
-//   return validator.isEmail(email);
-// };
+var validateLocalStrategyEmail = function (email) {
+  return validator.isEmail(email);
+};
 
 var UserSchema = new Schema({
   username: { type: String, unique: 'ユーさーIDは既存しています！', required: true, lowercase: true, trim: true },
@@ -28,7 +28,7 @@ var UserSchema = new Schema({
     lowercase: true,
     trim: true,
     default: '',
-    // validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
   profileImageURL: { type: String, default: 'modules/users/client/img/profile/default.png' },
   department: { type: Schema.ObjectId, ref: 'Department' },

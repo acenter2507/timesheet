@@ -21,8 +21,8 @@ angular.module('users.admin').config(['$stateProvider',
       })
       .state('admin.users.create', {
         url: '/create',
-        templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
-        controller: 'UserInputController',
+        templateUrl: 'modules/users/client/views/admin/form-user.client.view.html',
+        controller: 'UserController',
         controllerAs: 'vm',
         data: { roles: ['admin'] },
         resolve: {
