@@ -10,7 +10,7 @@
           <div class="form-group">
             <div class="col-sm-6">
               <label for="search">検索キー</label>
-              <input name="search" type="text" ng-model="vm.condition.search" class="form-control">
+              <input name="search" type="text" ng-model="vm.condition.search" class="form-control" placeholder="検索キー">
             </div>
             <div class="col-sm-6">
               <label for="roles">役割</label>
@@ -46,7 +46,7 @@
       </accordion>
     </div>
   </div>
-
+  <!-- ユーザー一覧 -->
   <div class="row mg10t">
     <div class="col-sm-12 col-md-8 col-md-offset-2">
       <p>全 {{ vm.total }} 件</p>
@@ -100,7 +100,7 @@
               <td>{{ user.username }}</td>
               <td>{{ user.email }}</td>
               <td>
-                <p class="mgn" ng-repeat="role in user.roles">{{ role | RoleFilter }}</p>
+                <span ng-repeat="role in user.roles">{{ role | RoleFilter }}{{ !$last ? ', ' : '' }} </span>
               </td>
               <td>{{ user.created | LLL }}</td>
             </tr>

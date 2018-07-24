@@ -110,7 +110,13 @@ exports.list = function (req, res) {
     and_arr.push({ $or: or_arr });
   }
   if (condition.roles) {
-    and_arr.push({ roles: { $in: condition.roles } });
+    var roles = _.pluck(condition.roles, 'value');
+    if (condition.role) {
+      roles = _.union(roles, [condition.role]);
+    }
+    if (roles.length > 0) {
+      and_arr.push({ roles: { $in: condition.roles } });
+    }
   }
 
   var options = {
