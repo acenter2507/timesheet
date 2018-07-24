@@ -92,15 +92,15 @@
                 </div>
               </td>
               <td>
-                <img class="user-common-avatar-small" src="{{:: user.profileImageURL }}">
-                <span>{{:: user.displayName }}</a>
+                <img class="user-common-avatar-small" src="{{ user.profileImageURL }}">
+                <span>{{ user.displayName }}</a>
               </td>
-              <td>{{:: user.username }}</td>
-              <td>{{:: user.email }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
               <td>
-                <span ng-repeat="role in user.roles">{{:: role | RoleFilter }}{{ !$last ? ', ' : '' }} </span>
+                <span ng-repeat="role in user.roles">{{ role | RoleFilter }}{{ !$last ? ', ' : '' }} </span>
               </td>
-              <td>{{:: user.created | LLL }}</td>
+              <td>{{ user.created | LLL }}</td>
             </tr>
           </tbody>
         </table>
