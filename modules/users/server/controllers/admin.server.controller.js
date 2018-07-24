@@ -120,11 +120,9 @@ exports.list = function (req, res) {
     if (condition.role) {
       roles = _.union(roles, [condition.role]);
     }
-    if (roles.length === 1) {
-      and_arr.push({ roles: roles[0] });
-    }
-    if (roles.length > 1) {
-      and_arr.push({ roles: { $in: roles } });
+    
+    if (roles.length > 0) {
+      and_arr.push({ roles: { $all: roles } });
     }
   }
 
