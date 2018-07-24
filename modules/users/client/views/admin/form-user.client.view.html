@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="form-group" ng-show="!vm.user._id" show-errors>
-          <label for="password">社員氏名</label>
+          <label for="password">パスワード</label>
           <input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="パスワード"
             required password-validator/>
           <div ng-messages="vm.form.userForm.password.$error" role="alert">
@@ -35,14 +35,14 @@
         </div>
 
         <!-- 氏名 -->
-        <div class="form-group d-md-none" show-errors>
+        <div class="form-group" show-errors>
           <label for="firstName">姓</label>
           <input type="text" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="姓" required />
           <div ng-messages="vm.form.userForm.firstName.$error" role="alert">
             <p class="help-block error-text font-sm" ng-message="required">姓は必須です。</p>
           </div>
         </div>
-        <div class="form-group d-md-none" show-errors>
+        <div class="form-group" show-errors>
           <label for="lastName">名</label>
           <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="名" required
           />
@@ -52,7 +52,7 @@
         </div>
 
         <!-- メール 役割 -->
-        <div class="form-group d-md-none" show-errors>
+        <div class="form-group" show-errors>
           <label for="email">メール</label>
           <input type="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required />
           <div ng-messages="vm.form.userForm.email.$error" role="alert">
@@ -60,7 +60,7 @@
             <p class="help-block error-text font-sm" ng-message="email">メールのフォーマットが違います。</p>
           </div>
         </div>
-        <div class="form-group d-md-none">
+        <div class="form-group">
           <label for="_roles">メール</label>
           <tags-input class="my-tags" ng-model="vm.condition._roles" key-property="value" template="_roles_tags.html" display-property="name"
             placeholder="ロール" replace-spaces-with-dashes="false">
