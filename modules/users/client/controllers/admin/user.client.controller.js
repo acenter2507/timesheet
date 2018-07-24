@@ -55,6 +55,13 @@ function UserController(
     deferred.resolve(UserRolesService.roles);
     return deferred.promise;
   };
+  vm.handleSaveUser = function(isValid) {
+    if (!isValid) {
+      $scope.$broadcast('show-errors-check-validity', 'vm.form.userForm');
+      return false;
+    }
+    
+  }
 
 
 
