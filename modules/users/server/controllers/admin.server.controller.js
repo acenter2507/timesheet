@@ -7,9 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Department = mongoose.model('Department'),
-  errorHandler = require(path.resolve(
-    './modules/core/server/controllers/errors.server.controller'
-  ));
+  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 var _ = require('underscore'),
   _moment = require('moment');
 
@@ -72,25 +70,23 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
   var user = req.model;
 
-  var departmentId = user.department ? user.department._id || user.department : undefined;
-  if (departmentId) {
-    if (_.contains(user.roles, 'manager')) {
-      Department.removeLeader(departmentId, user._id).then(department => {
-        User.setLeaders(department._id, department.leaders);
-      });
-    } else {
-      Department.removeMember(departmentId, user._id);
-    }
-  }
+  // var departmentId = user.department ? user.department._id || user.department : undefined;
+  // if (departmentId) {
+  //   if (_.contains(user.roles, 'manager')) {
+  //     Department.removeLeader(departmentId, user._id).then(department => {
+  //       User.setLeaders(department._id, department.leaders);
+  //     });
+  //   } else {
+  //     Department.removeMember(departmentId, user._id);
+  //   }
+  // }
 
   user.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-
-    res.json(user);
+    if (err)
+      return res.status(400).send({ message: 'ユーザーを削除できません！' });
+    // TODO
+    // Xóa các thông tin liên quan đến user
+    return res.end();
   });
 };
 exports.list = function (req, res) {

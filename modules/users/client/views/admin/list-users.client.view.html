@@ -76,19 +76,13 @@
 
                   <ul class="dropdown-menu dropdown-menu-left" role="menu">
                     <li>
-                      <a ui-sref="admin.users.review({ userId: user._id })">詳細確認</a>
-                    </li>
-                    <li ng-if="user.status === 2">
-                      <a ng-click="vm.handleApproveUser(user)">承認</a>
-                    </li>
-                    <li ng-if="user.status === 2">
-                      <a ng-click="vm.handleRejectUser(user)">拒否</a>
-                    </li>
-                    <li ng-if="user.status === 5">
-                      <a ng-click="vm.handleDeleteUser(user)">取り消し</a>
+                      <a ui-sref="admin.users.view({ userId: user._id })">詳細</a>
                     </li>
                     <li>
-                      <a ng-click="vm.handleViewHistory(user)">歴史</a>
+                      <a ui-sref="admin.users.edit({ userId: user._id })">編集</a>
+                    </li>
+                    <li>
+                      <a ng-click="vm.handleDeleteUser(user)">削除</a>
                     </li>
                   </ul>
                 </div>
