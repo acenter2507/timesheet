@@ -115,7 +115,7 @@ exports.list = function (req, res) {
       roles = _.union(roles, [condition.role]);
     }
     if (roles.length > 0) {
-      and_arr.push({ roles: roles });
+      and_arr.push({ roles: { $in: roles } });
     }
   }
 
