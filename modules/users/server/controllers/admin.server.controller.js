@@ -23,7 +23,7 @@ exports.add = function (req, res) {
 
     var user = new User(req.body);
     user.displayName = user.firstName + ' ' + user.lastName;
-    user.search = user.displayName.toLowerCase() + '-' + user.email.toLowerCase() + '-' + user.username.toLowerCase();;
+    user.search = user.displayName.toLowerCase() + '-' + user.email.toLowerCase() + '-' + user.username.toLowerCase();
     user.save(function (err) {
       if (err) return handleError(err);
       // Thêm user vào department
@@ -62,7 +62,7 @@ exports.update = function (req, res) {
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
   user.displayName = user.firstName + ' ' + user.lastName;
-  user.search = user.displayName.toLowerCase() + '-' + user.email.toLowerCase() + '-' + user.username.toLowerCase();;
+  user.search = user.displayName.toLowerCase() + '-' + user.email.toLowerCase() + '-' + user.username.toLowerCase();
   user.save(function (err) {
     if (err) {
       return res.status(400).send({
