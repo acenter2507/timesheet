@@ -62,7 +62,7 @@
         </div>
         <div class="form-group">
           <label for="_roles">メール</label>
-          <tags-input class="my-tags" ng-model="vm.condition._roles" key-property="value" template="_roles_tags.html" display-property="name"
+          <tags-input class="my-tags" ng-model="vm.user._roles" key-property="value" template="roles_tags.html" display-property="name"
             placeholder="ロール" replace-spaces-with-dashes="false" min-length="1" >
             <auto-complete source="vm.handleSearchRoles($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="32"></auto-complete>
           </tags-input>
@@ -76,7 +76,7 @@
     </div>
   </div>
 </div>
-<script type="text/ng-template" id="_roles_tags.html">
+<script type="text/ng-template" id="roles_tags.html">
   <a href="#">{{ data.name }}</a>
   <a class="remove-button" ng-click="$removeTag()" ng-bind="$$removeTagSymbol"></a>
 </script>

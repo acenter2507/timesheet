@@ -40,7 +40,7 @@ function UserController(
 
   function prepareUser() {
     if (!vm.user._id) {
-      var user_role = UserRolesService.getRole('admin');
+      var user_role = UserRolesService.getRole('user');
       vm.user._roles = [user_role];
     } else {
       vm.user._roles = [];
