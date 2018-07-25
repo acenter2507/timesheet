@@ -5,7 +5,6 @@ angular.module('users.admin')
 
 UserController.$inject = [
   '$scope',
-  '$state',
   'userResolve',
   'UserRolesService',
   '$q'
@@ -13,7 +12,6 @@ UserController.$inject = [
 
 function UserController(
   $scope,
-  $state,
   userResolve,
   UserRolesService,
   $q
@@ -66,7 +64,7 @@ function UserController(
 
     function successCallback(res) {
       vm.busy = false;
-      $state.go('admin.users.view', { userId: res._id });
+      $scope.handleBackScreen('admin.users.list');
     }
 
     function errorCallback(err) {

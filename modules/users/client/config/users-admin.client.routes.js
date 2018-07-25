@@ -9,7 +9,7 @@ angular.module('users.admin').config(['$stateProvider',
         abstract: true,
         template: '<ui-view></ui-view>',
         data: { roles: ['admin'] },
-        ncyBreadcrumb: { label: '社員管理' }
+        ncyBreadcrumb: { label: 'アカウント管理' }
       })
       .state('admin.users.list', {
         url: '?role?status',
@@ -17,7 +17,7 @@ angular.module('users.admin').config(['$stateProvider',
         controller: 'UserListController',
         controllerAs: 'vm',
         data: { roles: ['admin'] },
-        ncyBreadcrumb: { label: '社員一覧' }
+        ncyBreadcrumb: { label: 'アカウント一覧' }
       })
       .state('admin.users.create', {
         url: '/create',
@@ -30,25 +30,12 @@ angular.module('users.admin').config(['$stateProvider',
             return new AdminUserService();
           }]
         },
-        ncyBreadcrumb: { label: '新規アカウント登録' }
-      })
-      .state('admin.users.view', {
-        url: '/:userId',
-        templateUrl: 'modules/users/client/views/admin/view-user.client.view.html',
-        controller: 'UserController',
-        controllerAs: 'vm',
-        data: { roles: ['admin'] },
-        resolve: {
-          userResolve: ['$stateParams', 'AdminUserService', function ($stateParams, AdminUserService) {
-            return AdminUserService.get({ userId: $stateParams.userId }).$promise;
-          }]
-        },
-        ncyBreadcrumb: { label: '社員詳細' }
+        ncyBreadcrumb: { label: 'アカウント登録' }
       })
       .state('admin.users.edit', {
         url: '/:userId/edit',
-        templateUrl: 'modules/users/client/views/admin/input-user.client.view.html',
-        controller: 'UserInputController',
+        templateUrl: 'modules/users/client/views/admin/form-user.client.view.html',
+        controller: 'UserController',
         controllerAs: 'vm',
         data: { roles: ['admin'] },
         resolve: {
@@ -58,7 +45,7 @@ angular.module('users.admin').config(['$stateProvider',
             }).$promise;
           }]
         },
-        ncyBreadcrumb: { label: '社員情報編集' }
+        ncyBreadcrumb: { label: 'アカウント編集' }
       });
   }
 ]);
