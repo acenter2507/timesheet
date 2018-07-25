@@ -50,6 +50,10 @@ function UserController(
       $scope.$broadcast('show-errors-check-validity', 'vm.form.userForm');
       return false;
     }
+    if (vm.user._roles.length === 0) {
+      $scope.handleShowToast('役割を追加してください！', true);
+      return false;
+    }
     if (vm.busy) return;
     vm.busy = true;
 
