@@ -8,6 +8,7 @@ UserController.$inject = [
   'userResolve',
   'UserRolesService',
   'ngDialog',
+  'AdminUserApi',
   '$q'
 ];
 
@@ -16,6 +17,7 @@ function UserController(
   userResolve,
   UserRolesService,
   ngDialog,
+  AdminUserApi,
   $q
 ) {
   var vm = this;
