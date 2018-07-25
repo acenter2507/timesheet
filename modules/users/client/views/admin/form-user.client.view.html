@@ -8,6 +8,25 @@
       </div>
 
       <form name="vm.form.userForm" novalidate>
+        <!-- メール 役割 -->
+        <div class="form-group" show-errors>
+          <div class="col-sm-6">
+            <label for="email">メール</label>
+            <input type="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required />
+            <div ng-messages="vm.form.userForm.email.$error" role="alert">
+              <p class="help-block error-text font-sm" ng-message="required">メールは必須です。</p>
+              <p class="help-block error-text font-sm" ng-message="email">メールのフォーマットが違います。</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <label for="_roles">ロール</label>
+            <tags-input class="my-tags" ng-model="vm.user._roles" key-property="value" template="_roles_tags.html" display-property="name"
+              placeholder="ロール" replace-spaces-with-dashes="false">
+              <auto-complete source="vm.handleSearchRoles($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="32"></auto-complete>
+            </tags-input>
+          </div>
+          <div class="clearfix"></div>
+        </div>
         <!-- ユーザーID パスワード -->
         <div class="form-group" show-errors>
           <div class="col-sm-6">
@@ -53,25 +72,6 @@
             <div ng-messages="vm.form.userForm.lastName.$error" role="alert">
               <p class="help-block error-text font-sm" ng-message="required">名は必須です。</p>
             </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        <!-- メール 役割 -->
-        <div class="form-group" show-errors>
-          <div class="col-sm-6">
-            <label for="email">メール</label>
-            <input type="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required />
-            <div ng-messages="vm.form.userForm.email.$error" role="alert">
-              <p class="help-block error-text font-sm" ng-message="required">メールは必須です。</p>
-              <p class="help-block error-text font-sm" ng-message="email">メールのフォーマットが違います。</p>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <label for="_roles">ロール</label>
-            <tags-input class="my-tags" ng-model="vm.user._roles" key-property="value" template="_roles_tags.html" display-property="name"
-              placeholder="ロール" replace-spaces-with-dashes="false">
-              <auto-complete source="vm.handleSearchRoles($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="32"></auto-complete>
-            </tags-input>
           </div>
           <div class="clearfix"></div>
         </div>
