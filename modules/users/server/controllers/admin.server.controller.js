@@ -127,14 +127,25 @@ exports.list = function (req, res) {
     limit: condition.limit
   };
 
-  User.paginate(query, options).then(
-    result => {
+  User.paginate(query, options)
+    .then(result => {
       return res.jsonp(result);
-    },
-    err => {
+    }, err => {
       return res.status(400).send({ message: '社員の情報を取得できません！' });
-    }
-  );
+    });
+};
+exports.resetpass = function (req, res) {
+  var user = req.model;
+  var newPassword = req.body.newPassword || '';
+  if (newPassword === '') {
+    return res.status(400).send({ message: '新しいパスワードが無効です。' });
+  }
+  user.password = newPassword;
+  user.save(function (err) {
+    if (err)
+      return res.status(400).send({ message: 'アカウントを保存できません！' });
+    return res.end();
+  });
 };
 exports.searchUsers = function (req, res) {
   var condition = req.body.condition || {};
@@ -169,101 +180,6 @@ exports.searchUsers = function (req, res) {
       if (err) return res.status(400).send(err);
       return res.jsonp(users);
     });
-};
-
-/**
- * Đổi mật khẩu user
- */
-exports.changeUserPassword = function (req, res) {
-  var user = req.model;
-  var newPassword = req.body.newPassword || '';
-  if (newPassword === '') {
-    return res.status(400).send({ message: '新しいパスワードが無効です。' });
-  }
-  if (!user) {
-    return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
-  }
-  user.password = newPassword;
-  user.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.end();
-    }
-  });
-};
-
-/**
- * Đổi roles user
- */
-exports.changeUserRoles = function (req, res) {
-  var user = req.model;
-  if (!user) {
-    return res.status(400).send({ message: 'ユーザーの情報が見つかりません。' });
-  }
-
-  var oldRoles = user.roles;
-  var newRoles = req.body.newRoles || [];
-  if (newRoles.length === 0) {
-    return res.status(400).send({ message: '役割が無効です。' });
-  }
-
-  if (arraysEqual(oldRoles, newRoles))
-    return res.status(400).send({ message: '役割が変わりません。' });
-
-  user.roles = newRoles;
-  var departmentId = user.department ? user.department._id || user.department : undefined;
-  if (departmentId) {
-    if (_.contains(newRoles, 'manager')) {
-      Department.addLeader(departmentId, user._id)
-        .then(department => {
-          return Department.removeMember(departmentId, user._id);
-        }, handleError)
-        .then(department => {
-          return User.setLeaders(department._id, department.leaders);
-        }, handleError)
-        .then(result => {
-          user.leaders = [];
-          return user.save();
-        }, handleError)
-        .then(_user => {
-          return res.jsonp(_user.leaders);
-        }, handleError);
-    } else {
-      var department;
-      Department.removeLeader(departmentId, user._id)
-        .then(_department => {
-          department = _department;
-          return Department.addMember(department._id, user._id);
-        }, handleError)
-        .then(_department => {
-          user.leaders = department.leaders;
-          return User.setLeaders(department._id, department.leaders);
-        }, handleError)
-        .then(result => {
-          return user.save();
-        }, handleError)
-        .then(_user => {
-          Department.findById(department._id)
-            .populate('leaders', 'displayName email profileImageURL')
-            .exec((err, _department) => {
-              return res.jsonp(_department.leaders);
-            });
-        }, handleError);
-    }
-  } else {
-    user.save(err => {
-      if (err)
-        return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-      return res.jsonp(user.leaders);
-    });
-  }
-
-  function handleError(err) {
-    return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-  }
 };
 
 /**
@@ -320,15 +236,6 @@ exports.changeUserDepartment = function (req, res) {
   });
 };
 
-/**
- * Đổi roles user
- */
-exports.clearDeletedUsers = function (req, res) {
-  User.remove({ status: 3 }).exec(err => {
-    res.end();
-  });
-};
-
 function arraysEqual(arr1, arr2) {
   if (arr1.length !== arr2.length) return false;
   for (var i = 0; i < arr1.length; i++) {
@@ -342,25 +249,20 @@ function arraysEqual(arr1, arr2) {
  */
 exports.userByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'User is invalid'
-    });
+    return res.status(400).send({ message: 'アカウントの情報が見つかりません！' });
   }
 
   User.findById(id, '-salt -password')
-    .populate('leaders', 'displayName email profileImageURL')
-    .populate('department', 'name')
     .exec(function (err, user) {
-      if (err) {
+      if (err)
         return next(err);
-      } else if (!user) {
-        return next(new Error('Failed to load user ' + id));
-      }
-
+      if (!user)
+        return next(new Error('アカウントの情報が見つかりません！'));
       req.model = user;
-      next();
+      return next();
     });
 };
+
 exports.list_account = function (req, res) {
   var page = req.body.page || 1;
   var condition = req.body.condition || {};

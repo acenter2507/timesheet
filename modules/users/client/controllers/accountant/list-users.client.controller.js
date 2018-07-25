@@ -223,14 +223,6 @@ function AccountantUserListController(
   //     }
   //   });
   // };
-  // vm.handleDatabaseClearAll = function () {
-  //   $scope.handleShowConfirm({
-  //     message: '全ての削除されたアカウントを削除しますか？'
-  //   }, function () {
-  //     AdminUserApi.clearDeletedUsers()
-  //       .success(function () { delete vm.deleted; });
-  //   });
-  // };
 
   // function createArrayFromRange(range) {
   //   var array = [];
