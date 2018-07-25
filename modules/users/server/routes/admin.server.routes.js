@@ -14,7 +14,7 @@ module.exports = function (app) {
     .post(adminPolicy.isAllowed, admin.add)
     .get(adminPolicy.isAllowed, admin.list);
 
-  app.route('/api/users/search').post(users.searchUsers);
+  app.route('/api/users/search').post(admin.searchUsers);
   app.route('/api/users/list').post(adminPolicy.isAllowed, admin.list);
 
   // Single user routes
