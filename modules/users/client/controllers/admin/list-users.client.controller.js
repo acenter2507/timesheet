@@ -84,7 +84,7 @@ function UserListController(
     return deferred.promise;
   };
   vm.hanleSelectUser = function (user) {
-    $state.go('admin.users.view', { userId: user._id });
+    $state.go('admin.users.edit', { userId: user._id });
   };
   vm.handleDeleteUser = function (user) {
     $scope.handleShowConfirm({
