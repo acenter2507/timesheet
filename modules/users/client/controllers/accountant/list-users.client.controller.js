@@ -71,6 +71,6 @@ function AccountantUsersController(
     prepareCondition();
   };
   vm.hanleSelectEmployee = function (user) {
-    $state.go('admin.users.edit', { userId: user._id });
+    $state.go('accountant.users.edit', { userId: user._id });
   };
 }
