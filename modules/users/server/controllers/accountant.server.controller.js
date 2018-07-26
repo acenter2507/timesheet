@@ -38,6 +38,7 @@ exports.update = function (req, res) {
       .exec(function (err, user) {
         if (err)
           return res.status(400).send({ message: '社員の情報が見つかりません！' });
+        user.private = undefined;
         return res.jsonp(user);
       });
   });

@@ -40,7 +40,10 @@ exports.add = function (req, res) {
   });
 };
 exports.read = function (req, res) {
-  res.json(req.model);
+  var model = req.model;
+  model.company = undefined;
+  model.private = undefined;
+  res.json(model);
 };
 exports.update = function (req, res) {
   var user = req.model;
@@ -60,6 +63,8 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
+    user.company = undefined;
+    user.private = undefined;
     res.json(user);
   });
 };
