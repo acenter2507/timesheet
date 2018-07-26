@@ -83,7 +83,6 @@
               </td>
               <td>{{ user.created | LLL }}</td>
               <td class="text-center">
-                <a class="btn btn-xs btn-success" ui-sref="admin.users.edit({ userId: user._id })">編集</a>
                 <a class="btn btn-xs btn-danger" ng-click="vm.handleDeleteUser(user)">削除</a>
               </td>
             </tr>
