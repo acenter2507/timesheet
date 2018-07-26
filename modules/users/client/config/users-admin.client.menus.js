@@ -3,16 +3,13 @@
 // Configuring the Articles module
 angular.module('users.admin').run(['Menus',
   function (Menus) {
-    // Menus.addMenuItem('topbar', {
-    //   title: '社員',
-    //   state: 'users.list',
-    //   // type: 'dropdown',
-    //   roles: ['admin', 'accountant', 'manager']
-    // });
-
-    // Menus.addSubMenuItem('topbar', 'users', {
-    //   title: 'List Users',
-    //   state: 'users.list'
-    // });
+    Menus.addSubMenuItem('topbar', 'admin', {
+      title: 'アカウント管理',
+      state: 'admin.users.list'
+    });
+    Menus.addSubMenuItem('topbar', 'accountant', {
+      title: '社員管理',
+      state: 'accountant.users.list'
+    });
   }
 ]);
