@@ -68,6 +68,12 @@
       <h3>個人情報</h3>
       <div class="form-group">
         <label for="birthdate">生年月日</label>
+        <div class="btn-group">
+          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_birthdate, 'btn-default': !userInfo.private.public_birthdate }" ng-model="userInfo.private.public_birthdate"
+            btn-radio="true">公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-danger': !userInfo.private.public_birthdate, 'btn-default': userInfo.private.public_birthdate }" ng-model="userInfo.private.public_birthdate"
+            btn-radio="false">非公開</label>
+        </div>
         <div class="input-group" ng-init="open = false;">
           <input name="date" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="new_birthdate" is-open="open"
             close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body show-weeks="false" readonly="true"
@@ -78,9 +84,16 @@
             </button>
           </span>
         </div>
+
       </div>
       <div class="form-group">
         <label for="intro">自己紹介</label>
+        <div class="btn-group">
+          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_intro, 'btn-default': !userInfo.private.public_intro }" ng-model="userInfo.private.public_intro"
+            btn-radio="true">公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-danger': !userInfo.private.public_intro, 'btn-default': userInfo.private.public_intro }" ng-model="userInfo.private.public_intro"
+            btn-radio="false">非公開</label>
+        </div>
         <textarea name="intro" class="form-control h100" ng-model="userInfo.private.intro"></textarea>
       </div>
       <div class="form-group">

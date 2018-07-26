@@ -18,7 +18,6 @@ function ProfileSettingController($scope, $state, UserApi, Authentication) {
 
   function prepareUserInfo() {
     $scope.userInfo = _.pick($scope.user, '_id', 'private');
-    console.log($scope.userInfo);
     if ($scope.userInfo.private.birthdate) {
       $scope.new_birthdate = moment($scope.userInfo.private.birthdate).format('YYYY/MM/DD');
     }
@@ -52,7 +51,6 @@ function ProfileSettingController($scope, $state, UserApi, Authentication) {
 
     UserApi.profile($scope.userInfo)
       .success(function (res) {
-        console.log('Result', res);
         $scope.handleShowToast('個人情報を変更しました。', false);
         _.extend(Authentication.user.private, res.private);
         $scope.info_busy = false;

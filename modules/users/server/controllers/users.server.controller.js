@@ -13,11 +13,9 @@ var _ = require('lodash'),
 exports.profile = function (req, res) {
   if (!req.user) res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var user = req.user;
-  console.log('req.user', req.user);
   user.private = req.body.private;
   user.updated = Date.now();
   user.save(function (err) {
-    console.log('1', err);
     if (err)
       return res.status(400).send({ message: 'プロファイルを保存できません！' });
     user.password = undefined;
@@ -25,7 +23,6 @@ exports.profile = function (req, res) {
     user.company = undefined;
     user.report = undefined;
     req.login(user, function (err) {
-      console.log('2', err);
       if (err)
         return res.status(400).send({ message: 'ユーザー認証が失敗しました！' });
       return res.json(user);
