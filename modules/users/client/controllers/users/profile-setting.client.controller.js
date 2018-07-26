@@ -36,7 +36,7 @@ function ProfileSettingController($scope, $state, UserApi, Authentication, FileU
         return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
       }
     });
-    $scope.uploader.onAfterAddingAll = function (addedFileItems) {
+    $scope.uploader.onAfterAddingFile = function (fileItem) {
       if ($window.FileReader) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL(fileItem._file);
