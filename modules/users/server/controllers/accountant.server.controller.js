@@ -67,7 +67,11 @@ exports.list = function (req, res) {
     and_arr.push({ $or: or_arr });
   }
   if (condition.department) {
-    and_arr.push({ department: condition.department });
+    if (condition.department === 'empty') {
+      and_arr.push({ $or: [{ department: null }, { department: { $exists: false } }] });
+    } else {
+      and_arr.push({ department: condition.department });
+    }
   }
 
   if (and_arr.length > 0) {
