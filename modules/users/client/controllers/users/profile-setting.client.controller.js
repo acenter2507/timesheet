@@ -4,9 +4,9 @@ angular
   .module('users')
   .controller('ProfileSettingController', ProfileSettingController);
 
-ProfileSettingController.$inject = ['$scope', '$state', 'UserApi'];
+ProfileSettingController.$inject = ['$scope', '$state', 'UserApi', 'Authentication'];
 
-function ProfileSettingController($scope, $state, UserApi) {
+function ProfileSettingController($scope, $state, UserApi, Authentication) {
 
   $scope.password_busy = false;
   $scope.info_busy = false;
