@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
       <tabset class="modified-tab" justified="true">
-        <tab heading="個人情報" active="isActive(1)">
+        <tab heading="{{ tabs[0].title }}" active="tabs[0].active">
           <div class="h200">個人情報</div>
         </tab>
-        <tab heading="パスワード変更" active="isActive(2)">
+        <tab heading="{{ tabs[1].title }}" active="tabs[1].active">
           <div class="h200">パスワード変更</div>
         </tab>
       </tabset>
