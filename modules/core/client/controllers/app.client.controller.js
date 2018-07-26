@@ -57,6 +57,7 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
   }
   function onCreate() {
     $scope.user = Authentication.user;
+    console.log($scope.user);
     $scope.isLogged = ($scope.user);
     $scope.isUser = $scope.isLogged && $scope.user.roles.length === 1;
     $scope.isAdmin = $scope.isLogged && _.contains($scope.user.roles, 'admin');
