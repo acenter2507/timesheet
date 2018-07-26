@@ -156,7 +156,7 @@
     function handleSearchUser() {
       if (vm.isSearching) return;
       vm.isSearching = true;
-      CommonService.autocompleteUsers({ key: vm.searchKey, department: true })
+      CommonService.autocompleteUsers({ key: vm.searchKey, noDepartment: true })
         .success(function (users) {
           vm.searchResult = users;
           vm.isSearching = false;

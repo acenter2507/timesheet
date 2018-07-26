@@ -26,7 +26,7 @@
       }
 
       var deferred = $q.defer();
-      CommonService.autocompleteUsers({ key: $query, department: false })
+      CommonService.autocompleteUsers({ key: $query })
         .success(function (users) {
           deferred.resolve(users);
         });

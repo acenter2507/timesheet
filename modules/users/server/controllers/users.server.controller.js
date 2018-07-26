@@ -49,13 +49,13 @@ exports.changeProfilePicture = function (req, res) {
   var message = null;
   var upload = multer(config.uploads.profileUpload).single('newProfilePicture');
   var profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
-  
+
   // Filtering to upload only images
   upload.fileFilter = profileUploadFileFilter;
 
   if (user) {
     upload(req, res, function (uploadError) {
-      if(uploadError) {
+      if (uploadError) {
         return res.status(400).send({
           message: 'Error occurred while uploading profile picture'
         });
@@ -171,23 +171,31 @@ exports.signout = function (req, res) {
 
 exports.autocomplete = function (req, res) {
   var condition = req.body.condition || {};
-  var key = condition.key;
-  var roles = condition.roles || [];
-  var department = condition.department || false;
 
-  var ands = [{ roles: { $ne: 'admin' } }];
-  if (roles.length > 0) {
-    ands.push({ roles: roles });
+  var ands = [];
+  // 基本はシステム管理者を除外
+  if (!condition.hasAdmin) {
+    ands.push({ roles: { $ne: 'admin' } });
   }
-  if (department) {
+  if (condition.roles.length > 0) {
+    ands.push({ roles: { $all: condition.roles } });
+  }
+  // 部署が未設定のみ
+  if (condition.noDepartment) {
     ands.push({ $or: [{ department: null }, { department: { $exists: false } }] });
   }
 
-  if (key && key.length > 0) {
-    var key_lower = key.toLowerCase();
-    var key_upper = key.toUpperCase();
+  if (condition.key && condition.key.length > 0) {
+    var key_lower = condition.key.toLowerCase();
+    var key_upper = condition.key.toUpperCase();
     var or_arr = [
-      { search: { $regex: '.*' + key + '.*' } },
+      { email: { $regex: '.*' + condition.key + '.*' } },
+      { email: { $regex: '.*' + key_lower + '.*' } },
+      { email: { $regex: '.*' + key_upper + '.*' } },
+      { username: { $regex: '.*' + condition.key + '.*' } },
+      { username: { $regex: '.*' + key_lower + '.*' } },
+      { username: { $regex: '.*' + key_upper + '.*' } },
+      { search: { $regex: '.*' + condition.key + '.*' } },
       { search: { $regex: '.*' + key_lower + '.*' } },
       { search: { $regex: '.*' + key_upper + '.*' } }
     ];
