@@ -4,8 +4,8 @@
       <div class="user-detail-block">
         <div class="user-basic-info">
           <div class="user-avatar">
-            <a ng-click="handleShowImage(user.profileImageURL)">
-              <img src="{{:: user.profileImageURL }}">
+            <a ng-click="handleShowImage(imageURL)">
+              <img src="{{ imageURL }}" alt="{{ user.displayName }}">
             </a>
           </div>
           <div class="user-info-block">
@@ -26,6 +26,16 @@
             </table>
           </div>
         </div>
+      </div>
+      <div class="form-group" ng-hide="uploader.queue.length">
+        <span class="btn btn-default btn-upload-file">
+          写真選択
+          <input type="file" nv-file-select uploader="uploader">
+        </span>
+      </div>
+      <div class="text-center form-group" ng-show="uploader.queue.length">
+        <button class="btn btn-primary" ng-click="handleUploadProfilePicture()">保存</button>
+        <button class="btn btn-default" ng-click="cancelUpload()">キャンセル</button>
       </div>
       <hr>
       <h3>パスワード変更</h3>
@@ -69,10 +79,10 @@
       <div class="form-group">
         <label for="birthdate">生年月日</label>
         <div class="btn-group pull-right">
-          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_birthdate, 'btn-default': !userInfo.private.public_birthdate }" ng-model="userInfo.private.public_birthdate"
-            btn-radio="true">公開</label>
-          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_birthdate, 'btn-default': userInfo.private.public_birthdate }" ng-model="userInfo.private.public_birthdate"
-            btn-radio="false">非公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_birthdate, 'btn-default': !userInfo.private.public_birthdate }"
+            ng-model="userInfo.private.public_birthdate" btn-radio="true">公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_birthdate, 'btn-default': userInfo.private.public_birthdate }"
+            ng-model="userInfo.private.public_birthdate" btn-radio="false">非公開</label>
         </div>
         <div class="clearfix"></div>
         <div class="input-group" ng-init="open = false;">
@@ -90,10 +100,10 @@
       <div class="form-group">
         <label for="intro">自己紹介</label>
         <div class="btn-group pull-right">
-          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_intro, 'btn-default': !userInfo.private.public_intro }" ng-model="userInfo.private.public_intro"
-            btn-radio="true">公開</label>
-          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_intro, 'btn-default': userInfo.private.public_intro }" ng-model="userInfo.private.public_intro"
-            btn-radio="false">非公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_intro, 'btn-default': !userInfo.private.public_intro }"
+            ng-model="userInfo.private.public_intro" btn-radio="true">公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_intro, 'btn-default': userInfo.private.public_intro }"
+            ng-model="userInfo.private.public_intro" btn-radio="false">非公開</label>
         </div>
         <div class="clearfix"></div>
         <textarea name="intro" class="form-control h100" ng-model="userInfo.private.intro"></textarea>
@@ -101,10 +111,10 @@
       <div class="form-group">
         <label for="address">住所</label>
         <div class="btn-group pull-right">
-          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_address, 'btn-default': !userInfo.private.public_address }" ng-model="userInfo.private.public_address"
-            btn-radio="true">公開</label>
-          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_address, 'btn-default': userInfo.private.public_address }" ng-model="userInfo.private.public_address"
-            btn-radio="false">非公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_address, 'btn-default': !userInfo.private.public_address }"
+            ng-model="userInfo.private.public_address" btn-radio="true">公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_address, 'btn-default': userInfo.private.public_address }"
+            ng-model="userInfo.private.public_address" btn-radio="false">非公開</label>
         </div>
         <div class="clearfix"></div>
         <input name="address" type="text" class="form-control" ng-model="userInfo.private.address" />
@@ -112,10 +122,10 @@
       <div class="form-group">
         <label for="phone">電話番号</label>
         <div class="btn-group pull-right">
-          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_phone, 'btn-default': !userInfo.private.public_phone }" ng-model="userInfo.private.public_phone"
-            btn-radio="true">公開</label>
-          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_phone, 'btn-default': userInfo.private.public_phone }" ng-model="userInfo.private.public_phone"
-            btn-radio="false">非公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_phone, 'btn-default': !userInfo.private.public_phone }"
+            ng-model="userInfo.private.public_phone" btn-radio="true">公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_phone, 'btn-default': userInfo.private.public_phone }"
+            ng-model="userInfo.private.public_phone" btn-radio="false">非公開</label>
         </div>
         <div class="clearfix"></div>
         <input name="phone" type="number" class="form-control" ng-model="userInfo.private.phone" />
@@ -123,10 +133,10 @@
       <div class="form-group">
         <label for="sex">性別</label>
         <div class="btn-group pull-right">
-          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_sex, 'btn-default': !userInfo.private.public_sex }" ng-model="userInfo.private.public_sex"
-            btn-radio="true">公開</label>
-          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_sex, 'btn-default': userInfo.private.public_sex }" ng-model="userInfo.private.public_sex"
-            btn-radio="false">非公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_sex, 'btn-default': !userInfo.private.public_sex }"
+            ng-model="userInfo.private.public_sex" btn-radio="true">公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_sex, 'btn-default': userInfo.private.public_sex }"
+            ng-model="userInfo.private.public_sex" btn-radio="false">非公開</label>
         </div>
         <div class="clearfix"></div>
         <select class="form-control" ng-model="userInfo.private.sex" convert-to-number>
@@ -137,10 +147,10 @@
       <div class="form-group">
         <label for="hobby">興味</label>
         <div class="btn-group pull-right">
-          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_hobby, 'btn-default': !userInfo.private.public_hobby }" ng-model="userInfo.private.public_hobby"
-            btn-radio="true">公開</label>
-          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_hobby, 'btn-default': userInfo.private.public_hobby }" ng-model="userInfo.private.public_hobby"
-            btn-radio="false">非公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-success': userInfo.private.public_hobby, 'btn-default': !userInfo.private.public_hobby }"
+            ng-model="userInfo.private.public_hobby" btn-radio="true">公開</label>
+          <label class="btn btn-xs" ng-class="{ 'btn-warning': !userInfo.private.public_hobby, 'btn-default': userInfo.private.public_hobby }"
+            ng-model="userInfo.private.public_hobby" btn-radio="false">非公開</label>
         </div>
         <div class="clearfix"></div>
         <textarea name="hobby" class="form-control h80" ng-model="userInfo.private.hobby"></textarea>

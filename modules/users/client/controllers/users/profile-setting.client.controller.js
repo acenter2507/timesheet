@@ -4,9 +4,9 @@ angular
   .module('users')
   .controller('ProfileSettingController', ProfileSettingController);
 
-ProfileSettingController.$inject = ['$scope', '$state', 'UserApi', 'Authentication'];
+ProfileSettingController.$inject = ['$scope', '$state', 'UserApi', 'Authentication', 'FileUploader', '$window', '$timeout'];
 
-function ProfileSettingController($scope, $state, UserApi, Authentication) {
+function ProfileSettingController($scope, $state, UserApi, Authentication, FileUploader, $window, $timeout) {
 
   $scope.password_busy = false;
   $scope.info_busy = false;
@@ -14,14 +14,50 @@ function ProfileSettingController($scope, $state, UserApi, Authentication) {
   onCreate();
   function onCreate() {
     prepareUserInfo();
+    prepareUpload();
   }
 
   function prepareUserInfo() {
     $scope.userInfo = _.pick($scope.user, '_id', 'private');
+    $scope.imageURL = $scope.user.profileImageURL;
     if ($scope.userInfo.private.birthdate) {
       $scope.new_birthdate = moment($scope.userInfo.private.birthdate).format('YYYY/MM/DD');
     }
   }
+  function prepareUpload() {
+    $scope.uploader = new FileUploader({
+      url: 'api/users/picture',
+      alias: 'newProfilePicture'
+    });
+    $scope.uploader.filters.push({
+      name: 'imageFilter',
+      fn: function (item, options) {
+        var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+      }
+    });
+    $scope.uploader.onAfterAddingAll = function (addedFileItems) {
+      if ($window.FileReader) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL(fileItem._file);
+
+        fileReader.onload = function (fileReaderEvent) {
+          $timeout(function () {
+            $scope.imageURL = fileReaderEvent.target.result;
+          }, 0);
+        };
+      }
+    };
+    $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+      // $scope.user = Authentication.user = response;
+      $scope.cancelUpload();
+    };
+    $scope.uploader.onErrorItem = function (fileItem, res, status, headers) {
+      $scope.cancelUpload();
+      $scope.handleShowToast(res.message, true);
+    };
+  }
+
 
   $scope.handleChangePassword = function (isValid) {
     if (!isValid) {
@@ -59,5 +95,12 @@ function ProfileSettingController($scope, $state, UserApi, Authentication) {
         $scope.handleShowToast(err.message, true);
         $scope.info_busy = false;
       });
+  };
+  $scope.handleUploadProfilePicture = function () {
+    $scope.uploader.uploadAll();
+  };
+  $scope.cancelUpload = function () {
+    $scope.uploader.clearQueue();
+    $scope.imageURL = $scope.user.profileImageURL;
   };
 }

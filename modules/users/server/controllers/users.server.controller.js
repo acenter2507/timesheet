@@ -10,6 +10,48 @@ var _ = require('lodash'),
   config = require(path.resolve('./config/config')),
   User = mongoose.model('User');
 
+exports.autocomplete = function (req, res) {
+  var condition = req.body.condition || {};
+
+  var ands = [];
+  // 基本はシステム管理者を除外
+  if (!condition.hasAdmin) {
+    ands.push({ roles: { $ne: 'admin' } });
+  }
+  if (condition.roles.length > 0) {
+    ands.push({ roles: { $all: condition.roles } });
+  }
+  // 部署が未設定のみ
+  if (condition.noDepartment) {
+    ands.push({ $or: [{ department: null }, { department: { $exists: false } }] });
+  }
+
+  if (condition.key && condition.key.length > 0) {
+    var key_lower = condition.key.toLowerCase();
+    var key_upper = condition.key.toUpperCase();
+    var or_arr = [
+      { email: { $regex: '.*' + condition.key + '.*' } },
+      { email: { $regex: '.*' + key_lower + '.*' } },
+      { email: { $regex: '.*' + key_upper + '.*' } },
+      { username: { $regex: '.*' + condition.key + '.*' } },
+      { username: { $regex: '.*' + key_lower + '.*' } },
+      { username: { $regex: '.*' + key_upper + '.*' } },
+      { search: { $regex: '.*' + condition.key + '.*' } },
+      { search: { $regex: '.*' + key_lower + '.*' } },
+      { search: { $regex: '.*' + key_upper + '.*' } }
+    ];
+
+    ands.push({ $or: or_arr });
+  }
+
+  var query = { $and: ands };
+  User.find(query)
+    .select('displayName email profileImageURL roles')
+    .exec((err, users) => {
+      if (err) return res.status(400).send(err);
+      return res.jsonp(users);
+    });
+};
 exports.profile = function (req, res) {
   if (!req.user) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var user = req.user;
@@ -28,6 +70,42 @@ exports.profile = function (req, res) {
       return res.json(user);
     });
   });
+};
+exports.changePassword = function (req, res) {
+  if (!req.user) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
+  var passwordDetails = req.body;
+
+  if (!passwordDetails.newPassword)
+    return res.status(400).send({ message: '新しいパスワードを入力してください！' });
+  User.findById(req.user._id, function (err, user) {
+    if (err || !user)
+      return res.status(400).send({ message: 'ユーザー情報が見つかりません！' });
+
+    if (user.authenticate(passwordDetails.currentPassword)) {
+      if (passwordDetails.newPassword !== passwordDetails.verifyPassword)
+        return res.status(422).send({ message: '確認パスワードと新しいパスワードが統一していません！' });
+
+      user.password = passwordDetails.newPassword;
+      user.save(function (err) {
+        if (err)
+          return res.status(422).send({ message: 'パスワードを保存できません！' });
+
+        user.password = undefined;
+        user.salt = undefined;
+        user.company = undefined;
+        user.report = undefined;
+
+        req.login(user, function (err) {
+          if (err) return res.status(400).send(err);
+          return res.end();
+        });
+      });
+    } else {
+      return res.status(422).send({ message: '現在のパスワードが間違います！' });
+    }
+
+  });
+
 };
 exports.changeProfilePicture = function (req, res) {
   var user = req.user;
@@ -70,42 +148,6 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 };
-exports.changePassword = function (req, res) {
-  if (!req.user) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
-  var passwordDetails = req.body;
-
-  if (!passwordDetails.newPassword)
-    return res.status(400).send({ message: '新しいパスワードを入力してください！' });
-  User.findById(req.user._id, function (err, user) {
-    if (err || !user)
-      return res.status(400).send({ message: 'ユーザー情報が見つかりません！' });
-
-    if (user.authenticate(passwordDetails.currentPassword)) {
-      if (passwordDetails.newPassword !== passwordDetails.verifyPassword)
-        return res.status(422).send({ message: '確認パスワードと新しいパスワードが統一していません！' });
-
-      user.password = passwordDetails.newPassword;
-      user.save(function (err) {
-        if (err)
-          return res.status(422).send({ message: 'パスワードを保存できません！' });
-
-        user.password = undefined;
-        user.salt = undefined;
-        user.company = undefined;
-        user.report = undefined;
-
-        req.login(user, function (err) {
-          if (err) return res.status(400).send(err);
-          return res.end();
-        });
-      });
-    } else {
-      return res.status(422).send({ message: '現在のパスワードが間違います！' });
-    }
-
-  });
-
-};
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err || !user) return res.status(400).send(info);
@@ -124,46 +166,4 @@ exports.signin = function (req, res, next) {
 exports.signout = function (req, res) {
   req.logout();
   res.redirect('/');
-};
-exports.autocomplete = function (req, res) {
-  var condition = req.body.condition || {};
-
-  var ands = [];
-  // 基本はシステム管理者を除外
-  if (!condition.hasAdmin) {
-    ands.push({ roles: { $ne: 'admin' } });
-  }
-  if (condition.roles.length > 0) {
-    ands.push({ roles: { $all: condition.roles } });
-  }
-  // 部署が未設定のみ
-  if (condition.noDepartment) {
-    ands.push({ $or: [{ department: null }, { department: { $exists: false } }] });
-  }
-
-  if (condition.key && condition.key.length > 0) {
-    var key_lower = condition.key.toLowerCase();
-    var key_upper = condition.key.toUpperCase();
-    var or_arr = [
-      { email: { $regex: '.*' + condition.key + '.*' } },
-      { email: { $regex: '.*' + key_lower + '.*' } },
-      { email: { $regex: '.*' + key_upper + '.*' } },
-      { username: { $regex: '.*' + condition.key + '.*' } },
-      { username: { $regex: '.*' + key_lower + '.*' } },
-      { username: { $regex: '.*' + key_upper + '.*' } },
-      { search: { $regex: '.*' + condition.key + '.*' } },
-      { search: { $regex: '.*' + key_lower + '.*' } },
-      { search: { $regex: '.*' + key_upper + '.*' } }
-    ];
-
-    ands.push({ $or: or_arr });
-  }
-
-  var query = { $and: ands };
-  User.find(query)
-    .select('displayName email profileImageURL roles')
-    .exec((err, users) => {
-      if (err) return res.status(400).send(err);
-      return res.jsonp(users);
-    });
 };
