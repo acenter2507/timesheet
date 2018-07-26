@@ -76,11 +76,11 @@ exports.list = function (req, res) {
   var options = {
     page: page,
     sort: condition.sort,
-    limit: condition.limit
+    limit: condition.limit,
+    populate: [{ path: 'department', select: 'name' }]
   };
 
   User.paginate(query, options)
-    .populate('department', 'name')
     .then(result => {
       return res.jsonp(result);
     }, err => {
