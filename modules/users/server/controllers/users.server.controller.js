@@ -153,7 +153,6 @@ exports.signout = function (req, res) {
   res.redirect('/');
 };
 exports.profile = function (req, res) {
-  console.log(req.model);
   if (!req.model) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var profile = req.model;
 
@@ -168,5 +167,6 @@ exports.profile = function (req, res) {
   if (!profile.private.public_phone) profile.private.phone = undefined;
   if (!profile.private.public_sex) profile.private.sex = undefined;
   if (!profile.private.public_intro) profile.private.intro = undefined;
+  console.log(profile);
   return res.json(profile);
 };
