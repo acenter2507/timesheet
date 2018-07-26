@@ -4,7 +4,7 @@ angular
   .module('users.admin')
   .controller('AccountantUsersController', AccountantUsersController);
 
-  AccountantUsersController.$inject = [
+AccountantUsersController.$inject = [
   '$scope',
   '$state',
   'AccountantUserApi',
