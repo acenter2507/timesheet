@@ -24,7 +24,7 @@ angular.module('users').config(['$stateProvider',
         ncyBreadcrumb: { label: 'プロファイル' }
       })
       .state('profile.setting', {
-        url: '/setting?action',
+        url: '/setting',
         templateUrl: 'modules/users/client/views/users/setting-profile.client.view.html',
         controller: 'ProfileSettingController',
         data: { roles: ['user'] },
@@ -32,10 +32,10 @@ angular.module('users').config(['$stateProvider',
       })
       .state('profile.view', {
         url: '/:userId',
-        templateUrl: 'modules/users/client/views/users/view-profile.client.view.html',
-        controller: 'UserListController',
+        templateUrl: 'modules/users/client/views/users/profile.client.view.html',
+        controller: 'ProfileController',
         controllerAs: 'vm',
-        ncyBreadcrumb: { label: '{{vm.profile.displayName}}' }
+        ncyBreadcrumb: { label: '{{ vm.profile.displayName }}' }
       });
   }
 ]);

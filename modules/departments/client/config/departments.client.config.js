@@ -9,9 +9,9 @@
 
   function menuConfig(Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', {
-      title: '部署',
-      state: 'departments.list'
-    });
+    // Menus.addMenuItem('topbar', {
+    //   title: '部署',
+    //   state: 'departments.list'
+    // });
   }
 }());

@@ -52,7 +52,7 @@ exports.autocomplete = function (req, res) {
       return res.jsonp(users);
     });
 };
-exports.profile = function (req, res) {
+exports.update = function (req, res) {
   if (!req.user) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var user = req.user;
   user.private = req.body.private;

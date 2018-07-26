@@ -7,7 +7,7 @@
 
   DepartmentsListController.$inject = ['$scope', 'DepartmentsService'];
 
-  function DepartmentsListController($scope, DepartmentsService, $stateParams) {
+  function DepartmentsListController($scope, DepartmentsService) {
     var vm = this;
 
     vm.departments = DepartmentsService.query();

@@ -158,10 +158,6 @@ function AppController($scope, $state, $stateParams, Authentication, toastr, ngD
 
   // View user
   $scope.handleViewDetailUser = function (user) {
-    if ($scope.isAdmin || $scope.isAccountant) {
-      return $state.go('admin.users.view', { userId: user._id });
-    } else {
-      return $state.go('profile.view', { userId: user._id });
-    }
+    return $state.go('profile.view', { userId: user._id });
   };
 }
