@@ -30,40 +30,38 @@
       <hr>
       <h3>パスワード変更</h3>
       <form name="passwordForm" ng-submit="changeUserPassword(passwordForm.$valid)" class="signin" novalidate autocomplete="off">
-        <fieldset>
-          <div class="form-group" show-errors>
-            <label for="currentPassword">現在のパスワード</label>
-            <input type="password" id="currentPassword" name="currentPassword" class="form-control" ng-model="passwordDetails.currentPassword"
-              placeholder="現在のパスワード" required>
-            <div ng-messages="passwordForm.currentPassword.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">現在のパスワードを入力してください！</p>
+        <div class="form-group" show-errors>
+          <label for="currentPassword">現在のパスワード</label>
+          <input type="password" id="currentPassword" name="currentPassword" class="form-control" ng-model="passwordDetails.currentPassword"
+            placeholder="現在のパスワード" required>
+          <div ng-messages="passwordForm.currentPassword.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">現在のパスワードを入力してください！</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="newPassword">新しいパスワード</label>
+          <input type="password" id="newPassword" name="newPassword" class="form-control" ng-model="passwordDetails.newPassword" placeholder="新しいパスワード"
+            password-validator required>
+          <div ng-messages="passwordForm.newPassword.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">新しいパスワードを入力してください！</p>
+            <div ng-repeat="passwordError in passwordErrors">
+              <p class="help-block error-text" ng-show="passwordForm.newPassword.$error.requirements">{{ passwordError }}</p>
             </div>
           </div>
-          <div class="form-group" show-errors>
-            <label for="newPassword">新しいパスワード</label>
-            <input type="password" id="newPassword" name="newPassword" class="form-control" ng-model="passwordDetails.newPassword" placeholder="新しいパスワード"
-              password-validator required>
-            <div ng-messages="passwordForm.newPassword.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">新しいパスワードを入力してください！</p>
-              <div ng-repeat="passwordError in passwordErrors">
-                <p class="help-block error-text" ng-show="passwordForm.newPassword.$error.requirements">{{ passwordError }}</p>
-              </div>
-            </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="verifyPassword">確認パスワード</label>
+          <input type="password" id="verifyPassword" name="verifyPassword" class="form-control" ng-model="passwordDetails.verifyPassword"
+            placeholder="確認パスワード" password-verify="passwordDetails.newPassword" required>
+          <div ng-messages="passwordForm.verifyPassword.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">もう一度新しいパスワードを入力してください！</p>
+            <p class="help-block error-text" ng-show=passwordForm.verifyPassword.$error.passwordVerify>新しいパスワードが一致していません。</p>
           </div>
-          <div class="form-group" show-errors>
-            <label for="verifyPassword">確認パスワード</label>
-            <input type="password" id="verifyPassword" name="verifyPassword" class="form-control" ng-model="passwordDetails.verifyPassword"
-              placeholder="確認パスワード" password-verify="passwordDetails.newPassword" required>
-            <div ng-messages="passwordForm.verifyPassword.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">もう一度新しいパスワードを入力してください！</p>
-              <p class="help-block error-text" ng-show=passwordForm.verifyPassword.$error.passwordVerify>新しいパスワードが一致していません。</p>
-            </div>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary">パスワード変更</button>
-            <a ui-sref="profile.forget">パスワードを忘れた</a>
-          </div>
-        </fieldset>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">パスワード変更</button>
+          <a class="mg10l" ui-sref="profile.forget">パスワードを忘れた</a>
+        </div>
       </form>
       <hr>
       <h4>個人情報</h4>
