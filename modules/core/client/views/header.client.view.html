@@ -66,10 +66,11 @@
           <i class="fa fa-envelope-o"></i> メッセージ
           <span class="badge" ng-class="{'badge-success': Messages.cnt > 0}">{{Messages.cnt}}</span>
         </a>
-        <div class="dropdown-header text-center">
+        <!-- <div class="dropdown-header text-center">
           <strong>プロファイル</strong>
-        </div>
-        <a class="dropdown-item" ui-sref="profile.setting">プロファイル変更</a>
+        </div> -->
+        <a class="dropdown-item" ui-sref="profile.setting">
+          <i class="fa fa-user-circle"></i> プロファイル変更</a>
         <li class="divider"></li>
         <a class="dropdown-item" href="/api/auth/signout" target="_self">ログアウト</a>
       </ul>
