@@ -11,7 +11,7 @@ var _ = require('lodash'),
   User = mongoose.model('User');
 
 exports.profile = function (req, res) {
-  if (!req.user) res.status(400).send({ message: 'ユーザーがログインしていません！' });
+  if (!req.user) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var user = req.user;
   user.private = req.body.private;
   user.updated = Date.now();
@@ -71,60 +71,40 @@ exports.changeProfilePicture = function (req, res) {
   }
 };
 exports.changePassword = function (req, res) {
-  // Init Variables
+  if (!req.user) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var passwordDetails = req.body;
 
-  if (req.user) {
-    if (passwordDetails.newPassword) {
-      User.findById(req.user.id, function (err, user) {
-        if (!err && user) {
-          if (user.authenticate(passwordDetails.currentPassword)) {
-            if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
-              user.password = passwordDetails.newPassword;
+  if (!passwordDetails.newPassword)
+    return res.status(400).send({ message: '新しいパスワードを入力してください！' });
+  User.findById(req.user._id, function (err, user) {
+    if (err || !user)
+      return res.status(400).send({ message: 'ユーザー情報が見つかりません！' });
 
-              user.save(function (err) {
-                if (err) {
-                  return res.status(422).send({
-                    message: errorHandler.getErrorMessage(err)
-                  });
-                } else {
-                  req.login(user, function (err) {
-                    if (err) {
-                      res.status(400).send(err);
-                    } else {
-                      res.send({
-                        message: 'Password changed successfully'
-                      });
-                    }
-                  });
-                }
-              });
-            } else {
-              res.status(422).send({
-                message: 'Passwords do not match'
-              });
-            }
-          } else {
-            res.status(422).send({
-              message: 'Current password is incorrect'
-            });
-          }
-        } else {
-          res.status(400).send({
-            message: 'User is not found'
-          });
-        }
+    if (user.authenticate(passwordDetails.currentPassword)) {
+      if (passwordDetails.newPassword !== passwordDetails.verifyPassword)
+        return res.status(422).send({ message: '確認パスワードと新しいパスワードが統一していません！' });
+
+      user.password = passwordDetails.newPassword;
+      user.save(function (err) {
+        if (err)
+          return res.status(422).send({ message: 'パスワードを保存できません！' });
+
+        user.password = undefined;
+        user.salt = undefined;
+        user.company = undefined;
+        user.report = undefined;
+
+        req.login(user, function (err) {
+          if (err) return res.status(400).send(err);
+          return res.end();
+        });
       });
     } else {
-      res.status(422).send({
-        message: 'Please provide a new password'
-      });
+      return res.status(422).send({ message: '現在のパスワードが間違います！' });
     }
-  } else {
-    res.status(401).send({
-      message: 'User is not signed in'
-    });
-  }
+
+  });
+
 };
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
