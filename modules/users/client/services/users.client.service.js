@@ -1,11 +1,19 @@
-'use strict';
+(function () {
+  'use strict';
 
-// Users service used for communicating with the users REST endpoint
-angular.module('users').factory('Users', ['$resource',
-  function ($resource) {
-    return $resource('api/users', {}, {
-      get: { method: 'GET', ignoreLoadingBar: true },
-      query: { isArray: true, ignoreLoadingBar: true }
-    });
+  angular
+    .module('users')
+    .factory('UserApi', UserApi);
+
+  UserApi.$inject = ['$http'];
+
+  function UserApi($http) {
+    this.password = function (password) {
+      return $http.post('/api/users/password', password, { ignoreLoadingBar: true });
+    };
+    this.profile = function (profile) {
+      return $http.post('/api/users/profile', profile, { ignoreLoadingBar: true });
+    };
+    return this;
   }
-]);
+}());

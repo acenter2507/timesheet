@@ -29,7 +29,7 @@
       </div>
       <hr>
       <h3>パスワード変更</h3>
-      <form name="passwordForm" ng-submit="changeUserPassword(passwordForm.$valid)" class="signin" novalidate autocomplete="off">
+      <form name="passwordForm" ng-submit="handleChangePassword(passwordForm.$valid)" class="signin" novalidate autocomplete="off">
         <div class="form-group" show-errors>
           <label for="currentPassword">現在のパスワード</label>
           <input type="password" id="currentPassword" name="currentPassword" class="form-control" ng-model="passwordDetails.currentPassword"
@@ -59,12 +59,13 @@
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">パスワード変更</button>
+          <button type="submit" class="btn btn-primary">
+            <i ng-show="password_busy" class="fa fa-spinner fa-pulse fa-fw"></i> パスワード変更</button>
           <a class="mg10l" ui-sref="profile.forget">パスワードを忘れた</a>
         </div>
       </form>
       <hr>
-      <h4>個人情報</h4>
+      <h3>個人情報</h3>
       <div class="form-group">
         <label for="birthdate">生年月日</label>
         <div class="input-group" ng-init="open = false;">
@@ -80,26 +81,30 @@
       </div>
       <div class="form-group">
         <label for="intro">自己紹介</label>
-        <textarea name="intro" class="form-control h100" ng-model="user.private.intro"></textarea>
+        <textarea name="intro" class="form-control h100" ng-model="userInfo.private.intro"></textarea>
       </div>
       <div class="form-group">
         <label for="address">住所</label>
-        <input name="address" type="text" class="form-control" ng-model="user.private.address" />
+        <input name="address" type="text" class="form-control" ng-model="userInfo.private.address" />
       </div>
       <div class="form-group">
         <label for="phone">電話番号</label>
-        <input name="phone" type="number" class="form-control" ng-model="user.private.phone" />
+        <input name="phone" type="number" class="form-control" ng-model="userInfo.private.phone" />
       </div>
       <div class="form-group">
         <label for="sex">性別</label>
-        <select class="form-control" ng-model="user.private.sex" convert-to-number>
+        <select class="form-control" ng-model="userInfo.private.sex" convert-to-number>
           <option value="1">男</option>
           <option value="2">女</option>
         </select>
       </div>
       <div class="form-group">
         <label for="hobby">興味</label>
-        <textarea name="hobby" class="form-control h80" ng-model="user.private.hobby"></textarea>
+        <textarea name="hobby" class="form-control h80" ng-model="userInfo.private.hobby"></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" ng-click="handleSaveInfo()">
+          <i ng-show="info_busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存</button>
       </div>
     </div>
   </div>

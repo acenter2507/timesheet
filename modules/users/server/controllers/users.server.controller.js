@@ -10,39 +10,20 @@ var _ = require('lodash'),
   config = require(path.resolve('./config/config')),
   User = mongoose.model('User');
 
-exports.update = function (req, res) {
-  // Init Variables
+exports.profile = function (req, res) {
+  if (!req.user) res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var user = req.user;
-
-  // For security measurement we remove the roles from the req.body object
-  delete req.body.roles;
-
-  if (user) {
-    // Merge existing user
-    user = _.extend(user, req.body);
-    user.updated = Date.now();
-    user.displayName = user.firstName + ' ' + user.lastName;
-
-    user.save(function (err) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        req.login(user, function (err) {
-          if (err) {
-            res.status(400).send(err);
-          } else {
-            res.json(user);
-          }
-        });
-      }
+  user.private = req.body.private;
+  user.updated = Date.now();
+  user.save(function (err) {
+    if (err)
+      return res.status(400).send({ message: 'プロファイルを保存できません！' });
+    req.login(user, function (err) {
+      if (err)
+        return res.status(400).send({ message: 'ユーザー認証が失敗しました！' });
+      return res.json(user);
     });
-  } else {
-    res.status(400).send({
-      message: 'User is not signed in'
-    });
-  }
+  });
 };
 exports.changeProfilePicture = function (req, res) {
   var user = req.user;
@@ -85,7 +66,7 @@ exports.changeProfilePicture = function (req, res) {
     });
   }
 };
-exports.changePassword = function (req, res, next) {
+exports.changePassword = function (req, res) {
   // Init Variables
   var passwordDetails = req.body;
 
@@ -141,9 +122,6 @@ exports.changePassword = function (req, res, next) {
     });
   }
 };
-exports.me = function (req, res) {
-  res.json(req.user || null);
-};
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err || !user) {
@@ -163,12 +141,10 @@ exports.signin = function (req, res, next) {
     }
   })(req, res, next);
 };
-
 exports.signout = function (req, res) {
   req.logout();
   res.redirect('/');
 };
-
 exports.autocomplete = function (req, res) {
   var condition = req.body.condition || {};
 
