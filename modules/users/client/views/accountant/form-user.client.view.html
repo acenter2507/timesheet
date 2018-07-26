@@ -6,109 +6,77 @@
         <div class="user-basic-info">
           <div class="user-avatar">
             <img src="{{:: vm.user.profileImageURL }}">
-            <span ng-if="vm.user.status === 1" class="user-status working" tooltip="在職しています。"></span>
-            <span ng-if="vm.user.status === 2" class="user-status retired" tooltip="退職しました。"></span>
           </div>
           <div class="user-info-block">
             <h3>{{:: vm.user.displayName}}</h3>
             <table>
               <tr>
                 <td class="pd10r">
-                  <i class="fa fa-sitemap"></i> 役割</td>
-                <td>{{:: vm.user.roles | RoleFilter }}</td>
-              </tr>
-              <tr>
-                <td class="pd10r">
                   <i class="fa fa-envelope"></i> メール</td>
                 <td>
-                  <a ng-href="mailto:{{vm.user.email}}"> {{:: vm.user.email }}</a>
+                  <a ng-href="mailto:{{ vm.user.email }}"> {{:: vm.user.email }}</a>
                 </td>
               </tr>
               <tr>
                 <td class="pd10r">
                   <i class="fa fa-users"></i> 部署</td>
-                <td>
-                  <a ng-if="vm.user.department" ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name}}</a>
-                  <span ng-if="!vm.user.department">未設定</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="pd10r">
-                  <i class="fa fa-mobile"></i> 電話番号</td>
-                <td>{{:: vm.user.private.phone || '未設定' }}</td>
+                <td>{{ (vm.user.department) ? vm.user.department.name : '未設定' }}</td>
               </tr>
             </table>
           </div>
           <div class="user-tools">
             <!-- Send email -->
-            <a class="user-tool-button" ng-href="mailto:{{vm.user.email}}" tooltip-placement="bottom" tooltip="メール送信">
+            <a class="user-tool-button" ng-href="mailto:{{ vm.user.email }}" tooltip-placement="bottom" tooltip="メール送信">
               <i class="fa fa-envelope"></i>
             </a>
             <!-- Send private message to current user -->
-            <a class="user-tool-button" ng-click="vm.handleSendMessage()" tooltip-placement="bottom" tooltip="メッセージ送信">
+            <a class="user-tool-button" ui-sref="messages.create({ user: vm.user._id })" tooltip-placement="bottom" tooltip="メッセージ送信">
               <i class="fa fa-commenting"></i>
             </a>
-            <!-- Edit info user -->
-            <a class="user-tool-button" ui-sref="admin.users.edit({ userId: vm.user._id })" tooltip-placement="bottom" tooltip="編集">
-              <i class="fa fa-pencil-square-o"></i>
-            </a>
-            <!-- View timesheet of current user -->
-            <a class="user-tool-button" ui-sref="admin.workmonths.reviews({ user: vm.user._id })" tooltip-placement="bottom" tooltip="勤務表">
-              <i class="fa fa-calendar"></i>
-            </a>
             <!-- Options menu -->
-            <div class="user-tool-button" dropdown dropdown-append-to-body>
+            <!-- <div class="user-tool-button" dropdown dropdown-append-to-body>
               <a class="w100p h100p" dropdown-toggle>
                 <i class="glyphicon glyphicon-option-vertical"></i>
               </a>
               <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                <!-- Review payments -->
                 <li>
                   <a ui-sref="admin.payments.reviews({ user: vm.user._id, status: 1 })">
                     <i class="fa fa-jpy"></i> 清算表確認</a>
                 </li>
-                <!-- Change status to retired -->
                 <li ng-show="vm.user.status === 1">
                   <a ng-click="vm.handleRetired()">
                     <i class="fa fa-hand-paper-o"></i> 退職済み</a>
                 </li>
-                <!-- Change status to working -->
                 <li ng-show="vm.user.status === 2">
                   <a ng-click="vm.handleReWorking()">
                     <i class="fa fa-handshake-o"></i> 在職中</a>
                 </li>
-                <!-- Change password -->
                 <li>
                   <a ng-click="vm.handleChangePassword()">
                     <i class="fa fa-lock"></i> パスワード変更</a>
                 </li>
-                <!-- Change roles -->
                 <li>
                   <a ng-click="vm.handleChangeRoles()">
                     <i class="fa fa-sitemap"></i> 役割変更</a>
                 </li>
-                <!-- Change department -->
                 <li>
                   <a ng-click="vm.handleChangeDepartment()">
                     <i class="fa fa-users"></i> 部署変更</a>
                 </li>
-                <!-- Logic delete -->
                 <li>
                   <a ng-click="vm.handleLogicDeleteUser()">
                     <i class="fa fa-user-times"></i> 削除</a>
                 </li>
-                <!-- Restore account -->
                 <li ng-show="vm.user.status === 3 && isAdmin">
                   <a ng-click="vm.handleResetUser()">
                     <i class="fa fa-user-times"></i> 復元</a>
-                </li>
-                <!-- Remove -->
+                </li>x
                 <li ng-if="isAdmin">
                   <a ng-click="vm.handleDatabaseDeleteUser()">
                     <i class="fa fa-trash"></i> 完全削除</a>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

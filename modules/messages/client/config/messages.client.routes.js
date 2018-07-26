@@ -24,7 +24,7 @@
         ncyBreadcrumb: { label: '一覧' }
       })
       .state('messages.create', {
-        url: '/create',
+        url: '/create?user',
         templateUrl: 'modules/messages/client/views/form-message.client.view.html',
         controller: 'MessagesController',
         controllerAs: 'vm',
