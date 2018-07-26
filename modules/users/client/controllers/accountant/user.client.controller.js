@@ -42,6 +42,7 @@ function AccountantUserController(
 
     function successCallback(res) {
       vm.busy = false;
+      _.extend(vm.user, res);
       $scope.handleShowToast('社員の情報を保存しました！', false);
     }
 

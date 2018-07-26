@@ -41,7 +41,13 @@ exports.update = function (req, res) {
   user.save(function (err) {
     if (err)
       return res.status(400).send({ message: '社員の情報を保存できません！' });
-    return res.json(user);
+    User.findById(user._id)
+      .select('department status company displayName profileImageURL email')
+      .exec(function (err, user) {
+        if (err)
+          return res.status(400).send({ message: '社員の情報が見つかりません！' });
+        return res.jsonp(user);
+      });
   });
 };
 exports.list = function (req, res) {
