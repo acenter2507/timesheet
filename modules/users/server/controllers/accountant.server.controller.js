@@ -11,13 +11,21 @@ var path = require('path'),
 var _ = require('underscore');
 
 exports.read = function (req, res) {
-  res.json(req.model);
+  User.findById(req.model._id)
+    .select('department status company displayName profileImageURL email')
+    .exec(function (err, user) {
+      if (err)
+        return res.status(400).send({ message: '社員の情報が見つかりません！' });
+      return res.jsonp(user);
+    });
 };
 exports.update = function (req, res) {
   var user = req.model;
 
   delete req.body.roles;
   delete req.body.password;
+
+  console.log(req.body);
 
   user.status = req.body.status;
   user.company.employeeId = req.company.employeeId;

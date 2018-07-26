@@ -16,6 +16,7 @@ function AccountantUserController(
 ) {
   var vm = this;
   vm.user = userResolve;
+  console.log(vm.user);
   vm.busy = false;
 
   onCreate();
