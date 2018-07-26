@@ -155,5 +155,18 @@ exports.signout = function (req, res) {
 exports.profile = function (req, res) {
   console.log(req.model);
   if (!req.model) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
-  return res.json(req.model);
+  var profile = req.model;
+
+  profile.roles = undefined;
+  profile.company = undefined;
+  profile.report = undefined;
+  profile.username = undefined;
+
+  if (!profile.private.public_birthdate) profile.private.birthdate = undefined;
+  if (!profile.private.public_hobby) profile.private.hobby = undefined;
+  if (!profile.private.public_address) profile.private.address = undefined;
+  if (!profile.private.public_phone) profile.private.phone = undefined;
+  if (!profile.private.public_sex) profile.private.sex = undefined;
+  if (!profile.private.public_intro) profile.private.intro = undefined;
+  return res.json(profile);
 };

@@ -153,7 +153,7 @@ exports.userByID = function (req, res, next, id) {
     return res.status(400).send({ message: 'アカウントの情報が見つかりません！' });
   }
 
-  User.findById(id, '-salt -password -private')
+  User.findById(id, '-salt -password')
     .exec(function (err, user) {
       if (err)
         return next(err);
