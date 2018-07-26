@@ -154,19 +154,19 @@ exports.signout = function (req, res) {
 };
 exports.profile = function (req, res) {
   if (!req.model) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
-  var profile = req.model;
+  User.findById(req.model._id, '-salt -password -roles -username -company -report')
+    .populate('department', 'name')
+    .exec(function (err, user) {
+      if (err)
+        return res.status(400).send({ message: '社員の情報が見つかりません！' });
 
-  profile.roles = undefined;
-  profile.company = undefined;
-  profile.report = undefined;
-  profile.username = undefined;
-
-  if (!profile.private.public_birthdate) profile.private.birthdate = undefined;
-  if (!profile.private.public_hobby) profile.private.hobby = undefined;
-  if (!profile.private.public_address) profile.private.address = undefined;
-  if (!profile.private.public_phone) profile.private.phone = undefined;
-  if (!profile.private.public_sex) profile.private.sex = undefined;
-  if (!profile.private.public_intro) profile.private.intro = undefined;
-  console.log(profile);
-  return res.json(profile);
+      user = user.toJSON();
+      if (!user.private.public_birthdate) user.private.birthdate = undefined;
+      if (!user.private.public_hobby) user.private.hobby = undefined;
+      if (!user.private.public_address) user.private.address = undefined;
+      if (!user.private.public_phone) user.private.phone = undefined;
+      if (!user.private.public_sex) user.private.sex = undefined;
+      if (!user.private.public_intro) user.private.intro = undefined;
+      return res.jsonp(user);
+    });
 };
