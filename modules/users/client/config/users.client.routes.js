@@ -5,29 +5,6 @@ angular.module('users').config(['$stateProvider',
   function ($stateProvider) {
     // Users state routing
     $stateProvider
-      // .state('settings', {
-      //   abstract: true,
-      //   url: '/settings',
-      //   templateUrl: 'modules/users/client/views/users/profile-setting.client.view.html',
-      //   controller: 'ProfileSettingController',
-      //   data: { roles: ['user'] },
-      //   ncyBreadcrumb: { label: 'プロファイル設定' }
-      // })
-      // .state('settings.profile', {
-      //   url: '/profile',
-      //   templateUrl: 'modules/users/client/views/users/edit-profile.client.view.html',
-      //   ncyBreadcrumb: { label: '編集' }
-      // })
-      // .state('settings.password', {
-      //   url: '/password',
-      //   templateUrl: 'modules/users/client/views/users/change-password.client.view.html',
-      //   ncyBreadcrumb: { label: 'パスワード変更' }
-      // })
-      // .state('settings.picture', {
-      //   url: '/picture',
-      //   templateUrl: 'modules/users/client/views/users/change-profile-picture.client.view.html',
-      //   ncyBreadcrumb: { label: 'アバター変更' }
-      // })
       .state('authentication', {
         abstract: true,
         url: '/authentication',
