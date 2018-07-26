@@ -24,8 +24,6 @@ exports.update = function (req, res) {
   delete req.body.roles;
   delete req.body.password;
 
-  console.log(req.body);
-
   user.status = req.body.status;
   user.company.employeeId = req.body.company.employeeId;
   user.company.taxId = req.body.company.taxId;
