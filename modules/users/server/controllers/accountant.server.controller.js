@@ -13,6 +13,15 @@ var _ = require('underscore'),
 
 exports.read = function (req, res) {
   res.json(req.model);
+  // User.findById(id, '-salt -password')
+  //   .exec(function (err, user) {
+  //     if (err)
+  //       return next(err);
+  //     if (!user)
+  //       return next(new Error('アカウントの情報が見つかりません！'));
+  //     req.model = user;
+  //     return next();
+  //   });
 };
 exports.update = function (req, res) {
   var user = req.model;
@@ -57,15 +66,8 @@ exports.list = function (req, res) {
     ];
     and_arr.push({ $or: or_arr });
   }
-  if (condition.roles) {
-    var roles = _.pluck(condition.roles, 'value');
-    if (condition.role) {
-      roles = _.union(roles, [condition.role]);
-    }
-
-    if (roles.length > 0) {
-      and_arr.push({ roles: { $all: roles } });
-    }
+  if (condition.department) {
+    and_arr.push({ department: condition.department });
   }
 
   if (and_arr.length > 0) {
@@ -78,6 +80,7 @@ exports.list = function (req, res) {
   };
 
   User.paginate(query, options)
+    .populate('department', 'name')
     .then(result => {
       return res.jsonp(result);
     }, err => {
@@ -135,46 +138,3 @@ exports.department = function (req, res) {
     }
   });
 };
-
-// exports.list_account = function (req, res) {
-//   var page = req.body.page || 1;
-//   var condition = req.body.condition || {};
-//   var query = {};
-//   var and_arr = [];
-
-//   if (condition.search && condition.search !== '') {
-//     var key_lower = condition.search.toLowerCase();
-//     var key_upper = condition.search.toUpperCase();
-//     var or_arr = [
-//       { search: { $regex: '.*' + condition.search + '.*' } },
-//       { search: { $regex: '.*' + key_lower + '.*' } },
-//       { search: { $regex: '.*' + key_upper + '.*' } }
-//     ];
-//     and_arr.push({ $or: or_arr });
-//   }
-//   if (condition.status) {
-//     and_arr.push({ status: condition.status });
-//   }
-//   if (condition.roles) {
-//     and_arr.push({ roles: { $in: condition.roles } });
-//   }
-//   if (condition.department) {
-//     and_arr.push({ department: condition.department });
-//   }
-
-//   var options = {
-//     page: page,
-//     sort: condition.sort,
-//     limit: condition.limit,
-//     populate: [{ path: 'department', select: 'name' }]
-//   };
-
-//   User.paginate(query, options).then(
-//     result => {
-//       return res.jsonp(result);
-//     },
-//     err => {
-//       return res.status(400).send({ message: '社員の情報を取得できません！' });
-//     }
-//   );
-// };
