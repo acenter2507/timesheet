@@ -27,10 +27,10 @@ exports.update = function (req, res) {
   console.log(req.body);
 
   user.status = req.body.status;
-  user.company.employeeId = req.company.employeeId;
-  user.company.taxId = req.company.taxId;
-  user.company.salary = req.company.salary;
-  user.company.paidHolidayCnt = req.company.paidHolidayCnt;
+  user.company.employeeId = req.body.company.employeeId;
+  user.company.taxId = req.body.company.taxId;
+  user.company.salary = req.body.company.salary;
+  user.company.paidHolidayCnt = req.body.company.paidHolidayCnt;
 
   if (req.body.department === 'empty') {
     delete user.department;
