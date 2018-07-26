@@ -15,13 +15,6 @@
     this.resetpass = function (userId, newPassword) {
       return $http.post('/api/users/' + userId + '/resetpass', { newPassword: newPassword }, { ignoreLoadingBar: true });
     };
-    
-    this.changeUserDepartment = function (userId, newDepartment) {
-      return $http.post('/api/users/' + userId + '/department', { newDepartment: newDepartment }, { ignoreLoadingBar: true });
-    };
-    this.searchUsers = function (condition) {
-      return $http.post('/api/users/search', { condition: condition }, { ignoreLoadingBar: true });
-    };
     return this;
   }
 

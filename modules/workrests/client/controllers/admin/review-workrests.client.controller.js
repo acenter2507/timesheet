@@ -15,7 +15,6 @@
     'Socket',
     'WorkrestsAdminApi',
     'AdminUserService',
-    'AdminUserApi',
     'CommonService',
     '$q'
   ];
@@ -30,7 +29,6 @@
     Socket,
     WorkrestsAdminApi,
     AdminUserService,
-    AdminUserApi,
     CommonService,
     $q
   ) {
@@ -224,7 +222,7 @@
       }
 
       var deferred = $q.defer();
-      AdminUserApi.searchUsers({ key: $query, department: false })
+      CommonService.autocompleteUsers({ key: $query, department: false })
         .success(function (users) {
           deferred.resolve(users);
         });

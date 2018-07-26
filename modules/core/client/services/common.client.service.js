@@ -2,8 +2,8 @@
 
 angular.module('core').factory('CommonService', CommonService);
 
-CommonService.$inject = [];
-function CommonService() {
+CommonService.$inject = ['$http'];
+function CommonService($http) {
   this.isAdmin = function(roles) {
     return _.contains(roles, 'admin');
   };
@@ -38,6 +38,9 @@ function CommonService() {
       return true;
     }
     return false;
+  };
+  this.autocompleteUsers = function (condition) {
+    return $http.post('/api/users/autocomplete', { condition: condition }, { ignoreLoadingBar: true });
   };
   return this;
 }

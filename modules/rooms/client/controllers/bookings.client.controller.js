@@ -12,12 +12,11 @@
     'bookingResolve',
     'BookingsApi',
     '$window',
-    'AdminUserApi',
     'CommonService',
     '$q',
     'Socket'];
 
-  function BookingsController($scope, $state, booking, BookingsApi, $window, AdminUserApi, CommonService, $q, Socket) {
+  function BookingsController($scope, $state, booking, BookingsApi, $window, CommonService, $q, Socket) {
     var vm = this;
     vm.booking = booking;
     vm.step = 1;
@@ -117,7 +116,7 @@
       }
 
       var deferred = $q.defer();
-      AdminUserApi.searchUsers({ key: $query, department: false })
+      CommonService.autocompleteUsers({ key: $query, department: false })
         .success(function (users) {
           deferred.resolve(users);
         });

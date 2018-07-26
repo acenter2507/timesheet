@@ -11,14 +11,13 @@
     '$state',
     'departmentResolve',
     '$timeout',
-    'AdminUserApi',
     '$stateParams',
     'DepartmentsApi',
     'CommonService',
     'AdminUserService'
   ];
 
-  function DepartmentsController($scope, $state, department, $timeout, AdminUserApi, $stateParams, DepartmentsApi, CommonService, AdminUserService) {
+  function DepartmentsController($scope, $state, department, $timeout, $stateParams, DepartmentsApi, CommonService, AdminUserService) {
     var vm = this;
 
     vm.department = department;
@@ -157,7 +156,7 @@
     function handleSearchUser() {
       if (vm.isSearching) return;
       vm.isSearching = true;
-      AdminUserApi.searchUsers({ key: vm.searchKey, department: true })
+      CommonService.autocompleteUsers({ key: vm.searchKey, department: true })
         .success(function (users) {
           vm.searchResult = users;
           vm.isSearching = false;

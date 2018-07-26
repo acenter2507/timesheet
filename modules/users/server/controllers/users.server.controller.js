@@ -168,3 +168,38 @@ exports.signout = function (req, res) {
   req.logout();
   res.redirect('/');
 };
+
+exports.autocomplete = function (req, res) {
+  var condition = req.body.condition || {};
+  var key = condition.key;
+  var roles = condition.roles || [];
+  var department = condition.department || false;
+
+  var ands = [{ roles: { $ne: 'admin' } }];
+  if (roles.length > 0) {
+    ands.push({ roles: roles });
+  }
+  if (department) {
+    ands.push({ $or: [{ department: null }, { department: { $exists: false } }] });
+  }
+
+  if (key && key.length > 0) {
+    var key_lower = key.toLowerCase();
+    var key_upper = key.toUpperCase();
+    var or_arr = [
+      { search: { $regex: '.*' + key + '.*' } },
+      { search: { $regex: '.*' + key_lower + '.*' } },
+      { search: { $regex: '.*' + key_upper + '.*' } }
+    ];
+
+    ands.push({ $or: or_arr });
+  }
+
+  var query = { $and: ands };
+  User.find(query)
+    .select('displayName email profileImageURL roles')
+    .exec((err, users) => {
+      if (err) return res.status(400).send(err);
+      return res.jsonp(users);
+    });
+};

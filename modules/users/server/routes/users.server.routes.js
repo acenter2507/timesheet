@@ -12,4 +12,5 @@ module.exports = function (app) {
   app.route('/api/users').put(users.update);
   app.route('/api/users/password').post(users.changePassword);
   app.route('/api/users/picture').post(users.changeProfilePicture);
+  app.route('/api/users/autocomplete').post(users.autocomplete);
 };

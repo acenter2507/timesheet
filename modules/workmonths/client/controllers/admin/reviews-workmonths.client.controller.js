@@ -12,7 +12,6 @@
     'CommonService',
     '$stateParams',
     'WorkmonthsAdminApi',
-    'AdminUserApi',
     'AdminUserService',
     '$q'];
 
@@ -23,7 +22,6 @@
     CommonService,
     $stateParams,
     WorkmonthsAdminApi,
-    AdminUserApi,
     AdminUserService,
     $q) {
     var vm = this;
@@ -92,7 +90,7 @@
       }
 
       var deferred = $q.defer();
-      AdminUserApi.searchUsers({ key: $query, department: false })
+      CommonService.autocompleteUsers({ key: $query, department: false })
         .success(function (users) {
           deferred.resolve(users);
         });

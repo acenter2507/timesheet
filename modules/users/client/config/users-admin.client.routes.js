@@ -3,12 +3,12 @@
 // Setting up route
 angular.module('users.admin').config(['$stateProvider',
   function ($stateProvider) {
+    // 管理者
     $stateProvider
       .state('admin.users', {
         url: '/users',
         abstract: true,
         template: '<ui-view></ui-view>',
-        data: { roles: ['admin'] },
         ncyBreadcrumb: { label: 'アカウント管理' }
       })
       .state('admin.users.list', {
@@ -16,7 +16,6 @@ angular.module('users.admin').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
         controller: 'UserListController',
         controllerAs: 'vm',
-        data: { roles: ['admin'] },
         ncyBreadcrumb: { label: 'アカウント一覧' }
       })
       .state('admin.users.create', {
@@ -24,7 +23,6 @@ angular.module('users.admin').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/admin/form-user.client.view.html',
         controller: 'UserController',
         controllerAs: 'vm',
-        data: { roles: ['admin'] },
         resolve: {
           userResolve: ['AdminUserService', function (AdminUserService) {
             return new AdminUserService();
@@ -37,7 +35,6 @@ angular.module('users.admin').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/admin/form-user.client.view.html',
         controller: 'UserController',
         controllerAs: 'vm',
-        data: { roles: ['admin'] },
         resolve: {
           userResolve: ['$stateParams', 'AdminUserService', function ($stateParams, AdminUserService) {
             return AdminUserService.get({
@@ -47,5 +44,45 @@ angular.module('users.admin').config(['$stateProvider',
         },
         ncyBreadcrumb: { label: 'アカウント編集' }
       });
+    
+    // 経理部
+    $stateProvider
+    .state('accountant.users', {
+      url: '/users',
+      abstract: true,
+      template: '<ui-view></ui-view>',
+      ncyBreadcrumb: { label: '社員管理' }
+    })
+    .state('accountant.users.list', {
+      url: '?status?department',
+      templateUrl: 'modules/users/client/views/accountant/list-users.client.view.html',
+      controller: 'AccountantUsersController',
+      controllerAs: 'vm',
+      ncyBreadcrumb: { label: '社員一覧' }
+    })
+    .state('accountant.users.view', {
+      url: '/:userId',
+      templateUrl: 'modules/users/client/views/accountant/view-user.client.view.html',
+      controller: 'AccountantUserController',
+      controllerAs: 'vm',
+      resolve: {
+        userResolve: ['$stateParams', 'AccountantUserService', function ($stateParams, AccountantUserService) {
+          return AccountantUserService.get({ userId: $stateParams.userId }).$promise;
+        }]
+      },
+      ncyBreadcrumb: { label: '社員詳細' }
+    })
+    .state('accountant.users.edit', {
+      url: '/:userId/edit',
+      templateUrl: 'modules/users/client/views/admin/form-user.client.view.html',
+      controller: 'AccountantUserController',
+      controllerAs: 'vm',
+      resolve: {
+        userResolve: ['$stateParams', 'AccountantUserService', function ($stateParams, AccountantUserService) {
+          return AccountantUserService.get({ userId: $stateParams.userId }).$promise;
+        }]
+      },
+      ncyBreadcrumb: { label: '社員編集' }
+    });
   }
 ]);

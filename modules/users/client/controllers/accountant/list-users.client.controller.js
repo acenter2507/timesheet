@@ -2,55 +2,39 @@
 
 angular
   .module('users.admin')
-  .controller('AccountantUserListController', AccountantUserListController);
+  .controller('AccountantUsersController', AccountantUsersController);
 
-AccountantUserListController.$inject = [
+  AccountantUsersController.$inject = [
   '$scope',
   '$state',
-  '$filter',
-  'AdminUserApi',
-  'AdminUserService',
-  'CommonService',
-  'DepartmentsApi',
+  'AccountantUserApi',
   'DepartmentsService',
-  '$stateParams',
-  'UserRolesService',
-  '$q'
+  '$stateParams'
 ];
 
-function AccountantUserListController(
+function AccountantUsersController(
   $scope,
   $state,
-  $filter,
-  AdminUserApi,
-  AdminUserService,
-  CommonService,
-  DepartmentsApi,
-  $stateParams,
-  UserRolesService,
-  $q
+  AccountantUserApi,
+  DepartmentsService,
+  $stateParams
 ) {
   var vm = this;
   vm.users = [];
+  vm.departments = [];
   vm.condition = {};
 
   onCreate();
   function onCreate() {
+    prepareDepartments();
     prepareCondition();
-    prepareParams();
-
-    // vm.manager = { page: 1 };
-    // vm.member = { page: 1 };
-    // handleLoadManagerUsers();
-    // handleLoadMemberUsers();
-    // if ($scope.isAdmin) {
-    //   vm.admin = { page: 1 };
-    //   vm.deleted = { page: 1 };
-    //   handleLoadAdminUsers();
-    //   handleLoadDeletedUsers();
-    // }
+    handleSearch();
   }
-
+  function prepareDepartments() {
+    DepartmentsService.query(function (data) {
+      vm.departments = data;
+    });
+  }
   function prepareCondition() {
     vm.condition = {
       sort: '-created',
@@ -58,24 +42,37 @@ function AccountantUserListController(
       roles: []
     };
     vm.condition.status = ($stateParams.status) ? $stateParams.status : undefined;
-    vm.condition.role = ($stateParams.role) ? $stateParams.role : undefined;
+    vm.condition.department = ($stateParams.department) ? $stateParams.department : undefined;
   }
-  function prepareParams() {
-    if ($stateParams.role) {
-      vm.condition.roles.push(UserRolesService.getRole($stateParams.role));
-      delete vm.condition.role;
-    }
+  function handleSearch() {
+    if (vm.busy) return;
+    vm.busy = true;
+    AccountantUserApi.list(vm.condition, vm.page)
+      .success(function (res) {
+        vm.users = res.docs;
+        vm.pages = res.pages;
+        vm.total = res.total;
+        vm.busy = false;
+      })
+      .error(function (err) {
+        $scope.handleShowToast(err.message, true);
+        vm.busy = false;
+      });
   }
 
-  vm.handleSearchRoles = function () {
-    var deferred = $q.defer();
-    deferred.resolve(UserRolesService.roles);
-    return deferred.promise;
+  vm.handleStartSearch = function () {
+    vm.page = 1;
+    handleSearch();
   };
-
-
-
-
+  vm.handlePageChanged = function () {
+    handleSearch();
+  };
+  vm.handleClearCondition = function () {
+    prepareCondition();
+  };
+  vm.hanleSelectUser = function (user) {
+    $state.go('admin.users.edit', { userId: user._id });
+  };
 
 
 
