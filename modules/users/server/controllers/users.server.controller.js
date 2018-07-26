@@ -13,12 +13,19 @@ var _ = require('lodash'),
 exports.profile = function (req, res) {
   if (!req.user) res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var user = req.user;
+  console.log('req.user', req.user);
   user.private = req.body.private;
   user.updated = Date.now();
   user.save(function (err) {
+    console.log('1', err);
     if (err)
       return res.status(400).send({ message: 'プロファイルを保存できません！' });
+    user.password = undefined;
+    user.salt = undefined;
+    user.company = undefined;
+    user.report = undefined;
     req.login(user, function (err) {
+      console.log('2', err);
       if (err)
         return res.status(400).send({ message: 'ユーザー認証が失敗しました！' });
       return res.json(user);
@@ -124,21 +131,17 @@ exports.changePassword = function (req, res) {
 };
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
-    if (err || !user) {
-      res.status(400).send(info);
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
+    if (err || !user) return res.status(400).send(info);
+    // Remove sensitive data before login
 
-      req.login(user, function (err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.json(user);
-        }
-      });
-    }
+    user.password = undefined;
+    user.salt = undefined;
+    user.company = undefined;
+    user.report = undefined;
+    req.login(user, function (err) {
+      if (err) return res.status(400).send(err);
+      return res.json(user);
+    });
   })(req, res, next);
 };
 exports.signout = function (req, res) {

@@ -13,21 +13,15 @@ module.exports = function () {
     usernameField: 'username',
     passwordField: 'password'
   },
-  function (username, password, done) {
-    User.findOne({
-      username: username.toLowerCase(),
-      status: { $ne: 3 }
-    }, function (err, user) {
-      if (err) {
-        return done(err);
-      }
-      if (!user || !user.authenticate(password)) {
-        return done(null, false, {
-          message: 'ユーザーIDまたはパスワードが間違います。'
-        });
-      }
-
-      return done(null, user);
-    });
-  }));
+    function (username, password, done) {
+      User.findOne({
+        username: username.toLowerCase(),
+        status: { $ne: 2 }
+      }, function (err, user) {
+        if (err) return done(err);
+        if (!user || !user.authenticate(password))
+          return done(null, false, { message: 'ユーザーIDまたはパスワードが間違います。' });
+        return done(null, user);
+      });
+    }));
 };
