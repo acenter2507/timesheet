@@ -1,14 +1,30 @@
 <div class="container-fluid animated fadeIn mg12t">
   <div class="row">
-    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-      <tabset class="modified-tab" justified="true">
-        <tab heading="{{ tabs[0].title }}" active="tabs[0].active">
-          <div class="h200">個人情報</div>
-        </tab>
-        <tab heading="{{ tabs[1].title }}" active="tabs[1].active">
-          <div class="h200">パスワード変更</div>
-        </tab>
-      </tabset>
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+      <div class="user-detail-block">
+        <div class="user-basic-info">
+          <div class="user-avatar">
+            <img src="{{:: user.profileImageURL }}">
+          </div>
+          <div class="user-info-block">
+            <h3>{{ user.displayName}}</h3>
+            <table>
+              <tr>
+                <td class="pd10r">
+                  <i class="fa fa-envelope"></i> メール</td>
+                <td>
+                  <a ng-href="mailto:{{user.email}}"> {{:: user.email }}</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="pd10r">
+                  <i class="fa fa-users"></i> 部署</td>
+                <td>{{ user.department ? user.department.name : '未設定'}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
