@@ -12,8 +12,7 @@ var _ = require('underscore');
 
 exports.read = function (req, res) {
   User.findById(req.model._id)
-    .select('status displayName profileImageURL email')
-    .populate('department', 'name')
+    .select('department status displayName profileImageURL email company')
     .populate('company')
     .exec(function (err, user) {
       if (err)
