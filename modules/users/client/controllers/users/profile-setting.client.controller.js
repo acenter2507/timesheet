@@ -18,6 +18,7 @@ function ProfileSettingController($scope, $state, UserApi, Authentication) {
 
   function prepareUserInfo() {
     $scope.userInfo = _.pick($scope.user, '_id', 'private');
+    console.log($scope.userInfo);
     if ($scope.userInfo.private.birthdate) {
       $scope.new_birthdate = moment($scope.userInfo.private.birthdate).format('YYYY/MM/DD');
     }
