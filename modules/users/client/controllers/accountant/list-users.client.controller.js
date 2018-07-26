@@ -70,7 +70,7 @@ function AccountantUsersController(
   vm.handleClearCondition = function () {
     prepareCondition();
   };
-  vm.hanleSelectEmployee = function (user) {
-    $state.go('accountant.users.edit', { userId: user._id });
+  vm.hanleSelectEmployee = function (employee) {
+    $state.go('accountant.users.edit', { userId: employee._id });
   };
 }
