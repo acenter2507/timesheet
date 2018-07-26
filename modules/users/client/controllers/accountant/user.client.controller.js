@@ -33,13 +33,13 @@ function AccountantUserController(
   onCreate();
 
   function onCreate() {
-    prepareUser();
+    prepareDepartments();
   }
 
-  function prepareUser() {
-    if (!vm.user._id) {
-    } else {
-    }
+  function prepareDepartments() {
+    DepartmentsService.query(function (data) {
+      vm.departments = data;
+    });
   }
   vm.handleSaveUser = function (isValid) {
     if (!isValid) {

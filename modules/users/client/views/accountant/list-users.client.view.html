@@ -59,6 +59,7 @@
               <th>氏名</th>
               <th>メール</th>
               <th>部署</th>
+              <th>状態</th>
               <th>納税番号</th>
               <th>給料</th>
               <th>有給休暇残日</th>
@@ -77,6 +78,7 @@
               </td>
               <td>{{ employee.email }}</td>
               <td>{{ employee.department.name }}</td>
+              <td>{{ employee.status | UserStatusFilter }}</td>
               <td>{{ employee.company.taxId }}</td>
               <td>{{ employee.company.salary }}</td>
               <td>{{ employee.company.paidHolidayCnt }}</td>
