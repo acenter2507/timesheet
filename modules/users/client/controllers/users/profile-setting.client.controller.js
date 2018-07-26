@@ -7,5 +7,11 @@ angular
 ProfileSettingController.$inject = ['$scope', '$state'];
 
 function ProfileSettingController($scope, $state) {
-  $scope.new_birthdate = moment($scope.user.birthdate).format('YYYY/MM/DD');
+  onCreate();
+  function onCreate() {
+    if (!$scope.user.birthdate) {
+      $scope.new_birthdate = moment($scope.user.birthdate).format('YYYY/MM/DD');
+    }
+
+  }
 }
