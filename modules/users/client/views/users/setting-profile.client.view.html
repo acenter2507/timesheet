@@ -1,6 +1,6 @@
 <div class="container-fluid animated fadeIn mg12t">
   <div class="row">
-    <div class="col-sm-12 col-md-8 col-md-offset-2">
+    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
       <div class="user-detail-block">
         <div class="user-basic-info">
           <div class="user-avatar">
@@ -24,6 +24,44 @@
             </table>
           </div>
         </div>
+      </div>
+      <hr>
+      <h4>個人情報</h4>
+      <div class="form-group">
+        <label for="hobby">興味</label>
+        <textarea name="hobby" class="form-control h50" ng-model="user.private.hobby"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="address">住所</label>
+        <input name="address" type="text" class="form-control" ng-model="user.private.address" />
+      </div>
+      <div class="form-group">
+        <label for="phone">電話番号</label>
+        <input name="phone" type="number" class="form-control" ng-model="user.private.phone" />
+      </div>
+      <div class="form-group">
+        <label for="sex">性別</label>
+        <select class="form-control" ng-model="user.private.sex" convert-to-number>
+          <option value="1">男</option>
+          <option value="2">女</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="birthdate">生年月日</label>
+        <div class="input-group" ng-init="open = false;">
+          <input name="date" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="new_birthdate" is-open="open"
+            close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body show-weeks="false" readonly="true"
+          />
+          <span class="input-group-btn bdnl">
+            <button type="button" class="btn btn-default bdnl" ng-click="open = true;">
+              <i class="fa fa-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="intro">自己紹介</label>
+        <textarea name="intro" class="form-control h50" ng-model="user.private.intro"></textarea>
       </div>
     </div>
   </div>

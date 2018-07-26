@@ -50,11 +50,17 @@ var UserSchema = new Schema({
   },
   private: {
     hobby: { type: String, trim: true },
+    public_hobby: { type: Boolean, default: false },
     address: { type: String, trim: true },
+    public_address: { type: Boolean, default: false },
     phone: { type: Number, trim: true },
+    public_phone: { type: Boolean, default: false },
     sex: { type: Number, default: 1 },
+    public_sex: { type: Boolean, default: false },
     birthdate: { type: Date },
-    introduct: { type: String, trim: true }
+    public_birthdate: { type: Boolean, default: false },
+    intro: { type: String, trim: true },
+    public_intro: { type: Boolean, default: false }
   },
   report: {
     holidayCnt: { type: Number, default: 0 }
