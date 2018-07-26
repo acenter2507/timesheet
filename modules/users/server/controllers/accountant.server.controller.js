@@ -12,7 +12,9 @@ var _ = require('underscore');
 
 exports.read = function (req, res) {
   User.findById(req.model._id)
-    .select('department status company displayName profileImageURL email')
+    .select('status displayName profileImageURL email')
+    .populate('department', 'name')
+    .populate('company')
     .exec(function (err, user) {
       if (err)
         return res.status(400).send({ message: '社員の情報が見つかりません！' });
@@ -42,7 +44,9 @@ exports.update = function (req, res) {
     if (err)
       return res.status(400).send({ message: '社員の情報を保存できません！' });
     User.findById(user._id)
-      .select('department status company displayName profileImageURL email')
+      .select('status displayName profileImageURL email')
+      .populate('department', 'name')
+      .populate('company')
       .exec(function (err, user) {
         if (err)
           return res.status(400).send({ message: '社員の情報が見つかりません！' });
