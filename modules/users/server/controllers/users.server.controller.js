@@ -71,7 +71,7 @@ exports.profile = function (req, res) {
     });
   });
 };
-exports.changePassword = function (req, res) {
+exports.password = function (req, res) {
   if (!req.user) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var passwordDetails = req.body;
 
@@ -107,46 +107,31 @@ exports.changePassword = function (req, res) {
   });
 
 };
-exports.changeProfilePicture = function (req, res) {
+exports.picture = function (req, res) {
+  if (!req.user) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var user = req.user;
   var message = null;
-  var upload = multer(config.uploads.profileUpload).single('newProfilePicture');
+  var upload = multer(config.uploads.profileUpload).single('profileUpload');
   var profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
-
-  // Filtering to upload only images
   upload.fileFilter = profileUploadFileFilter;
 
-  if (user) {
-    upload(req, res, function (uploadError) {
-      if (uploadError) {
-        return res.status(400).send({
-          message: 'Error occurred while uploading profile picture'
-        });
-      } else {
-        user.profileImageURL = config.uploads.profileUpload.dest + req.file.filename;
-
-        user.save(function (saveError) {
-          if (saveError) {
-            return res.status(400).send({
-              message: errorHandler.getErrorMessage(saveError)
-            });
-          } else {
-            req.login(user, function (err) {
-              if (err) {
-                res.status(400).send(err);
-              } else {
-                res.json(user);
-              }
-            });
-          }
-        });
-      }
+  upload(req, res, function (uploadError) {
+    if (uploadError) return res.status(400).send({ message: '画像をアップロードできません。' });
+    user.profileImageURL = config.uploads.profileUpload.dest + req.file.filename;
+    user.save(function (err) {
+      if (err)
+        return res.status(400).send({ message: 'プロファイルを保存できません！' });
+      user.password = undefined;
+      user.salt = undefined;
+      user.company = undefined;
+      user.report = undefined;
+      req.login(user, function (err) {
+        if (err)
+          return res.status(400).send({ message: 'ユーザー認証が失敗しました！' });
+        return res.json(user);
+      });
     });
-  } else {
-    res.status(400).send({
-      message: 'User is not signed in'
-    });
-  }
+  });
 };
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {

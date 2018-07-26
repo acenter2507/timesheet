@@ -27,7 +27,7 @@ function ProfileSettingController($scope, $state, UserApi, Authentication, FileU
   function prepareUpload() {
     $scope.uploader = new FileUploader({
       url: 'api/users/picture',
-      alias: 'newProfilePicture'
+      alias: 'profileUpload'
     });
     $scope.uploader.filters.push({
       name: 'imageFilter',
@@ -49,7 +49,8 @@ function ProfileSettingController($scope, $state, UserApi, Authentication, FileU
       }
     };
     $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
-      // $scope.user = Authentication.user = response;
+      $scope.user.profileImageURL = response.profileImageURL;
+      Authentication.user.profileImageURL = response.profileImageURL;
       $scope.cancelUpload();
     };
     $scope.uploader.onErrorItem = function (fileItem, res, status, headers) {
