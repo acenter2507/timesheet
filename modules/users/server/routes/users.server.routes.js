@@ -11,4 +11,6 @@ module.exports = function (app) {
   app.route('/api/users/password').post(users.password);
   app.route('/api/users/picture').post(users.picture);
   app.route('/api/users/autocomplete').post(users.autocomplete);
+  
+  app.route('/api/users/:userId/profile').post(users.profile);
 };

@@ -152,3 +152,8 @@ exports.signout = function (req, res) {
   req.logout();
   res.redirect('/');
 };
+exports.profile = function (req, res) {
+  console.log(req.model);
+  if (!req.model) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
+  return res.json(req.model);
+};

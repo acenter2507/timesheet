@@ -15,7 +15,7 @@
       return $http.post('/api/users/profile', profile, { ignoreLoadingBar: true });
     };
     this.profile = function (userId) {
-      return $http.post('/api/users/' + userId + 'profile', null, { ignoreLoadingBar: true });
+      return $http.post('/api/users/' + userId + '/profile', null, { ignoreLoadingBar: true });
     };
     return this;
   }
