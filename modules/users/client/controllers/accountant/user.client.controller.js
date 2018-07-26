@@ -1,13 +1,12 @@
 'use strict';
 
 angular.module('users.admin')
-  .controller('AccountUserController', AccountUserController);
+  .controller('AccountantUserController', AccountantUserController);
 
-AccountUserController.$inject = [
+AccountantUserController.$inject = [
   '$scope',
   '$state',
   'userResolve',
-  'UserRolesService',
   'AdminUserService',
   'AdminUserApi',
   'DepartmentsService',
@@ -16,11 +15,10 @@ AccountUserController.$inject = [
   '$q'
 ];
 
-function AccountUserController(
+function AccountantUserController(
   $scope,
   $state,
   userResolve,
-  UserRolesService,
   AdminUserService,
   AdminUserApi,
   DepartmentsService,
@@ -40,21 +38,9 @@ function AccountUserController(
 
   function prepareUser() {
     if (!vm.user._id) {
-      var user_role = UserRolesService.getRole('user');
-      vm.user._roles = [user_role];
     } else {
-      vm.user._roles = [];
-      for (var i = 0; i < vm.user.roles.length; i++) {
-        var role = vm.user.roles[i];
-        vm.user._roles.push(UserRolesService.getRole(role));
-      }
     }
   }
-  vm.handleSearchRoles = function () {
-    var deferred = $q.defer();
-    deferred.resolve(UserRolesService.roles);
-    return deferred.promise;
-  };
   vm.handleSaveUser = function (isValid) {
     if (!isValid) {
       $scope.$broadcast('show-errors-check-validity', 'vm.form.userForm');

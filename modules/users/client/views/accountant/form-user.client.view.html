@@ -1,11 +1,126 @@
 <div class="container-fluid animated fadeIn mg50t">
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="user-detail-block">
+        <div class="user-basic-info">
+          <div class="user-avatar">
+            <img src="{{:: vm.user.profileImageURL }}">
+            <span ng-if="vm.user.status === 1" class="user-status working" tooltip="在職しています。"></span>
+            <span ng-if="vm.user.status === 2" class="user-status retired" tooltip="退職しました。"></span>
+          </div>
+          <div class="user-info-block">
+            <h3>{{:: vm.user.displayName}}</h3>
+            <table>
+              <tr>
+                <td class="pd10r">
+                  <i class="fa fa-sitemap"></i> 役割</td>
+                <td>{{:: vm.user.roles | RoleFilter }}</td>
+              </tr>
+              <tr>
+                <td class="pd10r">
+                  <i class="fa fa-envelope"></i> メール</td>
+                <td>
+                  <a ng-href="mailto:{{vm.user.email}}"> {{:: vm.user.email }}</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="pd10r">
+                  <i class="fa fa-users"></i> 部署</td>
+                <td>
+                  <a ng-if="vm.user.department" ui-sref="departments.view({ departmentId: vm.user.department._id })">{{:: vm.user.department.name}}</a>
+                  <span ng-if="!vm.user.department">未設定</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="pd10r">
+                  <i class="fa fa-mobile"></i> 電話番号</td>
+                <td>{{:: vm.user.private.phone || '未設定' }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="user-tools">
+            <!-- Send email -->
+            <a class="user-tool-button" ng-href="mailto:{{vm.user.email}}" tooltip-placement="bottom" tooltip="メール送信">
+              <i class="fa fa-envelope"></i>
+            </a>
+            <!-- Send private message to current user -->
+            <a class="user-tool-button" ng-click="vm.handleSendMessage()" tooltip-placement="bottom" tooltip="メッセージ送信">
+              <i class="fa fa-commenting"></i>
+            </a>
+            <!-- Edit info user -->
+            <a class="user-tool-button" ui-sref="admin.users.edit({ userId: vm.user._id })" tooltip-placement="bottom" tooltip="編集">
+              <i class="fa fa-pencil-square-o"></i>
+            </a>
+            <!-- View timesheet of current user -->
+            <a class="user-tool-button" ui-sref="admin.workmonths.reviews({ user: vm.user._id })" tooltip-placement="bottom" tooltip="勤務表">
+              <i class="fa fa-calendar"></i>
+            </a>
+            <!-- Options menu -->
+            <div class="user-tool-button" dropdown dropdown-append-to-body>
+              <a class="w100p h100p" dropdown-toggle>
+                <i class="glyphicon glyphicon-option-vertical"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                <!-- Review payments -->
+                <li>
+                  <a ui-sref="admin.payments.reviews({ user: vm.user._id, status: 1 })">
+                    <i class="fa fa-jpy"></i> 清算表確認</a>
+                </li>
+                <!-- Change status to retired -->
+                <li ng-show="vm.user.status === 1">
+                  <a ng-click="vm.handleRetired()">
+                    <i class="fa fa-hand-paper-o"></i> 退職済み</a>
+                </li>
+                <!-- Change status to working -->
+                <li ng-show="vm.user.status === 2">
+                  <a ng-click="vm.handleReWorking()">
+                    <i class="fa fa-handshake-o"></i> 在職中</a>
+                </li>
+                <!-- Change password -->
+                <li>
+                  <a ng-click="vm.handleChangePassword()">
+                    <i class="fa fa-lock"></i> パスワード変更</a>
+                </li>
+                <!-- Change roles -->
+                <li>
+                  <a ng-click="vm.handleChangeRoles()">
+                    <i class="fa fa-sitemap"></i> 役割変更</a>
+                </li>
+                <!-- Change department -->
+                <li>
+                  <a ng-click="vm.handleChangeDepartment()">
+                    <i class="fa fa-users"></i> 部署変更</a>
+                </li>
+                <!-- Logic delete -->
+                <li>
+                  <a ng-click="vm.handleLogicDeleteUser()">
+                    <i class="fa fa-user-times"></i> 削除</a>
+                </li>
+                <!-- Restore account -->
+                <li ng-show="vm.user.status === 3 && isAdmin">
+                  <a ng-click="vm.handleResetUser()">
+                    <i class="fa fa-user-times"></i> 復元</a>
+                </li>
+                <!-- Remove -->
+                <li ng-if="isAdmin">
+                  <a ng-click="vm.handleDatabaseDeleteUser()">
+                    <i class="fa fa-trash"></i> 完全削除</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <form name="vm.form.userForm" ng-submit="vm.handleSaveUser(vm.form.userForm.$valid)" novalidate>
       <div class="col-xs-12">
         <div class="form-group">
           <a ng-click="vm.handleSaveUser(vm.form.userForm.$valid)" class="btn btn-primary pull-right">
-          <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存
-        </a>
+            <i ng-show="vm.busy" class="fa fa-spinner fa-pulse fa-fw"></i> 保存
+          </a>
           <a ng-click="vm.handleCancelInput()" class="btn btn-default pull-right mg10r">キャンセル</a>
           <a ng-if="vm.user._id" ng-click="vm.handleRemoveUser()" class="btn btn-danger pull-right mg10r">削除</a>
           <a ng-if="vm.user._id && isAdmin" ng-click="vm.handleAdminRemoveUser()" class="btn btn-danger pull-right mg10r">完全削除</a>
@@ -36,8 +151,8 @@
           </div>
           <div ng-if="vm.user._id" class="form-group">
             <a class="btn btn-warning btn-block" ng-click="vm.handleResetPassword()">
-            <i ng-show="vm.password_busy" class="fa fa-spinner fa-pulse fa-fw"></i>パスワード変更
-          </a>
+              <i ng-show="vm.password_busy" class="fa fa-spinner fa-pulse fa-fw"></i>パスワード変更
+            </a>
           </div>
           <!-- Roles -->
           <div ng-if="!vm.user._id" class="form-group" show-errors>
@@ -54,8 +169,8 @@
           <div ng-if="vm.user._id" class="form-group">
             <input value="{{vm.user.roles | RoleFilter}}" class="form-control" disabled>
             <a class="btn btn-warning btn-block" ng-click="vm.handleChangeRoles()">
-            <i ng-show="vm.roles_busy" class="fa fa-spinner fa-pulse fa-fw"></i>役割変更
-          </a>
+              <i ng-show="vm.roles_busy" class="fa fa-spinner fa-pulse fa-fw"></i>役割変更
+            </a>
           </div>
         </div>
       </div>
@@ -94,9 +209,9 @@
           <!-- Sex -->
           <div class="form-group">
             <select name="sex" class="form-control" ng-model="vm.user.private.sex">
-            <option value="1">男</option>
-            <option value="2">女</option>
-          </select>
+              <option value="1">男</option>
+              <option value="2">女</option>
+            </select>
           </div>
           <!-- Birthdate -->
           <div class="form-group" ng-init="birthdateOpen = false;">
@@ -105,10 +220,10 @@
                 min-date="'1900/01/01'" max-date="'2017/01/01'" close-text="閉じる" current-text="本日" clear-text="クリア" datepicker-append-to-body
                 placeholder="生年月日" />
               <span class="input-group-btn">
-              <button type="button" class="btn btn-default" ng-click="birthdateOpen = true;">
-                <i class="fa fa-calendar"></i>
-              </button>
-            </span>
+                <button type="button" class="btn btn-default" ng-click="birthdateOpen = true;">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </span>
             </div>
           </div>
           <!-- Phone -->
@@ -135,15 +250,15 @@
           <!-- Department -->
           <div ng-if="!vm.user._id" class="form-group">
             <select name="department" class="form-control" ng-model="vm.user.department" ng-change="vm.handleChangedDepartment()">
-            <option value>部署</option>
-            <option ng-repeat="department in vm.departments" value="{{department._id}}">{{:: department.name}}</option>
-          </select>
+              <option value>部署</option>
+              <option ng-repeat="department in vm.departments" value="{{department._id}}">{{:: department.name}}</option>
+            </select>
           </div>
           <div ng-if="vm.user._id" class="form-group">
             <input value="{{vm.currentDepartment.name || '未設定'}}" class="form-control" disabled>
             <a class="btn btn-warning btn-block" ng-click="vm.handleChangeDepartment()">
-            <i ng-show="vm.department_busy" class="fa fa-spinner fa-pulse fa-fw"></i>部署変更
-          </a>
+              <i ng-show="vm.department_busy" class="fa fa-spinner fa-pulse fa-fw"></i>部署変更
+            </a>
           </div>
 
           <h4 class="mg5y" ng-if="vm.user.leaders.length > 0">リーダ</h4>
@@ -168,10 +283,10 @@
           </div>
           <div class="form-group" ng-if="vm.user._id">
             <select name="status" class="form-control" ng-model="vm.user.status">
-            <option value="1">在職</option>
-            <option value="2">退社済み</option>
-            <option ng-if="isAdmin" value="3">ロジック削除</option>
-          </select>
+              <option value="1">在職</option>
+              <option value="2">退社済み</option>
+              <option ng-if="isAdmin" value="3">ロジック削除</option>
+            </select>
           </div>
           <div class="form-group">
             <div class="input-group">
@@ -181,7 +296,8 @@
           </div>
           <div class="form-group">
             <div class="input-group">
-              <input name="paidHolidayCnt" type="number" class="form-control" step="0.5" min="0" ng-model="vm.user.company.paidHolidayCnt" placeholder="有給休暇残数" />
+              <input name="paidHolidayCnt" type="number" class="form-control" step="0.5" min="0" ng-model="vm.user.company.paidHolidayCnt"
+                placeholder="有給休暇残数" />
               <span class="input-group-addon">日間</span>
             </div>
           </div>

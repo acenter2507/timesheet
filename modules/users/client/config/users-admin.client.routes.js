@@ -60,21 +60,9 @@ angular.module('users.admin').config(['$stateProvider',
       controllerAs: 'vm',
       ncyBreadcrumb: { label: '社員一覧' }
     })
-    .state('accountant.users.view', {
-      url: '/:userId',
-      templateUrl: 'modules/users/client/views/accountant/view-user.client.view.html',
-      controller: 'AccountantUserController',
-      controllerAs: 'vm',
-      resolve: {
-        userResolve: ['$stateParams', 'AccountantUserService', function ($stateParams, AccountantUserService) {
-          return AccountantUserService.get({ userId: $stateParams.userId }).$promise;
-        }]
-      },
-      ncyBreadcrumb: { label: '社員詳細' }
-    })
     .state('accountant.users.edit', {
       url: '/:userId/edit',
-      templateUrl: 'modules/users/client/views/admin/form-user.client.view.html',
+      templateUrl: 'modules/users/client/views/accountant/form-user.client.view.html',
       controller: 'AccountantUserController',
       controllerAs: 'vm',
       resolve: {
