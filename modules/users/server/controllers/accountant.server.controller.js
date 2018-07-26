@@ -31,12 +31,8 @@ exports.update = function (req, res) {
   user.company.taxId = req.body.company.taxId;
   user.company.salary = req.body.company.salary;
   user.company.paidHolidayCnt = req.body.company.paidHolidayCnt;
-
-  if (req.body.department === 'empty') {
-    delete user.department;
-  } else {
-    user.department = req.body.department;
-  }
+  user.department = req.body.department;
+  
   user.save(function (err, user) {
     if (err)
       return res.status(400).send({ message: '社員の情報を保存できません！' });

@@ -16,7 +16,6 @@ function AccountantUserController(
 ) {
   var vm = this;
   vm.user = userResolve;
-  console.log(vm.user);
   vm.busy = false;
 
   onCreate();
@@ -37,6 +36,10 @@ function AccountantUserController(
     }
     if (vm.busy) return;
     vm.busy = true;
+
+    if (vm.user.department === 'empty') {
+      delete vm.user.department;
+    }
 
     vm.user.$update(successCallback, errorCallback);
 
