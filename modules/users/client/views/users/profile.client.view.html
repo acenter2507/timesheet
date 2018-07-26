@@ -126,7 +126,6 @@
             </tr>
             <tr>
               <td>性別</td>
-              <td>{{:: vm.profile.private.sex === 1 ? '男' : '女' }}</td>
               <td>
                 <span ng-show="vm.profile.private.public_sex && vm.profile.private.sex">{{ vm.profile.private.sex === 1 ? '男' : '女' }}</span>
                 <span ng-show="vm.profile.private.public_sex && !vm.profile.private.sex">未設定</span>
