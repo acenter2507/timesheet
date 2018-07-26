@@ -13,6 +13,7 @@ function ProfileSettingController($scope, $state, $stateParams) {
   ];
   onCreate();
   function onCreate() {
+    console.log($stateParams.action);
     if ($stateParams.action) {
       if ($stateParams.action === 1) {
         $scope.tabs[0].active = true;
