@@ -67,7 +67,7 @@
           </thead>
           <tbody>
             <tr ng-show="vm.employees.length === 0">
-              <td colspan="7">データが見つかりません。</td>
+              <td colspan="8">データが見つかりません。</td>
             </tr>
 
             <tr ng-repeat="employee in vm.employees track by $index" class="clickable" ng-click="vm.hanleSelectEmployee(employee)">

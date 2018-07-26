@@ -27,7 +27,6 @@ module.exports = function (app) {
   app.route('/api/users/accountant/:userId')
     .get(adminPolicy.isAllowed, accountant.read)
     .put(adminPolicy.isAllowed, accountant.update);
-  app.route('/api/users/accountant/:userId/department').post(adminPolicy.isAllowed, accountant.department);
 
   app.param('userId', admin.userByID);
 };

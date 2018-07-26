@@ -11,9 +11,6 @@
     this.list = function (condition, page) {
       return $http.post('/api/users/accountant/list', { condition: condition, page: page }, { ignoreLoadingBar: true });
     };
-    this.department = function (userId, department) {
-      return $http.post('/api/users/accountant/' + userId + '/department', { department: department }, { ignoreLoadingBar: true });
-    };
     return this;
   }
 

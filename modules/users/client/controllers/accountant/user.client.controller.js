@@ -5,26 +5,14 @@ angular.module('users.admin')
 
 AccountantUserController.$inject = [
   '$scope',
-  '$state',
   'userResolve',
-  'AdminUserService',
-  'AdminUserApi',
-  'DepartmentsService',
-  'ngDialog',
-  'DepartmentsApi',
-  '$q'
+  'DepartmentsService'
 ];
 
 function AccountantUserController(
   $scope,
-  $state,
   userResolve,
-  AdminUserService,
-  AdminUserApi,
-  DepartmentsService,
-  ngDialog,
-  DepartmentsApi,
-  $q
+  DepartmentsService
 ) {
   var vm = this;
   vm.user = userResolve;
@@ -49,17 +37,11 @@ function AccountantUserController(
     if (vm.busy) return;
     vm.busy = true;
 
-    vm.user.roles = _.pluck(vm.user._roles, 'value');
-    if (vm.user._id) {
-      vm.user.$update(successCallback, errorCallback);
-    } else {
-      vm.user.$save(successCallback, errorCallback);
-    }
+    vm.user.$update(successCallback, errorCallback);
 
     function successCallback(res) {
-      console.log(res);
       vm.busy = false;
-      $state.go('admin.users.view', { userId: res._id });
+      $scope.handleShowToast('社員の情報を保存しました！', false);
     }
 
     function errorCallback(err) {
