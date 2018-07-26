@@ -4,7 +4,9 @@
       <div class="user-detail-block">
         <div class="user-basic-info">
           <div class="user-avatar">
-            <img src="{{:: user.profileImageURL }}">
+            <a ng-click="handleShowImage(user.profileImageURL)">
+              <img src="{{:: user.profileImageURL }}">
+            </a>
           </div>
           <div class="user-info-block">
             <h3>{{ user.displayName}}</h3>
