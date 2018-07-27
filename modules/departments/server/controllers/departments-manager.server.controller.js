@@ -61,6 +61,7 @@ exports.list = function (req, res) {
   Department.find()
     .sort('-created')
     .exec(function (err, departments) {
+      console.log(err);
       if (err)
         return res.status(400).send({ message: '部署一覧のデータを取得できません！' });
       return res.jsonp(departments);
