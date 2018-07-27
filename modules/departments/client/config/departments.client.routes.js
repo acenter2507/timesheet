@@ -23,7 +23,7 @@
         controllerAs: 'vm',
         ncyBreadcrumb: { label: '一覧' }
       })
-      .state('departments.new', {
+      .state('departments.create', {
         url: '/new',
         templateUrl: 'modules/departments/client/views/input-department.client.view.html',
         controller: 'InputDepartmentController',

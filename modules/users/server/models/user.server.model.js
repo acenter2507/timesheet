@@ -10,9 +10,6 @@ var mongoose = require('mongoose'),
   relationship = require('mongoose-relationship'),
   validator = require('validator');
 
-/**
- * A Validation function for local strategy email
- */
 var validateLocalStrategyEmail = function (email) {
   return validator.isEmail(email);
 };
@@ -65,7 +62,6 @@ var UserSchema = new Schema({
   report: {
     holidayCnt: { type: Number, default: 0 }
   },
-  leaders: [{ type: Schema.ObjectId, ref: 'User' }],
   updated: { type: Date },
   created: { type: Date, default: Date.now },
   /* For reset password */

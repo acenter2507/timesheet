@@ -22,19 +22,6 @@ exports.add = function (req, res) {
     user.save(function (err) {
       if (err)
         return res.status(400).send({ message: 'ユーザーを保存できません！' });
-      // Thêm user vào department
-      // var departmentId = user.department ? user.department._id || user.department : undefined;
-      // if (departmentId) {
-      //   if (_.contains(user.roles, 'manager')) {
-      //     Department.addLeader(departmentId, user._id).then(department => {
-      //       User.setLeaders(department._id, department.leaders);
-      //     });
-      //   } else {
-      //     Department.addMember(departmentId, user._id).then(department => {
-      //       User.setLeaders(department._id, department.leaders);
-      //     });
-      //   }
-      // }
       return res.jsonp(user);
     });
   });
@@ -51,7 +38,6 @@ exports.update = function (req, res) {
   delete req.body.roles;
   delete req.body.department;
   delete req.body.password;
-  delete req.body.leaders;
 
   //For security purposes only merge these parameters
   user = _.extend(user, req.body);
@@ -70,18 +56,6 @@ exports.update = function (req, res) {
 };
 exports.delete = function (req, res) {
   var user = req.model;
-
-  // var departmentId = user.department ? user.department._id || user.department : undefined;
-  // if (departmentId) {
-  //   if (_.contains(user.roles, 'manager')) {
-  //     Department.removeLeader(departmentId, user._id).then(department => {
-  //       User.setLeaders(department._id, department.leaders);
-  //     });
-  //   } else {
-  //     Department.removeMember(departmentId, user._id);
-  //   }
-  // }
-
   user.remove(function (err) {
     if (err)
       return res.status(400).send({ message: 'ユーザーを削除できません！' });

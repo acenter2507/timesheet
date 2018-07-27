@@ -39,7 +39,7 @@
       }
 
       var deferred = $q.defer();
-      DepartmentsApi.search({ key: $query })
+      DepartmentsApi.autocomplete({ key: $query })
         .success(function (departments) {
           deferred.resolve(departments);
         });

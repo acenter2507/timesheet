@@ -13,24 +13,6 @@ acl = new acl(new acl.memoryBackend());
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
-    roles: ['admin'],
-    allows: [{
-      resources: '/api/departments',
-      permissions: '*'
-    }, {
-      resources: '/api/departments/:departmentId',
-      permissions: '*'
-    }, {
-      resources: '/api/departments/avatar',
-      permissions: '*'
-    }, {
-      resources: '/api/departments/:departmentId/removeUser',
-      permissions: '*'
-    }, {
-      resources: '/api/departments/:departmentId/addUser',
-      permissions: '*'
-    }]
-  }, {
     roles: ['user'],
     allows: [{
       resources: '/api/departments',
@@ -42,29 +24,14 @@ exports.invokeRolesPolicies = function () {
   }, {
     roles: ['manager'],
     allows: [{
-      resources: '/api/departments',
-      permissions: ['get']
-    }, {
-      resources: '/api/departments/:departmentId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['accountant'],
-    allows: [{
-      resources: '/api/departments',
+      resources: '/api/departments/manager',
       permissions: '*'
     }, {
-      resources: '/api/departments/:departmentId',
+      resources: '/api/departments/manager/:departmentId',
       permissions: '*'
     }, {
-      resources: '/api/departments/avatar',
-      permissions: '*'
-    }, {
-      resources: '/api/departments/:departmentId/removeUser',
-      permissions: '*'
-    }, {
-      resources: '/api/departments/:departmentId/addUser',
-      permissions: '*'
+      resources: '/api/departments/manager/:departmentId/user',
+      permissions:  ['post', 'put']
     }]
   }]);
 };
@@ -74,25 +41,14 @@ exports.invokeRolesPolicies = function () {
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : [];
-
   if (roles.length === 0)
     return res.status(403).json({ message: 'アクセス権限がありません！' });
 
-  if (req.department && req.user && req.department.user && req.department.user.id === req.user.id) {
-    return next();
-  }
-
-  // Check for user roles
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
-    if (err) {
-      // An authorization error occurred
+    if (err)
+      return res.status(500).send('サーバーでエラーが発生しました！');
+    if (!isAllowed)
       return res.status(500).send('サーバーに権限を確認できません！');
-    } else {
-      if (isAllowed) {
-        return next();
-      } else {
-        return res.status(403).json({ message: 'アクセス権限がありません！' });
-      }
-    }
+    return next();
   });
 };
