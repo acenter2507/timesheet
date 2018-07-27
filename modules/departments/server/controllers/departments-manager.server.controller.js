@@ -78,8 +78,21 @@ exports.avatar = function (req, res) {
   });
 };
 exports.removeUser = function (req, res) {
-  // var userId = req.body.userId;
-  // var department = req.department;
+  if (!req.department) return res.status(400).send({ message: '部署が見つかりません。' });
+  var userId = req.body.user;
+  var department = req.department;
+
+  department.members.pull(userId);
+  department.save(function (err) {
+    if (err) return res.status(400).send({ message: '部署の情報を保存できません！' });
+    Department.findById(department._id)
+      .populate('members', 'displayName email profileImageURL roles')
+      .exec(function (err, department) {
+        if (err || !department)
+          return res.status(404).send({ message: '部署が見つかりません！' });
+        return res.jsonp(department);
+      });
+  });
 
   // User.findById(userId).exec((err, user) => {
   //   if (_.contains(user.roles, 'manager')) {
@@ -97,10 +110,26 @@ exports.removeUser = function (req, res) {
   //   res.end();
   // });
 };
-exports.addUser = function (req, res) {
-  // var userId = req.body.userId;
-  // var department = req.department;
-  // if (!department) return res.status(400).send({ message: '部署が見つかりません。' });
+exports.addMember = function (req, res) {
+  if (!req.department) return res.status(400).send({ message: '部署が見つかりません。' });
+  var users = req.body.users;
+  var department = req.department;
+  users.forEach(user => {
+    if (department.members.indexOf(user) < 0) {
+      department.members.push(user);
+    }
+  });
+  department.save(function (err) {
+    if (err) return res.status(400).send({ message: '部署の情報を保存できません！' });
+    Department.findById(department._id)
+      .populate('members', 'displayName email profileImageURL roles')
+      .exec(function (err, department) {
+        if (err || !department)
+          return res.status(404).send({ message: '部署が見つかりません！' });
+        return res.jsonp(department);
+      });
+  });
+
   // User.findById(userId).exec((err, user) => {
   //   if (user.department) return res.status(400).send({ message: user.displayName + 'は既に他の部署に参加しました。' });
   //   user.department = department._id;

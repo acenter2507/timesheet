@@ -19,11 +19,11 @@
 
   ManagerDepartmentsApi.$inject = ['$http'];
   function ManagerDepartmentsApi($http) {
-    this.removeUser = function (departmentId, userId) {
-      return $http.post('/api/departments/manager/' + departmentId + '/user', { userId: userId }, { ignoreLoadingBar: true });
+    this.removeMember = function (departmentId, user) {
+      return $http.post('/api/departments/manager/' + departmentId + '/user', { user: user }, { ignoreLoadingBar: true });
     };
-    this.addMemberToDepartment = function (departmentId, userId) {
-      return $http.put('/api/departments/manager/' + departmentId + '/user', { userId: userId }, { ignoreLoadingBar: true });
+    this.addMember = function (departmentId, users) {
+      return $http.put('/api/departments/manager/' + departmentId + '/user', { users: users }, { ignoreLoadingBar: true });
     };
     return this;
   }
