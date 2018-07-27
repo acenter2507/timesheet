@@ -7,7 +7,7 @@
             <img src="{{:: vm.department.avatar }}">
           </div>
           <div class="user-info-block">
-            <h3>{{:: vm.department.name}}</h3>
+            <h3 class="mgnt">{{:: vm.department.name}}</h3>
             <table>
               <tr>
                 <td class="pd10r">
@@ -36,10 +36,15 @@
     </div>
     <div class="clearfix"></div>
     <hr class="mg12y">
+
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+      <div class="form-group text-right">
+        <a class="btn btn-success" ui-sref="manager.departments.edit({ departmentId: vm.department._id })">編集</a>
+      </div>
+    </div>
     <div class="col-sm-12 col-md-8 col-md-offset-2">
       <tabset class="modified-tab" justified="true">
-        <tab heading="メンバー管理">
-          <p>{{ vm.department.members.length }}人</p>
+        <tab heading="メンバー管理（{{ vm.department.members.length }}）">
           <div class="table-responsive">
             <table class="table table-bordered table-striped">
               <thead>
