@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/departments/:departmentId',
       permissions: ['get']
+    }, {
+      resources: '/api/departments/autocomplete',
+      permissions: ['post']
     }]
   }, {
     roles: ['manager'],
@@ -48,7 +51,7 @@ exports.isAllowed = function (req, res, next) {
     if (err)
       return res.status(500).send('サーバーでエラーが発生しました！');
     if (!isAllowed)
-      return res.status(500).send('サーバーに権限を確認できません！');
+      return res.status(422).send('サーバーに権限を確認できません！');
     return next();
   });
 };
