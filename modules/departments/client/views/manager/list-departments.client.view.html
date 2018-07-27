@@ -94,7 +94,7 @@
             <tr ng-repeat="department in vm.departments track by $index" class="clickable" ng-click="vm.hanleSelectDepartment(department)">
               <td class="text-center w30">{{ $index + 1 }}</td>
               <td class="text-center w50">
-                <a ng-click="handleShowImage(department.avatar)">
+                <a class="inside-clickable" ng-click="handleShowImage(department.avatar)">
                   <img class="user-common-avatar" src="{{ department.avatar }}">
                 </a>
               </td>
@@ -102,7 +102,7 @@
               <td>{{ department.email }}</td>
               <td>{{ department.members.length }}</td>
               <td class="text-center w50">
-                <button class="btn btn-xs btn-danger" ng-click="vm.handleDeleteDepartment(department)">削除</button>
+                <button class="btn btn-xs btn-danger inside-clickable" ng-click="vm.handleDeleteDepartment(department)">削除</button>
               </td>
             </tr>
           </tbody>
