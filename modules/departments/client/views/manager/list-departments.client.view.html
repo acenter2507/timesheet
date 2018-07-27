@@ -94,7 +94,7 @@
             <tr ng-repeat="department in vm.departments track by $index" class="clickable" ng-click="vm.hanleSelectDepartment(department)">
               <td class="text-center w30">{{ $index }}</td>
               <td class="text-center w50">
-                <img class="user-common-avatar" src="{{ department.avatar }}">
+                <a ng-click="handleShowImage(department.avatar)"><img class="user-common-avatar" src="{{ department.avatar }}"></a>
               </td>
               <td>{{ department.name }}</td>
               <td>{{ department.email }}</td>
