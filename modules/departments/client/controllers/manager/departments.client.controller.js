@@ -47,12 +47,16 @@
       var users = _.pluck(vm.new_members, '_id');
       ManagerDepartmentsApi.addMember(users)
         .success(function (department) {
+          vm.new_members = [];
           _.extend(vm.department, department);
           $scope.handleShowToast('メンバーを追加しました！', false);
         })
         .error(function (err) {
           $scope.handleShowToast(err.message, true);
         });
+    };
+    vm.handleCancelAddMember = function () {
+      vm.new_members = [];
     };
 
 
