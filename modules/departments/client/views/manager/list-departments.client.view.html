@@ -1,5 +1,5 @@
-<div class="container-fluid animated fadeIn mg50t">
-  <div class="row">
+<div class="container-fluid animated fadeIn mg100b">
+  <!-- <div class="row">
     <div class="col-xs-12 col-sm-2 col-md-4 col-lg-3" ng-if="isAdmin || isAccountant">
       <div class="well">
         <a class="btn btn-default text-muted" ui-sref="departments.create"><i class="fa fa-plus fa-2x"></i></a> 部署追加
@@ -42,7 +42,6 @@
                 </li>
               </ul>
             </div>
-            <!--<div><a class="text-muted" ui-sref="departments.edit({ departmentId: department._id, action: 'leaders' })"><i class="fa fa-plus"></i></a></div>-->
           </div>
         </div>
         <div class="department-block-members">
@@ -61,9 +60,51 @@
                 </li>
               </ul>
             </div>
-            <!--<div><a class="text-muted" ui-sref="departments.view({ departmentId: department._id, action: 'members' })"><i class="fa fa-plus"></i></a></div>-->
           </div>
         </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+      <div class="form-group text-right">
+        <a class="btn btn-primary" ui-sref="manager.departments.create">追加</a>
+      </div>
+    </div>
+  </div>
+  <div class="row mg10t">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="text-center w30">#</th>
+              <th>写真</th>
+              <th>名前</th>
+              <th>メール</th>
+              <th>部員数</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="vm.departments.length === 0">
+              <td colspan="6">データが見つかりません。</td>
+            </tr>
+
+            <tr ng-repeat="department in vm.departments track by $index" class="clickable" ng-click="vm.hanleSelectDepartment(department)">
+              <td class="text-center w30">{{ $index }}</td>
+              <td>
+                <img class="user-common-avatar" src="{{ department.profileImageURL }}">
+              </td>
+              <td>{{ department.name }}</td>
+              <td>{{ department.email }}</td>
+              <td>{{ department.members.length }}</td>
+              <td>
+                <button class="btn btn-xs btn-danger" ng-click="vm.handleDeleteDepartment(department)">削除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

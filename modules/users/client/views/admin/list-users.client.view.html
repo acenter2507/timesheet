@@ -74,7 +74,7 @@
             <tr ng-repeat="user in vm.users track by $index" class="clickable" ng-click="vm.hanleSelectUser(user)">
               <td>
                 <img class="user-common-avatar-small" src="{{ user.profileImageURL }}">
-                <span>{{ user.displayName }}</a>
+                <span>{{ user.displayName }}</span>
               </td>
               <td>{{ user.username }}</td>
               <td>{{ user.email }}</td>
