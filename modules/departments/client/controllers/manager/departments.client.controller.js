@@ -56,14 +56,18 @@
         });
     };
     vm.handleRemoveMember = function (member) {
-      ManagerDepartmentsApi.removeMember(vm.department._id, member._id)
-        .success(function (department) {
-          _.extend(vm.department, department);
-          $scope.handleShowToast(member.displayName + 'を削除しました！', false);
-        })
-        .error(function (err) {
-          $scope.handleShowToast(err.message, true);
-        });
+      $scope.handleShowConfirm({
+        message: member.displayName + 'を削除しますか？'
+      }, function () {
+        ManagerDepartmentsApi.removeMember(vm.department._id, member._id)
+          .success(function (department) {
+            _.extend(vm.department, department);
+            $scope.handleShowToast(member.displayName + 'を削除しました！', false);
+          })
+          .error(function (err) {
+            $scope.handleShowToast(err.message, true);
+          });
+      });
     };
     vm.handleCancelAddMember = function () {
       vm.new_members = [];
