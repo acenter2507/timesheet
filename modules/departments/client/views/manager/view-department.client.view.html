@@ -40,6 +40,7 @@
     <div class="col-sm-12 col-md-8 col-md-offset-2">
       <div class="form-group text-right">
         <a class="btn btn-default" ui-sref="manager.departments.list">部署一覧</a>
+        <a class="btn btn-danger" ng-click="vm.handleDeleteDepartment()">削除</a>
         <a class="btn btn-success" ui-sref="manager.departments.edit({ departmentId: vm.department._id })">編集</a>
       </div>
     </div>
