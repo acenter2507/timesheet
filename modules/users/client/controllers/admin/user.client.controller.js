@@ -23,6 +23,7 @@ function UserController(
   var vm = this;
   vm.user = userResolve;
   vm.busy = false;
+  vm.form = {};
 
   onCreate();
 
