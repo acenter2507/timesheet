@@ -77,7 +77,10 @@
                 <span>{{ employee.displayName }}</a>
               </td>
               <td>{{ employee.email }}</td>
-              <td>{{ employee.department.name }}</td>
+              <td>
+                <span ng-hide="employee.departments.length">未設定</span>
+                <span ng-repeat="department in employee.departments">{{ department.name }} {{ !$last ? ', ' : '' }}</span>
+              </td>
               <td>{{ employee.status | UserStatusFilter }}</td>
               <td>{{ employee.company.taxId }}</td>
               <td>{{ employee.company.salary }}</td>

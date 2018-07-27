@@ -6,9 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Department = mongoose.model('Department'),
-  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
-var _ = require('underscore');
+  _ = require('underscore');
 
 exports.read = function (req, res) {
   User.findById(req.model._id, '-salt -password -private -username')

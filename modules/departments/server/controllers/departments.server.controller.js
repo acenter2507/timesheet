@@ -48,24 +48,24 @@ exports.autocomplete = function (req, res) {
     });
 };
 exports.read = function (req, res) {
-  Department.findById(req.department._id)
-    .populate('members', 'displayName email profileImageURL')
-    .exec(function (err, department) {
-      if (err || !department)
-        return res.status(404).send({ message: '部署が見つかりません！' });
-      req.department = department;
-      return res.jsonp(department);
-    });
+  // Department.findById(req.department._id)
+  //   .populate('members', 'displayName email profileImageURL')
+  //   .exec(function (err, department) {
+  //     if (err || !department)
+  //       return res.status(404).send({ message: '部署が見つかりません！' });
+  //     req.department = department;
+  //     return res.jsonp(department);
+  //   });
 };
 exports.list = function (req, res) {
-  Department.find()
-    .sort('-created')
-    .populate('members', 'displayName email profileImageURL')
-    .exec(function (err, departments) {
-      if (err)
-        return res.status(400).send({ message: '部署一覧のデータを取得できません！' });
-      return res.jsonp(departments);
-    });
+  // Department.find()
+  //   .sort('-created')
+  //   .populate('members', 'displayName email profileImageURL')
+  //   .exec(function (err, departments) {
+  //     if (err)
+  //       return res.status(400).send({ message: '部署一覧のデータを取得できません！' });
+  //     return res.jsonp(departments);
+  //   });
 };
 exports.departmentByID = function (req, res, next, id) {
 

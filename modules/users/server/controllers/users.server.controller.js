@@ -23,7 +23,13 @@ exports.autocomplete = function (req, res) {
   }
   // 部署が未設定のみ
   if (condition.noDepartment) {
-    ands.push({ $or: [{ department: null }, { department: { $exists: false } }] });
+    and_arr.push({
+      $or: [
+        { departments: null },
+        { departments: { $exists: false } },
+        { departments: { $exists: true, $size: 0 } }
+      ]
+    });
   }
 
   if (condition.key && condition.key.length > 0) {
@@ -155,7 +161,7 @@ exports.signout = function (req, res) {
 exports.profile = function (req, res) {
   if (!req.model) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
   User.findById(req.model._id, '-salt -password -roles -username -company -report')
-    .populate('department', 'name')
+    .populate('departments', 'name')
     .exec(function (err, user) {
       if (err)
         return res.status(400).send({ message: '社員の情報が見つかりません！' });

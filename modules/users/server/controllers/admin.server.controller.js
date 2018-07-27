@@ -6,10 +6,8 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Department = mongoose.model('Department'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
-var _ = require('underscore'),
-  _moment = require('moment');
+var _ = require('underscore');
 
 exports.add = function (req, res) {
   // Verify username
@@ -35,12 +33,14 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var user = req.model;
 
-  delete req.body.roles;
-  delete req.body.department;
+  delete req.body.departments;
   delete req.body.password;
 
-  //For security purposes only merge these parameters
-  user = _.extend(user, req.body);
+  user.email = req.body.email;
+  user.roles = req.body.roles;
+  user.username = req.body.username;
+  user.firstName = req.body.firstName;
+  user.lastName = req.body.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.search = user.displayName.toLowerCase() + '-' + user.email.toLowerCase() + '-' + user.username.toLowerCase();
   user.save(function (err) {

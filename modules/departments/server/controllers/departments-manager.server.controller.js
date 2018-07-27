@@ -25,47 +25,47 @@ exports.create = function (req, res) {
   });
 };
 exports.read = function (req, res) {
-  Department.findById(req.department._id)
-    .populate('members', 'displayName email profileImageURL')
-    .exec(function (err, department) {
-      if (err || !department)
-        return res.status(404).send({ message: '部署が見つかりません！' });
-      req.department = department;
-      return res.jsonp(department);
-    });
+  // Department.findById(req.department._id)
+  //   .populate('members', 'displayName email profileImageURL')
+  //   .exec(function (err, department) {
+  //     if (err || !department)
+  //       return res.status(404).send({ message: '部署が見つかりません！' });
+  //     req.department = department;
+  //     return res.jsonp(department);
+  //   });
 };
 exports.update = function (req, res) {
-  var department = req.department;
-  // Nếu thông tin update tồn tại avatar mới thì xóa file cũ đi
-  if (req.body.avatar && department.avatar !== req.body.avatar) {
-    if (department.avatar.indexOf('gallerys') < 0) {
-      fs.unlink(path.resolve(department.avatar));
-    }
-  }
-  department = _.extend(department, req.body);
-  department.search = department.name + '-' + department.email;
-  department.save(function (err) {
-    if (err) return res.status(400).send({ message: '部署の情報を保存できません！' });
-    return res.jsonp(department);
-  });
+  // var department = req.department;
+  // // Nếu thông tin update tồn tại avatar mới thì xóa file cũ đi
+  // if (req.body.avatar && department.avatar !== req.body.avatar) {
+  //   if (department.avatar.indexOf('gallerys') < 0) {
+  //     fs.unlink(path.resolve(department.avatar));
+  //   }
+  // }
+  // department = _.extend(department, req.body);
+  // department.search = department.name + '-' + department.email;
+  // department.save(function (err) {
+  //   if (err) return res.status(400).send({ message: '部署の情報を保存できません！' });
+  //   return res.jsonp(department);
+  // });
 };
 exports.delete = function (req, res) {
-  var department = req.department;
-  department.remove(function (err) {
-    if (err)
-      return res.status(400).send({ message: '部署を削除できません！' });
-    return res.end();
-  });
+  // var department = req.department;
+  // department.remove(function (err) {
+  //   if (err)
+  //     return res.status(400).send({ message: '部署を削除できません！' });
+  //   return res.end();
+  // });
 };
 exports.list = function (req, res) {
-  Department.find()
-    .sort('-created')
-    .populate('members', 'displayName email profileImageURL')
-    .exec(function (err, departments) {
-      if (err)
-        return res.status(400).send({ message: '部署一覧のデータを取得できません！' });
-      return res.jsonp(departments);
-    });
+  // Department.find()
+  //   .sort('-created')
+  //   .populate('members', 'displayName email profileImageURL')
+  //   .exec(function (err, departments) {
+  //     if (err)
+  //       return res.status(400).send({ message: '部署一覧のデータを取得できません！' });
+  //     return res.jsonp(departments);
+  //   });
 };
 exports.avatar = function (req, res) {
   var user = req.user;
@@ -80,47 +80,47 @@ exports.avatar = function (req, res) {
   });
 };
 exports.removeUser = function (req, res) {
-  var userId = req.body.userId;
-  var department = req.department;
+  // var userId = req.body.userId;
+  // var department = req.department;
 
-  User.findById(userId).exec((err, user) => {
-    if (_.contains(user.roles, 'manager')) {
-      // Remove this user from leaders department
-      Department.removeLeader(department._id, userId)
-        .then(department => {
-          User.setLeaders(department._id, department.leaders);
-        });
-    } else {
-      Department.removeMember(department._id, userId);
-    }
-    user.department = undefined;
-    user.leaders = [];
-    user.save();
-    res.end();
-  });
+  // User.findById(userId).exec((err, user) => {
+  //   if (_.contains(user.roles, 'manager')) {
+  //     // Remove this user from leaders department
+  //     Department.removeLeader(department._id, userId)
+  //       .then(department => {
+  //         User.setLeaders(department._id, department.leaders);
+  //       });
+  //   } else {
+  //     Department.removeMember(department._id, userId);
+  //   }
+  //   user.department = undefined;
+  //   user.leaders = [];
+  //   user.save();
+  //   res.end();
+  // });
 };
 exports.addUser = function (req, res) {
-  var userId = req.body.userId;
-  var department = req.department;
-  if (!department) return res.status(400).send({ message: '部署が見つかりません。' });
-  User.findById(userId).exec((err, user) => {
-    if (user.department) return res.status(400).send({ message: user.displayName + 'は既に他の部署に参加しました。' });
-    user.department = department._id;
-    user.save(err => {
-      if (err) return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
-      if (_.contains(user.roles, 'manager')) {
-        // Add this user to leaders department
-        Department.addLeader(department._id, user._id)
-          .then(department => {
-            User.setLeaders(department._id, department.leaders);
-          });
-      } else {
-        Department.addMember(department._id, user._id)
-          .then(department => {
-            User.setLeaders(department._id, department.leaders);
-          });
-      }
-      return res.jsonp(user);
-    });
-  });
+  // var userId = req.body.userId;
+  // var department = req.department;
+  // if (!department) return res.status(400).send({ message: '部署が見つかりません。' });
+  // User.findById(userId).exec((err, user) => {
+  //   if (user.department) return res.status(400).send({ message: user.displayName + 'は既に他の部署に参加しました。' });
+  //   user.department = department._id;
+  //   user.save(err => {
+  //     if (err) return res.status(400).send({ message: errorHandler.getErrorMessage(err) });
+  //     if (_.contains(user.roles, 'manager')) {
+  //       // Add this user to leaders department
+  //       Department.addLeader(department._id, user._id)
+  //         .then(department => {
+  //           User.setLeaders(department._id, department.leaders);
+  //         });
+  //     } else {
+  //       Department.addMember(department._id, user._id)
+  //         .then(department => {
+  //           User.setLeaders(department._id, department.leaders);
+  //         });
+  //     }
+  //     return res.jsonp(user);
+  //   });
+  // });
 };

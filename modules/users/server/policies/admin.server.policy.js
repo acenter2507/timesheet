@@ -26,9 +26,6 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/users/accountant/:userId',
       permissions: ['get', 'put']
-    }, {
-      resources: '/api/users/accountant/:userId/department',
-      permissions: ['post']
     }]
   }]);
 };

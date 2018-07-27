@@ -17,9 +17,6 @@
 
   DepartmentsApi.$inject = ['$http'];
   function DepartmentsApi($http) {
-    this.autocomplete = function (condition) {
-      return $http.post('/api/departments/autocomplete', { condition: condition }, { ignoreLoadingBar: true });
-    };
     return this;
   }
 }());

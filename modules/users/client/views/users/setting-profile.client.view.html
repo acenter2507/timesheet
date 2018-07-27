@@ -21,7 +21,10 @@
               <tr>
                 <td class="pd10r">
                   <i class="fa fa-users"></i> 部署</td>
-                <td>{{ user.department ? user.department.name : '未設定'}}</td>
+                <td>
+                  <span ng-hide="user.departments.length">未設定</span>
+                  <span ng-repeat="department in user.departments">{{ department.name }} {{ !$last ? ', ' : '' }}</span>
+                </td>
               </tr>
             </table>
             <div class="form-group mg5t mgnb" ng-hide="uploader.queue.length">
