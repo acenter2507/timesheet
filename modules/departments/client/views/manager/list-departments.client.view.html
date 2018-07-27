@@ -79,7 +79,7 @@
           <thead>
             <tr>
               <th class="text-center w30">#</th>
-              <th>写真</th>
+              <th class="text-center w50">写真</th>
               <th>名前</th>
               <th>メール</th>
               <th>部員数</th>
@@ -93,7 +93,7 @@
 
             <tr ng-repeat="department in vm.departments track by $index" class="clickable" ng-click="vm.hanleSelectDepartment(department)">
               <td class="text-center w30">{{ $index }}</td>
-              <td>
+              <td class="text-center w50">
                 <img class="user-common-avatar" src="{{ department.avatar }}">
               </td>
               <td>{{ department.name }}</td>
