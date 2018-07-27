@@ -18,7 +18,7 @@ exports.autocomplete = function (req, res) {
   if (!condition.hasAdmin) {
     ands.push({ roles: { $ne: 'admin' } });
   }
-  if (condition.roles.length > 0) {
+  if (condition.roles && condition.roles.length > 0) {
     ands.push({ roles: { $all: condition.roles } });
   }
   // 部署が未設定のみ
