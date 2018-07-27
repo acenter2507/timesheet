@@ -63,7 +63,7 @@ function AccountantUserController(
     }
 
     var deferred = $q.defer();
-    CommonService.autocompleteUsers({ key: $query })
+    CommonService.autocompleteDepartments({ key: $query })
       .success(function (departments) {
         deferred.resolve(departments);
       });
