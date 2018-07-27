@@ -91,7 +91,7 @@
               <td colspan="6">データが見つかりません。</td>
             </tr>
 
-            <tr ng-repeat="department in vm.departments track by $index" class="clickable" ng-click="vm.hanleSelectDepartment(department)">
+            <tr ng-repeat="department in vm.departments track by $index" class="clickable" ng-click="vm.handleSelectDepartment(department)">
               <td class="text-center w30">{{ $index + 1 }}</td>
               <td class="text-center w50">
                 <a class="inside-clickable" ng-click="handleShowImage(department.avatar)">
