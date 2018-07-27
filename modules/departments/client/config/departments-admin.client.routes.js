@@ -17,7 +17,7 @@
       })
       .state('manager.departments.list', {
         url: '',
-        templateUrl: 'modules/departments/client/views/list-departments.client.view.html',
+        templateUrl: 'modules/departments/client/views/manager/list-departments.client.view.html',
         controller: 'ManagerDepartmentsController',
         controllerAs: 'vm',
         ncyBreadcrumb: { label: '部署一覧' }
