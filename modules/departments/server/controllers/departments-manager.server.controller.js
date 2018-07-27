@@ -77,7 +77,7 @@ exports.avatar = function (req, res) {
     return res.jsonp(imageUrl);
   });
 };
-exports.removeUser = function (req, res) {
+exports.removeMember = function (req, res) {
   if (!req.department) return res.status(400).send({ message: '部署が見つかりません。' });
   var userId = req.body.user;
   var department = req.department;
