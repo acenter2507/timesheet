@@ -83,7 +83,7 @@
               <th>名前</th>
               <th>メール</th>
               <th>部員数</th>
-              <th>操作</th>
+              <th class="text-center w50">操作</th>
             </tr>
           </thead>
           <tbody>
@@ -99,7 +99,7 @@
               <td>{{ department.name }}</td>
               <td>{{ department.email }}</td>
               <td>{{ department.members.length }}</td>
-              <td>
+              <td class="text-center w50">
                 <button class="btn btn-xs btn-danger" ng-click="vm.handleDeleteDepartment(department)">削除</button>
               </td>
             </tr>
