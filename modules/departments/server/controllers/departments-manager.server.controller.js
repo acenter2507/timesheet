@@ -58,14 +58,13 @@ exports.delete = function (req, res) {
   // });
 };
 exports.list = function (req, res) {
-  // Department.find()
-  //   .sort('-created')
-  //   .populate('members', 'displayName email profileImageURL')
-  //   .exec(function (err, departments) {
-  //     if (err)
-  //       return res.status(400).send({ message: '部署一覧のデータを取得できません！' });
-  //     return res.jsonp(departments);
-  //   });
+  Department.find()
+    .sort('-created')
+    .exec(function (err, departments) {
+      if (err)
+        return res.status(400).send({ message: '部署一覧のデータを取得できません！' });
+      return res.jsonp(departments);
+    });
 };
 exports.avatar = function (req, res) {
   var user = req.user;
