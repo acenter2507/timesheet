@@ -55,7 +55,7 @@
             <p class="help-block error-text font-sm" ng-message="required">ユーザーIDは必須です。</p>
           </div>
         </div>
-        <div class="col-sm-6" ng-if="!vm.user._id" show-errors>
+        <div class="col-sm-6" ng-if="!vm.user._id">
           <label for="password">パスワード</label>
           <input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="パスワード"
             required password-validator/>
