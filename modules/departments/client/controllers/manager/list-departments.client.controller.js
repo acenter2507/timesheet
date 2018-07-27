@@ -5,9 +5,9 @@
     .module('departments.admin')
     .controller('ManagerDepartmentsController', ManagerDepartmentsController);
 
-  ManagerDepartmentsController.$inject = ['$scope', 'ManagerDepartmentsService'];
+  ManagerDepartmentsController.$inject = ['$scope', 'ManagerDepartmentsService', '$state'];
 
-  function ManagerDepartmentsController($scope, ManagerDepartmentsService) {
+  function ManagerDepartmentsController($scope, ManagerDepartmentsService, $state) {
     var vm = this;
 
     vm.departments = ManagerDepartmentsService.query();
@@ -19,6 +19,9 @@
         department.$remove();
         vm.departments = _.without(vm.departments, department);
       });
+    };
+    vm.hanleSelectDepartment = function (department) {
+      $state.go('manager.departments.view', { departmentId: department._id });
     };
 
   }
