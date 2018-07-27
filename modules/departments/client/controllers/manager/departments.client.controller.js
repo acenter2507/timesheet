@@ -45,7 +45,7 @@
     vm.handleAddMember = function () {
       if (vm.new_members.length === 0) return;
       var users = _.pluck(vm.new_members, '_id');
-      ManagerDepartmentsApi.addMember(users)
+      ManagerDepartmentsApi.addMember(vm.department._id, users)
         .success(function (department) {
           vm.new_members = [];
           _.extend(vm.department, department);
