@@ -34,7 +34,10 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }, {
       resources: '/api/departments/manager/:departmentId/user',
-      permissions:  ['post', 'put']
+      permissions: ['post', 'put']
+    }, {
+      resources: '/api/departments/manager/avatar',
+      permissions: ['post']
     }]
   }]);
 };
