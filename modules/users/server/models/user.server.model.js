@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   crypto = require('crypto'),
   paginate = require('mongoose-paginate'),
-  relationship = require('mongoose-relationship'),
   validator = require('validator');
 
 var validateLocalStrategyEmail = function (email) {
@@ -29,7 +28,7 @@ var UserSchema = new Schema({
     validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
   profileImageURL: { type: String, default: 'modules/users/client/img/profile/default.png' },
-  department: { type: Schema.ObjectId, ref: 'Department', childPath: 'members' },
+  departments: [{ type: Schema.ObjectId, ref: 'Department' }],
   roles: {
     type: [{
       type: String,
@@ -70,7 +69,6 @@ var UserSchema = new Schema({
   resetPasswordExpires: { type: Date }
 });
 UserSchema.plugin(paginate);
-UserSchema.plugin(relationship, { relationshipPathName: 'department' });
 
 /**
  * Hook a pre save method to hash the password

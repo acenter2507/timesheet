@@ -6,13 +6,15 @@ angular.module('users.admin')
 AccountantUserController.$inject = [
   '$scope',
   'userResolve',
-  'DepartmentsService'
+  'CommonService',
+  '$q'
 ];
 
 function AccountantUserController(
   $scope,
   userResolve,
-  DepartmentsService
+  CommonService,
+  $q
 ) {
   var vm = this;
   vm.user = userResolve;
@@ -54,6 +56,19 @@ function AccountantUserController(
       $scope.handleShowToast(err.data.message, true);
     }
 
+  };
+  vm.handleSearchDepartments = function ($query) {
+    if (CommonService.isStringEmpty($query)) {
+      return [];
+    }
+
+    var deferred = $q.defer();
+    CommonService.autocompleteUsers({ key: $query })
+      .success(function (departments) {
+        deferred.resolve(departments);
+      });
+
+    return deferred.promise;
   };
 
 

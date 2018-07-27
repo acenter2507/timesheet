@@ -42,5 +42,8 @@ function CommonService($http) {
   this.autocompleteUsers = function (condition) {
     return $http.post('/api/users/autocomplete', { condition: condition }, { ignoreLoadingBar: true });
   };
+  this.autocompleteDepartments = function (condition) {
+    return $http.post('/api/departments/autocomplete', { condition: condition }, { ignoreLoadingBar: true });
+  };
   return this;
 }

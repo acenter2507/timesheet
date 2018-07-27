@@ -6,9 +6,9 @@
     .module('messages')
     .controller('MessagesController', MessagesController);
 
-  MessagesController.$inject = ['$scope', '$state', 'messageResolve', 'CommonService', 'DepartmentsApi', '$q', 'Socket'];
+  MessagesController.$inject = ['$scope', '$state', 'messageResolve', 'CommonService', '$q', 'Socket'];
 
-  function MessagesController($scope, $state, message, CommonService, DepartmentsApi, $q, Socket) {
+  function MessagesController($scope, $state, message, CommonService, $q, Socket) {
     var vm = this;
 
     vm.message = message;
@@ -39,7 +39,7 @@
       }
 
       var deferred = $q.defer();
-      DepartmentsApi.autocomplete({ key: $query })
+      CommonService.autocompleteDepartments({ key: $query })
         .success(function (departments) {
           deferred.resolve(departments);
         });

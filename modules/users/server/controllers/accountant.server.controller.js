@@ -12,6 +12,7 @@ var _ = require('underscore');
 
 exports.read = function (req, res) {
   User.findById(req.model._id, '-salt -password -private -username')
+    .populate('departments', 'name avatar email')
     .exec(function (err, user) {
       if (err)
         return res.status(400).send({ message: '社員の情報が見つかりません！' });
@@ -29,8 +30,8 @@ exports.update = function (req, res) {
   user.company.taxId = req.body.company.taxId;
   user.company.salary = req.body.company.salary;
   user.company.paidHolidayCnt = req.body.company.paidHolidayCnt;
-  user.department = req.body.department;
-  
+  user.departments = req.body.departments;
+
   user.save(function (err, user) {
     if (err)
       return res.status(400).send({ message: '社員の情報を保存できません！' });
@@ -67,9 +68,15 @@ exports.list = function (req, res) {
   }
   if (condition.department) {
     if (condition.department === 'empty') {
-      and_arr.push({ $or: [{ department: null }, { department: { $exists: false } }] });
+      and_arr.push({
+        $or: [
+          { departments: null },
+          { departments: { $exists: false } },
+          { departments: { $exists: true, $size: 0 } }
+        ]
+      });
     } else {
-      and_arr.push({ department: condition.department });
+      and_arr.push({ departments: condition.department });
     }
   }
 
@@ -80,7 +87,7 @@ exports.list = function (req, res) {
     page: page,
     sort: condition.sort,
     limit: condition.limit,
-    populate: [{ path: 'department', select: 'name' }]
+    populate: [{ path: 'departments', select: 'name' }]
   };
 
   User.paginate(query, options)
