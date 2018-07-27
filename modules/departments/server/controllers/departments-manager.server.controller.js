@@ -26,7 +26,7 @@ exports.create = function (req, res) {
 };
 exports.read = function (req, res) {
   Department.findById(req.department._id)
-    .populate('members', 'displayName email profileImageURL')
+    .populate('members', 'displayName email profileImageURL roles')
     .exec(function (err, department) {
       if (err || !department)
         return res.status(404).send({ message: '部署が見つかりません！' });
