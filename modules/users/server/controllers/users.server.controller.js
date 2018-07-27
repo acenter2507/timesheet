@@ -23,7 +23,7 @@ exports.autocomplete = function (req, res) {
   }
   // 部署が未設定のみ
   if (condition.noDepartment) {
-    and_arr.push({
+    ands.push({
       $or: [
         { departments: null },
         { departments: { $exists: false } },
