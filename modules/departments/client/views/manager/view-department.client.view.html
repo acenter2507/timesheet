@@ -1,6 +1,6 @@
 <div class="container-fluid animated fadeIn mg12t">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
       <div class="user-detail-block">
         <div class="user-basic-info">
           <div class="user-avatar">
@@ -10,32 +10,71 @@
             <h3>{{:: vm.department.name}}</h3>
             <table>
               <tr>
-                <td class="pd10r"><i class="fa fa-envelope"></i> メール</td>
-                <td><a ng-href="mailto:{{vm.department.email}}"> {{:: vm.department.email }}</a></td>
+                <td class="pd10r">
+                  <i class="fa fa-envelope"></i> メール</td>
+                <td>
+                  <a ng-href="mailto:{{vm.department.email}}"> {{:: vm.department.email }}</a>
+                </td>
               </tr>
               <tr>
-                <td class="pd10r"><i class="fa fa-map-marker"></i> 場所</td>
+                <td class="pd10r">
+                  <i class="fa fa-map-marker"></i> 場所</td>
                 <td>{{:: vm.department.location }}</td>
               </tr>
             </table>
           </div>
-          <div class="user-tools">
+          <!-- <div class="user-tools">
             <a class="user-tool-button" ng-href="mailto:{{vm.department.email}}" tooltip-placement="bottom" tooltip="メール送信"><i class="fa fa-envelope"></i></a>
             <a class="user-tool-button" ng-click="vm.handleSendMessageDepartment()" tooltip-placement="bottom" tooltip="メッセージ送信"><i class="fa fa-commenting"></i></a>
             <a ng-if="isAdmin || isAccountant" class="user-tool-button" ui-sref="departments.edit({ departmentId: vm.department._id })"
               tooltip-placement="bottom" tooltip="編集"><i class="fa fa-pencil-square-o"></i></a>
             <a ng-if="isAdmin || isAccountant" class="user-tool-button" ng-click="vm.handleDeleteDepartment()" tooltip-placement="bottom"
               tooltip="削除"><i class="fa fa-trash"></i></a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
     <div class="clearfix"></div>
     <hr class="mg12y">
-    <div class="col-xs-12">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
       <tabset class="modified-tab" justified="true">
-        <tab heading="部署メンバー">
-          <div class="row mg12t">
+        <tab heading="メンバー管理">
+          <p>{{ vm.department.members.length }}人</p>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th class="text-center w30">#</th>
+                  <th>氏名</th>
+                  <th>メール</th>
+                  <th>役割</th>
+                  <th class="text-center w50">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-show="vm.department.members.length === 0">
+                  <td colspan="5">メンバーがいません！</td>
+                </tr>
+                <tr ng-repeat="member in vm.department.members track by $index" class="clickable" ng-click="vm.hanleSelectEmployee(member)">
+                  <td>{{ $index + 1 }}</td>
+                  <td>
+                    <img class="user-common-avatar-small" src="{{ member.profileImageURL }}">
+                    <a ui-sref="profile.view({ userId: member._id })">{{ member.displayName }}</a>
+                  </td>
+                  <td>{{ member.email }}</td>
+                  <td>
+                    <span ng-show="member.roles.indexOf('manager') >= 0">マネージャー</span>
+                    <span ng-show="member.roles.indexOf('manager') < 0">メンバー</span>
+                  </td>
+                  <td class="text-center w50">
+                    <button class="btn btn-xs btn-danger" ng-click="vm.handleRemoveMember(member)"></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- <div class="row mg12t">
             <div class="col-xs-12">
 
               <div class="panel panel-primary">
@@ -126,7 +165,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </tab>
         <tab heading="お知らせ">
           <div class="h200">未完成</div>
@@ -141,7 +180,7 @@
     </div>
   </div>
 </div>
-<div class="left-aside">
+<!-- <div class="left-aside">
   <h3>社員検索</h3>
   <div class="form-group">
     <input class="form-control" ng-model="vm.searchKey" ng-change="vm.handleSearchChanged()" placeholder="メールや名前で検索" focus-me="true">
@@ -171,4 +210,4 @@
     <div class="clearfix"></div>
   </div>
   <button class="left-aside-close" aria-label="Dismis"></button>
-</div>
+</div> -->
