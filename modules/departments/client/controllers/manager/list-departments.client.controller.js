@@ -20,7 +20,7 @@
         vm.departments = _.without(vm.departments, department);
       });
     };
-    vm.hanleSelectDepartment = function (department) {
+    vm.handleSelectDepartment = function (department) {
       $state.go('manager.departments.view', { departmentId: department._id });
     };
 

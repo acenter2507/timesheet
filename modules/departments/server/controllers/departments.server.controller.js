@@ -73,7 +73,6 @@ exports.departmentByID = function (req, res, next, id) {
     return res.status(400).send({ message: '部署が見つかりません！' });
 
   Department.findById(id)
-    // .populate('members', 'displayName email profileImageURL')
     .exec(function (err, department) {
       if (err) return next(err);
       if (!department)
