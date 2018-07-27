@@ -43,10 +43,10 @@
         <a class="btn btn-success" ui-sref="manager.departments.edit({ departmentId: vm.department._id })">編集</a>
       </div>
     </div>
-    <div class="col-sm-12 col-md-8 col-md-offset-2" ng-init="isShowToolSearchUser = false">
+    <div class="col-sm-12 col-md-8 col-md-offset-2" ng-init="isCollapseSearchUser = true">
       <tabset class="modified-tab" justified="true">
         <tab heading="メンバー管理（{{ vm.department.members.length }}）">
-          <div collapse="isShowToolSearchUser">
+          <div collapse="isCollapseSearchUser">
             <div class="well">
               <div class="form-group">
                 <tags-input class="my-tags" ng-model="vm.new_members" key-property="_id" template="user_tags.html" display-property="displayName"
@@ -56,12 +56,12 @@
                 </tags-input>
               </div>
               <div class="form-group text-right">
-                <button ng-show="isShowToolSearchUser" class="btn btn-primary btn-sm" ng-click="vm.handleAddMember(); isShowToolSearchUser = false;">完了</button>
+                <button ng-show="isCollapseSearchUser" class="btn btn-primary btn-sm" ng-click="vm.handleAddMember(); isCollapseSearchUser = true;">完了</button>
               </div>
             </div>
           </div>
           <div class="form-group text-right">
-            <button ng-show="!isShowToolSearchUser" class="btn btn-primary btn-sm" ng-click="isShowToolSearchUser = true;">メンバー追加</button>
+            <button ng-show="isCollapseSearchUser" class="btn btn-primary btn-sm" ng-click="isCollapseSearchUser = false;">メンバー追加</button>
           </div>
           <div class="table-responsive">
             <table class="table table-bordered table-striped">
