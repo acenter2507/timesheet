@@ -34,27 +34,27 @@ exports.read = function (req, res) {
     });
 };
 exports.update = function (req, res) {
-  // var department = req.department;
-  // // Nếu thông tin update tồn tại avatar mới thì xóa file cũ đi
-  // if (req.body.avatar && department.avatar !== req.body.avatar) {
-  //   if (department.avatar.indexOf('gallerys') < 0) {
-  //     fs.unlink(path.resolve(department.avatar));
-  //   }
-  // }
-  // department = _.extend(department, req.body);
-  // department.search = department.name + '-' + department.email;
-  // department.save(function (err) {
-  //   if (err) return res.status(400).send({ message: '部署の情報を保存できません！' });
-  //   return res.jsonp(department);
-  // });
+  var department = req.department;
+  // Nếu thông tin update tồn tại avatar mới thì xóa file cũ đi
+  if (req.body.avatar && department.avatar !== req.body.avatar) {
+    if (department.avatar.indexOf('gallerys') < 0) {
+      fs.unlink(path.resolve(department.avatar));
+    }
+  }
+  department = _.extend(department, req.body);
+  department.search = department.name + '-' + department.email;
+  department.save(function (err) {
+    if (err) return res.status(400).send({ message: '部署の情報を保存できません！' });
+    return res.jsonp(department);
+  });
 };
 exports.delete = function (req, res) {
-  // var department = req.department;
-  // department.remove(function (err) {
-  //   if (err)
-  //     return res.status(400).send({ message: '部署を削除できません！' });
-  //   return res.end();
-  // });
+  var department = req.department;
+  department.remove(function (err) {
+    if (err)
+      return res.status(400).send({ message: '部署を削除できません！' });
+    return res.end();
+  });
 };
 exports.list = function (req, res) {
   Department.find()
