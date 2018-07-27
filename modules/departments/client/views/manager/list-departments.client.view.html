@@ -66,14 +66,14 @@
     </div>
   </div> -->
   <div class="row">
-    <div class="col-sm-12 col-md-8 col-md-offset-2">
+    <div class="col-sm-8 col-md-offset-2 col-md-6 col-md-offset-3">
       <div class="form-group text-right">
         <a class="btn btn-primary" ui-sref="manager.departments.create">追加</a>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-12 col-md-8 col-md-offset-2">
+    <div class="col-sm-8 col-md-offset-2 col-md-6 col-md-offset-3">
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <thead>
@@ -94,7 +94,9 @@
             <tr ng-repeat="department in vm.departments track by $index" class="clickable" ng-click="vm.hanleSelectDepartment(department)">
               <td class="text-center w30">{{ $index + 1 }}</td>
               <td class="text-center w50">
-                <a ng-click="handleShowImage(department.avatar)"><img class="user-common-avatar" src="{{ department.avatar }}"></a>
+                <a ng-click="handleShowImage(department.avatar)">
+                  <img class="user-common-avatar" src="{{ department.avatar }}">
+                </a>
               </td>
               <td>{{ department.name }}</td>
               <td>{{ department.email }}</td>
