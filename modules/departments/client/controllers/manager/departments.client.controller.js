@@ -30,6 +30,9 @@
 
     onCreate();
     function onCreate() {
+      if (!vm.department._id) {
+        vm.department.avatar = './modules/core/client/img/gallerys/default.png';
+      }
       prepareGallery();
       vm.avatarImageUrl = vm.department.avatar;
       vm.isGetAvatarFromFile = false;
