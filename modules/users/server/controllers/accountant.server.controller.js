@@ -34,6 +34,7 @@ exports.update = function (req, res) {
     if (err)
       return res.status(400).send({ message: '社員の情報を保存できません！' });
     User.findById(user._id, '-salt -password -private -username')
+      .populate('departments', 'name avatar email')
       .exec(function (err, user) {
         if (err)
           return res.status(400).send({ message: '社員の情報が見つかりません！' });
