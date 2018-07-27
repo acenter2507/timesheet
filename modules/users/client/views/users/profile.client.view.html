@@ -155,7 +155,7 @@
             <tr>
               <td>趣味</td>
               <td>
-                <span ng-show="vm.profile.private.public_hobby && vm.profile.private.hobby" ng-bind-html="vm.profile.private.hobby | nl2bl"></span>
+                <span ng-show="vm.profile.private.public_hobby && vm.profile.private.hobby" ng-bind-html="vm.profile.private.hobby | nl2br"></span>
                 <span ng-show="vm.profile.private.public_hobby && !vm.profile.private.hobby">未設定</span>
                 <span ng-show="!vm.profile.private.public_hobby">非公開</span>
               </td>
@@ -163,7 +163,7 @@
             <tr>
               <td>自己紹介</td>
               <td>
-                <span ng-show="vm.profile.private.public_intro && vm.profile.private.intro" ng-bind-html="vm.profile.private.intro | nl2bl"></span>
+                <span ng-show="vm.profile.private.public_intro && vm.profile.private.intro" ng-bind-html="vm.profile.private.intro | nl2br"></span>
                 <span ng-show="vm.profile.private.public_intro && !vm.profile.private.intro">未設定</span>
                 <span ng-show="!vm.profile.private.public_intro">非公開</span>
               </td>
