@@ -82,7 +82,7 @@
                   <td>{{ $index + 1 }}</td>
                   <td>
                     <img class="user-common-avatar-small" src="{{ member.profileImageURL }}">
-                    <a ui-sref="profile.view({ userId: member._id })">{{ member.displayName }}</a>
+                    <a ng-click="handleViewDetailUser(member)">{{ member.displayName }}</a>
                   </td>
                   <td>{{ member.email }}</td>
                   <td>
@@ -90,7 +90,7 @@
                     <span ng-show="member.roles.indexOf('manager') < 0">メンバー</span>
                   </td>
                   <td class="text-center w50">
-                    <button class="btn btn-xs btn-danger" ng-click="vm.handleRemoveMember(member)">外す</button>
+                    <button class="btn btn-xs btn-danger inside-clickable" ng-click="vm.handleRemoveMember(member)">外す</button>
                   </td>
                 </tr>
               </tbody>
