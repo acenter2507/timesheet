@@ -50,6 +50,7 @@ function UserController(
   vm.handleSaveUser = function (isValid) {
     if (!isValid) {
       $scope.$broadcast('show-errors-check-validity', 'vm.form.userForm');
+      alert(1);
       return false;
     }
     if (vm.user._roles.length === 0) {
