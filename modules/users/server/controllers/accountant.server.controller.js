@@ -29,6 +29,10 @@ exports.update = function (req, res) {
   var new_departments = req.body.departments;
   _.map(new_departments, dep => { return dep.toString(); });
 
+  var a = [1, 2, 3, 4];
+  var b = [1, 2];
+  console.log(_.difference(a, b));
+  console.log(_.difference(b, a));
   user.departments = req.body.departments;
   user.status = req.body.status;
   user.company.employeeId = req.body.company.employeeId;
