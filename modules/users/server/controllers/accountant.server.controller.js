@@ -33,10 +33,8 @@ exports.update = function (req, res) {
   // 追加された部署
   var added = _.difference(new_departments, old_departments);
 
-  var a = [1, 2, 3, 4];
-  var b = [1, 2];
-  console.log(_.difference(a, b));
-  console.log(_.difference(b, a));
+  console.log(removed);
+  console.log('added', added);
   user.departments = req.body.departments;
   user.status = req.body.status;
   user.company.employeeId = req.body.company.employeeId;
