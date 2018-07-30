@@ -28,6 +28,10 @@ exports.update = function (req, res) {
   _.map(old_departments, dep => { return dep.toString(); });
   var new_departments = req.body.departments;
   _.map(new_departments, dep => { return dep.toString(); });
+  // 削除された部署
+  var removed = _.difference(old_departments, new_departments);
+  // 追加された部署
+  var added = _.difference(new_departments, old_departments);
 
   var a = [1, 2, 3, 4];
   var b = [1, 2];
@@ -50,19 +54,8 @@ exports.update = function (req, res) {
           return res.status(400).send({ message: '社員の情報が見つかりません！' });
         user.private = undefined;
         // 部署のメンバーを更新する
-        var diff_departments = _.difference(old_departments, new_departments);
-        console.log(diff_departments);
-        for (let i = 0; i < diff_departments.length; i++) {
-          var dep = diff_departments[i];
-          // 新しく追加された場合
-          if (_.contains(new_departments, dep)) {
-            console.log('Add');
-            Department.addMember(dep, user._id);
-          } else {
-            console.log('Remove');
-            Department.removeMember(dep, user._id);
-          }
-        }
+        removed.forEach(dep => { Department.addMember(dep, user._id); });
+        added.forEach(dep => { Department.removeMember(dep, user._id); });
         return res.jsonp(user);
       });
   });
