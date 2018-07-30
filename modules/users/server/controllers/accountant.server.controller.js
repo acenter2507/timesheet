@@ -33,7 +33,7 @@ exports.update = function (req, res) {
   // 追加された部署
   var added = _.difference(new_departments, old_departments);
 
-  console.log(removed);
+  console.log('removed', removed);
   console.log('added', added);
 
   user.status = req.body.status;
