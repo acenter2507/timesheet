@@ -26,7 +26,7 @@ exports.update = function (req, res) {
 
   var old_departments = user.departments;
   _.map(old_departments, dep => { return dep.toString(); });
-  var new_departments = req.body.departments;
+  var new_departments = _.pluck(req.body.departments, '_id');
   _.map(new_departments, dep => { return dep.toString(); });
   // 削除された部署
   var removed = _.difference(old_departments, new_departments);
@@ -35,12 +35,13 @@ exports.update = function (req, res) {
 
   console.log(removed);
   console.log('added', added);
-  user.departments = req.body.departments;
+
   user.status = req.body.status;
   user.company.employeeId = req.body.company.employeeId;
   user.company.taxId = req.body.company.taxId;
   user.company.salary = req.body.company.salary;
   user.company.paidHolidayCnt = req.body.company.paidHolidayCnt;
+  user.departments = req.body.departments;
 
   user.save(function (err, user) {
     if (err)
