@@ -41,7 +41,7 @@ exports.update = function (req, res) {
   user.company.taxId = req.body.company.taxId;
   user.company.salary = req.body.company.salary;
   user.company.paidHolidayCnt = req.body.company.paidHolidayCnt;
-  user.departments = req.body.departments;
+  user.departments = new_departments;
 
   user.save(function (err, user) {
     if (err)
@@ -53,8 +53,8 @@ exports.update = function (req, res) {
           return res.status(400).send({ message: '社員の情報が見つかりません！' });
         user.private = undefined;
         // 部署のメンバーを更新する
-        removed.forEach(dep => { Department.addMember(dep, user._id); });
-        added.forEach(dep => { Department.removeMember(dep, user._id); });
+        // removed.forEach(dep => { Department.addMember(dep, user._id); });
+        // added.forEach(dep => { Department.removeMember(dep, user._id); });
         return res.jsonp(user);
       });
   });
