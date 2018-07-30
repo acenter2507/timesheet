@@ -5,6 +5,7 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
+  Department = mongoose.model('Department'),
   User = mongoose.model('User'),
   _ = require('underscore');
 
@@ -23,12 +24,14 @@ exports.update = function (req, res) {
   delete req.body.roles;
   delete req.body.password;
 
+  var diff_departments = _.difference(user.departments, req.body.departments);
+  var new_departments = req.body.departments;
+  user.departments = req.body.departments;
   user.status = req.body.status;
   user.company.employeeId = req.body.company.employeeId;
   user.company.taxId = req.body.company.taxId;
   user.company.salary = req.body.company.salary;
   user.company.paidHolidayCnt = req.body.company.paidHolidayCnt;
-  user.departments = req.body.departments;
 
   user.save(function (err, user) {
     if (err)
@@ -39,6 +42,16 @@ exports.update = function (req, res) {
         if (err)
           return res.status(400).send({ message: '社員の情報が見つかりません！' });
         user.private = undefined;
+        // 部署のメンバーを更新する
+        for (let i = 0; i < diff_departments.length; i++) {
+          var dep = diff_departments[i];
+          // 新しく追加された場合
+          if (_.contains(new_departments, dep)) {
+            Department.addMember(dep, user._id);
+          } else {
+            Department.removeMember(dep, user._id);
+          }
+        }
         return res.jsonp(user);
       });
   });

@@ -20,25 +20,6 @@ var DepartmentSchema = new Schema({
 DepartmentSchema.plugin(paginate);
 DepartmentSchema.plugin(relationship, { relationshipPathName: 'members' });
 
-DepartmentSchema.statics.addLeader = function (departmentId, userId) {
-  return this.findById(departmentId).exec(function (err, department) {
-    if (err || !department) return;
-    var isHas = false;
-    for (var index = 0; index < department.leaders.length; index++) {
-      var element = department.leaders[index];
-      if (element.toString() === userId.toString()) {
-        isHas = true;
-        break;
-      }
-    }
-    if (!isHas) {
-      department.leaders.push(userId);
-      return department.save();
-    }
-    return;
-  });
-};
-
 DepartmentSchema.statics.addMember = function (departmentId, userId) {
   return this.findById(departmentId).exec(function (err, department) {
     if (err || !department) return;
@@ -57,15 +38,6 @@ DepartmentSchema.statics.addMember = function (departmentId, userId) {
     return;
   });
 };
-
-DepartmentSchema.statics.removeLeader = function (departmentId, userId) {
-  return this.findById(departmentId).exec(function (err, department) {
-    if (err || !department) return;
-    department.leaders.pull(userId);
-    return department.save();
-  });
-};
-
 DepartmentSchema.statics.removeMember = function (departmentId, userId) {
   return this.findById(departmentId).exec(function (err, department) {
     if (err || !department) return;

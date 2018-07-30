@@ -59,8 +59,12 @@ exports.delete = function (req, res) {
   user.remove(function (err) {
     if (err)
       return res.status(400).send({ message: 'ユーザーを削除できません！' });
-    // TODO
-    // Xóa các thông tin liên quan đến user
+    // TODO Xóa các thông tin liên quan đến user
+    // 部署メンバーを更新
+    for (let i = 0; i < user.departments.length; i++) {
+      var dep = user.departments[i];
+      Department.removeMember(dep, user._id);
+    }
     return res.end();
   });
 };
