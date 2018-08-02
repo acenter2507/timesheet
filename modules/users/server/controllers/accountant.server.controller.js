@@ -36,6 +36,11 @@ exports.update = function (req, res) {
   console.log('removed', removed);
   console.log('added', added);
 
+  // var promise_add = [];
+  // var promise_removed = [];
+  // removed.forEach(dep => { promise_removed.push(Department.addMember(dep, user._id)); });
+  // added.forEach(dep => { promise_add.push(Department.removeMember(dep, user._id)); });
+
   user.status = req.body.status;
   user.company.employeeId = req.body.company.employeeId;
   user.company.taxId = req.body.company.taxId;
@@ -53,8 +58,8 @@ exports.update = function (req, res) {
           return res.status(400).send({ message: '社員の情報が見つかりません！' });
         user.private = undefined;
         // 部署のメンバーを更新する
-        // removed.forEach(dep => { Department.addMember(dep, user._id); });
-        // added.forEach(dep => { Department.removeMember(dep, user._id); });
+        removed.forEach(dep => { Department.removeMember(dep, user._id); });
+        added.forEach(dep => { Department.addMember(dep, user._id); });
         return res.jsonp(user);
       });
   });
